@@ -29,7 +29,7 @@
     </li>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Proposal</span>
+            <i class="fa fa-file-o"></i> <span>Proposal</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -46,7 +46,7 @@
     </li>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Skripsi</span>
+            <i class="fa fa-file"></i> <span>Skripsi</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -62,7 +62,7 @@
     </li>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Thesis</span>
+            <i class="fa fa-file-text-o"></i> <span>Magister</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -73,18 +73,19 @@
 
         </ul>
     </li>
-   
+
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-book"></i> <span>Disertasi</span>
+            <i class="fa fa-book"></i> <span>Doktoral</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i>Jadwal</a></li>
-
-
+            <li><a href="<?php echo base_url() ?>doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi/Kelayakan</a></li>
+            <li><a href="<?php echo base_url() ?>doktoral/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
+            <li><a href="<?php echo base_url() ?>doktoral/disertasi/mk"><i class="fa fa-circle-o"></i>MKPD/MPKK</a></li>
+            <li><a href="<?php echo base_url() ?>doktoral/disertasi/ujian"><i class="fa fa-circle-o"></i>Ujian Disertasi</a></li>
         </ul>
     </li>
 </ul>
