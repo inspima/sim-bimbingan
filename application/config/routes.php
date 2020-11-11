@@ -1,0 +1,271 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/*
+| -------------------------------------------------------------------------
+| URI ROUTING
+| -------------------------------------------------------------------------
+| This file lets you re-map URI requests to specific controller functions.
+|
+| Typically there is a one-to-one relationship between a URL string
+| and its corresponding controller class/method. The segments in a
+| URL normally follow this pattern:
+|
+|	example.com/class/method/id/
+|
+| In some instances, however, you may want to remap this relationship
+| so that a different class/function is called than the one
+| corresponding to the URL.
+|
+| Please see the user guide for complete details:
+|
+|	https://codeigniter.com/user_guide/general/routing.html
+|
+| -------------------------------------------------------------------------
+| RESERVED ROUTES
+| -------------------------------------------------------------------------
+|
+| There are three reserved routes:
+|
+|	$route['default_controller'] = 'welcome';
+|
+| This route indicates which controller class should be loaded if the
+| URI contains no data. In the above example, the "welcome" class
+| would be loaded.
+|
+|	$route['404_override'] = 'errors/page_missing';
+|
+| This route will tell the Router which controller/method to use if those
+| provided in the URL cannot be matched to a valid route.
+|
+|	$route['translate_uri_dashes'] = FALSE;
+|
+| This is not exactly a route, but allows you to automatically route
+| controller and method names that contain dashes. '-' isn't a valid
+| class or method name character, so it requires translation.
+| When you set this option to TRUE, it will replace ALL dashes in the
+| controller and method URI segments.
+|
+| Examples:	my-controller/index	-> my_controller/index
+|		my-controller/my-method	-> my_controller/my_method
+*/
+$route['default_controller'] = 'welcome';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;
+
+$route['login'] = 'backend/login';
+$route['login/gen'] = 'backend/login/gen';
+$route['login/auth'] = 'backend/login/auth';
+$route['logout'] = 'backend/login/logout';
+
+$route['utility'] = 'backend/utility';
+$route['utility/change_password'] = 'backend/utility/change_password';
+
+//1. Dashboard Admin
+$route['dashboarda'] = 'backend/administrator/home';
+$route['dashboarda/master/user'] = 'backend/administrator/master/user';
+$route['dashboarda/master/user/detail/(:num)'] = 'backend/administrator/master/user/detail/$1';
+$route['dashboarda/master/user/update_password'] = 'backend/administrator/master/user/update_password';
+$route['dashboarda/master/user/direct_login'] = 'backend/administrator/master/user/direct_login';
+
+$route['dashboarda/master/struktural'] = 'backend/administrator/master/struktural';
+$route['dashboarda/master/struktural/detail/(:num)'] = 'backend/administrator/master/struktural/detail/$1';
+$route['dashboarda/master/struktural/update'] = 'backend/administrator/master/struktural/update';
+
+//2. Dashboard BAA
+$route['dashboardb'] = 'backend/baa/home';
+
+$route['dashboardb/master/semester'] = 'backend/baa/master/semester';
+$route['dashboardb/master/semester/add'] = 'backend/baa/master/semester/add';
+$route['dashboardb/master/semester/save'] = 'backend/baa/master/semester/save';
+$route['dashboardb/master/semester/edit/(:num)'] = 'backend/baa/master/semester/edit/$1';
+$route['dashboardb/master/semester/update'] = 'backend/baa/master/semester/update';
+$route['dashboardb/master/semester/update_berjalan'] = 'backend/baa/master/semester/update_berjalan';
+
+$route['dashboardb/master/gelombang'] = 'backend/baa/master/gelombang';
+$route['dashboardb/master/gelombang/add'] = 'backend/baa/master/gelombang/add';
+$route['dashboardb/master/gelombang/save'] = 'backend/baa/master/gelombang/save';
+$route['dashboardb/master/gelombang/edit/(:num)'] = 'backend/baa/master/gelombang/edit/$1';
+$route['dashboardb/master/gelombang/update'] = 'backend/baa/master/gelombang/update';
+$route['dashboardb/master/gelombang/update_berjalan'] = 'backend/baa/master/gelombang/update_berjalan';
+
+$route['dashboardb/master/dosen'] = 'backend/baa/master/dosen';
+$route['dashboardb/master/dosen/update_berjalan'] = 'backend/baa/master/dosen/update_berjalan';
+
+$route['dashboardb/master/mahasiswa'] = 'backend/baa/master/mahasiswa';
+$route['dashboardb/master/mahasiswa/add'] = 'backend/baa/master/mahasiswa/add';
+$route['dashboardb/master/mahasiswa/save'] = 'backend/baa/master/mahasiswa/save';
+$route['dashboardb/master/mahasiswa/edit/(:num)'] = 'backend/baa/master/mahasiswa/edit/$1';
+$route['dashboardb/master/mahasiswa/update'] = 'backend/baa/master/mahasiswa/update';
+$route['dashboardb/master/mahasiswa/update_password'] = 'backend/baa/master/mahasiswa/update_password';
+$route['dashboardb/master/mahasiswa/import'] = 'backend/baa/master/mahasiswa/import';
+$route['dashboardb/master/mahasiswa/download_excel'] = 'backend/baa/master/mahasiswa/download_excel';
+$route['dashboardb/master/mahasiswa/import_save'] = 'backend/baa/master/mahasiswa/import_save';
+$route['dashboardb/master/mahasiswa/aktifkan'] = 'backend/baa/master/mahasiswa/aktifkan';
+$route['dashboardb/master/mahasiswa/aktifkan_save'] = 'backend/baa/master/mahasiswa/aktifkan_save';
+
+$route['dashboardb/modul/berita'] = 'backend/baa/modul/berita';
+$route['dashboardb/modul/berita/add'] = 'backend/baa/modul/berita/add';
+$route['dashboardb/modul/berita/save'] = 'backend/baa/modul/berita/save';
+$route['dashboardb/modul/berita/edit/(:num)'] = 'backend/baa/modul/berita/edit/$1';
+$route['dashboardb/modul/berita/update'] = 'backend/baa/modul/berita/update';
+$route['dashboardb/modul/berita/update_status'] = 'backend/baa/modul/berita/update_status';
+
+$route['dashboardb/proposal/proposal_pengajuan'] = 'backend/baa/proposal/proposal_pengajuan';
+
+$route['dashboardb/proposal/proposal_diterima'] = 'backend/baa/proposal/proposal_diterima';
+$route['dashboardb/proposal/proposal_diterima/cetak_surat_tugas'] = 'backend/baa/proposal/proposal_diterima/cetak_surat_tugas';
+$route['dashboardb/proposal/proposal_diterima/cetak_undangan'] = 'backend/baa/proposal/proposal_diterima/cetak_undangan';
+$route['dashboardb/proposal/proposal_diterima/cetak_berita'] = 'backend/baa/proposal/proposal_diterima/cetak_berita';
+$route['dashboardb/proposal/proposal_diterima/cetak_absensi'] = 'backend/baa/proposal/proposal_diterima/cetak_absensi';
+
+
+$route['dashboardb/proposal/proposal_selesai'] = 'backend/baa/proposal/proposal_selesai';
+
+$route['dashboardb/proposal/penguji_pengajuan'] = 'backend/baa/proposal/penguji_pengajuan';
+
+$route['dashboardb/skripsi/skripsi_belum_daftar'] = 'backend/baa/skripsi/skripsi_belum_daftar';
+$route['dashboardb/skripsi/skripsi_pengajuan'] = 'backend/baa/skripsi/skripsi_pengajuan';
+$route['dashboardb/skripsi/skripsi_pengajuan/bimbingan/(:num)'] = 'backend/baa/skripsi/skripsi_pengajuan/bimbingan/$1';
+$route['dashboardb/skripsi/skripsi_pengajuan/approve'] = 'backend/baa/skripsi/skripsi_pengajuan/approve';
+
+$route['dashboardb/skripsi/skripsi_diterima'] = 'backend/baa/skripsi/skripsi_diterima';
+$route['dashboardb/skripsi/skripsi_diterima/bimbingan/(:num)'] = 'backend/baa/skripsi/skripsi_diterima/bimbingan/$1';
+$route['dashboardb/skripsi/skripsi_diterima/update_berkas'] = 'backend/baa/skripsi/skripsi_diterima/update_berkas';
+
+$route['dashboardb/skripsi/skripsi_ujian'] = 'backend/baa/skripsi/skripsi_ujian';
+$route['dashboardb/skripsi/skripsi_ujian/cetak_surat_tugas'] = 'backend/baa/skripsi/skripsi_ujian/cetak_surat_tugas';
+$route['dashboardb/skripsi/skripsi_ujian/cetak_berita'] = 'backend/baa/skripsi/skripsi_ujian/cetak_berita';
+$route['dashboardb/skripsi/skripsi_ujian/cetak_pemberitahuan'] = 'backend/baa/skripsi/skripsi_ujian/cetak_pemberitahuan';
+$route['dashboardb/skripsi/skripsi_ujian/cetak_penilaian'] = 'backend/baa/skripsi/skripsi_ujian/cetak_penilaian';
+$route['dashboardb/skripsi/skripsi_ujian/cetak_rekapitulasi'] = 'backend/baa/skripsi/skripsi_ujian/cetak_rekapitulasi';
+$route['dashboardb/skripsi/skripsi_ujian/cetak_perbaikan'] = 'backend/baa/skripsi/skripsi_ujian/cetak_perbaikan';
+$route['dashboardb/skripsi/skripsi_ujian/cetak_absensi'] = 'backend/baa/skripsi/skripsi_ujian/cetak_absensi';
+
+$route['dashboardb/skripsi/skripsi_penguji_pengajuan'] = 'backend/baa/skripsi/skripsi_penguji_pengajuan';
+
+$route['dashboardb/thesis/thesis'] = 'backend/baa/thesis/thesis';
+$route['dashboardb/thesis/thesis/add'] = 'backend/baa/thesis/thesis/add';
+$route['dashboardb/thesis/thesis/save'] = 'backend/baa/thesis/thesis/save';
+$route['dashboardb/thesis/thesis/setting/(:num)'] = 'backend/baa/thesis/thesis/setting/$1';
+$route['dashboardb/thesis/thesis/ujian_save'] = 'backend/baa/thesis/thesis/ujian_save';
+$route['dashboardb/thesis/thesis/penguji_save'] = 'backend/baa/thesis/thesis/penguji_save';
+$route['dashboardb/thesis/thesis/penguji_delete'] = 'backend/baa/thesis/thesis/penguji_delete';
+
+$route['dashboardb/monitoring/jadwal'] = 'backend/baa/monitoring/jadwal';
+$route['dashboardb/monitoring/jadwal/show'] = 'backend/baa/monitoring/jadwal/show';
+//3. Dashboard Mahasiswa S1
+$route['dashboardm'] = 'backend/mahasiswa/home';
+
+$route['dashboardm/modul/proposal'] = 'backend/mahasiswa/modul/proposal';
+$route['dashboardm/modul/proposal/add'] = 'backend/mahasiswa/modul/proposal/add';
+$route['dashboardm/modul/proposal/save'] = 'backend/mahasiswa/modul/proposal/save';
+$route['dashboardm/modul/proposal/edit/(:num)'] = 'backend/mahasiswa/modul/proposal/edit/$1';
+$route['dashboardm/modul/proposal/update'] = 'backend/mahasiswa/modul/proposal/update';
+$route['dashboardm/modul/proposal/update_file'] = 'backend/mahasiswa/modul/proposal/update_file';
+$route['dashboardm/modul/proposal/ujian/(:num)'] = 'backend/mahasiswa/modul/proposal/ujian/$1';
+
+$route['dashboardm/modul/skripsi'] = 'backend/mahasiswa/modul/skripsi';
+$route['dashboardm/modul/skripsi/syarat/(:num)'] = 'backend/mahasiswa/modul/skripsi/syarat/$1';
+$route['dashboardm/modul/skripsi/syarat_upload'] = 'backend/mahasiswa/modul/skripsi/syarat_upload';
+$route['dashboardm/modul/skripsi/save_judul'] = 'backend/mahasiswa/modul/skripsi/save_judul';
+
+$route['dashboardm/modul/skripsi/ujian/(:num)'] = 'backend/mahasiswa/modul/skripsi/ujian/$1';
+
+$route['dashboardm/modul/skripsi/update_toefl'] = 'backend/mahasiswa/modul/skripsi/update_toefl';
+$route['dashboardm/modul/skripsi/bimbingan/(:num)'] = 'backend/mahasiswa/modul/skripsi/bimbingan/$1';
+$route['dashboardm/modul/skripsi/bimbingan_save'] = 'backend/mahasiswa/modul/skripsi/bimbingan_save';
+$route['dashboardm/modul/skripsi/bimbingan_delete'] = 'backend/mahasiswa/modul/skripsi/bimbingan_delete';
+$route['dashboardm/modul/skripsi/daftar'] = 'backend/mahasiswa/modul/skripsi/daftar';
+
+//3a. Dashboard Mahasiswa S2
+$route['dashboardm'] = 'backend/mahasiswa/home';
+
+$route['dashboardm/magister/proposal_tesis'] = 'backend/mahasiswa/magister/proposal_tesis';
+$route['dashboardm/magister/proposal_tesis/add'] = 'backend/mahasiswa/magister/proposal_tesis/add';
+$route['dashboardm/magister/proposal_tesis/save'] = 'backend/mahasiswa/magister/proposal_tesis/save';
+$route['dashboardm/magister/proposal_tesis/edit/(:num)'] = 'backend/mahasiswa/magister/proposal_tesis/edit/$1';
+$route['dashboardm/magister/proposal_tesis/update'] = 'backend/mahasiswa/magister/proposal_tesis/update';
+$route['dashboardm/magister/proposal_tesis/update_file'] = 'backend/mahasiswa/magister/proposal_tesis/update_file';
+$route['dashboardm/magister/proposal_tesis/ujian/(:num)'] = 'backend/mahasiswa/magister/proposal_tesis/ujian/$1';
+
+//4. Dashboard Dosen
+$route['dashboardd'] = 'backend/dosen/home';
+
+$route['dashboardd/proposal/kadep_pengajuan'] = 'backend/dosen/proposal/kadep_pengajuan';
+$route['dashboardd/proposal/kadep_pengajuan/edit/(:num)'] = 'backend/dosen/proposal/kadep_pengajuan/edit/$1';
+$route['dashboardd/proposal/kadep_pengajuan/update_departemen'] = 'backend/dosen/proposal/kadep_pengajuan/update_departemen';
+$route['dashboardd/proposal/kadep_pengajuan/update_proses'] = 'backend/dosen/proposal/kadep_pengajuan/update_proses';
+
+$route['dashboardd/proposal/kadep_diterima'] = 'backend/dosen/proposal/kadep_diterima';
+$route['dashboardd/proposal/kadep_diterima/edit/(:num)'] = 'backend/dosen/proposal/kadep_diterima/edit/$1';
+$route['dashboardd/proposal/kadep_diterima/plot/(:num)'] = 'backend/dosen/proposal/kadep_diterima/plot/$1';
+$route['dashboardd/proposal/kadep_diterima/ujian_save'] = 'backend/dosen/proposal/kadep_diterima/ujian_save';
+$route['dashboardd/proposal/kadep_diterima/penguji_save'] = 'backend/dosen/proposal/kadep_diterima/penguji_save';
+$route['dashboardd/proposal/kadep_diterima/penguji_delete'] = 'backend/dosen/proposal/kadep_diterima/penguji_delete';
+$route['dashboardd/proposal/kadep_diterima/penguji_update_statustim'] = 'backend/dosen/proposal/kadep_diterima/penguji_update_statustim';
+$route['dashboardd/proposal/kadep_diterima/pembimbing_save'] = 'backend/dosen/proposal/kadep_diterima/pembimbing_save';
+$route['dashboardd/proposal/kadep_diterima/update_status_ujian'] = 'backend/dosen/proposal/kadep_diterima/update_status_ujian';
+
+$route['dashboardd/proposal/kadep_selesai'] = 'backend/dosen/proposal/kadep_selesai';
+$route['dashboardd/proposal/kadep_selesai/edit/(:num)'] = 'backend/dosen/proposal/kadep_selesai/edit/$1';
+
+$route['dashboardd/proposal/kadep_ditolak'] = 'backend/dosen/proposal/kadep_ditolak';
+$route['dashboardd/proposal/kadep_ditolak/edit/(:num)'] = 'backend/dosen/proposal/kadep_ditolak/edit/$1';
+$route['dashboardd/proposal/kadep_ditolak/update_proses'] = 'backend/dosen/proposal/kadep_ditolak/update_proses';
+
+$route['dashboardd/monitoring/jadwal'] = 'backend/dosen/monitoring/jadwal';
+$route['dashboardd/monitoring/jadwal/show'] = 'backend/dosen/monitoring/jadwal/show';
+
+$route['dashboardd/monitoring/pembimbing'] = 'backend/dosen/monitoring/pembimbing';
+
+$route['dashboardd/proposal/kps_proposal'] = 'backend/dosen/proposal/kps_proposal';
+$route['dashboardd/proposal/kps_proposal/gelombang'] = 'backend/dosen/proposal/kps_proposal/gelombang';
+
+$route['dashboardd/proposal/penguji_pengajuan'] = 'backend/dosen/proposal/penguji_pengajuan';
+$route['dashboardd/proposal/penguji_pengajuan/update_penguji'] = 'backend/dosen/proposal/penguji_pengajuan/update_penguji';
+
+$route['dashboardd/proposal/penguji_approve'] = 'backend/dosen/proposal/penguji_approve';
+
+
+$route['dashboardd/skripsi/pembimbing_pengajuan'] = 'backend/dosen/skripsi/pembimbing_pengajuan';
+$route['dashboardd/skripsi/pembimbing_pengajuan/update_pembimbing'] = 'backend/dosen/skripsi/pembimbing_pengajuan/update_pembimbing';
+$route['dashboardd/skripsi/pembimbing_approve'] = 'backend/dosen/skripsi/pembimbing_approve';
+$route['dashboardd/skripsi/pembimbing_approve/bimbingan/(:num)'] = 'backend/dosen/skripsi/pembimbing_approve/bimbingan/$1';
+$route['dashboardd/skripsi/pembimbing_approve/bimbingan_update'] = 'backend/dosen/skripsi/pembimbing_approve/bimbingan_update';
+$route['dashboardd/skripsi/pembimbing_approve/save_penguji'] = 'backend/dosen/skripsi/pembimbing_approve/save_penguji';
+$route['dashboardd/skripsi/pembimbing_approve/approve_skripsi'] = 'backend/dosen/skripsi/pembimbing_approve/approve_skripsi';
+
+$route['dashboardd/skripsi/kadep_blm_skripsi'] = 'backend/dosen/skripsi/kadep_blm_skripsi';
+
+$route['dashboardd/skripsi/kadep_blm_skripsi/ujian/(:num)'] = 'backend/dosen/skripsi/kadep_blm_skripsi/ujian/$1';
+$route['dashboardd/skripsi/kadep_blm_skripsi/ujian_simpan'] = 'backend/dosen/skripsi/kadep_blm_skripsi/ujian_simpan';
+$route['dashboardd/skripsi/kadep_blm_skripsi/ujian_plot/(:num)/(:num)'] = 'backend/dosen/skripsi/kadep_blm_skripsi/ujian_plot/$1/$1';
+$route['dashboardd/skripsi/kadep_blm_skripsi/ujian_plot_save'] = 'backend/dosen/skripsi/kadep_blm_skripsi/ujian_plot_save';
+$route['dashboardd/skripsi/kadep_blm_skripsi/penguji_plot_save'] = 'backend/dosen/skripsi/kadep_blm_skripsi/penguji_plot_save';
+$route['dashboardd/skripsi/kadep_blm_skripsi/penguji_delete'] = 'backend/dosen/skripsi/kadep_blm_skripsi/penguji_delete';
+$route['dashboardd/skripsi/kadep_blm_skripsi/update_pembimbing'] = 'backend/dosen/skripsi/kadep_blm_skripsi/update_pembimbing';
+$route['dashboardd/skripsi/kadep_blm_skripsi/penguji_update_statustim'] = 'backend/dosen/skripsi/kadep_blm_skripsi/penguji_update_statustim';
+
+//yg sudah skripsi
+$route['dashboardd/skripsi/kadep_skripsi'] = 'backend/dosen/skripsi/kadep_skripsi';
+
+$route['dashboardd/skripsi/kps_skripsi'] = 'backend/dosen/skripsi/kps_skripsi';
+//$route['dashboardd/skripsi/kps_skripsi/kps_skripsi_data'] = 'backend/dosen/skripsi/kps_skripsi/kps_skripsi_data';
+$route['dashboardd/skripsi/kps_skripsi/approve'] = 'backend/dosen/skripsi/kps_skripsi/approve';
+$route['dashboardd/skripsi/kps_skripsi/filter_tahun'] = 'backend/dosen/skripsi/kps_skripsi/filter_tahun';
+
+
+
+$route['dashboardd/skripsi/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_pengajuan';
+$route['dashboardd/skripsi/penguji_pengajuan/update_penguji'] = 'backend/dosen/skripsi/penguji_pengajuan/update_penguji';
+
+$route['dashboardd/skripsi/penguji_approve'] = 'backend/dosen/skripsi/penguji_approve';
+$route['dashboardd/skripsi/penguji_approve/update_nilai'] = 'backend/dosen/skripsi/penguji_approve/update_nilai';
+
+//Proposal Tesis
+$route['dashboardd/proposal_tesis/pengajuan'] = 'backend/dosen/proposal_tesis/pengajuan';
+$route['dashboardd/proposal_tesis/pengajuan/approve/(:num)'] = 'backend/dosen/proposal_tesis/pengajuan/approve/$1';
+$route['dashboardd/proposal_tesis/pengajuan/reject/(:num)'] = 'backend/dosen/proposal_tesis/pengajuan/reject/$1';
+$route['dashboardd/proposal_tesis/penjadwalan'] = 'backend/dosen/proposal_tesis/penjadwalan';
+$route['dashboardd/proposal_tesis/penjadwalan/detail/(:num)'] = 'backend/dosen/proposal_tesis/penjadwalan/detail/$1';

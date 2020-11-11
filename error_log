@@ -1,0 +1,218 @@
+[15-Jul-2019 01:04:53 UTC] PHP Fatal error:  require(): Failed opening required '/home/fhunaira/public_html/iuris2019/application/libraries/PHPExcel/Autoloader.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/fhunaira/public_html/iuris2019/application/libraries/PHPExcel.php on line 6
+[16-Jul-2019 02:59:14 UTC] PHP Fatal error:  Call to undefined function delete_files() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/master/Mahasiswa.php on line 271
+[05-Aug-2019 03:57:27 UTC] PHP Fatal error:  Cannot redeclare Skripsi_ujian::cetak_berita() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_ujian.php on line 218
+[05-Aug-2019 04:01:54 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/fhunaira/public_html/iuris2019/application/views/backend/baa/cetak/skripsi_absensi.php on line 92
+[26-Aug-2019 08:56:58 UTC] PHP Fatal error:  Call to a member function sidebar() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/monitoring/Jadwal.php on line 44
+[26-Aug-2019 08:57:54 UTC] PHP Fatal error:  Call to undefined method Ruang_model::read_ujian() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/monitoring/Jadwal.php on line 46
+[17-Oct-2019 06:53:48 UTC] PHP Parse error:  syntax error, unexpected '[', expecting '(' in /home/fhunaira/public_html/iuris2019/application/views/backend/dosen/skripsi/kps_skripsi.php on line 104
+[17-Oct-2019 06:54:28 UTC] PHP Parse error:  syntax error, unexpected '[', expecting '(' in /home/fhunaira/public_html/iuris2019/application/views/backend/dosen/skripsi/kps_skripsi.php on line 104
+[17-Oct-2019 06:54:29 UTC] PHP Parse error:  syntax error, unexpected '[', expecting '(' in /home/fhunaira/public_html/iuris2019/application/views/backend/dosen/skripsi/kps_skripsi.php on line 104
+[17-Oct-2019 06:54:46 UTC] PHP Parse error:  syntax error, unexpected '[', expecting '(' in /home/fhunaira/public_html/iuris2019/application/views/backend/dosen/skripsi/kps_skripsi.php on line 117
+[22-Oct-2019 03:47:26 UTC] PHP Fatal error:  Call to undefined function formtext_hanyaangka() in /home/fhunaira/public_html/iuris2019/application/views/backend/dosen/skripsi/kps_skripsi.php on line 26
+[22-Oct-2019 06:54:41 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[09-Dec-2019 08:53:24 UTC] PHP Fatal error:  Cannot redeclare Kps_skripsi_model::read() in /home/fhunaira/public_html/iuris2019/application/models/backend/dosen/skripsi/Kps_skripsi_model.php on line 27
+[12-Dec-2019 05:11:06 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[13-Dec-2019 06:00:38 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[13-Dec-2019 06:00:42 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[20-Jan-2020 09:07:26 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[04-Feb-2020 04:08:39 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/fhunaira/public_html/iuris2019/application/views/backend/baa/cetak/skripsi_surat_tugas.php on line 207
+[04-Feb-2020 04:09:01 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/fhunaira/public_html/iuris2019/application/views/backend/baa/cetak/skripsi_surat_tugas.php on line 206
+[04-Feb-2020 04:09:51 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/fhunaira/public_html/iuris2019/application/views/backend/baa/cetak/skripsi_surat_tugas.php on line 206
+[04-Feb-2020 04:11:36 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/fhunaira/public_html/iuris2019/application/views/backend/baa/cetak/skripsi_surat_tugas.php on line 206
+[28-Mar-2020 07:52:00 UTC] PHP Fatal error:  Call to undefined method Proposal_diterima_model::read_gelombangaktif() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/proposal/Proposal_diterima.php on line 56
+[28-Mar-2020 07:52:45 UTC] PHP Fatal error:  Call to undefined method Proposal_diterima_model::read_pengujipembimbing() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/proposal/Proposal_diterima.php on line 58
+[28-Mar-2020 08:19:01 UTC] PHP Fatal error:  Call to a member function read_penguji() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/proposal/Proposal_diterima.php on line 57
+[28-Mar-2020 09:04:56 UTC] PHP Fatal error:  Call to a member function read_wadek() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/proposal/Proposal_diterima.php on line 58
+[28-Mar-2020 10:50:19 UTC] PHP Fatal error:  Call to undefined method CI_DB_mysqli_result::result_row() in /home/fhunaira/public_html/iuris2019/application/models/backend/baa/proposal/Proposal_diterima_model.php on line 111
+[04-Apr-2020 13:07:34 UTC] PHP Fatal error:  Call to a member function read_berjalan() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:21:47 UTC] PHP Fatal error:  Call to a member function read_berjalan() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:52:46 UTC] PHP Fatal error:  Call to a member function read_berjalan() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:57:35 UTC] PHP Fatal error:  Call to a member function read_berjalan() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:57:36 UTC] PHP Fatal error:  Call to a member function read_berjalan() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:57:38 UTC] PHP Fatal error:  Call to a member function read_berjalan() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:57:47 UTC] PHP Fatal error:  Call to a member function read_berjalan() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:58:16 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:58:17 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:58:18 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 02:58:59 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 05:11:24 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 05:11:58 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 05:12:04 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 05:12:42 UTC] PHP Fatal error:  Call to a member function read() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 58
+[06-Apr-2020 05:13:38 UTC] PHP Fatal error:  Call to a member function read() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 40
+[06-Apr-2020 09:04:30 UTC] PHP Parse error:  syntax error, unexpected 'in' (T_STRING) in /home/fhunaira/public_html/iuris2019/application/models/backend/baa/skripsi/Skripsi_belum_daftar_model.php on line 12
+[06-Apr-2020 09:04:47 UTC] PHP Parse error:  syntax error, unexpected 'in' (T_STRING) in /home/fhunaira/public_html/iuris2019/application/models/backend/baa/skripsi/Skripsi_belum_daftar_model.php on line 12
+[06-Apr-2020 11:32:15 UTC] PHP Fatal error:  Call to a member function flashdata() on null in /home/fhunaira/public_html/iuris2019/application/models/backend/dosen/skripsi/Kadep_belum_skripsi_model.php on line 1
+[07-Apr-2020 05:24:53 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 05:26:48 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:25:21 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:26:15 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:26:17 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:27:37 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:47:38 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:52:25 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:53:48 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:54:14 UTC] PHP Fatal error:  Call to a member function read_departemen() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 06:56:34 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 07:00:40 UTC] PHP Fatal error:  Call to undefined method Departemen_model::get() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 58
+[07-Apr-2020 07:06:24 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/skripsi/Skripsi_belum_daftar.php on line 50
+[07-Apr-2020 10:37:53 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[07-Apr-2020 10:40:46 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[08-Apr-2020 02:09:52 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[08-Apr-2020 03:17:01 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[08-Apr-2020 05:55:57 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[08-Apr-2020 08:55:11 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[08-Apr-2020 09:50:38 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[08-Apr-2020 09:51:01 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[09-Apr-2020 02:00:10 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[09-Apr-2020 03:21:03 UTC] PHP Fatal error:  Call to a member function cek_mahasiswa() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 68
+[09-Apr-2020 03:40:29 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[09-Apr-2020 03:59:33 UTC] PHP Fatal error:  Call to a member function cek_mahasiswa() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 69
+[09-Apr-2020 03:59:36 UTC] PHP Fatal error:  Call to a member function cek_mahasiswa() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 69
+[09-Apr-2020 04:13:15 UTC] PHP Fatal error:  Call to a member function cek_mahasiswa() on null in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 71
+[09-Apr-2020 06:03:34 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:03:45 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:04:59 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:05:35 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:06:01 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:08:30 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:08:54 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:10:51 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:11:03 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:13:12 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:13:25 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:15:27 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:15:37 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:16:31 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:23:35 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:30:18 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:31:21 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:35:06 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:35:29 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:37:52 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:38:44 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:43:51 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:48:54 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:53:46 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:54:08 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:55:15 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 06:59:02 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 07:11:30 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[09-Apr-2020 07:58:53 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 08:27:42 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 08:43:32 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/fhunaira/public_html/iuris2019/application/controllers/backend/baa/thesis/Thesis.php on line 110
+[09-Apr-2020 13:42:55 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[16-Apr-2020 03:45:18 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[20-Apr-2020 01:09:19 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[22-Apr-2020 02:26:07 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[10-Jun-2020 03:20:18 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[10-Jun-2020 03:21:14 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[10-Jun-2020 03:28:06 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[11-Jun-2020 04:42:59 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[11-Jun-2020 04:43:52 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[13-Jun-2020 13:50:26 UTC] PHP Fatal error:  Cannot redeclare Thesis_model::cek_mahasiswa() in /home/fhunaira/public_html/iuris2019/application/models/backend/baa/thesis/Thesis_model.php on line 203
+[15-Jun-2020 04:14:45 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[15-Jun-2020 04:14:54 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[15-Jun-2020 06:19:46 UTC] PHP Parse error:  syntax error, unexpected 'DISTINCT' (T_STRING) in /home/fhunaira/public_html/iuris2019/application/models/backend/baa/thesis/Thesis_model.php on line 6
+[16-Jun-2020 03:42:14 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[16-Jun-2020 03:42:21 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[16-Jun-2020 04:16:11 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[16-Jun-2020 04:45:56 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[17-Jun-2020 00:46:15 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[17-Jun-2020 00:46:29 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[17-Jun-2020 02:35:45 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[17-Jun-2020 04:34:29 UTC] PHP Fatal error:  Call to undefined method Departemen_model::read_departemen() in /home/fhunaira/public_html/iuris2019/application/controllers/backend/dosen/skripsi/Kadep_belum_skripsi.php on line 57
+[23-Jun-2020 13:46:30 UTC] PHP Warning:  POST Content-Length of 10021068 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 13:46:46 UTC] PHP Warning:  POST Content-Length of 10021068 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 13:50:05 UTC] PHP Warning:  POST Content-Length of 10021070 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 13:54:51 UTC] PHP Warning:  POST Content-Length of 10021070 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 13:58:46 UTC] PHP Warning:  POST Content-Length of 10021070 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:00:32 UTC] PHP Warning:  POST Content-Length of 10021055 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:03:18 UTC] PHP Warning:  POST Content-Length of 10021070 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:14:29 UTC] PHP Warning:  POST Content-Length of 10021070 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:15:30 UTC] PHP Warning:  POST Content-Length of 10021070 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:19:40 UTC] PHP Warning:  POST Content-Length of 10021070 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:35:46 UTC] PHP Warning:  POST Content-Length of 8550669 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:37:24 UTC] PHP Warning:  POST Content-Length of 8550669 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 14:41:13 UTC] PHP Warning:  POST Content-Length of 8550669 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 16:07:20 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 16:08:43 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 19:02:44 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 19:04:18 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 19:05:02 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 19:06:18 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[23-Jun-2020 22:24:08 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[23-Jun-2020 22:24:08 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[23-Jun-2020 22:34:01 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[23-Jun-2020 22:34:04 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[23-Jun-2020 22:57:30 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[23-Jun-2020 23:02:51 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[23-Jun-2020 23:24:25 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[23-Jun-2020 23:27:57 UTC] PHP Fatal error:  Call to undefined function mysqli_init() in /home/fhunaira/public_html/iuris2019/system/database/drivers/mysqli/mysqli_driver.php on line 135
+[24-Jun-2020 01:26:05 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 01:26:40 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 01:27:39 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 01:30:21 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 01:32:14 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 02:57:20 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:03:26 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:04:43 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:09:52 UTC] PHP Warning:  POST Content-Length of 10667283 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:14:27 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:21:44 UTC] PHP Warning:  POST Content-Length of 10667283 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:30:15 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:30:57 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:32:31 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:38:11 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:42:30 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:44:40 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[24-Jun-2020 03:45:32 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 04:51:10 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 04:51:33 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 04:53:26 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 04:55:30 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 04:59:02 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 04:59:56 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 05:50:56 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 05:55:17 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 05:56:57 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 06:06:33 UTC] PHP Warning:  POST Content-Length of 8916372 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 08:03:21 UTC] PHP Warning:  POST Content-Length of 10667076 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 08:12:44 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 08:17:59 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 09:10:22 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 09:14:36 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 09:23:22 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 09:24:53 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 09:33:04 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 09:37:26 UTC] PHP Warning:  POST Content-Length of 9605164 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[30-Jun-2020 09:45:53 UTC] PHP Warning:  POST Content-Length of 9296531 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[11-Sep-2020 22:09:14 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[21-Sep-2020 09:14:06 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[21-Sep-2020 09:14:45 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[21-Sep-2020 09:14:48 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[22-Sep-2020 11:10:02 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[22-Sep-2020 11:10:13 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[22-Sep-2020 11:10:18 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[22-Sep-2020 11:11:05 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[22-Sep-2020 11:11:12 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[22-Sep-2020 11:11:26 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[22-Sep-2020 11:11:41 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[26-Sep-2020 23:06:23 UTC] PHP Fatal error:  Call to a member function read_struktural() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/incl_sidebar/menu/dosen.php on line 24
+[11-Oct-2020 22:58:48 UTC] PHP Fatal error:  Call to a member function read_pembimbing() on null in /home/fhunaira/public_html/iuris2019/application/views/backend/dosen/proposal/kadep_selesai.php on line 55
+[10-Nov-2020 14:49:46 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/inspimac/public_html/iuris/application/controllers/backend/dosen/proposal_tesis/Pengajuan.php on line 51
+[10-Nov-2020 14:50:12 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/inspimac/public_html/iuris/application/controllers/backend/dosen/proposal_tesis/Pengajuan.php on line 51
+[10-Nov-2020 14:56:49 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_judul() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal_tesis/pengajuan.php on line 46
+[10-Nov-2020 14:57:35 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_judul() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal_tesis/pengajuan.php on line 46
+[11-Nov-2020 04:09:16 UTC] PHP Fatal error:  Call to a member function read_aktif() on null in /home/inspimac/public_html/iuris/application/controllers/backend/dosen/proposal_tesis/Penjadwalan.php on line 75
+[11-Nov-2020 04:14:21 UTC] PHP Fatal error:  Call to undefined method Tesis_model::proposal_detail() in /home/inspimac/public_html/iuris/application/controllers/backend/dosen/proposal_tesis/Penjadwalan.php on line 77
+[11-Nov-2020 04:14:55 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_ujian() in /home/inspimac/public_html/iuris/application/controllers/backend/dosen/proposal_tesis/Penjadwalan.php on line 81
+[11-Nov-2020 04:14:57 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_ujian() in /home/inspimac/public_html/iuris/application/controllers/backend/dosen/proposal_tesis/Penjadwalan.php on line 81
+[11-Nov-2020 04:16:25 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_pembimbing() in /home/inspimac/public_html/iuris/application/controllers/backend/dosen/proposal_tesis/Penjadwalan.php on line 82
+[11-Nov-2020 04:17:33 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_pengujiketua() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal/kadep_diterima_plot.php on line 185
+[11-Nov-2020 04:44:46 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_pengujiketua() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal/kadep_diterima_plot.php on line 185
+[11-Nov-2020 04:45:54 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_pengujiketua() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal_tesis/detail.php on line 185
+[11-Nov-2020 04:49:21 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_pengujiketua() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal_tesis/detail.php on line 185
+[11-Nov-2020 04:51:17 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_pengujiketua() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal_tesis/detail.php on line 185
+[11-Nov-2020 04:52:38 UTC] PHP Fatal error:  Call to undefined method Tesis_model::read_penguji() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal_tesis/detail.php on line 210
+[11-Nov-2020 04:53:01 UTC] PHP Fatal error:  Call to undefined method Tesis_model::count_penguji_approve() in /home/inspimac/public_html/iuris/application/views/backend/dosen/proposal_tesis/detail.php on line 428
