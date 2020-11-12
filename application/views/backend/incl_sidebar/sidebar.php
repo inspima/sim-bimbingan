@@ -36,7 +36,7 @@
             }
             else if($role == 6) // S3
             {
-                $this->load->view('backend/incl_sidebar/menu/mahasiswa');
+                $this->load->view('backend/incl_sidebar/menu/mahasiswa_s3');
             }
         }
             
