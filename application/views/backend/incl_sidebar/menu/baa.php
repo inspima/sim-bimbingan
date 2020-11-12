@@ -84,7 +84,7 @@
         <ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi/Kelayakan</a></li>
             <li><a href="<?php echo base_url() ?>doktoral/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>doktoral/disertasi/mk"><i class="fa fa-circle-o"></i>MKPD/MPKK</a></li>
+            <li><a href="<?php echo base_url() ?>doktoral/disertasi/ma"><i class="fa fa-circle-o"></i>MKPD/MPKK</a></li>
             <li><a href="<?php echo base_url() ?>doktoral/disertasi/ujian"><i class="fa fa-circle-o"></i>Ujian Disertasi</a></li>
         </ul>
     </li>

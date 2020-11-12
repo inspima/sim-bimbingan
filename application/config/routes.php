@@ -277,12 +277,12 @@ $route['dashboardd/proposal_tesis/penjadwalan/detail/(:num)'] = 'backend/dosen/p
 // BAA
 $route['doktoral/disertasi/kualifikasi'] = 'backend/baa/doktoral/disertasi_kualifikasi';
 $route['doktoral/disertasi/proposal'] = 'backend/baa/doktoral/disertasi_proposal';
-$route['doktoral/disertasi/mk'] = 'backend/baa/doktoral/disertasi_mk';
+$route['doktoral/disertasi/ma'] = 'backend/baa/doktoral/disertasi_ma';
 $route['doktoral/disertasi/ujian'] = 'backend/baa/doktoral/disertasi_ujian';
 
 // MAHASISWA
 $route['mahasiswa/disertasi/kualifikasi'] = 'backend/mahasiswa/doktoral/disertasi_kualifikasi';
 $route['mahasiswa/disertasi/proposal'] = 'backend/mahasiswa/doktoral/disertasi_proposal';
-$route['mahasiswa/disertasi/mk'] = 'backend/mahasiswa/doktoral/disertasi_mk';
+$route['mahasiswa/disertasi/ma'] = 'backend/mahasiswa/doktoral/disertasi_ma';
 $route['mahasiswa/disertasi/ujian'] = 'backend/mahasiswa/doktoral/disertasi_ujian';
 
