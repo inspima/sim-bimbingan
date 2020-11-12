@@ -272,6 +272,21 @@ $route['dashboardd/proposal_tesis/penjadwalan'] = 'backend/dosen/proposal_tesis/
 $route['dashboardd/proposal_tesis/penjadwalan/detail/(:num)'] = 'backend/dosen/proposal_tesis/penjadwalan/detail/$1';
 
 /* 
+ * JENJANG SARJANAH
+ */
+// Proposal
+$route['sarjanah/proposal/index'] = 'backend/baa/sarjanah/proposal';
+$route['sarjanah/proposal/diterima'] = 'backend/baa/sarjanah/proposal/diterima';
+$route['sarjanah/proposal/selesai'] = 'backend/baa/sarjanah/proposal/selesai';
+$route['sarjanah/proposal/ditolak'] = 'backend/baa/sarjanah/proposal/ditolak';
+$route['sarjanah/proposal/belum_approve'] = 'backend/baa/sarjanah/proposal/belum_approve';
+// Skripsi
+$route['sarjanah/skripsi/index'] = 'backend/baa/sarjanah/skripsi';
+$route['sarjanah/skripsi/pengajuan'] = 'backend/baa/sarjanah/skripsi/pengajuan';
+$route['sarjanah/skripsi/diterima'] = 'backend/baa/sarjanah/skripsi/diterima';
+$route['sarjanah/skripsi/ujian'] = 'backend/baa/sarjanah/skripsi/ujian';
+$route['sarjanah/skripsi/belum_approve'] = 'backend/baa/sarjanah/skripsi/belum_approve';
+/* 
  * JENJANG DOKTOR
  */
 // BAA
