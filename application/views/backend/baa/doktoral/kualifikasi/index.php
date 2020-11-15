@@ -26,45 +26,50 @@
                             <th>Nama</th>
                             <th>Judul</th>
                             <th>Departemen</th>
-                            <th>Berkas Skripsi & Turnitin</th>
-                            <th>Toefl</th>
-                            <th>Bimbingan</th>
-                            <th>Tanggal Pengajuan</th>
+                            <th>Tgl.Pengajuan</th>
+                            <th>Penguji</th>
+                            <th>Jadwal</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $no = 1;
-                        foreach ($skripsi as $list) {
+                        foreach ($disertasi as $list) {
                             ?>
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?></td>
                                 <td>
                                     <?php
-                                    $judul = $this->skripsi->read_judul($list['id_skripsi']);
+                                    $judul = $this->disertasi->read_judul($list['id_disertasi']);
                                     echo $judul->judul;
                                     ?>
                                 </td>                            
                                 <td><?php echo $list['departemen'] ?></td>
-                                <td><a href="<?php echo base_url() ?>assets/upload/turnitin/<?php echo $list['turnitin'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a></td>
-                                <td><?php echo $list['toefl'] ?></td>
-                                <td>
-                                    <?php
-                                    $pembimbing = $this->skripsi->read_pembimbing($list['id_skripsi']);
-                                    echo $pembimbing->nama . '<br>';
-                                    ?>
-                                    <a class="btn btn-xs btn-primary pull-left" href="<?= base_url() ?>dashboardb/skripsi/skripsi_pengajuan/bimbingan/<?= $list['id_skripsi'] ?>">
-                                        <i class="fa fa-calendar"></i> Bimbingan</a>
-                                </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
-                                <td>
-                                    <?php echo form_open('dashboardb/skripsi/skripsi_pengajuan/approve') ?>
-                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                    <?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-                                    <button type="submit" class="btn btn-xs btn-success pull-left"><i class="fa fa-check"></i> Approve</button>
-                                    <?php echo form_close() ?>
+                                <td class="text-center">
+                                </td>
+                                <td class="text-center">
+
+                                </td>
+                                <td class="text-center">
+                                    <?php if ($list['status_kualifikasi'] == '1') {
+                                        ?>
+                                        <?php echo form_open('doktoral/disertasi/kualifikasi/terima') ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <button class="btn btn-xs btn-success pull-left"><i class="fa fa-check"></i> Proses Terima</button>
+                                        <?php echo form_close() ?>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <span class="btn btn-xs bg-green-active"><i class="fa fa-check"></i> Diterima</span>
+                                        <br/><br/>
+                                        <a class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Jadwal & Penguji</a>
+                                        <?php
+                                    }
+                                    ?>
                                 </td>
                             </tr>      
                             <?php

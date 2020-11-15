@@ -13,6 +13,8 @@ class Tesis_model extends CI_Model {
 		$query = $this -> db -> get();
 		return $query->result_array();
     }
+    
+    
 
     public function read_judul($id_skripsi)
     {

@@ -69,7 +69,7 @@ class Tesis_model extends CI_Model {
     function detail_proposal($id)
     {
         $this->db->select('s.id_skripsi, s.tgl_pengajuan, s.judul, s.berkas_proposal, s.id_departemen, s.status_proposal, s.status_ujian_proposal, s.keterangan_proposal, dn.departemen, sr.semester, m.nim, m.nama ');
-        $this->db->from('skripsi s');
+        $this->db->from('tesis s');
         $this->db->join('departemen dn','s.id_departemen = dn.id_departemen');
         $this->db->join('gelombang_skripsi g','s.id_gelombang = g.id_gelombang');
         $this->db->join('semester sr','g.id_semester = sr.id_semester');
@@ -91,6 +91,7 @@ class Tesis_model extends CI_Model {
         $this->db->join('ruang r','u.id_ruang = r.id_ruang');
         $this->db->join('jam j','u.id_jam = j.id_jam');
         $this->db->where('u.id_skripsi', $id_skripsi);
+        $this->db->where('u.id_jenjang', 2);
         $this->db->where('u.jenis_ujian', 1);//proposal
         $this->db->where('u.status',1);
         $query = $this -> db -> get();
@@ -104,6 +105,7 @@ class Tesis_model extends CI_Model {
         $this->db->from('pembimbing p');
         $this->db->join('pegawai pg','p.nip = pg.nip');
         $this->db->where('p.id_skripsi', $id_skripsi);
+        $this->db->where('id_jenjang', 2);
         $this->db->where_in('p.status', $stts);
         $query = $this -> db -> get();
 		return $query->result_array();
@@ -116,6 +118,7 @@ class Tesis_model extends CI_Model {
         $this->db->from('penguji');
         $this->db->where('id_ujian', $id_ujian);
         $this->db->where('status_tim',1);
+        $this->db->where('id_jenjang',2);
         $this->db->where_in('status', $stts);
 
         $query = $this -> db -> get();
@@ -150,6 +153,65 @@ class Tesis_model extends CI_Model {
 		$query = $this->db->count_all_results(); 
         return $query;
     }
+    
+    
+    
+    public function hitung_bimbingan_aktif($nip)
+    {
+        $stts = array('2');
+        $this->db->where_in('p.status_bimbingan',$stts);
+        $this->db->where('p.nip',$nip);    
+        $this->db->where('s.jenis',2);
+        $this->db->where('p.id_jenjang',2);
+        $this->db->join('tesis s','p.id_skripsi = s.id_skripsi');
+        $this->db->from('pembimbing p');
+		$query = $this->db->count_all_results(); 
+        return $query;
+    }
+    
+     public function save_pembimbing($datap)
+    {
+        $this->db->insert('pembimbing', $datap);
+    }
+    
+    public function cek_pembimbing($id_skripsi)
+    {
+        $stts = array('1','2');
+        $this->db->select('p.id_pembimbing, p.nip');
+        $this->db->from('pembimbing p');
+        $this->db->join('pegawai pg','p.nip = pg.nip');
+        $this->db->where('p.id_skripsi', $id_skripsi);
+        $this->db->where('p.id_jenjang', 2);
+        $this->db->where_in('p.status', $stts);
+        $query = $this -> db -> get();
+		return $query->row();
+    }
+    
+     public function cek_ruang_terpakai($data)
+    {
+        $this->db->select('u.id_ujian');
+        $this->db->from('ujian u');
+        $this->db->join('ruang r','u.id_ruang = r.id_ruang');
+        $this->db->join('jam j','u.id_jam = j.id_jam');
+        $this->db->where('u.tanggal', $data['tanggal']);
+        $this->db->where('u.id_ruang', $data['id_ruang']);
+        $this->db->where('u.id_jam', $data['id_jam']);
+        $this->db->where('u.status',1);
+        $query = $this -> db -> get();
+		return $query->row();
+    }
+    
+    public function save_ujian($data)
+    {
+        $this->db->insert('ujian', $data);
+    }
+    
+    public function update_ujian($data, $id_ujian)
+    {
+        $this->db->where('id_ujian', $id_ujian);
+        $this->db->update('ujian', $data);
+    }
+
     
    /* public function detail($id_departemen, $id_skripsi)
 	{

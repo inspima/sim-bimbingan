@@ -20,7 +20,7 @@ class Disertasi_kualifikasi extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
-        $this->load->model('backend/baa/skripsi/skripsi_pengajuan_model', 'skripsi');
+        $this->load->model('backend/mahasiswa/disertasi_model', 'disertasi');
         //END MODEL
     }
 
@@ -31,10 +31,29 @@ class Disertasi_kualifikasi extends CI_Controller {
             'subtitle' => 'Disertasi - Kualifikasi',
             'section' => 'backend/baa/doktoral/kualifikasi/index',
             // DATA //
-            'skripsi' => $this->skripsi->read()
+            'disertasi' => $this->disertasi->read_kualifikasi()
         );
 
         $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function terima() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_skripsi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_kualifikasi' => 2,
+            );
+            $this->disertasi->update($data, $id_skripsi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil approve');
+            redirect('doktoral/disertasi/kualifikasi');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('doktoral/disertasi/kualifikasi');
+        }
     }
 
     public function approve() {

@@ -50,13 +50,78 @@
         </div>
         <!-- /.box -->
     </div>
+    
+    <!--left column -->
 
-    <!-- left column -->
+<div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">1. Dosen Pembimbing Utama</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <?php echo form_open('dashboardd/proposal_tesis/penjadwalan/pembimbing_save');?>
+            <div class="box-body table-responsive">
+                <div class="form-group">
+                    <label>Usulan pembimbing </label>
+                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                    <?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+                    <select name="nip" class="form-control select2" style="width: 100%;" required>
+                        <option value="">- Pilih -</option>
+                        <?php 
+                        foreach($mdosen as $list){
+                        ?>
+                        <option value="<?php echo $list['nip']?>"><?php echo $list['nama']?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>     
+                </div>
+                <div class="form-group">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Opsi</th>
+                    </tr>
+                    <?php
+                    $pembimbing = $this->proposal->read_pembimbing($proposal->id_skripsi);
+                    foreach($pembimbing as $listpembimbing){
+                    ?>
+                    <tr>
+                        <td><?php echo $listpembimbing['nama']?></td>
+                        <td>
+                        <?php echo form_open('dashboardd/proposal/kadep_diterima/pembimbing_delete')?>
+                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                        <?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+                        <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                        <?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
+                        <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                        <?php echo form_close()?>
+                        </td>
+                    </tr>
+                    <?php 
+                    }
+                    ?>
+                    </table>
+                </div>           
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                
+                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>    
+                
+            </div>
+        <?php echo form_close()?>
+        </div>
+        <!-- /.box -->
+</div>
+        <!-- left column -->
     <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">1. Setting Jadwal</h3>
+            <h3 class="box-title">2. Setting Jadwal</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -145,13 +210,14 @@
         </div>
         <!-- /.box -->
     </div>
-
+        <div class="col-md-4">
+        </div>
     <!-- left column -->
     <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">2. Penguji</h3>
+            <h3 class="box-title">3. Penguji</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -302,75 +368,7 @@
     </div>
 
 </div>
-<div class="row">
-<div class="col-md-4">
 
-</div>
-<div class="col-md-8">
-        <!-- general form elements -->
-        <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">3. Dosen Pembimbing</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        <?php echo form_open('dashboardd/proposal/kadep_diterima/pembimbing_save');?>
-            <div class="box-body table-responsive">
-                <div class="form-group">
-                    <label>Usulan pembimbing </label>
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-                    <select name="nip" class="form-control select2" style="width: 100%;" required>
-                        <option value="">- Pilih -</option>
-                        <?php 
-                        foreach($mdosen as $list){
-                        ?>
-                        <option value="<?php echo $list['nip']?>"><?php echo $list['nama']?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>     
-                </div>
-                <div class="form-group">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>Nama</th>
-                        <th>Opsi</th>
-                    </tr>
-                    <?php
-                    $pembimbing = $this->proposal->read_pembimbing($proposal->id_skripsi);
-                    foreach($pembimbing as $listpembimbing){
-                    ?>
-                    <tr>
-                        <td><?php echo $listpembimbing['nama']?></td>
-                        <td>
-                        <?php echo form_open('dashboardd/proposal/kadep_diterima/pembimbing_delete')?>
-                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                        <?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-                        <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
-                        <?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
-                        <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
-                        <?php echo form_close()?>
-                        </td>
-                    </tr>
-                    <?php 
-                    }
-                    ?>
-                    </table>
-                </div>           
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                
-                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>    
-                
-            </div>
-        <?php echo form_close()?>
-        </div>
-        <!-- /.box -->
-    </div>
-    
-</div>
 
 <div class="row">
 <div class="col-md-4">
@@ -386,7 +384,7 @@
         <!-- form start -->
         <?php echo form_open('dashboardd/proposal/kadep_diterima/update_status_ujian');?>
             <div class="box-body">
-                <label>input dosen pembimbing terlebih dahulu, jika status proposal layak maka akan pindah ke menu proposal skripsi selesai dan skripsi </label>
+                <!--<label>input dosen pembimbing terlebih dahulu, jika status proposal layak maka akan pindah ke menu proposal skripsi selesai dan skripsi </label>-->
                 <label>Status Ujian</label>
                     <?php 
                     $sup = $proposal->status_ujian_proposal;
@@ -397,12 +395,12 @@
                     else
                     if($sup == '1')
                     {
-                        $ksup = 'Layak dan dapat dilanjutkan untuk penulisan skripsi';
+                        $ksup = 'Layak dan dapat dilanjutkan untuk penulisan tesis';
                     }
                     else
                     if($sup == '2')
                     {
-                        $ksup = 'Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi';
+                        $ksup = 'Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan tesis';
                     }
                     else
                     if($sup == '3')
@@ -416,8 +414,8 @@
                     <select name="status_ujian_proposal" class="form-control select2" style="width: 100%;" required>
                         <option value="<?php echo $sup?>"><?php echo $ksup?></option>
                         <option value="0">Belum Ujian</option>
-                        <option value="1">Layak dan dapat dilanjutkan untuk penulisan skripsi</option>
-                        <option value="2">Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi</option>
+                        <option value="1">Layak dan dapat dilanjutkan untuk penulisan tesis</option>
+                        <option value="2">Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan tesis</option>
                         <option value="3">Tidak layak dan harus diuji kembali</option>
                     </select>
                 

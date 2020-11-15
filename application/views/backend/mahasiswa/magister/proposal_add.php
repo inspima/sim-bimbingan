@@ -10,11 +10,11 @@
         <!-- form start -->
         <?php echo form_open_multipart('dashboardm/magister/proposal_tesis/save');?>
             <div class="box-body">
-                <div class="form-group">
-                    <label>Departemen</label>
+                <!--<div class="form-group">
+                    <label>Departemen</label>-->
                     <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
-                    <select name="id_departemen" class="form-control select2" style="width: 100%;" required>
+                    <!--<select name="id_departemen" class="form-control select2" style="width: 100%;" required>
                         <option value="">Pilih</option>
                         <?php 
                         foreach($departemen as $list){
@@ -22,9 +22,12 @@
                         <option value="<?php echo $list['id_departemen']?>"><?php echo $list['departemen']?></option>
                         <?php
                         }
+                     
+                     
                         ?>
-                    </select>
+                    </select>-->
                 </div>
+                <input type="hidden" value="1" name="id_departemen">
                 <div class="form-group">
                     <label>Judul</label>
                     <textarea class="form-control" name="judul" required></textarea>

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Disertasi_kualifikasi extends CI_Controller {
+class Kualifikasi extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -20,7 +20,7 @@ class Disertasi_kualifikasi extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
-        $this->load->model('backend/mahasiswa/modul/proposal_model', 'proposal');
+        $this->load->model('backend/mahasiswa/disertasi_model', 'disertasi');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         //END MODEL
@@ -31,27 +31,27 @@ class Disertasi_kualifikasi extends CI_Controller {
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
             'subtitle' => 'Disertasi - Kualifikasi',
-            'section' => 'backend/mahasiswa/doktoral/kualifikasi/index',
+            'section' => 'backend/mahasiswa/disertasi/kualifikasi/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
-            'proposal' => $this->proposal->read($this->session_data['username'])
+            'disertasi' => $this->disertasi->read_kualifikasi_mahasiswa($this->session_data['username'])
         );
         $this->load->view('backend/index_sidebar', $data);
     }
 
     public function add() {
-        $read_aktif = $this->proposal->read_aktif($this->session_data['username']);
+        $read_aktif = $this->disertasi->read_aktif($this->session_data['username']);
 
         if ($read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Proposal masih aktif');
-            redirect('dashboardm/modul/proposal');
+            $this->session->set_flashdata('msg', 'Masih ada judul aktif');
+            redirect('mahasiswa/disertasi/kualifikasi');
         } else {
             $data = array(
                 // PAGE //
                 'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan Proposal Skripsi',
-                'section' => 'backend/mahasiswa/modul/proposal_add',
+                'subtitle' => 'Pengajuan Ujian Kualifikasi',
+                'section' => 'backend/mahasiswa/disertasi/kualifikasi/add',
                 // DATA //
                 'departemen' => $this->departemen->read(),
                 'gelombang' => $this->gelombang->read_berjalan()
@@ -63,55 +63,34 @@ class Disertasi_kualifikasi extends CI_Controller {
     public function save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $config['upload_path'] = './assets/upload/proposal/';
-            $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 20000;
-            $config['remove_spaces'] = TRUE;
-            $config['file_ext_tolower'] = TRUE;
-            $config['detect_mime'] = TRUE;
-            $config['mod_mime_fix'] = TRUE;
+            $tgl_sekarang = date('Y-m-d');
+            $data = array(
+                'id_departemen' => $this->input->post('id_departemen', TRUE),
+                'jenis' => 1,
+                'nim' => $this->session_data['username'],
+                'tgl_pengajuan' => $tgl_sekarang,
+                'status_disertasi' => 1,
+                'berkas_proposal' => '',
+                'status_proposal' => 0,
+            );
 
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
+            $this->disertasi->save($data);
+            $last_id = $this->db->insert_id();
 
-            if (!$this->upload->do_upload('berkas_proposal')) {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-            } else {
-                $upload_data = $this->upload->data();
-                $file = $upload_data['file_name'];
+            $dataj = array(
+                'id_disertasi' => $last_id,
+                'judul' => $this->input->post('judul', TRUE)
+            );
 
-                date_default_timezone_set('Asia/Jakarta');
-                $now = date('Y-m-d H:i:s');
+            $this->disertasi->save_judul($dataj);
 
-                $data = array(
-                    'id_departemen' => $this->input->post('id_departemen', TRUE),
-                    'id_gelombang' => $this->input->post('id_gelombang', TRUE),
-                    'jenis' => 1,
-                    'nim' => $this->session_data['username'],
-                    'tgl_pengajuan' => $now,
-                    'berkas_proposal' => $upload_data['file_name'],
-                    'status_proposal' => 1
-                );
-
-                $this->proposal->save($data);
-                $last_id = $this->db->insert_id();
-
-                $dataj = array(
-                    'id_skripsi' => $last_id,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
-
-                $this->proposal->save_judul($dataj);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan proposal skripsi. Tunggu persetujuan Kadep.');
-                redirect('dashboardm/modul/proposal');
-            }
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan ujian kualifikasi..');
+            redirect('mahasiswa/disertasi/kualifikasi');
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardm/modul/proposal');
+            redirect('mahasiswa/disertasi/kualifikasi');
         }
     }
 
@@ -127,7 +106,7 @@ class Disertasi_kualifikasi extends CI_Controller {
             // DATA //
             'departemen' => $this->departemen->read(),
             'gelombang' => $this->gelombang->read_berjalan(),
-            'proposal' => $this->proposal->detail($id, $username)
+            'proposal' => $this->disertasi->detail($id, $username)
         );
 
         if ($data['proposal']) {
@@ -145,14 +124,14 @@ class Disertasi_kualifikasi extends CI_Controller {
         if ($hand == 'center19') {
             $id_skripsi = $this->input->post('id_skripsi', TRUE);
 
-            $read_judul = $this->proposal->read_judul($id_skripsi);
+            $read_judul = $this->disertasi->read_judul($id_skripsi);
             $judul = $this->input->post('judul', TRUE);
 
             if ($judul == $read_judul->judul) {
                 $data = array(
                     'id_departemen' => $this->input->post('id_departemen', TRUE),
                 );
-                $this->proposal->update($data, $id_skripsi);
+                $this->disertasi->update($data, $id_skripsi);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update');
@@ -161,14 +140,14 @@ class Disertasi_kualifikasi extends CI_Controller {
                 $data = array(
                     'id_departemen' => $this->input->post('id_departemen', TRUE),
                 );
-                $this->proposal->update($data, $id_skripsi);
+                $this->disertasi->update($data, $id_skripsi);
 
                 $dataj = array(
                     'id_skripsi' => $id_skripsi,
                     'judul' => $this->input->post('judul', TRUE)
                 );
 
-                $this->proposal->save_judul($dataj);
+                $this->disertasi->save_judul($dataj);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update');
@@ -208,7 +187,7 @@ class Disertasi_kualifikasi extends CI_Controller {
                     'berkas_proposal' => $upload_data['file_name'],
                 );
 
-                $this->proposal->update($data, $id_skripsi);
+                $this->disertasi->update($data, $id_skripsi);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Update BAB I berhasil.');
@@ -231,11 +210,11 @@ class Disertasi_kualifikasi extends CI_Controller {
             'subtitle' => 'Pengajuan Proposal Skripsi (Jadwal Ujian)',
             'section' => 'backend/mahasiswa/modul/proposal_ujian',
             // DATA //
-            'proposal' => $this->proposal->detail($id, $username),
-            'ujian' => $this->proposal->ujian($id, $username)
+            'proposal' => $this->disertasi->detail($id, $username),
+            'ujian' => $this->disertasi->ujian($id, $username)
         );
         if ($data['ujian']) {
-            $data['penguji'] = $this->proposal->read_penguji($data['ujian']->id_ujian);
+            $data['penguji'] = $this->disertasi->read_penguji($data['ujian']->id_ujian);
             $this->load->view('backend/index_sidebar', $data);
         } else {
             $data['section'] = 'backend/notification/danger';
