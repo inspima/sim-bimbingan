@@ -19,9 +19,9 @@
                 </tr>
                 <?php if($biodata->id_jenjang != NULL) {?>
                 <tr>
-                  <td>Jenjang</td>
+                  <td>Program Studi</td>
                   <td style="width: 10px">:</th>
-                  <td><?php echo $biodata->nm_jenjang?></th>
+                  <td><?php echo $biodata->nm_jenjang." ".$biodata->nm_prodi?></th>
                 </tr>
                 <?php } ?>
                 <tr>

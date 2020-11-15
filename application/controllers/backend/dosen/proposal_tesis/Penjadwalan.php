@@ -102,6 +102,183 @@ class Penjadwalan extends CI_Controller {
         }
     }
     
+    public function pembimbing_save()
+    {
+        $hand = $this->input->post('hand',TRUE);
+        
+        if($hand == 'center19')
+        {
+            $id_skripsi = $this->input->post('id_skripsi',TRUE);
+            $nip = $this->input->post('nip',TRUE);
+
+            $datap = array(
+                'id_skripsi' => $id_skripsi,
+                'nip'	=> $nip,
+                'status' => 2,
+                'status_bimbingan' => 2,
+                'id_jenjang' => 2
+            );
+            /*
+           $hitungbimbingan = $this->proposal->hitung_bimbingan_aktif($nip);
+
+            if($hitungbimbingan < '10')
+            {
+                $cekpembimbing = $this->proposal->cek_pembimbing($id_skripsi);
+            
+                if($cekpembimbing)
+                {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', 'Gagal simpan. Pembimbing sudah ada.');
+                    redirect('dashboardd/proposal/kadep_diterima/plot/'.$id_skripsi);
+                }
+                else
+                {
+                    $this->proposal->save_pembimbing($datap);
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Berhasil simpan pembimbing');
+                    redirect('dashboardd/proposal/kadep_diterima/plot/'.$id_skripsi);  
+                }
+            }
+            else
+            if($hitungbimbingan >= '10')
+            {
+                $this->session->set_flashdata('msg-title', 'alert-danger');
+                $this->session->set_flashdata('msg', 'Gagal simpan. Pembimbing sudah aktif 10 bimbingan.');
+                redirect('dashboardd/proposal/kadep_diterima/plot/'.$id_skripsi);
+            }
+             * 
+             */
+
+	}
+	else
+	{
+		$this->session->set_flashdata('msg-title', 'alert-danger');
+		$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+		redirect('dashboardd/proposal/kadep_diterima');
+	}
+    }
+    
+      public function ujian_save()
+    {
+        $hand = $this->input->post('hand',TRUE);
+        if($hand == 'center19')
+        {
+            $struktural = $this->struktural->read_struktural($this->session_data['username']);
+            $id_departemen = $struktural->id_departemen;
+            if($struktural->id_struktur == '8') //KPS S2
+            {
+                $id_skripsi = $this->input->post('id_skripsi',TRUE);
+                $ujian     = $this->proposal->read_ujian($id_skripsi);
+                
+                if($ujian) // JIKA SUDAH ADA
+                {
+                    //echo 'jadwal sudah ada. tambah script update';  die();
+                    $id_ujian = $this->input->post('id_ujian');
+
+                    $data = array(
+                        'id_skripsi'=> $id_skripsi,
+                        'id_ruang'  => $this->input->post('id_ruang',TRUE),
+                        'id_jam'    => $this->input->post('id_jam',TRUE),
+                        'tanggal'   => todb($this->input->post('tanggal', TRUE)),
+                        'status'    => 1,
+                        'status_ujian' => 1,
+                        'id_jenjang' => 2
+                    );
+                    
+                    $cek_jadwal = $this->proposal->cek_ruang_terpakai($data);
+
+                    if($cek_jadwal)
+                    {
+                        $this->session->set_flashdata('msg-title', 'alert-danger');
+                        $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
+                        redirect('dashboardd/proposal_tesis/penjadwalan/detail/'.$id_skripsi);
+                    }
+                    else
+                    {
+                        $penguji = $this->proposal->read_penguji($id_ujian);
+                        
+                        if($penguji)
+                        {
+                            foreach($penguji as $list)
+                            {
+                                $bentrok = $this->proposal->read_pengujibentrok($data['tanggal'], $data['id_jam'], $list['nip']);
+                                break;
+                            }
+                            
+                            if($bentrok)
+                            {
+        
+                                $this->session->set_flashdata('msg-title', 'alert-danger');
+                                $this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
+                                redirect('dashboardd/proposal_tesis/penjadwalan/detail/'.$id_skripsi);
+                            }
+                            else
+                            {
+                                $this->proposal->update_ujian($data, $id_ujian);
+        
+                                $this->session->set_flashdata('msg-title', 'alert-success');
+                                $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
+                                redirect('dashboardd/proposal_tesis/penjadwalan/detail/'.$id_skripsi);
+                            }
+                        }
+                        else //langsung update
+                        {
+                            $this->proposal->update_ujian($data, $id_ujian);
+        
+                            $this->session->set_flashdata('msg-title', 'alert-success');
+                            $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
+                            redirect('dashboardd/proposal_tesis/penjadwalan/detail/'.$id_skripsi);
+                        }
+                    }
+                }
+                else //JIKA BELUM ADA SAVE BARU
+                {
+                    $data = array(
+                        'id_skripsi'=> $id_skripsi,
+                        'id_ruang'  => $this->input->post('id_ruang',TRUE),
+                        'id_jam'    => $this->input->post('id_jam',TRUE),
+                        'tanggal'   => todb($this->input->post('tanggal', TRUE)),
+                        'jenis_ujian' => 1,
+                        'status'    => 1,
+                        'status_ujian' => 1,
+                        'id_jenjang' => 2
+                    );
+                    
+                    $cek_jadwal = $this->proposal->cek_ruang_terpakai($data);
+
+                    if($cek_jadwal)
+                    {
+                        $this->session->set_flashdata('msg-title', 'alert-danger');
+                        $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
+                        redirect('dashboardd/proposal_tesis/penjadwalan/detail/'.$id_skripsi);
+                    }
+                    else
+                    {
+                        $this->proposal->save_ujian($data);
+        
+                        $this->session->set_flashdata('msg-title', 'alert-success');
+                        $this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
+                        redirect('dashboardd/proposal_tesis/penjadwalan/detail/'.$id_skripsi);
+                    }
+                        
+                }
+                
+            }
+            else
+            {
+                $this->session->set_flashdata('msg-title', 'alert-danger');
+                $this->session->set_flashdata('msg', 'Terjadi Kesalahan hak akses');
+                redirect('dashboardd');
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan 2');
+            redirect('dashboardd');
+        }
+    }
+    
     
 
 }

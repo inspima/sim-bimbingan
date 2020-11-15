@@ -1,6 +1,6 @@
 <div class="row">
     <!-- left column -->
-    <div class="col-md-6">
+    <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
         <div class="box-header with-border">
@@ -29,9 +29,12 @@
                 </div>
                 <input type="hidden" value="1" name="id_departemen">
                 <div class="form-group">
-                    <label>Judul</label>
+                    <label>Judul Proposal</label>
                     <textarea class="form-control" name="judul" required></textarea>
                 </div>
+                <p>
+                 &nbsp;
+                </p>
                 <div class="form-group">
                     <label>Upload BAB 1 (format file .pdf maks 10mb)</label>
                     <input type="file" name="berkas_proposal" class="form-control" required>

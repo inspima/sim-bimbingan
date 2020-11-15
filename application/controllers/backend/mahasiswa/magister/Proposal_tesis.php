@@ -120,7 +120,7 @@ class Proposal_tesis extends CI_Controller {
                 $this->proposal->save_judul($dataj);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan proposal skripsi. Tunggu persetujuan Kadep.');
+                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan proposal Tesis. Tunggu persetujuan Sekertaris Prodi.');
                 redirect('dashboardm/magister/proposal_tesis');
             }
 			
@@ -267,7 +267,7 @@ class Proposal_tesis extends CI_Controller {
 			// PAGE //
 			'title'		=> 'Modul (Mahasiswa)',
             'subtitle'	=> 'Pengajuan Proposal Skripsi (Jadwal Ujian)',
-			'section'	=> 'backend/mahasiswa/modul/proposal_ujian',
+			'section'	=> 'backend/mahasiswa/magister/proposal_tesis',
             // DATA //
             'proposal'  => $this->proposal->detail($id, $username),
 			'ujian'  => $this->proposal->ujian($id, $username)
@@ -281,7 +281,7 @@ class Proposal_tesis extends CI_Controller {
         {
             $data['section'] = 'backend/notification/danger';
             $data['msg']	 = 'Tidak ditemukan / Ujian belum disetting Kadep.';
-            $data['linkback']= 'dashboardm/modul/proposal';
+            $data['linkback']= 'dashboardm/magister/proposal_tesis';
 			$this->load->view('backend/index_sidebar',$data);	
 		}	
     }

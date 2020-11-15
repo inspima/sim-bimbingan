@@ -41,10 +41,38 @@ class Pengajuan extends CI_Controller {
             $data=array(
                 // PAGE //
                 'title'	=> 'Pengajuan Proposal Tesis (Modul Sekertaris Prodi)',
-                'subtitle'	=> 'Data Pengajuan Proposal Tesis',
+                'subtitle'	=> 'Data Pengajuan Proposal Tesis (Pengajuan)',
                 'section'	=> 'backend/dosen/proposal_tesis/pengajuan',
                 // DATA //
                 'proposal'  => $this->proposal->read($id_prodi)
+                );
+                //print_r($data['proposal']);die();
+                $this->load->view('backend/index_sidebar',$data);	
+        }
+        else
+        {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+			redirect('dashboardd');
+        }
+    }
+    
+    public function app()
+	{
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        //var_dump ($id_prodi);
+        if($struktural->id_struktur == '7')
+            
+        {
+
+            $data=array(
+                // PAGE //
+                'title'	=> 'Pengajuan Proposal Tesis (Modul Sekertaris Prodi)',
+                'subtitle'	=> 'Data Pengajuan Proposal Tesis (Diterima)',
+                'section'	=> 'backend/dosen/proposal_tesis/app',
+                // DATA //
+                'proposal'  => $this->proposal->read_proposal_acc($id_prodi)
                 );
                 //print_r($data['proposal']);die();
                 $this->load->view('backend/index_sidebar',$data);	

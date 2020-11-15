@@ -94,7 +94,7 @@
                         <?php echo form_open('dashboardd/proposal/kadep_diterima/pembimbing_delete')?>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-                        <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                        <?php //echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
                         <?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
                         <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
                         <?php echo form_close()?>
@@ -125,7 +125,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <?php echo form_open('dashboardd/proposal/kadep_diterima/ujian_save');?>
+        <?php echo form_open('dashboardd/proposal_tesis/penjadwalan/ujian_save');?>
             <div class="box-body">
 
                 <div class="form-group">
@@ -286,7 +286,7 @@
                         <?php echo form_open('dashboardd/proposal/kadep_diterima/penguji_update_statustim')?>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-                        <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                        <?php //echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
                         <?php echo formtext('hidden', 'id_penguji', $listpenguji['id_penguji'], 'required') ?>
                         <?php echo formtext('hidden', 'status_tim','2','required');?>
                         <button type="submit" class="btn btn-xs btn-primary"> Ketua</button>

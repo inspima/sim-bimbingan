@@ -31,7 +31,7 @@
             </span>
         </a>
         <ul class="treeview-menu">
-        <li><a href="<?php echo base_url()?>dashboardm/modul/tesis"><i class="fa fa-circle-o"></i> Skripsi</a></li>        
+        <li><a href="<?php echo base_url()?>dashboardm/magister/tesis"><i class="fa fa-circle-o"></i> Tesis</a></li>        
         </ul>
     </li>
 </ul>
