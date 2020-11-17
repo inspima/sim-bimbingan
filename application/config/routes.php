@@ -270,7 +270,9 @@ $route['dashboardd/proposal_tesis/pengajuan/approve/(:num)'] = 'backend/dosen/pr
 $route['dashboardd/proposal_tesis/pengajuan/reject/(:num)'] = 'backend/dosen/proposal_tesis/pengajuan/reject/$1';
 $route['dashboardd/proposal_tesis/penjadwalan'] = 'backend/dosen/proposal_tesis/penjadwalan';
 $route['dashboardd/proposal_tesis/penjadwalan/detail/(:num)'] = 'backend/dosen/proposal_tesis/penjadwalan/detail/$1';
-
+$route['dashboardd/proposal_tesis/penjadwalan/pembimbing_save'] = 'backend/dosen/proposal_tesis/penjadwalan/pembimbing_save';
+$route['dashboardd/proposal_tesis/penguji']='backend/dosen/proposal_tesis/penguji';
+$route['dashboardd/proposal_tesis/pembimbing']='backend/dosen/proposal_tesis/pembimbing';
 /*
  * JENJANG SARJANAH
  */
@@ -291,16 +293,30 @@ $route['sarjanah/skripsi/belum_approve'] = 'backend/baa/sarjanah/skripsi/belum_a
  */
 // BAA
 $route['baa/doktoral/disertasi/kualifikasi'] = 'backend/baa/doktoral/disertasi_kualifikasi';
-$route['baa/doktoral/disertasi/kualifikasi/terima'] = 'backend/baa/doktoral/disertasi_kualifikasi/terima';
+$route['baa/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_berita';
+$route['baa/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_penilaian';
+$route['baa/doktoral/disertasi/kualifikasi/cetak_absensi'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_absensi';
+
 
 $route['baa/doktoral/disertasi/proposal'] = 'backend/baa/doktoral/disertasi_proposal';
 $route['baa/doktoral/disertasi/ma'] = 'backend/baa/doktoral/disertasi_ma';
 $route['baa/doktoral/disertasi/ujian'] = 'backend/baa/doktoral/disertasi_ujian';
 
+
 // KPS
 $route['dosen/disertasi/kualifikasi'] = 'backend/dosen/disertasi/kualifikasi';
 $route['dosen/disertasi/kualifikasi/terima'] = 'backend/dosen/disertasi/kualifikasi/terima';
-$route['dosen/disertasi/kualifikasi/setting/(:num)'] = 'backend/dosen/disertasi/kualifikasi/setting/(:num)';
+$route['dosen/disertasi/kualifikasi/setting/(:num)'] = 'backend/dosen/disertasi/kualifikasi/setting/(:num)';$route['dosen/disertasi/kualifikasi'] = 'backend/dosen/disertasi/kualifikasi';
+$route['dosen/disertasi/kualifikasi/terima'] = 'backend/dosen/disertasi/kualifikasi/terima';
+$route['dosen/disertasi/kualifikasi/jadwal_save'] = 'backend/dosen/disertasi/kualifikasi/jadwal_save';
+$route['dosen/disertasi/kualifikasi/penguji_save'] = 'backend/dosen/disertasi/kualifikasi/penguji_save';
+$route['dosen/disertasi/kualifikasi/penguji_update_statustim'] = 'backend/dosen/disertasi/kualifikasi/penguji_update_statustim';
+$route['dosen/disertasi/kualifikasi/penguji_delete'] = 'backend/dosen/disertasi/kualifikasi/penguji_delete';
+$route['dosen/disertasi/kualifikasi/update_status_ujian'] = 'backend/dosen/disertasi/kualifikasi/update_status_ujian';
+
+// DOSEN
+$route['dosen/disertasi/kualifikasi/penguji'] = 'backend/dosen/disertasi/kualifikasi/penguji';
+$route['dosen/disertasi/kualifikasi/penguji/setujui'] = 'backend/dosen/disertasi/kualifikasi/penguji_setujui';
 
 // MAHASISWA
 $route['mahasiswa/disertasi/kualifikasi'] = 'backend/mahasiswa/disertasi/kualifikasi';

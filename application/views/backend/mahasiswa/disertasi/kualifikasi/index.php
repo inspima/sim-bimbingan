@@ -8,7 +8,7 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/status_disertasi_kualifikasi'); ?>
+<?php $this->view('backend/widgets/disertasi/status_kualifikasi'); ?>
 <div class="box">
     <div class="box-header">
         <h3 class="box-title"><?= $subtitle ?></h3>

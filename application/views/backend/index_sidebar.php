@@ -16,7 +16,7 @@
                         <?php
                         if (!empty($use_back)) {
                             ?>
-                            <a class="btn bg-blue pull-right" href="#" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> Kembali</a>
+                            <a class="btn bg-blue pull-right" href="<?php echo base_url() . $back_link ?>" ><i class="fa fa-arrow-left"></i> Kembali</a>
                             <?php
                         }
                         ?>

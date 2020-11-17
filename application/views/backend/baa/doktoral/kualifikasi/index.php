@@ -9,6 +9,7 @@
     </div>
 <?php endif; ?>
 
+<?php $this->view('backend/widgets/disertasi/status_kualifikasi'); ?>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -27,9 +28,9 @@
                             <th>Judul</th>
                             <th>Departemen</th>
                             <th>Tgl.Pengajuan</th>
-                            <th>Penguji</th>
-                            <th>Jadwal</th>
-                            <th>Opsi</th>
+                            <th class="text-center">Penguji</th>
+                            <th class="text-center">Jadwal</th>
+                            <th class="text-center">Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,24 +50,64 @@
                                 <td><?php echo $list['departemen'] ?></td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
+                                    <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi']]); ?>
                                 </td>
                                 <td class="text-center">
-
+                                    <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi']]); ?>
                                 </td>
                                 <td class="text-center">
                                     <?php if ($list['status_kualifikasi'] == '1') {
                                         ?>
-                                        <?php echo form_open('doktoral/disertasi/kualifikasi/terima') ?>
-                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-                                        <button class="btn btn-xs btn-success pull-left"><i class="fa fa-check"></i> Proses Terima</button>
-                                        <?php echo form_close() ?>
+                                        <span class="btn btn-xs btn-success"><i class="fa fa-check"></i> Setujui</span>
+                                        <?php
+                                    } else if ($list['status_kualifikasi'] == '2') {
+                                        ?>
+                                        <span class="btn btn-xs bg-green-active"><i class="fa fa-check"></i> Diterima</span>
+                                        <?php
+                                    } else if ($list['status_kualifikasi'] == '3') {
+                                        ?>
+                                        <span class="btn btn-xs bg-navy"><i class="fa fa-check"></i> Dijadwalkan</span>
+                                        <?php
+                                    } else if ($list['status_kualifikasi'] == '4') {
+                                        ?>
+                                        <span class="btn btn-xs bg-purple"><i class="fa fa-check"></i> Ujian</span>
                                         <?php
                                     } else {
                                         ?>
-                                        <span class="btn btn-xs bg-green-active"><i class="fa fa-check"></i> Diterima</span>
-                                        <br/><br/>
-                                        <a class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Jadwal & Penguji</a>
+                                        <span class="btn btn-xs bg-red"><i class="fa fa-check"></i> Selesai</span>
+                                        <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if ($list['status_kualifikasi'] >= 4) {
+                                        ?>
+                                        <hr style="margin: 5px"/>
+                                        <!-- Berita Acara -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('baa/doktoral/disertasi/kualifikasi/cetak_berita', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
+                                        <?php echo form_close() ?>                                        
+                                        <hr style="margin: 2px"/>
+                                        <!-- Penilaian -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('baa/doktoral/disertasi/kualifikasi/cetak_penilaian', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
+                                        <?php echo form_close() ?>                                      
+                                        <hr style="margin: 2px"/>
+                                        <!-- Daftar Hadir -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('baa/doktoral/disertasi/kualifikasi/cetak_absensi', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Daftar Hadir</button>
+                                        <?php echo form_close() ?>
                                         <?php
                                     }
                                     ?>

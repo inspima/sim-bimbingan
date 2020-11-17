@@ -20,7 +20,7 @@ class Disertasi_kualifikasi extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
-        $this->load->model('backend/mahasiswa/disertasi_model', 'disertasi');
+        $this->load->model('backend/transaksi/disertasi', 'disertasi');
         //END MODEL
     }
 
@@ -37,67 +37,75 @@ class Disertasi_kualifikasi extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
-    public function terima() {
+    public function cetak_berita() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $id_skripsi = $this->input->post('id_disertasi', TRUE);
-            $data = array(
-                'status_kualifikasi' => 2,
-            );
-            $this->disertasi->update($data, $id_skripsi);
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $id_ujian = $this->input->post('id_ujian', TRUE);
 
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil approve');
-            redirect('doktoral/disertasi/kualifikasi');
+            $data = array(
+                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
+                'pengujis' => $this->disertasi->read_penguji($id_ujian),
+                'disertasi' => $this->disertasi->detail($id_disertasi)
+            );
+            //print_r($data['penguji_ketua']);die();
+            ob_end_clean();
+            $page = 'backend/baa/doktoral/kualifikasi/cetak_berita';
+            $size = 'legal';
+            $this->pdf->setPaper($size, 'potrait');
+            $this->pdf->filename = "disertasi_berita.pdf";
+            $this->pdf->load_view($page, $data);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('doktoral/disertasi/kualifikasi');
+            redirect('baa/doktoral/disertasi/kualifikasi/');
         }
     }
 
-    public function approve() {
+    public function cetak_penilaian() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $id_skripsi = $this->input->post('id_skripsi', TRUE);
-            $gelombang_aktif = $this->gelombang->read_berjalan();
-
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $id_ujian = $this->input->post('id_ujian', TRUE);
             $data = array(
-                'status_skripsi' => 2,
-                'id_gelombang' => $gelombang_aktif->id_gelombang
+                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
+                'disertasi' => $this->disertasi->detail($id_disertasi)
             );
-
-            $this->skripsi->update($data, $id_skripsi);
-
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil approve');
-            redirect('dashboardb/skripsi/skripsi_pengajuan');
+            //print_r($data['penguji_ketua']);die();
+            ob_end_clean();
+            $page = 'backend/baa/doktoral/kualifikasi/cetak_penilaian';
+            $size = 'legal';
+            $this->pdf->setPaper($size, 'potrait');
+            $this->pdf->filename = "disertasi_penilaian.pdf";
+            $this->pdf->load_view($page, $data);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardb/skripsi/skripsi_pengajuan');
+            redirect('baa/doktoral/disertasi/kualifikasi/');
         }
     }
 
-    public function bimbingan() {
-        $id = $this->uri->segment(5);
-        $data = array(
-            // PAGE //
-            'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Bimbingan Skripsi',
-            'section' => 'backend/baa/skripsi/skripsi_pengajuan_bimbingan',
-            // DATA //
-            'skripsi' => $this->skripsi->detail($id),
-            'bimbingan' => $this->skripsi->read_bimbingan($id)
-        );
+    public function cetak_absensi() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $id_ujian = $this->input->post('id_ujian', TRUE);
 
-        if ($data['skripsi']) {
-            $this->load->view('backend/index_sidebar', $data);
+            $data = array(
+                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
+                'disertasi' => $this->disertasi->detail($id_disertasi)
+            );
+            //print_r($data['penguji_ketua']);die();
+            ob_end_clean();
+            $page = 'backend/baa/doktoral/kualifikasi/cetak_absensi';
+            $size = 'legal';
+            $this->pdf->setPaper($size, 'potrait');
+            $this->pdf->filename = "disertasi_absensi.pdf";
+            $this->pdf->load_view($page, $data);
         } else {
-            $data['section'] = 'backend/notification/danger';
-            $data['msg'] = 'Tidak ditemukan';
-            $data['linkback'] = 'dashboardm/modul/skripsi';
-            $this->load->view('backend/index_sidebar', $data);
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('baa/doktoral/disertasi/kualifikasi/');
         }
     }
 

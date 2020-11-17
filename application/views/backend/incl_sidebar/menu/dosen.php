@@ -103,7 +103,7 @@
             if ($struktural) {
                 if ($struktural->id_struktur == '7') {//SPS
                     ?>
-                    <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/pengajuan"><i class="fa fa-user"></i>Pengajuan Proposal Tesis</a></li>
+                    <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/pengajuan"><i class="fa fa-book"></i>Tesis</a></li>
                     <?php
                 } else
                 if ($struktural->id_struktur == '8') {//KPS S2
@@ -119,8 +119,8 @@
                 <?php
             }
             ?>
-            <li><a href="<?php echo base_url() ?>dashboardd/proposal/penguji_pengajuan"><i class="fa fa-circle-o"></i> Pengajuan Penguji</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardd/proposal/penguji_approve"><i class="fa fa-circle-o"></i> Penguji</a></li>
+            <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/penguji"><i class="fa fa-circle-o"></i> Penguji </a></li>
+            <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li>
         </ul>
     </li>
 
@@ -154,6 +154,7 @@
     if ($struktural) {
         if ($struktural->id_struktur == '9') {//KPS S3
             ?>
+            <li class="header">KPS</li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i> <span>Disertasi</span>
@@ -171,8 +172,37 @@
 
                 </ul>
             </li>
+            <li class="header">PERMINTAAN</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-book"></i> <span>Disertasi</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url() ?>dosen/disertasi/kualifikasi/penguji"><i class="fa fa-circle-o"></i>Penguji</a></li>
+
+                </ul>
+            </li>
             <?php
         }
+    } else {
+        ?>
+        <li class="header">PERMINTAAN</li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-book"></i> <span>Disertasi</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?php echo base_url() ?>dosen/disertasi/kualifikasi/penguji"><i class="fa fa-circle-o"></i>Penguji</a></li>
+
+            </ul>
+        </li>
+        <?php
     }
     ?>
 </ul>

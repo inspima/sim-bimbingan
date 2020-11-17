@@ -97,10 +97,12 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi/Kelayakan</a></li>
-            <li><a href="<?php echo base_url() ?>doktoral/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>doktoral/disertasi/ma"><i class="fa fa-circle-o"></i>MKPD/MPKK</a></li>
-            <li><a href="<?php echo base_url() ?>doktoral/disertasi/ujian"><i class="fa fa-circle-o"></i>Ujian Disertasi</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/ma"><i class="fa fa-circle-o"></i>MPKK</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/ma"><i class="fa fa-circle-o"></i>MKPD</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kelayakan</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/ujian"><i class="fa fa-circle-o"></i>Ujian</a></li>
         </ul>
     </li>
 </ul>
