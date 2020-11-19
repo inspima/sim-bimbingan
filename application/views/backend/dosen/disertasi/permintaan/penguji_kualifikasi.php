@@ -8,7 +8,15 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => '1']); ?>
+<div class="btn-group">
+    <a class="btn btn-default" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji">Kualifikasi</a>
+    <a class="btn btn-primary" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/proposal">Proposal</a>
+    <a class="btn btn-success" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/kelayakan">Kelayakan</a>
+    <a class="btn bg-orange" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/tertutup">Ujian Tertutup</a>
+    <a class="btn btn-danger" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/terbuka">Ujian Terbuka</a>
+</div>
+<hr style="margin: 10px"/>
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => 1]); ?>
 <div class="box">
 
     <!-- /.box-header -->
@@ -23,7 +31,7 @@
                     <th>Tgl.Pengajuan</th>
                     <th class="text-center">Penguji</th>
                     <th class="text-center">Jadwal</th>
-                    <th class="text-center">Opsi</th>
+                    <th>Opsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,41 +50,13 @@
                         <td><?php echo $list['departemen'] ?></td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 1]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 1]); ?>                            
                         </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 1]); ?>
                         </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
-                            <?php
-                            if ($list['status_kualifikasi'] == 1 && $struktural->id_struktur == STRUKTUR_SPS) {
-                                ?>
-                                <br/><br/>
-                                <?php echo form_open('dosen/disertasi/kualifikasi/terima') ?>
-                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
-                                <?php echo form_close() ?>
-                                <?php
-                            } else if ($list['status_kualifikasi'] == 2 && $struktural->id_struktur == STRUKTUR_KPS_S3) {
-                                ?>
-                                <br/><br/>
-                                <?php echo form_open('dosen/disertasi/kualifikasi/terima') ?>
-                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
-                                <?php echo form_close() ?>
-                                <?php
-                            } else if ($list['status_kualifikasi'] >= 4 && $struktural->id_struktur == STRUKTUR_KPS_S3) {
-                                ?>
-                                <br/><br/>
-                                <a href="<?= base_url() ?>dosen/disertasi/kualifikasi/setting/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penguji</a>
-                                <?php
-                            }
-                            ?>
-
-
                         </td>
                     </tr>      
                     <?php

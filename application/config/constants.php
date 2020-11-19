@@ -90,3 +90,14 @@ defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatic
  */
 
 define('APPLICATION_VERSION', '3.0');
+// STRUKTUR DOSEN
+
+define('STRUKTUR_DEKAN', 1);
+define('STRUKTUR_WADEK_1', 2);
+define('STRUKTUR_WADEK_2', 3);
+define('STRUKTUR_WADEK_3', 4);
+define('STRUKTUR_KADEP', 5);
+define('STRUKTUR_SPS', 7);
+define('STRUKTUR_KPS_S1', 6);
+define('STRUKTUR_KPS_S2', 8);
+define('STRUKTUR_KPS_S3', 9);

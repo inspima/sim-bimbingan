@@ -8,67 +8,47 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php
-$promotors = $this->disertasi->read_promotor_kopromotor($disertasi->id_disertasi);
-if (count($promotors) == 0) {
-    ?>
-    <div class="callout callout-warning">
-        <h4>Perhatian!</h4>
-        <p>Anda belum mengajukan Promotor/Ko Promotor.</p>
-    </div>
-    <?php
-}
-?>
 <div class="row">
+    <!-- left column -->
+    <div class="col-sm-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h2 class="box-title">Informasi Disertasi</h2>
+
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <div class="box-body">
+                <div class="form-group">
+                    <label>NIM</label>
+                    <input type="text" name="nim" class="form-control" value="<?php echo $disertasi->nim ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Nama</label>
+                    <input type="text" name="nama" class="form-control" value="<?php echo $disertasi->nama ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Judul</label>
+                    <?php
+                    $judul = $this->disertasi->read_judul($disertasi->id_disertasi);
+                    ?>
+                    <textarea class="form-control" name="judul" readonly><?php echo $judul->judul ?></textarea>
+                </div>
+
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+
     <!-- left column -->
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><?php echo $subtitle ?></h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <?php echo form_open_multipart('mahasiswa/disertasi/proposal/save'); ?>
-            <div class="box-body">
-                <div class="form-group">
-                    <label>Departemen</label>
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-                    <select name="id_departemen" class="form-control select2" style="width: 100%;" required>
-                        <option value="">Pilih</option>
-                        <?php
-                        foreach ($departemen as $list) {
-                            ?>
-                            <option value="<?php echo $list['id_departemen'] ?>" <?php if ($disertasi->id_departemen == $list['id_departemen']) echo 'selected'; ?>><?php echo $list['departemen'] ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Judul</label>
-                    <textarea class="form-control" name="judul" required><?php echo $disertasi->judul ?></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Upload Bukti TOEFL & TOEFL PENDAMPING (format file .pdf maks 10mb)</label>
-                    <input type="file" name="berkas_proposal" class="form-control" required>
-                </div>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i> Ajukan</button>
-            </div>
-            <?= form_close() ?>
-        </div>
-        <!-- /.box -->
-    </div>
-    <div class="col-md-6">
-        <!-- general form elements -->
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Pengajuan Promotor & Ko-Promotor</h3>
+                <h3 class="box-title">Promotor & Ko-Promotor</h3>
             </div>
             <?php echo form_open('mahasiswa/disertasi/proposal/promotor_save'); ?>
             <div class="box-body table-responsive">
@@ -110,6 +90,7 @@ if (count($promotors) == 0) {
                             </tr>
                             <?php
                             $str_status_tim = '';
+                            $promotors = $this->disertasi->read_promotor_kopromotor($disertasi->id_disertasi);
                             foreach ($promotors as $promotor) {
                                 if ($promotor['status_tim'] == '1') {
                                     $str_status_tim = 'Promotor';
@@ -143,12 +124,17 @@ if (count($promotors) == 0) {
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo form_open('mahasiswa/disertasi/proposal/promotor_delete') ?>
-                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                        <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-                                        <?php echo formtext('hidden', 'id_promotor', $promotor['id_promotor'], 'required') ?>
-                                        <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
-                                        <?php echo form_close() ?>
+                                        <?php if ($promotor['status'] != '2'):
+                                            ?>
+                                            <?php echo form_open('mahasiswa/disertasi/proposal/promotor_delete') ?>
+                                            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                            <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+                                            <?php echo formtext('hidden', 'id_promotor', $promotor['id_promotor'], 'required') ?>
+                                            <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                                            <?php echo form_close() ?>
+                                            <?php
+                                        endif;
+                                        ?>
                                     </td>
                                 </tr>
                                 <?php
@@ -168,6 +154,18 @@ if (count($promotors) == 0) {
                 ?>
             </div>
         </div>
+        <!-- /.box -->
+    </div>
+
+    <!-- left column -->
+
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <!-- general form elements -->
+
         <!-- /.box -->
     </div>
 </div>

@@ -1,30 +1,29 @@
 <?php
-$jadwal = $this->disertasi->read_jadwal($id_disertasi, $jenis);
-if (!empty($jadwal)) {
-    $penguji = $this->disertasi->read_penguji($jadwal->id_ujian);
+$disertasi = $this->disertasi->detail($id_disertasi);
+if ($disertasi->status_proposal > 0) {
+    $promotors = $this->disertasi->read_promotor_kopromotor($id_disertasi);
     $num = 1;
-    foreach ($penguji as $show) {
-        if ($show['status'] == '1') {
+    foreach ($promotors as $promotor) {
+        if ($promotor['status'] == '1') {
             ?>
             <p style="color:red">
                 <?php
-                echo $num . ' ' . $show['nama'] . '<br>';
+                echo $num . ' ' . $promotor['nama'] . '<br>';
                 ?>
             </p>
             <?php
         } else {
-            echo $num . ' ' . $show['nama'] . '<br>';
+            echo $num . ' ' . $promotor['nama'] . '<br>';
         }
 
-        if ($this->session_data['username'] == $show['nip']) {
-            if ($show['status'] == '1') {
+        if ($this->session_data['username'] == $promotor['nip']) {
+            if ($promotor['status'] == '1') {
                 ?>
-                <?php echo form_open('dosen/disertasi/permintaan/penguji/setujui') ?>
+                <?php echo form_open('dosen/disertasi/permintaan/promotor/setujui') ?>
                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                 <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
-                <?php echo formtext('hidden', 'id_penguji', $show['id_penguji'], 'required') ?>
+                <?php echo formtext('hidden', 'id_promotor', $promotor['id_promotor'], 'required') ?>
                 <?php echo formtext('hidden', 'id_disertasi', $id_disertasi, 'required') ?>
-                <?php echo formtext('hidden', 'id_ujian', $jadwal->id_ujian, 'required') ?>
                 <?php
             } else {
                 ?>

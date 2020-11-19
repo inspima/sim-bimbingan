@@ -12,7 +12,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
         $this->db->where('s.nim', $username);
-        $this->db->where('s.jenis', 1);
+        $this->db->where('s.status_kualifikasi >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -20,13 +20,37 @@ class Disertasi extends CI_Model {
     }
 
     public function read_kualifikasi() {
-        $this->db->select('s.*,jd.judul, d.departemen ,m.nama,uj.id_ujian');
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
-        $this->db->join('ujian_disertasi uj', 'uj.id_disertasi = s.id_disertasi', 'left');
-        $this->db->where('s.jenis', 1);
+        $this->db->where('s.status_kualifikasi >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_proposal_mahasiswa($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('disertasi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.status_proposal >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_proposal() {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.status_proposal >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -46,7 +70,6 @@ class Disertasi extends CI_Model {
     }
 
     function read_aktif($username) {
-        //$stts = array('1','2','3');
         $stts = array('1', '2');
         $this->db->select('s.id_disertasi, s.id_departemen, s.tgl_pengajuan,s.status_kualifikasi, s.berkas_proposal, s.status_proposal, d.departemen ');
         $this->db->from('disertasi s');
@@ -102,6 +125,21 @@ class Disertasi extends CI_Model {
     }
 
     // PENGUJI
+
+    public function read_permintaan_penguji($username, $jenis) {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama,uj.id_ujian');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('ujian_disertasi uj', 'uj.id_disertasi = s.id_disertasi');
+        $this->db->where('uj.jenis_ujian', $jenis);
+        $this->db->where('`uj`.`id_ujian` IN (SELECT `id_ujian` from `penguji_disertasi` where `status` in (1,2) and `nip`=\'' . $username . '\')', NULL, FALSE);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
     public function read_penguji($id_ujian) {
         $stts = array('1', '2');
@@ -223,7 +261,91 @@ class Disertasi extends CI_Model {
         $this->db->update('penguji_disertasi', $data);
     }
 
-    // JADWAL & UJIAN
+    // Promotor
+
+    public function read_permintaan_promotor($username) {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('`s`.`id_disertasi` IN (SELECT `id_disertasi` from `promotor` where `status` in (1,2) and `nip`=\'' . $username . '\')', NULL, FALSE);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_promotor_kopromotor($id_disertasi) {
+        $stts = array('1', '2');
+        $this->db->select('p.id_promotor, p.nip, p.status_tim, p.status, pg.nama');
+        $this->db->from('promotor p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->where('p.id_disertasi', $id_disertasi);
+        $this->db->where_in('p.status', $stts);
+        $this->db->order_by('p.status_tim', 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_status_promotor($id_disertasi, $nip) {
+        $stts = array('1', '2');
+        $this->db->select('p.*');
+        $this->db->from('promotor p');
+        $this->db->join('disertasi d', 'd.id_disertasi = p.id_disertasi');
+        $this->db->where('d.id_disertasi', $id_disertasi);
+        $this->db->where('p.nip', $nip);
+        $this->db->where_in('p.status', $stts);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function cek_promotor_ada($id_disertasi) {
+        $stts = array('1', '2');
+        $this->db->select('p.id_promotor');
+        $this->db->from('promotor p');
+        $this->db->join('disertasi d', 'd.id_disertasi = p.id_disertasi');
+        $this->db->where('d.id_disertasi', $id_disertasi);
+        $this->db->where('p.status_tim', 1);
+        $this->db->where_in('p.status', $stts);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function cek_promotor_kopromotor($data) {
+        $stts = array('1', '2');
+        $this->db->select('p.id_promotor');
+        $this->db->from('promotor p');
+        $this->db->join('disertasi d', 'd.id_disertasi = p.id_disertasi');
+        $this->db->where('d.id_disertasi', $data['id_disertasi']);
+        $this->db->where('p.nip', $data['nip']);
+        $this->db->where_in('p.status', $stts);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function count_promotor($id_disertasi) {
+        $stts = array('1', '2');
+        $this->db->from('promotor p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->join('disertasi d', 'p.id_disertasi = d.id_disertasi');
+        $this->db->where_in('p.status', $stts);
+        $this->db->where('d.id_disertasi', $id_disertasi);
+
+        $query = $this->db->count_all_results();
+        return $query;
+    }
+
+    public function save_promotor($data) {
+        $this->db->insert('promotor', $data);
+    }
+
+    public function update_promotor($data, $id_promotor) {
+        $this->db->where('id_promotor', $id_promotor);
+        $this->db->update('promotor', $data);
+    }
+
+    // JADWAL
 
     public function read_jadwal($id_disertasi, $jenis_ujian) {
         $this->db->select('u.*, r.ruang, r.gedung, j.jam');
@@ -266,31 +388,14 @@ class Disertasi extends CI_Model {
         }
     }
 
-    public function read_ujian($id_disertasi) {
-        $this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_disertasi, r.ruang, r.gedung, j.jam');
+    // UJIAN
+
+    public function detail_ujian($id_ujian) {
+        $this->db->select('u.*, r.ruang, r.gedung, j.jam');
         $this->db->from('ujian_disertasi u');
         $this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
         $this->db->join('jam j', 'u.id_jam = j.id_jam');
-        $this->db->where('u.id_disertasi', $id_disertasi);
-        $this->db->where('u.jenis_ujian', 1); //kualifiasi
-        $this->db->where('u.status', 1);
-        $query = $this->db->get();
-        return $query->row();
-    }
-
-    function ujian($id, $username) {
-        $stts = array('2', '3');
-        $this->db->select('u.id_ujian, u.id_disertasi, u.id_ruang, u.id_jam, u.tanggal, r.ruang, r.gedung, j.jam');
-        $this->db->from('ujian u');
-        $this->db->join('disertasi s', 'u.id_disertasi = s.id_disertasi');
-        $this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
-        $this->db->join('jam j', 'u.id_jam = j.id_jam');
-        $this->db->where('s.id_disertasi', $id);
-        $this->db->where('s.nim', $username);
-        $this->db->where_in('s.status_proposal', $stts);
-        $this->db->where('u.status', 1);
-        $this->db->where('u.jenis_ujian', 1);
-
+        $this->db->where('u.id_ujian', $id_ujian);
         $query = $this->db->get();
         return $query->row();
     }
@@ -302,6 +407,35 @@ class Disertasi extends CI_Model {
     public function update_ujian($data, $id_ujian) {
         $this->db->where('id_ujian', $id_ujian);
         $this->db->update('ujian_disertasi', $data);
+    }
+
+    public function read_status_ujian($jenis) {
+        if ($jenis == '1') {
+            return [
+                ['value' => '0', 'text' => 'Belum Ujian'],
+                ['value' => '1', 'text' => 'Layak dan dapat dilanjutkan'],
+                ['value' => '2', 'text' => 'Layak dengan catatan perbaikan dan dapat dilanjutkan'],
+                ['value' => '3', 'text' => 'Tidak layak dan harus diuji kembali'],
+            ];
+        }else if ($jenis == '2') {
+            return [
+                ['value' => '0', 'text' => 'Belum Ujian'],
+                ['value' => '1', 'text' => 'Layak dan dapat dilanjutkan'],
+                ['value' => '2', 'text' => 'Layak dengan catatan perbaikan dan dapat dilanjutkan'],
+                ['value' => '3', 'text' => 'Tidak layak dan harus diuji kembali'],
+            ];
+        }
+    }
+
+    public function get_status_ujian($status_ujian, $jenis) {
+        $result = '';
+        $status_ujians = $this->read_status_ujian($jenis);
+        foreach ($status_ujians as $s) {
+            if ($s['value'] == $status_ujian) {
+                $result = $s['text'];
+            }
+        }
+        return $result;
     }
 
 }

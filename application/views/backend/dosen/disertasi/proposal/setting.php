@@ -54,7 +54,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('dosen/disertasi/kualifikasi/jadwal_save'); ?>
+            <?php echo form_open('dosen/disertasi/proposal/jadwal_save'); ?>
             <div class="box-body">
 
                 <div class="form-group">
@@ -145,7 +145,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">3. Dosen Penguji</h3>
             </div>
-            <?php echo form_open('dosen/disertasi/kualifikasi/penguji_save'); ?>
+            <?php echo form_open('dosen/disertasi/proposal/penguji_save'); ?>
             <div class="box-body table-responsive">
                 <?php
                 if ($ujian) {
@@ -205,7 +205,7 @@
                                                         <h4 class="modal-title">Pilih Status Penguji</h4>
                                                     </div>
                                                     <div class="modal-body text-center">
-                                                        <?php echo form_open('dosen/disertasi/kualifikasi/penguji_update_statustim') ?>
+                                                        <?php echo form_open('dosen/disertasi/proposal/penguji_update_statustim') ?>
                                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                                         <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
                                                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
@@ -214,7 +214,7 @@
                                                         <button type="submit" class="btn btn-block bg-blue"> Ketua</button>
                                                         <?php echo form_close(); ?>
                                                         <hr style="margin: 5px"/>
-                                                        <?php echo form_open('dosen/disertasi/kualifikasi/penguji_update_statustim') ?>
+                                                        <?php echo form_open('dosen/disertasi/proposal/penguji_update_statustim') ?>
                                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                                         <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
                                                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
@@ -250,7 +250,7 @@
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo form_open('dosen/disertasi/kualifikasi/penguji_delete') ?>
+                                        <?php echo form_open('dosen/disertasi/proposal/penguji_delete') ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                         <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
                                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
@@ -286,7 +286,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('dosen/disertasi/kualifikasi/update_status_ujian'); ?>
+            <?php echo form_open('dosen/disertasi/proposal/update_status_ujian'); ?>
 
             <div class="box-body">
                 <div class="form-group">
@@ -296,7 +296,7 @@
                         <?php
                         foreach ($status_ujians as $status_ujian) {
                             ?>
-                            <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $disertasi->status_ujian_kualifikasi) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+                            <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $disertasi->status_ujian_proposal) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
                             <?php
                         }
                         ?>

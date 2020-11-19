@@ -14,8 +14,10 @@
         </a>
         <ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/kualifikasi"><i class="fa fa-circle-o"></i> Kualifikasi</a></li>
+            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/ma"><i class="fa fa-circle-o"></i> MKPKK</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/proposal"><i class="fa fa-circle-o"></i> Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/ma"><i class="fa fa-circle-o"></i> MKPKK/MKPD</a></li>
+            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/ma"><i class="fa fa-circle-o"></i> MKPD</a></li>
+            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/ujian"><i class="fa fa-circle-o"></i> Kelayakan</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/ujian"><i class="fa fa-circle-o"></i> Ujian</a></li>
         </ul>
     </li>

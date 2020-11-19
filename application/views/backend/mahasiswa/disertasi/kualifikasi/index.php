@@ -8,7 +8,7 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/disertasi/status_kualifikasi'); ?>
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => '1']); ?>
 <div class="box">
     <div class="box-header">
         <h3 class="box-title"><?= $subtitle ?></h3>
@@ -45,42 +45,29 @@
                         <td><?= $list['departemen'] ?></td>
                         <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
-                            <?php
-                            if ($list['status_kualifikasi'] == '1') {
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
+
+                            <?php if ($list['status_kualifikasi'] > 5) {
                                 ?>
-                                <a class="btn btn-xs btn-primary " href="#">
-                                    <i class="fa fa-check"></i> Pengajuan
-                                </a>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian</b><br/>
                                 <?php
-                            } else
-                            if ($list['status_kualifikasi'] == '2') {
+                                echo $this->disertasi->get_status_ujian($list['status_ujian_kualifikasi'], 1);
                                 ?>
-                                <a class="btn btn-xs btn-success " href="#">
-                                    <i class="fa fa-check"></i> Diterima
-                                </a>
-                                <?php
-                            } else
-                            if ($list['status_kualifikasi'] == '3') {
-                                ?>
-                                <a class="btn btn-xs btn-success " href="#">
-                                    <i class="fa fa-check"></i> Selesai
-                                </a>
-                                <?php
-                            } else
-                            if ($list['status_kualifikasi'] == '4') {
-                                ?>
-                                <a class="btn btn-xs btn-danger " href="#">
-                                    <i class="fa fa-check"></i> Ditolak
-                                </a>
-                                <?php
+                                <?php if ($list['status_proposal'] == '0'):
+                                    ?>
+                                    <hr style = "margin:5px"/>
+                                    <a href = "<?= base_url() ?>mahasiswa/disertasi/proposal/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
+                                    <?php
+                                endif;
                             }
                             ?>
 
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_kualifikasi'] != '1') {
+                            <?php if ($list['status_kualifikasi'] >= 5) {
                                 ?>
-                                <a class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Jadwal & Penguji</a>
+                                <a href="<?= base_url() ?>mahasiswa/disertasi/kualifikasi/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
                             }
                             ?>

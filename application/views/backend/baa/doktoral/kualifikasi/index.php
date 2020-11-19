@@ -9,7 +9,7 @@
     </div>
 <?php endif; ?>
 
-<?php $this->view('backend/widgets/disertasi/status_kualifikasi'); ?>
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => '1']); ?>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -58,7 +58,7 @@
                                 <td class="text-center">
                                     <?php if ($list['status_kualifikasi'] == '1') {
                                         ?>
-                                        <span class="btn btn-xs btn-success"><i class="fa fa-check"></i> Setujui</span>
+                                        <span class="btn btn-xs bg-blue"><i class="fa fa-check"></i> Pengajuan</span>
                                         <?php
                                     } else if ($list['status_kualifikasi'] == '2') {
                                         ?>

@@ -20,9 +20,9 @@ class Kualifikasi extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
-        $this->load->model('backend/mahasiswa/disertasi_model', 'disertasi');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+        $this->load->model('backend/transaksi/disertasi', 'disertasi');
         //END MODEL
     }
 
@@ -35,6 +35,22 @@ class Kualifikasi extends CI_Controller {
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
             'disertasi' => $this->disertasi->read_kualifikasi_mahasiswa($this->session_data['username'])
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function info() {
+        $id_disertasi = $this->uri->segment('5');
+        $data = array(
+            'title' => 'Modul (Mahasiswa)',
+            'subtitle' => 'Disertasi - Kualifikasi',
+            'section' => 'backend/mahasiswa/disertasi/kualifikasi/info',
+            'use_back' => true,
+            'back_link' => 'mahasiswa/disertasi/kualifikasi',
+            // DATA //
+            'disertasi' => $this->disertasi->detail($id_disertasi),
+            'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
+            'status_ujians' => $this->disertasi->read_status_ujian(1),
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -69,9 +85,7 @@ class Kualifikasi extends CI_Controller {
                 'jenis' => 1,
                 'nim' => $this->session_data['username'],
                 'tgl_pengajuan' => $tgl_sekarang,
-                'status_disertasi' => 1,
-                'berkas_proposal' => '',
-                'status_proposal' => 0,
+                'status_kualifikasi' => 1,
             );
 
             $this->disertasi->save($data);
@@ -157,70 +171,6 @@ class Kualifikasi extends CI_Controller {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
             redirect('dashboardm/modul/proposal');
-        }
-    }
-
-    public function update_file() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_skripsi = $this->input->post('id_skripsi', TRUE);
-
-            $config['upload_path'] = './assets/upload/proposal/';
-            $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 20000;
-            $config['remove_spaces'] = TRUE;
-            $config['file_ext_tolower'] = TRUE;
-            $config['detect_mime'] = TRUE;
-            $config['mod_mime_fix'] = TRUE;
-
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-
-            if (!$this->upload->do_upload('berkas_proposal')) {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-            } else {
-                $upload_data = $this->upload->data();
-                $file = $upload_data['file_name'];
-
-                $data = array(
-                    'berkas_proposal' => $upload_data['file_name'],
-                );
-
-                $this->disertasi->update($data, $id_skripsi);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Update BAB I berhasil.');
-                redirect('dashboardm/modul/proposal');
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardm/modul/proposal');
-        }
-    }
-
-    public function ujian() {
-        $id = $this->uri->segment(5);
-        $username = $this->session_data['username'];
-
-        $data = array(
-            // PAGE //
-            'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Pengajuan Proposal Skripsi (Jadwal Ujian)',
-            'section' => 'backend/mahasiswa/modul/proposal_ujian',
-            // DATA //
-            'proposal' => $this->disertasi->detail($id, $username),
-            'ujian' => $this->disertasi->ujian($id, $username)
-        );
-        if ($data['ujian']) {
-            $data['penguji'] = $this->disertasi->read_penguji($data['ujian']->id_ujian);
-            $this->load->view('backend/index_sidebar', $data);
-        } else {
-            $data['section'] = 'backend/notification/danger';
-            $data['msg'] = 'Tidak ditemukan / Ujian belum disetting Kadep.';
-            $data['linkback'] = 'dashboardm/modul/proposal';
-            $this->load->view('backend/index_sidebar', $data);
         }
     }
 

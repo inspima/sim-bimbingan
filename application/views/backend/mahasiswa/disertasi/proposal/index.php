@@ -8,111 +8,87 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title"><?= $subtitle ?></h3>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="<?= base_url() ?>dashboardm/modul/proposal/add">
-                        <i class="fa fa-plus"></i> TAMBAH</a>
-                </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Judul</th>
-                            <th>Departemen</th>
-                            <th>Tanggal Pengajuan</th>
-                            <th>Status</th>
-                            <th>Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $no = 1;
-                        foreach ($proposal as $list) {
-                            ?>
-                            <tr>
-                                <td><?= $no ?></td>
-                                <td><?php
-                                    $judul = $this->proposal->read_judul($list['id_skripsi']);
-                                    echo $judul->judul;
-                                    ?>
-                                </td>
-                                <td><?= $list['departemen'] ?></td>
-                                <td><?= $list['tgl_pengajuan'] ?></td>
-                                <td>
-                                    <a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($list['status_proposal'] == '1') {
-                                        ?>
-                                        <a class="btn btn-xs btn-primary pull-left" href="#">
-                                            <i class="fa fa-check"></i> Pengajuan</a>
-                                        <?php
-                                    } else
-                                    if ($list['status_proposal'] == '2') {
-                                        ?>
-                                        <a class="btn btn-xs btn-success pull-left" href="#">
-                                            <i class="fa fa-check"></i> Diterima</a>
-                                        <?php
-                                    } else
-                                    if ($list['status_proposal'] == '3') {
-                                        ?>
-                                        <a class="btn btn-xs btn-success pull-left" href="#">
-                                            <i class="fa fa-check"></i> Selesai</a>
-                                        <?php
-                                    } else
-                                    if ($list['status_proposal'] == '4') {
-                                        ?>
-                                        <a class="btn btn-xs btn-danger pull-left" href="#">
-                                            <i class="fa fa-check"></i> Ditolak</a>
-                                        <?php
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($list['status_proposal'] == '1') {
-                                        ?>
-                                        <a class="btn btn-xs btn-warning pull-left" href="<?= base_url() ?>dashboardm/modul/proposal/edit/<?= $list['id_skripsi'] ?>">
-                                            <i class="fa fa-edit"></i> Edit</a>
-                                        <?php
-                                    } else
-                                    if ($list['status_proposal'] == '2') {
-                                        ?>
-                                        <?php
-                                    } else
-                                    if ($list['status_proposal'] == '3') {
-                                        ?>
-                                        <?php
-                                    } else
-                                    if ($list['status_proposal'] == '4') {
-                                        ?>
-                                        <?php
-                                    }
-                                    ?>
-
-                                    <a class="btn btn-xs btn-primary pull-left" href="<?= base_url() ?>dashboardm/modul/proposal/ujian/<?= $list['id_skripsi'] ?>">
-                                        <i class="fa fa-calendar"></i> Detail Ujian</a>
-                                </td>
-
-                            </tr>      
-                            <?php
-                            $no++;
-                        }
-                        ?>
-                        </tfoot>
-                </table>
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => '2']); ?>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title"><?= $subtitle ?></h3>
     </div>
-    <!-- /.col -->
+    <!-- /.box-header -->
+    <div class="box-body table-responsive">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Berkas</th>
+                    <th>Departemen</th>
+                    <th>Tanggal Pengajuan</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $no = 1;
+                foreach ($disertasi as $list) {
+                    ?>
+                    <tr>
+                        <td><?= $no ?></td>
+                        <td><?php
+                            $judul = $this->disertasi->read_judul($list['id_disertasi']);
+                            echo $judul->judul;
+                            ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                        </td>
+                        <td><?= $list['departemen'] ?></td>
+                        <td><?= date('Y-m-d', strtotime($list['waktu_pengajuan_proposal'])) ?></td>
+                        <td class="text-center">
+                            <?php if ($list['status_proposal'] == '1') {
+                                ?>
+                                <span class="btn btn-xs bg-blue"><i class="fa fa-check"></i> Pengajuan</span><br/>
+                                <?php
+                            } else if ($list['status_proposal'] == '2') {
+                                ?>
+                                <span class="btn btn-xs bg-green-active"><i class="fa fa-check"></i> Diterima</span>
+                                <?php
+                            } else if ($list['status_proposal'] == '3') {
+                                ?>
+                                <span class="btn btn-xs bg-navy"><i class="fa fa-check"></i> Dijadwalkan</span>
+                                <?php
+                            } else if ($list['status_proposal'] == '4') {
+                                ?>
+                                <span class="btn btn-xs bg-purple"><i class="fa fa-check"></i> Ujian</span>
+                                <?php
+                            } else {
+                                ?>
+                                <span class="btn btn-xs bg-red"><i class="fa fa-check"></i> Selesai</span>
+                                <hr style="margin:5px"/>
+                                <?php
+                                echo $this->disertasi->get_status_ujian($list['status_ujian_kualifikasi'], 1);
+                                ?>
+                                <?php
+                            }
+                            ?>
+
+                        </td>
+                        <td class="text-center">
+                            <?php if ($list['status_proposal'] > 0) {
+                                ?>
+                                <a href="<?= base_url() ?>mahasiswa/disertasi/proposal/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>      
+                    <?php
+                    $no++;
+                }
+                ?>
+                </tfoot>
+        </table>
+    </div>
+    <!-- /.box-body -->
 </div>
+<!-- /.box -->
