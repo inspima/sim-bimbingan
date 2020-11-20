@@ -98,11 +98,10 @@
         </a>
         <ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi</a></li>
-            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/ma"><i class="fa fa-circle-o"></i>MPKK</a></li>
             <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/ma"><i class="fa fa-circle-o"></i>MKPD</a></li>
-            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kelayakan</a></li>
-            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/ujian"><i class="fa fa-circle-o"></i>Ujian</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kelayakan"><i class="fa fa-circle-o"></i>Kelayakan</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/terbuka"><i class="fa fa-circle-o"></i>Ujian Terbuka</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/tertutup"><i class="fa fa-circle-o"></i>Ujian Tertutup</a></li>
         </ul>
     </li>
 </ul>

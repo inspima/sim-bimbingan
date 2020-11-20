@@ -16,7 +16,7 @@
     <a class="btn btn-danger" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/terbuka">Ujian Terbuka</a>
 </div>
 <hr style="margin: 10px"/>
-<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => 1]); ?>
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
 <div class="box">
 
     <!-- /.box-header -->
@@ -25,13 +25,11 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th>Judul</th>
-                    <th>Departemen</th>
-                    <th>Tgl.Pengajuan</th>
+                    <th>Informasi Disertasi</th>
                     <th class="text-center">Penguji</th>
+                    <th>Tgl.Pengajuan</th>
                     <th class="text-center">Jadwal</th>
-                    <th>Opsi</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,22 +39,18 @@
                     ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?></td>
                         <td>
-                            <?php
-                            echo $list['judul']
-                            ?>
-                        </td>                            
-                        <td><?php echo $list['departemen'] ?></td>
+                            <?php $this->view('backend/widgets/disertasi/column_info_disertasi', ['disertasi' => $list]); ?>
+                        </td>
+                        <td class="text-center">
+                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_KELAYAKAN]); ?>
+                        </td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 3]); ?>                            
+                            <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_KELAYAKAN]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 3]); ?>
-                        </td>
-                        <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, , 'jenis' => 3]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
                         </td>
                     </tr>      
                     <?php

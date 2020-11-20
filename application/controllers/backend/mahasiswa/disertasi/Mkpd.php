@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Proposal extends CI_Controller {
+class Mkpd extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -31,11 +31,11 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Disertasi - Proposal',
-            'section' => 'backend/mahasiswa/disertasi/proposal/index',
+            'subtitle' => 'Disertasi - MPKK',
+            'section' => 'backend/mahasiswa/disertasi/mkpd/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
-            'disertasi' => $this->disertasi->read_proposal_mahasiswa($this->session_data['username'])
+            'disertasi' => $this->disertasi->read_mkpd_mahasiswa($this->session_data['username'])
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -44,15 +44,13 @@ class Proposal extends CI_Controller {
         $id_disertasi = $this->uri->segment('5');
         $data = array(
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Disertasi - Proposal',
-            'section' => 'backend/mahasiswa/disertasi/proposal/info',
+            'subtitle' => 'Disertasi - MKPKK',
+            'section' => 'backend/mahasiswa/disertasi/mkpd/info',
             'use_back' => true,
-            'back_link' => 'mahasiswa/disertasi/proposal',
+            'back_link' => 'mahasiswa/disertasi/mkpd',
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'disertasi' => $this->disertasi->detail($id_disertasi),
-            'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
-            'status_ujians' => $this->disertasi->read_status_ujian(1),
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -64,19 +62,18 @@ class Proposal extends CI_Controller {
         if ($read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/disertasi/proposal');
+            redirect('mahasiswa/disertasi/mkpd');
         } else {
             $data = array(
                 // PAGE //
                 'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan Proposal',
-                'section' => 'backend/mahasiswa/disertasi/proposal/add',
+                'subtitle' => 'Pengajuan MPKK',
+                'section' => 'backend/mahasiswa/disertasi/mkpd/add',
                 'use_back' => true,
-                'back_link' => 'mahasiswa/disertasi/proposal',
+                'back_link' => 'mahasiswa/disertasi/mkpd',
                 'mdosen' => $this->dosen->read_aktif_alldep(),
                 // DATA //
                 'departemen' => $this->departemen->read(),
-                'gelombang' => $this->gelombang->read_berjalan(),
                 'disertasi' => $this->disertasi->detail($id_disertasi),
             );
             $this->load->view('backend/index_sidebar', $data);
@@ -86,8 +83,8 @@ class Proposal extends CI_Controller {
     public function save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $file_name = $this->session_data['username'] . '_berkas_proposal.pdf';
-            $config['upload_path'] = './assets/upload/mahasiswa/disertasi/proposal';
+            $file_name = $this->session_data['username'] . '_berkas_mkpd.pdf';
+            $config['upload_path'] = './assets/upload/mahasiswa/disertasi/mkpd';
             $config['allowed_types'] = 'pdf';
             $config['max_size'] = 20000;
             $config['remove_spaces'] = TRUE;
@@ -98,7 +95,7 @@ class Proposal extends CI_Controller {
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
-            if (!$this->upload->do_upload('berkas_proposal')) {
+            if (!$this->upload->do_upload('berkas_mkpd')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
                 redirect('mahasiswa/disertasi/kualifikasi');
@@ -107,87 +104,20 @@ class Proposal extends CI_Controller {
                 $tgl_sekarang = date('Y-m-d');
                 $data = array(
                     'jenis' => 2,
-                    'waktu_pengajuan_proposal' => $tgl_sekarang,
-                    'berkas_proposal' => $file_name,
-                    'status_proposal' => 1,
+                    'berkas_mkpd' => $file_name,
+                    'status_mkpd' => 1,
                 );
 
                 $this->disertasi->update($data, $id_disertasi);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan proposal..');
-                redirect('mahasiswa/disertasi/proposal');
+                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan mkpd..');
+                redirect('mahasiswa/disertasi/mkpd');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
             redirect('mahasiswa/disertasi/kualifikasi');
-        }
-    }
-
-    public function edit() {
-        $id = $this->uri->segment(5);
-        $username = $this->session_data['username'];
-
-        $data = array(
-            // PAGE //
-            'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Pengajuan Proposal Skripsi',
-            'section' => 'backend/mahasiswa/modul/proposal_edit',
-            // DATA //
-            'departemen' => $this->departemen->read(),
-            'gelombang' => $this->gelombang->read_berjalan(),
-            'proposal' => $this->disertasi->detail($id, $username)
-        );
-
-        if ($data['proposal']) {
-            $this->load->view('backend/index_sidebar', $data);
-        } else {
-            $data['section'] = 'backend/notification/danger';
-            $data['msg'] = 'Tidak ditemukan';
-            $data['linkback'] = 'dashboardm/modul/proposal';
-            $this->load->view('backend/index_sidebar', $data);
-        }
-    }
-
-    public function update() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_skripsi = $this->input->post('id_skripsi', TRUE);
-
-            $read_judul = $this->disertasi->read_judul($id_skripsi);
-            $judul = $this->input->post('judul', TRUE);
-
-            if ($judul == $read_judul->judul) {
-                $data = array(
-                    'id_departemen' => $this->input->post('id_departemen', TRUE),
-                );
-                $this->disertasi->update($data, $id_skripsi);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dashboardm/modul/proposal');
-            } else {
-                $data = array(
-                    'id_departemen' => $this->input->post('id_departemen', TRUE),
-                );
-                $this->disertasi->update($data, $id_skripsi);
-
-                $dataj = array(
-                    'id_skripsi' => $id_skripsi,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
-
-                $this->disertasi->save_judul($dataj);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dashboardm/modul/proposal');
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardm/modul/proposal');
         }
     }
 
@@ -209,7 +139,7 @@ class Proposal extends CI_Controller {
             if ($cek_promotor) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', 'Gagal simpan. Promotor/Co-Promotor sudah terdaftar.');
-                redirect('mahasiswa/disertasi/proposal/add/' . $id_disertasi);
+                redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
             } else {
                 $jumlah_promotor = $this->disertasi->count_penguji($id_disertasi);
                 if ($jumlah_promotor < 3) {
@@ -219,28 +149,28 @@ class Proposal extends CI_Controller {
                             $this->disertasi->save_promotor($data);
                             $this->session->set_flashdata('msg-title', 'alert-success');
                             $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                            redirect('mahasiswa/disertasi/proposal/add/' . $id_disertasi);
+                            redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
                         } else {
                             $this->session->set_flashdata('msg-title', 'alert-danger');
                             $this->session->set_flashdata('msg', 'Gagal simpan. Promotor sudah ada');
-                            redirect('mahasiswa/disertasi/proposal/add/' . $id_disertasi);
+                            redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
                         }
                     } else {
                         $this->disertasi->save_promotor($data);
                         $this->session->set_flashdata('msg-title', 'alert-success');
                         $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                        redirect('mahasiswa/disertasi/proposal/add/' . $id_disertasi);
+                        redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
                     }
                 } else if ($jumlah_promotor >= 3) {
                     $this->session->set_flashdata('msg-title', 'alert-danger');
                     $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah Promotor/Ko-Promotor sudah 3');
-                    redirect('mahasiswa/disertasi/proposal/add/' . $id_disertasi);
+                    redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
                 }
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('mahasiswa/disertasi/proposal');
+            redirect('mahasiswa/disertasi/mkpd');
         }
     }
 
@@ -258,11 +188,11 @@ class Proposal extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil hapus penguji.');
-            redirect('mahasiswa/disertasi/proposal/add/' . $id_disertasi);
+            redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('mahasiswa/disertasi/proposal');
+            redirect('mahasiswa/disertasi/mkpd');
         }
     }
 

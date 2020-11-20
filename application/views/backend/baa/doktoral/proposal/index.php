@@ -9,6 +9,7 @@
     </div>
 <?php endif; ?>
 
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -26,45 +27,66 @@
                             <th>Nama</th>
                             <th>Judul</th>
                             <th>Departemen</th>
-                            <th>Berkas Skripsi & Turnitin</th>
-                            <th>Toefl</th>
-                            <th>Bimbingan</th>
-                            <th>Tanggal Pengajuan</th>
-                            <th>Opsi</th>
+                            <th>Tgl.Pengajuan</th>
+                            <th class="text-center">Penguji</th>
+                            <th class="text-center">Jadwal</th>
+                            <th class="text-center">Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $no = 1;
-                        foreach ($skripsi as $list) {
+                        foreach ($disertasi as $list) {
                             ?>
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?></td>
                                 <td>
                                     <?php
-                                    $judul = $this->skripsi->read_judul($list['id_skripsi']);
+                                    $judul = $this->disertasi->read_judul($list['id_disertasi']);
                                     echo $judul->judul;
                                     ?>
                                 </td>                            
                                 <td><?php echo $list['departemen'] ?></td>
-                                <td><a href="<?php echo base_url() ?>assets/upload/turnitin/<?php echo $list['turnitin'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a></td>
-                                <td><?php echo $list['toefl'] ?></td>
-                                <td>
-                                    <?php
-                                    $pembimbing = $this->skripsi->read_pembimbing($list['id_skripsi']);
-                                    echo $pembimbing->nama . '<br>';
-                                    ?>
-                                    <a class="btn btn-xs btn-primary pull-left" href="<?= base_url() ?>dashboardb/skripsi/skripsi_pengajuan/bimbingan/<?= $list['id_skripsi'] ?>">
-                                        <i class="fa fa-calendar"></i> Bimbingan</a>
-                                </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
-                                <td>
-                                    <?php echo form_open('dashboardb/skripsi/skripsi_pengajuan/approve') ?>
-                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                    <?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-                                    <button type="submit" class="btn btn-xs btn-success pull-left"><i class="fa fa-check"></i> Approve</button>
-                                    <?php echo form_close() ?>
+                                <td class="text-center">
+                                    <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>
+                                </td>
+                                <td class="text-center">
+                                    <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>
+                                </td>
+                                <td class="text-center">
+                                    <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
+                                    <?php
+                                    if ($list['status_proposal'] >= 4) {
+                                        ?>
+                                        <hr style="margin: 5px"/>
+                                        <!-- Berita Acara -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('baa/doktoral/disertasi/proposal/cetak_berita', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
+                                        <?php echo form_close() ?>                                        
+                                        <hr style="margin: 2px"/>
+                                        <!-- Penilaian -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('baa/doktoral/disertasi/proposal/cetak_penilaian', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
+                                        <?php echo form_close() ?>                                      
+                                        <hr style="margin: 2px"/>
+                                        <!-- Daftar Hadir -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('baa/doktoral/disertasi/proposal/cetak_absensi', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Daftar Hadir</button>
+                                        <?php echo form_close() ?>
+                                        <?php
+                                    }
+                                    ?>
                                 </td>
                             </tr>      
                             <?php

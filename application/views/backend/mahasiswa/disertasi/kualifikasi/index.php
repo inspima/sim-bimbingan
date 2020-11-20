@@ -11,7 +11,7 @@
 <?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => '1']); ?>
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title"><?= $subtitle ?></h3>
+        <h3 class="box-title">Tabel <?= $subtitle ?></h3>
         <div class="pull-right">
             <a class="btn btn-primary" href="<?= base_url() ?>mahasiswa/disertasi/kualifikasi/add">
                 <i class="fa fa-plus"></i> TAMBAH</a>
@@ -54,10 +54,10 @@
                                 <?php
                                 echo $this->disertasi->get_status_ujian($list['status_ujian_kualifikasi'], 1);
                                 ?>
-                                <?php if ($list['status_proposal'] == '0'):
+                                <?php if ($list['status_mpkk'] == '0'):
                                     ?>
                                     <hr style = "margin:5px"/>
-                                    <a href = "<?= base_url() ?>mahasiswa/disertasi/proposal/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
+                                    <a href = "<?= base_url() ?>mahasiswa/disertasi/mpkk/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MPKK</a>
                                     <?php
                                 endif;
                             }

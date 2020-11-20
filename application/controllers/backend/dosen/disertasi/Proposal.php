@@ -87,8 +87,8 @@ class Proposal extends CI_Controller {
             'mruang' => $this->ruang->read_aktif(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
-            'ujian' => $this->disertasi->read_jadwal($id_disertasi, 2),
-            'status_ujians' => $this->disertasi->read_status_ujian(2),
+            'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_PROPOSAL),
+            'status_ujians' => $this->disertasi->read_status_ujian(UJIAN_DISERTASI_PROPOSAL),
         );
         if ($data['disertasi']) {
             $this->load->view('backend/index_sidebar', $data);
@@ -141,14 +141,22 @@ class Proposal extends CI_Controller {
                             redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
                         } else {
                             $this->disertasi->update_ujian($data, $id_ujian);
-
+                            $update_proposal = array(
+                                'status_proposal' => 4,
+                            );
+                            $this->disertasi->update($update_proposal, $id_disertasi);
+                            
                             $this->session->set_flashdata('msg-title', 'alert-success');
                             $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
                             redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
                         }
                     } else { //langsung update
                         $this->disertasi->update_ujian($data, $id_ujian);
-
+                        $update_proposal = array(
+                            'status_proposal' => 4,
+                        );
+                        $this->disertasi->update($update_proposal, $id_disertasi);
+                        
                         $this->session->set_flashdata('msg-title', 'alert-success');
                         $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
                         redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
@@ -172,10 +180,10 @@ class Proposal extends CI_Controller {
                     $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
                     redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
                 } else {
+                    $this->disertasi->save_ujian($data);
                     $update_proposal = array(
                         'status_proposal' => 4,
                     );
-                    $this->disertasi->save_ujian($data);
                     $this->disertasi->update($update_proposal, $id_disertasi);
                     $this->session->set_flashdata('msg-title', 'alert-success');
                     $this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
@@ -185,7 +193,7 @@ class Proposal extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardd');
+            redirect('dosen/disertasi/permintaan/promotor');
         }
     }
 
@@ -237,7 +245,7 @@ class Proposal extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/proposal');
+            redirect('dosen/disertasi/permintaan/promotor');
         }
     }
 
@@ -259,7 +267,7 @@ class Proposal extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/proposal');
+            redirect('dosen/disertasi/permintaan/promotor');
         }
     }
 
@@ -295,7 +303,7 @@ class Proposal extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/proposal/setting');
+            redirect('dosen/disertasi/permintaan/promotor');
         }
     }
 
@@ -328,16 +336,16 @@ class Proposal extends CI_Controller {
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
-                redirect('dosen/disertasi/proposal');
+                redirect('dosen/disertasi/permintaan/promotor');
             } else if ($status_ujian == '3') {
                 $this->session->set_flashdata('msg-title', 'alert-warning');
                 $this->session->set_flashdata('msg', 'Ujian ditolak');
-                redirect('dosen/disertasi/proposal');
+                redirect('dosen/disertasi/permintaan/promotor');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
+            redirect('dosen/disertasi/permintaan/promotor');
         }
     }
 
@@ -376,7 +384,7 @@ class Proposal extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/proposal');
+            redirect('dosen/disertasi/permintaan/promotor');
         }
     }
 
@@ -397,7 +405,7 @@ class Proposal extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/proposal');
+            redirect('dosen/disertasi/permintaan/promotor');
         }
     }
 

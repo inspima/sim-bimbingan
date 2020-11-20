@@ -156,7 +156,7 @@ class Permintaan extends CI_Controller {
             // PAGE //
             'title' => 'Disertasi - Permintaan Dosen Promotor/Ko-Promotor',
             'subtitle' => 'Data',
-            'section' => 'backend/dosen/disertasi/kualifikasi/promotor',
+            'section' => 'backend/dosen/disertasi/permintaan/promotor',
             // DATA //
             'disertasi' => $this->disertasi->read_permintaan_promotor($this->session_data['username'])
         );
@@ -176,6 +176,25 @@ class Permintaan extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil disetujui');
+            redirect('dosen/disertasi/permintaan/promotor');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/disertasi/permintaan/promotor');
+        }
+    }
+
+    public function mpkk_setujui() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_mpkk' => 4,
+            );
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil approve');
             redirect('dosen/disertasi/permintaan/promotor');
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');

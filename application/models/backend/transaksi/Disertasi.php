@@ -32,6 +32,31 @@ class Disertasi extends CI_Model {
         return $query->result_array();
     }
 
+    public function read_mpkk_mahasiswa($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('disertasi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.status_mpkk >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_mpkk() {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.status_mpkk >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function read_proposal_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
@@ -417,7 +442,7 @@ class Disertasi extends CI_Model {
                 ['value' => '2', 'text' => 'Layak dengan catatan perbaikan dan dapat dilanjutkan'],
                 ['value' => '3', 'text' => 'Tidak layak dan harus diuji kembali'],
             ];
-        }else if ($jenis == '2') {
+        } else if ($jenis == '2') {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
                 ['value' => '1', 'text' => 'Layak dan dapat dilanjutkan'],

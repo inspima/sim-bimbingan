@@ -29,7 +29,20 @@
                 <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
             </dl>
             <?php
-        elseif ($jenis == '2') :// PROPOSAL
+        elseif ($jenis == '2') :// MPKK
+            ?>
+            <dl style="margin-left: 20px">
+                <dt><label class="label bg-blue">Pengajuan</label></dt>
+                <dd>Diajukan oleh mahasiswa </dd>
+                <dt><label class="label bg-green">Diterima SPS</label></dt>
+                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
+                <dt><label class="label bg-green">Diterima KPS</label></dt>
+                <dd>Diterima dan disetujui oleh KPS</dd>
+                <dt><label class="label bg-red">Selesai </label></dt>
+                <dd>Selesai dan dapat melanjutkan ke Proposal</dd>
+            </dl>
+            <?php
+        elseif ($jenis == '3') :// PROPOSAL
             ?>
             <dl style="margin-left: 20px">
                 <dt><label class="label bg-blue">Pengajuan</label></dt>
@@ -46,9 +59,10 @@
                 <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
             </dl>
             <?php
-        elseif ($jenis == '3') :// KELAYAKAN
-        elseif ($jenis == '4') :// UJIAN TERTUTUP
-        elseif ($jenis == '5') :// UJIAN TERBUKA
+        elseif ($jenis == '4') :// KELAYAKAN
+        elseif ($jenis == '5') :// KELAYAKAN
+        elseif ($jenis == '6') :// UJIAN TERTUTUP
+        elseif ($jenis == '7') :// UJIAN TERBUKA
         endif;
         ?>
 

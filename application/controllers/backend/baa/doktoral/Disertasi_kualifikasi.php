@@ -44,7 +44,7 @@ class Disertasi_kualifikasi extends CI_Controller {
             $id_ujian = $this->input->post('id_ujian', TRUE);
 
             $data = array(
-                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
+                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
                 'pengujis' => $this->disertasi->read_penguji($id_ujian),
                 'disertasi' => $this->disertasi->detail($id_disertasi)
             );
@@ -66,9 +66,8 @@ class Disertasi_kualifikasi extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            $id_ujian = $this->input->post('id_ujian', TRUE);
             $data = array(
-                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
+                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
                 'disertasi' => $this->disertasi->detail($id_disertasi)
             );
             //print_r($data['penguji_ketua']);die();
@@ -89,10 +88,9 @@ class Disertasi_kualifikasi extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            $id_ujian = $this->input->post('id_ujian', TRUE);
 
             $data = array(
-                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, 1),
+                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
                 'disertasi' => $this->disertasi->detail($id_disertasi)
             );
             //print_r($data['penguji_ketua']);die();
