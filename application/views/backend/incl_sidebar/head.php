@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/custom.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/backend/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
     <!-- Theme style -->
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/backend/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">

@@ -8,6 +8,25 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-4">
+        <!-- general form elements -->
+        <div class="box box-default">
+            <!-- /.box-header -->
+            <!-- form start -->
+            <?php echo form_open('baa/utility/pencarian', ['method' => 'get']); ?>
+            <div class="box-body">
+                <div class="form-group form-inline">
+                    <input type="text" class="form-control" size="28" name="search" placeholder="Masukkan Nama/NIM" required=""/>
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-search"></i> Cari</button>
+                </div>
+                <?= form_close() ?>
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</div>
 <div class="box">
 
     <!-- /.box-header -->
@@ -19,10 +38,10 @@
                     <th>Nama</th>
                     <th>Nim</th>
                     <th>Prodi</th>
+                    <th>SKS</th>
                     <th>Alamat</th>
                     <th>Email</th>
-                    <th>Berkas</th>
-                    <th class="text-center">Opsi</th>
+                    <th class="text-center">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,20 +54,11 @@
                         <td><?php echo $mahasiswa['nama'] ?></td>
                         <td><?php echo $mahasiswa['nim'] ?></td>
                         <td><?php echo $mahasiswa['jenjang'] ?> <?php echo $mahasiswa['nm_prodi'] ?></td>
+                        <td><?php echo $mahasiswa['sks'] ?></td>
                         <td><?php echo $mahasiswa['alamat'] ?></td>
                         <td><?php echo $mahasiswa['email'] ?></td>
-                        <td>
-                            <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/verifikasi/<?php echo $mahasiswa['berkas_verifikasi'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
-                        </td>
                         <td class="text-center">
-                            <?php echo form_open('baa/modul/registrasi/verifikasi') ?>
-                            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                            <?php echo formtext('hidden', 'id_user', $mahasiswa['id_user'], 'required') ?>
-                            <?php echo formtext('hidden', 'nama', $mahasiswa['nama'], 'required') ?>
-                            <?php echo formtext('hidden', 'email', $mahasiswa['email'], 'required') ?>
-                            <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
-                            <?php echo form_close() ?>
-
+                            <?php $this->view('backend/widgets/common/status_tugas_akhir', ['mahasiswa' => $mahasiswa]); ?>
                         </td>
                     </tr>      
                     <?php

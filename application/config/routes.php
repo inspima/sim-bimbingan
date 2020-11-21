@@ -162,8 +162,9 @@ $route['dashboardb/thesis/thesis/penguji_delete'] = 'backend/baa/thesis/thesis/p
 $route['dashboardb/monitoring/jadwal'] = 'backend/baa/monitoring/jadwal';
 $route['dashboardb/monitoring/jadwal/show'] = 'backend/baa/monitoring/jadwal/show';
 
-$route['baa/modul/registrasi'] = 'backend/baa/modul/registrasi';
-$route['baa/modul/registrasi/verifikasi'] = 'backend/baa/modul/registrasi/verifikasi';
+$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
+$route['baa/utility/registrasi/verifikasi'] = 'backend/baa/utility/registrasi/verifikasi';
+$route['baa/utility/pencarian'] = 'backend/baa/utility/pencarian';
 //3. Dashboard Mahasiswa S1
 $route['dashboardm'] = 'backend/mahasiswa/home';
 

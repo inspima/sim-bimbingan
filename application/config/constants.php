@@ -86,10 +86,13 @@ defined('EXIT__AUTO_MIN') OR define('EXIT__AUTO_MIN', 9); // lowest automaticall
 defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 /*
- * Custom Contant Variable
+ * Custom Constant Variable
  */
 
 define('APPLICATION_VERSION', '3.0');
+// USER
+define('ROLE_MAHASISWA_S2', 5);
+define('ROLE_MAHASISWA_S3', 6);
 // STRUKTUR DOSEN
 define('STRUKTUR_DEKAN', 1);
 define('STRUKTUR_WADEK_1', 2);

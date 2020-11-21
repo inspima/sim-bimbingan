@@ -2,14 +2,14 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-group"></i> <span>Registrasi</span>
+            <i class="fa fa-cogs"></i> <span>Utility</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>baa/modul/registrasi"><i class="fa fa-circle-o"></i> Verifikasi</a></li>
-
+            <li><a href="<?php echo base_url() ?>baa/utility/registrasi"><i class="fa fa-circle-o"></i> Verifikasi Registrasi</a></li>
+            <li><a href="<?php echo base_url() ?>baa/utility/pencarian"><i class="fa fa-circle-o"></i> Pencarian Mahasiswa</a></li>
         </ul>
     </li>
     <li class="treeview">

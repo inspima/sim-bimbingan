@@ -29,7 +29,7 @@ class Registrasi extends CI_Controller {
             // PAGE //
             'title' => 'Modul Registrasi',
             'subtitle' => 'Verifikasi Mahasiswa',
-            'section' => 'backend/baa/modul/verifikasi',
+            'section' => 'backend/baa/utility/verifikasi',
             // DATA //
             'mahasiswas' => $this->user->read_mhs_verifikasi(),
         );
@@ -52,11 +52,11 @@ class Registrasi extends CI_Controller {
             
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil diverifikasi');
-            redirect('baa/modul/registrasi');
+            redirect('baa/utility/registrasi');
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('baa/modul/registrasi');
+            redirect('baa/utility/registrasi');
         }
     }
 

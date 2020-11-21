@@ -66,13 +66,26 @@ class User extends CI_Model {
     }
 
     function read_mhs_verifikasi() {
-        $this->db->select('u.*,m.id_mahasiswa, m.nama, m.email,m.nim,m.alamat,m.telp,m.berkas_verifikasi,p.nm_prodi,j.jenjang');
+        $this->db->select('u.*,m.id_mahasiswa, m.nama, m.email,m.nim,m.sks,m.alamat,m.telp,m.berkas_verifikasi,p.nm_prodi,j.jenjang');
         $this->db->from('user u');
         $this->db->join('mahasiswa m', 'm.nim = u.username');
         $this->db->join('prodi p', 'm.id_prodi = p.id_prodi');
         $this->db->join('jenjang j', 'j.id_jenjang= p.id_jenjang');
         $this->db->where('u.verifikasi', '0');
         $this->db->where('m.status', 1);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function read_mhs_cari($search) {
+        $this->db->select('u.*,m.id_mahasiswa, m.nama, m.email,m.nim,m.sks,m.alamat,m.telp,m.berkas_verifikasi,p.nm_prodi,j.jenjang');
+        $this->db->from('user u');
+        $this->db->join('mahasiswa m', 'm.nim = u.username');
+        $this->db->join('prodi p', 'm.id_prodi = p.id_prodi','left');
+        $this->db->join('jenjang j', 'j.id_jenjang= p.id_jenjang','left');
+        $this->db->where('m.status', 1);
+        $this->db->like('m.nama', $search);
+        $this->db->or_like('m.nim', $search);
         $query = $this->db->get();
         return $query->result_array();
     }

@@ -51,6 +51,7 @@ class Email extends CI_Model {
                 '<p> Dear, ' . $name . '</p>'
                 . '<p>'
                 . '<p>Akun Mahasiswa anda sudah berhasil diverifikasi</p>'
+                . '<p>Silahkan login menggunakan username dan password anda</p>'
                 . '<p><b>Terima Kasih</b></p>'
         );
 
