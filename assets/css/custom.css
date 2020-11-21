@@ -7,7 +7,11 @@ and open the template in the editor.
     Created on : Nov 20, 2020, 1:10:21 AM
     Author     : NAMBI
 */
-
+/* TITLE*/
+.text-shadow{
+    text-shadow: #c9c9c9 2px 0 2px;
+    font-weight: bold;
+}
 /* DIVIDER */
 .divider3{
     margin: 3px;
@@ -20,4 +24,24 @@ and open the template in the editor.
 .divider10{
     margin: 10px;
     display: block;
+}
+
+.divider-line-thin{
+    margin: 5px 0px;
+    margin-right: 10px;
+    border-width:1px;
+    border-color: #dedede;
+}
+
+.divider-line-semi-bold{
+    margin: 5px 0px;
+    margin-right: 10px;
+    border-width:2px;
+    border-color: #bbbbbb;
+}
+.divider-line-bold{
+    margin: 5px 0px;
+    margin-right: 10px;
+    border-width:3px;
+    border-color: #797979;
 }

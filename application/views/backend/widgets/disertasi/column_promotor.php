@@ -10,7 +10,7 @@ if (!empty($status_promotor)) {
             ?>
             <p style="color:red;font-weight: bold">
                 <?php
-                echo $num . ' ' . $promotor['nama'] . '<br>';
+                echo $num . ' ' . $promotor['nama'] . '<br><i style="color:black">' . $promotor['nip'] . '</i><br>';
                 ?>
             </p>
             <?php
@@ -19,7 +19,7 @@ if (!empty($status_promotor)) {
             ?>
             <p style="color:green;font-weight: bold">
                 <?php
-                echo $num . ' ' . $promotor['nama'] . '<br>';
+                echo $num . ' ' . $promotor['nama'] . '<br><i style="color:black">' . $promotor['nip'] . '</i><br>';
                 ?>
             </p>
             <?php

@@ -21,6 +21,7 @@ class Disertasi_kualifikasi extends CI_Controller {
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
+        $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         //END MODEL
     }
 
@@ -28,20 +29,48 @@ class Disertasi_kualifikasi extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Doktoral',
-            'subtitle' => 'Disertasi - Kualifikasi',
+            'subtitle' => 'Disertasi - Ujian Kualifikasi',
             'section' => 'backend/baa/doktoral/kualifikasi/index',
             // DATA //
-            'disertasi' => $this->disertasi->read_kualifikasi()
+            'disertasi' => $this->disertasi->read_kualifikasi(),
         );
 
         $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function cetak_undangan() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
+            $id_ujian = $ujian->id_ujian;
+
+            $data = array(
+                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
+                'pengujis' => $this->disertasi->read_penguji($id_ujian),
+                'disertasi' => $this->disertasi->detail($id_disertasi),
+                'wadek1' => $this->struktural->read_wadek1()
+            );
+            //print_r($data['penguji_ketua']);die();
+            ob_end_clean();
+            $page = 'backend/baa/doktoral/kualifikasi/cetak_undangan';
+            $size = 'legal';
+            $this->pdf->setPaper($size, 'potrait');
+            $this->pdf->filename = "disertasi_undangan.pdf";
+            $this->pdf->load_view($page, $data);
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('baa/doktoral/disertasi/kualifikasi/');
+        }
     }
 
     public function cetak_berita() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            $id_ujian = $this->input->post('id_ujian', TRUE);
+            $ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
+            $id_ujian = $ujian->id_ujian;
 
             $data = array(
                 'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),

@@ -82,6 +82,106 @@ class Disertasi extends CI_Model {
         return $query->result_array();
     }
 
+    public function read_mkpd_mahasiswa($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('disertasi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.status_mkpd >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_mkpd() {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.status_mkpd >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_kelayakan_mahasiswa($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('disertasi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.status_kelayakan >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_kelayakan() {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.status_kelayakan >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
+    public function read_tertutup_mahasiswa($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('disertasi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.status_tertutup >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_tertutup() {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.status_tertutup >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
+    public function read_terbuka_mahasiswa($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('disertasi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.status_terbuka >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_terbuka() {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.status_terbuka >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function read($username) {
         $this->db->select('s.id_disertasi, s.id_departemen, s.tgl_pengajuan,s.status_kualifikasi,  s.berkas_proposal, s.status_proposal, d.departemen');
         $this->db->from('disertasi s');
@@ -414,6 +514,17 @@ class Disertasi extends CI_Model {
     }
 
     // UJIAN
+    
+    public function detail_ujian_by_disertasi($id_disertasi,$jenis) {
+        $this->db->select('u.*, r.ruang, r.gedung, j.jam');
+        $this->db->from('ujian_disertasi u');
+        $this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+        $this->db->join('jam j', 'u.id_jam = j.id_jam');
+        $this->db->where('u.id_disertasi', $id_disertasi);
+        $this->db->where('u.jenis_ujian', $jenis);
+        $query = $this->db->get();
+        return $query->row();
+    }
 
     public function detail_ujian($id_ujian) {
         $this->db->select('u.*, r.ruang, r.gedung, j.jam');
@@ -435,19 +546,37 @@ class Disertasi extends CI_Model {
     }
 
     public function read_status_ujian($jenis) {
-        if ($jenis == '1') {
+        if ($jenis == UJIAN_DISERTASI_KUALIFIKASI) {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
-                ['value' => '1', 'text' => 'Layak dan dapat dilanjutkan'],
-                ['value' => '2', 'text' => 'Layak dengan catatan perbaikan dan dapat dilanjutkan'],
-                ['value' => '3', 'text' => 'Tidak layak dan harus diuji kembali'],
+                ['value' => '1', 'text' => 'Lulus'],
+                ['value' => 'u', 'text' => 'Mengulang Kembali'],
+                ['value' => 'g', 'text' => 'Gagal Studi'],
             ];
-        } else if ($jenis == '2') {
+        } else if ($jenis == UJIAN_DISERTASI_PROPOSAL) {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
-                ['value' => '1', 'text' => 'Layak dan dapat dilanjutkan'],
-                ['value' => '2', 'text' => 'Layak dengan catatan perbaikan dan dapat dilanjutkan'],
-                ['value' => '3', 'text' => 'Tidak layak dan harus diuji kembali'],
+                ['value' => '1', 'text' => 'Dilanjutkan'],
+                ['value' => 'u', 'text' => 'Mengulang Kembali'],
+                ['value' => 't', 'text' => 'Ditolak'],
+                ['value' => 'g', 'text' => 'Gagal Studi'],
+            ];
+        } else if ($jenis == UJIAN_DISERTASI_KELAYAKAN) {
+            return [
+                ['value' => '0', 'text' => 'Belum Ujian'],
+                ['value' => '1', 'text' => 'Dilanjutkan'],
+                ['value' => 'u', 'text' => 'Mengulang Kembali'],
+            ];
+        } else if ($jenis == UJIAN_DISERTASI_TERTUTUP) {
+            return [
+                ['value' => '0', 'text' => 'Belum Ujian'],
+                ['value' => '1', 'text' => 'Dilanjutkan'],
+                ['value' => 'u', 'text' => 'Mengulang Kembali'],
+            ];
+        }else if ($jenis == UJIAN_DISERTASI_TERBUKA) {
+            return [
+                ['value' => '0', 'text' => 'Belum Ujian'],
+                ['value' => '1', 'text' => 'Lulus'],
             ];
         }
     }

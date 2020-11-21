@@ -61,6 +61,14 @@
                                     if ($list['status_proposal'] >= 4) {
                                         ?>
                                         <hr style="margin: 5px"/>
+                                        <!-- Undangan -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('baa/doktoral/disertasi/proposal/cetak_undangan', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
+                                        <?php echo form_close() ?>                                         
+                                        <hr style="margin: 2px"/>
                                         <!-- Berita Acara -->
                                         <?php $attributes = array('target' => '_blank'); ?>
                                         <?php echo form_open('baa/doktoral/disertasi/proposal/cetak_berita', $attributes) ?>

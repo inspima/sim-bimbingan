@@ -32,10 +32,10 @@ class Mpkk extends CI_Controller {
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
             'subtitle' => 'Disertasi - MPKK',
-            'section' => 'backend/mahasiswa/disertasi/mkpd/index',
+            'section' => 'backend/mahasiswa/disertasi/mpkk/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
-            'disertasi' => $this->disertasi->read_mkpd_mahasiswa($this->session_data['username'])
+            'disertasi' => $this->disertasi->read_mpkk_mahasiswa($this->session_data['username'])
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -45,9 +45,9 @@ class Mpkk extends CI_Controller {
         $data = array(
             'title' => 'Modul (Mahasiswa)',
             'subtitle' => 'Disertasi - MKPKK',
-            'section' => 'backend/mahasiswa/disertasi/mkpd/info',
+            'section' => 'backend/mahasiswa/disertasi/mpkk/info',
             'use_back' => true,
-            'back_link' => 'mahasiswa/disertasi/mkpd',
+            'back_link' => 'mahasiswa/disertasi/mpkk',
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'disertasi' => $this->disertasi->detail($id_disertasi),
@@ -62,15 +62,15 @@ class Mpkk extends CI_Controller {
         if ($read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/disertasi/mkpd');
+            redirect('mahasiswa/disertasi/mpkk');
         } else {
             $data = array(
                 // PAGE //
                 'title' => 'Modul (Mahasiswa)',
                 'subtitle' => 'Pengajuan MPKK',
-                'section' => 'backend/mahasiswa/disertasi/mkpd/add',
+                'section' => 'backend/mahasiswa/disertasi/mpkk/add',
                 'use_back' => true,
-                'back_link' => 'mahasiswa/disertasi/mkpd',
+                'back_link' => 'mahasiswa/disertasi/mpkk',
                 'mdosen' => $this->dosen->read_aktif_alldep(),
                 // DATA //
                 'departemen' => $this->departemen->read(),
@@ -83,8 +83,8 @@ class Mpkk extends CI_Controller {
     public function save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $file_name = $this->session_data['username'] . '_berkas_mkpd.pdf';
-            $config['upload_path'] = './assets/upload/mahasiswa/disertasi/mkpd';
+            $file_name = $this->session_data['username'] . '_berkas_mpkk.pdf';
+            $config['upload_path'] = './assets/upload/mahasiswa/disertasi/mpkk';
             $config['allowed_types'] = 'pdf';
             $config['max_size'] = 20000;
             $config['remove_spaces'] = TRUE;
@@ -95,7 +95,7 @@ class Mpkk extends CI_Controller {
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
-            if (!$this->upload->do_upload('berkas_mkpd')) {
+            if (!$this->upload->do_upload('berkas_mpkk')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
                 redirect('mahasiswa/disertasi/kualifikasi');
@@ -104,15 +104,15 @@ class Mpkk extends CI_Controller {
                 $tgl_sekarang = date('Y-m-d');
                 $data = array(
                     'jenis' => 2,
-                    'berkas_mkpd' => $file_name,
-                    'status_mkpd' => 1,
+                    'berkas_mpkk' => $file_name,
+                    'status_mpkk' => 1,
                 );
 
                 $this->disertasi->update($data, $id_disertasi);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan mkpd..');
-                redirect('mahasiswa/disertasi/mkpd');
+                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan mpkk..');
+                redirect('mahasiswa/disertasi/mpkk');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
@@ -139,7 +139,7 @@ class Mpkk extends CI_Controller {
             if ($cek_promotor) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', 'Gagal simpan. Promotor/Co-Promotor sudah terdaftar.');
-                redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
+                redirect('mahasiswa/disertasi/mpkk/add/' . $id_disertasi);
             } else {
                 $jumlah_promotor = $this->disertasi->count_penguji($id_disertasi);
                 if ($jumlah_promotor < 3) {
@@ -149,28 +149,28 @@ class Mpkk extends CI_Controller {
                             $this->disertasi->save_promotor($data);
                             $this->session->set_flashdata('msg-title', 'alert-success');
                             $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                            redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
+                            redirect('mahasiswa/disertasi/mpkk/add/' . $id_disertasi);
                         } else {
                             $this->session->set_flashdata('msg-title', 'alert-danger');
                             $this->session->set_flashdata('msg', 'Gagal simpan. Promotor sudah ada');
-                            redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
+                            redirect('mahasiswa/disertasi/mpkk/add/' . $id_disertasi);
                         }
                     } else {
                         $this->disertasi->save_promotor($data);
                         $this->session->set_flashdata('msg-title', 'alert-success');
                         $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                        redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
+                        redirect('mahasiswa/disertasi/mpkk/add/' . $id_disertasi);
                     }
                 } else if ($jumlah_promotor >= 3) {
                     $this->session->set_flashdata('msg-title', 'alert-danger');
                     $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah Promotor/Ko-Promotor sudah 3');
-                    redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
+                    redirect('mahasiswa/disertasi/mpkk/add/' . $id_disertasi);
                 }
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('mahasiswa/disertasi/mkpd');
+            redirect('mahasiswa/disertasi/mpkk');
         }
     }
 
@@ -188,11 +188,11 @@ class Mpkk extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil hapus penguji.');
-            redirect('mahasiswa/disertasi/mkpd/add/' . $id_disertasi);
+            redirect('mahasiswa/disertasi/mpkk/add/' . $id_disertasi);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('mahasiswa/disertasi/mkpd');
+            redirect('mahasiswa/disertasi/mpkk');
         }
     }
 

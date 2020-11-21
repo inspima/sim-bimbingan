@@ -20,23 +20,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-                <div class="form-group">
-                    <label>NIM</label>
-                    <input type="text" name="nim" class="form-control" value="<?php echo $disertasi->nim ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" name="nama" class="form-control" value="<?php echo $disertasi->nama ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Judul</label>
-                    <?php
-                    $judul = $this->disertasi->read_judul($disertasi->id_disertasi);
-                    ?>
-                    <textarea class="form-control" name="judul" readonly><?php echo $judul->judul ?></textarea>
-                </div>
-
-
+                <?php $this->view('backend/widgets/disertasi/informasi_disertasi_judul', ['disertasi' => $disertasi]); ?>
             </div>
             <!-- /.box-body -->
         </div>
@@ -53,28 +37,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <p>
-                        <i class="fa fa-calendar"></i>
-                        <?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?>
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>Ruang</label>
-                    <p>
-                        Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?>
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>Jam</label>
-                    <p>
-                        <?= substr($jadwal->jam, 0, 5); ?> - Selesai
-                    </p>
-                </div>
+                <?php $this->view('backend/widgets/disertasi/informasi_jadwal_ujian', ['jadwal' => $jadwal]); ?>
             </div>
         </div>
         <!-- /.box -->
@@ -92,65 +55,7 @@
                 <h3 class="box-title">3. Dosen Penguji</h3>
             </div>
             <div class="box-body table-responsive">
-                <?php
-                if ($jadwal) {
-                    ?>              
-                    <div class="form-group">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Nama</th>
-                                <th>Tim</th>
-                                <th>Status</th>
-                            </tr>
-                            <?php
-                            $penguji = $this->disertasi->read_penguji($jadwal->id_ujian);
-                            $str_status_tim = '';
-                            foreach ($penguji as $listpenguji) {
-                                if ($listpenguji['status_tim'] == '1') {
-                                    $str_status_tim = 'Ketua';
-                                } else if ($listpenguji['status_tim'] == '2') {
-                                    $str_status_tim = 'ANggota';
-                                }
-                                ?>
-                                <tr>
-                                    <td><?php echo $listpenguji['nama'] ?></td>
-                                    <td><?php echo $str_status_tim ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        if ($listpenguji['status'] == '1') {
-                                            ?>
-                                            <a class="btn btn-xs btn-warning"> Belum Approve</a>
-                                            <?php
-                                        } else
-                                        if ($listpenguji['status'] == '2') {
-                                            ?>
-                                            <a class="btn btn-xs btn-success"> Approved</a>
-                                            <?php
-                                        } else
-                                        if ($listpenguji['status'] == '3') {
-                                            ?>
-                                            <a class="btn btn-xs btn-danger"> Rejected</a>
-                                            <?php
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
-                        </table>
-                    </div>
-
-                    <?php
-                } else {
-                    ?>
-                    <div class="form-group">
-                        <p>Setting ujian terlebih dahulu</p>
-                    </div>
-                    <?php
-                }
-                ?>
+                <?php $this->view('backend/widgets/disertasi/list_penguji', ['jadwal' => $jadwal]); ?>
             </div>
         </div>
         <!-- /.box -->
@@ -167,7 +72,7 @@
                     <label>Status Ujian</label>
                     <p>
                         <?php
-                        echo $this->disertasi->get_status_ujian($disertasi->status_ujian_kualifikasi, 1);
+                        echo $this->disertasi->get_status_ujian($disertasi->status_ujian_kualifikasi, UJIAN_DISERTASI_KUALIFIKASI);
                         ?>
                     </p>
                 </div>

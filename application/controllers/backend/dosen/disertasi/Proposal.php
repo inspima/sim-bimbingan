@@ -35,7 +35,7 @@ class Proposal extends CI_Controller {
     public function index() {
         $data = array(
             // PAGE //
-            'title' => 'Disertasi - Proposal',
+            'title' => 'Disertasi - Ujian Proposal',
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/proposal/index',
             // DATA //
@@ -77,7 +77,7 @@ class Proposal extends CI_Controller {
 
         $data = array(
             // PAGE //
-            'title' => 'Disertasi - Proposal',
+            'title' => 'Disertasi - Ujian Proposal',
             'subtitle' => 'Setting',
             'section' => 'backend/dosen/disertasi/proposal/setting',
             'use_back' => true,

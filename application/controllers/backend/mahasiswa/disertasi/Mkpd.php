@@ -31,7 +31,7 @@ class Mkpd extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Disertasi - MPKK',
+            'subtitle' => 'Disertasi - MKPD',
             'section' => 'backend/mahasiswa/disertasi/mkpd/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),

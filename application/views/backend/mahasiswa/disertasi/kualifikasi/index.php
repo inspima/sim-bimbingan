@@ -52,7 +52,7 @@
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
-                                echo $this->disertasi->get_status_ujian($list['status_ujian_kualifikasi'], 1);
+                                echo $this->disertasi->get_status_ujian($list['status_ujian_kualifikasi'], UJIAN_DISERTASI_KUALIFIKASI);
                                 ?>
                                 <?php if ($list['status_mpkk'] == '0'):
                                     ?>

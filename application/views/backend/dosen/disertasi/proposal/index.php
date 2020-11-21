@@ -8,7 +8,7 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => 3]); ?>
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
 <div class="box">
 
     <!-- /.box-header -->
@@ -42,13 +42,13 @@
                         <td><?php echo $list['departemen'] ?></td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 3]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 3]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 3]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
                             <?php
                             if ($list['status_proposal'] == 1 && $struktural->id_struktur == STRUKTUR_SPS) {
                                 ?>

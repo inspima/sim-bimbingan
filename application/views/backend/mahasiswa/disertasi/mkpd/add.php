@@ -29,7 +29,7 @@ if (count($promotors) == 0) {
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open_multipart('mahasiswa/disertasi/mpkk/save'); ?>
+            <?php echo form_open_multipart('mahasiswa/disertasi/mkpd/save'); ?>
             <div class="box-body">
                 <div class="form-group">
                     <label>Departemen</label>
@@ -52,8 +52,8 @@ if (count($promotors) == 0) {
                 </div>
 
                 <div class="form-group">
-                    <label>Upload Bukti Transkrip (format file .pdf maks 10mb)</label>
-                    <input type="file" name="berkas_mpkk" class="form-control" required>
+                    <label>Upload Bukti Toefl & Toefl pendamping (format file .pdf maks 10mb)</label>
+                    <input type="file" name="berkas_mkpd" class="form-control" required>
                 </div>
             </div>
             <!-- /.box-body -->
@@ -70,7 +70,7 @@ if (count($promotors) == 0) {
             <div class="box-header with-border">
                 <h3 class="box-title">Pengajuan Promotor & Ko-Promotor</h3>
             </div>
-            <?php echo form_open('mahasiswa/disertasi/mpkk/promotor_save'); ?>
+            <?php echo form_open('mahasiswa/disertasi/mkpd/promotor_save'); ?>
             <div class="box-body table-responsive">
                 <?php
                 if ($disertasi->status_kualifikasi > 4) {
@@ -143,7 +143,7 @@ if (count($promotors) == 0) {
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo form_open('mahasiswa/disertasi/mpkk/promotor_delete') ?>
+                                        <?php echo form_open('mahasiswa/disertasi/mkpd/promotor_delete') ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                         <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
                                         <?php echo formtext('hidden', 'id_promotor', $promotor['id_promotor'], 'required') ?>

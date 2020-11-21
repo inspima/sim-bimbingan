@@ -141,11 +141,11 @@ class Permintaan extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil disetujui');
-            redirect('dosen/disertasi/permintaan/penguji');
+            redirect_back();
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/permintaan/penguji');
+            redirect_back();
         }
     }
 
@@ -190,6 +190,25 @@ class Permintaan extends CI_Controller {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             $data = array(
                 'status_mpkk' => 4,
+            );
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil approve');
+            redirect('dosen/disertasi/permintaan/promotor');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/disertasi/permintaan/promotor');
+        }
+    }
+    
+    public function mkpd_setujui() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_mkpd' => 4,
             );
             $this->disertasi->update($data, $id_disertasi);
 

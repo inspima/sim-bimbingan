@@ -9,7 +9,7 @@ if (!empty($jadwal)) {
             ?>
             <p style="color:red;font-weight: bold">
                 <?php
-                echo $num . ' ' . $penguji['nama'] . '<br>';
+                echo $num . ' ' . $penguji['nama'] . '<br><i style="color:black">' . $penguji['nip'] . '</i><br>';
                 ?>
             </p>
             <?php
@@ -18,7 +18,7 @@ if (!empty($jadwal)) {
             ?>
             <p style="color:green;font-weight: bold">
                 <?php
-                echo $num . ' ' . $penguji['nama'] . '<br>';
+                echo $num . ' ' . $penguji['nama'] . '<br><i style="color:black">' . $penguji['nip'] . '</i><br>';
                 ?>
             </p>
             <?php

@@ -20,25 +20,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-                <div class="form-group">
-                    <label>NIM</label>
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-                    <input type="text" name="nim" class="form-control" value="<?php echo $disertasi->nim ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" name="nama" class="form-control" value="<?php echo $disertasi->nama ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Judul</label>
-                    <?php
-                    $judul = $this->disertasi->read_judul($disertasi->id_disertasi);
-                    ?>
-                    <textarea class="form-control" name="judul" readonly><?php echo $judul->judul ?></textarea>
-                </div>
-
-
+                <?php $this->view('backend/widgets/disertasi/informasi_disertasi_judul', ['disertasi' => $disertasi]); ?>
             </div>
             <!-- /.box-body -->
         </div>

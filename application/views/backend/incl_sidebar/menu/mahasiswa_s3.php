@@ -18,8 +18,8 @@
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/proposal"><i class="fa fa-circle-o"></i> Proposal</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/mkpd"><i class="fa fa-circle-o"></i> MKPD</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/kelayakan"><i class="fa fa-circle-o"></i> Kelayakan</a></li>
-            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/terbuka"><i class="fa fa-circle-o"></i> Ujian Terbuka</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/tertutup"><i class="fa fa-circle-o"></i> Ujian Tertutup</a></li>
+            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/terbuka"><i class="fa fa-circle-o"></i> Ujian Terbuka</a></li>
         </ul>
     </li>
 </ul>

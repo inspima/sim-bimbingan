@@ -44,9 +44,15 @@
                             <?php $this->view('backend/widgets/disertasi/column_promotor', ['id_disertasi' => $list['id_disertasi']]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 2]); ?><br/>
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?><br/>
                             <div class="divider5"></div>
-                            <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mpkk/<?php echo $list['berkas_mpkk'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                            <?php
+                            if ($list['status_mpkk'] > 0):
+                                ?>
+                                <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mpkk/<?php echo $list['berkas_mpkk'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                                <?php
+                            endif;
+                            ?>
                             <?php
                             if ($list['status_mpkk'] == '3'):
                                 ?>
@@ -60,9 +66,15 @@
                             ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 3]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
                             <div class="divider5"></div>
-                            <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mpkk/<?php echo $list['berkas_mpkk'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                            <?php
+                            if ($list['status_proposal'] > 0):
+                                ?>
+                                <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mpkk/<?php echo $list['berkas_mpkk'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                                <?php
+                            endif;
+                            ?>
                             <?php if ($list['status_proposal'] >= 3 && $list['status_proposal'] < 6):
                                 ?>
                                 <hr style = "margin: 10px;border-width:2px;" />
@@ -72,17 +84,80 @@
                             ?>
                         </td>
                         <td class = "text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 4]);
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
+                            <div class="divider5"></div>
+                            <?php
+                            if ($list['status_mkpd'] > 0):
+                                ?>
+                                <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mkpd/<?php echo $list['berkas_mkpd'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                                <?php
+                            endif;
+                            ?>
+                            <?php
+                            if ($list['status_mkpd'] == '3'):
+                                ?>
+                                <hr style="margin: 10px;border-width:2px;" />
+                                <?php echo form_open('dosen/disertasi/permintaan/promotor/mkpd_setujui') ?>
+                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                <?php
+                            endif;
                             ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 5]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
+                            <div class="divider5"></div>
+                            <?php
+                            if ($list['status_kelayakan'] > 0):
+                                ?>
+                                <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/kelayakan/<?php echo $list['berkas_kelayakan'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                                <?php
+                            endif;
+                            ?>
+                            <?php if ($list['status_kelayakan'] >= 3 && $list['status_kelayakan'] < 6):
+                                ?>
+                                <hr style = "margin: 10px;border-width:2px;" />
+                                <a href = "<?= base_url() ?>dosen/disertasi/kelayakan/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penguji</a>
+                                <?php
+                            endif;
+                            ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 6]); ?>                            
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_TERTUTUP]); ?>
+                            <div class="divider5"></div>
+                            <?php
+                            if ($list['status_tertutup'] > 0):
+                                ?>
+                                <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/tertutup/<?php echo $list['berkas_tertutup'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                                <?php
+                            endif;
+                            ?>
+                            <?php if ($list['status_tertutup'] >= 3 && $list['status_tertutup'] < 6):
+                                ?>
+                                <hr style = "margin: 10px;border-width:2px;" />
+                                <a href = "<?= base_url() ?>dosen/disertasi/tertutup/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penguji</a>
+                                <?php
+                            endif;
+                            ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 7]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_TERBUKA]); ?>
+                            <div class="divider5"></div>
+                            <?php
+                            if ($list['status_terbuka'] > 0):
+                                ?>
+                                <a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/terbuka/<?php echo $list['berkas_terbuka'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+                                <?php
+                            endif;
+                            ?>
+                            <?php if ($list['status_terbuka'] >= 3 && $list['status_terbuka'] < 6):
+                                ?>
+                                <hr style = "margin: 10px;border-width:2px;" />
+                                <a href = "<?= base_url() ?>dosen/disertasi/terbuka/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penyanggah</a>
+                                <?php
+                            endif;
+                            ?>
                         </td>
                     </tr>      
                     <?php

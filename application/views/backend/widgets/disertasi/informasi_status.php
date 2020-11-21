@@ -59,10 +59,70 @@
                 <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
             </dl>
             <?php
-        elseif ($jenis == '4') :// KELAYAKAN
+        elseif ($jenis == '4') :// MKPD
+            ?>
+            <dl style="margin-left: 20px">
+                <dt><label class="label bg-blue">Pengajuan</label></dt>
+                <dd>Diajukan oleh mahasiswa </dd>
+                <dt><label class="label bg-green">Diterima SPS</label></dt>
+                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
+                <dt><label class="label bg-green">Diterima KPS</label></dt>
+                <dd>Diterima dan disetujui oleh KPS</dd>
+                <dt><label class="label bg-red">Selesai </label></dt>
+                <dd>Selesai dan dapat melanjutkan ke Proposal</dd>
+            </dl>
+            <?php
         elseif ($jenis == '5') :// KELAYAKAN
+            ?>
+            <dl style="margin-left: 20px">
+                <dt><label class="label bg-blue">Pengajuan</label></dt>
+                <dd>Diajukan oleh mahasiswa </dd>
+                <dt><label class="label bg-green">Diterima SPS</label></dt>
+                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
+                <dt><label class="label bg-green">Diterima KPS</label></dt>
+                <dd>Diterima dan disetujui oleh KPS</dd>
+                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
+                <dd>Telah dijadwalkan serta pengajuan Penguji oleh Promotor</dd>
+                <dt><label class="label bg-purple">Ujian </label></dt>
+                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
+                <dt><label class="label bg-red">Selesai </label></dt>
+                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+            </dl>
+            <?php
         elseif ($jenis == '6') :// UJIAN TERTUTUP
+            ?>
+            <dl style="margin-left: 20px">
+                <dt><label class="label bg-blue">Pengajuan</label></dt>
+                <dd>Diajukan oleh mahasiswa </dd>
+                <dt><label class="label bg-green">Diterima SPS</label></dt>
+                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
+                <dt><label class="label bg-green">Diterima KPS</label></dt>
+                <dd>Diterima dan disetujui oleh KPS</dd>
+                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
+                <dd>Telah dijadwalkan serta pengajuan Penguji oleh Promotor</dd>
+                <dt><label class="label bg-purple">Ujian </label></dt>
+                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
+                <dt><label class="label bg-red">Selesai </label></dt>
+                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+            </dl>
+            <?php
         elseif ($jenis == '7') :// UJIAN TERBUKA
+            ?>
+            <dl style="margin-left: 20px">
+                <dt><label class="label bg-blue">Pengajuan</label></dt>
+                <dd>Diajukan oleh mahasiswa </dd>
+                <dt><label class="label bg-green">Diterima SPS</label></dt>
+                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
+                <dt><label class="label bg-green">Diterima KPS</label></dt>
+                <dd>Diterima dan disetujui oleh KPS</dd>
+                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
+                <dd>Telah dijadwalkan serta pengajuan Penguji oleh Promotor</dd>
+                <dt><label class="label bg-purple">Ujian </label></dt>
+                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
+                <dt><label class="label bg-red">Selesai </label></dt>
+                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+            </dl>
+            <?php
         endif;
         ?>
 

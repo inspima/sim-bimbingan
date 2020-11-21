@@ -8,7 +8,7 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">Tabel <?= $subtitle ?></h3>
@@ -39,23 +39,23 @@
                             ?>
                         </td>
                         <td>
-                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mpkk/<?php echo $list['berkas_mpkk'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mkpd/<?php echo $list['berkas_mkpd'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td><?= $list['departemen'] ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
-                            <?php if ($list['status_mpkk'] > 3 && $list['status_proposal'] == 0) {
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
+                            <?php if ($list['status_mkpd'] > 3 && $list['status_kelayakan'] == 0) {
                                 ?>
                                 <hr style = "margin:5px"/>
-                                <a href = "<?= base_url() ?>mahasiswa/disertasi/proposal/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
+                                <a href = "<?= base_url() ?>mahasiswa/disertasi/kelayakan/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Ujian Kelayakan</a>
                                 <?php
                             }
                             ?>
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_mpkk'] > 0) {
+                            <?php if ($list['status_mkpd'] > 0) {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/disertasi/mpkk/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
+                                <a href="<?= base_url() ?>mahasiswa/disertasi/mkpd/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
                             }
                             ?>

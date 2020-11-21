@@ -132,7 +132,7 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Pengajuan Proposal Skripsi',
+            'subtitle' => 'Pengajuan Proposal',
             'section' => 'backend/mahasiswa/modul/proposal_edit',
             // DATA //
             'departemen' => $this->departemen->read(),

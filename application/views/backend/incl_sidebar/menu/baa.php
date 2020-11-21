@@ -2,6 +2,18 @@
 <ul class="sidebar-menu" data-widget="tree">
     <li class="treeview">
         <a href="#">
+            <i class="fa fa-group"></i> <span>Registrasi</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="<?php echo base_url() ?>baa/modul/registrasi"><i class="fa fa-circle-o"></i> Verifikasi</a></li>
+
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#">
             <i class="fa fa-list-alt"></i> <span>Master</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -100,8 +112,8 @@
             <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi</a></li>
             <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
             <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kelayakan"><i class="fa fa-circle-o"></i>Kelayakan</a></li>
-            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/terbuka"><i class="fa fa-circle-o"></i>Ujian Terbuka</a></li>
             <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/tertutup"><i class="fa fa-circle-o"></i>Ujian Tertutup</a></li>
+            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/terbuka"><i class="fa fa-circle-o"></i>Ujian Terbuka</a></li>
         </ul>
     </li>
 </ul>

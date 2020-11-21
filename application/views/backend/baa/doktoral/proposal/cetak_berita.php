@@ -119,6 +119,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:80%;margin-left: 10px">
                         <?php
                         $no = 1;
+                        foreach ($promotors as $promotor):
+                            ?>
+                            <tr style="line-height: 2">
+                                <td style="width: 3%"><b><?= $no ?></b>.</td>
+                                <td style="width: 65%"><?= $promotor['nama'] ?></td>
+                                <?php if ($no % 2 == 0):
+                                    ?>
+                                    <td style = "width: 16%"></td>
+                                    <td style = "width: 16%"><?= $no ?>..................</td>
+                                    <?php
+                                else:
+                                    ?>
+                                    <td style = "width: 16%"><?= $no ?>..................</td>
+                                    <td style = "width: 16%"></td>
+                                <?php
+                                endif;
+                                ?>
+                            </tr>
+                            <?php
+                            $no++;
+                        endforeach;
                         foreach ($pengujis as $penguji):
                             ?>
                             <tr style="line-height: 2">
@@ -157,17 +178,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tr>
                         <tr>
                             <td style="padding-left: 10px;line-height: 1.5">
-                                a.LULUS dengan Nilai : ……………  
+                                a.DILANJUTKAN/DITOLAK*)
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-left: 10px;line-height: 1.5">
-                                b.MENGULANG KEMBALI : ……………  
+                                b.MENGULANG KEMBALI
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-left: 10px;line-height: 1.5">
-                                c.GAGAL STUDI karena TIDAK LULUS pada UJIAN KEDUA : ……………  
+                                c.GAGAL STUDI karena TIDAK LULUS pada UJIAN KEDUA
                             </td>
                         </tr>
                     </table>
