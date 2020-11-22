@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-8">
         <p style="font-size:50px;color:#FFFFFF;">IURIS</p>
-        <p style="font-size:35px;color:#FFFFFF;text-shadow: #000000 1px 0 10px;">Selamat Datang di aplikasi pengelolaan Proposal Skripsi, Skripsi Fakultas Hukum Universitas Airlangga</p>
+        <p class="hidden-xs hidden-sm" style="font-size:35px;color:#FFFFFF;text-shadow: #000000 1px 0 10px;">Selamat Datang di aplikasi pengelolaan Proposal Skripsi, Skripsi Fakultas Hukum Universitas Airlangga</p>
     </div>
     <div class="col-md-4">
         <div class="box">
