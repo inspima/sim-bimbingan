@@ -258,7 +258,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->join('ujian_disertasi uj', 'uj.id_disertasi = s.id_disertasi');
         $this->db->where('uj.jenis_ujian', $jenis);
         $this->db->where('`uj`.`id_ujian` IN (SELECT `id_ujian` from `penguji_disertasi` where `status` in (1,2) and `nip`=\'' . $username . '\')', NULL, FALSE);
@@ -410,7 +410,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('`s`.`id_disertasi` IN (SELECT `id_disertasi` from `promotor` where `status` in (1,2) and `nip`=\'' . $username . '\')', NULL, FALSE);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -485,6 +485,21 @@ class Disertasi extends CI_Model {
     public function update_promotor($data, $id_promotor) {
         $this->db->where('id_promotor', $id_promotor);
         $this->db->update('promotor', $data);
+    }
+
+    public function semua_promotor_setujui($id_disertasi) {
+        $jumlah_promotor = $this->count_promotor($id_disertasi);
+        $stts = array('2');
+        $this->db->from('promotor p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->join('disertasi u', 'p.id_disertasi = u.id_disertasi');
+        $this->db->where_in('p.status', $stts);
+        $jumlah_setuju = $this->db->count_all_results();
+        if ($jumlah_promotor == $jumlah_setuju) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // JADWAL
@@ -619,67 +634,67 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-gray'
                 ],
                 [
-                    'value' => 1,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN,
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa',
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => 2,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PA,
                     'text' => 'Disetujui PA',
                     'keterangan' => 'Disetujui oleh Penasehat Akademik',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 4,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_DIJADWALKAN,
                     'text' => 'Dijadwalkan',
                     'keterangan' => 'Telah dijadwalkan Oleh Penasehat Akademik untuk Ujian dan pengajuan dosen penguji',
                     'color' => 'bg-navy'
                 ],
                 [
-                    'value' => 5,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI,
                     'text' => 'Disetujui Penguji',
                     'keterangan' => 'Disetujui  oleh semua penguji',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 6,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_SPS,
                     'text' => 'Disetujui SPS',
                     'keterangan' => 'Disetujui Sekertaris Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 7,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 8,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_UJIAN,
                     'text' => 'Ujian',
                     'keterangan' => 'Sedang menunggu masa jadwal Ujian',
                     'color' => 'bg-purple'
                 ],
                 [
-                    'value' => 9,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_UJIAN_SELESAI,
                     'text' => 'Ujian Selesai',
                     'keterangan' => 'Telah menyelesaikan Ujian',
                     'color' => 'bg-maroon-active'
                 ],
                 [
-                    'value' => 10,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN_PROMOTOR,
                     'text' => 'Pengajuan Promotor',
                     'keterangan' => 'Pengajuan Promotor Dan Ko-Promotor Oleh Mahasiswa',
                     'color' => 'bg-aqua'
                 ],
                 [
-                    'value' => 11,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
                     'text' => 'Disetujui Promotor',
                     'keterangan' => 'Disetujui oleh semua Promotor & Ko-Promotor',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 12,
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => '',
                     'color' => 'bg-red'
@@ -694,31 +709,31 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-gray'
                 ],
                 [
-                    'value' => 1,
+                    'value' => STATUS_DISERTASI_MPKK_PENGAJUAN,
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa',
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => 2,
+                    'value' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
                     'text' => 'Disetujui Promotor',
                     'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
-                    'color' => 'bg-grren'
+                    'color' => 'bg-green'
                 ],
                 [
-                    'value' => 3,
+                    'value' => STATUS_DISERTASI_MPKK_SETUJUI_SPS,
                     'text' => 'Disetujui SPS',
                     'keterangan' => 'Disetujui Sekertaris Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 4,
+                    'value' => STATUS_DISERTASI_MPKK_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 5,
+                    'value' => STATUS_DISERTASI_MPKK_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => '',
                     'color' => 'bg-red'
@@ -733,49 +748,49 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-gray'
                 ],
                 [
-                    'value' => 1,
+                    'value' => STATUS_DISERTASI_PROPOSAL_PENGAJUAN,
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa syarat min sks 16, Upload Bukti Transkrip, TOFL 500 dan TOEFL pendamping, Upload Bukti Transkrip dan Pembayaran SPP',
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => 2,
+                    'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PROMOTOR,
                     'text' => 'Disetujui Promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 4,
+                    'value' => STATUS_DISERTASI_PROPOSAL_DIJADWALKAN,
                     'text' => 'Dijadwalkan',
                     'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
                     'color' => 'bg-navy'
                 ],
                 [
-                    'value' => 5,
+                    'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PENGUJI,
                     'text' => 'Disetujui Penguji',
                     'keterangan' => 'Disetujui  oleh semua penguji',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 6,
+                    'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_SPS,
                     'text' => 'Disetujui SPS',
                     'keterangan' => 'Disetujui Sekertaris Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 7,
+                    'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 8,
+                    'value' => STATUS_DISERTASI_PROPOSAL_UJIAN,
                     'text' => 'Ujian',
                     'keterangan' => 'Sedang menunggu masa jadwal Ujian',
                     'color' => 'bg-purple'
                 ],
                 [
-                    'value' => 9,
+                    'value' => STATUS_DISERTASI_PROPOSAL_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => 'Hasil Ujian telah ditentukan',
                     'color' => 'bg-red'
@@ -790,31 +805,31 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-gray'
                 ],
                 [
-                    'value' => 1,
+                    'value' => STATUS_DISERTASI_MKPD_PENGAJUAN,
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa',
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => 2,
+                    'value' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
                     'text' => 'Disetujui Promotor',
                     'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 3,
+                    'value' => STATUS_DISERTASI_MKPD_SETUJUI_SPS,
                     'text' => 'Disetujui SPS',
                     'keterangan' => 'Disetujui Sekertaris Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 4,
+                    'value' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 5,
+                    'value' => STATUS_DISERTASI_MKPD_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => '',
                     'color' => 'bg-red'
@@ -829,49 +844,49 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-gray'
                 ],
                 [
-                    'value' => 1,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_PENGAJUAN,
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa syarat jangka waktu Ujian 1 dan Proposal Minimal 6 Bulan, Nilai MKPD lengkap beserta Transkrip',
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => 2,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PROMOTOR,
                     'text' => 'Disetujui Promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 4,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_DIJADWALKAN,
                     'text' => 'Dijadwalkan',
                     'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
                     'color' => 'bg-navy'
                 ],
                 [
-                    'value' => 5,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PENGUJI,
                     'text' => 'Disetujui Penguji',
                     'keterangan' => 'Disetujui  oleh semua penguji',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 6,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_SPS,
                     'text' => 'Disetujui SPS',
                     'keterangan' => 'Disetujui Sekertaris Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 7,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 8,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_UJIAN,
                     'text' => 'Ujian',
                     'keterangan' => 'Sedang menunggu masa jadwal Ujian',
                     'color' => 'bg-purple'
                 ],
                 [
-                    'value' => 9,
+                    'value' => STATUS_DISERTASI_KELAYAKAN_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => 'Hasil Ujian telah ditentukan',
                     'color' => 'bg-red'
@@ -886,49 +901,49 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-gray'
                 ],
                 [
-                    'value' => 1,
+                    'value' => STATUS_DISERTASI_TERTUTUP_PENGAJUAN,
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa syarat Upload Naskah Ujian Kelayakan',
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => 2,
+                    'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PROMOTOR,
                     'text' => 'Disetujui Promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 4,
+                    'value' => STATUS_DISERTASI_TERTUTUP_DIJADWALKAN,
                     'text' => 'Dijadwalkan',
                     'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
                     'color' => 'bg-navy'
                 ],
                 [
-                    'value' => 5,
+                    'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PENGUJI,
                     'text' => 'Disetujui Penguji',
                     'keterangan' => 'Disetujui  oleh semua penguji',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 6,
+                    'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_SPS,
                     'text' => 'Disetujui SPS',
                     'keterangan' => 'Disetujui Sekertaris Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 7,
+                    'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 8,
+                    'value' => STATUS_DISERTASI_TERTUTUP_UJIAN,
                     'text' => 'Ujian',
                     'keterangan' => 'Sedang menunggu masa jadwal Ujian',
                     'color' => 'bg-purple'
                 ],
                 [
-                    'value' => 9,
+                    'value' => STATUS_DISERTASI_TERTUTUP_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => 'Hasil Ujian telah ditentukan',
                     'color' => 'bg-red'
@@ -943,49 +958,49 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-gray'
                 ],
                 [
-                    'value' => 1,
+                    'value' => STATUS_DISERTASI_TERBUKA_PENGAJUAN,
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa syarat Form perbaikan Ujian Tertutup & Validasi Jurnal',
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => 2,
+                    'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR,
                     'text' => 'Disetujui Promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 3,
+                    'value' => STATUS_DISERTASI_TERBUKA_DIJADWALKAN,
                     'text' => 'Dijadwalkan',
                     'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian',
                     'color' => 'bg-navy'
                 ],
                 [
-                    'value' => 4,
+                    'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_SPS,
                     'text' => 'Disetujui SPS',
                     'keterangan' => 'Disetujui Sekertaris Prodi',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 5,
+                    'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi pengajuan dosen penguji',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 6,
+                    'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PENGUJI,
                     'text' => 'Disetujui Penguji',
                     'keterangan' => 'Disetujui  oleh semua penguji',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => 7,
+                    'value' => STATUS_DISERTASI_TERBUKA_UJIAN,
                     'text' => 'Ujian',
                     'keterangan' => 'Sedang menunggu masa jadwal Ujian',
                     'color' => 'bg-purple'
                 ],
                 [
-                    'value' => 8,
+                    'value' => STATUS_DISERTASI_TERBUKA_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => 'Hasil Ujian telah ditentukan',
                     'color' => 'bg-red'

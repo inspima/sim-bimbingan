@@ -21,7 +21,6 @@
                     <th>No</th>
                     <th>Judul</th>
                     <th>Berkas</th>
-                    <th>Departemen</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
                 </tr>
@@ -41,7 +40,6 @@
                         <td>
                             <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mpkk/<?php echo $list['berkas_mpkk'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
                             <?php if ($list['status_mpkk'] > 3 && $list['status_proposal'] == 0) {

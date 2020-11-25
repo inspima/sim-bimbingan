@@ -52,12 +52,16 @@ class Mpkk extends CI_Controller {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             if ($struktural->id_struktur == STRUKTUR_SPS) {
                 $data = array(
-                    'status_mpkk' => 2,
+                    'status_mpkk' => STATUS_DISERTASI_MPKK_SETUJUI_SPS,
                 );
             } else if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
 
                 $data = array(
-                    'status_mpkk' => 3,
+                    'status_mpkk' => STATUS_DISERTASI_MPKK_SETUJUI_KPS,
+                );
+
+                $data = array(
+                    'status_mpkk' => STATUS_DISERTASI_MPKK_SELESAI,
                 );
             }
             $this->disertasi->update($data, $id_disertasi);

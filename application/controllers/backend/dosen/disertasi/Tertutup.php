@@ -52,12 +52,16 @@ class Tertutup extends CI_Controller {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             if ($struktural->id_struktur == STRUKTUR_SPS) {
                 $data = array(
-                    'status_tertutup' => 2,
+                    'status_tertutup' => STATUS_DISERTASI_TERTUTUP_SETUJUI_SPS,
                 );
             } else if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
 
                 $data = array(
-                    'status_tertutup' => 3,
+                    'status_tertutup' => STATUS_DISERTASI_TERTUTUP_SETUJUI_KPS,
+                );
+
+                $data = array(
+                    'status_tertutup' => STATUS_DISERTASI_TERTUTUP_UJIAN,
                 );
             }
             $this->disertasi->update($data, $id_disertasi);
@@ -142,10 +146,10 @@ class Tertutup extends CI_Controller {
                         } else {
                             $this->disertasi->update_ujian($data, $id_ujian);
                             $update_tertutup = array(
-                                'status_tertutup' => 4,
+                                'status_tertutup' => STATUS_DISERTASI_TERTUTUP_DIJADWALKAN,
                             );
                             $this->disertasi->update($update_tertutup, $id_disertasi);
-                            
+
                             $this->session->set_flashdata('msg-title', 'alert-success');
                             $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
                             redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
@@ -153,10 +157,10 @@ class Tertutup extends CI_Controller {
                     } else { //langsung update
                         $this->disertasi->update_ujian($data, $id_ujian);
                         $update_tertutup = array(
-                            'status_tertutup' => 4,
+                            'status_tertutup' => STATUS_DISERTASI_TERTUTUP_DIJADWALKAN,
                         );
                         $this->disertasi->update($update_tertutup, $id_disertasi);
-                        
+
                         $this->session->set_flashdata('msg-title', 'alert-success');
                         $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
                         redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
@@ -182,7 +186,7 @@ class Tertutup extends CI_Controller {
                 } else {
                     $this->disertasi->save_ujian($data);
                     $update_tertutup = array(
-                        'status_tertutup' => 4,
+                        'status_tertutup' => STATUS_DISERTASI_TERTUTUP_DIJADWALKAN,
                     );
                     $this->disertasi->update($update_tertutup, $id_disertasi);
                     $this->session->set_flashdata('msg-title', 'alert-success');
@@ -329,7 +333,7 @@ class Tertutup extends CI_Controller {
             } else if (in_array($status_ujian, [1, 2])) { //layak
                 //update tertutup selesai
                 $data = array(
-                    'status_tertutup' => 6,
+                    'status_tertutup' => STATUS_DISERTASI_TERTUTUP_SELESAI,
                     'status_ujian_tertutup' => $status_ujian,
                 );
                 $this->disertasi->update($data, $id_disertasi);
@@ -342,66 +346,6 @@ class Tertutup extends CI_Controller {
                 $this->session->set_flashdata('msg', 'Ujian ditolak');
                 redirect('dosen/disertasi/permintaan/promotor');
             }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/permintaan/promotor');
-        }
-    }
-
-    public function promotor_save() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            $status_tim = $this->input->post('status_tim', TRUE);
-            $nip = $this->input->post('nip', TRUE);
-
-            $data = array(
-                'id_disertasi' => $id_disertasi,
-                'nip' => $this->input->post('nip', TRUE),
-                'status_tim' => $status_tim,
-                'status' => 1
-            );
-
-            $cekpenguji = $this->disertasi->cek_promotor_kopromotor($data);
-            if ($cekpenguji) {
-                $this->session->set_flashdata('msg-title', 'alert-danger');
-                $this->session->set_flashdata('msg', 'Gagal simpan. Promotor/Co-Promotor sudah terdaftar.');
-                redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
-            } else {
-                $jumlah_promotor = $this->disertasi->count_penguji($id_disertasi);
-                if ($jumlah_promotor < 3) {
-                    $this->disertasi->save_promotor($data);
-                    $this->session->set_flashdata('msg-title', 'alert-success');
-                    $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                    redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
-                } else if ($jumlah_promotor >= 3) {
-                    $this->session->set_flashdata('msg-title', 'alert-danger');
-                    $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah Promotor sudah 3');
-                    redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
-                }
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/permintaan/promotor');
-        }
-    }
-
-    public function promotor_delete() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_disertasi = $this->input->post('id_disertasi', TRUE);
-
-            $data = array(
-                'status' => 0,
-            );
-
-            $this->disertasi->update_promotor($data, $id_promotor);
-
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil hapus penguji.');
-            redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');

@@ -44,7 +44,7 @@
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
                             <?php
-                            if ($list['status_mkpd'] == 1 && $struktural->id_struktur == STRUKTUR_SPS) {
+                            if ($list['status_mkpd'] == STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR && $struktural->id_struktur == STRUKTUR_SPS) {
                                 ?>
                                 <br/><br/>
                                 <?php echo form_open('dosen/disertasi/mkpd/terima') ?>
@@ -53,7 +53,7 @@
                                 <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
                                 <?php echo form_close() ?>
                                 <?php
-                            } else if ($list['status_mkpd'] == 2 && $struktural->id_struktur == STRUKTUR_KPS_S3) {
+                            } else if ($list['status_mkpd'] == STATUS_DISERTASI_MKPD_SETUJUI_SPS && $struktural->id_struktur == STRUKTUR_KPS_S3) {
                                 ?>
                                 <br/><br/>
                                 <?php echo form_open('dosen/disertasi/mkpd/terima') ?>
@@ -61,11 +61,6 @@
                                 <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
                                 <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
                                 <?php echo form_close() ?>
-                                <?php
-                            } else if ($list['status_mkpd'] >= 4 && $struktural->id_struktur == STRUKTUR_KPS_S3) {
-                                ?>
-                                <br/><br/>
-                                <a href="<?= base_url() ?>dosen/disertasi/mkpd/setting/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penguji</a>
                                 <?php
                             }
                             ?>

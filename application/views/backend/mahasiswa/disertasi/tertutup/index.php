@@ -21,7 +21,6 @@
                     <th>No</th>
                     <th>Judul</th>
                     <th>Berkas</th>
-                    <th>Departemen</th>
                     <th>Tanggal Pengajuan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
@@ -42,18 +41,17 @@
                         <td>
                             <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/tertutup/<?php echo $list['berkas_tertutup'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
                         <td><?= date('Y-m-d', strtotime($list['waktu_pengajuan_tertutup'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_TERTUTUP]); ?>
-                            <?php if ($list['status_tertutup'] > 5) {
+                            <?php if ($list['status_tertutup'] > STATUS_DISERTASI_TERTUTUP_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
                                 echo $this->disertasi->get_status_ujian($list['status_ujian_tertutup'], UJIAN_DISERTASI_TERTUTUP);
                                 ?>
-                                <?php if ($list['status_terbuka'] == '0'):
+                                <?php if ($list['status_terbuka'] == 0):
                                     ?>
                                     <hr style = "margin:5px"/>
                                     <a href = "<?= base_url() ?>mahasiswa/disertasi/terbuka/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Ujian Terbuka</a>
@@ -64,7 +62,7 @@
 
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_tertutup'] > 0) {
+                            <?php if ($list['status_tertutup'] > STATUS_DISERTASI_TERTUTUP_SETUJUI_PENGUJI) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/disertasi/tertutup/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php

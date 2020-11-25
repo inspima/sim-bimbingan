@@ -21,8 +21,8 @@
                     <th class="text-center">Proposal</th>
                     <th class="text-center">MKPD</th>
                     <th class="text-center">Kelayakan</th>
-                    <th class="text-center">Ujian Terbuka</th>
                     <th class="text-center">Ujian Tertutup</th>
+                    <th class="text-center">Ujian Terbuka</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,10 +54,10 @@
                             endif;
                             ?>
                             <?php
-                            if ($list['status_mpkk'] == '3'):
+                            if ($list['status_mpkk'] == STATUS_DISERTASI_MPKK_PENGAJUAN):
                                 ?>
                                 <hr style="margin: 10px;border-width:2px;" />
-                                <?php echo form_open('dosen/disertasi/permintaan/promotor/mpkk_setujui') ?>
+                                <?php echo form_open('dosen/disertasi/permintaan/promotor/mpkk/setujui') ?>
                                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                 <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
                                 <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
@@ -75,7 +75,19 @@
                                 <?php
                             endif;
                             ?>
-                            <?php if ($list['status_proposal'] >= 3 && $list['status_proposal'] < 6):
+
+                            <?php
+                            if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_PENGAJUAN):
+                                ?>
+                                <hr style="margin: 10px;border-width:2px;" />
+                                <?php echo form_open('dosen/disertasi/permintaan/promotor/proposal/setujui') ?>
+                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                <?php
+                            endif;
+                            ?>
+                            <?php if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_SETUJUI_PROMOTOR && $list['status_proposal'] < STATUS_DISERTASI_PROPOSAL_SELESAI):
                                 ?>
                                 <hr style = "margin: 10px;border-width:2px;" />
                                 <a href = "<?= base_url() ?>dosen/disertasi/proposal/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penguji</a>
@@ -94,10 +106,10 @@
                             endif;
                             ?>
                             <?php
-                            if ($list['status_mkpd'] == '3'):
+                            if ($list['status_mkpd'] == STATUS_DISERTASI_MKPD_PENGAJUAN):
                                 ?>
                                 <hr style="margin: 10px;border-width:2px;" />
-                                <?php echo form_open('dosen/disertasi/permintaan/promotor/mkpd_setujui') ?>
+                                <?php echo form_open('dosen/disertasi/permintaan/promotor/mkpd/setujui') ?>
                                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                 <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
                                 <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
@@ -115,7 +127,18 @@
                                 <?php
                             endif;
                             ?>
-                            <?php if ($list['status_kelayakan'] >= 3 && $list['status_kelayakan'] < 6):
+                            <?php
+                            if ($list['status_kelayakan'] == STATUS_DISERTASI_KELAYAKAN_PENGAJUAN):
+                                ?>
+                                <hr style="margin: 10px;border-width:2px;" />
+                                <?php echo form_open('dosen/disertasi/permintaan/promotor/kelayakan/setujui') ?>
+                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                <?php
+                            endif;
+                            ?>
+                            <?php if ($list['status_kelayakan'] >= STATUS_DISERTASI_KELAYAKAN_SETUJUI_PROMOTOR && $list['status_kelayakan'] < STATUS_DISERTASI_KELAYAKAN_SELESAI):
                                 ?>
                                 <hr style = "margin: 10px;border-width:2px;" />
                                 <a href = "<?= base_url() ?>dosen/disertasi/kelayakan/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penguji</a>
@@ -133,7 +156,18 @@
                                 <?php
                             endif;
                             ?>
-                            <?php if ($list['status_tertutup'] >= 3 && $list['status_tertutup'] < 6):
+                            <?php
+                            if ($list['status_tertutup'] == STATUS_DISERTASI_TERTUTUP_PENGAJUAN):
+                                ?>
+                                <hr style="margin: 10px;border-width:2px;" />
+                                <?php echo form_open('dosen/disertasi/permintaan/promotor/tertutup/setujui') ?>
+                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                <?php
+                            endif;
+                            ?>
+                            <?php if ($list['status_tertutup'] >= STATUS_DISERTASI_TERTUTUP_SETUJUI_PROMOTOR && $list['status_tertutup'] < STATUS_DISERTASI_TERTUTUP_SELESAI):
                                 ?>
                                 <hr style = "margin: 10px;border-width:2px;" />
                                 <a href = "<?= base_url() ?>dosen/disertasi/tertutup/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penguji</a>
@@ -151,7 +185,18 @@
                                 <?php
                             endif;
                             ?>
-                            <?php if ($list['status_terbuka'] >= 3 && $list['status_terbuka'] < 6):
+                            <?php
+                            if ($list['status_terbuka'] == STATUS_DISERTASI_TERBUKA_PENGAJUAN):
+                                ?>
+                                <hr style="margin: 10px;border-width:2px;" />
+                                <?php echo form_open('dosen/disertasi/permintaan/promotor/terbuka/setujui') ?>
+                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                <?php
+                            endif;
+                            ?>
+                            <?php if ($list['status_terbuka'] >= STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR && $list['status_terbuka'] < STATUS_DISERTASI_TERBUKA_SELESAI):
                                 ?>
                                 <hr style = "margin: 10px;border-width:2px;" />
                                 <a href = "<?= base_url() ?>dosen/disertasi/terbuka/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penyanggah</a>

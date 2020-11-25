@@ -8,7 +8,7 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => '1']); ?>
+<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
 <div class="box">
 
     <!-- /.box-header -->
@@ -42,15 +42,15 @@
                         <td><?php echo $list['departemen'] ?></td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 1]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_KUALIFIKASI]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => 1]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_KUALIFIKASI]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
+                            <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => UJIAN_DISERTASI_KUALIFIKASI]); ?>
                             <?php
-                            if ($list['status_kualifikasi'] == 1 && $struktural->id_struktur == STRUKTUR_SPS) {
+                            if ($list['status_kualifikasi'] == STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI && $struktural->id_struktur == STRUKTUR_SPS) {
                                 ?>
                                 <br/><br/>
                                 <?php echo form_open('dosen/disertasi/kualifikasi/terima') ?>
@@ -59,7 +59,7 @@
                                 <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
                                 <?php echo form_close() ?>
                                 <?php
-                            } else if ($list['status_kualifikasi'] == 2 && $struktural->id_struktur == STRUKTUR_KPS_S3) {
+                            } else if ($list['status_kualifikasi'] == STATUS_DISERTASI_KUALIFIKASI_SETUJUI_SPS && $struktural->id_struktur == STRUKTUR_KPS_S3) {
                                 ?>
                                 <br/><br/>
                                 <?php echo form_open('dosen/disertasi/kualifikasi/terima') ?>
@@ -67,11 +67,6 @@
                                 <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
                                 <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
                                 <?php echo form_close() ?>
-                                <?php
-                            } else if ($list['status_kualifikasi'] >= 4 && $struktural->id_struktur == STRUKTUR_KPS_S3) {
-                                ?>
-                                <br/><br/>
-                                <a href="<?= base_url() ?>dosen/disertasi/kualifikasi/setting/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penguji</a>
                                 <?php
                             }
                             ?>

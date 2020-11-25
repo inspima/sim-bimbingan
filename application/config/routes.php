@@ -407,54 +407,64 @@ $route['dosen/disertasi/permintaan/penasehat'] = 'backend/dosen/disertasi/permin
 $route['dosen/disertasi/permintaan/penasehat/setujui'] = 'backend/dosen/disertasi/permintaan/penasehat_setujui';
 $route['dosen/disertasi/permintaan/promotor'] = 'backend/dosen/disertasi/permintaan/promotor';
 $route['dosen/disertasi/permintaan/promotor/setujui'] = 'backend/dosen/disertasi/permintaan/promotor_setujui';
-$route['dosen/disertasi/permintaan/promotor/mpkk_setujui'] = 'backend/dosen/disertasi/permintaan/mpkk_setujui';
-$route['dosen/disertasi/permintaan/promotor/mkpd_setujui'] = 'backend/dosen/disertasi/permintaan/mkpd_setujui';
+$route['dosen/disertasi/permintaan/promotor/mpkk/setujui'] = 'backend/dosen/disertasi/permintaan/mpkk_setujui';
+$route['dosen/disertasi/permintaan/promotor/proposal/setujui'] = 'backend/dosen/disertasi/permintaan/proposal_setujui';
+$route['dosen/disertasi/permintaan/promotor/mkpd/setujui'] = 'backend/dosen/disertasi/permintaan/mkpd_setujui';
+$route['dosen/disertasi/permintaan/promotor/kelayakan/setujui'] = 'backend/dosen/disertasi/permintaan/kelayakan_setujui';
+$route['dosen/disertasi/permintaan/promotor/tertutup/setujui'] = 'backend/dosen/disertasi/permintaan/tertutup_setujui';
+$route['dosen/disertasi/permintaan/promotor/terbuka/setujui'] = 'backend/dosen/disertasi/permintaan/terbuka_setujui';
 
-// MAHASISWA
+// MAHASISWA 
+// DOKTORAL
 $route['mahasiswa/disertasi/kualifikasi'] = 'backend/mahasiswa/disertasi/kualifikasi';
 $route['mahasiswa/disertasi/kualifikasi/add'] = 'backend/mahasiswa/disertasi/kualifikasi/add';
 $route['mahasiswa/disertasi/kualifikasi/save'] = 'backend/mahasiswa/disertasi/kualifikasi/save';
 $route['mahasiswa/disertasi/kualifikasi/info/(:num)'] = 'backend/mahasiswa/disertasi/kualifikasi/info';
+$route['mahasiswa/disertasi/kualifikasi/promotor_save'] = 'backend/mahasiswa/disertasi/kualifikasi/promotor_save';
+$route['mahasiswa/disertasi/kualifikasi/promotor_delete'] = 'backend/mahasiswa/disertasi/kualifikasi/promotor_delete';
 
 $route['mahasiswa/disertasi/mpkk'] = 'backend/mahasiswa/disertasi/mpkk';
 $route['mahasiswa/disertasi/mpkk/add/(:num)'] = 'backend/mahasiswa/disertasi/mpkk/add';
 $route['mahasiswa/disertasi/mpkk/save'] = 'backend/mahasiswa/disertasi/mpkk/save';
 $route['mahasiswa/disertasi/mpkk/info/(:num)'] = 'backend/mahasiswa/disertasi/mpkk/info';
-$route['mahasiswa/disertasi/mpkk/promotor_save'] = 'backend/mahasiswa/disertasi/mpkk/promotor_save';
-$route['mahasiswa/disertasi/mpkk/promotor_delete'] = 'backend/mahasiswa/disertasi/mpkk/promotor_delete';
 
 $route['mahasiswa/disertasi/proposal'] = 'backend/mahasiswa/disertasi/proposal';
 $route['mahasiswa/disertasi/proposal/add/(:num)'] = 'backend/mahasiswa/disertasi/proposal/add';
 $route['mahasiswa/disertasi/proposal/save'] = 'backend/mahasiswa/disertasi/proposal/save';
 $route['mahasiswa/disertasi/proposal/info/(:num)'] = 'backend/mahasiswa/disertasi/proposal/info';
-$route['mahasiswa/disertasi/proposal/promotor_save'] = 'backend/mahasiswa/disertasi/proposal/promotor_save';
-$route['mahasiswa/disertasi/proposal/promotor_delete'] = 'backend/mahasiswa/disertasi/proposal/promotor_delete';
 
 $route['mahasiswa/disertasi/mkpd'] = 'backend/mahasiswa/disertasi/mkpd';
 $route['mahasiswa/disertasi/mkpd/add/(:num)'] = 'backend/mahasiswa/disertasi/mkpd/add';
 $route['mahasiswa/disertasi/mkpd/save'] = 'backend/mahasiswa/disertasi/mkpd/save';
 $route['mahasiswa/disertasi/mkpd/info/(:num)'] = 'backend/mahasiswa/disertasi/mkpd/info';
-$route['mahasiswa/disertasi/mkpd/promotor_save'] = 'backend/mahasiswa/disertasi/mkpd/promotor_save';
-$route['mahasiswa/disertasi/mkpd/promotor_delete'] = 'backend/mahasiswa/disertasi/mkpd/promotor_delete';
 
 $route['mahasiswa/disertasi/kelayakan'] = 'backend/mahasiswa/disertasi/kelayakan';
 $route['mahasiswa/disertasi/kelayakan/add/(:num)'] = 'backend/mahasiswa/disertasi/kelayakan/add';
 $route['mahasiswa/disertasi/kelayakan/save'] = 'backend/mahasiswa/disertasi/kelayakan/save';
 $route['mahasiswa/disertasi/kelayakan/info/(:num)'] = 'backend/mahasiswa/disertasi/kelayakan/info';
-$route['mahasiswa/disertasi/kelayakan/promotor_save'] = 'backend/mahasiswa/disertasi/kelayakan/promotor_save';
-$route['mahasiswa/disertasi/kelayakan/promotor_delete'] = 'backend/mahasiswa/disertasi/kelayakan/promotor_delete';
 
 $route['mahasiswa/disertasi/tertutup'] = 'backend/mahasiswa/disertasi/tertutup';
 $route['mahasiswa/disertasi/tertutup/add/(:num)'] = 'backend/mahasiswa/disertasi/tertutup/add';
 $route['mahasiswa/disertasi/tertutup/save'] = 'backend/mahasiswa/disertasi/tertutup/save';
 $route['mahasiswa/disertasi/tertutup/info/(:num)'] = 'backend/mahasiswa/disertasi/tertutup/info';
-$route['mahasiswa/disertasi/tertutup/promotor_save'] = 'backend/mahasiswa/disertasi/tertutup/promotor_save';
-$route['mahasiswa/disertasi/tertutup/promotor_delete'] = 'backend/mahasiswa/disertasi/tertutup/promotor_delete';
 
 $route['mahasiswa/disertasi/terbuka'] = 'backend/mahasiswa/disertasi/terbuka';
 $route['mahasiswa/disertasi/terbuka/add/(:num)'] = 'backend/mahasiswa/disertasi/terbuka/add';
 $route['mahasiswa/disertasi/terbuka/save'] = 'backend/mahasiswa/disertasi/terbuka/save';
 $route['mahasiswa/disertasi/terbuka/info/(:num)'] = 'backend/mahasiswa/disertasi/terbuka/info';
-$route['mahasiswa/disertasi/terbuka/promotor_save'] = 'backend/mahasiswa/disertasi/terbuka/promotor_save';
-$route['mahasiswa/disertasi/terbuka/promotor_delete'] = 'backend/mahasiswa/disertasi/terbuka/promotor_delete';
+
+// MAGISTER
+$route['mahasiswa/tesis/proposal'] = 'backend/mahasiswa/tesis/proposal';
+$route['mahasiswa/tesis/proposal/add'] = 'backend/mahasiswa/tesis/proposal/add';
+$route['mahasiswa/tesis/proposal/save'] = 'backend/mahasiswa/tesis/proposal/save';
+$route['mahasiswa/tesis/proposal/info/(:num)'] = 'backend/mahasiswa/tesis/proposal/info';
+$route['mahasiswa/tesis/proposal/promotor_save'] = 'backend/mahasiswa/tesis/proposal/promotor_save';
+$route['mahasiswa/tesis/proposal/promotor_delete'] = 'backend/mahasiswa/tesis/proposal/promotor_delete';
+
+$route['mahasiswa/tesis/ujian'] = 'backend/mahasiswa/tesis/ujian';
+$route['mahasiswa/tesis/ujian/add/(:num)'] = 'backend/mahasiswa/tesis/ujian/add';
+$route['mahasiswa/tesis/ujian/save'] = 'backend/mahasiswa/tesis/ujian/save';
+$route['mahasiswa/tesis/ujian/info/(:num)'] = 'backend/mahasiswa/tesis/ujian/info';
+$route['mahasiswa/tesis/ujian/promotor_save'] = 'backend/mahasiswa/tesis/ujian/promotor_save';
+$route['mahasiswa/tesis/ujian/promotor_delete'] = 'backend/mahasiswa/tesis/ujian/promotor_delete';
 

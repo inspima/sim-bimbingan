@@ -44,14 +44,14 @@
                         <td><?= date('Y-m-d', strtotime($list['waktu_pengajuan_kelayakan'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
-                            <?php if ($list['status_kelayakan'] > 5) {
+                            <?php if ($list['status_kelayakan'] > STATUS_DISERTASI_KELAYAKAN_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
                                 echo $this->disertasi->get_status_ujian($list['status_ujian_kelayakan'], UJIAN_DISERTASI_KELAYAKAN);
                                 ?>
-                                <?php if ($list['status_tertutup'] == '0'):
+                                <?php if ($list['status_tertutup'] == 0):
                                     ?>
                                     <hr style = "margin:5px"/>
                                     <a href = "<?= base_url() ?>mahasiswa/disertasi/tertutup/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Ujian Tertutup</a>
@@ -62,7 +62,7 @@
 
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_kelayakan'] > 0) {
+                            <?php if ($list['status_kelayakan'] >= STATUS_DISERTASI_KELAYAKAN_SETUJUI_PENGUJI) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/disertasi/kelayakan/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php

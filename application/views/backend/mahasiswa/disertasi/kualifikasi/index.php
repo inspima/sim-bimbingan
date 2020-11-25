@@ -51,14 +51,14 @@
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
 
-                            <?php if ($list['status_kualifikasi'] > 5) {
+                            <?php if ($list['status_kualifikasi'] > STATUS_DISERTASI_KUALIFIKASI_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
                                 echo $this->disertasi->get_status_ujian($list['status_ujian_kualifikasi'], UJIAN_DISERTASI_KUALIFIKASI);
                                 ?>
-                                <?php if ($list['status_mpkk'] == '0'):
+                                <?php if ($list['status_mpkk'] < STATUS_DISERTASI_MPKK_PENGAJUAN && $list['status_kualifikasi'] > STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR):
                                     ?>
                                     <hr style = "margin:5px"/>
                                     <a href = "<?= base_url() ?>mahasiswa/disertasi/mpkk/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPKK</a>
@@ -69,7 +69,7 @@
 
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_kualifikasi'] >= 5) {
+                            <?php if ($list['status_kualifikasi'] > STATUS_DISERTASI_KUALIFIKASI_DIJADWALKAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/disertasi/kualifikasi/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php

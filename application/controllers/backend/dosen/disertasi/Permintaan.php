@@ -39,7 +39,7 @@ class Permintaan extends CI_Controller {
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/permintaan/penguji_kualifikasi',
             // DATA //
-            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], 1)
+            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], UJIAN_DISERTASI_KUALIFIKASI)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -51,7 +51,7 @@ class Permintaan extends CI_Controller {
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/permintaan/penguji_proposal',
             // DATA //
-            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], 2)
+            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], UJIAN_DISERTASI_PROPOSAL)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -63,7 +63,7 @@ class Permintaan extends CI_Controller {
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/permintaan/penguji_kelayakan',
             // DATA //
-            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], 3)
+            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], UJIAN_DISERTASI_KELAYAKAN)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -75,7 +75,7 @@ class Permintaan extends CI_Controller {
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/permintaan/penguji_tertutup',
             // DATA //
-            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], 4)
+            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], UJIAN_DISERTASI_TERTUTUP)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -87,7 +87,7 @@ class Permintaan extends CI_Controller {
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/permintaan/penguji_terbuka',
             // DATA //
-            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], 5)
+            'disertasi' => $this->disertasi->read_permintaan_penguji($this->session_data['username'], UJIAN_DISERTASI_TERBUKA)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -109,29 +109,29 @@ class Permintaan extends CI_Controller {
             if ($semua_penguji_setuju) {
                 $ujian = $this->disertasi->detail_ujian($id_ujian);
                 switch ($ujian->jenis_ujian) {
-                    case 1:
+                    case UJIAN_DISERTASI_KUALIFIKASI:
                         $data = array(
-                            'status_kualifikasi' => 5,
+                            'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI,
                         );
                         break;
-                    case 2:
+                    case UJIAN_DISERTASI_PROPOSAL:
                         $data = array(
-                            'status_proposal' => 5,
+                            'status_proposal' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PENGUJI,
                         );
                         break;
-                    case 3:
+                    case UJIAN_DISERTASI_KELAYAKAN:
                         $data = array(
-                            'status_kelayakan' => 5,
+                            'status_kelayakan' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PENGUJI,
                         );
                         break;
-                    case 4:
+                    case UJIAN_DISERTASI_TERTUTUP:
                         $data = array(
-                            'status_tertutup' => 5,
+                            'status_tertutup' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PENGUJI,
                         );
                         break;
-                    case 5:
+                    case UJIAN_DISERTASI_TERBUKA:
                         $data = array(
-                            'status_terbuka' => 5,
+                            'status_terbuka' => STATUS_DISERTASI_TERBUKA_SETUJUI_PENGUJI,
                         );
                         break;
                 }
@@ -169,7 +169,7 @@ class Permintaan extends CI_Controller {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
 
             $data = array(
-                'status_kualifikasi' => 2,
+                'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PA,
             );
 
             $this->disertasi->update($data, $id_disertasi);
@@ -201,13 +201,24 @@ class Permintaan extends CI_Controller {
     public function promotor_setujui() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
             $id_promotor = $this->input->post('id_promotor', TRUE);
 
             $data = array(
                 'status' => 2,
             );
-
             $this->disertasi->update_promotor($data, $id_promotor);
+            $semua_promotor_setujui = $this->disertasi->semua_promotor_setujui($id_disertasi);
+            if ($semua_promotor_setujui) {
+                $data = array(
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
+                );
+
+                $data = array(
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+                );
+                $this->disertasi->update($data, $id_disertasi);
+            }
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil disetujui');
@@ -224,7 +235,26 @@ class Permintaan extends CI_Controller {
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             $data = array(
-                'status_mpkk' => 4,
+                'status_mpkk' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
+            );
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil approve');
+            redirect('dosen/disertasi/permintaan/promotor');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/disertasi/permintaan/promotor');
+        }
+    }
+
+    public function proposal_setujui() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_proposal' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PROMOTOR,
             );
             $this->disertasi->update($data, $id_disertasi);
 
@@ -243,7 +273,64 @@ class Permintaan extends CI_Controller {
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             $data = array(
-                'status_mkpd' => 4,
+                'status_mkpd' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
+            );
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil approve');
+            redirect('dosen/disertasi/permintaan/promotor');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/disertasi/permintaan/promotor');
+        }
+    }
+
+    public function kelayakan_setujui() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_kelayakan' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PROMOTOR,
+            );
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil approve');
+            redirect('dosen/disertasi/permintaan/promotor');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/disertasi/permintaan/promotor');
+        }
+    }
+
+    public function tertutup_setujui() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_tertutup' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PROMOTOR,
+            );
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil approve');
+            redirect('dosen/disertasi/permintaan/promotor');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/disertasi/permintaan/promotor');
+        }
+    }
+
+    public function terbuka_setujui() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_terbuka' => STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR,
             );
             $this->disertasi->update($data, $id_disertasi);
 

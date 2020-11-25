@@ -8,17 +8,10 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php
-$promotors = $this->disertasi->read_promotor_kopromotor($disertasi->id_disertasi);
-if (count($promotors) == 0) {
-    ?>
-    <div class="callout callout-warning">
-        <h4>Perhatian!</h4>
-        <p>Anda belum mengajukan Promotor/Ko Promotor.</p>
-    </div>
-    <?php
-}
-?>
+<div class="callout callout-info">
+    <h4>Syarat</h4>
+    <p>Minimal sks 16, Upload Bukti Transkrip, TOFL 500 dan TOEFL pendamping, Upload Bukti Transkrip dan Pembayaran SPP</p>
+</div>
 <div class="row">
     <!-- left column -->
     <div class="col-md-6">
@@ -30,21 +23,13 @@ if (count($promotors) == 0) {
             <!-- /.box-header -->
             <!-- form start -->
             <?php echo form_open_multipart('mahasiswa/disertasi/proposal/save'); ?>
+            <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Departemen</label>
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-                    <select name="id_departemen" class="form-control select2" style="width: 100%;" required>
-                        <option value="">Pilih</option>
-                        <?php
-                        foreach ($departemen as $list) {
-                            ?>
-                            <option value="<?php echo $list['id_departemen'] ?>" <?php if ($disertasi->id_departemen == $list['id_departemen']) echo 'selected'; ?>><?php echo $list['departemen'] ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
+                    <label>Penasehat Akademik</label>
+                    <hr class="divider-line-thin"/>
+                    <p><?php echo $disertasi->nama_penasehat ?> <br/> <b><?php echo $disertasi->nip_penasehat ?></b></p>
                 </div>
                 <div class="form-group">
                     <label>Judul</label>
@@ -52,7 +37,7 @@ if (count($promotors) == 0) {
                 </div>
 
                 <div class="form-group">
-                    <label>Upload Bukti TOEFL & TOEFL PENDAMPING (format file .pdf maks 10mb)</label>
+                    <label>Upload Bukti Transkrip, TOEFL, TOEFL PENDAMPING & Pembayaran SPP Terakhir <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
                     <input type="file" name="berkas_proposal" class="form-control" required>
                 </div>
             </div>
@@ -68,93 +53,13 @@ if (count($promotors) == 0) {
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Pengajuan Promotor & Ko-Promotor</h3>
+                <h3 class="box-title">Promotor & Ko-Promotor</h3>
             </div>
-            <?php echo form_open('mahasiswa/disertasi/proposal/promotor_save'); ?>
             <div class="box-body table-responsive">
-                <div class="form-group">
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-                    <select name="nip" class="form-control select2" style="width: 100%;" required>
-                        <option value="">- Pilih -</option>
-                        <?php
-                        foreach ($mdosen as $list) {
-                            ?>
-                            <option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select name="status_tim" class="form-control">
-                        <option value="1">Promotor</option>
-                        <option value="2">Ko Promotor</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
-                </div>
-                <?php echo form_close() ?>                
-                <div class="form-group">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Nama</th>
-                            <th>Tim</th>
-                            <th>Status</th>
-                            <th>Opsi</th>
-                        </tr>
-                        <?php
-                        $str_status_tim = '';
-                        foreach ($promotors as $promotor) {
-                            if ($promotor['status_tim'] == '1') {
-                                $str_status_tim = 'Promotor';
-                            } else if ($promotor['status_tim'] == '2') {
-                                $str_status_tim = 'Co-Promotor';
-                            }
-                            ?>
-                            <tr>
-                                <td><?php echo $promotor['nama'] ?></td>
-                                <td>
-                                    <button type="button" class="btn btn-xs bg-blue-gradient" style="color:white" >
-                                        <?php echo $str_status_tim ?>
-                                    </button>
-                                <td>
-                                    <?php
-                                    if ($promotor['status'] == '1') {
-                                        ?>
-                                        <button type="submit" class="btn btn-xs btn-warning"> Belum Approve</button>
-                                        <?php
-                                    } else
-                                    if ($promotor['status'] == '2') {
-                                        ?>
-                                        <button type="submit" class="btn btn-xs btn-success"> Approved</button>
-                                        <?php
-                                    } else
-                                    if ($promotor['status'] == '3') {
-                                        ?>
-                                        <button type="submit" class="btn btn-xs btn-danger"> Rejected</button>
-                                        <?php
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php echo form_open('mahasiswa/disertasi/proposal/promotor_delete') ?>
-                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                    <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-                                    <?php echo formtext('hidden', 'id_promotor', $promotor['id_promotor'], 'required') ?>
-                                    <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
-                                    <?php echo form_close() ?>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-                    </table>
-                </div>
+                <?php $this->view('backend/widgets/disertasi/list_promotor_kopromotor', ['disertasi' => $disertasi]); ?>
             </div>
         </div>
-        <!-- /.box -->
     </div>
+    <!-- /.box -->
+</div>
 </div>

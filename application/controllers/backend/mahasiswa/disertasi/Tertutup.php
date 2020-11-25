@@ -89,7 +89,7 @@ class Tertutup extends CI_Controller {
             $file_name = $this->session_data['username'] . '_berkas_tertutup.pdf';
             $config['upload_path'] = './assets/upload/mahasiswa/disertasi/tertutup';
             $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 20000;
+            $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
             $config['remove_spaces'] = TRUE;
             $config['file_ext_tolower'] = TRUE;
             $config['detect_mime'] = TRUE;
@@ -101,7 +101,7 @@ class Tertutup extends CI_Controller {
             if (!$this->upload->do_upload('berkas_tertutup')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
-                redirect('mahasiswa/disertasi/kualifikasi');
+                redirect_back();
             } else {
                 $id_disertasi = $this->input->post('id_disertasi', TRUE);
                 $tgl_sekarang = date('Y-m-d');
@@ -109,7 +109,7 @@ class Tertutup extends CI_Controller {
                     'jenis' => 2,
                     'waktu_pengajuan_tertutup' => $tgl_sekarang,
                     'berkas_tertutup' => $file_name,
-                    'status_tertutup' => 1,
+                    'status_tertutup' => STATUS_DISERTASI_TERTUTUP_PENGAJUAN,
                 );
 
                 $this->disertasi->update($data, $id_disertasi);
@@ -121,7 +121,7 @@ class Tertutup extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('mahasiswa/disertasi/kualifikasi');
+            redirect_back();
         }
     }
 

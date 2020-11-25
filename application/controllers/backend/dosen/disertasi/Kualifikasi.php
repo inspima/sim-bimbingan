@@ -52,12 +52,16 @@ class Kualifikasi extends CI_Controller {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             if ($struktural->id_struktur == STRUKTUR_SPS) {
                 $data = array(
-                    'status_kualifikasi' => 2,
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_SPS,
                 );
             } else if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
-
+                // SETUJUI KPS
                 $data = array(
-                    'status_kualifikasi' => 3,
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS,
+                );
+                // SEDANG UJIAN
+                $data = array(
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_UJIAN,
                 );
             }
             $this->disertasi->update($data, $id_disertasi);
@@ -96,7 +100,7 @@ class Kualifikasi extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            $ujian = $this->disertasi->read_jadwal($id_disertasi, 1);
+            $ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
 
             if (!empty($ujian)) { // JIKA SUDAH ADA
                 //echo 'jadwal sudah ada. tambah script update';  die();
@@ -165,7 +169,7 @@ class Kualifikasi extends CI_Controller {
                     redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
                 } else {
                     $update_kualifikasi = array(
-                        'status_kualifikasi' => 4,
+                        'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_DIJADWALKAN,
                     );
                     $this->disertasi->save_ujian($data);
                     $this->disertasi->update($update_kualifikasi, $id_disertasi);
@@ -313,18 +317,18 @@ class Kualifikasi extends CI_Controller {
             } else if (in_array($status_ujian, [1, 2])) { //layak
                 //update proposal selesai
                 $data = array(
-                    'status_kualifikasi' => 6,
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_UJIAN_SELESAI,
                     'status_ujian_kualifikasi' => $status_ujian,
                 );
                 $this->disertasi->update($data, $id_disertasi);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
-                redirect('dosen/disertasi/kualifikasi');
+                redirect('dosen/disertasi/permintaan/penasehat');
             } else if ($status_ujian == '3') {
                 $this->session->set_flashdata('msg-title', 'alert-warning');
                 $this->session->set_flashdata('msg', 'Ujian ditolak');
-                redirect('dosen/disertasi/kualifikasi');
+                redirect('dosen/disertasi/permintaan/penasehat');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');

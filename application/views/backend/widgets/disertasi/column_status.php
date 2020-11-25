@@ -27,13 +27,13 @@ elseif ($jenis == '5') :// KELAYAKAN
     <?php
 elseif ($jenis == '6') :// UJIAN TERTUTUP
 
-    $status = $this->disertasi->get_status_tahapan($disertasi['status_tertutup'], TAHAPAN_DISERTASI_TERBUKA);
+    $status = $this->disertasi->get_status_tahapan($disertasi['status_tertutup'], TAHAPAN_DISERTASI_TERTUTUP);
     ?>
     <span class = "btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>
     <?php
 elseif ($jenis == '7') :// UJIAN TERBUKA
 
-    $status = $this->disertasi->get_status_tahapan($disertasi['status_terbuka'], TAHAPAN_DISERTASI_KUALIFIKASI);
+    $status = $this->disertasi->get_status_tahapan($disertasi['status_terbuka'], TAHAPAN_DISERTASI_TERBUKA);
     ?>
     <span class = "btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>
     <?php

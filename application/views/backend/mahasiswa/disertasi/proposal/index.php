@@ -21,7 +21,6 @@
                     <th>No</th>
                     <th>Judul</th>
                     <th>Berkas</th>
-                    <th>Departemen</th>
                     <th>Tanggal Pengajuan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
@@ -42,18 +41,17 @@
                         <td>
                             <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
                         <td><?= date('Y-m-d', strtotime($list['waktu_pengajuan_proposal'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
-                            <?php if ($list['status_proposal'] > 5) {
+                            <?php if ($list['status_proposal'] > STATUS_DISERTASI_PROPOSAL_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
                                 echo $this->disertasi->get_status_ujian($list['status_ujian_proposal'], UJIAN_DISERTASI_PROPOSAL);
                                 ?>
-                                <?php if ($list['status_mkpd'] == '0'):
+                                <?php if ($list['status_mkpd'] == 0):
                                     ?>
                                     <hr style = "margin:5px"/>
                                     <a href = "<?= base_url() ?>mahasiswa/disertasi/mkpd/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPD</a>
@@ -64,7 +62,7 @@
 
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_proposal'] > 0) {
+                            <?php if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_SETUJUI_PENGUJI) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/disertasi/proposal/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php

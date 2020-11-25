@@ -32,7 +32,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">1. Setting Jadwal</h3>
+                <h3 class="box-title"> Jadwal</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -52,7 +52,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">3. Dosen Penguji</h3>
+                <h3 class="box-title">Dosen Penguji</h3>
             </div>
             <div class="box-body table-responsive">
                 <?php $this->view('backend/widgets/disertasi/list_penguji', ['jadwal' => $jadwal]); ?>
@@ -64,7 +64,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">4. Status Ujian</h3>
+                <h3 class="box-title">Status Ujian</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -81,3 +81,54 @@
         <!-- /.box -->
     </div>
 </div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Pengajuan Promotor & Ko-Promotor</h3>
+            </div>
+            <?php echo form_open('mahasiswa/disertasi/kualifikasi/promotor_save'); ?>
+            <div class="box-body table-responsive">
+                <?php
+                if ($disertasi->status_kualifikasi >= STATUS_DISERTASI_KUALIFIKASI_UJIAN_SELESAI) {
+                    ?>
+                    <div class="form-group">
+                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                        <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+                        <select name="nip" class="form-control select2" style="width: 100%;" required>
+                            <option value="">- Pilih -</option>
+                            <?php
+                            foreach ($mdosen as $list) {
+                                ?>
+                                <option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="status_tim" class="form-control">
+                            <option value="1">Promotor</option>
+                            <option value="2">Ko Promotor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
+                    </div>
+                    <?php echo form_close() ?>                
+                    <?php $this->view('backend/widgets/disertasi/list_promotor_kopromotor', ['disertasi' => $disertasi]); ?>
+
+                    <?php
+                } else {
+                    ?>
+                    <div class="form-group">
+                        <p>Ujian dah hasil belum ditentukan</p>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+    </div>

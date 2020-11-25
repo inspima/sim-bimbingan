@@ -16,3 +16,14 @@
     ?>
     <?php echo $judul->judul ?>
 </div>
+<?php
+if (!empty($disertasi->nip_penasehat)):
+    ?>
+    <div class="form-group">
+        <label>Penasehat Akademik</label>
+        <hr class="divider-line-thin"/>
+        <p><?php echo $disertasi->nama_penasehat ?> <br/> <b><?php echo $disertasi->nip_penasehat ?></b></p>
+    </div>
+    <?php
+endif;
+?>
