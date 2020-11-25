@@ -14,7 +14,7 @@
         </a>
         <ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/kualifikasi"><i class="fa fa-circle-o"></i> Kualifikasi</a></li>
-            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/mpkk"><i class="fa fa-circle-o"></i> MPKK</a></li>
+            <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/mpkk"><i class="fa fa-circle-o"></i> MKPKK</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/proposal"><i class="fa fa-circle-o"></i> Proposal</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/mkpd"><i class="fa fa-circle-o"></i> MKPD</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/disertasi/kelayakan"><i class="fa fa-circle-o"></i> Kelayakan</a></li>

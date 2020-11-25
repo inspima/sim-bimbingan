@@ -15,112 +15,128 @@
         if ($jenis == '1') :// KUALIFIKASI
             ?>
             <dl style="margin-left: 20px">
-                <dt><label class="label bg-blue">Pengajuan</label></dt>
-                <dd>Diajukan oleh mahasiswa </dd>
-                <dt><label class="label bg-green">Diterima SPS</label></dt>
-                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
-                <dt><label class="label bg-green">Diterima KPS</label></dt>
-                <dd>Diterima dan disetujui oleh Ketua Prodi</dd>
-                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
-                <dd>Telah dijadwalkan serta pengajuan Penguji oleh KPS</dd>
-                <dt><label class="label bg-purple">Ujian </label></dt>
-                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
-                <dt><label class="label bg-red">Selesai </label></dt>
-                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_KUALIFIKASI);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
+
             </dl>
             <?php
         elseif ($jenis == '2') :// MPKK
             ?>
             <dl style="margin-left: 20px">
-                <dt><label class="label bg-blue">Pengajuan</label></dt>
-                <dd>Diajukan oleh mahasiswa </dd>
-                <dt><label class="label bg-green">Diterima SPS</label></dt>
-                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
-                <dt><label class="label bg-green">Diterima KPS</label></dt>
-                <dd>Diterima dan disetujui oleh KPS</dd>
-                <dt><label class="label bg-red">Selesai </label></dt>
-                <dd>Selesai dan dapat melanjutkan ke Proposal</dd>
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_MPKK);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
             </dl>
             <?php
         elseif ($jenis == '3') :// PROPOSAL
             ?>
             <dl style="margin-left: 20px">
-                <dt><label class="label bg-blue">Pengajuan</label></dt>
-                <dd>Diajukan oleh mahasiswa </dd>
-                <dt><label class="label bg-green">Diterima SPS</label></dt>
-                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
-                <dt><label class="label bg-green">Diterima KPS</label></dt>
-                <dd>Diterima dan disetujui oleh KPS</dd>
-                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
-                <dd>Telah dijadwalkan serta pengajuan Penguji oleh Promotor</dd>
-                <dt><label class="label bg-purple">Ujian </label></dt>
-                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
-                <dt><label class="label bg-red">Selesai </label></dt>
-                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_PROPOSAL);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
             </dl>
             <?php
         elseif ($jenis == '4') :// MKPD
             ?>
             <dl style="margin-left: 20px">
-                <dt><label class="label bg-blue">Pengajuan</label></dt>
-                <dd>Diajukan oleh mahasiswa </dd>
-                <dt><label class="label bg-green">Diterima SPS</label></dt>
-                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
-                <dt><label class="label bg-green">Diterima KPS</label></dt>
-                <dd>Diterima dan disetujui oleh KPS</dd>
-                <dt><label class="label bg-red">Selesai </label></dt>
-                <dd>Selesai dan dapat melanjutkan ke Proposal</dd>
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_MKPD);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
             </dl>
             <?php
         elseif ($jenis == '5') :// KELAYAKAN
             ?>
             <dl style="margin-left: 20px">
-                <dt><label class="label bg-blue">Pengajuan</label></dt>
-                <dd>Diajukan oleh mahasiswa </dd>
-                <dt><label class="label bg-green">Diterima SPS</label></dt>
-                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
-                <dt><label class="label bg-green">Diterima KPS</label></dt>
-                <dd>Diterima dan disetujui oleh KPS</dd>
-                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
-                <dd>Telah dijadwalkan serta pengajuan Penguji oleh Promotor</dd>
-                <dt><label class="label bg-purple">Ujian </label></dt>
-                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
-                <dt><label class="label bg-red">Selesai </label></dt>
-                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_KELAYAKAN);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
             </dl>
             <?php
         elseif ($jenis == '6') :// UJIAN TERTUTUP
             ?>
             <dl style="margin-left: 20px">
-                <dt><label class="label bg-blue">Pengajuan</label></dt>
-                <dd>Diajukan oleh mahasiswa </dd>
-                <dt><label class="label bg-green">Diterima SPS</label></dt>
-                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
-                <dt><label class="label bg-green">Diterima KPS</label></dt>
-                <dd>Diterima dan disetujui oleh KPS</dd>
-                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
-                <dd>Telah dijadwalkan serta pengajuan Penguji oleh Promotor</dd>
-                <dt><label class="label bg-purple">Ujian </label></dt>
-                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
-                <dt><label class="label bg-red">Selesai </label></dt>
-                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_TERTUTUP);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
             </dl>
             <?php
         elseif ($jenis == '7') :// UJIAN TERBUKA
             ?>
             <dl style="margin-left: 20px">
-                <dt><label class="label bg-blue">Pengajuan</label></dt>
-                <dd>Diajukan oleh mahasiswa </dd>
-                <dt><label class="label bg-green">Diterima SPS</label></dt>
-                <dd>Diterima dan disetujui oleh Sekertaris Prodi</dd>
-                <dt><label class="label bg-green">Diterima KPS</label></dt>
-                <dd>Diterima dan disetujui oleh KPS</dd>
-                <dt><label class="label bg-navy">Dijadwalkan </label></dt>
-                <dd>Telah dijadwalkan serta pengajuan Penguji oleh Promotor</dd>
-                <dt><label class="label bg-purple">Ujian </label></dt>
-                <dd>Sudah disetujui semua pihak (Dosbing, Penguji, Sekertaris Prodi, KPS) dan menunggu waktu Ujian</dd>
-                <dt><label class="label bg-red">Selesai </label></dt>
-                <dd>Ujian Selesai serta hasil sudah ditentukan</dd>
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_TERBUKA);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
             </dl>
             <?php
         endif;

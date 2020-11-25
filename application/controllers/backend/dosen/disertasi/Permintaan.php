@@ -149,6 +149,41 @@ class Permintaan extends CI_Controller {
         }
     }
 
+    // DOSEN PENASEHAT AKADEMIK
+
+    public function penasehat() {
+        $data = array(
+            // PAGE //
+            'title' => 'Disertasi - Permintaan Penasehat Akademik',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/disertasi/permintaan/penasehat',
+            // DATA //
+            'disertasi' => $this->disertasi->read_permintaan_penasehat($this->session_data['username'])
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function penasehat_setujui() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+
+            $data = array(
+                'status_kualifikasi' => 2,
+            );
+
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil disetujui');
+            redirect('dosen/disertasi/permintaan/penasehat');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/disertasi/permintaan/penasehat');
+        }
+    }
+
     // DOSEN PROMOTOR/KOPROMOTOR
 
     public function promotor() {
@@ -202,7 +237,7 @@ class Permintaan extends CI_Controller {
             redirect('dosen/disertasi/permintaan/promotor');
         }
     }
-    
+
     public function mkpd_setujui() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {

@@ -23,6 +23,7 @@ class Kualifikasi extends CI_Controller {
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
+        $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
         //END MODEL
     }
 
@@ -69,6 +70,7 @@ class Kualifikasi extends CI_Controller {
                 'subtitle' => 'Pengajuan Ujian Kualifikasi',
                 'section' => 'backend/mahasiswa/disertasi/kualifikasi/add',
                 // DATA //
+                'mdosen' => $this->dosen->read_aktif_alldep(),
                 'departemen' => $this->departemen->read(),
                 'gelombang' => $this->gelombang->read_berjalan()
             );
@@ -79,28 +81,46 @@ class Kualifikasi extends CI_Controller {
     public function save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
+            $file_name = $this->session_data['username'] . '_berkas_kualifikasi.pdf';
+            $config['upload_path'] = './assets/upload/mahasiswa/disertasi/kualifikasi';
+            $config['allowed_types'] = 'pdf';
+            $config['max_size'] = 20000;
+            $config['remove_spaces'] = TRUE;
+            $config['file_ext_tolower'] = TRUE;
+            $config['detect_mime'] = TRUE;
+            $config['mod_mime_fix'] = TRUE;
+            $config['file_name'] = $file_name;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
             $tgl_sekarang = date('Y-m-d');
-            $data = array(
-                'id_departemen' => $this->input->post('id_departemen', TRUE),
-                'jenis' => 1,
-                'nim' => $this->session_data['username'],
-                'tgl_pengajuan' => $tgl_sekarang,
-                'status_kualifikasi' => 1,
-            );
+            if (!$this->upload->do_upload('berkas_kualifikasi')) {
+                $this->session->set_flashdata('msg-title', 'alert-danger');
+                $this->session->set_flashdata('msg', $this->upload->display_errors());
+                redirect('mahasiswa/disertasi/kualifikasi');
+            } else {
+                $data = array(
+                    'nip_penasehat' => $this->input->post('nip', TRUE),
+                    'jenis' => 1,
+                    'berkas_kualifikasi' => $file_name,
+                    'nim' => $this->session_data['username'],
+                    'tgl_pengajuan' => $tgl_sekarang,
+                    'status_kualifikasi' => 1,
+                );
 
-            $this->disertasi->save($data);
-            $last_id = $this->db->insert_id();
+                $this->disertasi->save($data);
+                $last_id = $this->db->insert_id();
 
-            $dataj = array(
-                'id_disertasi' => $last_id,
-                'judul' => $this->input->post('judul', TRUE)
-            );
+                $dataj = array(
+                    'id_disertasi' => $last_id,
+                    'judul' => $this->input->post('judul', TRUE)
+                );
 
-            $this->disertasi->save_judul($dataj);
+                $this->disertasi->save_judul($dataj);
 
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan ujian kualifikasi..');
-            redirect('mahasiswa/disertasi/kualifikasi');
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan ujian kualifikasi..');
+                redirect('mahasiswa/disertasi/kualifikasi');
+            }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');

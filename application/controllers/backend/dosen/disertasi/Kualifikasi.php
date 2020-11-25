@@ -73,129 +73,106 @@ class Kualifikasi extends CI_Controller {
     }
 
     public function setting() {
-        $struktural = $this->struktural->read_struktural($this->session_data['username']);
-        $id_departemen = $struktural->id_departemen;
-        if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
-            $id_disertasi = $this->uri->segment('5');
-
-            $data = array(
-                // PAGE //
-                'title' => 'Disertasi - Kualifikasi',
-                'subtitle' => 'Setting',
-                'section' => 'backend/dosen/disertasi/kualifikasi/setting',
-                'use_back' => true,
-                'back_link' => 'backend/dosen/disertasi/kualifikasi',
-                // DATA //
-                'disertasi' => $this->disertasi->detail($id_disertasi),
-                'mruang' => $this->ruang->read_aktif(),
-                'mjam' => $this->jam->read_aktif(),
-                'mdosen' => $this->dosen->read_aktif_alldep(),
-                'ujian' => $this->disertasi->read_jadwal($id_disertasi, 1),
-                'status_ujians' => $this->disertasi->read_status_ujian(1),
-            );
-            if ($data['disertasi']) {
-                $this->load->view('backend/index_sidebar', $data);
-            } else {
-                $data['section'] = 'backend/notification/danger';
-                $data['msg'] = 'Tidak ditemukan';
-                $data['linkback'] = 'dosen/disertasi/kualifikasi';
-                $this->load->view('backend/index_sidebar', $data);
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Anda tidak memiliki hak akses di halaman ini');
-            redirect('dashboardd');
-        }
+        $id_disertasi = $this->uri->segment('5');
+        $data = array(
+            // PAGE //
+            'title' => 'Disertasi - Kualifikasi',
+            'subtitle' => 'Setting',
+            'section' => 'backend/dosen/disertasi/kualifikasi/setting',
+            'use_back' => true,
+            'back_link' => 'backend/dosen/disertasi/permintaan/penasehat',
+            // DATA //
+            'disertasi' => $this->disertasi->detail($id_disertasi),
+            'mruang' => $this->ruang->read_aktif(),
+            'mjam' => $this->jam->read_aktif(),
+            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
+            'status_ujians' => $this->disertasi->read_status_ujian(UJIAN_DISERTASI_KUALIFIKASI),
+        );
+        $this->load->view('backend/index_sidebar', $data);
     }
 
     public function jadwal_save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $struktural = $this->struktural->read_struktural($this->session_data['username']);
-            if ($struktural->id_struktur == '9') {
-                $id_disertasi = $this->input->post('id_disertasi', TRUE);
-                $ujian = $this->disertasi->read_jadwal($id_disertasi, 1);
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $ujian = $this->disertasi->read_jadwal($id_disertasi, 1);
 
-                if (!empty($ujian)) { // JIKA SUDAH ADA
-                    //echo 'jadwal sudah ada. tambah script update';  die();
-                    $id_ujian = $this->input->post('id_ujian');
+            if (!empty($ujian)) { // JIKA SUDAH ADA
+                //echo 'jadwal sudah ada. tambah script update';  die();
+                $id_ujian = $this->input->post('id_ujian');
 
-                    $data = array(
-                        'id_disertasi' => $id_disertasi,
-                        'id_ruang' => $this->input->post('id_ruang', TRUE),
-                        'id_jam' => $this->input->post('id_jam', TRUE),
-                        'tanggal' => todb($this->input->post('tanggal', TRUE)),
-                        'status' => 1,
-                        'status_ujian' => 1
-                    );
+                $data = array(
+                    'id_disertasi' => $id_disertasi,
+                    'id_ruang' => $this->input->post('id_ruang', TRUE),
+                    'id_jam' => $this->input->post('id_jam', TRUE),
+                    'tanggal' => todb($this->input->post('tanggal', TRUE)),
+                    'status' => 1,
+                    'status_ujian' => 1
+                );
 
-                    $cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+                $cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
 
-                    if ($cek_jadwal) {
-                        $this->session->set_flashdata('msg-title', 'alert-danger');
-                        $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-                        redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
-                    } else {
-                        $penguji = $this->disertasi->read_penguji($id_ujian);
+                if ($cek_jadwal) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
+                    redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+                } else {
+                    $penguji = $this->disertasi->read_penguji($id_ujian);
 
-                        if ($penguji) {
-                            foreach ($penguji as $list) {
-                                $bentrok = $this->disertasi->read_pengujibentrok($data['tanggal'], $data['id_jam'], $list['nip']);
-                                break;
-                            }
+                    if ($penguji) {
+                        foreach ($penguji as $list) {
+                            $bentrok = $this->disertasi->read_pengujibentrok($data['tanggal'], $data['id_jam'], $list['nip']);
+                            break;
+                        }
 
-                            if ($bentrok) {
+                        if ($bentrok) {
 
-                                $this->session->set_flashdata('msg-title', 'alert-danger');
-                                $this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
-                                redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
-                            } else {
-                                $this->disertasi->update_ujian($data, $id_ujian);
-
-                                $this->session->set_flashdata('msg-title', 'alert-success');
-                                $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
-                                redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
-                            }
-                        } else { //langsung update
+                            $this->session->set_flashdata('msg-title', 'alert-danger');
+                            $this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
+                            redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+                        } else {
                             $this->disertasi->update_ujian($data, $id_ujian);
 
                             $this->session->set_flashdata('msg-title', 'alert-success');
                             $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
                             redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
                         }
-                    }
-                } else { //JIKA BELUM ADA SAVE BARU
-                    $data = array(
-                        'id_disertasi' => $id_disertasi,
-                        'id_ruang' => $this->input->post('id_ruang', TRUE),
-                        'id_jam' => $this->input->post('id_jam', TRUE),
-                        'tanggal' => todb($this->input->post('tanggal', TRUE)),
-                        'jenis_ujian' => 1,
-                        'status' => 1,
-                        'status_ujian' => 1
-                    );
+                    } else { //langsung update
+                        $this->disertasi->update_ujian($data, $id_ujian);
 
-                    $cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
-
-                    if ($cek_jadwal) {
-                        $this->session->set_flashdata('msg-title', 'alert-danger');
-                        $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-                        redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
-                    } else {
-                        $update_kualifikasi = array(
-                            'status_kualifikasi' => 4,
-                        );
-                        $this->disertasi->save_ujian($data);
-                        $this->disertasi->update($update_kualifikasi, $id_disertasi);
                         $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
+                        $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
                         redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
                     }
                 }
-            } else {
-                $this->session->set_flashdata('msg-title', 'alert-danger');
-                $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-                redirect('dashboardd');
+            } else { //JIKA BELUM ADA SAVE BARU
+                $data = array(
+                    'id_disertasi' => $id_disertasi,
+                    'id_ruang' => $this->input->post('id_ruang', TRUE),
+                    'id_jam' => $this->input->post('id_jam', TRUE),
+                    'tanggal' => todb($this->input->post('tanggal', TRUE)),
+                    'jenis_ujian' => 1,
+                    'status' => 1,
+                    'status_ujian' => 1
+                );
+
+                $cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+
+                if ($cek_jadwal) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
+                    redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+                } else {
+                    $update_kualifikasi = array(
+                        'status_kualifikasi' => 4,
+                    );
+                    $this->disertasi->save_ujian($data);
+                    $this->disertasi->update($update_kualifikasi, $id_disertasi);
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
+                    redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+                }
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');

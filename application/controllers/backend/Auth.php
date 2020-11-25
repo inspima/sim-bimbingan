@@ -91,6 +91,7 @@ class Auth extends CI_Controller {
     }
 
     public function verifikasi() {
+        $this->session_data = $this->session->userdata('logged_in');
         if ($this->input->post('_token')) {
             $file_name = $this->session_data['username'] . '_berkas_verifikasi.pdf';
             $config['upload_path'] = './assets/upload/mahasiswa/verifikasi';
@@ -129,7 +130,6 @@ class Auth extends CI_Controller {
                 redirect('auth/verifikasi');
             }
         }
-        $this->session_data = $this->session->userdata('logged_in');
         $username = $this->session_data['username'];
         $data = array(
             // PAGE //

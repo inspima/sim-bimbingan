@@ -35,7 +35,7 @@ class Mpkk extends CI_Controller {
     public function index() {
         $data = array(
             // PAGE //
-            'title' => 'Disertasi - MPKK',
+            'title' => 'Disertasi - MKPKK',
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/mpkk/index',
             // DATA //

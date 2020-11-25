@@ -41,7 +41,7 @@ if (!in_array($mahasiswa['role'], [ROLE_MAHASISWA_S2, ROLE_MAHASISWA_S3])) {
             $status = 'Proses Ujian Kualifikasi';
         }
         if ($tugas_akhir->status_mpkk > 0) {
-            $status = 'Proses MPKK';
+            $status = 'Proses MKPKK';
         }
         if ($tugas_akhir->status_proposal > 0) {
             $status = 'Proses Ujian Proposal';

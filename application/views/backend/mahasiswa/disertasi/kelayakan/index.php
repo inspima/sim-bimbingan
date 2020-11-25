@@ -21,7 +21,6 @@
                     <th>No</th>
                     <th>Judul</th>
                     <th>Berkas</th>
-                    <th>Departemen</th>
                     <th>Tanggal Pengajuan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
@@ -42,7 +41,6 @@
                         <td>
                             <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/kelayakan/<?php echo $list['berkas_kelayakan'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
                         <td><?= date('Y-m-d', strtotime($list['waktu_pengajuan_kelayakan'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>

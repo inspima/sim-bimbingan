@@ -31,7 +31,7 @@ class Mpkk extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Disertasi - MPKK',
+            'subtitle' => 'Disertasi - MKPKK',
             'section' => 'backend/mahasiswa/disertasi/mpkk/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
@@ -67,7 +67,7 @@ class Mpkk extends CI_Controller {
             $data = array(
                 // PAGE //
                 'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan MPKK',
+                'subtitle' => 'Pengajuan MKPKK',
                 'section' => 'backend/mahasiswa/disertasi/mpkk/add',
                 'use_back' => true,
                 'back_link' => 'mahasiswa/disertasi/mpkk',

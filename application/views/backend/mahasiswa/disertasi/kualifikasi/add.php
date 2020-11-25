@@ -8,18 +8,19 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('mahasiswa/disertasi/kualifikasi/save'); ?>
+
+            <?php echo form_open_multipart('mahasiswa/disertasi/kualifikasi/save'); ?>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Departemen</label>
+                    <label>Penasehat Akademik</label>
                     <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
-                    <select name="id_departemen" class="form-control select2" style="width: 100%;" required>
-                        <option value="">Pilih</option>
+                    <select name="nip" class="form-control select2" style="width: 100%;" required>
+                        <option value="">- Pilih -</option>
                         <?php
-                        foreach ($departemen as $list) {
+                        foreach ($mdosen as $list) {
                             ?>
-                            <option value="<?php echo $list['id_departemen'] ?>"><?php echo $list['departemen'] ?></option>
+                            <option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
                             <?php
                         }
                         ?>
@@ -29,7 +30,10 @@
                     <label>Judul</label>
                     <textarea class="form-control" name="judul" required></textarea>
                 </div>
-
+                <div class="form-group">
+                    <label>Upload Berkas Ujian Kualifikasi</label>
+                    <input type="file" name="berkas_kualifikasi" class="form-control" required>
+                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

@@ -24,7 +24,8 @@
                 <tr>
                     <th>No</th>
                     <th>Judul</th>
-                    <th>Departemen</th>
+                    <th>Penasehat Akademik</th>
+                    <th class="text-center">Berkas</th>
                     <th>Tanggal Pengajuan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
@@ -42,7 +43,10 @@
                             echo $judul->judul;
                             ?>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
+                        <td><?php echo $list['nama_penasehat'] ?><br/><b><?php echo $list['nip_penasehat'] ?></b></td>
+                        <td class="text-center">
+                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/kualifikasi/<?php echo $list['berkas_kualifikasi'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                        </td>
                         <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
@@ -57,7 +61,7 @@
                                 <?php if ($list['status_mpkk'] == '0'):
                                     ?>
                                     <hr style = "margin:5px"/>
-                                    <a href = "<?= base_url() ?>mahasiswa/disertasi/mpkk/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MPKK</a>
+                                    <a href = "<?= base_url() ?>mahasiswa/disertasi/mpkk/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPKK</a>
                                     <?php
                                 endif;
                             }

@@ -8,9 +8,10 @@ class Disertasi extends CI_Model {
     // DISERTASI
 
     public function read_kualifikasi_mahasiswa($username) {
-        $this->db->select('s.*, d.departemen ');
+        $this->db->select('s.*,pg.nip nip_penasehat,pg.nama nama_penasehat, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('pegawai pg', 'pg.nip = s.nip_penasehat', 'left');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.status_kualifikasi >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
@@ -24,7 +25,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_kualifikasi >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -35,7 +36,7 @@ class Disertasi extends CI_Model {
     public function read_mpkk_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.status_mpkk >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
@@ -49,7 +50,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_mpkk >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -60,7 +61,7 @@ class Disertasi extends CI_Model {
     public function read_proposal_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.status_proposal >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
@@ -74,7 +75,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_proposal >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -85,7 +86,7 @@ class Disertasi extends CI_Model {
     public function read_mkpd_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.status_mkpd >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
@@ -99,7 +100,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_mkpd >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -110,7 +111,7 @@ class Disertasi extends CI_Model {
     public function read_kelayakan_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.status_kelayakan >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
@@ -124,18 +125,18 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_kelayakan >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
         return $query->result_array();
     }
-    
+
     public function read_tertutup_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.status_tertutup >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
@@ -149,18 +150,18 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_tertutup >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
         return $query->result_array();
     }
-    
+
     public function read_terbuka_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.status_terbuka >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
@@ -174,7 +175,7 @@ class Disertasi extends CI_Model {
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_terbuka >', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -185,7 +186,7 @@ class Disertasi extends CI_Model {
     public function read($username) {
         $this->db->select('s.id_disertasi, s.id_departemen, s.tgl_pengajuan,s.status_kualifikasi,  s.berkas_proposal, s.status_proposal, d.departemen');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.jenis', 1);
         $this->db->order_by('s.id_disertasi', 'desc');
@@ -198,7 +199,7 @@ class Disertasi extends CI_Model {
         $stts = array('1', '2');
         $this->db->select('s.id_disertasi, s.id_departemen, s.tgl_pengajuan,s.status_kualifikasi, s.berkas_proposal, s.status_proposal, d.departemen ');
         $this->db->from('disertasi s');
-        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.jenis', 1);
         $this->db->where_in('s.status_kualifikasi', $stts);
@@ -214,10 +215,11 @@ class Disertasi extends CI_Model {
     }
 
     function detail($id) {
-        $this->db->select('s.*, dn.departemen, m.nim, m.nama,jd.judul,pr.nm_prodi,jn.jenjang');
+        $this->db->select('s.*,pg.nama nama_penasehat,pg.nip nip_penasehat, dn.departemen, m.nim, m.nama,jd.judul,pr.nm_prodi,jn.jenjang');
         $this->db->from('disertasi s');
         $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
-        $this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
+        $this->db->join('departemen dn', 's.id_departemen = dn.id_departemen', 'left');
+        $this->db->join('pegawai pg', 'pg.nip = s.nip_penasehat', 'left');
         $this->db->join('mahasiswa m', 's.nim = m.nim');
         $this->db->join('prodi pr', 'pr.id_prodi= m.id_prodi', 'left');
         $this->db->join('jenjang jn', 'jn.id_jenjang= m.id_jenjang', 'left');
@@ -386,6 +388,21 @@ class Disertasi extends CI_Model {
         $this->db->update('penguji_disertasi', $data);
     }
 
+    // PENASEHAT AKADEMIK
+    public function read_permintaan_penasehat($username) {
+        $this->db->select('s.*,jd.judul,pg.nama nama_penasehat,pg.nip nip_penasehat, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('pegawai pg', 'pg.nip = s.nip_penasehat', 'left');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+        $this->db->where('`s`.`id_disertasi` IN (SELECT `id_disertasi` from `disertasi` where `nip_penasehat`=\'' . $username . '\')', NULL, FALSE);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     // Promotor
 
     public function read_permintaan_promotor($username) {
@@ -514,8 +531,8 @@ class Disertasi extends CI_Model {
     }
 
     // UJIAN
-    
-    public function detail_ujian_by_disertasi($id_disertasi,$jenis) {
+
+    public function detail_ujian_by_disertasi($id_disertasi, $jenis) {
         $this->db->select('u.*, r.ruang, r.gedung, j.jam');
         $this->db->from('ujian_disertasi u');
         $this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
@@ -573,7 +590,7 @@ class Disertasi extends CI_Model {
                 ['value' => '1', 'text' => 'Dilanjutkan'],
                 ['value' => 'u', 'text' => 'Mengulang Kembali'],
             ];
-        }else if ($jenis == UJIAN_DISERTASI_TERBUKA) {
+        } else if ($jenis == UJIAN_DISERTASI_TERBUKA) {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
                 ['value' => '1', 'text' => 'Lulus'],
@@ -587,6 +604,402 @@ class Disertasi extends CI_Model {
         foreach ($status_ujians as $s) {
             if ($s['value'] == $status_ujian) {
                 $result = $s['text'];
+            }
+        }
+        return $result;
+    }
+
+    public function read_status_tahapan($urutan) {
+        if ($urutan == TAHAPAN_DISERTASI_KUALIFIKASI) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => 1,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => 2,
+                    'text' => 'Disetujui PA',
+                    'keterangan' => 'Disetujui oleh Penasehat Akademik',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 4,
+                    'text' => 'Dijadwalkan',
+                    'keterangan' => 'Telah dijadwalkan Oleh Penasehat Akademik untuk Ujian dan pengajuan dosen penguji',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => 5,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui  oleh semua penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 6,
+                    'text' => 'Disetujui SPS',
+                    'keterangan' => 'Disetujui Sekertaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 7,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 8,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-purple'
+                ],
+                [
+                    'value' => 9,
+                    'text' => 'Ujian Selesai',
+                    'keterangan' => 'Telah menyelesaikan Ujian',
+                    'color' => 'bg-maroon-active'
+                ],
+                [
+                    'value' => 10,
+                    'text' => 'Pengajuan Promotor',
+                    'keterangan' => 'Pengajuan Promotor Dan Ko-Promotor Oleh Mahasiswa',
+                    'color' => 'bg-aqua'
+                ],
+                [
+                    'value' => 11,
+                    'text' => 'Disetujui Promotor',
+                    'keterangan' => 'Disetujui oleh semua Promotor & Ko-Promotor',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 12,
+                    'text' => 'Selesai',
+                    'keterangan' => '',
+                    'color' => 'bg-red'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_DISERTASI_MPKK) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => 1,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => 2,
+                    'text' => 'Disetujui Promotor',
+                    'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+                    'color' => 'bg-grren'
+                ],
+                [
+                    'value' => 3,
+                    'text' => 'Disetujui SPS',
+                    'keterangan' => 'Disetujui Sekertaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 4,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 5,
+                    'text' => 'Selesai',
+                    'keterangan' => '',
+                    'color' => 'bg-red'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_DISERTASI_PROPOSAL) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => 1,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa syarat min sks 16, Upload Bukti Transkrip, TOFL 500 dan TOEFL pendamping, Upload Bukti Transkrip dan Pembayaran SPP',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => 2,
+                    'text' => 'Disetujui Promotor',
+                    'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 4,
+                    'text' => 'Dijadwalkan',
+                    'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => 5,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui  oleh semua penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 6,
+                    'text' => 'Disetujui SPS',
+                    'keterangan' => 'Disetujui Sekertaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 7,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 8,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-purple'
+                ],
+                [
+                    'value' => 9,
+                    'text' => 'Selesai',
+                    'keterangan' => 'Hasil Ujian telah ditentukan',
+                    'color' => 'bg-red'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_DISERTASI_MKPD) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => 1,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => 2,
+                    'text' => 'Disetujui Promotor',
+                    'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 3,
+                    'text' => 'Disetujui SPS',
+                    'keterangan' => 'Disetujui Sekertaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 4,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 5,
+                    'text' => 'Selesai',
+                    'keterangan' => '',
+                    'color' => 'bg-red'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_DISERTASI_KELAYAKAN) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => 1,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa syarat jangka waktu Ujian 1 dan Proposal Minimal 6 Bulan, Nilai MKPD lengkap beserta Transkrip',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => 2,
+                    'text' => 'Disetujui Promotor',
+                    'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 4,
+                    'text' => 'Dijadwalkan',
+                    'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => 5,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui  oleh semua penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 6,
+                    'text' => 'Disetujui SPS',
+                    'keterangan' => 'Disetujui Sekertaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 7,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 8,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-purple'
+                ],
+                [
+                    'value' => 9,
+                    'text' => 'Selesai',
+                    'keterangan' => 'Hasil Ujian telah ditentukan',
+                    'color' => 'bg-red'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_DISERTASI_TERTUTUP) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => 1,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa syarat Upload Naskah Ujian Kelayakan',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => 2,
+                    'text' => 'Disetujui Promotor',
+                    'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 4,
+                    'text' => 'Dijadwalkan',
+                    'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => 5,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui  oleh semua penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 6,
+                    'text' => 'Disetujui SPS',
+                    'keterangan' => 'Disetujui Sekertaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 7,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 8,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-purple'
+                ],
+                [
+                    'value' => 9,
+                    'text' => 'Selesai',
+                    'keterangan' => 'Hasil Ujian telah ditentukan',
+                    'color' => 'bg-red'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_DISERTASI_TERBUKA) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => 1,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa syarat Form perbaikan Ujian Tertutup & Validasi Jurnal',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => 2,
+                    'text' => 'Disetujui Promotor',
+                    'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 3,
+                    'text' => 'Dijadwalkan',
+                    'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => 4,
+                    'text' => 'Disetujui SPS',
+                    'keterangan' => 'Disetujui Sekertaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 5,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi pengajuan dosen penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 6,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui  oleh semua penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => 7,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-purple'
+                ],
+                [
+                    'value' => 8,
+                    'text' => 'Selesai',
+                    'keterangan' => 'Hasil Ujian telah ditentukan',
+                    'color' => 'bg-red'
+                ],
+            ];
+        }
+    }
+
+    public function get_status_tahapan($status_tahapan, $jenis) {
+        $result = '';
+        $statuses = $this->read_status_tahapan($jenis);
+        foreach ($statuses as $status) {
+            if ($status['value'] == $status_tahapan) {
+                $result = $status;
             }
         }
         return $result;

@@ -234,6 +234,7 @@
             </span>
         </a>
         <ul class="treeview-menu">
+            <li><a href="<?php echo base_url() ?>dosen/disertasi/permintaan/penasehat"><i class="fa fa-circle-o"></i>Penasehat Akademik</a></li>
             <li><a href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji"><i class="fa fa-circle-o"></i>Penguji</a></li>
             <li><a href="<?php echo base_url() ?>dosen/disertasi/permintaan/promotor"><i class="fa fa-circle-o"></i>Promotor/Ko-Promotor</a></li>
         </ul>

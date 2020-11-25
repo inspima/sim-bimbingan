@@ -67,7 +67,7 @@ class Mkpd extends CI_Controller {
             $data = array(
                 // PAGE //
                 'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan MPKK',
+                'subtitle' => 'Pengajuan MKPKK',
                 'section' => 'backend/mahasiswa/disertasi/mkpd/add',
                 'use_back' => true,
                 'back_link' => 'mahasiswa/disertasi/mkpd',
