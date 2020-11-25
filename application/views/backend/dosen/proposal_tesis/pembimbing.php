@@ -25,58 +25,59 @@
                             <th>Nama</th>
                             <th>Judul</th>
                             <th>Berkas Proposal</th>
-                            <th>Status Tim</th>
-                            <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th>Ruang</th>
+                            <th>Status</th>
+                            <th>Status Pengajuan</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
                         $no = 1;
-                        foreach($penguji as $list){
+                        foreach($pembimbing as $list){
                         ?>
                         <tr>
                             <td><?=$no?></td>
-                            <td><?=$list['nama'].'<br>('.$list['nim'].')'?></td>
-                            <td><?php 
-                            $judul = $this->penguji->read_judul($list['id_skripsi']);
-                            echo $judul->judul;
-                            ?></td>                            
+                            <td><?=$list['nama'].'<br>('.$list['nip'].')'?></td>
+                            <td><?=$list['judul']?></td>                            
                             <td>
                                 <a href="<?php echo base_url()?>assets/upload/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                             </td>
                             <td>
                                 <?php 
-                                if($list['status_tim'] == '1')
+                                if($list['status_bimbingan'] == '1')
                                 {
                                     echo 'Ketua';
                                 }
                                 else
-                                if($list['status_tim'] == '2')
+                                if($list['status_bimbingan'] == '2')
                                 {
                                     echo 'Anggota';
                                 }
                                 ?>
                             </td>
-                            <td><?php echo toindo($list['tanggal'])?></td>
-                            <td><?=$list['jam']?></td>
-                            <td><?=$list['ruang'].' '.$list['gedung']?></td>
                             <td>
-                                <?php echo form_open('dashboardd/proposal/penguji_pengajuan/update_penguji');?>
-                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                <?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
-                                <?php echo formtext('hidden', 'status', '2', 'required') ?>
-                                <button type="submit" class="btn btn-xs btn-success"> Approve</button>
-                                <?php echo form_close();?>
-
-                                <?php echo form_open('dashboardd/proposal/penguji_pengajuan/update_penguji');?>
-                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                <?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
-                                <?php echo formtext('hidden', 'status', '3', 'required') ?>
-                                <button type="submit" class="btn btn-xs btn-danger"> Tolak</button>
-                                <?php echo form_close();?>
+                                <?php 
+                                if($list['status'] == '1')
+                                {
+                                    echo 'Approve <br />';
+                                ?>
+                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dashboardd/proposal_tesis/pembimbing/pembimbing2/<?= $list['id_skripsi']?>">
+                                <i class="fa fa-edit"></i> Set Pembimbing II</a>
+                                <?php
+                                }
+                                else
+                                if($list['status'] == '2')
+                                {
+                                    echo 'Reject';
+                                }
+                                ?>
+                                
+                            </td>
+                            <td>
+                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dashboardd/proposal_tesis/pembimbing/approve/<?= $list['id_skripsi']?>">
+                                <i class="fa fa-edit"></i> Approve</a> |
+                                <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dashboardd/proposal_tesis/pembimbing/reject/<?= $list['id_skripsi']?>">
+                                <i class="fa fa-edit"></i> Reject</a>
                             </td>
                         </tr>      
                         <?php 

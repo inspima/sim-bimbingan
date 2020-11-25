@@ -106,6 +106,8 @@ class Penjadwalan extends CI_Controller {
     {
         $hand = $this->input->post('hand',TRUE);
         
+        //var_dump($hand);
+        
         if($hand == 'center19')
         {
             $id_skripsi = $this->input->post('id_skripsi',TRUE);
@@ -118,6 +120,11 @@ class Penjadwalan extends CI_Controller {
                 'status_bimbingan' => 2,
                 'id_jenjang' => 2
             );
+            
+            $this->proposal->save_pembimbing($datap);
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil simpan pembimbing');
+            redirect('dashboardd/proposal_tesis/penjadwalan/detail/'.$id_skripsi);  
             /*
            $hitungbimbingan = $this->proposal->hitung_bimbingan_aktif($nip);
 
@@ -149,12 +156,6 @@ class Penjadwalan extends CI_Controller {
              * 
              */
 
-	}
-	else
-	{
-		$this->session->set_flashdata('msg-title', 'alert-danger');
-		$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-		redirect('dashboardd/proposal/kadep_diterima');
 	}
     }
     

@@ -31,7 +31,9 @@
             </span>
         </a>
         <ul class="treeview-menu">
-        <li><a href="<?php echo base_url()?>dashboardm/magister/tesis"><i class="fa fa-circle-o"></i> Tesis</a></li>        
+			<!--<li><a href="<?php //echo base_url()?>dashboardm/magister/tesis"><i class="fa fa-circle-o"></i> Tesis</a></li>--> 
+			<li><a href="<?php echo base_url() ?>mahasiswa/tesis/proposal"><i class="fa fa-circle-o"></i> Proposal</a></li>
+            <li><a href="<?php echo base_url() ?>mahasiswa/tesis/ujian"><i class="fa fa-circle-o"></i> Tesis</a></li>
         </ul>
     </li>
 </ul>

@@ -101,12 +101,27 @@ class Tesis_model extends CI_Model {
     public function read_pembimbing($id_skripsi)
     {
         $stts = array('1','2','3');
-        $this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama, p.status ');
+        $this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama, p.status, pg.nip');
         $this->db->from('pembimbing p');
         $this->db->join('pegawai pg','p.nip = pg.nip');
         $this->db->where('p.id_skripsi', $id_skripsi);
         $this->db->where('id_jenjang', 2);
         $this->db->where_in('p.status', $stts);
+        $query = $this -> db -> get();
+		return $query->result_array();
+    }
+    
+    public function read_bimbingan($username)
+    {
+        $stts = array('1','2','3');
+        $this->db->select('p.*, m.nim, m.nama, jt.judul, t.berkas_proposal');
+        $this->db->from('pembimbing p');
+        $this->db->join('tesis t','t.id_skripsi = p.id_skripsi', 'left');
+        $this->db->join('mahasiswa m','m.nim = t.nim', 'left');
+        $this->db->join('judul_tesis jt','jt.id_skripsi = t.id_skripsi', 'left');
+        $this->db->where('p.id_jenjang', 2);
+        $this->db->where('jt.status', 1);
+        $this->db->where('p.nip', $username);
         $query = $this -> db -> get();
 		return $query->result_array();
     }

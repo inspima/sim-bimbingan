@@ -24,8 +24,12 @@ class Pembimbing extends CI_Controller {
 		
 	//START MODEL
 	$this->load->model('backend/administrator/master/struktural_model','struktural');
-        $this->load->model('backend/dosen/master/Penguji_model','penguji');
-    
+        $this->load->model('backend/administrator/master/tesis_model','pembimbing');
+        $this->load->model('backend/dosen/master/Dosen_model','dosen');
+        
+    $this->load->model('backend/administrator/master/departemen_model','departemen');
+    $this->load->model('backend/administrator/master/ruang_model','ruang');
+    $this->load->model('backend/administrator/master/jam_model','jam');
 	//END MODEL
 	}
 
@@ -38,33 +42,39 @@ class Pembimbing extends CI_Controller {
             'subtitle'	=> 'Data Pembimbing',
             'section'	=> 'backend/dosen/proposal_tesis/pembimbing',
             // DATA //
-            'penguji'  => $this->penguji->read_pengajuan($username)
+            'pembimbing'  => $this->pembimbing->read_bimbingan($username)
         );
         $this->load->view('backend/index_sidebar',$data);	
 	}
-	
-	public function update_penguji()
+        
+        public function pembimbing2()
 	{
-		$hand = $this->input->post('hand',TRUE);
-		if($hand == 'center19'){
-			$id_penguji = $this->input->post('id_penguji',TRUE);
-			
-			$data = array(
-            'status'	=> $this->input->post('status',TRUE),
-			);
-			$this->penguji->update_penguji($data, $id_penguji);
-
-			$this->session->set_flashdata('msg-title', 'alert-success');
-			$this->session->set_flashdata('msg', 'Berhasil update proses.');
-			redirect('dashboardd/proposal/penguji_pengajuan');
-		}
-		else
-		{
-			$this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd/proposal/penguji_pengajuan');
-		}
-	}
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_departemen = $struktural->id_departemen;
+            $id_skripsi = $this->uri->segment('5');
+            
+            $data=array(
+                // PAGE //
+                'title'	=> 'Setting Proposal Tesis (Modul Ketua Program Studi)',
+                'subtitle'	=> 'Setting Ujian',
+                'section'	=> 'backend/dosen/proposal_tesis/pembimbing2',
+                // DATA //
+                'proposal'  => $this->pembimbing->detail_proposal($id_skripsi),
+                'mruang'    => $this->ruang->read_aktif(),
+                'mjam'      => $this->jam->read_aktif(),
+                'mdosen'    => $this->dosen->read_aktif_alldep(),
+                'ujian'     => $this->pembimbing->read_ujian($id_skripsi),
+                'pembimbing'    => $this->pembimbing->read_pembimbing($id_skripsi),
+            );
+            //var_dump($data['proposal']);
+           
+                $this->load->view('backend/index_sidebar',$data);	
+            
+            	
+                
+        
+    }
+	
     
 
     
