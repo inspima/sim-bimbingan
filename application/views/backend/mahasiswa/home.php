@@ -97,7 +97,7 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive">
                 <ul class="timeline">
-                    <?php $this->view('backend/widgets/common/alur_pengajuan_tugas_akhir', ['jenjang' => $id_jenjang]); ?>
+                    <?php $this->view('backend/widgets/common/alur_pengajuan_tugas_akhir', ['jenjang' => $id_jenjang, 'tugas_akhir' => $tugas_akhir]); ?>
                 </ul>
             </div>
             <!-- /.box-body -->

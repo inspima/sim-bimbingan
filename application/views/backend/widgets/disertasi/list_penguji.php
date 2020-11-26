@@ -11,7 +11,7 @@ if ($jadwal) {
             <?php
             $penguji = $this->disertasi->read_penguji($jadwal->id_ujian);
             $str_status_tim = '';
-            foreach ($penguji as $listpenguji) {
+            foreach ($penguji as $index => $listpenguji) {
                 if ($listpenguji['status_tim'] == '1') {
                     $str_status_tim = 'Ketua';
                 } else if ($listpenguji['status_tim'] == '2') {
@@ -19,7 +19,7 @@ if ($jadwal) {
                 }
                 ?>
                 <tr>
-                    <td><?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b></td>
+                    <td><?= $index + 1 ?>. <?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b></td>
                     <td><button class="btn btn-xs bg-blue-gradient" style="color:white"><?php echo $str_status_tim ?></button>
                     </td>
                     <td>

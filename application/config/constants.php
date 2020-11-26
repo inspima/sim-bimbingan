@@ -105,6 +105,9 @@ define('PATH_FILE_DISERTASI_TERBUKA', 'assets/upload/mahasiswa/disertasi/terbuka
 // DOCUMENT
 define('PATH_FILE_QR', 'assets/img/qr/');
 
+// PROCESS VARIABLE
+define('MAX_PENGUJI_S3', 6);
+
 // USER
 define('ROLE_MAHASISWA_S2', 5);
 define('ROLE_MAHASISWA_S3', 6);

@@ -9,7 +9,7 @@
         <?php
         $penguji = $this->disertasi->read_penguji($ujian->id_ujian);
         $str_status_tim = '';
-        foreach ($penguji as $listpenguji) {
+        foreach ($penguji as $index => $listpenguji) {
             if ($listpenguji['status_tim'] == '1') {
                 $str_status_tim = 'Ketua';
             } else if ($listpenguji['status_tim'] == '2') {
@@ -17,7 +17,7 @@
             }
             ?>
             <tr>
-                <td><?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b></td>
+                <td><?= $index + 1 ?>. <?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b></td>
                 <td>
                     <button type="button" class="btn btn-xs bg-blue-gradient" style="color:white" data-toggle="modal" data-target="#modal-tim-penguji-<?php echo $listpenguji['id_penguji'] ?>">
                         <?php echo $str_status_tim ?>

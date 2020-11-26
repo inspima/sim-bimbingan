@@ -95,7 +95,7 @@ class Kualifikasi extends CI_Controller {
         );
         $this->load->view('backend/index_sidebar', $data);
     }
-    
+
     public function promotor() {
         $id_disertasi = $this->uri->segment('5');
         $data = array(
@@ -232,16 +232,16 @@ class Kualifikasi extends CI_Controller {
                     redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
                 } else {
                     $jumlah_penguji = $this->disertasi->count_penguji($id_ujian);
-                    if ($jumlah_penguji < '7') {
+                    if ($jumlah_penguji < MAX_PENGUJI_S3) {
 
                         $this->disertasi->save_penguji($data);
                         $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', $mesg);
+                        $this->session->set_flashdata('msg', "Berhasil simpan data");
                         redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
                     } else
-                    if ($jumlah_penguji >= '7') {
+                    if ($jumlah_penguji >= MAX_PENGUJI_S3) {
                         $this->session->set_flashdata('msg-title', 'alert-danger');
-                        $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah 7');
+                        $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah melebihi jumlah maksimal');
                         redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
                     }
                 }

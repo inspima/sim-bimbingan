@@ -9,9 +9,9 @@
     </div>
 <?php endif; ?>
 <div class="btn-group">
-    <a class="btn btn-default" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji">Kualifikasi</a>
-    <a class="btn btn-primary" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/proposal">Proposal</a>
-    <a class="btn btn-success" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/kelayakan">Kelayakan</a>
+    <a class="btn btn-default" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji">Ujian Kualifikasi</a>
+    <a class="btn btn-primary" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/proposal">Ujian Proposal</a>
+    <a class="btn btn-success" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/kelayakan">Ujian Kelayakan</a>
     <a class="btn bg-orange" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/tertutup">Ujian Tertutup</a>
     <a class="btn btn-danger" href="<?php echo base_url() ?>dosen/disertasi/permintaan/penguji/terbuka">Ujian Terbuka</a>
 </div>

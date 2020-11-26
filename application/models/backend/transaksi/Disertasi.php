@@ -7,6 +7,18 @@ class Disertasi extends CI_Model {
 
     // DISERTASI
 
+    public function read_mahasiswa($username) {
+        $this->db->select('s.*,pg.nip nip_penasehat,pg.nama nama_penasehat, d.departemen ');
+        $this->db->from('disertasi s');
+        $this->db->join('pegawai pg', 'pg.nip = s.nip_penasehat', 'left');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+        $this->db->where('s.nim', $username);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
     public function read_kualifikasi_mahasiswa($username) {
         $this->db->select('s.*,pg.nip nip_penasehat,pg.nama nama_penasehat, d.departemen ');
         $this->db->from('disertasi s');
@@ -284,7 +296,7 @@ class Disertasi extends CI_Model {
         $stts = array('1', '2');
         $this->db->select('p.id_penguji');
         $this->db->from('penguji_disertasi p');
-        $this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+        $this->db->join('ujian_disertasi u', 'p.id_ujian = u.id_ujian');
         $this->db->where('u.id_ujian', $data['id_ujian']);
         $this->db->where('p.nip', $data['nip']);
         $this->db->where('u.status', 1);
