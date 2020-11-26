@@ -131,13 +131,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/mpkk"><i class="fa fa-circle-o"></i>MKPKK</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/mkpd"><i class="fa fa-circle-o"></i>MPKD</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/kelayakan"><i class="fa fa-circle-o"></i>Kelayakan</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/tertutup"><i class="fa fa-circle-o"></i>Ujian Tertutup</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/terbuka"><i class="fa fa-circle-o"></i>Ujian Terbuka</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/disertasi/kualifikasi"><i class="fa fa-circle-o"></i> Persetujuan</a></li>
                 </ul>
             </li>
             <?php
@@ -183,13 +177,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Kualifikasi</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/mpkk"><i class="fa fa-circle-o"></i>MKPKK</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/proposal"><i class="fa fa-circle-o"></i>Proposal</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/mkpd"><i class="fa fa-circle-o"></i>MPKD</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/kelayakan"><i class="fa fa-circle-o"></i>Kelayakan</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/tertutup"><i class="fa fa-circle-o"></i>Ujian Tertutup</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/disertasi/terbuka"><i class="fa fa-circle-o"></i>Ujian Terbuka</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/disertasi/kualifikasi"><i class="fa fa-circle-o"></i> Persetujuan</a></li>
                 </ul>
             </li>
             <?php

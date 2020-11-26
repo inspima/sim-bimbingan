@@ -468,3 +468,9 @@ $route['mahasiswa/tesis/ujian/info/(:num)'] = 'backend/mahasiswa/tesis/ujian/inf
 $route['mahasiswa/tesis/ujian/promotor_save'] = 'backend/mahasiswa/tesis/ujian/promotor_save';
 $route['mahasiswa/tesis/ujian/promotor_delete'] = 'backend/mahasiswa/tesis/ujian/promotor_delete';
 
+/*
+ * DOKUMENT PUBLIC VIEW
+ */
+
+$route['document/berita_acara'] = 'document/berita_acara';
+$route['document/berita_acara/cetak'] = 'document/berita_acara_cetak';

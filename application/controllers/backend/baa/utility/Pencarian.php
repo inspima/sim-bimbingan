@@ -22,6 +22,7 @@ class Pencarian extends CI_Controller {
         $this->load->model('backend/user', 'user', TRUE);
         $this->load->model('backend/utility/email', 'email_model', TRUE);
         $this->load->model('backend/master/tugas_akhir', 'tugas_akhir', TRUE);
+        $this->load->model('backend/transaksi/disertasi', 'disertasi', TRUE);
         //END MODEL
     }
 

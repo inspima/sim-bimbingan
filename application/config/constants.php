@@ -88,13 +88,27 @@ defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatic
 /*
  * Custom Constant Variable
  */
-
+// SYSTEM
 define('APPLICATION_VERSION', '3.0');
+
+// FILE UPLOAD
 define('MAX_SIZE_FILE_UPLOAD', 10000);
 define('MAX_SIZE_FILE_UPLOAD_DESCRIPTION', '10 MB');
+define('PATH_FILE_DISERTASI_KUALIFIKASI', 'assets/upload/mahasiswa/disertasi/kualifikasi');
+define('PATH_FILE_DISERTASI_MPKK', 'assets/upload/mahasiswa/disertasi/mpkk');
+define('PATH_FILE_DISERTASI_PROPOSAL', 'assets/upload/mahasiswa/disertasi/proposal');
+define('PATH_FILE_DISERTASI_MKPD', 'assets/upload/mahasiswa/disertasi/mkpd');
+define('PATH_FILE_DISERTASI_KELAYAKAN', 'assets/upload/mahasiswa/disertasi/kelayakan');
+define('PATH_FILE_DISERTASI_TERTUTUP', 'assets/upload/mahasiswa/disertasi/tertutup');
+define('PATH_FILE_DISERTASI_TERBUKA', 'assets/upload/mahasiswa/disertasi/terbuka');
+
+// DOCUMENT
+define('PATH_FILE_QR', 'assets/img/qr/');
+
 // USER
 define('ROLE_MAHASISWA_S2', 5);
 define('ROLE_MAHASISWA_S3', 6);
+
 // STRUKTUR DOSEN
 define('STRUKTUR_DEKAN', 1);
 define('STRUKTUR_WADEK_1', 2);

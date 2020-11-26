@@ -1,4 +1,4 @@
-<div class="box box-info collapsed-box">
+<div class="box box-default collapsed-box">
     <div class="box-header with-border">
 
         <h3 class="box-title">Informasi Status</h3>

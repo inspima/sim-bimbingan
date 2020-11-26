@@ -8,6 +8,8 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
+<?php $this->view('backend/widgets/disertasi/tab_link_persetujuan_dosen'); ?>
+<div class="divider10"></div>
 <?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
 <div class="box">
 
@@ -17,9 +19,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th>Judul</th>
-                    <th>Departemen</th>
+                    <th>Disertasi</th>
                     <th>Tgl.Pengajuan</th>
                     <th class="text-center">Penguji</th>
                     <th class="text-center">Jadwal</th>
@@ -33,13 +33,14 @@
                     ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?></td>
                         <td>
+                            <?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
+                            <br/>
+                            <b>Judul</b> <br/>
                             <?php
                             echo $list['judul']
                             ?>
-                        </td>                            
-                        <td><?php echo $list['departemen'] ?></td>
+                        </td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>

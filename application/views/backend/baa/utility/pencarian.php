@@ -41,6 +41,7 @@
                     <th>SKS</th>
                     <th>Alamat</th>
                     <th>Email</th>
+                    <th class="text-center">Tahapan</th>
                     <th class="text-center">Status</th>
                 </tr>
             </thead>
@@ -57,6 +58,9 @@
                         <td><?php echo $mahasiswa['sks'] ?></td>
                         <td><?php echo $mahasiswa['alamat'] ?></td>
                         <td><?php echo $mahasiswa['email'] ?></td>
+                        <td class="text-center">
+                            <?php $this->view('backend/widgets/common/tahapan_tugas_akhir', ['mahasiswa' => $mahasiswa]); ?>
+                        </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/common/status_tugas_akhir', ['mahasiswa' => $mahasiswa]); ?>
                         </td>

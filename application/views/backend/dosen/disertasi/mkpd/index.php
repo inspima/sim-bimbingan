@@ -8,6 +8,8 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
+<?php $this->view('backend/widgets/disertasi/tab_link_persetujuan_dosen'); ?>
+<div class="divider10"></div>
 <?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
 <div class="box">
 
@@ -17,9 +19,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th>Judul</th>
-                    <th>Departemen</th>
+                    <th>Disertasi</th>
                     <th class="text-center">Berkas</th>
                     <th class="text-center">Opsi</th>
                 </tr>
@@ -31,13 +31,14 @@
                     ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?></td>
                         <td>
+                            <?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
+                            <br/>
+                            <b>Judul</b> <br/>
                             <?php
                             echo $list['judul']
                             ?>
-                        </td>                            
-                        <td><?php echo $list['departemen'] ?></td>
+                        </td>
                         <td class="text-center">
                             <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mkpd/<?php echo $list['berkas_mkpd'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"> </a>
                         </td>

@@ -8,7 +8,8 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-
+<?php $this->view('backend/widgets/disertasi/tab_link_baa'); ?>
+<div class="divider10"></div>
 <?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
 <div class="row">
     <div class="col-xs-12">
@@ -24,9 +25,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Judul</th>
-                            <th>Departemen</th>
+                            <th>Disertasi</th>
                             <th>Tgl.Pengajuan</th>
                             <th class="text-center">Penguji</th>
                             <th class="text-center">Jadwal</th>
@@ -40,14 +39,14 @@
                             ?>
                             <tr>
                                 <td><?= $no ?></td>
-                                <td><?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?></td>
                                 <td>
+                                    <?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
+                                    <br/>
+                                    <b>Judul</b> <br/>
                                     <?php
-                                    $judul = $this->disertasi->read_judul($list['id_disertasi']);
-                                    echo $judul->judul;
+                                    echo $list['judul']
                                     ?>
-                                </td>                            
-                                <td><?php echo $list['departemen'] ?></td>
+                                </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], UJIAN_DISERTASI_KUALIFIKASI]); ?>
@@ -58,7 +57,7 @@
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
                                     <?php
-                                    if ($list['status_kualifikasi'] >= 4) {
+                                    if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_UJIAN) {
                                         ?>
                                         <hr style="margin: 5px"/>
                                         <!-- Undangan -->
