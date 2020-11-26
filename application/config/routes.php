@@ -415,6 +415,27 @@ $route['dosen/disertasi/permintaan/promotor/kelayakan/setujui'] = 'backend/dosen
 $route['dosen/disertasi/permintaan/promotor/tertutup/setujui'] = 'backend/dosen/disertasi/permintaan/tertutup_setujui';
 $route['dosen/disertasi/permintaan/promotor/terbuka/setujui'] = 'backend/dosen/disertasi/permintaan/terbuka_setujui';
 
+$route['dosen/tesis/proposal'] = 'backend/dosen/tesis/proposal';
+$route['dosen/tesis/proposal/approve/(:num)'] = 'backend/dosen/tesis/proposal/approve';
+$route['dosen/tesis/proposal/reject/(:num)'] = 'backend/dosen/tesis/proposal/reject';
+
+$route['dosen/tesis/proposal/pembimbing'] = 'backend/dosen/tesis/proposal/pembimbing';
+$route['dosen/tesis/proposal/approve/(:num)'] = 'backend/dosen/tesis/proposal/approve';
+$route['dosen/tesis/proposal/reject/(:num)'] = 'backend/dosen/tesis/proposal/reject';
+$route['dosen/tesis/proposal/approve_pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/approve_pembimbing';
+$route['dosen/tesis/proposal/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/reject_pembimbing';
+
+$route['dosen/tesis/proposal/penjadwalan'] = 'backend/dosen/tesis/proposal/penjadwalan';
+$route['dosen/tesis/proposal/setting/(:num)'] = 'backend/dosen/tesis/proposal/setting';
+$route['dosen/tesis/proposal/jadwal_save'] = 'backend/dosen/tesis/proposal/jadwal_save';
+$route['dosen/tesis/proposal/penguji_save'] = 'backend/dosen/tesis/proposal/penguji_save';
+$route['dosen/tesis/proposal/penguji_delete'] = 'backend/dosen/tesis/proposal/penguji_delete';
+
+$route['dosen/tesis/proposal/penguji'] = 'backend/dosen/tesis/proposal/penguji';
+$route['dosen/tesis/proposal/approve_penguji/(:num)'] = 'backend/dosen/tesis/proposal/approve_penguji';
+$route['dosen/tesis/proposal/reject_penguji/(:num)'] = 'backend/dosen/tesis/proposal/reject_penguji';
+
+$route['dosen/tesis/proposal/update_status_ujian'] = 'backend/dosen/tesis/proposal/update_status_ujian';
 // MAHASISWA 
 // DOKTORAL
 $route['mahasiswa/disertasi/kualifikasi'] = 'backend/mahasiswa/disertasi/kualifikasi';
@@ -473,5 +494,7 @@ $route['mahasiswa/tesis/ujian/promotor_delete'] = 'backend/mahasiswa/tesis/ujian
  * DOKUMENT PUBLIC VIEW
  */
 
-$route['document/berita_acara'] = 'document/berita_acara';
-$route['document/berita_acara/cetak'] = 'document/berita_acara_cetak';
+$route['document/lihat'] = 'document/liat';
+$route['document/persetujuan'] = 'document/persetujuan';
+$route['document/persetujuan/save'] = 'document/persetujuan_save';
+$route['document/cetak'] = 'document/cetak';

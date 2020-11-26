@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
 class User extends CI_Model {
 
     function login($username) {
-        $this->db->select('u.id_user, u.username, u.sebagai');
+        $this->db->select('u.*');
         $this->db->from('user u');
         $this->db->where('u.username', $username);
         $this->db->where('u.status', 1);

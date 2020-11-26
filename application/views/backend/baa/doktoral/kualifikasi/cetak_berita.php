@@ -127,11 +127,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php if ($no % 2 == 0):
                                     ?>
                                     <td style = "width: 16%"></td>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
+                                    <td style = "width: 16%"><?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"></td>
                                     <?php
                                 else:
                                     ?>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
+                                    <td style = "width: 16%"><?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"></td>
                                     <td style = "width: 16%"></td>
                                 <?php
                                 endif;
@@ -178,7 +178,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:100%;margin-top: 30px">
                         <tr>
                             <td style="width: 50%">
-                                <img src="<?= PATH_FILE_QR ?>berita_acara_kualifikasi_<?= $disertasi->nim ?>.png" width="100px">
+                                <img src="<?= $qr_dokumen ?>" width="100px">
                             </td> 
                             <td style="width: 50%">
                                 <p>

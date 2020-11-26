@@ -4,8 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Disertasi_kualifikasi extends CI_Controller {
 
-    public $config_qr;
-
     public function __construct() {
         parent::__construct();
 
@@ -23,20 +21,12 @@ class Disertasi_kualifikasi extends CI_Controller {
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
+        $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
+        $this->load->model('backend/utility/qr', 'qrcode');
         //END MODEL
         // LIBRARY
         $this->load->library('encryption');
-        // QR
-        $this->load->library('ciqrcode'); //pemanggilan library QR CODE
-        $this->config_qr['cacheable'] = true; //boolean, the default is true
-        $this->config_qr['cachedir'] = 'application/cache/'; //string, the default is application/cache/
-        $this->config_qr['errorlog'] = 'application/logs/'; //string, the default is application/logs/
-        $this->config_qr['imagedir'] = './assets/img/qr/'; //direktori penyimpanan qr code
-        $this->config_qr['quality'] = true; //boolean, the default is true
-        $this->config_qr['size'] = '1024'; //interger, the default is 1024
-        $this->config_qr['black'] = array(224, 255, 255); // array, default is array(255,255,255)
-        $this->config_qr['white'] = array(70, 130, 180); // array, default is array(0,0,0)
     }
 
     public function index() {
@@ -84,22 +74,42 @@ class Disertasi_kualifikasi extends CI_Controller {
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             $ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
-            $id_ujian = $ujian->id_ujian;
+            $jadwal = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
             $disertasi = $this->disertasi->detail($id_disertasi);
+            $pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
 
+            $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI;
+            $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI;
+            // QR
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Kualifikasi', $disertasi->nim, $jadwal->tanggal);
+            $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+            $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+            // DOKUMEN
+            $data_dokumen = [
+                'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, 'kualifikasi', $disertasi->nim, $jadwal->tanggal),
+                'tipe' => DOKUMEN_BERITA_ACARA_STR,
+                'jenis' => 'kualifikasi',
+                'identitas' => $disertasi->nim,
+                'nama' => 'Berita Acara Ujian Kualifikasi - ' . $disertasi->nama,
+                'link' => $link_dokumen,
+                'link_cetak' => $link_dokumen_cetak,
+                'date' => $jadwal->tanggal,
+                'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+            ];
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            if (empty($dokumen)) {
+                $this->dokumen->save($data_dokumen);
+            }
+            // DOKUMEN PERSETUJUAN
+            $this->dokumen->generate_persetujuan($pengujis, $dokumen->id_dokumen, JENJANG_S3, $id_disertasi, 0);
+            $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
             $data = array(
-                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
-                'pengujis' => $this->disertasi->read_penguji($id_ujian),
-                'disertasi' => $this->disertasi->detail($id_disertasi)
+                'jadwal' => $jadwal,
+                'pengujis' => $pengujis,
+                'disertasi' => $disertasi,
+                'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
+                'dokumen_persetujuan' => $dokumen_persetujuan
             );
-
-            $this->ciqrcode->initialize($this->config_qr);
-            $image_name = 'berita_acara_kualifikasi_' . $disertasi->nim . '.png'; //buat name dari qr code sesuai dengan nip
-            $params['data'] = base_url() . 'document/berita_acara?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . TAHAPAN_DISERTASI_KUALIFIKASI; //data yang akan di jadikan QR CODE
-            $params['level'] = 'H'; //H=High
-            $params['size'] = 10;
-            $params['savename'] = FCPATH . $this->config_qr['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
-            $this->ciqrcode->generate($params);
             ob_end_clean();
             $page = 'backend/baa/doktoral/kualifikasi/cetak_berita';
             $size = 'legal';

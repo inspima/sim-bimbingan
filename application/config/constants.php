@@ -103,10 +103,22 @@ define('PATH_FILE_DISERTASI_TERTUTUP', 'assets/upload/mahasiswa/disertasi/tertut
 define('PATH_FILE_DISERTASI_TERBUKA', 'assets/upload/mahasiswa/disertasi/terbuka');
 
 // DOCUMENT
+define('CODE_DELIMITER', '/');
+define('FILE_NAME_DELIMITER', '_');
+define('REAL_PATH_FILE_QR', './assets/img/qr/');
 define('PATH_FILE_QR', 'assets/img/qr/');
+
+// TIPE DOKUMEN
+define('DOKUMEN_BERITA_ACARA_STR', 'berita-acara');
+define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
 // PROCESS VARIABLE
 define('MAX_PENGUJI_S3', 6);
+
+// PRODI & JENJANG
+define('JENJANG_S1', 1);
+define('JENJANG_S2', 2);
+define('JENJANG_S3', 3);
 
 // USER
 define('ROLE_MAHASISWA_S2', 5);
@@ -131,6 +143,12 @@ define('TAHAPAN_DISERTASI_MKPD', 4);
 define('TAHAPAN_DISERTASI_KELAYAKAN', 5);
 define('TAHAPAN_DISERTASI_TERTUTUP', 6);
 define('TAHAPAN_DISERTASI_TERBUKA', 7);
+
+define('TAHAPAN_DISERTASI_KUALIFIKASI_STR', 'kualifikasi');
+define('TAHAPAN_DISERTASI_PROPOSAL_STR', 'disertasi_proposal');
+define('TAHAPAN_DISERTASI_KELAYAKAN_STR', 'kelayakan');
+define('TAHAPAN_DISERTASI_TERTUTUP_STR', 'tertutup');
+define('TAHAPAN_DISERTASI_TERBUKA_STR', 'terbuka');
 
 // JENIS UJIAN DISERTASI
 define('UJIAN_DISERTASI_KUALIFIKASI', 1);

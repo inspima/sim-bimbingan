@@ -178,7 +178,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:100%;margin-top: 30px">
                         <tr>
                             <td style="width: 50%">
-                                <img src="<?= PATH_FILE_QR ?>berita_acara_kualifikasi_<?= $disertasi->nim ?>.png" width="100px">
+                                <img src="<?= $qr_dokumen ?>" width="100px">
                             </td> 
                             <td style="width: 50%">
                                 <p>
