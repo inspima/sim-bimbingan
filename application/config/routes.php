@@ -494,7 +494,7 @@ $route['mahasiswa/tesis/ujian/promotor_delete'] = 'backend/mahasiswa/tesis/ujian
  * DOKUMENT PUBLIC VIEW
  */
 
-$route['document/lihat'] = 'document/liat';
+$route['document/lihat'] = 'document/lihat';
 $route['document/persetujuan'] = 'document/persetujuan';
 $route['document/persetujuan/save'] = 'document/persetujuan_save';
 $route['document/cetak'] = 'document/cetak';

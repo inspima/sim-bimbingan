@@ -127,11 +127,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php if ($no % 2 == 0):
                                     ?>
                                     <td style = "width: 16%"></td>
-                                    <td style = "width: 16%"><?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"></td>
+                                    <td style = "width: 16%;text-align: right">
+                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            ?>
+                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?php
+                                        else:
+                                            ?>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </td>
                                     <?php
                                 else:
                                     ?>
-                                    <td style = "width: 16%"><?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"></td>
+                                    <td style = "width: 16%;text-align: right;">
+                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            ?>
+                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?php
+                                        else:
+                                            ?>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </td>
                                     <td style = "width: 16%"></td>
                                 <?php
                                 endif;

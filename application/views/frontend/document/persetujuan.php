@@ -11,8 +11,6 @@
                     $class_alert = 'alert ' . $this->session->flashdata('msg-title') . ' alert-dismissable';
                     ?>
                     <div class='<?= $class_alert ?>'>
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h4><i class="icon fa fa-check"></i> Notifikasi</h4>
                         <?php echo $this->session->flashdata('msg'); ?>
                     </div>
                 <?php endif; ?>
@@ -33,7 +31,7 @@
                     <?php
                     if (!empty($dokumen_persetujuan->waktu)):
                         ?>
-                        <dd><button class="btn btn-xs btn-danger">Belum disetujui</button> pada <span class="text-muted"><?= $dokumen_persetujuan->waktu ?></span></dd>
+                        <dd><button class="btn btn-xs btn-success">Sudah disetujui</button> <br/> <span class="text-muted"><?= hari($dokumen_persetujuan->waktu) ?>, <?= woday_toindo($dokumen_persetujuan->waktu) ?> <?= date('H:i', strtotime($dokumen_persetujuan->waktu)) ?> </span></dd>
                         <?php
                     else:
                         ?>                        
@@ -45,7 +43,7 @@
                 <?php
                 if (empty($dokumen_persetujuan->waktu)):
                     ?>
-                    <?php echo form_open('dokumen/persetujuan/save'); ?>
+                    <?php echo form_open('document/persetujuan/save'); ?>
                     <?php echo formtext('hidden', '_token', rand(99999, 100000), 'required') ?>
                     <?php echo formtext('hidden', 'username', $dokumen_persetujuan->identitas, 'required') ?>
                     <?php echo formtext('hidden', 'id_dokumen_persetujuan', $dokumen_persetujuan->id_dokumen_persetujuan, 'required') ?>

@@ -100,6 +100,7 @@ class Disertasi_kualifikasi extends CI_Controller {
             if (empty($dokumen)) {
                 $this->dokumen->save($data_dokumen);
             }
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             // DOKUMEN PERSETUJUAN
             $this->dokumen->generate_persetujuan($pengujis, $dokumen->id_dokumen, JENJANG_S3, $id_disertasi, 0);
             $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);

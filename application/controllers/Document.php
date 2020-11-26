@@ -150,9 +150,10 @@ class Document extends CI_Controller {
     }
 
     public function persetujuan_save() {
+        date_default_timezone_set('Asia/Jakarta');
         $token = $this->input->post('_token', TRUE);
         if (!empty($token)) {
-            $id_persetujuan_dokumen = $this->input->post('id_persetujuan_dokumen', TRUE);
+            $id_dokumen_persetujuan = $this->input->post('id_dokumen_persetujuan', TRUE);
             $username = $this->input->post('username', TRUE);
             $password = $this->input->post('password', TRUE);
             $user = $this->user->login($username);
@@ -162,7 +163,7 @@ class Document extends CI_Controller {
                     $data_persetujuan = [
                         'waktu' => date('Y-m-d H:i:s')
                     ];
-                    $this->dokumen->update_persetujuan($data_persetujuan, $id_persetujuan_dokumen);
+                    $this->dokumen->update_persetujuan($data_persetujuan, $id_dokumen_persetujuan);
                     $this->session->set_flashdata('msg-title', 'alert-success');
                     $this->session->set_flashdata('msg', 'Persetujuan dokumen berhasil');
                     redirect_back();
@@ -199,17 +200,20 @@ class Document extends CI_Controller {
                 'identitas' => $tugas_akhir->nim,
             ];
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+
             if (!empty($dokumen)) {
+                $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
                 // QR
                 $data = array(
                     'jadwal' => $jadwal,
                     'pengujis' => $this->disertasi->read_penguji($jadwal->id_ujian),
                     'disertasi' => $tugas_akhir,
                     'qr_dokumen' => $dokumen->qr_image,
+                    'dokumen_persetujuan' => $dokumen_persetujuan
                 );
                 ob_end_clean();
 
-                $size = 'a4';
+                $size = 'legal';
                 $this->pdf->setPaper($size, 'potrait');
                 $this->pdf->filename = $this->generate_slug($section_title) . $tugas_akhir->nim;
                 $this->pdf->load_view($page . '_document', $data);
