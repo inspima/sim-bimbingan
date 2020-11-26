@@ -332,7 +332,8 @@ $route['baa/doktoral/disertasi/terbuka/cetak_absensi'] = 'backend/baa/doktoral/d
 // KPS & SPS & PROMOTOR
 $route['dosen/disertasi/kualifikasi'] = 'backend/dosen/disertasi/kualifikasi';
 $route['dosen/disertasi/kualifikasi/terima'] = 'backend/dosen/disertasi/kualifikasi/terima';
-$route['dosen/disertasi/kualifikasi/setting/(:num)'] = 'backend/dosen/disertasi/kualifikasi/setting/(:num)';
+$route['dosen/disertasi/kualifikasi/setting/(:num)'] = 'backend/dosen/disertasi/kualifikasi/setting';
+$route['dosen/disertasi/kualifikasi/promotor/(:num)'] = 'backend/dosen/disertasi/kualifikasi/promotor';
 $route['dosen/disertasi/kualifikasi/terima'] = 'backend/dosen/disertasi/kualifikasi/terima';
 $route['dosen/disertasi/kualifikasi/jadwal_save'] = 'backend/dosen/disertasi/kualifikasi/jadwal_save';
 $route['dosen/disertasi/kualifikasi/penguji_save'] = 'backend/dosen/disertasi/kualifikasi/penguji_save';

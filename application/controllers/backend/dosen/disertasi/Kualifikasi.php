@@ -95,6 +95,22 @@ class Kualifikasi extends CI_Controller {
         );
         $this->load->view('backend/index_sidebar', $data);
     }
+    
+    public function promotor() {
+        $id_disertasi = $this->uri->segment('5');
+        $data = array(
+            // PAGE //
+            'title' => 'Disertasi - Kualifikasi',
+            'subtitle' => 'Setting - Promotor',
+            'section' => 'backend/dosen/disertasi/kualifikasi/promotor',
+            'use_back' => true,
+            'back_link' => 'backend/dosen/disertasi/kualifikasi/index',
+            // DATA //
+            'disertasi' => $this->disertasi->detail($id_disertasi),
+            'mdosen' => $this->dosen->read_aktif_alldep(),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
 
     public function jadwal_save() {
         $hand = $this->input->post('hand', TRUE);
@@ -346,33 +362,48 @@ class Kualifikasi extends CI_Controller {
 
             $data = array(
                 'id_disertasi' => $id_disertasi,
-                'nip' => $this->input->post('nip', TRUE),
+                'nip' => $nip,
                 'status_tim' => $status_tim,
                 'status' => 1
             );
 
-            $cekpenguji = $this->disertasi->cek_promotor_kopromotor($data);
-            if ($cekpenguji) {
+            $cek_promotor = $this->disertasi->cek_promotor_kopromotor($data);
+            if ($cek_promotor) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', 'Gagal simpan. Promotor/Co-Promotor sudah terdaftar.');
-                redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+                redirect_back();
             } else {
                 $jumlah_promotor = $this->disertasi->count_penguji($id_disertasi);
                 if ($jumlah_promotor < 3) {
-                    $this->disertasi->save_promotor($data);
-                    $this->session->set_flashdata('msg-title', 'alert-success');
-                    $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                    redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+                    if ($status_tim == '1') {
+                        $cek_promotor_ada = $this->disertasi->cek_promotor_ada($id_disertasi);
+                        if (empty($cek_promotor_ada)) {
+                            $this->disertasi->save_promotor($data);
+                            $this->session->set_flashdata('msg-title', 'alert-success');
+                            $this->session->set_flashdata('msg', "Data berhasil disimpan");
+                            redirect_back();
+                        } else {
+                            $this->session->set_flashdata('msg-title', 'alert-danger');
+                            $this->session->set_flashdata('msg', 'Gagal simpan. Promotor sudah ada');
+                            redirect_back();
+                        }
+                    } else {
+                        $this->disertasi->save_promotor($data);
+                        $this->disertasi->update($update_disertasi, $id_disertasi);
+                        $this->session->set_flashdata('msg-title', 'alert-success');
+                        $this->session->set_flashdata('msg', "Data berhasil disimpan");
+                        redirect_back();
+                    }
                 } else if ($jumlah_promotor >= 3) {
                     $this->session->set_flashdata('msg-title', 'alert-danger');
-                    $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah Promotor sudah 3');
-                    redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+                    $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah Promotor/Ko-Promotor sudah 3');
+                    redirect_back();
                 }
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/kualifikasi');
+            redirect_back();
         }
     }
 
@@ -380,6 +411,7 @@ class Kualifikasi extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $id_promotor = $this->input->post('id_promotor', TRUE);
 
             $data = array(
                 'status' => 0,
@@ -387,13 +419,24 @@ class Kualifikasi extends CI_Controller {
 
             $this->disertasi->update_promotor($data, $id_promotor);
 
+            $semua_promotor_setujui = $this->disertasi->semua_promotor_setujui($id_disertasi);
+            if ($semua_promotor_setujui) {
+                $data = array(
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
+                );
+                $data = array(
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+                );
+                $this->disertasi->update($data, $id_disertasi);
+            }
+
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil hapus penguji.');
-            redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+            redirect_back();
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/kualifikasi');
+            redirect_back();
         }
     }
 
