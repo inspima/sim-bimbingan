@@ -299,6 +299,12 @@ $route['sarjanah/skripsi/belum_approve'] = 'backend/baa/sarjanah/skripsi/belum_a
  * JENJANG DOKTOR
  */
 // BAA
+$route['baa/magister/tesis/proposal'] = 'backend/baa/magister/tesis_proposal';
+$route['baa/magister/tesis/proposal/cetak_undangan'] = 'backend/baa/magister/tesis_proposal/cetak_undangan';
+$route['baa/magister/tesis/proposal/cetak_berita'] = 'backend/baa/magister/tesis_proposal/cetak_berita';
+$route['baa/magister/tesis/proposal/cetak_penilaian'] = 'backend/baa/magister/tesis_proposal/cetak_penilaian';
+$route['baa/magister/tesis/proposal/cetak_absensi'] = 'backend/baa/magister/tesis_proposal/cetak_absensi';
+
 $route['baa/doktoral/disertasi/kualifikasi'] = 'backend/baa/doktoral/disertasi_kualifikasi';
 $route['baa/doktoral/disertasi/kualifikasi/cetak_undangan'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_undangan';
 $route['baa/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_berita';
