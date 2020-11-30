@@ -119,9 +119,14 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/pengajuan"><i class="fa fa-book"></i>Proposal Pengajuan</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal"><i class="fa fa-circle-o"></i> Persetujuan</a></li>
+                </ul>
+                <!--
+                <ul class="treeview-menu">
+                    <li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/pengajuan"><i class="fa fa-book"></i>Proposal Pengajuan</a></li>
 
                 </ul>
+                -->
             </li>
             <li class="treeview">
                 <a href="#">
@@ -162,7 +167,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Proposal</a></li>
+                    <!--
+                    <li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Proposal</a></li>
+                    -->
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Proposal</a></li>
                 </ul>
             </li>
             <?php
@@ -209,8 +217,10 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardd/proposal_tesis/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li>
+            <!--<li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>-->
+            <!-- <li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li> -->
+            <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
+            <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li>
 
         </ul>
     </li>

@@ -12,7 +12,7 @@
     <label>Judul</label>
     <hr class="divider-line-thin"/>
     <?php
-    $judul = $this->tesis->read_judul($tesis->id_skripsi);
+    $judul = $this->tesis->read_judul($tesis->id_tesis);
     ?>
     <?php echo $judul->judul ?>
 </div>

@@ -8,7 +8,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <?php echo form_open('mahasiswa/tesis/proposal/update');?>
+        <?php echo form_open('dashboardm/modul/proposal/update');?>
             <div class="box-body">
                 <div class="form-group">
                     <label>Departemen</label>
@@ -35,7 +35,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
-                <a class="btn btn-sm btn-warning" href="<?= base_url()?>mahasiswa/tesis/proposal"><i class="fa fa-close"></i> Batal</a>
+                <a class="btn btn-sm btn-warning" href="<?= base_url()?>dashboardm/modul/proposal"><i class="fa fa-close"></i> Batal</a>
             </div>
         <?=form_close()?>
         </div>
@@ -53,7 +53,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <?php echo form_open_multipart('mahasiswa/tesis/proposal/update_file');?>
+        <?php echo form_open_multipart('dashboardm/modul/proposal/update_file');?>
             <div class="box-body">
                 <div class="form-group">
                     <label>Ubah File BAB 1 (format file .pdf maks 2mb)</label>

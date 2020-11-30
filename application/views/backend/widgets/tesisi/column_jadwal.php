@@ -1,5 +1,5 @@
 <?php
-$ujian = $this->tesis->read_jadwal($id_tesis, $jenis);
+$ujian = $this->disertasi->read_jadwal($id_disertasi, $jenis);
 if ($ujian) {
     echo '<strong>Tanggal</strong> :<br>' . toindo($ujian->tanggal) . '<br>';
     echo '<strong>Ruang</strong>  :<br>' . $ujian->ruang . ' ' . $ujian->gedung . '<br>';
