@@ -68,6 +68,16 @@ $route['auth/captcha/refresh'] = 'backend/auth/captcha_refresh';
 $route['utility'] = 'backend/utility';
 $route['utility/change_password'] = 'backend/utility/change_password';
 
+$route['profile'] = 'backend/profile';
+$route['profile/password'] = 'backend/profile/change_password';
+$route['profile/password/save'] = 'backend/profile/change_password_save';
+$route['profile/signature'] = 'backend/profile/signature';
+$route['profile/signature/change'] = 'backend/profile/signature_change';
+$route['profile/signature/view'] = 'backend/profile/signature_view';
+
+/* API */
+$route['api/profile/signature/save'] = 'backend/profile/signature_save';
+
 //1. Dashboard Admin
 $route['dashboarda'] = 'backend/administrator/home';
 $route['dashboarda/master/user'] = 'backend/administrator/master/user';

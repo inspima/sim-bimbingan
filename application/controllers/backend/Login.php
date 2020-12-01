@@ -72,6 +72,7 @@ class Login extends CI_Controller {
                             'role' => $result->role,
                             'sebagai' => $result->sebagai,
                             'verifikasi' => $result->verifikasi,
+                            'email' => $result->email,
                         );
                     } else {
                         $sess_array = array(
@@ -79,7 +80,8 @@ class Login extends CI_Controller {
                             'username' => $result->username,
                             'nama' => $result->nama,
                             'role' => $result->role,
-                            'sebagai' => $result->sebagai
+                            'sebagai' => $result->sebagai,
+                            'email' => $result->email,
                         );
                     }
 

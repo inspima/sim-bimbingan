@@ -29,6 +29,12 @@
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- Signature -->
+<script src="<?= base_url() ?>assets/template/backend/plugins/signature/signature_pad.umd.js"></script>
+<script src="<?= base_url() ?>assets/template/backend/plugins/signature/signature-pad-app.js"></script>
+<!-- Sweet Alert -->
+<script src="<?= base_url() ?>assets/template/backend/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="<?php echo base_url() ?>assets/js/app.js"></script>
 <script>
     $(function () {
         $('#example1').DataTable()
@@ -59,8 +65,11 @@
         })
 
         //Initialize Select2 Elements
-        $('.select2').select2()
-    })
+        $('.select2').select2();
+
+
+    });
+
 
     function hanyaAngka(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode

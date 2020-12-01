@@ -21,7 +21,7 @@ class User extends CI_Model {
     }
 
     function read_tendikdosen($username) {
-        $this->db->select('u.id_user, u.username, u.sebagai, u.role, u.password, p.id_departemen, p.nama, p.email');
+        $this->db->select('u.id_user, u.username, u.sebagai, u.role, u.password, p.*');
         $this->db->from('user u');
         $this->db->join('pegawai p', 'p.nip = u.username');
         $this->db->where('u.username', $username);
@@ -81,8 +81,8 @@ class User extends CI_Model {
         $this->db->select('u.*,m.id_mahasiswa, m.nama, m.email,m.nim,m.sks,m.alamat,m.telp,m.berkas_verifikasi,p.nm_prodi,j.jenjang');
         $this->db->from('user u');
         $this->db->join('mahasiswa m', 'm.nim = u.username');
-        $this->db->join('prodi p', 'm.id_prodi = p.id_prodi','left');
-        $this->db->join('jenjang j', 'j.id_jenjang= p.id_jenjang','left');
+        $this->db->join('prodi p', 'm.id_prodi = p.id_prodi', 'left');
+        $this->db->join('jenjang j', 'j.id_jenjang= p.id_jenjang', 'left');
         $this->db->where('m.status', 1);
         $this->db->like('m.nama', $search);
         $this->db->or_like('m.nim', $search);
@@ -106,6 +106,11 @@ class User extends CI_Model {
     function update_mahasiswa($data, $id_mhs) {
         $this->db->where('id_mahasiswa', $id_mhs);
         $this->db->update('mahasiswa', $data);
+    }
+
+    function update_pegawai($data, $nip) {
+        $this->db->where('nip', $nip);
+        $this->db->update('pegawai', $data);
     }
 
 }

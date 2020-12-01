@@ -2,6 +2,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>IURIS | FH - UNAIR</title>
+    <link rel="icon" href="<?php echo base_url() ?>assets/img/icon-system.png" type="image/png" sizes="16x16">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -36,7 +37,6 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <!-- jQuery 3 -->
-    <script src="<?php echo base_url() ?>assets/template/backend/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>assets/js/app.js"></script>
+    <!-- Signature -->
+    <link href="<?= base_url() ?>assets/template/backend/plugins/signature/signature-pad.css" rel="stylesheet">
 </head>
