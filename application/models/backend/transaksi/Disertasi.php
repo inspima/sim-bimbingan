@@ -648,7 +648,7 @@ class Disertasi extends CI_Model {
                 [
                     'value' => STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN,
                     'text' => 'Pengajuan',
-                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'keterangan' => 'Diajukan oleh mahasiswa, Upload Berkas Ujian Kualifikasi',
                     'color' => 'bg-blue'
                 ],
                 [
@@ -701,7 +701,7 @@ class Disertasi extends CI_Model {
                 ],
                 [
                     'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor',
+                    'text' => 'Disetujui Promotor&Ko-promotor',
                     'keterangan' => 'Disetujui oleh semua Promotor & Ko-Promotor',
                     'color' => 'bg-green'
                 ],
@@ -716,7 +716,7 @@ class Disertasi extends CI_Model {
             return [
                 [
                     'value' => 0,
-                    'text' => 'Belum Pengajuan',
+                    'text' => 'Belum Pengajuan, Bukti Transkrip & Blanko MPKK',
                     'keterangan' => '',
                     'color' => 'bg-gray'
                 ],
@@ -728,7 +728,7 @@ class Disertasi extends CI_Model {
                 ],
                 [
                     'value' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor',
+                    'text' => 'Disetujui Promotor&Ko-promotor',
                     'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
                     'color' => 'bg-green'
                 ],
@@ -767,7 +767,7 @@ class Disertasi extends CI_Model {
                 ],
                 [
                     'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor',
+                    'text' => 'Disetujui Promotor&Ko-promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],
@@ -819,12 +819,12 @@ class Disertasi extends CI_Model {
                 [
                     'value' => STATUS_DISERTASI_MKPD_PENGAJUAN,
                     'text' => 'Pengajuan',
-                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'keterangan' => 'Diajukan oleh mahasiswa, Upload Form MKPD',
                     'color' => 'bg-blue'
                 ],
                 [
                     'value' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor',
+                    'text' => 'Disetujui Promotor&Ko-promotor',
                     'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
                     'color' => 'bg-green'
                 ],
@@ -863,7 +863,7 @@ class Disertasi extends CI_Model {
                 ],
                 [
                     'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor',
+                    'text' => 'Disetujui Promotor&Ko-promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],
@@ -920,7 +920,7 @@ class Disertasi extends CI_Model {
                 ],
                 [
                     'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor',
+                    'text' => 'Disetujui Promotor&Ko-promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],
@@ -977,7 +977,7 @@ class Disertasi extends CI_Model {
                 ],
                 [
                     'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor',
+                    'text' => 'Disetujui Promotor&Ko-promotor',
                     'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
                     'color' => 'bg-green'
                 ],

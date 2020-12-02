@@ -21,7 +21,7 @@
                 <?php endif; ?>
                 <div class="form-group">
                     <label>Email <span class="text-info">(Pastikan email anda aktif dan bisa dibuka)</span></label>
-                    <input type="email" name="email" placeholder="mahasiswa@email.com" class="form-control" required>
+                    <input type="email" name="email" placeholder="email@mhs.unair.ac.id" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Nama</label>
