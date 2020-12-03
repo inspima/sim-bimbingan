@@ -15,34 +15,73 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h2 class="box-title">Informasi Tesis</h2>
-
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
                 <?php $this->view('backend/widgets/tesis/informasi_tesis_judul', ['tesis' => $tesis]); ?>
+                <hr>
+                <b>Dosen Pembimbing</b><br><br>
+                <table class="table table-condensed ">
+                    <tr class="bg-gray-light">
+                        <th>Nama</th>
+                        <th>Keterangan</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo $tesis->nama_pembimbing_satu ?><br/><b><?php echo $tesis->nip_pembimbing_satu ?></b></td>
+                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing I</button>
+                        </td>
+                        <td>
+                            <?php
+                            if ($tesis->status_pembimbing_satu == NULL) {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-warning"> Belum disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_satu == '1') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_satu == '2') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $tesis->nama_pembimbing_dua ?><br/><b><?php echo $tesis->nip_pembimbing_dua ?></b></td>
+                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing II</button>
+                        </td>
+                        <td>
+                            <?php
+                            if ($tesis->status_pembimbing_dua == NULL) {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-warning"> Belum disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_dua == '1') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_dua == '2') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </div>
-	
-    <div class="col-md-6">
-        <!-- general form elements -->
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Dosen Pembimbing</h3>
-            </div>
-            <div class="box-body table-responsive">
-                <?php $this->view('backend/widgets/tesis/list_promotor_kopromotor', ['tesis' => $tesis, 'action' => 'kelayakan']); ?>
-            </div>
-        </div>
-        <!-- /.box -->
-    </div>
-    <!-- left column -->
-</div>
-<div class="row">
-
     <div class="col-sm-6">
         <!-- general form elements -->
         <div class="box box-primary">
@@ -57,7 +96,9 @@
         </div>
         <!-- /.box -->
     </div>
-
+    <!-- left column -->
+</div>
+<div class="row">
     <!-- left column -->
     <div class="col-md-6">
         <!-- general form elements -->
@@ -71,12 +112,6 @@
         </div>
         <!-- /.box -->
     </div>
-
-</div>
-
-
-<div class="row">
-
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="box box-primary">

@@ -17,6 +17,8 @@
                     <th>No</th>
                     <th>Info Tesis</th>
                     <th class="text-center">Berkas Proposal</th>
+                    <th class="text-center">Berkas Tesis</th>
+                    <th class="text-center">Berkas Syarat</th>
                     <th>Tgl.Pengajuan</th>
                     <th>Keterangan</th>
                     <th class="text-center">Status</th>
@@ -42,6 +44,12 @@
                         <td class="text-center">
                             <a href="<?php echo base_url()?>assets/upload/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
+                        <td class="text-center">
+                            <a href="<?php echo base_url()?>assets/upload/tesis/ujian/<?php echo $list['berkas_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                        </td>
+                        <td class="text-center">
+                            <a href="<?php echo base_url()?>assets/upload/tesis/ujian/<?php echo $list['berkas_syarat_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                        </td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td>
                             <?php
@@ -54,13 +62,13 @@
                             ?>                            
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
-                            <?php if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
+                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); ?>
+                            <?php if ($list['status_tesis'] > STATUS_TESIS_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
-                                echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
+                                echo $this->tesis->get_status_ujian($list['status_ujian_tesis'], UJIAN_TESIS_UJIAN);
                             }
                             ?>
                         </td>
@@ -109,21 +117,21 @@
                             if($list['nip_pembimbing_satu'] == $this->session_data['username']){
                                 if($list['status_pembimbing_satu'] == NULL) {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Approve</a>
-                                    <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/ujian/reject_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Reject</a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/reject_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
                                 <?php
                                 } 
                             } else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
                                 if($list['status_pembimbing_dua'] == NULL) {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Approve</a>
                                     <!--
                                     <a class="btn btn-xs btn-warning pull-left" href="<?php //echo base_url()?>dosen/tesis/proposal/reject_pembimbing/<?php //echo $list['id_tesis']?>">
@@ -132,7 +140,7 @@
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
                                 <?php
                                 }
@@ -147,7 +155,7 @@
                             <?php
                             if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
                                 if($list['status_pembimbing_dua'] == '1') {
-                                    echo '<a href = "'.base_url().'dosen/tesis/proposal/setting_penguji/'.$list['id_tesis'].'" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Setting Penguji</a>';
+                                    echo '<a href = "'.base_url().'dosen/tesis/ujian/setting_penguji/'.$list['id_tesis'].'" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Setting Penguji</a>';
                                 }
                             }   
                             if ($list['nip_pembimbing_dua'] == $this->session_data['username']){

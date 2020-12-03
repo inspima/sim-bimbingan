@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Proposal extends CI_Controller {
+class Ujian extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -31,48 +31,50 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Tesis - Proposal',
-            'section' => 'backend/mahasiswa/tesis/proposal/index',
+            'subtitle' => 'Tesis - Ujian',
+            'section' => 'backend/mahasiswa/tesis/ujian/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
-            'tesis' => $this->tesis->read_proposal_mahasiswa($this->session_data['username'])
+            'tesis' => $this->tesis->read_ujian_mahasiswa($this->session_data['username'])
         );
         $this->load->view('backend/index_sidebar', $data);
     }
 
     public function info() {
-        $id_skripsi = $this->uri->segment('5');
+        $id_tesis = $this->uri->segment('5');
         $data = array(
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Tesis - Proposal',
-            'section' => 'backend/mahasiswa/tesis/proposal/info',
+            'subtitle' => 'Tesis - Ujian',
+            'section' => 'backend/mahasiswa/tesis/ujian/info',
             'use_back' => true,
-            'back_link' => 'mahasiswa/tesis/proposal',
+            'back_link' => 'mahasiswa/tesis/ujian',
             // DATA //
-            'tesis' => $this->tesis->detail($id_skripsi),
-            'jadwal' => $this->tesis->read_jadwal($id_skripsi, 1),
-            'status_ujians' => $this->tesis->read_status_ujian(1),
+            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'jadwal' => $this->tesis->read_jadwal($id_tesis, 2),
+            'tesis' => $this->tesis->detail($id_tesis),
         );
         $this->load->view('backend/index_sidebar', $data);
     }
 
     public function add() {
-        $read_aktif = $this->disertasi->read_aktif($this->session_data['username']);
+        $id_tesis = $this->uri->segment('5');
+        $read_aktif = $this->tesis->read_aktif($this->session_data['username']);
 
         if ($read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/disertasi/kualifikasi');
+            redirect('mahasiswa/tesis/ujian');
         } else {
             $data = array(
                 // PAGE //
                 'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan Ujian Kualifikasi',
-                'section' => 'backend/mahasiswa/disertasi/kualifikasi/add',
+                'subtitle' => 'Pengajuan Tesis',
+                'section' => 'backend/mahasiswa/tesis/ujian/add',
+                'use_back' => true,
+                'back_link' => 'mahasiswa/tesis/ujian',
                 // DATA //
-                'mdosen' => $this->dosen->read_aktif_alldep(),
                 'departemen' => $this->departemen->read(),
-                'gelombang' => $this->gelombang->read_berjalan()
+                'tesis' => $this->tesis->detail($id_tesis),
             );
             $this->load->view('backend/index_sidebar', $data);
         }
@@ -81,10 +83,10 @@ class Proposal extends CI_Controller {
     public function save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $file_name = $this->session_data['username'] . '_berkas_kualifikasi.pdf';
-            $config['upload_path'] = './assets/upload/mahasiswa/disertasi/kualifikasi';
+            $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
+            $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
             $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 20000;
+            $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
             $config['remove_spaces'] = TRUE;
             $config['file_ext_tolower'] = TRUE;
             $config['detect_mime'] = TRUE;
@@ -92,105 +94,43 @@ class Proposal extends CI_Controller {
             $config['file_name'] = $file_name;
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-            $tgl_sekarang = date('Y-m-d');
-            if (!$this->upload->do_upload('berkas_kualifikasi')) {
+
+            $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
+            $config_syarat['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
+            $config_syarat['allowed_types'] = 'pdf';
+            $config_syarat['max_size'] = MAX_SIZE_FILE_UPLOAD;
+            $config_syarat['remove_spaces'] = TRUE;
+            $config_syarat['file_ext_tolower'] = TRUE;
+            $config_syarat['detect_mime'] = TRUE;
+            $config_syarat['mod_mime_fix'] = TRUE;
+            $config_syarat['file_name'] = $file_name;
+            $this->load->library('upload', $config_syarat);
+            $this->upload->initialize($config_syarat);
+
+            if (!$this->upload->do_upload('berkas_tesis') AND !$this->upload->do_upload('berkas_syarat_tesis')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
-                redirect('mahasiswa/disertasi/kualifikasi');
+                redirect_back();
             } else {
+                $id_tesis = $this->input->post('id_tesis', TRUE);
+                $tgl_sekarang = date('Y-m-d');
                 $data = array(
-                    'nip_penasehat' => $this->input->post('nip', TRUE),
-                    'jenis' => 1,
-                    'berkas_kualifikasi' => $file_name,
-                    'nim' => $this->session_data['username'],
-                    'tgl_pengajuan' => $tgl_sekarang,
-                    'status_kualifikasi' => 1,
+                    'jenis' => TAHAPAN_TESIS_UJIAN,
+                    'berkas_tesis' => $file_name,
+                    'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                    'berkas_syarat_tesis' => $file_name_syarat,
                 );
 
-                $this->disertasi->save($data);
-                $last_id = $this->db->insert_id();
-
-                $dataj = array(
-                    'id_disertasi' => $last_id,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
-
-                $this->disertasi->save_judul($dataj);
+                $this->tesis->update($data, $id_tesis);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan ujian kualifikasi..');
-                redirect('mahasiswa/disertasi/kualifikasi');
+                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan Tesis..');
+                redirect('mahasiswa/tesis/ujian');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('mahasiswa/disertasi/kualifikasi');
-        }
-    }
-
-    public function edit() {
-        $id = $this->uri->segment(5);
-        $username = $this->session_data['username'];
-
-        $data = array(
-            // PAGE //
-            'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Pengajuan Proposal Skripsi',
-            'section' => 'backend/mahasiswa/modul/proposal_edit',
-            // DATA //
-            'departemen' => $this->departemen->read(),
-            'gelombang' => $this->gelombang->read_berjalan(),
-            'proposal' => $this->disertasi->detail($id, $username)
-        );
-
-        if ($data['proposal']) {
-            $this->load->view('backend/index_sidebar', $data);
-        } else {
-            $data['section'] = 'backend/notification/danger';
-            $data['msg'] = 'Tidak ditemukan';
-            $data['linkback'] = 'dashboardm/modul/proposal';
-            $this->load->view('backend/index_sidebar', $data);
-        }
-    }
-
-    public function update() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_skripsi = $this->input->post('id_skripsi', TRUE);
-
-            $read_judul = $this->disertasi->read_judul($id_skripsi);
-            $judul = $this->input->post('judul', TRUE);
-
-            if ($judul == $read_judul->judul) {
-                $data = array(
-                    'id_departemen' => $this->input->post('id_departemen', TRUE),
-                );
-                $this->disertasi->update($data, $id_skripsi);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dashboardm/modul/proposal');
-            } else {
-                $data = array(
-                    'id_departemen' => $this->input->post('id_departemen', TRUE),
-                );
-                $this->disertasi->update($data, $id_skripsi);
-
-                $dataj = array(
-                    'id_skripsi' => $id_skripsi,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
-
-                $this->disertasi->save_judul($dataj);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dashboardm/modul/proposal');
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardm/modul/proposal');
+            redirect_back();
         }
     }
 

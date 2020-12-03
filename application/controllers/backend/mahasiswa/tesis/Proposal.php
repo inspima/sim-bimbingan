@@ -102,11 +102,11 @@ class Proposal extends CI_Controller {
                 $data = array(
                     'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
                     'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                    'jenis' => 1,
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
                     'berkas_proposal' => $file_name,
                     'nim' => $this->session_data['username'],
                     'tgl_pengajuan' => $tgl_sekarang,
-                    'status_proposal' => 1,
+                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                 );
 
                 $this->tesis->save($data);

@@ -36,7 +36,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('dosen/tesis/proposal/jadwal_save'); ?>
+            <?php echo form_open('dosen/tesis/ujian/jadwal_save'); ?>
             <div class="box-body">
 
                 <div class="form-group">
@@ -208,7 +208,7 @@
                 <?php
                 } 
             }
-            echo form_open('dosen/tesis/proposal/penguji_save'); ?>
+            echo form_open('dosen/tesis/ujian/penguji_save'); ?>
             <div class="box-body table-responsive">
                 <?php
                 if ($ujian) {
@@ -257,7 +257,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('dosen/tesis/proposal/update_status_ujian'); ?>
+            <?php echo form_open('dosen/tesis/ujian/update_status_ujian'); ?>
 
             <div class="box-body">
                 <div class="form-group">

@@ -171,6 +171,7 @@
                     <li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Proposal</a></li>
                     -->
                     <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Proposal</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Tesis</a></li>
                 </ul>
             </li>
             <?php
@@ -219,9 +220,30 @@
         <ul class="treeview-menu">
             <!--<li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>-->
             <!-- <li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li> -->
-            <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li>
-
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-file-o"></i> <span>Pembimbing</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing Proposal</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing Tesis</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-file-o"></i> <span>Penguji</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penguji"><i class="fa fa-circle-o"></i> Penguji Tesis</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
+                </ul>
+            </li>
         </ul>
     </li>
     <li class="treeview">

@@ -1,11 +1,11 @@
 <?php
-if ($jenis == '1'): // PROPOSAL
-    $status = $this->tesis->get_status_tahapan($tesis['status_proposal'], 1);
+if ($jenis == TAHAPAN_TESIS_PROPOSAL): // PROPOSAL
+    $status = $this->tesis->get_status_tahapan($tesis['status_proposal'], TAHAPAN_TESIS_PROPOSAL);
     ?>
     <span class = "btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>
     <?php
-elseif ($jenis == '2') :// UJIAN
-    $status = $this->tesis->get_status_tahapan($tesis['status_skripsi'], 2);
+elseif ($jenis == TAHAPAN_TESIS_UJIAN) :// UJIAN
+    $status = $this->tesis->get_status_tahapan($tesis['status_tesis'], TAHAPAN_TESIS_UJIAN);
     ?>
     <span class = "btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>
     <?php

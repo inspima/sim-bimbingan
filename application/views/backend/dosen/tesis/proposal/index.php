@@ -8,10 +8,15 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/tesis/tab_link_persetujuan_dosen'); ?>
+<?php $this->view('backend/widgets/tesis/tab_link_program_studi'); ?>
 <div class="divider10"></div>
-<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => 1]); ?>
+<?php //$this->view('backend/widgets/tesis/tab_link_persetujuan_dosen'); ?>
+<!--<div class="divider10"></div>-->
+<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
 <div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Tabel <?= $subtitle ?></h3>
+    </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive">
         <table id="datatable-export" class="table table-bordered table-striped">
@@ -21,9 +26,9 @@
                     <th>Tesis</th>
                     <th>Tgl.Pengajuan</th>
                     <th colspan="2">Pembimbing</th>
-                    <th>Berkas Proposal</th>
-                    <th>Status</th>
-                    <th>Opsi</th>
+                    <th class="text-center">Berkas Proposal</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Opsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,91 +49,75 @@
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td><?php echo $list['nama_pembimbing_satu'] ?><br/><b><?php echo $list['nip_pembimbing_satu'] ?></b></td>
                         <td><?php echo $list['nama_pembimbing_dua'] ?><br/><b><?php echo $list['nip_pembimbing_dua'] ?></b></td>
-                        <td>
+                        <td class="text-center">
 
                             <a href="<?php echo base_url()?>assets/upload/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
 
                         </td>
 
-                        <td>
+                        <td class="text-center">
 
-                            <?php 
+                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
 
-                            if($list['status_proposal'] == '1')
 
-                            {
 
-                            ?>
+                            <?php if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
 
-                                <a class="btn btn-xs btn-primary pull-left" href="#">
+                                ?>
 
-                                <i class="fa fa-check"></i> Pengajuan</a>
+                                <hr style="margin:5px"/>
 
-                            <?php
+                                <b>Hasil Ujian</b><br/>
 
-                            }
+                                <?php
 
-                            else
+                                echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
 
-                            if($list['status_proposal'] == '2')
+                                ?>
 
-                            {
+                                <?php if ($list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN && $list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN_SELESAI):
 
-                            ?>
+                                    ?>
 
-                                <a class="btn btn-xs btn-success pull-left" href="#">
+                                    <hr style = "margin:5px"/>
 
-                                <i class="fa fa-check"></i> Diterima</a>
+                                    <a href = "<?= base_url() ?>mahasiswa/tesis/ujian/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Tesis</a>
 
-                            <?php
+                                    <?php
 
-                            }
-
-                            else
-
-                            if($list['status_proposal'] == '3')
-
-                            {
-
-                            ?>
-
-                                <a class="btn btn-xs btn-success pull-left" href="#">
-
-                                <i class="fa fa-check"></i> Selesai</a>
-
-                            <?php
-
-                            }
-
-                            else
-
-                            if($list['status_proposal'] == '4')
-
-                            {
-
-                            ?>
-
-                                <a class="btn btn-xs btn-danger pull-left" href="#">
-
-                                <i class="fa fa-check"></i> Ditolak</a>
-
-                            <?php
+                                endif;
 
                             }
 
                             ?>
+
+
 
                         </td>
 
                         <td>
+                            <?php
+                            if($list['status_proposal'] == STATUS_TESIS_PROPOSAL_PENGAJUAN)
+                            {
+                            ?>
+                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve/<?= $list['id_tesis']?>">
 
-                            <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve/<?= $list['id_tesis']?>">
+                                <i class="fa fa-edit"></i> Approve</a><br>
+                            <?php
+                            }
+                            else if($list['status_proposal'] == STATUS_TESIS_PROPOSAL_SETUJUI_SPS) {
+                            ?>
+                                <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal/<?= $list['id_tesis']?>">
 
-                            <i class="fa fa-edit"></i> Approve</a><br>
-
-                            <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject/<?= $list['id_tesis']?>">
+                                <i class="fa fa-edit"></i> Batal</a><br>
+                            <?php
+                            }
+                            ?>
+                            <!--
+                            <a class="btn btn-xs btn-danger pull-left" href="<?php //echo base_url()?>dosen/tesis/proposal/reject/<?php //echo $list['id_tesis']?>">
 
                             <i class="fa fa-edit"></i> Reject</a>
+                            -->
 
                         </td>
                     </tr>      

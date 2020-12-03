@@ -1,4 +1,4 @@
-<?php if ($this->session->flashdata('msg')): ?>
+ <?php if ($this->session->flashdata('msg')): ?>
     <?php
     $class_alert = 'alert ' . $this->session->flashdata('msg-title') . ' alert-dismissable';
     ?>
@@ -8,25 +8,21 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => TAHAPAN_TESIS_UJIAN]); ?>
 <div class="box">
-    <div class="box-header">
-        <h3 class="box-title">Tabel <?= $subtitle ?></h3>
-    </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive">
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Judul</th>
-                    <th colspan="2">Pembimbing</th>
+                    <th>Info Tesis</th>
                     <th class="text-center">Berkas Proposal</th>
                     <th class="text-center">Berkas Tesis</th>
                     <th class="text-center">Berkas Syarat</th>
-                    <th>Tanggal Pengajuan</th>
+                    <th>Tgl.Pengajuan</th>
+                    <th colspan="2">Pembimbing</th>
                     <th class="text-center">Status</th>
-                    <th class="text-center">Info</th>
+                    <th>Ujian</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,33 +32,39 @@
                     ?>
                     <tr>
                         <td><?= $no ?></td>
-                        <td><?php
-                            $judul = $this->tesis->read_judul($list['id_tesis']);
-                            echo $judul->judul;
+                        <td>
+                            <?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
+                            <br/>
+                            <b>Judul</b> <br/>
+                            <?php
+                            echo $list['judul']
                             ?>
                         </td>
-                        <td><?php echo $list['nama_pembimbing_satu'] ?><br/><b><?php echo $list['nip_pembimbing_satu'] ?></b></td>
-                        <td><?php echo $list['nama_pembimbing_dua'] ?><br/><b><?php echo $list['nip_pembimbing_dua'] ?></b></td>
                         <td class="text-center">
                             <a href="<?php echo base_url()?>assets/upload/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url()?>assets/upload/tesis/ujian/<?php echo $list['berkas_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_syarat_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url()?>assets/upload/tesis/ujian/<?php echo $list['berkas_syarat_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
-                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
+                        <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
+                        <td><?php echo $list['nama_pembimbing_satu'] ?><br/><b><?php echo $list['nip_pembimbing_satu'] ?></b></td>
+                        <td><?php echo $list['nama_pembimbing_dua'] ?><br/><b><?php echo $list['nip_pembimbing_dua'] ?></b></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); ?>
-                        </td>
-                        <td class="text-center">
-                            <?php if ($list['status_tesis'] > 0) {
+                            <?php if ($list['status_tesis'] > STATUS_TESIS_UJIAN) {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian</b><br/>
                                 <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_tesis'], UJIAN_TESIS_UJIAN);
                             }
                             ?>
+                        </td>
+                        <td>
+                        	<a href="<?= base_url() ?>dosen/tesis/ujian/setting/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penguji</a>
                         </td>
                     </tr>      
                     <?php

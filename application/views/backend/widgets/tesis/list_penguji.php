@@ -18,66 +18,6 @@ if ($jadwal) {
 
             </tr>
 
-            <tr>
-
-                <td><?php echo $tesis->nama_pembimbing_satu ?><br/><b><?php echo $tesis->nip_pembimbing_satu ?></b></td>
-
-                <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing I</button>
-
-                </td>
-
-                <td>
-                    <?php
-                    if ($tesis->status_pembimbing_satu == NULL) {
-                        ?>
-                        <button type="submit" class="btn btn-xs btn-warning"> Belum disetujui</button>
-                        <?php
-                    } else
-                    if ($tesis->status_pembimbing_satu == '1') {
-                        ?>
-                        <button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
-                        <?php
-                    } else
-                    if ($tesis->status_pembimbing_satu == '2') {
-                        ?>
-                        <button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
-                        <?php
-                    }
-                    ?>
-                </td>
-
-            </tr>
-
-            <tr>
-
-                <td><?php echo $tesis->nama_pembimbing_dua ?><br/><b><?php echo $tesis->nip_pembimbing_dua ?></b></td>
-
-                <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing II</button>
-
-                </td>
-
-                <td>
-                    <?php
-                    if ($tesis->status_pembimbing_dua == NULL) {
-                        ?>
-                        <button type="submit" class="btn btn-xs btn-warning"> Belum disetujui</button>
-                        <?php
-                    } else
-                    if ($tesis->status_pembimbing_dua == '1') {
-                        ?>
-                        <button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
-                        <?php
-                    } else
-                    if ($tesis->status_pembimbing_dua == '2') {
-                        ?>
-                        <button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
-                        <?php
-                    }
-                    ?>
-                </td>
-
-            </tr>
-
             <?php
 
             $penguji = $this->tesis->read_penguji($jadwal->id_ujian);

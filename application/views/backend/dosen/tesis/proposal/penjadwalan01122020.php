@@ -40,10 +40,6 @@
 
                     <th>Tgl.Pengajuan</th>
 
-                    <th colspan="2">Pembimbing</th>
-
-                    <th class="text-center">Status</th>
-
                     <th>Ujian</th>
 
                 </tr>
@@ -80,36 +76,6 @@
                         </td>
 
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
-
-                        <td><?php echo $list['nama_pembimbing_satu'] ?><br/><b><?php echo $list['nip_pembimbing_satu'] ?></b></td>
-                        <td><?php echo $list['nama_pembimbing_dua'] ?><br/><b><?php echo $list['nip_pembimbing_dua'] ?></b></td>
-
-                        <td class="text-center">
-
-                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
-
-
-
-                            <?php if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
-
-                                ?>
-
-                                <hr style="margin:5px"/>
-
-                                <b>Hasil Ujian</b><br/>
-
-                                <?php
-
-                                echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
-
-
-                            }
-
-                            ?>
-
-
-
-                        </td>
 
                         <td>
 
