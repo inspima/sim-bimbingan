@@ -334,6 +334,7 @@ $route['baa/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/baa/dokt
 $route['baa/doktoral/disertasi/kualifikasi/cetak_absensi'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_absensi';
 
 $route['baa/doktoral/disertasi/proposal'] = 'backend/baa/doktoral/disertasi_proposal';
+$route['baa/doktoral/disertasi/proposal/terima'] = 'backend/baa/doktoral/disertasi_proposal/terima';
 $route['baa/doktoral/disertasi/proposal/cetak_undangan'] = 'backend/baa/doktoral/disertasi_proposal/cetak_undangan';
 $route['baa/doktoral/disertasi/proposal/cetak_berita'] = 'backend/baa/doktoral/disertasi_proposal/cetak_berita';
 $route['baa/doktoral/disertasi/proposal/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_proposal/cetak_penilaian';

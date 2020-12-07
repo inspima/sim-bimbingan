@@ -97,14 +97,14 @@ class Document extends CI_Controller {
 
                 $this->load->view('frontend/index', $data);
             } else {
-                $data["heading"] = "404 Page Not Found";
+                $data["heading"] = "Invalid Page";
                 $data["message"] = "The page you requested was not found ";
-                $this->load->view('error', $data);
+                $this->load->view(VIEW_ERROR_404, $data);
             }
         } else {
-            $data["heading"] = "404 Page Not Found";
+            $data["heading"] = "Invalid Page";
             $data["message"] = "The page you requested was not found ";
-            $this->load->view('error', $data);
+            $this->load->view(VIEW_ERROR_404, $data);
         }
     }
 
@@ -138,14 +138,14 @@ class Document extends CI_Controller {
 
                 $this->load->view('frontend/index', $data);
             } else {
-                $data["heading"] = "404 Page Not Found";
+                $data["heading"] = "Invalid Page";
                 $data["message"] = "The page you requested was not found ";
-                $this->load->view('error', $data);
+                $this->load->view(VIEW_ERROR_404, $data);
             }
         } else {
-            $data["heading"] = "404 Page Not Found";
+            $data["heading"] = "Invalid Page";
             $data["message"] = "The page you requested was not found ";
-            $this->load->view('error', $data);
+            $this->load->view(VIEW_ERROR_404, $data);
         }
     }
 
@@ -200,32 +200,33 @@ class Document extends CI_Controller {
                 'identitas' => $tugas_akhir->nim,
             ];
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
-
             if (!empty($dokumen)) {
                 $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
                 // QR
                 $data = array(
                     'jadwal' => $jadwal,
                     'pengujis' => $this->disertasi->read_penguji($jadwal->id_ujian),
+                    'ketua_penguji' => $this->disertasi->read_penguji_ketua($jadwal->id_ujian),
                     'disertasi' => $tugas_akhir,
                     'qr_dokumen' => $dokumen->qr_image,
-                    'dokumen_persetujuan' => $dokumen_persetujuan
+                    'dokumen_persetujuan' => $dokumen_persetujuan,
+                    'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
                 );
                 ob_end_clean();
 
                 $size = 'legal';
                 $this->pdf->setPaper($size, 'potrait');
-                $this->pdf->filename = $this->generate_slug($section_title) . $tugas_akhir->nim;
+                $this->pdf->filename = $this->generate_slug($section_title) . '_' . $tugas_akhir->nim;
                 $this->pdf->load_view($page . '_document', $data);
             } else {
-                $data["heading"] = "404 Page Not Found";
+                $data["heading"] = "Invalid Page";
                 $data["message"] = "The page you requested was not found ";
-                $this->load->view('error', $data);
+                $this->load->view(VIEW_ERROR_404, $data);
             }
         } else {
-            $data["heading"] = "404 Page Not Found";
+            $data["heading"] = "Invalid Page";
             $data["message"] = "The page you requested was not found ";
-            $this->load->view('error', $data);
+            $this->load->view(VIEW_ERROR_404, $data);
         }
     }
 

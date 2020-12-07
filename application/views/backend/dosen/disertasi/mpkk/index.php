@@ -45,16 +45,7 @@
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
                             <?php
-                            if ($list['status_mpkk'] == STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR && $struktural->id_struktur == STRUKTUR_SPS) {
-                                ?>
-                                <br/><br/>
-                                <?php echo form_open('dosen/disertasi/mpkk/terima') ?>
-                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-                                <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
-                                <?php echo form_close() ?>
-                                <?php
-                            } else if ($list['status_mpkk'] == STATUS_DISERTASI_MPKK_SETUJUI_SPS && $struktural->id_struktur == STRUKTUR_KPS_S3) {
+                            if ($list['status_mpkk'] == STATUS_DISERTASI_MPKK_PENGAJUAN && $struktural->id_struktur == STRUKTUR_KPS_S3) {
                                 ?>
                                 <br/><br/>
                                 <?php echo form_open('dosen/disertasi/mpkk/terima') ?>

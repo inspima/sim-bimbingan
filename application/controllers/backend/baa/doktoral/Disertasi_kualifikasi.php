@@ -77,6 +77,7 @@ class Disertasi_kualifikasi extends CI_Controller {
             $jadwal = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
             $disertasi = $this->disertasi->detail($id_disertasi);
             $pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+            $ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
 
             $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI;
             $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI;
@@ -107,9 +108,11 @@ class Disertasi_kualifikasi extends CI_Controller {
             $data = array(
                 'jadwal' => $jadwal,
                 'pengujis' => $pengujis,
+                'ketua_penguji' => $ketua_penguji,
                 'disertasi' => $disertasi,
                 'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
-                'dokumen_persetujuan' => $dokumen_persetujuan
+                'dokumen_persetujuan' => $dokumen_persetujuan,
+                'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
             );
             ob_end_clean();
             $page = 'backend/baa/doktoral/kualifikasi/cetak_berita';
@@ -150,9 +153,12 @@ class Disertasi_kualifikasi extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $jadwal = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
+            $id_ujian = $jadwal->id_ujian;
 
             $data = array(
-                'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
+                'pengujis' => $this->disertasi->read_penguji($id_ujian),
+                'jadwal' => $jadwal,
                 'disertasi' => $this->disertasi->detail($id_disertasi)
             );
             //print_r($data['penguji_ketua']);die();

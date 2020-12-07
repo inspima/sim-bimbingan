@@ -54,7 +54,7 @@
                             endif;
                             ?>
                             <?php
-                            if ($list['status_mpkk'] == STATUS_DISERTASI_MPKK_PENGAJUAN):
+                            if ($list['status_mpkk'] == STATUS_DISERTASI_MPKK_SETUJUI_KPS):
                                 ?>
                                 <hr style="margin: 10px;border-width:2px;" />
                                 <?php echo form_open('dosen/disertasi/permintaan/promotor/mpkk/setujui') ?>
@@ -77,7 +77,7 @@
                             ?>
 
                             <?php
-                            if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_PENGAJUAN):
+                            if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA):
                                 ?>
                                 <hr style="margin: 10px;border-width:2px;" />
                                 <?php echo form_open('dosen/disertasi/permintaan/promotor/proposal/setujui') ?>

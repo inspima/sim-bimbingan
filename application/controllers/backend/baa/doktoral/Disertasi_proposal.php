@@ -38,6 +38,25 @@ class Disertasi_proposal extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
+    public function terima() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $data = array(
+                'status_proposal' => STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA,
+            );
+            $this->disertasi->update($data, $id_disertasi);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil setujui');
+            redirect('baa/doktoral/disertasi/proposal');
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('baa/doktoral/disertasi/proposal');
+        }
+    }
+
     public function cetak_undangan() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {

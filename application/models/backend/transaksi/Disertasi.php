@@ -282,12 +282,13 @@ class Disertasi extends CI_Model {
 
     public function read_penguji($id_ujian) {
         $stts = array('1', '2');
-        $this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama');
+        $this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
         $this->db->from('penguji_disertasi p');
         $this->db->join('pegawai pg', 'p.nip = pg.nip');
         $this->db->where('p.id_ujian', $id_ujian);
         $this->db->where_in('p.status', $stts);
         $this->db->order_by('p.status_tim', 'asc');
+        $this->db->order_by('pg.nama', 'asc');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -307,11 +308,12 @@ class Disertasi extends CI_Model {
 
     public function read_penguji_ketua($id_ujian) {
         $stts = array('1', '2');
-        $this->db->select('id_penguji');
-        $this->db->from('penguji_disertasi');
-        $this->db->where('id_ujian', $id_ujian);
+        $this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
+        $this->db->from('penguji_disertasi p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->where('p.id_ujian', $id_ujian);
+        $this->db->where_in('p.status', $stts);
         $this->db->where('status_tim', 1);
-        $this->db->where_in('status', $stts);
 
         $query = $this->db->get();
         return $query->row();
@@ -716,32 +718,26 @@ class Disertasi extends CI_Model {
             return [
                 [
                     'value' => 0,
-                    'text' => 'Belum Pengajuan, Bukti Transkrip & Blanko MPKK',
+                    'text' => 'Belum Pengajuan',
                     'keterangan' => '',
                     'color' => 'bg-gray'
                 ],
                 [
                     'value' => STATUS_DISERTASI_MPKK_PENGAJUAN,
                     'text' => 'Pengajuan',
-                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'keterangan' => 'Diajukan oleh mahasiswa, Upload Bukti Transkrip & Blanko MPKK',
                     'color' => 'bg-blue'
-                ],
-                [
-                    'value' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
-                    'text' => 'Disetujui Promotor&Ko-promotor',
-                    'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
-                    'color' => 'bg-green'
-                ],
-                [
-                    'value' => STATUS_DISERTASI_MPKK_SETUJUI_SPS,
-                    'text' => 'Disetujui SPS',
-                    'keterangan' => 'Disetujui Sekertaris Prodi',
-                    'color' => 'bg-green'
                 ],
                 [
                     'value' => STATUS_DISERTASI_MPKK_SETUJUI_KPS,
                     'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
+                    'text' => 'Disetujui Promotor&Ko-promotor',
+                    'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
                     'color' => 'bg-green'
                 ],
                 [
@@ -764,6 +760,12 @@ class Disertasi extends CI_Model {
                     'text' => 'Pengajuan',
                     'keterangan' => 'Diajukan oleh mahasiswa syarat min sks 16, Upload Bukti Transkrip, TOFL 500 dan TOEFL pendamping, Upload Bukti Transkrip dan Pembayaran SPP',
                     'color' => 'bg-blue'
+                ],
+                [
+                    'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA,
+                    'text' => 'Diterima BAA',
+                    'keterangan' => 'Disetujui oleh BAA',
+                    'color' => 'bg-green'
                 ],
                 [
                     'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PROMOTOR,

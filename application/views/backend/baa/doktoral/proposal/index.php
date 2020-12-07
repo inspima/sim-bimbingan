@@ -40,14 +40,21 @@
                             <tr>
                                 <td><?= $no ?></td>
                                 <td>
-                                    <?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
-                                    <br/>
-                                    <b>Judul</b> <br/>
+                                    <?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
+                                </td>
+                                <td><?php echo toindo($list['tgl_pengajuan']) ?>
                                     <?php
-                                    echo $list['judul']
+                                    if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_PENGAJUAN):
+                                        ?>
+                                        <hr style="margin: 10px;border-width:2px;" />
+                                        <?php echo form_open('baa/doktoral/disertasi/proposal/terima') ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php
+                                    endif;
                                     ?>
                                 </td>
-                                <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>
                                 </td>
@@ -57,7 +64,7 @@
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
                                     <?php
-                                    if ($list['status_proposal'] >= 4) {
+                                    if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_UJIAN) {
                                         ?>
                                         <hr style="margin: 5px"/>
                                         <!-- Undangan -->

@@ -116,9 +116,24 @@ class Dokumen extends CI_Model {
         $this->db->select('*');
         $this->db->from('dokumen_persetujuan');
         $this->db->where('id_dokumen', $id_dokumen);
+        $this->db->order_by('id_dokumen_persetujuan', 'asc');
 
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    public function cek_dokumen_setujui_semua($id_dokumen) {
+        $this->db->select('*');
+        $this->db->from('dokumen_persetujuan');
+        $this->db->where('id_dokumen', $id_dokumen);
+        $this->db->where('waktu is NULL', NULL, FALSE);
+
+        $count = $this->db->count_all_results();
+        if ($count > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public function detail_persetujuan_by_data($data) {

@@ -130,8 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td style = "width: 16%;text-align: right">
                                         <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                             ?>
-                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?= $no ?>.<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
                                             <?php
                                         else:
                                             ?>
@@ -146,8 +145,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td style = "width: 16%;text-align: right;">
                                         <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                             ?>
-                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?= $no ?>.<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
                                             <?php
                                         else:
                                             ?>
@@ -206,9 +204,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td> 
                             <td style="width: 50%">
                                 <p>
-                                    Ketua Panitia.<br/><br/><br/><br/><br/><br/>
-                                    ..........................<br/>
-                                    NIP. .............................
+                                    Ketua Panitia.
+                                    <?php
+                                    if ($setujui_semua):
+                                        ?>
+                                        <br/><br/>
+                                        <img src="<?= str_replace(base_url(), "", $ketua_penguji->ttd) ?>" width="100px"/>
+                                        <br/>
+                                        <?php
+                                    else:
+                                        ?>
+                                        <br/><br/><br/><br/><br/><br/>
+                                    <?php
+                                    endif;
+                                    ?>
+                                    <?= $ketua_penguji->nama ?><br/>
+                                    NIP. <?= $ketua_penguji->nip ?>
                                 </p>
                             </td>
                         </tr>

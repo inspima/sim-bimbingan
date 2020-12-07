@@ -23,9 +23,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tr>
                     <td width="10%"><img src="assets/backend/cetak/logo.png" width="100px"></td>
                     <td width="90%" align="center">
-                        <strong><p style="font-size:17px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN<br>
+                        <strong>
+                            <p style="font-size:17px;margin-bottom: 0px;">
+                                KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN<br>
                                 UNIVERSITAS AIRLANGGA<br>
-                                FAKULTAS HUKUM<br></p>
+                                FAKULTAS HUKUM<br>
+                            </p>
                         </strong><p style="font-size:14px;margin: 0px 0 0px 0;">Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
                             Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id </p>
                     </td>
@@ -130,8 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td style = "width: 16%;text-align: right">
                                         <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                             ?>
-                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?= $no ?>.<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
                                             <?php
                                         else:
                                             ?>
@@ -146,8 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <td style = "width: 16%;text-align: right;">
                                         <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                             ?>
-                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?= $no ?>.<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
                                             <?php
                                         else:
                                             ?>
@@ -206,9 +207,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td> 
                             <td style="width: 50%">
                                 <p>
-                                    Ketua Panitia.<br/><br/><br/><br/><br/><br/>
-                                    ..........................<br/>
-                                    NIP. .............................
+                                    Ketua Panitia.
+                                    <?php
+                                    if ($setujui_semua):
+                                        ?>
+                                        <br/><br/>
+                                        <img src="<?= str_replace(base_url(), "", $ketua_penguji->ttd) ?>" width="100px"/>
+                                        <br/>
+                                        <?php
+                                    else:
+                                        ?>
+                                        <br/><br/><br/><br/><br/><br/>
+                                    <?php
+                                    endif;
+                                    ?>
+                                    <?= $ketua_penguji->nama ?><br/>
+                                    NIP. <?= $ketua_penguji->nip ?>
                                 </p>
                             </td>
                         </tr>
