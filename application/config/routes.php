@@ -321,6 +321,12 @@ $route['baa/magister/tesis/proposal/cetak_berita'] = 'backend/baa/magister/tesis
 $route['baa/magister/tesis/proposal/cetak_penilaian'] = 'backend/baa/magister/tesis_proposal/cetak_penilaian';
 $route['baa/magister/tesis/proposal/cetak_absensi'] = 'backend/baa/magister/tesis_proposal/cetak_absensi';
 
+$route['baa/magister/tesis/ujian'] = 'backend/baa/magister/tesis_ujian';
+$route['baa/magister/tesis/ujian/cetak_undangan'] = 'backend/baa/magister/tesis_ujian/cetak_undangan';
+$route['baa/magister/tesis/ujian/cetak_berita'] = 'backend/baa/magister/tesis_ujian/cetak_berita';
+$route['baa/magister/tesis/ujian/cetak_penilaian'] = 'backend/baa/magister/tesis_ujian/cetak_penilaian';
+$route['baa/magister/tesis/ujian/cetak_absensi'] = 'backend/baa/magister/tesis_ujian/cetak_absensi';
+
 $route['baa/doktoral/disertasi/kualifikasi'] = 'backend/baa/doktoral/disertasi_kualifikasi';
 $route['baa/doktoral/disertasi/kualifikasi/cetak_undangan'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_undangan';
 $route['baa/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_berita';
@@ -445,6 +451,7 @@ $route['dosen/tesis/proposal/approve/(:num)'] = 'backend/dosen/tesis/proposal/ap
 $route['dosen/tesis/proposal/reject/(:num)'] = 'backend/dosen/tesis/proposal/reject';
 
 $route['dosen/tesis/proposal/pembimbing'] = 'backend/dosen/tesis/proposal/pembimbing';
+$route['dosen/tesis/proposal/pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/pembimbing';
 $route['dosen/tesis/proposal/approve/(:num)'] = 'backend/dosen/tesis/proposal/approve';
 $route['dosen/tesis/proposal/reject/(:num)'] = 'backend/dosen/tesis/proposal/reject';
 $route['dosen/tesis/proposal/batal/(:num)'] = 'backend/dosen/tesis/proposal/batal';
@@ -453,6 +460,7 @@ $route['dosen/tesis/proposal/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/p
 $route['dosen/tesis/proposal/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/batal_pembimbing';
 
 $route['dosen/tesis/proposal/penjadwalan'] = 'backend/dosen/tesis/proposal/penjadwalan';
+$route['dosen/tesis/proposal/penjadwalan/(:num)'] = 'backend/dosen/tesis/proposal/penjadwalan';
 $route['dosen/tesis/proposal/setting/(:num)'] = 'backend/dosen/tesis/proposal/setting';
 $route['dosen/tesis/proposal/setting_penguji/(:num)'] = 'backend/dosen/tesis/proposal/setting_penguji';
 $route['dosen/tesis/proposal/jadwal_save'] = 'backend/dosen/tesis/proposal/jadwal_save';
@@ -464,9 +472,10 @@ $route['dosen/tesis/proposal/penguji_usulan_save_kps'] = 'backend/dosen/tesis/pr
 $route['dosen/tesis/proposal/penguji_usulan_delete'] = 'backend/dosen/tesis/proposal/penguji_usulan_delete';
 
 $route['dosen/tesis/proposal/penguji'] = 'backend/dosen/tesis/proposal/penguji';
-$route['dosen/tesis/proposal/approve_penguji/(:num)'] = 'backend/dosen/tesis/proposal/approve_penguji';
-$route['dosen/tesis/proposal/reject_penguji/(:num)'] = 'backend/dosen/tesis/proposal/reject_penguji';
-$route['dosen/tesis/proposal/batal_penguji/(:num)'] = 'backend/dosen/tesis/proposal/batal_penguji';
+$route['dosen/tesis/proposal/penguji/(:num)'] = 'backend/dosen/tesis/proposal/penguji';
+$route['dosen/tesis/proposal/approve_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/approve_penguji';
+//$route['dosen/tesis/proposal/reject_penguji/(:num)'] = 'backend/dosen/tesis/proposal/reject_penguji';
+$route['dosen/tesis/proposal/batal_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/batal_penguji';
 
 $route['dosen/tesis/proposal/update_status_ujian'] = 'backend/dosen/tesis/proposal/update_status_ujian';
 
@@ -478,6 +487,7 @@ $route['dosen/tesis/ujian/index/(:num)'] = 'backend/dosen/tesis/ujian/index';
 //$route['dosen/tesis/ujian/reject/(:num)'] = 'backend/dosen/tesis/ujian/reject';
 
 $route['dosen/tesis/ujian/pembimbing'] = 'backend/dosen/tesis/ujian/pembimbing';
+$route['dosen/tesis/ujian/pembimbing/(:num)'] = 'backend/dosen/tesis/ujian/pembimbing';
 $route['dosen/tesis/ujian/approve/(:num)'] = 'backend/dosen/tesis/ujian/approve';
 $route['dosen/tesis/ujian/reject/(:num)'] = 'backend/dosen/tesis/ujian/reject';
 $route['dosen/tesis/ujian/batal/(:num)'] = 'backend/dosen/tesis/ujian/batal';
@@ -486,6 +496,7 @@ $route['dosen/tesis/ujian/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/ujia
 $route['dosen/tesis/ujian/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/ujian/batal_pembimbing';
 
 $route['dosen/tesis/ujian/penjadwalan'] = 'backend/dosen/tesis/ujian/penjadwalan';
+$route['dosen/tesis/ujian/penjadwalan/(:num)'] = 'backend/dosen/tesis/ujian/penjadwalan';
 $route['dosen/tesis/ujian/setting/(:num)'] = 'backend/dosen/tesis/ujian/setting';
 $route['dosen/tesis/ujian/setting_penguji/(:num)'] = 'backend/dosen/tesis/ujian/setting_penguji';
 $route['dosen/tesis/ujian/jadwal_save'] = 'backend/dosen/tesis/ujian/jadwal_save';
@@ -497,9 +508,10 @@ $route['dosen/tesis/ujian/penguji_usulan_save_kps'] = 'backend/dosen/tesis/ujian
 $route['dosen/tesis/ujian/penguji_usulan_delete'] = 'backend/dosen/tesis/ujian/penguji_usulan_delete';
 
 $route['dosen/tesis/ujian/penguji'] = 'backend/dosen/tesis/ujian/penguji';
-$route['dosen/tesis/ujian/approve_penguji/(:num)'] = 'backend/dosen/tesis/ujian/approve_penguji';
-$route['dosen/tesis/ujian/reject_penguji/(:num)'] = 'backend/dosen/tesis/ujian/reject_penguji';
-$route['dosen/tesis/ujian/batal_penguji/(:num)'] = 'backend/dosen/tesis/ujian/batal_penguji';
+$route['dosen/tesis/ujian/penguji/(:num)'] = 'backend/dosen/tesis/ujian/penguji';
+$route['dosen/tesis/ujian/approve_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/ujian/approve_penguji';
+//$route['dosen/tesis/ujian/reject_penguji/(:num)'] = 'backend/dosen/tesis/ujian/reject_penguji';
+$route['dosen/tesis/ujian/batal_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/ujian/batal_penguji';
 
 $route['dosen/tesis/ujian/update_status_ujian'] = 'backend/dosen/tesis/ujian/update_status_ujian';
 

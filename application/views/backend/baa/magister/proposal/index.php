@@ -10,7 +10,7 @@
 <?php endif; ?>
 <?php $this->view('backend/widgets/tesis/tab_link_baa'); ?>
 <div class="divider10"></div>
-<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => 1]); ?>
+<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -49,15 +49,15 @@
                                 </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], 1]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], UJIAN_TESIS_PROPOSAL]); ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], 1]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], UJIAN_TESIS_PROPOSAL]); ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 1]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, UJIAN_TESIS_PROPOSAL]); ?>
                                     <?php
-                                    if ($list['status_proposal'] >= 1) {
+                                    if ($list['status_proposal'] >= STATUS_TESIS_PROPOSAL_UJIAN) {
                                         ?>
                                         <hr style="margin: 5px"/>
                                         <!-- Undangan -->

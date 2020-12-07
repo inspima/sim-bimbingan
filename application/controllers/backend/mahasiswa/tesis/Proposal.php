@@ -51,7 +51,7 @@ class Proposal extends CI_Controller {
             // DATA //            
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'tesis' => $this->tesis->detail($id_tesis),
-            'jadwal' => $this->tesis->read_jadwal($id_tesis, 1),
+            'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(1),
         );
         $this->load->view('backend/index_sidebar', $data);

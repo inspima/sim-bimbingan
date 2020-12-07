@@ -91,13 +91,17 @@ class Ujian extends CI_Controller {
     }
 
     public function pembimbing() {
+        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
         $data = array(
             // PAGE //
             'title' => 'Tesis - Pembimbing Tesis',
             'subtitle' => 'Data',
             'section' => 'backend/dosen/tesis/ujian/pembimbing',
             // DATA //
-            'tesis' => $this->tesis->read_permintaan_pembimbing($this->session_data['username'])
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_permintaan_pembimbing($this->session_data['username'])
+            'tesis' => $this->tesis->read_permintaan_pembimbing_prodi($this->session_data['username'], $id)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -127,49 +131,59 @@ class Ujian extends CI_Controller {
     }
 
     public function penguji() {
+        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
         $data = array(
             // PAGE //
             'title' => 'Tesis - Penguji Tesis',
             'subtitle' => 'Data',
             'section' => 'backend/dosen/tesis/ujian/penguji',
             // DATA //
-            'tesis' => $this->tesis->read_permintaan_penguji($this->session_data['username'], 1)
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_permintaan_penguji($this->session_data['username'], UJIAN_TESIS_UJIAN)
+            'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_UJIAN, $id)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
 
     public function approve_penguji() {
-        $id = $this->uri->segment(5);
-        $this->tesis->approval_penguji_tesis($id, $this->session_data['username']);
+        $id_tesis = $this->uri->segment(5);
+        $id_tesis_ujian = $this->uri->segment(6);
+        $this->tesis->approval_penguji_tesis($id_tesis, $id_tesis_ujian, $this->session_data['username']);
         $this->session->set_flashdata('msg-title', 'alert-success');
         $this->session->set_flashdata('msg', 'Penguji Tesis disetujui');
         redirect('dosen/tesis/ujian/penguji');
     }    
 
-    public function reject_penguji() {
+    /*public function reject_penguji() {
         $id = $this->uri->segment(5);
         $this->tesis->reject_penguji_tesis($id, $this->session_data['username']);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Penguji Tesis ditolak');
         redirect('dosen/tesis/ujian/penguji');
-    }
+    }*/
 
     public function batal_penguji() {
-        $id = $this->uri->segment(5);
-        $this->tesis->batal_penguji_tesis($id, $this->session_data['username']);
+        $id_tesis = $this->uri->segment(5);
+        $id_tesis_ujian = $this->uri->segment(6);
+        $this->tesis->batal_penguji_tesis($id_tesis, $id_tesis_ujian, $this->session_data['username']);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Status Penguji Tesis dibatalkan');
         redirect('dosen/tesis/ujian/penguji');
     }
 
     public function penjadwalan() {
+        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
         $data = array(
             // PAGE //
             'title' => 'Tesis - Penjadwalan Ujian',
             'subtitle' => 'Data',
             'section' => 'backend/dosen/tesis/ujian/penjadwalan',
             // DATA //
-            'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'tesis' => $this->tesis->read_penjadwalan_prodi($this->session_data['username'], $id)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -362,7 +376,7 @@ class Ujian extends CI_Controller {
                     'id_ruang' => $this->input->post('id_ruang', TRUE),
                     'id_jam' => $this->input->post('id_jam', TRUE),
                     'tanggal' => todb($this->input->post('tanggal', TRUE)),
-                    'jenis_ujian' => 1,
+                    'jenis_ujian' => UJIAN_TESIS_UJIAN,
                     'status' => 1,
                     'status_ujian' => 1
                 );

@@ -8,9 +8,9 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/disertasi/tab_link_baa'); ?>
+<?php $this->view('backend/widgets/tesis/tab_link_baa'); ?>
 <div class="divider10"></div>
-<?php $this->view('backend/widgets/disertasi/informasi_status', ['jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
+<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => TAHAPAN_TESIS_UJIAN]); ?>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -25,7 +25,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Disertasi</th>
+                            <th>Tesis</th>
                             <th>Tgl.Pengajuan</th>
                             <th class="text-center">Penguji</th>
                             <th class="text-center">Jadwal</th>
@@ -35,7 +35,7 @@
                     <tbody>
                         <?php
                         $no = 1;
-                        foreach ($disertasi as $list) {
+                        foreach ($tesis as $list) {
                             ?>
                             <tr>
                                 <td><?= $no ?></td>
@@ -49,46 +49,46 @@
                                 </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_KELAYAKAN]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], UJIAN_TESIS_UJIAN]); ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_KELAYAKAN]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], UJIAN_TESIS_UJIAN]); ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, UJIAN_TESIS_UJIAN]); ?>
                                     <?php
-                                    if ($list['status_kelayakan'] >= 4) {
+                                    if ($list['status_tesis'] >= STATUS_TESIS_UJIAN) {
                                         ?>
                                         <hr style="margin: 5px"/>
                                         <!-- Undangan -->
                                         <?php $attributes = array('target' => '_blank'); ?>
-                                        <?php echo form_open('baa/doktoral/disertasi/kelayakan/cetak_undangan', $attributes) ?>
+                                        <?php echo form_open('baa/magister/tesis/ujian/cetak_undangan', $attributes) ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
                                         <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
-                                        <?php echo form_close() ?>                                         
+                                        <?php echo form_close() ?>                                        
                                         <hr style="margin: 2px"/>
                                         <!-- Berita Acara -->
                                         <?php $attributes = array('target' => '_blank'); ?>
-                                        <?php echo form_open('baa/doktoral/disertasi/kelayakan/cetak_berita', $attributes) ?>
+                                        <?php echo form_open('baa/magister/tesis/ujian/cetak_berita', $attributes) ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
                                         <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
                                         <?php echo form_close() ?>                                        
                                         <hr style="margin: 2px"/>
                                         <!-- Penilaian -->
                                         <?php $attributes = array('target' => '_blank'); ?>
-                                        <?php echo form_open('baa/doktoral/disertasi/kelayakan/cetak_penilaian', $attributes) ?>
+                                        <?php echo form_open('baa/magister/tesis/ujian/cetak_penilaian', $attributes) ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
                                         <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
                                         <?php echo form_close() ?>                                      
                                         <hr style="margin: 2px"/>
                                         <!-- Daftar Hadir -->
                                         <?php $attributes = array('target' => '_blank'); ?>
-                                        <?php echo form_open('baa/doktoral/disertasi/kelayakan/cetak_absensi', $attributes) ?>
+                                        <?php echo form_open('baa/magister/tesis/ujian/cetak_absensi', $attributes) ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                        <?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
                                         <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Daftar Hadir</button>
                                         <?php echo form_close() ?>
                                         <?php

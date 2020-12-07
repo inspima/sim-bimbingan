@@ -65,12 +65,19 @@ class Auth extends CI_Controller {
                     'sks' => $sks,
                     'id_prodi' => $id_prodi,
                 ];
-                // Inser Mahasiswa Mahasiswa
-                $this->user->create_mahasiswa($data_mahasiswa);
-                // Kirim Email
-                $this->email_model->send_registration($email, $nim, $password);
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Registrasi berhasil, silahkan cek email.');
+                // Cek Mahasiswa sudah ada 
+                $cek_mhs = $this->user->read_mhs($nim);
+                if (!empty($cek_mhs)) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', 'Data mahasiswa sudah ada');
+                } else {
+                    // Insert Mahasiswa Mahasiswa
+                    $this->user->create_mahasiswa($data_mahasiswa);
+                    // Kirim Email
+                    $this->email_model->send_registration($email, $nim, $password);
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Registrasi berhasil, silahkan cek email.');
+                }
             } else {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', 'Kode verifikasi tidak sesuai');

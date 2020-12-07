@@ -72,39 +72,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td style="width:2%;vertical-align: text-top">:</td>
                             <td style="width:80%;vertical-align: text-top" colspan="2">
                                 <p style="margin: 0px;margin-bottom: 20px">
-                                    Mohon Kesediaan untuk menjadi Tim Penilai<br/>
-                                    Pada Ujian Proposal
+                                    Mohon Kesediaan untuk menjadi Penguji<br/>
+                                    Pada Ujian Tesis
                                 </p>
                                 <table border="0" style="width:100%">
                                     <?php
                                     $no = 1;
-                                    foreach ($promotors as $promotor):
+                                    foreach ($pengujis as $penguji):
                                         if ($no == 1):
                                             ?>
                                             <tr>
                                                 <td style="width:8%">Yth.</td>
-                                                <td style="width:50%"><?= $no ?>. <?php echo $promotor['nama'] ?><td>
-                                                <td style="width:43%">(Promotor)</td>
-                                            </tr>
-                                            <?php
-                                        else:
-                                            ?>
-                                            <tr>
-                                                <td style="width:8%"></td>
-                                                <td style="width:50%"><?= $no ?>. <?php echo $promotor['nama'] ?><td>
-                                                <td style="width:43%">(Ko-Promotor)</td>
-                                            </tr>
-                                        <?php
-                                        endif;
-                                        $no++;
-                                    endforeach;
-                                    ?>
-                                    <?php
-                                    foreach ($pengujis as $penguji):
-                                        if ($no == count($promotors) + 1):
-                                            ?>
-                                            <tr>
-                                                <td style="width:8%"></td>
                                                 <td style="width:50%"><?= $no ?>. <?php echo $penguji['nama'] ?><td>
                                                 <td style="width:43%">(Ketua)</td>
                                             </tr>
@@ -122,62 +100,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     endforeach;
                                     ?>
                                 </table>
-                                <p>Sehubungan dengan selesainya penulisan naskah disertasi mahasiswa Program Doktor Program Studi Ilmu Hukum Fakultas Hukum Universitas Airlangga :</p>
+                                <p>Sehubungan dengan akan dilaksanakannya Ujian Tesis Mahasiswa Program Magister Program Studi S2 <?= ucwords(strtolower($tesis->nm_prodi));?> Fakultas Hukum Universitas Airlangga :</p>
                                 <table border="0" style="width:100%">
                                     <tr>
                                         <td style="width:8%"></td>
-                                        <td style="width:27%">NAMA</td>
+                                        <td style="width:27%">Nama</td>
                                         <td style="width:3%">:</td>
-                                        <td style="width:60%"><?= $disertasi->nama ?><td>
+                                        <td style="width:60%"><?= $tesis->nama ?><td>
                                     </tr>
                                     <tr>
                                         <td style="width:8%"></td>
                                         <td style="width:27%">NIM</td>
                                         <td style="width:3%">:</td>
-                                        <td style="width:60%"><?= $disertasi->nim ?><td>
+                                        <td style="width:60%"><?= $tesis->nim ?><td>
                                     </tr>
                                     <tr>
                                         <td style="width:8%"></td>
-                                        <td style="width:27%">JUDUL</td>
+                                        <td style="width:27%">Judul</td>
                                         <td style="width:3%">:</td>
-                                        <td style="width:60%"><?= $disertasi->judul ?><td>
+                                        <td style="width:60%"><?= $tesis->judul ?><td>
                                     </tr>
                                     <tr>
                                         <td style="width:8%"></td>
-                                        <td style="width:27%">Promotor</td>
+                                        <td style="width:27%">Dosen Pembimbing 1</td>
                                         <td style="width:3%">:</td>
-                                        <td style="width:60%">
-                                            <?php
-                                            foreach ($promotors as $promotor):
-                                                if ($promotor['status_tim'] == '1'):
-                                                    ?>
-                                                    <?php echo $promotor['nama'] ?>
-                                                    <?php
-                                                endif;
-                                            endforeach;
-                                            ?>
-                                        <td>
+                                        <td style="width:60%"><?= $tesis->nama_pembimbing_satu ?><td>
                                     </tr>
                                     <tr>
                                         <td style="width:8%"></td>
-                                        <td style="width:27%">Kopromotor</td>
+                                        <td style="width:27%">Dosen Pembimbing 2</td>
                                         <td style="width:3%">:</td>
-                                        <td style="width:60%">
-                                            <?php
-                                            $no = 1;
-                                            foreach ($promotors as $promotor):
-                                                if ($promotor['status_tim'] == '2'):
-                                                    ?>
-                                                    <?php echo $no . '. ' . $promotor['nama'] ?>
-                                                    <?php
-                                                    $no++;
-                                                endif;
-                                            endforeach;
-                                            ?>
-                                        <td>
+                                        <td style="width:60%"><?= $tesis->nama_pembimbing_dua ?><td>
                                     </tr>
                                 </table>
-                                <p>Penilaian naskah disertasi  dilaksanakan pada :</p>
+                                <p>Ujian Tesis dilaksanakan pada :</p>
                                 <table border="0" style="width:100%">
                                     <tr>
                                         <td style="width:8%"></td>
@@ -198,7 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style="width:60%"><?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?><td>
                                     </tr>
                                 </table>
-                                <p>Maka dengan ini mohon kesediaan Saudara untuk menjadi Tim Penilai pada Jadwal Tersebut.</p>
+                                <p>Maka dengan ini mohon kesediaan Saudara untuk menjadi Penguji pada Ujian Tesis tersebut.</p>
                                 <p>Atas perhatian Saudara, kami sampaikan terima kasih.</p>
                             </td>
                         </tr>

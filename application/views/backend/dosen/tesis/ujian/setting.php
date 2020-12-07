@@ -133,7 +133,7 @@
                 <div class="box-body table-responsive">
                     <?php 
                         echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
-                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis); 
+                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_UJIAN, $ujian->id_ujian); 
                         foreach ($penguji as $listpenguji) {
                     ?>
                         <b>Usulan Pembimbing 1</b>
@@ -271,7 +271,7 @@
                             <?php
                             foreach ($status_ujians as $status_ujian) {
                                 ?>
-                                <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $tesis->status_ujian_proposal) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+                                <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $tesis->status_ujian_tesis) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
                                 <?php
                             }
                             ?>

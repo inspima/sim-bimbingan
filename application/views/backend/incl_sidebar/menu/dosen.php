@@ -240,8 +240,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penguji"><i class="fa fa-circle-o"></i> Penguji Tesis</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/penguji"><i class="fa fa-circle-o"></i> Penguji Tesis</a></li>
                 </ul>
             </li>
         </ul>

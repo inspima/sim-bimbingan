@@ -96,7 +96,7 @@
         </a>
         <ul class="treeview-menu">
             <!--<li><a href="<?php //echo base_url() ?>dashboardb/thesis/thesis"><i class="fa fa-circle-o"></i>Thesis</a></li>-->
-            <li><a href="<?php echo base_url() ?>baa/tesis/ujian"><i class="fa fa-circle-o"></i> Persetujuan</a></li>
+            <li><a href="<?php echo base_url() ?>baa/tesis/ujian"><i class="fa fa-circle-o"></i> Persetujuan Tesis</a></li>
             <li><a href="<?php echo base_url() ?>baa/magister/tesis/proposal"><i class="fa fa-circle-o"></i>Tesis</a></li>
 
 

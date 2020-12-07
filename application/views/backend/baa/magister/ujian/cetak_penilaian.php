@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td>
                     <table border="0" style="width:100%">
                         <tr>
-                            <td align="center"><h3 style="margin: 5px"><b>PENILAIAN UJIAN KELAYAKAN</b></h3></td>
+                            <td align="center"><h3 style="margin: 5px"><b>PENILAIAN UJIAN TESIS</b></h3></td>
                         </tr>
                     </table> 
                 </td>
@@ -59,13 +59,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <td style="width:25%" align="left">NAMA</td>
                             <td style="width:2%" align="left">:</td>
-                            <td style="width:50%" align="left"><?= $disertasi->nama ?></td>
+                            <td style="width:50%" align="left"><?= $tesis->nama ?></td>
                             <td colspan="2" style="width:23%" align="center">Nilai</td>
                         </tr>
                         <tr>
                             <td style="width:25%" align="left">NIM</td>
                             <td style="width:2%" align="left">:</td>
-                            <td style="width:50%" align="left"><?= $disertasi->nim ?></td>
+                            <td style="width:50%" align="left"><?= $tesis->nim ?></td>
                             <td style="width:3%" align="center">4</td>
                             <td style="width:20%" align="center">Sangat Baik</td>
                         </tr>
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <td style="width:25%" align="left">PROGRAM STUDI</td>
                             <td style="width:2%" align="left">:</td>
-                            <td style="width:50%" align="left"><?= $disertasi->nm_prodi ?></td>
+                            <td style="width:50%" align="left"><?= $tesis->nm_prodi ?></td>
                             <td style="width:3%" align="center">3</td>
                             <td style="width:20%" align="center">Baik</td>
                         </tr>

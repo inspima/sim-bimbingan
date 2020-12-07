@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <td style="width: 20%">Acara</td>
                             <td style="width: 3%">:</td>
-                            <td style="width: 77%">Ujian Kelayakan Mahasiswa <?= $disertasi->nama ?> (<?= $disertasi->nim ?>)</td>
+                            <td style="width: 77%">Ujian Tesis Mahasiswa <br><?= $tesis->nama ?> (<?= $tesis->nim ?>)</td>
                         </tr>
                     </table> 
                 </td>

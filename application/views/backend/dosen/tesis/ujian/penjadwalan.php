@@ -8,6 +8,17 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
+<div class="btn-group">
+    <?php 
+    foreach($prodi as $data){
+    $id = $this->uri->segment(5) ? $this->uri->segment(5) : $max_id_prodi;
+    ?>
+        <a class="<?= ($id == $data['id_prodi']) ? 'btn bg-yellow' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/ujian/penjadwalan/<?= $data['id_prodi']?>"><?= $data['jenjang'].' '.$data['nm_prodi'];?></a>   
+    <?php
+    }
+    ?>
+</div>
+<div class="divider10"></div>
 <div class="box">
     <!-- /.box-header -->
     <div class="box-body table-responsive">
@@ -41,13 +52,13 @@
                             ?>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url()?>assets/upload/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url()?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url()?>assets/upload/tesis/ujian/<?php echo $list['berkas_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url()?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url()?>assets/upload/tesis/ujian/<?php echo $list['berkas_syarat_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url()?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_syarat_tesis']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td><?php echo $list['nama_pembimbing_satu'] ?><br/><b><?php echo $list['nip_pembimbing_satu'] ?></b></td>

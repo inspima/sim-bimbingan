@@ -73,8 +73,8 @@ class Tesis_proposal extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, 1);
-            $jadwal = $this->tesis->read_jadwal($id_tesis, 1);
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_PROPOSAL);
+            $jadwal = $this->tesis->read_jadwal($id_tesis, TAHAPAN_TESIS_PROPOSAL);
             $tesis = $this->tesis->detail($id_tesis);
             $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
 
@@ -150,10 +150,12 @@ class Tesis_proposal extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
-
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_PROPOSAL);
+            $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
             $data = array(
                 'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
-                'tesis' => $this->tesis->detail($id_tesis)
+                'tesis' => $this->tesis->detail($id_tesis),
+                'pengujis' => $this->tesis->read_penguji($ujian->id_ujian)
             );
             //print_r($data['penguji_ketua']);die();
             ob_end_clean();

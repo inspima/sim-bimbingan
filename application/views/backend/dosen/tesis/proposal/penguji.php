@@ -8,6 +8,17 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
+<div class="btn-group">
+    <?php 
+    foreach($prodi as $data){
+    $id = $this->uri->segment(5) ? $this->uri->segment(5) : $max_id_prodi;
+    ?>
+        <a class="<?= ($id == $data['id_prodi']) ? 'btn bg-yellow' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/proposal/penguji/<?= $data['id_prodi']?>"><?= $data['jenjang'].' '.$data['nm_prodi'];?></a>   
+    <?php
+    }
+    ?>
+</div>
+<div class="divider10"></div>
 <div class="box">
     <!-- /.box-header -->
     <div class="box-body table-responsive">
@@ -40,14 +51,14 @@
                             ?>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url()?>assets/upload/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url()?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], 'jenis' => 1]); ?>
+                            <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], 'jenis' => UJIAN_TESIS_PROPOSAL]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
+                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => UJIAN_TESIS_PROPOSAL]); ?>
                             <?php if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
@@ -89,7 +100,7 @@
                             if($list['status_penguji'] == '1')
                             {
                             ?>
-                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_penguji/<?= $list['id_tesis']?>">
+                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                 <i class="fa fa-edit"></i> Approve</a>
                                 <!--
                                 <a class="btn btn-xs btn-danger pull-left" href="<?php //echo base_url()?>dosen/tesis/proposal/reject_penguji/<?php //echo $list['id_tesis']?>">
@@ -99,7 +110,7 @@
                             }
                             else {
                             ?>
-                                <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_penguji/<?= $list['id_tesis']?>">
+                                <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
                             <?php
                             }

@@ -8,6 +8,17 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
+<div class="btn-group">
+    <?php 
+    foreach($prodi as $data){
+    $id = $this->uri->segment(5) ? $this->uri->segment(5) : $max_id_prodi;
+    ?>
+        <a class="<?= ($id == $data['id_prodi']) ? 'btn bg-yellow' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/ujian/pembimbing/<?= $data['id_prodi']?>"><?= $data['jenjang'].' '.$data['nm_prodi'];?></a>   
+    <?php
+    }
+    ?>
+</div>
+<div class="divider10"></div>
 <div class="box">
     <!-- /.box-header -->
     <div class="box-body table-responsive">

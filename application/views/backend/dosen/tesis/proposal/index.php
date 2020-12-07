@@ -8,7 +8,17 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/tesis/tab_link_program_studi'); ?>
+<?php //$this->view('backend/widgets/tesis/tab_link_program_studi'); ?>
+<div class="btn-group">
+    <?php 
+    foreach($prodi as $data){
+    $id = $this->uri->segment(5) ? $this->uri->segment(5) : $max_id_prodi;
+    ?>
+        <a class="<?= ($id == $data['id_prodi']) ? 'btn bg-yellow' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/proposal/index/<?= $data['id_prodi']?>"><?= $data['jenjang'].' '.$data['nm_prodi'];?></a>   
+    <?php
+    }
+    ?>
+</div>
 <div class="divider10"></div>
 <?php //$this->view('backend/widgets/tesis/tab_link_persetujuan_dosen'); ?>
 <!--<div class="divider10"></div>-->
@@ -51,7 +61,7 @@
                         <td><?php echo $list['nama_pembimbing_dua'] ?><br/><b><?php echo $list['nip_pembimbing_dua'] ?></b></td>
                         <td class="text-center">
 
-                            <a href="<?php echo base_url()?>assets/upload/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <a href="<?php echo base_url()?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
 
                         </td>
 

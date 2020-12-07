@@ -50,7 +50,7 @@ class Ujian extends CI_Controller {
             'back_link' => 'mahasiswa/tesis/ujian',
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
-            'jadwal' => $this->tesis->read_jadwal($id_tesis, 2),
+            'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'tesis' => $this->tesis->detail($id_tesis),
         );
         $this->load->view('backend/index_sidebar', $data);
@@ -96,18 +96,18 @@ class Ujian extends CI_Controller {
             $this->upload->initialize($config);
 
             $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-            $config_syarat['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-            $config_syarat['allowed_types'] = 'pdf';
-            $config_syarat['max_size'] = MAX_SIZE_FILE_UPLOAD;
-            $config_syarat['remove_spaces'] = TRUE;
-            $config_syarat['file_ext_tolower'] = TRUE;
-            $config_syarat['detect_mime'] = TRUE;
-            $config_syarat['mod_mime_fix'] = TRUE;
-            $config_syarat['file_name'] = $file_name;
-            $this->load->library('upload', $config_syarat);
-            $this->upload->initialize($config_syarat);
+            $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
+            $config['allowed_types'] = 'pdf';
+            $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+            $config['remove_spaces'] = TRUE;
+            $config['file_ext_tolower'] = TRUE;
+            $config['detect_mime'] = TRUE;
+            $config['mod_mime_fix'] = TRUE;
+            $config['file_name'] = $file_name;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
 
-            if (!$this->upload->do_upload('berkas_tesis') AND !$this->upload->do_upload('berkas_syarat_tesis')) {
+            if (!$this->upload->do_upload('berkas_tesis') OR !$this->upload->do_upload('berkas_syarat_tesis')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
                 redirect_back();

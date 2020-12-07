@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td>
                     <table border="0" style="width:100%">
                         <tr>
-                            <td align="center"><h3><b>BERITA ACARA NASKAH DISERTASI</b></h3></td>
+                            <td align="center"><h3><b>BERITA ACARA UJIAN TESIS</b></h3></td>
                         </tr>
                     </table> 
                 </td>
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:100%">
                         <tr>
                             <td>
-                                <p style="line-height: 2;margin: 5px">Pada hari ini <b><?php echo hari($jadwal->tanggal) ?></b> Tanggal <b> <?php echo woday_toindo($jadwal->tanggal) ?></b> pukul <b><?= substr($jadwal->jam, 0, 5); ?> - Selesai</b> WIB di <b>Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></b> Fakultas Hukum Universitas Airlangga, dilaksanakan Ujian Proposal :</p>
+                                <p style="line-height: 2;margin: 5px">Pada hari ini <b><?php echo hari($jadwal->tanggal) ?></b> Tanggal <b> <?php echo woday_toindo($jadwal->tanggal) ?></b> pukul <b><?= substr($jadwal->jam, 0, 5); ?> - Selesai</b> WIB di <b>Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></b> Fakultas Hukum Universitas Airlangga, dilaksanakan Ujian Tesis :</p>
                             </td>
                         </tr>
                     </table>
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td style="width:2%">:</td>
                             <td style="width:85%">
 
-                                <b><?php echo $disertasi->nama ?></b>
+                                <b><?php echo $tesis->nama ?></b>
                             </td>
                         </tr>
                         <tr>
@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td>
                             <td style="width:2%">:</td>
                             <td style="width:85%">
-                                <b><?php echo $disertasi->nim ?></b>
+                                <b><?php echo $tesis->nim ?></b>
                             </td>
                         </tr>
                         <tr>
@@ -97,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td>
                             <td style="width:2%">:</td>
                             <td style="width:85%">
-                                <b><?php echo $disertasi->judul ?></b>
+                                <b><?php echo $tesis->judul ?></b>
                             </td>
                         </tr>
                     </table> 
@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:100%;margin-top: 10px">
                         <tr>
                             <td>
-                                <p style="line-height: 2">Panitia Penilai naskah disertasi terdiri dari : </p>
+                                <p style="line-height: 2">Panitia Penilai Ujian Tesis terdiri dari </p>
                             </td>
                         </tr>
                     </table>
@@ -119,27 +119,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:80%;margin-left: 10px">
                         <?php
                         $no = 1;
-                        foreach ($promotors as $promotor):
-                            ?>
-                            <tr style="line-height: 2">
-                                <td style="width: 3%"><b><?= $no ?></b>.</td>
-                                <td style="width: 65%"><?= $promotor['nama'] ?></td>
-                                <?php if ($no % 2 == 0):
-                                    ?>
-                                    <td style = "width: 16%"></td>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
-                                    <?php
-                                else:
-                                    ?>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
-                                    <td style = "width: 16%"></td>
-                                <?php
-                                endif;
-                                ?>
-                            </tr>
-                            <?php
-                            $no++;
-                        endforeach;
                         foreach ($pengujis as $penguji):
                             ?>
                             <tr style="line-height: 2">
@@ -148,11 +127,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php if ($no % 2 == 0):
                                     ?>
                                     <td style = "width: 16%"></td>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
+                                    <td style = "width: 16%;text-align: right">
+                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            ?>
+                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?php
+                                        else:
+                                            ?>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </td>
                                     <?php
                                 else:
                                     ?>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
+                                    <td style = "width: 16%;text-align: right;">
+                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            ?>
+                                            <p style="font-size: 5pt;margin: 11px 0px;text-align: right;"> sudah</p>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?php
+                                        else:
+                                            ?>
+                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                        <?php
+                                        endif;
+                                        ?>
+                                    </td>
                                     <td style = "width: 16%"></td>
                                 <?php
                                 endif;
@@ -173,17 +176,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:100%;margin-top: 10px">
                         <tr>
                             <td>
-                                <p style="line-height: 2">Memutuskan bahwa naskah disertasi bagi mahasiswa tersebut :  </p>
+                                <p style="line-height: 2">Memutuskan bahwa Ujian Tesis bagi mahasiswa tersebut :  </p>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-left: 10px;line-height: 1.5">
-                                1.DAPAT/TIDAK DAPAT*) diajukan untuk Ujian Tahap I
+                                a.LULUS dengan Nilai : ……………  
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-left: 10px;line-height: 1.5">
-                                2.Masih harus diuji kembali pada tanggal …………………………..
+                                b.MENGULANG KEMBALI : ……………  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 10px;line-height: 1.5">
+                                c.GAGAL STUDI karena TIDAK LULUS pada UJIAN KEDUA : ……………  
                             </td>
                         </tr>
                     </table>
@@ -194,7 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:100%;margin-top: 30px">
                         <tr>
                             <td style="width: 50%">
-
+                                <img src="<?= $qr_dokumen ?>" width="100px">
                             </td> 
                             <td style="width: 50%">
                                 <p>

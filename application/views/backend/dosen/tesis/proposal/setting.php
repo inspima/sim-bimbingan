@@ -133,7 +133,7 @@
                 <div class="box-body table-responsive">
                     <?php 
                         echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
-                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis); 
+                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_PROPOSAL, $ujian->id_ujian); 
                         foreach ($penguji as $listpenguji) {
                     ?>
                         <b>Usulan Pembimbing 1</b>
