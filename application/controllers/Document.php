@@ -93,6 +93,7 @@ class Document extends CI_Controller {
                     'dokumen' => $dokumen,
                     'disertasi' => $tugas_akhir,
                     'jadwal' => $this->disertasi->read_jadwal($id_tugas_akhir, $jenis),
+                    'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
                 );
 
                 $this->load->view('frontend/index', $data);

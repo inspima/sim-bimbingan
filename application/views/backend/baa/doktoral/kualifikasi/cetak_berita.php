@@ -126,14 +126,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             ?>
                             <tr style="line-height: 2">
                                 <td style="width: 3%"><b><?= $no ?></b>.</td>
-                                <td style="width: 65%"><?= $penguji['nama'] ?></td>
+                                <td style="width: 58%"><?= $penguji['nama'] ?></td>
                                 <?php if ($no % 2 == 0):
                                     ?>
-                                    <td style = "width: 16%"></td>
-                                    <td style = "width: 16%;text-align: right">
+                                    <td style = "width: 20%"></td>
+                                    <td style = "width: 20%;text-align: left;">
                                         <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                             ?>
-                                            <?= $no ?>.<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                            <?= $no ?>.
+                                            <?php
+                                            if (!empty($penguji['ttd'])) {
+                                                ?>
+                                                <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                <?php
+                                            }
+                                            ?>
                                             <?php
                                         else:
                                             ?>
@@ -145,10 +156,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <?php
                                 else:
                                     ?>
-                                    <td style = "width: 16%;text-align: right;">
+                                    <td style = "width: 20%;text-align: left;">
                                         <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                             ?>
-                                            <?= $no ?>.<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                            <?= $no ?>.
+                                            <?php
+                                            if (!empty($penguji['ttd'])) {
+                                                ?>
+                                                <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                <?php
+                                            }
+                                            ?>
                                             <?php
                                         else:
                                             ?>
@@ -157,7 +179,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         endif;
                                         ?>
                                     </td>
-                                    <td style = "width: 16%"></td>
+                                    <td style = "width: 20%"></td>
                                 <?php
                                 endif;
                                 ?>
@@ -210,11 +232,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     Ketua Panitia.
                                     <?php
                                     if ($setujui_semua):
-                                        ?>
-                                        <br/><br/>
-                                        <img src="<?= str_replace(base_url(), "", $ketua_penguji->ttd) ?>" width="100px"/>
-                                        <br/>
-                                        <?php
+                                        if (!empty($ketua_penguji->ttd)) {
+                                            ?>
+                                            <br/><br/>
+                                            <img src="<?= str_replace(base_url(), "", $ketua_penguji->ttd) ?>" width="100px"/>
+                                            <br/>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <br/><br/><br/>
+                                            <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                            <br/><br/>
+                                            <?php
+                                        }
                                     else:
                                         ?>
                                         <br/><br/><br/><br/><br/><br/>
