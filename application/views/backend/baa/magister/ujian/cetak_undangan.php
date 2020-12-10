@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tr>
                     <td width="10%"><img src="assets/backend/cetak/logo.png" width="100px"></td>
                     <td width="90%" align="center">
-                        <strong><p style="font-size:17px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN<br>
+                        <strong><p style="font-size:17px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN REPUBLIK INDONESIA<br>
                                 UNIVERSITAS AIRLANGGA<br>
                                 FAKULTAS HUKUM<br></p>
                         </strong><p style="font-size:14px;margin: 0px 0 0px 0;">Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
@@ -122,13 +122,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                                     <tr>
                                         <td style="width:8%"></td>
-                                        <td style="width:27%">Dosen Pembimbing 1</td>
+                                        <td style="width:27%">Dosen Pembimbing Utama</td>
                                         <td style="width:3%">:</td>
                                         <td style="width:60%"><?= $tesis->nama_pembimbing_satu ?><td>
                                     </tr>
                                     <tr>
                                         <td style="width:8%"></td>
-                                        <td style="width:27%">Dosen Pembimbing 2</td>
+                                        <td style="width:27%">Dosen Pembimbing Kedua</td>
                                         <td style="width:3%">:</td>
                                         <td style="width:60%"><?= $tesis->nama_pembimbing_dua ?><td>
                                     </tr>

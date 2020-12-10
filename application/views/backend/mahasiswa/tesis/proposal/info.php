@@ -30,7 +30,7 @@
                     </tr>
                     <tr>
                         <td><?php echo $tesis->nama_pembimbing_satu ?><br/><b><?php echo $tesis->nip_pembimbing_satu ?></b></td>
-                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing I</button>
+                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing Utama</button>
                         </td>
                         <td>
                             <?php
@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                         <td><?php echo $tesis->nama_pembimbing_dua ?><br/><b><?php echo $tesis->nip_pembimbing_dua ?></b></td>
-                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing II</button>
+                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing Kedua</button>
                         </td>
                         <td>
                             <?php

@@ -15,7 +15,7 @@ if (!in_array($mahasiswa['role'], [ROLE_MAHASISWA_S2, ROLE_MAHASISWA_S3])) {
         <?php
     } else {
         ?>
-        <button class="btn btn-xs btn-danger">Belum ada Pengajuan</button>
+        <button class="btn btn-xs btn-danger">Kosong</button>
         <?php
     }
 } else if ($mahasiswa['role'] == ROLE_MAHASISWA_S2) {
@@ -30,7 +30,7 @@ if (!in_array($mahasiswa['role'], [ROLE_MAHASISWA_S2, ROLE_MAHASISWA_S3])) {
         <?php
     } else {
         ?>
-        <button class="btn btn-xs btn-danger">Belum ada Pengajuan</button>
+        <button class="btn btn-xs btn-danger">Kosong</button>
         <?php
     }
 } else if ($mahasiswa['role'] == ROLE_MAHASISWA_S3) {
@@ -63,7 +63,7 @@ if (!in_array($mahasiswa['role'], [ROLE_MAHASISWA_S2, ROLE_MAHASISWA_S3])) {
         <?php
     } else {
         ?>
-        <button class="btn btn-xs btn-danger">Belum ada Pengajuan</button>
+        <button class="btn btn-xs btn-danger">Kosong</button>
         <?php
     }
 }

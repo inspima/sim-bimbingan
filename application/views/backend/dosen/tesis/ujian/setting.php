@@ -136,7 +136,7 @@
                         $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_UJIAN, $ujian->id_ujian); 
                         foreach ($penguji as $listpenguji) {
                     ?>
-                        <b>Usulan Pembimbing 1</b>
+                        <b>Usulan Pembimbing Utama</b>
                         <br>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
@@ -164,7 +164,7 @@
                         <?php 
                             echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_save');
                         ?>
-                            <b>Pembimbing 1</b>
+                            <b>Pembimbing Utama</b>
                             <br>
                             <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                             <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
@@ -191,7 +191,7 @@
                         <?php 
                             echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_save');
                         ?>
-                            <b>Pembimbing 2</b>
+                            <b>Pembimbing Kedua</b>
                             <br>
                             <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                             <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
