@@ -22,11 +22,17 @@ class Profile extends CI_Controller {
     public function index() {
         $username = $this->session_data['username'];
 
+        if ($this->session_data['sebagai'] != '3') {
+            $biodata = $this->user->read_tendikdosen($username);
+        } else {
+            $biodata = $this->user->read_mhs($username);
+        }
         $data = array(
             // PAGE //
             'title' => 'Profile',
             'subtitle' => 'Pengguna',
             'section' => 'backend/profile/index',
+            'biodata' => $biodata,
                 // DATA //
         );
 
@@ -64,7 +70,6 @@ class Profile extends CI_Controller {
             $this->load->view('backend/index_sidebar', $data);
         }
     }
-    
 
     public function signature_change() {
         $data = array(
@@ -180,6 +185,25 @@ class Profile extends CI_Controller {
                     ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
                     ->_display();
             exit;
+        }
+    }
+
+    public function phone_save() {
+        $session_data = $this->session->userdata('logged_in');
+        try {
+            $id_user = $this->input->post('id_user', TRUE);
+            $no_hp = $this->input->post('no_hp', TRUE);
+            $datap = array(
+                'no_hp' => $no_hp,
+            );
+            $this->user->update_p($datap, $id_user);
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Ubah no hp berhasil !');
+            redirect('/profile');
+        } catch (Exception $e) {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('profile');
         }
     }
 

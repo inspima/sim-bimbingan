@@ -18,7 +18,7 @@ class Tugas_akhir extends CI_Model {
         $this->db->select('s.*');
         $this->db->from('tesis s');
         $this->db->where('nim', $nim);
-        $this->db->order_by('id_skripsi', 'DESC');
+        $this->db->order_by('id_tesis', 'DESC');
         $query = $this->db->get();
         return $query->row();
     }

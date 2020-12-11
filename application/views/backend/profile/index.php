@@ -40,6 +40,20 @@
                     <hr class="divider-line-thin"/>
                     <?= $this->session_data['sebagai'] == '1' ? $this->session_data == '2' ? 'Tendik' : 'Dosen' : 'Mahasiswa' ?>
                 </div>
+
+                <div class="form-group">
+                    <label>No HP</label>
+                    <hr class="divider-line-thin"/>
+                    <?php echo form_open('profile/phone/save'); ?>
+                    <div class="col-sm-4" style="padding: 0px">
+                        <input type="hidden" name="id_user" value="<?php echo $biodata->id_user ?>"/>
+                        <input type="text" name="no_hp" value="<?php echo $biodata->no_hp ?>" class="form-control" />
+                    </div>
+                    <div class="col-sm-4 text-left" style="padding: 3px">
+                        <button type="submit" class="btn btn-sm btn-success">Update NO HP</button>
+                    </div>
+                    <?= form_close() ?>
+                </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

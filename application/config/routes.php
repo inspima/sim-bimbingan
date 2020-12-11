@@ -72,6 +72,7 @@ $route['profile'] = 'backend/profile';
 $route['profile/password'] = 'backend/profile/change_password';
 $route['profile/password/save'] = 'backend/profile/change_password_save';
 $route['profile/signature'] = 'backend/profile/signature';
+$route['profile/phone/save'] = 'backend/profile/phone_save';
 $route['profile/signature/change'] = 'backend/profile/signature_change';
 $route['profile/signature/view'] = 'backend/profile/signature_view';
 
@@ -291,9 +292,15 @@ $route['dashboardd/proposal_tesis/penjadwalan/pembimbing_save'] = 'backend/dosen
 $route['dashboardd/proposal_tesis/penguji'] = 'backend/dosen/proposal_tesis/penguji';
 $route['dashboardd/proposal_tesis/pembimbing'] = 'backend/dosen/proposal_tesis/pembimbing';
 /*
- * JENJANG SARJANAH
+ * JENJANG SARJANA
  */
 // Proposal
+// Kadep
+$route['kadep/sarjana/proposal/penguji/kirim_whatsapp'] = 'backend/dosen/proposal/kadep_diterima/penguji_kirim_whatsapp';
+
+//Dosen
+$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/proposal/penguji_pengajuan';
+
 $route['sarjanah/proposal/index'] = 'backend/baa/sarjanah/proposal';
 $route['sarjanah/proposal/diterima'] = 'backend/baa/sarjanah/proposal/diterima';
 $route['sarjanah/proposal/selesai'] = 'backend/baa/sarjanah/proposal/selesai';

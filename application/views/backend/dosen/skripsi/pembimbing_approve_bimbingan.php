@@ -1,41 +1,41 @@
-<?php if($this->session->flashdata('msg')): ?>
-  <?php 
-  $class_alert = 'alert '.$this->session->flashdata('msg-title').' alert-dismissable';
-  ?>
-  <div class='<?=$class_alert?>'>
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <h4><i class="icon fa fa-check"></i> Notifikasi</h4>
-    <?php echo $this->session->flashdata('msg'); ?>
-  </div>
+<?php if ($this->session->flashdata('msg')): ?>
+    <?php
+    $class_alert = 'alert ' . $this->session->flashdata('msg-title') . ' alert-dismissable';
+    ?>
+    <div class='<?= $class_alert ?>'>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-check"></i> Notifikasi</h4>
+        <?php echo $this->session->flashdata('msg'); ?>
+    </div>
 <?php endif; ?>
 <div class="row">
     <!-- left column -->
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title"><?php echo $subtitle?></h3>
-            <div class="pull-right">
-                <a class="btn btn-xs btn-warning" href="<?= base_url()?>dashboardd/skripsi/pembimbing_approve"><i class="fa fa-arrow-left"></i> Kembali</a>
+            <div class="box-header with-border">
+                <h3 class="box-title"><?php echo $subtitle ?></h3>
+                <div class="pull-right">
+                    <a class="btn btn-xs btn-warning" href="<?= base_url() ?>dashboardd/skripsi/pembimbing_approve"><i class="fa fa-arrow-left"></i> Kembali</a>
+                </div>
             </div>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
+            <!-- /.box-header -->
+            <!-- form start -->
             <div class="box-body">
                 <div class="form-group">
                     <label>Nama</label>
                     <p>
-                    <?php
-                    echo $skripsi->nama;
-                    ?>
+                        <?php
+                        echo $skripsi->nama;
+                        ?>
                     </p>
                 </div>  
                 <div class="form-group">
                     <label>Judul</label>
                     <textarea class="form-control" name="judul"><?php
-                    $judul = $this->pembimbing->read_judul($skripsi->id_skripsi);
-                    echo $judul->judul;
-                    ?></textarea>
+                        $judul = $this->pembimbing->read_judul($skripsi->id_skripsi);
+                        echo $judul->judul;
+                        ?></textarea>
                 </div>                                   
             </div>
             <!-- /.box-body -->
@@ -47,11 +47,11 @@
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Bimbingan</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
+            <div class="box-header with-border">
+                <h3 class="box-title">Bimbingan</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
             <div class="box-body">
                 <table class="table table-bordered">    
                     <thead>
@@ -64,70 +64,64 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                         $no = 1;
-                        foreach($bimbingan as $list){
-                        ?>
-                        <tr>
-                            <td><?=$no?></td>
-                            <td><?php echo toindo($list['tanggal'])?>
-                            </td>
-                            <td><?php echo $list['hal']?></td>
-                            <td>
-                            <?php 
-                            if($list['status'] == '1')
-                            {
-                                echo 'Belum disetujui';
-                            }
-                            else
-                            if($list['status'] == '2')
-                            {
-                                echo 'Disetujui';
-                            }
+                        foreach ($bimbingan as $list) {
                             ?>
-                            </td>
-                            <td>
-                            <?php
-                            if($list['status'] == '1')
-                            {
-                            ?>
-                            <?php echo form_open('dashboardd/skripsi/pembimbing_approve/bimbingan_update')?>
-                            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                            <?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-                            <?php echo formtext('hidden', 'id_bimbingan', $list['id_bimbingan'], 'required') ?>
-                            <?php echo formtext('hidden', 'status', '2', 'required') ?>
-                            <button type="submit" class="btn btn-xs btn-success"><i class="fa fa-trash"></i> Approve</button>
-                            <?php echo form_close()?>
-                            <?php echo form_open('dashboardd/skripsi/pembimbing_approve/bimbingan_update')?>
-                            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                            <?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-                            <?php echo formtext('hidden', 'id_bimbingan', $list['id_bimbingan'], 'required') ?>
-                            <?php echo formtext('hidden', 'status', '3', 'required') ?>
-                            <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Tolak</button>
-                            <?php echo form_close()?>
-                            <?php
-                            }
-                            else
-                            {
+                            <tr>
+                                <td><?= $no ?></td>
+                                <td><?php echo toindo($list['tanggal']) ?>
+                                </td>
+                                <td><?php echo $list['hal'] ?></td>
+                                <td>
+                                    <?php
+                                    if ($list['status'] == '1') {
+                                        echo 'Belum disetujui';
+                                    } else
+                                    if ($list['status'] == '2') {
+                                        echo 'Disetujui';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($list['status'] == '1') {
+                                        ?>
+                                        <?php echo form_open('dashboardd/skripsi/pembimbing_approve/bimbingan_update') ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_bimbingan', $list['id_bimbingan'], 'required') ?>
+                                        <?php echo formtext('hidden', 'status', '2', 'required') ?>
+                                        <button type="submit" class="btn btn-xs btn-success"><i class="fa fa-trash"></i> Approve</button>
+                                        <?php echo form_close() ?>
+                                        <?php echo form_open('dashboardd/skripsi/pembimbing_approve/bimbingan_update') ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+                                        <?php echo formtext('hidden', 'id_bimbingan', $list['id_bimbingan'], 'required') ?>
+                                        <?php echo formtext('hidden', 'status', '3', 'required') ?>
+                                        <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Tolak</button>
+                                        <?php echo form_close() ?>
+                                        <?php
+                                    } else {
+                                        
+                                    }
+                                    ?>
+                                </td>
 
-                            }
-                            ?>
-                            </td>
-                            
-                                 
-                        </tr>      
-                        <?php 
-                        $no++;
-                        } 
+
+                            </tr>      
+                            <?php
+                            $no++;
+                        }
                         ?>
-                    </tfoot>
+                        </tfoot>
                 </table>
             </div>
-            
+
         </div>
         <!-- /.box -->
     </div>
-    
+
 </div>
 
 
@@ -141,32 +135,32 @@
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Pengajuan Penguji</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
+            <div class="box-header with-border">
+                <h3 class="box-title">Pengajuan Penguji</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
             <div class="box-body">
-                <?php echo form_open('dashboardd/skripsi/pembimbing_approve/save_penguji')?>
+                <?php echo form_open('dashboardd/skripsi/pembimbing_approve/save_penguji') ?>
                 <div class="form-group">
-                <label>Penguji</label>
-                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                    <label>Penguji</label>
+                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_skripsi', $skripsi->id_skripsi, 'required') ?>
                     <select name="nip" class="form-control select2" style="width: 100%;" required>
                         <option value="">- Pilih -</option>
-                        <?php 
-                        foreach($mdosen as $list){
-                        ?>
-                        <option value="<?php echo $list['nip']?>"><?php echo $list['nama']?></option>
                         <?php
+                        foreach ($mdosen as $list) {
+                            ?>
+                            <option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+                            <?php
                         }
                         ?>
                     </select>     
                 </div>
                 <div class="form-group">
-                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>    
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>    
                 </div>
-                <?php echo form_close()?>
+                <?php echo form_close() ?>
                 <div class="form-group">
                     <table class="table table-bordered">    
                         <thead>
@@ -176,14 +170,20 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><?php if($penguji_temp){echo $penguji_temp->nama;}else{}?>
+                                <td><?php
+                                    if ($penguji_temp) {
+                                        echo $penguji_temp->nama . '<br/>' . $penguji_temp->nip;
+                                    } else {
+                                        
+                                    }
+                                    ?>
                                 </td>                       
                             </tr>      
-                        </tfoot>
+                            </tfoot>
                     </table>
                 </div>
             </div>
-            
+
         </div>
         <!-- /.box -->
     </div>
@@ -199,73 +199,57 @@
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Approve Skripsi</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
+            <div class="box-header with-border">
+                <h3 class="box-title">Approve Skripsi</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
             <div class="box-body">
-                <?php echo form_open('dashboardd/skripsi/pembimbing_approve/approve_skripsi')?>
+                <?php echo form_open('dashboardd/skripsi/pembimbing_approve/approve_skripsi') ?>
                 <div class="form-group">
-                <label>Status</label>
-                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                    <label>Status</label>
+                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_skripsi', $skripsi->id_skripsi, 'required') ?>
-                    <?php 
-                    if($skripsi->status_skripsi == '0')
-                    {
+                    <?php
+                    if ($skripsi->status_skripsi == '0') {
                         $sttsk = 'Mahasiswa belum daftar';
-                    }
-                    else
-                    if($skripsi->status_skripsi == '1')
-                    {
+                    } else
+                    if ($skripsi->status_skripsi == '1') {
                         $sttsk = 'Mahasiswa sudah daftar / BAA Belum Approve';
-                    }
-                    else
-                    if($skripsi->status_skripsi == '2')
-                    {
+                    } else
+                    if ($skripsi->status_skripsi == '2') {
                         $sttsk = 'BAA Approved / Pembimbing Belum Approve';
-                    }
-                    else
-                    if($skripsi->status_skripsi == '3')
-                    {
+                    } else
+                    if ($skripsi->status_skripsi == '3') {
                         $sttsk = 'Pembimbing Approved / Setting Kadep';
-                    }
-                    else
-                    if($skripsi->status_skripsi == '4')
-                    {
+                    } else
+                    if ($skripsi->status_skripsi == '4') {
                         $sttsk = 'KPS Approved';
-                    }
-                    else
-                    if($skripsi->status_skripsi == '5')
-                    {
+                    } else
+                    if ($skripsi->status_skripsi == '5') {
                         $sttsk = 'KPS Approved';
-                    }
-                    else
-                    {
+                    } else {
                         $sttsk = '';
                     }
                     ?>
-                    <p><?php echo $sttsk;?></p>
+                    <p><?php echo $sttsk; ?></p>
                 </div>
                 <?php
-                if($skripsi->status_skripsi == '2')
-                {
-                ?>
-                <div class="form-group">
-                <label>Opsi</label>
-                <p><button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Approve</button>    
-                </p>
-                </div>
-                <?php echo form_close()?>
-                <?php 
-                }
-                else
-                {
+                if ($skripsi->status_skripsi == '2') {
+                    ?>
+                    <div class="form-group">
+                        <label>Opsi</label>
+                        <p><button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Approve</button>    
+                        </p>
+                    </div>
+                    <?php echo form_close() ?>
+                    <?php
+                } else {
                     
                 }
                 ?>
             </div>
-            
+
         </div>
         <!-- /.box -->
     </div>

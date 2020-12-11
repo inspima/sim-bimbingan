@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Skripsi_model extends CI_Model {
+class Skripsi extends CI_Model {
 
     public function read($username) {
         $this->db->select('s.id_skripsi, s.id_departemen, s.tgl_pengajuan,  s.berkas_proposal, s.status_skripsi, s.turnitin, s.toefl, s.nilai, d.departemen, s.berkas_skripsi ');
@@ -204,6 +204,117 @@ class Skripsi_model extends CI_Model {
 
         $query = $this->db->count_all_results();
         return $query;
+    }
+
+    public function read_status_tahapan($urutan) {
+        if ($urutan == TAHAPAN_SKRIPSI_PROPOSAL) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_PROPOSAL_PENGAJUAN,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Pengajuan oleh mahasiswa',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP,
+                    'text' => 'Disetujui Kadep',
+                    'keterangan' => 'Disetujui oleh Kepala Departemen',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_PROPOSAL_DIJADWALKAN,
+                    'text' => 'Dijadwalkan',
+                    'keterangan' => 'Dijadwalkan dan diajukan penguji oleh Kepala Departemen',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_PROPOSAL_SETUJUI_PENGUJI,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui oleh semua penguji (3)',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_PROPOSAL_UJIAN,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-purple'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_PROPOSAL_SELESAI,
+                    'text' => 'Ujian Selesai',
+                    'keterangan' => 'Selesai, hasil sudah ditentukan oleh Kepala Departemen',
+                    'color' => 'bg-maroon-active'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_SKRIPSI_UJIAN) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_UJIAN_PENGAJUAN,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Pengajuan oleh mahasiswa, syarat berkas turnitin, toefl, dan Bimbingan 8 kali',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_PEMBIMMBING,
+                    'text' => 'Disetujui Kadep',
+                    'keterangan' => 'Disetujui oleh Pembimbing, pengajuan penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_UJIAN_DIJADWALKAN,
+                    'text' => 'Disetujui Kadep',
+                    'keterangan' => 'Dijadwalkan oleh Kepala Departemen, pengajuan penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_PENGUJI,
+                    'text' => 'Dijadwalkan oleh Kepala Departemen, pengajuan penguji',
+                    'keterangan' => 'Disetujui oleh semua penguji (5)',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_KPS,
+                    'text' => 'Disetujui Kadep',
+                    'keterangan' => 'Disetujui Oleh Ketua Program Studi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_UJIAN_UJIAN,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-purple'
+                ],
+                [
+                    'value' => STATUS_SKRIPSI_UJIAN_SELESAI,
+                    'text' => 'Ujian Selesai',
+                    'keterangan' => 'Selesai, Penilaian Ketuan Penguji',
+                    'color' => 'bg-maroon-active'
+                ],
+            ];
+        }
+    }
+
+    public function get_status_tahapan($status_tahapan, $jenis) {
+        $result = '';
+        $statuses = $this->read_status_tahapan($jenis);
+        foreach ($statuses as $status) {
+            if ($status['value'] == $status_tahapan) {
+                $result = $status;
+            }
+        }
+        return $result;
     }
 
 }
