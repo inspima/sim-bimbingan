@@ -211,7 +211,7 @@ if ($jenjang == 1) {
         </span>
     </li>
     <?php
-    foreach ($arr_process as $process):
+    foreach ($arr_process as $index_process => $process):
         ?>
         <!-- /.timeline-label -->
         <li class="time-label">
@@ -221,35 +221,38 @@ if ($jenjang == 1) {
         </li>
         <?php
         $index = 0;
-        $tahapans = $this->tesis->read_status_tahapan($process['value']);
+        if ($index_process == 0) {
+            $tugas_akhir = $this->skripsi->read_mahasiswa_proposal($this->session_data['username']);
+        } else {
+            $tugas_akhir = $this->skripsi->read_mahasiswa($this->session_data['username']);
+        }
+        $tahapans = $this->skripsi->read_status_tahapan($process['value']);
         foreach ($tahapans as $tahapan):
-            if ($index > 0):
-                ?>
-                <li>
-                    <?php
-                    if ($tugas_akhir[$process['field']] >= $index):
-                        ?>
-                        <i class="fa fa-check bg-green"></i>
-                        <?php
-                    else:
-                        ?>
-                        <i class="fa fa-arrow-down"></i>
-                    <?php
-                    endif;
-                    ?>
-
-
-                    <div class="timeline-item">
-
-                        <h3 class="timeline-header"><a href="#"><?= $tahapan['text'] ?></a></h3>
-
-                        <div class="timeline-body">
-                            <?= $tahapan['keterangan'] ?>
-                        </div>
-                    </div>
-                </li>
+            ?>
+            <li>
                 <?php
-            endif;
+                if ($tugas_akhir[$process['field']] >= $index):
+                    ?>
+                    <i class="fa fa-check bg-green"></i>
+                    <?php
+                else:
+                    ?>
+                    <i class="fa fa-arrow-down"></i>
+                <?php
+                endif;
+                ?>
+
+
+                <div class="timeline-item">
+
+                    <h3 class="timeline-header"><a href="#"><?= $tahapan['text'] ?></a></h3>
+
+                    <div class="timeline-body">
+                        <?= $tahapan['keterangan'] ?>
+                    </div>
+                </div>
+            </li>
+            <?php
             $index++;
         endforeach;
         ?>

@@ -1,7 +1,7 @@
 <?php
 // S1
 if (!in_array($mahasiswa['role'], [ROLE_MAHASISWA_S2, ROLE_MAHASISWA_S3])) {
-    $tugas_akhir = $this->tugas_akhir->detail_tesis($mahasiswa['nim']);
+    $tugas_akhir = $this->tugas_akhir->detail_skripsi($mahasiswa['nim']);
     if (!empty($tugas_akhir)):
         $jenis = $tugas_akhir->jenis;
         if ($jenis == TAHAPAN_SKRIPSI_PROPOSAL): // PROPOSAL

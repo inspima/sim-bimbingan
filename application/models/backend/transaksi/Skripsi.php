@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
 class Skripsi extends CI_Model {
 
     public function read($username) {
-        $this->db->select('s.id_skripsi, s.id_departemen, s.tgl_pengajuan,  s.berkas_proposal, s.status_skripsi, s.turnitin, s.toefl, s.nilai, d.departemen, s.berkas_skripsi ');
+        $this->db->select('s.*, d.departemen ');
         $this->db->from('skripsi s');
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
         $this->db->where('s.nim', $username);
@@ -15,6 +15,30 @@ class Skripsi extends CI_Model {
 
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    public function read_mahasiswa_proposal($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('skripsi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.jenis', 1);
+        $this->db->order_by('s.id_skripsi', 'desc');
+
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+    public function read_mahasiswa($username) {
+        $this->db->select('s.*, d.departemen ');
+        $this->db->from('skripsi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.jenis', 2);
+        $this->db->order_by('s.id_skripsi', 'desc');
+
+        $query = $this->db->get();
+        return $query->row_array();
     }
 
     public function read_judul($id_skripsi) {
@@ -77,6 +101,19 @@ class Skripsi extends CI_Model {
         $this->db->where('s.nim', $username);
         $this->db->where('s.jenis', 2);
         $this->db->where('s.id_skripsi', $id);
+        $this->db->limit(1);
+        $this->db->order_by('s.id_skripsi', 'desc');
+
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    function detail_skripsi($username) {
+        $this->db->select('s.id_skripsi, s.id_departemen, s.tgl_pengajuan,  s.berkas_proposal, s.status_proposal, s.turnitin, s.toefl, d.departemen ');
+        $this->db->from('skripsi s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.jenis', 2);
         $this->db->limit(1);
         $this->db->order_by('s.id_skripsi', 'desc');
 

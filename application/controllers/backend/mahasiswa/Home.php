@@ -41,9 +41,9 @@ class Home extends CI_Controller {
             $id_jenjang = 3;
             $tugas_akhir = $this->disertasi->read_mahasiswa($this->session_data['username']);
         } else {
-            $tugas_akhir = $this->skripsi->read($this->session_data['username']);
+            $id_jenjang = 1;
+            $tugas_akhir = $this->skripsi->read_mahasiswa($this->session_data['username']);
         }
-
         $data = array(
             // PAGE //
             'title' => 'Selamat Datang, ' . $this->session_data['nama'],
@@ -55,7 +55,6 @@ class Home extends CI_Controller {
             'berita' => $this->berita->read(),
             'id_jenjang' => $id_jenjang,
         );
-
 
 
         $this->load->view('backend/index_sidebar', $data);
