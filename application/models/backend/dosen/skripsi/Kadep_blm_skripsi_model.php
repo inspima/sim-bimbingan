@@ -65,6 +65,7 @@ class Kadep_blm_skripsi_model extends CI_Model {
         $this->db->where('s.jenis', 2);
         $this->db->where('u.jenis_ujian', 2);
         $this->db->where('u.status',1);
+        $this->db->order_by('u.status_ujian desc, u.id_ujian desc',1);
         $query = $this -> db -> get();
 		return $query->result_array();
     }

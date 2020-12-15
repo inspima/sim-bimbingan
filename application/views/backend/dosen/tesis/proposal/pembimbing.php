@@ -32,7 +32,7 @@
                     <th>Keterangan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Status Pembimbing</th>                    
-                    <th>Opsi</th>
+                    <th colspan="3">Opsi</th>
                 </tr>
             </thead>
             <tbody>
@@ -127,7 +127,7 @@
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
                                 <?php
                                 } 
@@ -136,10 +136,8 @@
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Approve</a>
-                                    <!--
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?php //echo base_url()?>dosen/tesis/proposal/reject_pembimbing/<?php //echo $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?php echo $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Reject</a>
-                                    -->
                                 <?php
                                 } else {
                                 ?>
@@ -149,12 +147,8 @@
                                 }
                             }
                             ?>
-
-
                         </td>
-
                         <td>
-
                             <?php
                             if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
                                 if($list['status_pembimbing_dua'] == '1') {
@@ -164,28 +158,33 @@
                             if ($list['nip_pembimbing_dua'] == $this->session_data['username']){
                                 echo '';
                             }
-                            ?>
-                            
+                            ?>              
                         </td>
-
+                        <td>
+                            <?php
+                            if ($list['status_proposal'] == STATUS_TESIS_PROPOSAL_SETUJUI_SPS) {
+                                ?>
+                                <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
+                                <?php
+                            }
+                            else {
+                                ?>
+                                <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal</a>
+                                <?php
+                            }
+                            ?>              
+                        </td>
                     </tr>      
-
                     <?php
-
                     $no++;
-
                 }
-
                 ?>
-
-                </tfoot>
-
+            </tbody>
         </table>
-
     </div>
-
     <!-- /.box-body -->
-
 </div>
+
+
 
 <!-- /.box -->

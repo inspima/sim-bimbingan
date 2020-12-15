@@ -3,37 +3,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kadep_blm_skripsi extends CI_Controller {
 
-	public function __construct(){
-		parent::__construct();
-		
-	//START SESS
-	$this->session_data = $this->session->userdata('logged_in');
-	
-	if(!$this->session_data)
-	{		
-		redirect('logout','refresh');
-	}
-	else
-	{
-		if($this->session_data['sebagai'] != 1)
-		{
-			redirect('logout','refresh');
-		}
-	}
-	//END SESS
-		
-	//START MODEL
+    public function __construct(){
+        parent::__construct();
+        
+    //START SESS
+    $this->session_data = $this->session->userdata('logged_in');
+    
+    if(!$this->session_data)
+    {       
+        redirect('logout','refresh');
+    }
+    else
+    {
+        if($this->session_data['sebagai'] != 1)
+        {
+            redirect('logout','refresh');
+        }
+    }
+    //END SESS
+        
+    //START MODEL
     $this->load->model('backend/administrator/master/struktural_model','struktural');
     $this->load->model('backend/administrator/master/departemen_model','departemen');
     $this->load->model('backend/dosen/skripsi/Kadep_blm_skripsi_model','skripsi');
     $this->load->model('backend/administrator/master/ruang_model','ruang');
     $this->load->model('backend/administrator/master/jam_model','jam');
     $this->load->model('backend/dosen/master/Dosen_model','dosen');
-	//END MODEL
-	}
+    //END MODEL
+    }
 
-	public function index()
-	{
+    public function index()
+    {
         $struktural = $this->struktural->read_struktural($this->session_data['username']);
         $id_departemen = $struktural->id_departemen;
         if($struktural->id_struktur == '5')
@@ -41,21 +41,21 @@ class Kadep_blm_skripsi extends CI_Controller {
 
             $data=array(
                 // PAGE //
-                'title'	=> 'Skripsi',
-                'subtitle'	=> 'Data Skripsi',
-                'section'	=> 'backend/dosen/skripsi/kadep_blm_skripsi',
+                'title' => 'Skripsi',
+                'subtitle'  => 'Data Skripsi',
+                'section'   => 'backend/dosen/skripsi/kadep_blm_skripsi',
                 // DATA //
                 'skripsi'  => $this->skripsi->read($id_departemen)
                 );
                 //print_r($data['skripsi']);die();
                 //var_dump($data[skripsi]);
-                $this->load->view('backend/index_sidebar',$data);	
+                $this->load->view('backend/index_sidebar',$data);   
         }
         else
         {
             $this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd');
         }
     }
     
@@ -69,9 +69,9 @@ class Kadep_blm_skripsi extends CI_Controller {
             
             $data=array(
                 // PAGE //
-                'title'	=> 'Skripsi (Modul Ketua Departemen)',
-                'subtitle'	=> 'Data Skripsi',
-                'section'	=> 'backend/dosen/skripsi/kadep_blm_skripsi_ujian',
+                'title' => 'Skripsi (Modul Ketua Departemen)',
+                'subtitle'  => 'Data Skripsi',
+                'section'   => 'backend/dosen/skripsi/kadep_blm_skripsi_ujian',
                 // DATA //
                 'skripsi'  => $this->skripsi->detail($id_departemen, $id_skripsi),
                 'ujian'    => $this->skripsi->read_ujian($id_skripsi) ,   
@@ -80,22 +80,22 @@ class Kadep_blm_skripsi extends CI_Controller {
             
             if($data['skripsi'])
             {
-                $this->load->view('backend/index_sidebar',$data);	
+                $this->load->view('backend/index_sidebar',$data);   
             }
             else
             {
                 $data['section'] = 'backend/notification/danger';
-                $data['msg']	 = 'Tidak ditemukan';
+                $data['msg']     = 'Tidak ditemukan';
                 $data['linkback']= 'dashboardd/skripsi/kadep_blm_skripsi';
-                $this->load->view('backend/index_sidebar',$data);	
-            }	
+                $this->load->view('backend/index_sidebar',$data);   
+            }   
                 
         }
         else
         {
             $this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd');
         }
     }
 
@@ -128,8 +128,8 @@ class Kadep_blm_skripsi extends CI_Controller {
                     $this->skripsi->save_ujian($datau);
 
                     $this->session->set_flashdata('msg-title', 'alert-success');
-			        $this->session->set_flashdata('msg', 'Berhasil Simpan Ujian');
-			        redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian/'.$id_skripsi);
+                    $this->session->set_flashdata('msg', 'Berhasil Simpan Ujian');
+                    redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian/'.$id_skripsi);
                 }
                 else
                 {
@@ -141,25 +141,25 @@ class Kadep_blm_skripsi extends CI_Controller {
                     );
                     $this->skripsi->save_ujian($datau);
                     $this->session->set_flashdata('msg-title', 'alert-success');
-			        $this->session->set_flashdata('msg', 'Berhasil Simpan Ujian');
-			        redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian/'.$id_skripsi);
+                    $this->session->set_flashdata('msg', 'Berhasil Simpan Ujian');
+                    redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian/'.$id_skripsi);
                 }
-            	
+                
             }
             else
             {
                 $data['section'] = 'backend/notification/danger';
-                $data['msg']	 = 'Tidak ditemukan';
+                $data['msg']     = 'Tidak ditemukan';
                 $data['linkback']= 'dashboardd/skripsi/kadep_blm_skripsi';
-                $this->load->view('backend/index_sidebar',$data);	
-            }	
+                $this->load->view('backend/index_sidebar',$data);   
+            }   
                 
         }
         else
         {
             $this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd');
         }
     }
 
@@ -174,9 +174,9 @@ class Kadep_blm_skripsi extends CI_Controller {
             
             $data=array(
                 // PAGE //
-                'title'	=> 'Skripsi (Modul Ketua Departemen)',
-                'subtitle'	=> 'Data Skripsi',
-                'section'	=> 'backend/dosen/skripsi/kadep_blm_skripsi_ujian_plot',
+                'title' => 'Skripsi (Modul Ketua Departemen)',
+                'subtitle'  => 'Data Skripsi',
+                'section'   => 'backend/dosen/skripsi/kadep_blm_skripsi_ujian_plot',
                 // DATA //
                 'skripsi'  => $this->skripsi->detail($id_departemen, $id_skripsi),
                 'nid_ujian'  => $this->skripsi->cek_id_ujian($id_ujian, $id_skripsi),
@@ -199,7 +199,7 @@ class Kadep_blm_skripsi extends CI_Controller {
                     $pembimbing = $this->skripsi->read_pembimbing($id_skripsi);
                     $datap = array(
                         'id_ujian' => $id_ujian,
-                        'nip'	=> $pembimbing->nip,
+                        'nip'   => $pembimbing->nip,
                         'status_tim' => 2,
                         'usulan_dosbing' => 2,
                         'status'    => 1
@@ -218,7 +218,7 @@ class Kadep_blm_skripsi extends CI_Controller {
                     $pengujitemp = $this->skripsi->read_pengujitemp($id_skripsi);
                     $datap = array(
                         'id_ujian' => $id_ujian,
-                        'nip'	=> $pengujitemp->nip,
+                        'nip'   => $pengujitemp->nip,
                         'status_tim' => 2,
                         'usulan_dosbing' => 1,
                         'status'    => 1
@@ -226,22 +226,22 @@ class Kadep_blm_skripsi extends CI_Controller {
                     $this->skripsi->save_pengujip($datap);
                 }
 
-                $this->load->view('backend/index_sidebar',$data);	
+                $this->load->view('backend/index_sidebar',$data);   
             }
             else
             {
                 $data['section'] = 'backend/notification/danger';
-                $data['msg']	 = 'Tidak ditemukan';
+                $data['msg']     = 'Tidak ditemukan';
                 $data['linkback']= 'dashboardd/skripsi/kadep_blm_skripsi';
-                $this->load->view('backend/index_sidebar',$data);	
-            }	
+                $this->load->view('backend/index_sidebar',$data);   
+            }   
                 
         }
         else
         {
             $this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd');
         }
     }
 
@@ -329,14 +329,14 @@ class Kadep_blm_skripsi extends CI_Controller {
     public function penguji_plot_save()
     {
         $hand = $this->input->post('hand',TRUE);
-		if($hand == 'center19'){
+        if($hand == 'center19'){
             $id_skripsi = $this->input->post('id_skripsi',TRUE);
             $id_ujian = $this->input->post('id_ujian',TRUE);
             $nip = $this->input->post('nip',TRUE);
 
             $data = array(
                 'id_ujian' => $id_ujian,
-                'nip'	=> $this->input->post('nip',TRUE),
+                'nip'   => $this->input->post('nip',TRUE),
                 'status_tim' => 2,
                 'status'    => 1
                 );
@@ -371,35 +371,35 @@ class Kadep_blm_skripsi extends CI_Controller {
                         // START EMAIL
                         /*$this->load->library('email');
 
-							$config['protocol'] = 'smtp';
-							$config['smtp_host'] = 'ssl://smtp.gmail.com';
-							$config['smtp_port'] = '465';
-							$config['smtp_user'] = 'usifhua@gmail.com';  //change it
-							$config['smtp_pass'] = 'hukum2012'; //change it
-							$config['charset'] = 'utf-8';
-							$config['newline'] = "\r\n";
-							$config['mailtype'] = 'html';
-							$config['wordwrap'] = TRUE;
-							$this->email->initialize($config);
+                            $config['protocol'] = 'smtp';
+                            $config['smtp_host'] = 'ssl://smtp.gmail.com';
+                            $config['smtp_port'] = '465';
+                            $config['smtp_user'] = 'usifhua@gmail.com';  //change it
+                            $config['smtp_pass'] = 'hukum2012'; //change it
+                            $config['charset'] = 'utf-8';
+                            $config['newline'] = "\r\n";
+                            $config['mailtype'] = 'html';
+                            $config['wordwrap'] = TRUE;
+                            $this->email->initialize($config);
 
-							$this->email->set_newline("\r\n");
-							$this->email->from('usifhua@gmail.com', 'IURIS');
-							//CHANGE
-							//$this->email->to('icocspa@fisip.unair.ac.id');
-							$this->email->to('rachmadkuncoro@gmail.com');
-							$this->email->subject('Ada Permintaan IURIS');
+                            $this->email->set_newline("\r\n");
+                            $this->email->from('usifhua@gmail.com', 'IURIS');
+                            //CHANGE
+                            //$this->email->to('icocspa@fisip.unair.ac.id');
+                            $this->email->to('rachmadkuncoro@gmail.com');
+                            $this->email->subject('Ada Permintaan IURIS');
 
-							$msg = "Yth. Dosen<br>Mohon untuk membuka aplikasi iuris anda. Terdapat Penunjukan Penguji Skripsi.<br><br>Tertanda<br>Wakil Dekan I";
+                            $msg = "Yth. Dosen<br>Mohon untuk membuka aplikasi iuris anda. Terdapat Penunjukan Penguji Skripsi.<br><br>Tertanda<br>Wakil Dekan I";
 
-							$this->email->message($msg);
+                            $this->email->message($msg);
 
-							if($this->email->send()) // IF EMAIL SUCCESS SEND
-							{
-								$mesg = 'Berhasil set penguji. Email berhasil dikirim.';
-							}
-							else // IF EMAIL GAGAL
-							{
-								$mesg = 'Berhasil set penguji. Email gagal dikirim.';
+                            if($this->email->send()) // IF EMAIL SUCCESS SEND
+                            {
+                                $mesg = 'Berhasil set penguji. Email berhasil dikirim.';
+                            }
+                            else // IF EMAIL GAGAL
+                            {
+                                $mesg = 'Berhasil set penguji. Email gagal dikirim.';
                             }
                         */
                         
@@ -417,19 +417,19 @@ class Kadep_blm_skripsi extends CI_Controller {
                     }
                 }
             }
-		}
-		else
-		{
-			$this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd/skripsi/kadep_blm_skripsi');
-		}
+        }
+        else
+        {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd/skripsi/kadep_blm_skripsi');
+        }
     }
 
     public function penguji_delete()
     {
         $hand = $this->input->post('hand',TRUE);
-		if($hand == 'center19'){
+        if($hand == 'center19'){
             $id_skripsi = $this->input->post('id_skripsi',TRUE);
             $id_penguji = $this->input->post('id_penguji',TRUE);
             $id_ujian = $this->input->post('id_ujian',TRUE);
@@ -442,19 +442,19 @@ class Kadep_blm_skripsi extends CI_Controller {
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil hapus penguji.');
             redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian_plot/'.$id_skripsi.'/'.$id_ujian);
-		}
-		else
-		{
-			$this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd/skripsi/kadep_blm_skripsi');
-		}
+        }
+        else
+        {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd/skripsi/kadep_blm_skripsi');
+        }
     }
 
     public function update_pembimbing()
     {
         $hand = $this->input->post('hand',TRUE);
-		if($hand == 'center19'){
+        if($hand == 'center19'){
             $id_skripsi = $this->input->post('id_skripsi',TRUE);
             $nip = $this->input->post('nip',TRUE);
 
@@ -482,19 +482,19 @@ class Kadep_blm_skripsi extends CI_Controller {
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil update penguji.');
             redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian/'.$id_skripsi);
-		}
-		else
-		{
-			$this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd/skripsi/kadep_blm_skripsi');
-		}
+        }
+        else
+        {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd/skripsi/kadep_blm_skripsi');
+        }
     }
     
     public function penguji_update_statustim()
     {
         $hand = $this->input->post('hand',TRUE);
-		if($hand == 'center19'){
+        if($hand == 'center19'){
             $id_skripsi = $this->input->post('id_skripsi',TRUE);
             $id_penguji = $this->input->post('id_penguji',TRUE);
             $id_ujian = $this->input->post('id_ujian',TRUE);
@@ -529,13 +529,13 @@ class Kadep_blm_skripsi extends CI_Controller {
                 redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian_plot/'.$id_skripsi.'/'.$id_ujian);
             }
             
-		}
-		else
-		{
-			$this->session->set_flashdata('msg-title', 'alert-danger');
-			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dashboardd/skripsi/kadep_blm_skripsi');
-		}
+        }
+        else
+        {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dashboardd/skripsi/kadep_blm_skripsi');
+        }
     }
 
 }

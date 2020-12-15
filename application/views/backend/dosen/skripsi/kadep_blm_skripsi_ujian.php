@@ -57,7 +57,8 @@
                         <?php
                         }
                         ?>
-                    </select><br>
+                    </select>
+                    <br><br>
                     <p><button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Ubah Pembimbing</button></p>
                 
                 </div>             

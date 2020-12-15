@@ -121,7 +121,7 @@
                     $no++;
                 }
                 ?>
-                </tfoot>
+            </tbody>
         </table>
     </div>
     <!-- /.box-body -->
