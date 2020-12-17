@@ -89,7 +89,7 @@ class Kualifikasi extends CI_Controller {
             'disertasi' => $this->disertasi->detail($id_disertasi),
             'mruang' => $this->ruang->read_aktif(),
             'mjam' => $this->jam->read_aktif(),
-            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'mdosen' => $this->dosen->read_aktif_alldep_s3(),
             'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
             'status_ujians' => $this->disertasi->read_status_ujian(UJIAN_DISERTASI_KUALIFIKASI),
         );
@@ -333,7 +333,7 @@ class Kualifikasi extends CI_Controller {
             } else if (in_array($status_ujian, [1, 2])) { //layak
                 //update proposal selesai
                 $data = array(
-                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_UJIAN_SELESAI,
+                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
                     'status_ujian_kualifikasi' => $status_ujian,
                 );
                 $this->disertasi->update($data, $id_disertasi);
@@ -422,10 +422,7 @@ class Kualifikasi extends CI_Controller {
             $semua_promotor_setujui = $this->disertasi->semua_promotor_setujui($id_disertasi);
             if ($semua_promotor_setujui) {
                 $data = array(
-                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
-                );
-                $data = array(
-                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+                    'status_promotor' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
                 );
                 $this->disertasi->update($data, $id_disertasi);
             }

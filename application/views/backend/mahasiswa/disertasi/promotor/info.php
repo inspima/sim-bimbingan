@@ -14,35 +14,34 @@
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h2 class="box-title">Informasi Tesis</h2>
+                <h2 class="box-title">Informasi Disertasi</h2>
 
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-                <?php $this->view('backend/widgets/tesis/informasi_tesis_judul', ['tesis' => $tesis]); ?>
+                <?php $this->view('backend/widgets/disertasi/informasi_disertasi_judul', ['disertasi' => $disertasi]); ?>
             </div>
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </div>
 
+    <!-- left column -->
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">1. Dosen Penguji</h3>
+                <h3 class="box-title">Pengajuan Promotor & Ko-Promotor</h3>
             </div>
-            <?php echo form_open('dosen/tesis/proposal/penguji_usulan_save'); ?>
+            <?php echo form_open('mahasiswa/disertasi/promotor/save'); ?>
             <div class="box-body table-responsive">
                 <?php
-                if ($ujian) {
+                if ($disertasi->status_kualifikasi >= STATUS_DISERTASI_KUALIFIKASI_SELESAI) {
                     ?>
                     <div class="form-group">
-                        <label>Penguji</label>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                        <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
-                        <?php //echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                        <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
                         <select name="nip" class="form-control select2" style="width: 100%;" required>
                             <option value="">- Pilih -</option>
                             <?php
@@ -54,26 +53,33 @@
                             ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <select name="status_tim" class="form-control">
+                            <option value="1">Promotor</option>
+                            <option value="2">Ko Promotor</option>
+                        </select>
+                    </div>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
                     </div>
+                    <?php echo form_close() ?>                
+                    <?php $this->view('backend/widgets/disertasi/list_promotor_kopromotor', ['disertasi' => $disertasi]); ?>
 
-                    <?php echo form_close() ?>
-                    <?php $this->view('backend/widgets/tesis/list_penguji_dosen_temp', ['tesis' => $tesis, 'asal_pengusul' => '1']); ?>
                     <?php
                 } else {
                     ?>
                     <div class="form-group">
-                        <p>Setting ujian terlebih dahulu</p>
+                        <p>Ujian Kualikasi dah hasil belum ditentukan</p>
                     </div>
                     <?php
                 }
                 ?>
             </div>
         </div>
-        <!-- /.box -->
     </div>
+
+    <!-- left column -->
 
 
 </div>

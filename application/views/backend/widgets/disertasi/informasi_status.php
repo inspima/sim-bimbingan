@@ -12,7 +12,7 @@
     <!-- /.box-header -->
     <div class="box-body" style="display: none;">
         <?php
-        if ($jenis == '1') :// KUALIFIKASI
+        if ($jenis == TAHAPAN_DISERTASI_KUALIFIKASI) :// KUALIFIKASI
             ?>
             <dl style="margin-left: 20px">
                 <?php
@@ -31,7 +31,25 @@
 
             </dl>
             <?php
-        elseif ($jenis == '2') :// MPKK
+        elseif ($jenis == TAHAPAN_DISERTASI_PROMOTOR) :// PENGAJUAN PROMOTOR
+            ?>
+            <dl style="margin-left: 20px">
+                <?php
+                $tahapan_statuses = $this->disertasi->read_status_tahapan(TAHAPAN_DISERTASI_PROMOTOR);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
+            </dl>
+            <?php
+        elseif ($jenis == TAHAPAN_DISERTASI_MPKK) :// MPKK
             ?>
             <dl style="margin-left: 20px">
                 <?php
@@ -49,7 +67,7 @@
                 ?>
             </dl>
             <?php
-        elseif ($jenis == '3') :// PROPOSAL
+        elseif ($jenis == TAHAPAN_DISERTASI_PROPOSAL) :// PROPOSAL
             ?>
             <dl style="margin-left: 20px">
                 <?php
@@ -67,7 +85,7 @@
                 ?>
             </dl>
             <?php
-        elseif ($jenis == '4') :// MKPD
+        elseif ($jenis == TAHAPAN_DISERTASI_MKPD) :// MKPD
             ?>
             <dl style="margin-left: 20px">
                 <?php
@@ -85,7 +103,7 @@
                 ?>
             </dl>
             <?php
-        elseif ($jenis == '5') :// KELAYAKAN
+        elseif ($jenis == TAHAPAN_DISERTASI_KELAYAKAN) :// KELAYAKAN
             ?>
             <dl style="margin-left: 20px">
                 <?php
@@ -103,7 +121,7 @@
                 ?>
             </dl>
             <?php
-        elseif ($jenis == '6') :// UJIAN TERTUTUP
+        elseif ($jenis == TAHAPAN_DISERTASI_TERTUTUP) :// UJIAN TERTUTUP
             ?>
             <dl style="margin-left: 20px">
                 <?php
@@ -121,7 +139,7 @@
                 ?>
             </dl>
             <?php
-        elseif ($jenis == '7') :// UJIAN TERBUKA
+        elseif ($jenis == TAHAPAN_DISERTASI_TERBUKA) :// UJIAN TERBUKA
             ?>
             <dl style="margin-left: 20px">
                 <?php

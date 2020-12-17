@@ -26,35 +26,13 @@
         </div>
         <!-- /.box -->
     </div>
-
-    <!-- left column -->
-    <div class="col-md-6">
-        <!-- general form elements -->
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Promotor & Ko-Promotor</h3>
-            </div>
-            <?php echo form_open('mahasiswa/disertasi/proposal/promotor_save'); ?>
-            <div class="box-body table-responsive">
-                <?php $this->view('backend/widgets/disertasi/list_promotor_kopromotor', ['disertasi' => $disertasi]); ?>
-            </div>
-        </div>
-        <!-- /.box -->
-    </div>
-
-    <!-- left column -->
-
-
-</div>
-
-<div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">MKPKK</h3>
             </div>
             <div class="box-body table-responsive">
-                <?php $this->view('backend/widgets/disertasi/list_mkpkk_mhs', ['disertasi' => $disertasi]); ?>
+                <?php $this->view('backend/widgets/disertasi/list_mkpkk_dosen', ['disertasi' => $disertasi]); ?>
             </div>
         </div>
     </div>

@@ -83,9 +83,18 @@
                             if($list['status_tesis'] == STATUS_TESIS_UJIAN_PENGAJUAN)
                             {
                             ?>
-                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>baa/tesis/ujian/approve/<?= $list['id_tesis']?>">
-                                <i class="fa fa-edit"></i> Approve</a><br>
-                            <?php
+                                <?php
+                                if ($list['status_pembimbing_satu'] == '1' && $list['status_pembimbing_dua'] == '1') {
+                                ?>
+                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>baa/tesis/ujian/approve/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Approve</a><br>
+                                <?php
+                                }
+                                else {
+                                ?>
+                                    <a class="btn btn-xs btn-danger pull-left">Menunggu Persetujuan Pembimbing</a><br>
+                                <?php
+                                }
                             }
                             else if($list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA) {
                             ?>

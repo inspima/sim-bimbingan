@@ -12,6 +12,7 @@ class Document extends CI_Controller {
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
+        $this->load->model('backend/transaksi/tesis', 'tesis');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/utility/qr', 'qrcode');
@@ -72,16 +73,28 @@ class Document extends CI_Controller {
             $jenis_str = $params[3];
             $jenis = $params[4];
             $tugas_akhir = $this->disertasi->detail($id_tugas_akhir);
+            $tesis = $this->tesis->detail($id_tugas_akhir);
             $page = '';
             $section_title = '';
             $this->get_tipe_dokumen($tipe, $page, $section_title);
             $this->get_jenis_dokumen($jenis, $page, $section_title);
 
-            $data_dokumen = [
-                'tipe' => $tipe,
-                'jenis' => $jenis_str,
-                'identitas' => $tugas_akhir->nim,
-            ];
+            if($tugas_akhir){
+                $data_dokumen = [
+                    'tipe' => $tipe,
+                    'jenis' => $jenis_str,
+                    'identitas' => $tugas_akhir->nim,
+                ];
+            }
+
+            if($tesis){
+                $data_dokumen = [
+                    'tipe' => $tipe,
+                    'jenis' => $jenis_str,
+                    'identitas' => $tesis->nim,
+                ];
+            }
+
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             if (!empty($dokumen)) {
                 $data = array(

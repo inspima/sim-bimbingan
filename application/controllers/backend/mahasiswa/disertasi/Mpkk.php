@@ -74,6 +74,7 @@ class Mpkk extends CI_Controller {
                 // DATA //
                 'departemen' => $this->departemen->read(),
                 'disertasi' => $this->disertasi->detail($id_disertasi),
+                'mkpkks' => $this->disertasi->read_mkpkk(),
             );
             $this->load->view('backend/index_sidebar', $data);
         }
@@ -100,7 +101,19 @@ class Mpkk extends CI_Controller {
                 redirect_back();
             } else {
                 $id_disertasi = $this->input->post('id_disertasi', TRUE);
+                $id_mkpkks = $this->input->post('id_mkpkk', TRUE);
                 $tgl_sekarang = date('Y-m-d');
+                foreach ($id_mkpkks as $id_mkpkk) {
+                    $mkpkk = $this->disertasi->detail_mkpkk($id_mkpkk);
+                    $data = array(
+                        'id_disertasi' => $id_disertasi,
+                        'id_mkpkk' => $id_mkpkk,
+                        'mkpkk' => $mkpkk->nama,
+                    );
+
+                    $this->disertasi->save_disertasi_mkpkk($data);
+                }
+
                 $data = array(
                     'jenis' => TAHAPAN_DISERTASI_MPKK,
                     'berkas_mpkk' => $file_name,

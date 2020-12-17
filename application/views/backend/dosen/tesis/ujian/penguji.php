@@ -110,10 +110,8 @@
                             ?>
                                 <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                 <i class="fa fa-edit"></i> Approve</a>
-                                <!--
-                                <a class="btn btn-xs btn-danger pull-left" href="<?php //echo base_url()?>dosen/tesis/proposal/reject_penguji/<?php //echo $list['id_tesis']?>">
+                                <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php echo $list['id_tesis']?>">
                                 <i class="fa fa-edit"></i> Reject</a>
-                                -->
                             <?php
                             }
                             else {
@@ -129,7 +127,7 @@
                     $no++;
                 }
                 ?>
-                </tfoot>
+            </tbody>
         </table>
     </div>
     <!-- /.box-body -->

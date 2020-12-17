@@ -42,9 +42,20 @@ if (count($promotors) == 0) {
                     <label>Judul</label>
                     <textarea class="form-control" name="judul" required><?php echo $disertasi->judul ?></textarea>
                 </div>
-
                 <div class="form-group">
-                    <label>Upload Bukti Transkrip & Blanko MPKK <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
+                    <label>Pilih MKPKK</label>
+                    <select name="id_mkpkk[]" class="form-control select2" style="width: 100%;" required multiple="true">
+                        <?php
+                        foreach ($mkpkks as $mkpkk) {
+                            ?>
+                            <option value="<?php echo $mkpkk['id_mkpkk'] ?>"><?php echo $mkpkk['nama'] ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Upload Bukti Transkrip & Blanko MPKK <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
                     <input type="file" name="berkas_mpkk" class="form-control" required>
                 </div>
             </div>

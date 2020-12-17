@@ -34,7 +34,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('mahasiswa/tesis/ujian/jadwal_save'); ?>
+            <?php echo form_open('dosen/tesis/ujian/jadwal_pembimbing_save'); ?>
             <div class="box-body">
                 <div class="form-group">
                     <label>Tanggal</label>
@@ -62,12 +62,12 @@
                         }
                         ?>
                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, '') ?>
-                        <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required>              
+                        <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" <?= ($ujian->status_apv_kaprodi == 1) ? 'disabled' : '';?> required>              
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Ruang</label>
-                    <select name="id_ruang" class="form-control select2" style="width: 100%;" required>
+                    <select name="id_ruang" class="form-control select2" style="width: 100%;" <?= ($ujian->status_apv_kaprodi == 1) ? 'disabled' : '';?> required>
                         <option value="<?php echo $id_ruang ?>"><?php echo $ruang ?></option>
                         <?php
                         foreach ($mruang as $list) {
@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <label>Jam</label>
-                    <select name="id_jam" class="form-control select2" style="width: 100%;" required>
+                    <select name="id_jam" class="form-control select2" style="width: 100%;" <?= ($ujian->status_apv_kaprodi == 1) ? 'disabled' : '';?> required>
                         <option value="<?php echo $id_jam ?>"><?php echo $jam ?></option>
                         <?php
                         foreach ($mjam as $list) {

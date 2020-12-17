@@ -330,7 +330,7 @@ class Proposal extends CI_Controller {
                     'id_ruang' => $this->input->post('id_ruang', TRUE),
                     'id_jam' => $this->input->post('id_jam', TRUE),
                     'tanggal' => todb($this->input->post('tanggal', TRUE)),
-                    'jenis_ujian' => 1,
+                    'jenis_ujian' => UJIAN_TESIS_PROPOSAL,
                     'status' => 1,
                     'status_ujian' => 1
                 );

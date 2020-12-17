@@ -56,7 +56,7 @@
                             endif;
                             ?>
 
-                            <?php if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PA && $list['status_kualifikasi'] <= STATUS_DISERTASI_KUALIFIKASI_UJIAN_SELESAI):
+                            <?php if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PA && $list['status_kualifikasi'] <= STATUS_DISERTASI_KUALIFIKASI_SELESAI):
                                 ?>
                                 <hr style = "margin: 10px;border-width:2px;" />
                                 <a href = "<?= base_url() ?>dosen/disertasi/kualifikasi/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Ujian & Penguji</a>

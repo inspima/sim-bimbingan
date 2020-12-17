@@ -144,10 +144,8 @@
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Approve</a>
-                                    <!--
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?php //echo base_url()?>dosen/tesis/proposal/reject_pembimbing/<?php //echo $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?php echo $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Reject</a>
-                                    -->
                                 <?php
                                 } else {
                                 ?>
@@ -157,12 +155,8 @@
                                 }
                             }
                             ?>
-
-
                         </td>
-
                         <td>
-
                             <?php
                             if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
                                 if($list['status_pembimbing_dua'] == '1') {
@@ -173,27 +167,29 @@
                                 echo '';
                             }
                             ?>
-                            
                         </td>
-
+                        <td>
+                            <?php
+                            if ($list['status_proposal'] == STATUS_TESIS_UJIAN_SETUJUI_BAA) {
+                                ?>
+                                <a href="<?= base_url() ?>dosen/tesis/ujian/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
+                                <?php
+                            }
+                            else {
+                                ?>
+                                <a href="<?= base_url() ?>dosen/tesis/ujian/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal</a>
+                                <?php
+                            }
+                            ?>              
+                        </td>
                     </tr>      
-
                     <?php
-
                     $no++;
-
                 }
-
                 ?>
-
-                </tfoot>
-
+            </tbody>
         </table>
-
     </div>
-
     <!-- /.box-body -->
-
 </div>
-
 <!-- /.box -->

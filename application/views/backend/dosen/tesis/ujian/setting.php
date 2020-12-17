@@ -15,7 +15,6 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h2 class="box-title">Informasi Tesis</h2>
-
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -26,7 +25,6 @@
         </div>
         <!-- /.box -->
     </div>
-
     <!-- left column -->
     <div class="col-sm-6">
         <!-- general form elements -->
@@ -38,7 +36,6 @@
             <!-- form start -->
             <?php echo form_open('dosen/tesis/ujian/jadwal_save'); ?>
             <div class="box-body">
-
                 <div class="form-group">
                     <label>Tanggal</label>
                     <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
@@ -68,7 +65,6 @@
                         <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required>              
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Ruang</label>
                     <select name="id_ruang" class="form-control select2" style="width: 100%;" required>
@@ -82,7 +78,6 @@
                         ?>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label>Jam</label>
                     <select name="id_jam" class="form-control select2" style="width: 100%;" required>
@@ -100,13 +95,23 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <?php
-                if ($ujian) {
+                if($ujian) {
+                    if ($ujian->status_apv_kaprodi == '1') {
+                        ?>
+                        <a class="btn btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_verifikasi_jadwal/<?= $tesis->id_tesis?>"><i class="fa fa-edit"></i> Batal</a>
+                        <!--
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
+                        -->
+                        <?php
+                    } else {
+                        ?>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Verifikasi Jadwal</button>
+                        <?php
+                    }
+                }
+                else {
                     ?>
-                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
-                    <?php
-                } else {
-                    ?>
-                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Jadwal</button>
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan dan Verifikasi Jadwal</button>
                     <?php
                 }
                 ?>
@@ -115,11 +120,9 @@
         </div>
         <!-- /.box -->
     </div>
-
     <!-- left column -->
-
-
 </div>
+
 <div class="row">
     <div class="col-md-6">
         <!-- general form elements -->
@@ -145,12 +148,34 @@
                         <?php echo formtext('hidden', 'id_penguji', $listpenguji['id_penguji'], 'required') ?>
                         <?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b>
                         <br><br>
-                        <button type="simpan" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Usulan Penguji</button>
+                        <button type="submit" name="terima" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Penguji</button>
+                        <button type="submit" name="tolak" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Tolak Penguji</button>
                     <?php
                         } 
                         echo form_close() 
                     ?>
-                    
+                </div>
+                <div class="box-body table-responsive">
+                    <?php 
+                        echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
+                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_UJIAN, $ujian->id_ujian, 2); 
+                        foreach ($penguji as $listpenguji) {
+                    ?>
+                        <b>Usulan Penguji</b>
+                        <br>
+                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                        <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                        <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                        <?php echo formtext('hidden', 'nip', $listpenguji['nip'], 'required') ?>
+                        <?php echo formtext('hidden', 'id_penguji', $listpenguji['id_penguji'], 'required') ?>
+                        <?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b>
+                        <br><br>
+                        <button type="submit" name="terima" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Penguji</button>
+                        <button type="submit" name="tolak" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Tolak Penguji</button>
+                    <?php
+                        } 
+                        echo form_close() 
+                    ?>
                 </div>
                 <?php 
                 $data_pembimbing_satu = array(
@@ -176,7 +201,6 @@
                         <?php
                             echo form_close() 
                         ?>
-                        
                     </div>
                 <?php
                 }
@@ -203,7 +227,6 @@
                         <?php
                             echo form_close() 
                         ?>
-                        
                     </div>
                 <?php
                 } 
@@ -229,11 +252,9 @@
                             ?>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
                     </div>
-
                     <?php echo form_close() ?>
                     <?php $this->view('backend/widgets/tesis/list_penguji_dosen', ['tesis' => $tesis, 'ujian' => $ujian]); ?>
                     <?php
@@ -258,10 +279,8 @@
             <!-- /.box-header -->
             <!-- form start -->
             <?php echo form_open('dosen/tesis/ujian/update_status_ujian'); ?>
-
             <div class="box-body">
                 <div class="form-group">
-                    
                     <?php
                     if($ujian){
                         if(date('Y-m-d') >= $ujian->tanggal) {

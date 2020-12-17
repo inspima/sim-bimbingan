@@ -43,7 +43,7 @@
             <td>
                 <?php if ($promotor['status'] != '2'):
                     ?>
-                    <?php echo form_open('' . $this->uri->segment(1) . '/disertasi/' . $this->uri->segment(3) . '/promotor_delete') ?>
+                    <?php echo form_open('' . $this->uri->segment(1) . '/disertasi/' . $this->uri->segment(3) . '/delete') ?>
                     <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
                     <?php echo formtext('hidden', 'id_promotor', $promotor['id_promotor'], 'required') ?>

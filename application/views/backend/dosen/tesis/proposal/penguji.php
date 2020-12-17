@@ -31,8 +31,10 @@
                     <th>Tgl.Pengajuan</th>
                     <th>Jadwal</th>
                     <th>Status</th>
+                    <th>Tim</th>
                     <th>Status Penguji</th>
                     <th>Opsi</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -68,6 +70,17 @@
                             }
                             ?>
                         </td>
+                        <td>
+                            <?php
+                            $str_status_tim = '';
+                            if ($list['status_tim'] == '1') {
+                                $str_status_tim = 'Ketua';
+                            } else if ($list['status_tim'] == '2') {
+                                $str_status_tim = 'Anggota';
+                            }
+                            echo '<span class="btn btn-xs btn-primary">'.$str_status_tim.'</span>';
+                            ?>
+                        </td>
                         <td class="text-center">
                             <?php
                             if($list['status_penguji'] == '1')
@@ -89,7 +102,7 @@
                             if($list['status_penguji'] == '3')
                             {
                             ?>
-                                <a class="btn btn-xs btn-success pull-left" href="#">
+                                <a class="btn btn-xs btn-danger pull-left" href="#">
                                 <i class="fa fa-check"></i> Ditolak</a>
                             <?php
                             }
@@ -102,16 +115,24 @@
                             ?>
                                 <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                 <i class="fa fa-edit"></i> Approve</a>
-                                <!--
-                                <a class="btn btn-xs btn-danger pull-left" href="<?php //echo base_url()?>dosen/tesis/proposal/reject_penguji/<?php //echo $list['id_tesis']?>">
+                                <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/proposal/penguji_setting_penguji/<?php echo $list['id_tesis']?>">
                                 <i class="fa fa-edit"></i> Reject</a>
-                                -->
                             <?php
                             }
-                            else {
+                            /*else {
                             ?>
                                 <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
+                            <?php
+                            }*/
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            if($list['status_penguji'] == '2')
+                            {
+                            ?>
+                                <a href = "<?= base_url() ?>dosen/tesis/proposal/status_ujian/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Status Ujian</a>
                             <?php
                             }
                             ?>

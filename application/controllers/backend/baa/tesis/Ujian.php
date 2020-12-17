@@ -66,26 +66,29 @@ class Ujian extends CI_Controller {
 
     public function approve() {
         $id = $this->uri->segment(5);
+        $id_prodi = $this->tesis->cek_prodi($id);
         $this->tesis->approval_tesis($id);
         $this->session->set_flashdata('msg-title', 'alert-success');
         $this->session->set_flashdata('msg', 'Tesis disetujui');
-        redirect('baa/tesis/ujian');
+        redirect('baa/tesis/ujian/'.$id_prodi);
     }
 
     public function reject() {
         $id = $this->uri->segment(5);
+        $id_prodi = $this->tesis->cek_prodi($id);
         $this->tesis->reject_tesis($id);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Tesis ditolak');
-        redirect('baa/tesis/ujian');
+        redirect('baa/tesis/ujian/'.$id_prodi);
     }
 
     public function batal() {
         $id = $this->uri->segment(5);
+        $id_prodi = $this->tesis->cek_prodi($id);
         $this->tesis->batal_tesis($id);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Status Tesis dibatalkan');
-        redirect('baa/tesis/ujian');
+        redirect('baa/tesis/ujian/'.$id_prodi);
     }
 
     public function pembimbing() {
@@ -748,10 +751,7 @@ class Ujian extends CI_Controller {
             $semua_promotor_setujui = $this->disertasi->semua_promotor_setujui($id_disertasi);
             if ($semua_promotor_setujui) {
                 $data = array(
-                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
-                );
-                $data = array(
-                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+                    'status_promotor' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
                 );
                 $this->disertasi->update($data, $id_disertasi);
             }

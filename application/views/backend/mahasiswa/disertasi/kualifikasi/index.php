@@ -57,13 +57,14 @@
                                 <b>Hasil Ujian</b><br/>
                                 <?php
                                 echo $this->disertasi->get_status_ujian($list['status_ujian_kualifikasi'], UJIAN_DISERTASI_KUALIFIKASI);
-                                ?>
-                                <?php if ($list['status_mpkk'] < STATUS_DISERTASI_MPKK_PENGAJUAN && $list['status_kualifikasi'] > STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR):
+
+
+                                if ($list['status_promotor'] < STATUS_DISERTASI_PROMOTOR_PENGAJUAN) {
                                     ?>
-                                    <hr style = "margin:5px"/>
-                                    <a href = "<?= base_url() ?>mahasiswa/disertasi/mpkk/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPKK</a>
+                                    <hr style = "margin: 10px;border-width:2px;" />
+                                    <a href = "<?= base_url() ?>mahasiswa/disertasi/promotor/info/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Promotor / Ko-Promotor</a>
                                     <?php
-                                endif;
+                                }
                             }
                             ?>
 

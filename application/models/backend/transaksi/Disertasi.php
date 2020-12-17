@@ -45,6 +45,19 @@ class Disertasi extends CI_Model {
         return $query->result_array();
     }
 
+    public function read_promotor() {
+        $this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+        $this->db->from('disertasi s');
+        $this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+        $this->db->where('s.status_promotor >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function read_mpkk_mahasiswa($username) {
         $this->db->select('s.*, d.departemen ');
         $this->db->from('disertasi s');
@@ -426,6 +439,7 @@ class Disertasi extends CI_Model {
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('`s`.`id_disertasi` IN (SELECT `id_disertasi` from `promotor` where `status` in (1,2) and `nip`=\'' . $username . '\')', NULL, FALSE);
+        $this->db->where('s.status_promotor >=', STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -591,6 +605,55 @@ class Disertasi extends CI_Model {
         $this->db->update('ujian_disertasi', $data);
     }
 
+    // MKPKK
+    public function read_mkpkk() {
+        $this->db->select('*');
+        $this->db->from('mkpkk m');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_mkpkk_pengampu($id_mkpkk) {
+        $this->db->select('m.*,p.nama');
+        $this->db->from('mkpkk_pengampu m');
+        $this->db->join('pegawai p', 'p.nip = m.nip');
+        $this->db->where('m.id_mkpkk', $id_mkpkk);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_disertasi_mkpkk($id_disertasi) {
+        $this->db->select('*');
+        $this->db->from('disertasi_mkpkk m');
+        $this->db->where('m.id_disertasi', $id_disertasi);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function detail_mkpkk($id) {
+        $this->db->select('*');
+        $this->db->from('mkpkk m');
+        $this->db->where('id_mkpkk', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function save_disertasi_mkpkk($data) {
+        $this->db->insert('disertasi_mkpkk', $data);
+    }
+
+    public function update_disertasi_mkpkk($data, $id_ujian) {
+        $this->db->where('id_disertasi_mkpkk', $id_ujian);
+        $this->db->update('disertasi_mkpkk', $data);
+    }
+
+    public function delete_disertasi_mkpkk($id_disertasi) {
+        $this->db->where('id_disertasi', $id_disertasi);
+        $this->db->delete('disertasi_mkpkk');
+    }
+
+    // STATUS
+
     public function read_status_ujian($jenis) {
         if ($jenis == UJIAN_DISERTASI_KUALIFIKASI) {
             return [
@@ -690,25 +753,40 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-purple'
                 ],
                 [
-                    'value' => STATUS_DISERTASI_KUALIFIKASI_UJIAN_SELESAI,
-                    'text' => 'Ujian Selesai',
-                    'keterangan' => 'Telah menyelesaikan Ujian',
-                    'color' => 'bg-maroon-active'
+                    'value' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+                    'text' => 'Selesai',
+                    'keterangan' => 'Ujian selesai, lanjut pengajuan promotor',
+                    'color' => 'bg-red'
+                ],
+            ];
+        } else if ($urutan == TAHAPAN_DISERTASI_PROMOTOR) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
                 ],
                 [
-                    'value' => STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN_PROMOTOR,
-                    'text' => 'Pengajuan Promotor',
-                    'keterangan' => 'Pengajuan Promotor Dan Ko-Promotor Oleh Mahasiswa',
-                    'color' => 'bg-aqua'
+                    'value' => STATUS_DISERTASI_PROMOTOR_PENGAJUAN,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'color' => 'bg-blue'
                 ],
                 [
-                    'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
+                    'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
                     'text' => 'Disetujui Promotor&Ko-promotor',
-                    'keterangan' => 'Disetujui oleh semua Promotor & Ko-Promotor',
+                    'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
                     'color' => 'bg-green'
                 ],
                 [
-                    'value' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+                    'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS,
+                    'text' => 'Disetujui KPS',
+                    'keterangan' => 'Disetujui Ketua Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_DISERTASI_PROMOTOR_SELESAI,
                     'text' => 'Selesai',
                     'keterangan' => '',
                     'color' => 'bg-red'

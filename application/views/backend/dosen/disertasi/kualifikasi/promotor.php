@@ -36,7 +36,7 @@
             <?php echo form_open('dosen/disertasi/kualifikasi/promotor_save'); ?>
             <div class="box-body table-responsive">
                 <?php
-                if ($disertasi->status_kualifikasi >= STATUS_DISERTASI_KUALIFIKASI_UJIAN_SELESAI) {
+                if ($disertasi->status_kualifikasi >= STATUS_DISERTASI_KUALIFIKASI_SELESAI) {
                     ?>
                     <div class="form-group">
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>

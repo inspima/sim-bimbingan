@@ -69,15 +69,7 @@
                                 <?php echo form_close() ?>
                                 <?php
                             }
-
-                            if ($list['status_kualifikasi'] > STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS && $struktural->id_struktur == STRUKTUR_KPS_S3) {
-                                ?>
-                                <hr style = "margin: 10px;border-width:2px;" />
-                                <a href = "<?= base_url() ?>dosen/disertasi/kualifikasi/promotor/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Promotor / Ko-Promotor</a>
-                                <?php
-                            }
                             ?>
-
 
                         </td>
                     </tr>      

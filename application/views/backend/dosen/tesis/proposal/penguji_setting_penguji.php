@@ -33,7 +33,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">1. Dosen Penguji</h3>
             </div>
-            <?php echo form_open('dosen/tesis/proposal/penguji_usulan_save'); ?>
+            <?php echo form_open('dosen/tesis/proposal/penguji_usulan_penguji_save'); ?>
             <div class="box-body table-responsive">
                 <?php
                 if ($ujian) {
@@ -42,7 +42,7 @@
                         <label>Penguji</label>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
-                        <?php //echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                        <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
                         <select name="nip" class="form-control select2" style="width: 100%;" required>
                             <option value="">- Pilih -</option>
                             <?php
@@ -56,11 +56,11 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Tolak dan Usulkan Pengganti</button>
                     </div>
 
                     <?php echo form_close() ?>
-                    <?php $this->view('backend/widgets/tesis/list_penguji_dosen_temp', ['tesis' => $tesis]); ?>
+                    <?php $this->view('backend/widgets/tesis/list_penguji_dosen_temp', ['tesis' => $tesis, 'asal_pengusul' => '2']); ?>
                     <?php
                 } else {
                     ?>

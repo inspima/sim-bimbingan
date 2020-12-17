@@ -129,6 +129,7 @@
             </div>
             <?php echo form_open('dosen/disertasi/kualifikasi/penguji_save'); ?>
             <div class="box-body table-responsive">
+                <div class="alert alert-info">Jumlah penguji Ujian Kualifikasi 6</div>
                 <?php
                 if ($ujian) {
                     ?>
@@ -178,26 +179,42 @@
             <!-- form start -->
             <?php echo form_open('dosen/disertasi/kualifikasi/update_status_ujian'); ?>
 
-            <div class="box-body">
-                <div class="form-group">
-                    <label>Status Ujian</label>
+            <?php
+            if ($disertasi->status_kualifikasi >= STATUS_DISERTASI_KUALIFIKASI_UJIAN):
+                ?>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Status Ujian</label>
 
-                    <select name="status_ujian" class="form-control select2" style="width: 100%;" required>
-                        <?php
-                        foreach ($status_ujians as $status_ujian) {
-                            ?>
-                            <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $disertasi->status_ujian_kualifikasi) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+                        <select name="status_ujian" class="form-control select2" style="width: 100%;" required>
                             <?php
-                        }
-                        ?>
-                    </select>
+                            foreach ($status_ujians as $status_ujian) {
+                                ?>
+                                <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $disertasi->status_ujian_kualifikasi) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div> 
+                <div class="box-footer">
+                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                    <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>
                 </div>
-            </div>
-            <div class="box-footer">
-                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>
-            </div>
+                <?php
+            else:
+                ?>
+                <div class="box-body">
+                    <div class="form-group">
+                        <p>Ujian belum dilaksanakan</p>
+                    </div>
+                </div>
+            <?php
+            endif;
+            ?>
+
+
             <!-- /.box-body -->
             <?php echo form_close() ?>
         </div>

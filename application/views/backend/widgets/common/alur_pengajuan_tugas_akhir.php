@@ -9,10 +9,16 @@ if ($jenjang == 3) {
             'bg_color' => 'bg-teal',
         ],
         [
+            'value' => TAHAPAN_DISERTASI_PROMOTOR,
+            'title' => "Pengajuan Promotor",
+            'field' => 'status_promotor',
+            'bg_color' => 'bg-yellow',
+        ],
+        [
             'value' => TAHAPAN_DISERTASI_MPKK,
             'title' => "MKPKK",
             'field' => 'status_mpkk',
-            'bg_color' => 'bg-teal-active',
+            'bg_color' => 'bg-aqua',
         ],
         [
             'value' => TAHAPAN_DISERTASI_PROPOSAL,

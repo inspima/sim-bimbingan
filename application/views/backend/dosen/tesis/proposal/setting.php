@@ -136,10 +136,32 @@
                 <div class="box-body table-responsive">
                     <?php 
                         echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
-                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_PROPOSAL, $ujian->id_ujian); 
+                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_PROPOSAL, $ujian->id_ujian, 1); 
                         foreach ($penguji as $listpenguji) {
                     ?>
                         <b>Usulan Pembimbing Utama</b>
+                        <br>
+                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                        <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                        <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                        <?php echo formtext('hidden', 'nip', $listpenguji['nip'], 'required') ?>
+                        <?php echo formtext('hidden', 'id_penguji', $listpenguji['id_penguji'], 'required') ?>
+                        <?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b>
+                        <br><br>
+                        <button type="submit" name="terima" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Penguji</button>
+                        <button type="submit" name="tolak" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Tolak Penguji</button>
+                    <?php
+                        } 
+                        echo form_close() 
+                    ?>
+                </div>
+                <div class="box-body table-responsive">
+                    <?php 
+                        echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
+                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_PROPOSAL, $ujian->id_ujian, 2); 
+                        foreach ($penguji as $listpenguji) {
+                    ?>
+                        <b>Usulan Penguji</b>
                         <br>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>

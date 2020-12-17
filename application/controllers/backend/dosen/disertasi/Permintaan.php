@@ -198,6 +198,50 @@ class Permintaan extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
+    public function promotor_mkpkk() {
+        $id_disertasi = $this->uri->segment('7');
+        $data = array(
+            // PAGE //
+            'title' => 'Disertasi - Permintaan Dosen Promotor/Ko-Promotor',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/disertasi/permintaan/promotor_mkpkk',
+            'back_link' => 'dosen/disertasi/permintaan/promotor/mkpkk',
+            // DATA //
+            'disertasi' => $this->disertasi->detail($id_disertasi),
+            'mkpkks' => $this->disertasi->read_mkpkk(),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function promotor_mkpkk_save() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $id_mkpkks = $this->input->post('id_mkpkk', TRUE);
+            if (count($id_mkpkks) > 0) {
+                $this->disertasi->delete_disertasi_mkpkk($id_disertasi);
+            }
+            foreach ($id_mkpkks as $id_mkpkk) {
+                $mkpkk = $this->disertasi->detail_mkpkk($id_mkpkk);
+                $data = array(
+                    'id_disertasi' => $id_disertasi,
+                    'id_mkpkk' => $id_mkpkk,
+                    'mkpkk' => $mkpkk->nama,
+                );
+
+                $this->disertasi->save_disertasi_mkpkk($data);
+            }
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'MKPKK berhasil di save');
+            redirect_back();
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect_back();
+        }
+    }
+
     public function promotor_setujui() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
@@ -211,11 +255,10 @@ class Permintaan extends CI_Controller {
             $semua_promotor_setujui = $this->disertasi->semua_promotor_setujui($id_disertasi);
             if ($semua_promotor_setujui) {
                 $data = array(
-                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PROMOTOR,
+                    'status_promotor' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
                 );
-
                 $data = array(
-                    'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+                    'status_promotor' => STATUS_DISERTASI_PROMOTOR_SELESAI,
                 );
                 $this->disertasi->update($data, $id_disertasi);
             }
