@@ -202,7 +202,7 @@ class Permintaan extends CI_Controller {
         $id_disertasi = $this->uri->segment('7');
         $data = array(
             // PAGE //
-            'title' => 'Disertasi - Permintaan Dosen Promotor/Ko-Promotor',
+            'title' => 'Disertasi - Promotor/Ko-Promotor - MKPKK',
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/permintaan/promotor_mkpkk',
             'use_back' => true,

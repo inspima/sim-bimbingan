@@ -2,23 +2,7 @@
 $disertasi_mkpkks = $this->disertasi->read_disertasi_mkpkk($disertasi->id_disertasi);
 if (!empty($disertasi_mkpkks)) {
     ?>
-    <?php echo form_open('dosen/disertasi/permintaan/promotor/mkpkk/save'); ?>
-    <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-    <div class="form-group">
-        <label>Pilih MKPKK</label>
-        <select name="id_mkpkk[]" class="form-control select2" style="width: 100%;" required multiple="true">
-            <?php
-            foreach ($mkpkks as $mkpkk) {
-                ?>
-                <option value="<?php echo $mkpkk['id_mkpkk'] ?>"><?php echo $mkpkk['nama'] ?></option>
-                <?php
-            }
-            ?>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah</button>
-    <?= form_close() ?>
+    
     <table class="table table-condensed ">
         <tr class="bg-gray-light">
             <th>Mata Kuliah</th>

@@ -54,7 +54,7 @@
                             endif;
                             ?>
                             <?php
-                            if ($list['status_mpkk'] == STATUS_DISERTASI_MPKK_SETUJUI_KPS):
+                            if ($list['status_mpkk'] >= STATUS_DISERTASI_MPKK_SETUJUI_KPS):
                                 ?>
                                 <hr style="margin: 10px;border-width:2px;" />
                                 <a href="<?= base_url() ?>dosen/disertasi/permintaan/promotor/mkpkk/detail/<?= $list['id_disertasi'] ?>" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Detail</a><br/>
