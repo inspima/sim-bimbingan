@@ -164,13 +164,21 @@ $route['api/profile/signature/save'] = 'backend/profile/signature_save';
 
 $route['dashboarda'] = 'backend/administrator/home';
 
-$route['dashboarda/master/user'] = 'backend/administrator/master/user';
+$route['dashboarda/master/user'] = 'backend/administrator/master/admin_user';
 
-$route['dashboarda/master/user/detail/(:num)'] = 'backend/administrator/master/user/detail/$1';
+$route['dashboarda/master/user/add_pegawai'] = 'backend/administrator/master/admin_user/add_pegawai';
 
-$route['dashboarda/master/user/update_password'] = 'backend/administrator/master/user/update_password';
+$route['dashboarda/master/user/add_dosen'] = 'backend/administrator/master/admin_user/add_dosen';
 
-$route['dashboarda/master/user/direct_login'] = 'backend/administrator/master/user/direct_login';
+$route['dashboarda/master/user/save_pegawai'] = 'backend/administrator/master/admin_user/save_pegawai';
+
+$route['dashboarda/master/user/save_dosen'] = 'backend/administrator/master/admin_user/save_dosen';
+
+$route['dashboarda/master/user/detail/(:num)'] = 'backend/administrator/master/admin_user/detail/$1';
+
+$route['dashboarda/master/user/update_password'] = 'backend/administrator/master/admin_user/update_password';
+
+$route['dashboarda/master/user/direct_login'] = 'backend/administrator/master/admin_user/direct_login';
 
 
 
@@ -757,6 +765,8 @@ $route['dosen/disertasi/kualifikasi/penguji_update_statustim'] = 'backend/dosen/
 $route['dosen/disertasi/kualifikasi/penguji_delete'] = 'backend/dosen/disertasi/kualifikasi/penguji_delete';
 
 $route['dosen/disertasi/kualifikasi/update_status_ujian'] = 'backend/dosen/disertasi/kualifikasi/update_status_ujian';
+
+$route['dosen/disertasi/kualifikasi/penguji/kirim_whatsapp'] = 'backend/dosen/disertasi/kualifikasi/penguji_kirim_whatsapp';
 
 
 

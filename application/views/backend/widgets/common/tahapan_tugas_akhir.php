@@ -2,7 +2,7 @@
 // S1
 if (!in_array($mahasiswa['role'], [ROLE_MAHASISWA_S2, ROLE_MAHASISWA_S3])) {
     $tugas_akhir = $this->tugas_akhir->detail_skripsi($mahasiswa['nim']);
-    if (!empty($tugas_akhir)) {
+    if (!empty($tugas_akhir) && ($tugas_akhir->status_proposal > 0 || $tugas_akhir->status_skripsi > 0)) {
         $status = '';
         if ($tugas_akhir->status_proposal > 0) {
             $status = 'Proposal';

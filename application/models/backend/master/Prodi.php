@@ -5,6 +5,13 @@ if (!defined('BASEPATH'))
 
 class Prodi extends CI_Model {
 
+    function read_jenjang() {
+        $this->db->select('*');
+        $this->db->from('jenjang');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     function read_all_prodi() {
         $this->db->select('p.*,j.jenjang');
         $this->db->from('prodi p');
@@ -21,6 +28,7 @@ class Prodi extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
+    
 
 }
 

@@ -27,6 +27,7 @@ class Kualifikasi extends CI_Controller {
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
+        $this->load->model('backend/utility/notification', 'notifikasi');
         //END MODEL
     }
 
@@ -308,6 +309,29 @@ class Kualifikasi extends CI_Controller {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
             redirect('dosen/disertasi/kualifikasi/setting');
+        }
+    }
+
+    public function penguji_kirim_whatsapp() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_disertasi = $this->input->post('id_disertasi', TRUE);
+            $disertasi= $this->disertasi->detail($id_disertasi);
+            $ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
+            $pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+            foreach ($pengujis as $penguji) {
+                $judul_notifikasi = 'Permintaan Penguji Proposal';
+                $isi_notifikasi = 'Mohon kesediaanya untuk menjadi penguji Ujian Kualifikasi mahasiswa dengan Nim ' . $disertasi->nim . ' pada sistem IURIS';
+                $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $penguji['nip']);
+            }
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Notifikasi whatsapp berhasil dikirim');
+            redirect_back();
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect_back();
         }
     }
 

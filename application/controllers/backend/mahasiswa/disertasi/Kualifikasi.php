@@ -71,7 +71,7 @@ class Kualifikasi extends CI_Controller {
                 'subtitle' => 'Pengajuan Ujian Kualifikasi',
                 'section' => 'backend/mahasiswa/disertasi/kualifikasi/add',
                 // DATA //
-                'mdosen' => $this->dosen->read_aktif_alldep(),
+                'mdosen' => $this->dosen->read_aktif_alldep_s3(),
                 'departemen' => $this->departemen->read(),
                 'gelombang' => $this->gelombang->read_berjalan()
             );

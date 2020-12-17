@@ -24,6 +24,7 @@ class Pencarian extends CI_Controller {
         $this->load->model('backend/master/tugas_akhir', 'tugas_akhir', TRUE);
         $this->load->model('backend/transaksi/disertasi', 'disertasi', TRUE);
         $this->load->model('backend/transaksi/tesis', 'tesis', TRUE);
+        $this->load->model('backend/transaksi/skripsi', 'skripsi', TRUE);
         //END MODEL
     }
 
