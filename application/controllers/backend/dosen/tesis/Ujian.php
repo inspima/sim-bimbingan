@@ -25,6 +25,7 @@ class Ujian extends CI_Controller {
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/tesis', 'tesis');
+        $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
         //END MODEL
@@ -201,6 +202,29 @@ class Ujian extends CI_Controller {
             'use_back' => true,
             'back_link' => 'backend/dosen/tesis/ujian/pembimbing',
             // DATA //
+            'tesis' => $this->tesis->detail($id_tesis),
+            'mruang' => $this->ruang->read_aktif(),
+            'mjam' => $this->jam->read_aktif(),
+            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
+            'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function nilai() {
+        $id_tesis = $this->uri->segment('5');
+        $id_prodi = $this->tesis->cek_prodi($id_tesis);
+        $id_penguji = $this->uri->segment('6');
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Ujian',
+            'subtitle' => 'Nilai Penguji',
+            'section' => 'backend/dosen/tesis/ujian/nilai',
+            'use_back' => true,
+            'back_link' => 'dosen/tesis/ujian/penguji/'.$id_prodi,
+            // DATA //
+            'id_penguji' => $id_penguji,
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif(),
             'mjam' => $this->jam->read_aktif(),
@@ -524,6 +548,117 @@ class Ujian extends CI_Controller {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
             redirect('dosen/tesis/ujian/penjadwalan');
+        }
+    }
+
+    public function penguji_nilai_save() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_penguji = $this->input->post('id_penguji', TRUE);
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_UJIAN);
+            $jadwal = $this->tesis->read_jadwal($id_tesis, TAHAPAN_TESIS_UJIAN);
+            $tesis = $this->tesis->detail($id_tesis);
+            $pengujis = $this->tesis->read_penguji_id($id_penguji);
+
+            $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
+            $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
+            // QR
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Proposal', $tesis->nim, $jadwal->tanggal);
+            $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+            $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+            // DOKUMEN
+            $data_dokumen = [
+                'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, 'tesis', $tesis->nim, $jadwal->tanggal),
+                'tipe' => DOKUMEN_BERITA_ACARA_STR,
+                'jenis' => 'tesis',
+                'identitas' => $tesis->nim,
+                'nama' => 'Berita Acara Ujian Tesis - ' . $tesis->nama,
+                'link' => $link_dokumen,
+                'link_cetak' => $link_dokumen_cetak,
+                'date' => $jadwal->tanggal,
+                'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+            ];
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            if (empty($dokumen)) {
+                $this->dokumen->save($data_dokumen);
+            }
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            // DOKUMEN PERSETUJUAN
+            $this->dokumen->generate_persetujuan($pengujis, $dokumen->id_dokumen, JENJANG_S2, $id_tesis, 0);
+            //$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
+
+            $identitas = '';
+            foreach ($pengujis as $data) {
+                $identitas = $data['nip'];
+            }
+
+            $data_dokumen_persetujuan = [
+                'id_dokumen' => $dokumen->id_dokumen,
+                'identitas' => $identitas,
+                'jenis' => 0,
+            ];
+
+            $dokumen_persetujuan = $this->dokumen->detail_persetujuan_by_data($data_dokumen_persetujuan);
+
+            /*$data = array(
+                'jadwal' => $jadwal,
+                'pengujis' => $pengujis,
+                'tesis' => $tesis,
+                'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
+                'dokumen_persetujuan' => $dokumen_persetujuan
+            );
+            ob_end_clean();
+            $page = 'backend/baa/magister/proposal/cetak_berita';
+            $size = 'legal';
+            $this->pdf->setPaper($size, 'potrait');
+            $this->pdf->filename = 'berita_acara_proposal_' . $tesis->nim;
+            $this->pdf->load_view($page, $data);*/
+            $id_dokumen_persetujuan = $dokumen_persetujuan->id_dokumen_persetujuan;
+
+            $data_persetujuan = [
+                'waktu' => date('Y-m-d H:i:s')
+            ];
+            $this->dokumen->update_persetujuan($data_persetujuan, $id_dokumen_persetujuan);
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Persetujuan dokumen berhasil');
+
+            $jumlah_nilai = $this->tesis->read_kriteria_nilai();
+
+            foreach ($jumlah_nilai as $data) {
+                $nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
+
+                if(empty($nilai_penguji)){
+                    $data = array(
+                        'id_penguji' => $id_penguji,
+                        'id_kriteria_penilaian' => $data['id'],
+                        'nilai' => $this->input->post('nilai_'.$data['id'], TRUE),
+                        'status_aktif' => 1,
+                    );
+
+                    $this->tesis->save_penilaian($data);
+                }
+                else {
+                    $data = array(
+                        'id_penguji' => $id_penguji,
+                        'id_kriteria_penilaian' => $data['id'],
+                        'nilai' => $this->input->post('nilai_'.$data['id'], TRUE),
+                        'status_aktif' => 1,
+                    );
+
+                    $this->tesis->update_penilaian($data, $nilai_penguji->id);
+                }
+            }
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', $mesg);
+            redirect('dosen/tesis/ujian/nilai/' . $id_tesis .'/'.$id_penguji);
+
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/tesis/ujian');
         }
     }
 

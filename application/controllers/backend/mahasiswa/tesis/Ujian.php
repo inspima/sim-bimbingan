@@ -103,7 +103,7 @@ class Ujian extends CI_Controller {
             $config['file_ext_tolower'] = TRUE;
             $config['detect_mime'] = TRUE;
             $config['mod_mime_fix'] = TRUE;
-            $config['file_name'] = $file_name;
+            $config['file_name'] = $file_name_syarat;
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
 

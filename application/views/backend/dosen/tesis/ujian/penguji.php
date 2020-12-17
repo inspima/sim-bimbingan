@@ -33,6 +33,7 @@
                     <th>Tgl.Pengajuan</th>
                     <th>Jadwal</th>
                     <th>Status</th>
+                    <th>Tim</th>
                     <th>Status Penguji</th>
                     <th>Opsi</th>
                 </tr>
@@ -74,6 +75,17 @@
                                 <?php
                                 echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_UJIAN);
                             }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $str_status_tim = '';
+                            if ($list['status_tim'] == '1') {
+                                $str_status_tim = 'Ketua';
+                            } else if ($list['status_tim'] == '2') {
+                                $str_status_tim = 'Anggota';
+                            }
+                            echo '<span class="btn btn-xs btn-primary">'.$str_status_tim.'</span>';
                             ?>
                         </td>
                         <td class="text-center">
@@ -118,6 +130,12 @@
                             ?>
                                 <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
+                            <?php
+                            }
+                            $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
+                            if($ujian->tanggal <= date('Y-m-d')){
+                            ?>
+                            <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/nilai/<?php echo $list['id_tesis']?>/<?php echo $list['id_penguji']?>"><i class="fa fa-edit"></i> Nilai</a>
                             <?php
                             }
                             ?>

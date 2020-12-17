@@ -136,7 +136,7 @@
                 <div class="box-body table-responsive">
                     <?php 
                         echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
-                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_UJIAN, $ujian->id_ujian); 
+                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_UJIAN, $ujian->id_ujian, 1); 
                         foreach ($penguji as $listpenguji) {
                     ?>
                         <b>Usulan Pembimbing Utama</b>
@@ -313,7 +313,30 @@
                 ?>
             </div>
             <!-- /.box-body -->
-            <?php echo form_close() ?>
+            <div class="box-body">
+                <?php echo form_close() ?>
+                <?php
+                $rata_nilai_ujian = $ujian->rata_nilai_ujian ? number_format($ujian->rata_nilai_ujian,1) : 0;
+                $bobot_nilai_konversi = $ujian->bobot_nilai_konversi ? number_format($ujian->bobot_nilai_konversi,1) : 0;
+                $nilai_ujian = $ujian->nilai_ujian ? number_format($ujian->nilai_ujian,1) : 0;
+                ?>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><b>Rata-rata Nilai</b></td>
+                            <td><?= $rata_nilai_ujian;?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Bobot Nilai Konversi</b></td>
+                            <td><?= $bobot_nilai_konversi?></td>
+                        </tr>
+                        <tr>
+                            <td><b>Nilai Ujian</b></td>
+                            <td><?= $nilai_ujian?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- /.box -->
     </div>

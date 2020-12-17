@@ -34,7 +34,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('dosen/tesis/proposal/jadwal_save'); ?>
+            <?php echo form_open('dosen/tesis/ujian/jadwal_save'); ?>
             <div class="box-body">
                 <div class="form-group">
                     <label>Tanggal</label>

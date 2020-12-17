@@ -31,7 +31,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">1. Dosen Penguji</h3>
+                <h3 class="box-title">Dosen Penguji</h3>
             </div>
             <?php echo form_open('dosen/tesis/proposal/penguji_usulan_save'); ?>
             <div class="box-body table-responsive">

@@ -668,6 +668,10 @@ $route['baa/magister/tesis/ujian/cetak_penilaian'] = 'backend/baa/magister/tesis
 
 $route['baa/magister/tesis/ujian/cetak_absensi'] = 'backend/baa/magister/tesis_ujian/cetak_absensi';
 
+$route['baa/magister/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/baa/magister/tesis_ujian/nilai_ujian';
+
+$route['baa/magister/tesis/ujian/nilai_ujian_save'] = 'backend/baa/magister/tesis_ujian/nilai_ujian_save';
+
 
 
 $route['baa/doktoral/disertasi/kualifikasi'] = 'backend/baa/doktoral/disertasi_kualifikasi';

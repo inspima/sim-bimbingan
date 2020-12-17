@@ -150,10 +150,12 @@ class Tesis_ujian extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
-
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_UJIAN);
+            $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
             $data = array(
                 'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
-                'tesis' => $this->tesis->detail($id_tesis)
+                'tesis' => $this->tesis->detail($id_tesis),
+                'pengujis' => $this->tesis->read_penguji($ujian->id_ujian)
             );
             //print_r($data['penguji_ketua']);die();
             ob_end_clean();
@@ -166,6 +168,51 @@ class Tesis_ujian extends CI_Controller {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
             redirect('baa/magister/tesis/ujian/');
+        }
+    }
+
+    public function nilai_ujian() {
+        $id_tesis = $this->uri->segment('6');
+        $id_prodi = $this->tesis->cek_prodi($id_tesis);
+        $id_ujian = $this->uri->segment('7');
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Ujian',
+            'subtitle' => 'Nilai Ujian',
+            'section' => 'backend/baa/magister/ujian/nilai_ujian',
+            'use_back' => true,
+            'back_link' => 'baa/magister/tesis/ujian',
+            // DATA //
+            'id_ujian' => $id_ujian,
+            'tesis' => $this->tesis->detail($id_tesis),
+            'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
+            'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function nilai_ujian_save() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_ujian = $this->input->post('id_ujian', TRUE);
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+
+            $data = array(
+                'rata_nilai_ujian' => $this->input->post('rata_nilai_ujian', TRUE),
+                'bobot_nilai_konversi' => $this->input->post('bobot_nilai_konversi', TRUE),
+                'nilai_ujian' => $this->input->post('nilai_ujian', TRUE)
+            );
+
+            $this->tesis->update_ujian($data, $id_ujian);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', $mesg);
+            redirect('baa/magister/tesis/ujian/nilai_ujian/' . $id_tesis .'/'.$id_ujian);
+
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('baa/magister/tesis/ujian/index');
         }
     }
 

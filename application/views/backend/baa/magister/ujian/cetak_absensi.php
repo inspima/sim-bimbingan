@@ -85,7 +85,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th style="width:60%;text-align: center">NAMA</th>
                             <th style="width:30%;text-align: center">TTD</th>
                         </tr>
-                        <?php for ($i = 1; $i < 10; $i++):
+                        <?php
+                        $no=0;
+                        foreach ($pengujis as $penguji):
+                        $no++;
+                        ?>
+                            <tr>
+                                <td style="text-align: center"><?= $no ?>.</td>
+                                <td><?= $penguji['nama'] ?></td>
+                                <td><?= $no ?>.</td>
+                            </tr>
+                        <?php
+                        endforeach;
+                        ?>
+                        <?php for ($i = (1+$no); $i < 10; $i++):
                             ?>
                             <tr>
                                 <td style="text-align: center"><?= $i ?>.</td>

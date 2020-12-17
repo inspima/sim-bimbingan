@@ -717,9 +717,18 @@ class Tesis extends CI_Model {
         $this->db->insert('judul_tesis', $data);
     }
 
+    public function save_penilaian($data) {
+        $this->db->insert('penilaian_tesis', $data);
+    }
+
     function update_judul($data, $id_tesis) {
         $this->db->where('id_tesis', $id_tesis);
         $this->db->update('judul_tesis', $data);
+    }
+
+    function update_penilaian($data, $id) {
+        $this->db->where('id', $id);
+        $this->db->update('penilaian_tesis', $data);
     }
 
     // PENGUJI
@@ -741,7 +750,7 @@ class Tesis extends CI_Model {
     }
 
     public function read_permintaan_penguji_prodi($username, $jenis, $id) {
-        $this->db->select('s.*, pt.status as status_penguji, pt.status_tim, jd.judul, pt.status, d.departemen ,m.nama,uj.id_ujian');
+        $this->db->select('s.*, pt.id_penguji, pt.status as status_penguji, pt.status_tim, jd.judul, pt.status, d.departemen ,m.nama,uj.id_ujian');
         $this->db->from('tesis s');
         $this->db->join('judul_tesis jd', 'jd.id_tesis=s.id_tesis and jd.status=\'1\'');
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
@@ -751,7 +760,7 @@ class Tesis extends CI_Model {
         $this->db->where('m.id_prodi', $id);
         $this->db->where('uj.jenis_ujian', $jenis);
         $this->db->where('`nip`=\'' . $username . '\'', NULL, FALSE);
-        $this->db->group_by('s.id_tesis, pt.status, pt.status_tim, jd.judul, pt.status, d.departemen ,m.nama, uj.id_ujian');
+        $this->db->group_by('s.id_tesis, pt.id_penguji, pt.status, pt.status_tim, jd.judul, pt.status, d.departemen ,m.nama, uj.id_ujian');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -764,6 +773,18 @@ class Tesis extends CI_Model {
         $this->db->from('penguji_tesis p');
         $this->db->join('pegawai pg', 'p.nip = pg.nip');
         $this->db->where('p.id_ujian', $id_ujian);
+        $this->db->where_in('p.status', $stts);
+        $this->db->order_by('p.status_tim', 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_penguji_id($id_penguji) {
+        $stts = array('1', '2');
+        $this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
+        $this->db->from('penguji_tesis p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->where('p.id_penguji', $id_penguji);
         $this->db->where_in('p.status', $stts);
         $this->db->order_by('p.status_tim', 'asc');
         $query = $this->db->get();
@@ -1228,6 +1249,24 @@ class Tesis extends CI_Model {
                 ['value' => '3', 'text' => 'Tidak Layak'],
             ];
         }
+    }
+
+    public function read_kriteria_nilai() {
+        $this->db->select('k.*');
+        $this->db->from('kriteria_penilaian_tesis k');
+        $this->db->where('k.status_aktif', 1);
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_penilaian($id_penguji, $id_kriteria_penilaian) {
+        $this->db->select('p.*');
+        $this->db->from('penilaian_tesis p');
+        $this->db->where('p.id_penguji', $id_penguji);
+        $this->db->where('p.id_kriteria_penilaian', $id_kriteria_penilaian);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     public function get_status_ujian($status_ujian, $jenis) {
