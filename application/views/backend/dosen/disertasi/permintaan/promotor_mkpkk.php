@@ -33,6 +33,12 @@
             </div>
             <div class="box-body table-responsive">
                 <?php $this->view('backend/widgets/disertasi/list_mkpkk_dosen', ['disertasi' => $disertasi]); ?>
+                <div class="divider10"></div>
+                <?php echo form_open('dosen/disertasi/permintaan/promotor/mpkk/setujui') ?>
+                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                <button class="btn btn-sm btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+                <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+                <?php echo form_close() ?>
             </div>
         </div>
     </div>

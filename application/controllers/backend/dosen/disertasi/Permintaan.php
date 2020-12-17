@@ -205,7 +205,8 @@ class Permintaan extends CI_Controller {
             'title' => 'Disertasi - Permintaan Dosen Promotor/Ko-Promotor',
             'subtitle' => 'Data',
             'section' => 'backend/dosen/disertasi/permintaan/promotor_mkpkk',
-            'back_link' => 'dosen/disertasi/permintaan/promotor/mkpkk',
+            'use_back' => true,
+            'back_link' => 'dosen/disertasi/permintaan/promotor',
             // DATA //
             'disertasi' => $this->disertasi->detail($id_disertasi),
             'mkpkks' => $this->disertasi->read_mkpkk(),
@@ -287,11 +288,11 @@ class Permintaan extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil approve');
-            redirect('dosen/disertasi/permintaan/promotor');
+            redirect_back();
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/permintaan/promotor');
+            redirect_back();
         }
     }
 
