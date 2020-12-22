@@ -320,7 +320,7 @@ class Kualifikasi extends CI_Controller {
             $ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
             $pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
             foreach ($pengujis as $penguji) {
-                $judul_notifikasi = 'Permintaan Penguji Proposal';
+                $judul_notifikasi = 'Permintaan Penguji Ujian Kualifikasi';
                 $isi_notifikasi = 'Mohon kesediaanya untuk menjadi penguji Ujian Kualifikasi mahasiswa dengan Nim ' . $disertasi->nim . ' pada sistem IURIS';
                 $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $penguji['nip']);
             }
