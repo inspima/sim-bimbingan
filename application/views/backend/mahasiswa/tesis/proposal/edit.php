@@ -11,7 +11,7 @@
             <?php echo form_open_multipart('mahasiswa/tesis/proposal/update');?>
                 <div class="box-body">
                     <div class="form-group">
-                        <label>Pembimbing Satu</label>
+                        <label>Pembimbing Utama</label>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                         <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
@@ -34,7 +34,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Pembimbing Dua</label>
+                        <label>Pembimbing Kedua</label>
                         <select name="nip_pembimbing_dua" class="form-control select2" style="width: 100%;" required>
                             <option value="">- Pilih -</option>
                             <?php
@@ -71,7 +71,7 @@
                     ?>
                     <div class="form-group">
                         <label>Upload Berkas Ujian Proposal Tesis<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
-                        <input type="file" name="berkas_proposal" class="form-control" required>
+                        <input type="file" name="berkas_proposal" class="form-control" >
                     </div>
                 </div>
                 <!-- /.box-body -->

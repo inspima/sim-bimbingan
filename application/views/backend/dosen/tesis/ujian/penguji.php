@@ -36,6 +36,7 @@
                     <th>Tim</th>
                     <th>Status Penguji</th>
                     <th>Opsi</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,7 +74,7 @@
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
-                                echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_UJIAN);
+                                echo $this->tesis->get_status_ujian($list['status_ujian_tesis'], UJIAN_TESIS_UJIAN);
                             }
                             ?>
                         </td>
@@ -123,13 +124,13 @@
                                 <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                 <i class="fa fa-edit"></i> Approve</a>
                                 <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php echo $list['id_tesis']?>">
-                                <i class="fa fa-edit"></i> Reject</a>
+                                <i class="fa fa-close"></i> Reject</a>
                             <?php
                             }
-                            else {
+                            else if($list['status_penguji'] == '2') {
                             ?>
                                 <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
-                                    <i class="fa fa-edit"></i> Batal</a>
+                                    <i class="fa fa-ban"></i> Batal</a>
                             <?php
                             }
                             $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);

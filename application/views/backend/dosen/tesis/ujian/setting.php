@@ -278,7 +278,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('dosen/tesis/ujian/update_status_ujian'); ?>
+            <?php //echo form_open('dosen/tesis/ujian/update_status_ujian'); ?>
             <div class="box-body">
                 <div class="form-group">
                     <?php
@@ -286,15 +286,23 @@
                         if(date('Y-m-d') >= $ujian->tanggal) {
                     ?>
                         <label>Status Ujian</label>
-                        <select name="status_ujian" class="form-control select2" style="width: 100%;" required>
-                            <?php
-                            foreach ($status_ujians as $status_ujian) {
-                                ?>
-                                <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $tesis->status_ujian_tesis) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
-                                <?php
+                        <?php 
+                        foreach ($status_ujians as $status_ujian) {
+                            if ($status_ujian['value'] == $tesis->status_ujian_proposal) {
+                                echo '<br>'.$status_ujian['text'];
                             }
+                        }
+                        ?>
+                        <!--<select name="status_ujian" class="form-control select2" style="width: 100%;" required>
+                            <?php
+                            /*foreach ($status_ujians as $status_ujian) {
+                                ?>
+                                <option value="<?php //echo $status_ujian['value'] ?>" <?php //if ($status_ujian['value'] == $tesis->status_ujian_tesis) echo 'selected' ?>><?php //echo $status_ujian['text'] ?></option>
+                                <?php
+                            }*/
                             ?>
                         </select>
+                        -->
                     <?php
                         } else {
                             echo "<b>Ujian belum dilaksanakan</b>";
@@ -304,12 +312,13 @@
                 </div>
             </div>
             <div class="box-footer">
-                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                <?php //echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                <?php //echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                 <?php
+                /*
                 if($ujian){
                     echo '<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>';
-                }
+                }*/
                 ?>
             </div>
             <!-- /.box-body -->

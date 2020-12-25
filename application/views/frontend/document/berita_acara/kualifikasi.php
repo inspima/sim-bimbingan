@@ -34,9 +34,4 @@
                     <dd><a class="btn btn-xs bg-red" href="<?= $dokumen->link_cetak ?>"><i class="fa fa-file-pdf-o"></i> Unduh</a></dd>
                 </dl>
             </div>
-            <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-    </div>
-    <!-- /.col -->
-</div>
+            <!-- /.box-body 

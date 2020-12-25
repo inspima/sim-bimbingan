@@ -34,7 +34,7 @@
                     <th>Tim</th>
                     <th>Status Penguji</th>
                     <th>Opsi</th>
-                    <th></th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,15 +116,15 @@
                                 <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                 <i class="fa fa-edit"></i> Approve</a>
                                 <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/proposal/penguji_setting_penguji/<?php echo $list['id_tesis']?>">
-                                <i class="fa fa-edit"></i> Reject</a>
+                                <i class="fa fa-close"></i> Reject</a>
                             <?php
                             }
-                            /*else {
+                            else if($list['status_penguji'] == '2') {
                             ?>
                                 <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
-                                    <i class="fa fa-edit"></i> Batal</a>
+                                    <i class="fa fa-ban"></i> Batal</a>
                             <?php
-                            }*/
+                            }
                             ?>
                         </td>
                         <td>

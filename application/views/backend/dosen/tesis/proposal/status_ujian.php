@@ -220,10 +220,16 @@
                 <div class="form-group">
                     <?php
                     if($ujian){
+                        $penguji = $this->tesis->read_penguji($ujian->id_ujian);
+                        foreach ($penguji as $listpenguji) {
+                            if($listpenguji['nip'] == $this->session_data['username']){
+                                $status_tim = $listpenguji['status_tim'];
+                            }
+                        }
                         if(date('Y-m-d') >= $ujian->tanggal) {
                     ?>
                         <label>Status Ujian</label>
-                        <select name="status_ujian" class="form-control select2" style="width: 100%;" required>
+                        <select name="status_ujian" class="form-control select2" style="width: 100%;" required <?= ($status_tim != '1') ? 'disabled' : ''; ?> >
                             <?php
                             foreach ($status_ujians as $status_ujian) {
                                 ?>
@@ -245,7 +251,15 @@
                 <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                 <?php
                 if($ujian){
-                    echo '<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>';
+                    $penguji = $this->tesis->read_penguji($ujian->id_ujian);
+                    foreach ($penguji as $listpenguji) {
+                        if($listpenguji['nip'] == $this->session_data['username']){
+                            $status_tim = $listpenguji['status_tim'];
+                        }
+                    }
+                    if(date('Y-m-d') >= $ujian->tanggal && $status_tim == '1') {
+                        echo '<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>';
+                    }
                 }
                 ?>
             </div>

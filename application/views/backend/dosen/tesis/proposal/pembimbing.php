@@ -32,7 +32,8 @@
                     <th>Keterangan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Status Pembimbing</th>                    
-                    <th colspan="3">Opsi</th>
+                    <th>Opsi</th>
+                    <th colspan="2">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,17 +81,17 @@
                             if($list['nip_pembimbing_satu'] == $this->session_data['username']){
                                 if($list['status_pembimbing_satu'] == NULL) {
                                 ?>
-                                    <a class="btn btn-xs btn-primary pull-left" href="#">
+                                    <a class="btn btn-xs btn-primary" href="#">
                                     <i class="fa fa-check"></i> Pengajuan</a>
                                 <?php
                                 } else if($list['status_pembimbing_satu'] == '1') {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="#">
+                                    <a class="btn btn-xs btn-success" href="#">
                                     <i class="fa fa-check"></i> Diterima</a>
                                 <?php
                                 } else if($list['status_pembimbing_satu'] == '2') {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="#">
+                                    <a class="btn btn-xs btn-success" href="#">
                                     <i class="fa fa-check"></i> Ditolak</a>
                                 <?php
                                 }
@@ -98,17 +99,17 @@
                             else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
                                 if($list['status_pembimbing_dua'] == NULL) {
                                 ?>
-                                    <a class="btn btn-xs btn-primary pull-left" href="#">
+                                    <a class="btn btn-xs btn-primary" href="#">
                                     <i class="fa fa-check"></i> Pengajuan</a>
                                 <?php
                                 } else if($list['status_pembimbing_dua'] == '1') {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="#">
+                                    <a class="btn btn-xs btn-success" href="#">
                                     <i class="fa fa-check"></i> Diterima</a>
                                 <?php
                                 } else if($list['status_pembimbing_dua'] == '2') {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="#">
+                                    <a class="btn btn-xs btn-success" href="#">
                                     <i class="fa fa-check"></i> Ditolak</a>
                                 <?php
                                 }
@@ -120,46 +121,48 @@
                             if($list['nip_pembimbing_satu'] == $this->session_data['username']){
                                 if($list['status_pembimbing_satu'] == NULL) {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/proposal/approve_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Approve</a>
-                                    <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-danger" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Reject</a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/proposal/batal_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
                                 <?php
                                 } 
                             } else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
                                 if($list['status_pembimbing_dua'] == NULL) {
                                 ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/proposal/approve_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Approve</a>
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?php echo $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/proposal/reject_pembimbing/<?php echo $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Reject</a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_pembimbing/<?= $list['id_tesis']?>">
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/proposal/batal_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
                                 <?php
                                 }
                             }
                             ?>
                         </td>
+                        <!--
                         <td>
                             <?php
-                            if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
+                            /*if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
                                 if($list['status_pembimbing_dua'] == '1') {
                                     echo '<a href = "'.base_url().'dosen/tesis/proposal/setting_penguji/'.$list['id_tesis'].'" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Setting Penguji</a>';
                                 }
                             }   
                             if ($list['nip_pembimbing_dua'] == $this->session_data['username']){
                                 echo '';
-                            }
+                            }*/
                             ?>              
                         </td>
+                        -->
                         <td>
                             <?php
                             if ($list['status_proposal'] == STATUS_TESIS_PROPOSAL_SETUJUI_SPS) {
@@ -169,7 +172,7 @@
                             }
                             else {
                                 ?>
-                                <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal</a>
+                                <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji</a>
                                 <?php
                             }
                             ?>              

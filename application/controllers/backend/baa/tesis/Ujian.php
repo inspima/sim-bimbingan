@@ -70,7 +70,7 @@ class Ujian extends CI_Controller {
         $this->tesis->approval_tesis($id);
         $this->session->set_flashdata('msg-title', 'alert-success');
         $this->session->set_flashdata('msg', 'Tesis disetujui');
-        redirect('baa/tesis/ujian/'.$id_prodi);
+        redirect('baa/tesis/ujian/index/'.$id_prodi);
     }
 
     public function reject() {
@@ -79,7 +79,7 @@ class Ujian extends CI_Controller {
         $this->tesis->reject_tesis($id);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Tesis ditolak');
-        redirect('baa/tesis/ujian/'.$id_prodi);
+        redirect('baa/tesis/ujian/index/'.$id_prodi);
     }
 
     public function batal() {
@@ -88,7 +88,7 @@ class Ujian extends CI_Controller {
         $this->tesis->batal_tesis($id);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Status Tesis dibatalkan');
-        redirect('baa/tesis/ujian/'.$id_prodi);
+        redirect('baa/tesis/ujian/index/'.$id_prodi);
     }
 
     public function pembimbing() {

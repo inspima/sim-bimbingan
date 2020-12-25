@@ -38,12 +38,14 @@ if (!empty($jadwal)) {
 }
 ?>
 <?php
-if ($jadwal->status_apv_kaprodi == '1') {
-    ?>
-    <p align="center"><b><i class="fa fa-check text-green"></i> Sudah Diverifikasi Kaprodi</b></p>
-    <!--
-    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
-    -->
-    <?php
+if (!empty($jadwal)) {
+    if ($jadwal->status_apv_kaprodi == '1') {
+        ?>
+        <p align="center"><b><i class="fa fa-check text-green"></i> Sudah Diverifikasi Kaprodi</b></p>
+        <!--
+        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
+        -->
+        <?php
+    }
 }
 ?>

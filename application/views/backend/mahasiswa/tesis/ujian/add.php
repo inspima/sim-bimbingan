@@ -21,14 +21,14 @@
             <?php echo form_open_multipart('mahasiswa/tesis/ujian/save'); ?>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Pembimbing 1</label>
+                    <label>Pembimbing Utama</label>
                     <br>
                     <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                     <?php echo $tesis->nama_pembimbing_satu ?><br/><b><?php echo $tesis->nip_pembimbing_satu ?></b>
                 </div>
                 <div class="form-group">
-                    <label>Pembimbing 2</label>
+                    <label>Pembimbing Kedua</label>
                     <br>
                     <?php echo $tesis->nama_pembimbing_dua ?><br/><b><?php echo $tesis->nip_pembimbing_dua ?></b>
                 </div>

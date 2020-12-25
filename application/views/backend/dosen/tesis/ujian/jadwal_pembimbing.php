@@ -52,6 +52,7 @@
                             $ruang = $ujian->ruang . ' - ' . $ujian->gedung;
                             $id_jam = $ujian->id_jam;
                             $jam = $ujian->jam;
+                            $status_apv_kaprodi = $ujian->status_apv_kaprodi;
                         } else {
                             $id_ujian = '';
                             $tanggal = '';
@@ -59,15 +60,16 @@
                             $ruang = '-Pilih Ruang-';
                             $id_jam = '';
                             $jam = '-Pilih Jam-';
+                            $status_apv_kaprodi = '';
                         }
                         ?>
                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, '') ?>
-                        <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" <?= ($ujian->status_apv_kaprodi == 1) ? 'disabled' : '';?> required>              
+                        <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" <?= ($status_apv_kaprodi == 1) ? 'disabled' : '';?> required>              
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Ruang</label>
-                    <select name="id_ruang" class="form-control select2" style="width: 100%;" <?= ($ujian->status_apv_kaprodi == 1) ? 'disabled' : '';?> required>
+                    <select name="id_ruang" class="form-control select2" style="width: 100%;" <?= ($status_apv_kaprodi == 1) ? 'disabled' : '';?> required>
                         <option value="<?php echo $id_ruang ?>"><?php echo $ruang ?></option>
                         <?php
                         foreach ($mruang as $list) {
@@ -80,7 +82,7 @@
                 </div>
                 <div class="form-group">
                     <label>Jam</label>
-                    <select name="id_jam" class="form-control select2" style="width: 100%;" <?= ($ujian->status_apv_kaprodi == 1) ? 'disabled' : '';?> required>
+                    <select name="id_jam" class="form-control select2" style="width: 100%;" <?= ($status_apv_kaprodi == 1) ? 'disabled' : '';?> required>
                         <option value="<?php echo $id_jam ?>"><?php echo $jam ?></option>
                         <?php
                         foreach ($mjam as $list) {
@@ -96,7 +98,7 @@
             <div class="box-footer">
                 <?php
                 if ($ujian) {
-                    if ($ujian->status_apv_kaprodi == '1') {
+                    if ($status_apv_kaprodi == '1') {
                         ?>
                         <p align="center"><b><i class="fa fa-check text-green"></i> Sudah Diverifikasi Kaprodi</b></p>
                         <!--
@@ -122,4 +124,57 @@
         <!-- /.box -->
     </div>
     <!-- left column -->
+    <?php 
+    if($tesis->nip_pembimbing_satu == $this->session_data['username']){
+    ?>
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">2. Dosen Penguji</h3>
+                </div>
+                <?php echo form_open('dosen/tesis/ujian/penguji_usulan_save'); ?>
+                <div class="box-body table-responsive">
+                    <?php
+                    if ($ujian) {
+                        ?>
+                        <div class="form-group">
+                            <label>Penguji</label>
+                            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                            <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                            <?php //echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+                            <select name="nip" class="form-control select2" style="width: 100%;" required>
+                                <option value="">- Pilih -</option>
+                                <?php
+                                foreach ($mdosen as $list) {
+                                    ?>
+                                    <option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
+                        </div>
+
+                        <?php echo form_close() ?>
+                        <?php $this->view('backend/widgets/tesis/list_penguji_dosen_temp', ['tesis' => $tesis]); ?>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="form-group">
+                            <p>Setting ujian terlebih dahulu</p>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+    <?php
+    }
+    ?>
 </div>
