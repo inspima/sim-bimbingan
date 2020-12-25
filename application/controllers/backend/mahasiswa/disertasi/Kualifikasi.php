@@ -105,6 +105,7 @@ class Kualifikasi extends CI_Controller {
                     'berkas_kualifikasi' => $file_name,
                     'nim' => $this->session_data['username'],
                     'tgl_pengajuan' => $tgl_sekarang,
+					'waktu_pengajuan_kualifikasi' => $tgl_sekarang,
                     'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN,
                 );
 

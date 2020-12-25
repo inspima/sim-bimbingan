@@ -1,0 +1,161 @@
+<?php if ($this->session->flashdata('msg')): ?>
+	<?php
+	$class_alert = 'alert ' . $this->session->flashdata('msg-title') . ' alert-dismissable';
+	?>
+	<div class='<?= $class_alert ?>'>
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<h4><i class="icon fa fa-check"></i> Notifikasi</h4>
+		<?php echo $this->session->flashdata('msg'); ?>
+	</div>
+<?php endif; ?>
+<div class="row">
+	<div class="col-sm-6">
+		<!-- general form elements -->
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Tim Penilai</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<table class="table table-condensed ">
+					<thead>
+					<tr class="">
+						<th>Nama</th>
+						<th class="text-center" style="width: 25%">Hasil</th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php
+						foreach ($dosens as $dosen):
+							?>
+							<tr class="">
+								<td>
+									<?php
+										if ($this->session_data['username'] == $dosen['identitas']) {
+											?>
+											<b><?php echo $dosen['nama'] ?><br/></b>
+											<?php
+										} else {
+											?>
+											<?php echo $dosen['nama'] ?><br/>
+											<?php
+										}
+									?>
+									<i><?php echo $dosen['identitas'] ?></i><br/>
+									<?php
+										if ($dosen['jenis'] == '1') {
+											$str_status_tim = 'Ketua';
+										} else {
+											$str_status_tim = 'Anggota';
+										}
+									?>
+									<button class="btn btn-xs bg-blue-gradient" style="color:white"><?php echo $str_status_tim ?></button>
+								</td>
+								<td class="text-center">
+									<?php
+										if (!empty($dosen['hasil'])) {
+											?>
+											<b><?php echo $dosen['hasil'] ?></b>
+											<?php
+										} else {
+											?>
+											<span class="btn btn-xs btn-danger">Kosong</span>
+											<?php
+										}
+									?>
+								</td>
+							</tr>
+						<?php
+						endforeach;
+					?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- /.box -->
+	</div>
+	<div class="col-sm-6">
+		<!-- general form elements -->
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Persetujuan Berita Acara</h3>
+			</div>
+			<!-- /.box-header -->
+			<!-- form start -->
+			<?php
+				if (!empty($dokumen_persetujuan->waktu)) {
+					?>
+					<div class="box-body">
+						<div class="form-group">
+							<label>Nilai</label>
+							<hr class="divider-line-thin"/>
+							<?php echo $dokumen_persetujuan->nilai ?>
+						</div>
+						<div class="form-group">
+							<label>Hasil</label>
+							<hr class="divider-line-thin"/>
+							<?php echo $dokumen_persetujuan->hasil ?>
+						</div>
+						<div class="form-group">
+							<label>Keterangan</label>
+							<hr class="divider-line-thin"/>
+							<?php echo $dokumen_persetujuan->hasil_keterangan ?>
+						</div>
+						<div class="form-group">
+							<label>Waktu Persetujuan</label>
+							<hr class="divider-line-thin"/>
+							<?php echo waktu_format_indonesia($dokumen_persetujuan->waktu) ?>
+						</div>
+					</div>
+					<?php
+				} else {
+					?>
+					<?php echo form_open('dosen/dokumen/berita_acara/persetujuan/save'); ?>
+					<div class="box-body">
+						<?php
+							if ($dokumen_persetujuan->jenis == '1') {
+								?>
+								<div class="callout callout-info">Anda adalah penentu hasil akhir</div>
+								<?php
+							}
+						?>
+						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+						<?php echo formtext('hidden', 'id_persetujuan', $dokumen_persetujuan->id_dokumen_persetujuan, 'required') ?>
+						<div class="form-group">
+							<label>Nilai</label>
+							<input type="text" name="nilai" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Hasil</label>
+							<select name="hasil" class="form-control select2" style="width: 100%;" required data-placeholder="Pilih Hasil">
+								<option></option>
+								<?php
+									foreach ($status_ujians as $status_ujian) {
+										if ($status_ujian['value'] != '0') {
+											?>
+											<option value="<?php echo $status_ujian['text'] ?>"><?php echo $status_ujian['text'] ?></option>
+											<?php
+										}
+									}
+								?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Keterangan</label>
+							<textarea name="keterangan" class="form-control"></textarea>
+						</div>
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer">
+						<button type="submit" id="btn-submit-confirm" class="btn btn-sm btn-success">
+							<i class="fa fa-check"></i> Setujui
+						</button>
+					</div>
+					<?php echo form_close() ?>
+					<?php
+				}
+			?>
+		</div>
+		<!-- /.box -->
+	</div>
+</div>

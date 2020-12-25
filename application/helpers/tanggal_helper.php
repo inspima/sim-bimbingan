@@ -1,212 +1,258 @@
 <?php
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-    
+	if (!defined('BASEPATH')) {
+		exit('No direct script access allowed');
+	}
 
-function todb($tanggal) {
-    $exp = explode('/', $tanggal);
-    $day    = $exp[0];
-    $month  = $exp[1];
-    $year   = $exp[2];
-    $exp_date = $year.'-'.$month.'-'.$day;
-    return($exp_date);
-}
 
-function todb_null($tanggal) {
-    if($tanggal == '')
-    {
-        $exp_date = '0000-00-00';
-        return($exp_date);
-    }
-    else
-    {
-        $exp = explode('/', $tanggal);
-        $day    = $exp[0];
-        $month  = $exp[1];
-        $year   = $exp[2];
-        $exp_date = $year.'-'.$month.'-'.$day;
-        return($exp_date);
-    }
-}
+	function todb($tanggal)
+	{
+		$exp = explode('/', $tanggal);
+		$day = $exp[0];
+		$month = $exp[1];
+		$year = $exp[2];
+		$exp_date = $year . '-' . $month . '-' . $day;
+		return ($exp_date);
+	}
 
-function wtime_todb($tanggal) {
-	date_default_timezone_set('Asia/Jakarta');
-    $exp = explode('/', $tanggal);
-    $day    = $exp[0];
-    $month  = $exp[1];
-    $year   = $exp[2];
-    $exp_date = $year.'-'.$month.'-'.$day.' '.date("H:i:s");
-    return($exp_date);
-}
+	function todb_null($tanggal)
+	{
+		if ($tanggal == '') {
+			$exp_date = '0000-00-00';
+			return ($exp_date);
+		} else {
+			$exp = explode('/', $tanggal);
+			$day = $exp[0];
+			$month = $exp[1];
+			$year = $exp[2];
+			$exp_date = $year . '-' . $month . '-' . $day;
+			return ($exp_date);
+		}
+	}
 
-function toindo($tanggal) {
-    $exp = explode('-', date("Y-m-d", strtotime($tanggal)));
-    $day    = $exp[2];
-    $month  = $exp[1];
-    $year   = $exp[0];
-    $exp_date = $day.'/'.$month.'/'.$year;
-    return($exp_date);
-}
+	function wtime_todb($tanggal)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		$exp = explode('/', $tanggal);
+		$day = $exp[0];
+		$month = $exp[1];
+		$year = $exp[2];
+		$exp_date = $year . '-' . $month . '-' . $day . ' ' . date("H:i:s");
+		return ($exp_date);
+	}
 
-function wtime_toindo($tanggal) {
-	date_default_timezone_set('Asia/Jakarta');
-    $exp = explode('/', $tanggal);
-    $day    = $exp[2];
-    $month  = $exp[1];
-    $year   = $exp[0];
-    $exp_date = $day.'-'.$month.'-'.$year.' '.date("H:i:s");
-    return($exp_date);
-}
+	function toindo($tanggal)
+	{
+		$exp = explode('-', date("Y-m-d", strtotime($tanggal)));
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
+		$exp_date = $day . '/' . $month . '/' . $year;
+		return ($exp_date);
+	}
 
-function wday_toindo($tanggal) {
-    $exp = explode('-', date("Y-m-d", strtotime($tanggal)));
-    $day    = $exp[2];
-    $month  = $exp[1];
-    $year   = $exp[0];
+	function wtime_toindo($tanggal)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		$exp = explode('/', $tanggal);
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
+		$exp_date = $day . '-' . $month . '-' . $year . ' ' . date("H:i:s");
+		return ($exp_date);
+	}
 
-    $hari = date('D', strtotime($tanggal));
-    $bulan = date('M', strtotime($tanggal));
-    $harilist = array(
-        'Sun' => 'Minggu',
-        'Mon' => 'Senin',
-        'Tue' => 'Selasa',
-        'Wed' => 'Rabu',
-        'Thu' => 'Kamis',
-        'Fri' => 'Jumat',
-        'Sat' => 'Sabtu'
-    );
+	function wday_toindo($tanggal)
+	{
+		$exp = explode('-', date("Y-m-d", strtotime($tanggal)));
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
 
-    $monList = array(
-        'Jan' => 'Januari',
-        'Feb' => 'Februari',
-        'Mar' => 'Maret',
-        'Apr' => 'April',
-        'May' => 'Mei',
-        'Jun' => 'Juni',
-        'Jul' => 'Juli',
-        'Aug' => 'Agustus',
-        'Sep' => 'September',
-        'Oct' => 'Oktober',
-        'Nov' => 'November',
-        'Dec' => 'Desember'
-    );
+		$hari = date('D', strtotime($tanggal));
+		$bulan = date('M', strtotime($tanggal));
+		$harilist = array(
+			'Sun' => 'Minggu',
+			'Mon' => 'Senin',
+			'Tue' => 'Selasa',
+			'Wed' => 'Rabu',
+			'Thu' => 'Kamis',
+			'Fri' => 'Jumat',
+			'Sat' => 'Sabtu'
+		);
 
-    $exp_date = $harilist[$hari].', '.$day.' '.$monList[$bulan].' '.$year;
-    return($exp_date);
-}
+		$monList = array(
+			'Jan' => 'Januari',
+			'Feb' => 'Februari',
+			'Mar' => 'Maret',
+			'Apr' => 'April',
+			'May' => 'Mei',
+			'Jun' => 'Juni',
+			'Jul' => 'Juli',
+			'Aug' => 'Agustus',
+			'Sep' => 'September',
+			'Oct' => 'Oktober',
+			'Nov' => 'November',
+			'Dec' => 'Desember'
+		);
 
-function woday_toindo($tanggal) {
-    $exp = explode('-', date("Y-m-d", strtotime($tanggal)));
-    $day    = $exp[2];
-    $month  = $exp[1];
-    $year   = $exp[0];
+		$exp_date = $harilist[$hari] . ', ' . $day . ' ' . $monList[$bulan] . ' ' . $year;
+		return ($exp_date);
+	}
 
-    $hari = date('D', strtotime($tanggal));
-    $bulan = date('M', strtotime($tanggal));
+	function woday_toindo($tanggal)
+	{
+		$exp = explode('-', date("Y-m-d", strtotime($tanggal)));
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
 
-    $monList = array(
-        'Jan' => 'Januari',
-        'Feb' => 'Februari',
-        'Mar' => 'Maret',
-        'Apr' => 'April',
-        'May' => 'Mei',
-        'Jun' => 'Juni',
-        'Jul' => 'Juli',
-        'Aug' => 'Agustus',
-        'Sep' => 'September',
-        'Oct' => 'Oktober',
-        'Nov' => 'November',
-        'Dec' => 'Desember'
-    );
+		$hari = date('D', strtotime($tanggal));
+		$bulan = date('M', strtotime($tanggal));
 
-    $exp_date = $day.' '.$monList[$bulan].' '.$year;
-    return($exp_date);
-}
+		$monList = array(
+			'Jan' => 'Januari',
+			'Feb' => 'Februari',
+			'Mar' => 'Maret',
+			'Apr' => 'April',
+			'May' => 'Mei',
+			'Jun' => 'Juni',
+			'Jul' => 'Juli',
+			'Aug' => 'Agustus',
+			'Sep' => 'September',
+			'Oct' => 'Oktober',
+			'Nov' => 'November',
+			'Dec' => 'Desember'
+		);
 
-function hari($tanggal)
-{
-    $day = date('D', strtotime($tanggal));
-    
-    $dayList = array(
-        'Sun' => 'Minggu',
-        'Mon' => 'Senin',
-        'Tue' => 'Selasa',
-        'Wed' => 'Rabu',
-        'Thu' => 'Kamis',
-        'Fri' => 'Jumat',
-        'Sat' => 'Sabtu'
-    );
-    return $dayList[$day];
-}
+		$exp_date = $day . ' ' . $monList[$bulan] . ' ' . $year;
+		return ($exp_date);
+	}
 
-function bulan($tanggal)
-{
-    $month = date('M', strtotime($tanggal));
+	function hari($tanggal)
+	{
+		$day = date('D', strtotime($tanggal));
 
-    $monList = array(
-        'Jan' => 'Januari',
-        'Feb' => 'Februari',
-        'Mar' => 'Maret',
-        'Apr' => 'April',
-        'May' => 'Mei',
-        'Jun' => 'Juni',
-        'Jul' => 'Juli',
-        'Aug' => 'Agustus',
-        'Sep' => 'September',
-        'Oct' => 'Oktober',
-        'Nov' => 'November',
-        'Dec' => 'Desember'
-    );
-    return $monList[$month];
-}
+		$dayList = array(
+			'Sun' => 'Minggu',
+			'Mon' => 'Senin',
+			'Tue' => 'Selasa',
+			'Wed' => 'Rabu',
+			'Thu' => 'Kamis',
+			'Fri' => 'Jumat',
+			'Sat' => 'Sabtu'
+		);
+		return $dayList[$day];
+	}
 
-function bulan_angka($angka)
-{
-    $month = $angka;
+	function bulan($tanggal)
+	{
+		$month = date('M', strtotime($tanggal));
 
-    $monList = array(
-        '1' => 'Januari',
-        '2' => 'Februari',
-        '3' => 'Maret',
-        '4' => 'April',
-        '5' => 'Mei',
-        '6' => 'Juni',
-        '7' => 'Juli',
-        '8' => 'Agustus',
-        '9' => 'September',
-        '10' => 'Oktober',
-        '11' => 'November',
-        '12' => 'Desember'
-    );
-    return $monList[$month];
-}
+		$monList = array(
+			'Jan' => 'Januari',
+			'Feb' => 'Februari',
+			'Mar' => 'Maret',
+			'Apr' => 'April',
+			'May' => 'Mei',
+			'Jun' => 'Juni',
+			'Jul' => 'Juli',
+			'Aug' => 'Agustus',
+			'Sep' => 'September',
+			'Oct' => 'Oktober',
+			'Nov' => 'November',
+			'Dec' => 'Desember'
+		);
+		return $monList[$month];
+	}
 
-function woday_toindo_short($tanggal) {
-    $exp = explode('-', date("Y-m-d", strtotime($tanggal)));
-    $day    = $exp[2];
-    $month  = $exp[1];
-    $year   = $exp[0];
+	function bulan_angka($angka)
+	{
+		$month = $angka;
 
-    $hari = date('D', strtotime($tanggal));
-    $bulan = date('M', strtotime($tanggal));
+		$monList = array(
+			'1' => 'Januari',
+			'2' => 'Februari',
+			'3' => 'Maret',
+			'4' => 'April',
+			'5' => 'Mei',
+			'6' => 'Juni',
+			'7' => 'Juli',
+			'8' => 'Agustus',
+			'9' => 'September',
+			'10' => 'Oktober',
+			'11' => 'November',
+			'12' => 'Desember'
+		);
+		return $monList[$month];
+	}
 
-    $monList = array(
-        'Jan' => 'Jan',
-        'Feb' => 'Feb',
-        'Mar' => 'Mar',
-        'Apr' => 'Apr',
-        'May' => 'Mei',
-        'Jun' => 'Jun',
-        'Jul' => 'Jul',
-        'Aug' => 'Ags',
-        'Sep' => 'Sep',
-        'Oct' => 'Okt',
-        'Nov' => 'Nov',
-        'Dec' => 'Des'
-    );
+	function woday_toindo_short($tanggal)
+	{
+		$exp = explode('-', date("Y-m-d", strtotime($tanggal)));
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
 
-    $exp_date = $day.' '.$monList[$bulan].' '.$year;
-    return($exp_date);
-}
+		$hari = date('D', strtotime($tanggal));
+		$bulan = date('M', strtotime($tanggal));
+
+		$monList = array(
+			'Jan' => 'Jan',
+			'Feb' => 'Feb',
+			'Mar' => 'Mar',
+			'Apr' => 'Apr',
+			'May' => 'Mei',
+			'Jun' => 'Jun',
+			'Jul' => 'Jul',
+			'Aug' => 'Ags',
+			'Sep' => 'Sep',
+			'Oct' => 'Okt',
+			'Nov' => 'Nov',
+			'Dec' => 'Des'
+		);
+
+		$exp_date = $day . ' ' . $monList[$bulan] . ' ' . $year;
+		return ($exp_date);
+	}
+
+	function waktu_format_indonesia($waktu)
+	{
+		$exp = explode('-', date("Y-m-d-H-i", strtotime($waktu)));
+		$minute = $exp[4];
+		$hour = $exp[3];
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
+
+		$hari = date('D', strtotime($waktu));
+		$bulan = date('M', strtotime($waktu));
+		$harilist = array(
+			'Sun' => 'Minggu',
+			'Mon' => 'Senin',
+			'Tue' => 'Selasa',
+			'Wed' => 'Rabu',
+			'Thu' => 'Kamis',
+			'Fri' => 'Jumat',
+			'Sat' => 'Sabtu'
+		);
+
+		$monList = array(
+			'Jan' => 'Januari',
+			'Feb' => 'Februari',
+			'Mar' => 'Maret',
+			'Apr' => 'April',
+			'May' => 'Mei',
+			'Jun' => 'Juni',
+			'Jul' => 'Juli',
+			'Aug' => 'Agustus',
+			'Sep' => 'September',
+			'Oct' => 'Oktober',
+			'Nov' => 'November',
+			'Dec' => 'Desember'
+		);
+
+		$exp_date = $harilist[$hari] . ', ' . $day . ' ' . $monList[$bulan] . ' ' . $year . ' ' . $hour . ':' . $minute;
+		return ($exp_date);
+	}
 
 ?>

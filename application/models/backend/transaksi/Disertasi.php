@@ -717,12 +717,6 @@ class Disertasi extends CI_Model {
                     'color' => 'bg-blue'
                 ],
                 [
-                    'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PA,
-                    'text' => 'Disetujui PA',
-                    'keterangan' => 'Disetujui oleh Penasehat Akademik',
-                    'color' => 'bg-green'
-                ],
-                [
                     'value' => STATUS_DISERTASI_KUALIFIKASI_DIJADWALKAN,
                     'text' => 'Dijadwalkan',
                     'keterangan' => 'Telah dijadwalkan Oleh Penasehat Akademik untuk Ujian dan pengajuan dosen penguji',
@@ -752,6 +746,12 @@ class Disertasi extends CI_Model {
                     'keterangan' => 'Sedang menunggu masa jadwal Ujian',
                     'color' => 'bg-purple'
                 ],
+				[
+					'value' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN,
+					'text' => 'Persetujuan Berkas',
+					'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+					'color' => 'bg-orange'
+				],
                 [
                     'value' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
                     'text' => 'Selesai',

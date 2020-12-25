@@ -69,7 +69,7 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="form-group">
-                    <label>Status Ujian</label>
+                    <label>Hasil</label>
                     <p>
                         <?php
                         echo $this->disertasi->get_status_ujian($disertasi->status_ujian_kualifikasi, UJIAN_DISERTASI_KUALIFIKASI);

@@ -35,47 +35,5 @@
 <!-- Sweet Alert -->
 <script src="<?= base_url() ?>assets/template/backend/plugins/sweetalert/sweetalert.min.js"></script>
 <script src="<?php echo base_url() ?>assets/js/app.js"></script>
-<script>
-    $(function () {
-        $('#example1').DataTable()
-        $('#example2').DataTable({
-            'paging': true,
-            'lengthChange': false,
-            'searching': false,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false
-        });
-
-        $('#datatable-export').DataTable({
-            'paging': true,
-            'ordering': true,
-            'info': true,
-            'dom': 'Bfrtip',
-            'buttons': [
-                'excel'
-            ]
-
-        });
-
-        //Date picker
-        $('#datepicker').datepicker({
-            format: 'dd/mm/yyyy',
-            autoclose: true
-        })
-
-        //Initialize Select2 Elements
-        $('.select2').select2();
-
-
-    });
-
-
-    function hanyaAngka(evt) {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
-    }
-
-</script>
+<!-- Custom JS -->
+<script src="<?php echo base_url() ?>assets/js/custom.js"></script>

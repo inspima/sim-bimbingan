@@ -148,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <?php
                                         else:
                                             ?>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?= $no ?>  .........
                                         <?php
                                         endif;
                                         ?>
@@ -174,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <?php
                                         else:
                                             ?>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
+                                            <?= $no ?>  ..........
                                         <?php
                                         endif;
                                         ?>

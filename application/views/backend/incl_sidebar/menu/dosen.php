@@ -5,7 +5,7 @@
     <?php
     $struktural = $this->struktural->read_struktural($this->session_data['username']);
     if ($struktural) {
-        if ($struktural->id_struktur == '2') {//WADEK 1
+        if ($struktural->id_struktur == STRUKTUR_WADEK_1) {//WADEK 1
             ?>
             <li class="header">FITUR WADEK 1</li>
             <li class="treeview">
@@ -42,7 +42,7 @@
                 </ul>
             </li>
             <?php
-        } else if ($struktural->id_struktur == '5') {//KADEP
+        } else if ($struktural->id_struktur == STRUKTUR_KETUA_BAGIAN) {//KETUA BAGIAN
             ?>
             <li class="header">FITUR KADEP</li>
             <li class="treeview">
@@ -97,20 +97,9 @@
                 </ul>
             </li>
             <?php
-        } else if ($struktural->id_struktur == '7') {//WADEK 1
+        } else if ($struktural->id_struktur == STRUKTUR_SPS) {//SPS
             ?>
             <li class="header">FITUR SPS</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-file"></i> <span>Skripsi</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-
-                </ul>
-            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-o"></i> <span>Tesis</span>
@@ -156,7 +145,7 @@
                 </ul>
             </li>
             <?php
-        } else if ($struktural->id_struktur == '8') {//KPS S2
+        } else if ($struktural->id_struktur == STRUKTUR_KPS_S2) {//KPS S2
             ?>
             <li class="header">FITUR KPS S2</li>
             <li class="treeview">
@@ -175,7 +164,7 @@
                 </ul>
             </li>
             <?php
-        } else if ($struktural->id_struktur == '9') {//KPS S3
+        } else if ($struktural->id_struktur == STRUKTUR_KPS_S3) {//KPS S3
             ?>
             <li class="header">FITUR KPS S3</li>
             <li class="treeview">
@@ -267,10 +256,22 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i>Berita Acara</a></li>
+            <li><a href="<?php echo base_url() ?>dosen/dokumen/berita_acara"><i class="fa fa-circle-o"></i>Berita Acara</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i>Undangan</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i>Surat Tugas</a></li>
         </ul>
     </li>
-    <?php ?>
+	<li class="header">LAIN-LAIN</li>
+	<li class="treeview">
+		<a href="#">
+			<i class="fa fa-bar-chart"></i> <span>Laporan</span>
+			<span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+		</a>
+		<ul class="treeview-menu">
+			<li><a href=""><i class="fa fa-circle-o"></i>Bimbingan</a></li>
+			<li><a href=""><i class="fa fa-circle-o"></i>Penguji</a></li>
+		</ul>
+	</li>
 </ul>

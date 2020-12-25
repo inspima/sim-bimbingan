@@ -215,27 +215,6 @@ class Ujian extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
-    public function penasehat_setujui() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_disertasi = $this->input->post('id_disertasi', TRUE);
-
-            $data = array(
-                'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PA,
-            );
-
-            $this->disertasi->update($data, $id_disertasi);
-
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil disetujui');
-            redirect('dosen/disertasi/permintaan/penasehat');
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/disertasi/permintaan/penasehat');
-        }
-    }
-
     public function terima() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {

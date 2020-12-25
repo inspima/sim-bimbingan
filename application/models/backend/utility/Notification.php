@@ -15,8 +15,7 @@ class Notification extends CI_Model {
         $this->config_whatsapp['api_key'] = '6tFAtU5SHUxbJ0KAgke5oqahfQP4szKB';
         $this->config_whatsapp['api_url'] = 'https://api.wanotif.id/v1/send';
 
-        $this->element_whatsapp['new_line'] = '
-‎';
+        $this->element_whatsapp['new_line'] = WA_LINE_BREAK;
         $this->element_whatsapp['bold'] = '*';
         $this->element_whatsapp['underline'] = '_';
         $this->element_whatsapp['italic'] = '_';
