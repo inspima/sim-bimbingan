@@ -3,13 +3,14 @@ $disertasi_mkpkks = $this->disertasi->read_disertasi_mkpkk($disertasi->id_disert
 if (!empty($disertasi_mkpkks)) {
     ?>              
     <div class="form-group">
-        <table class="table table-condensed ">
-            <tr class="bg-gray-light">
+        <table class="table table-bordered ">
+            <tr class="bg-gray">
                 <th>Mata Kuliah</th>
                 <th>Pengampu</th>
                 <th class="text-center">Nilai</th>
             </tr>
             <?php
+			$sudah_publish_semua=$this->disertasi->cek_mkpkk_sudah_publish($disertasi->id_disertasi);
             foreach ($disertasi_mkpkks as $index => $mkpkk) {
                 ?>
                 <tr>
@@ -26,9 +27,9 @@ if (!empty($disertasi_mkpkks)) {
                     </td>
                     <td class="text-center">
                         <?php
-                        if ($mkpkk['nilai_publish'] != '0') {
+                        if ($sudah_publish_semua) {
                             ?>
-                            <?php echo $mkpkk['nilai_angka'] ?>
+                            <strong style="font-size: 1.2em"><?php echo $mkpkk['nilai_angka'] ?></strong>
                             <?php
                         } else {
                             ?>

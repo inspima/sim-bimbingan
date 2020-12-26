@@ -26,6 +26,7 @@ class Promotor extends CI_Controller {
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
+		$this->load->model('backend/utility/notification', 'notifikasi');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
         //END MODEL
     }
@@ -82,6 +83,33 @@ class Promotor extends CI_Controller {
             redirect_back();
         }
     }
+
+	public function kirim_whatsapp()
+	{
+		$hand = $this->input->post('hand', true);
+		if ($hand == 'center19') {
+			$id_disertasi = $this->input->post('id_disertasi', true);
+			$disertasi = $this->disertasi->detail($id_disertasi);
+			$promotors = $this->disertasi->read_promotor_kopromotor($id_disertasi);
+			$mhs = $this->user->read_mhs($disertasi->nim);
+			foreach ($promotors as $promotor) {
+				$judul_notifikasi = 'Permintaan Promotor/Ko-Promotor';
+				$isi_notifikasi = 'Mohon kesediaanya untuk menjadi promotor/ko-promotor mahasiswa'
+					. WA_LINE_BREAK . WA_LINE_BREAK . 'Nama :' . $mhs->nama
+					. WA_LINE_BREAK . 'Nim :' . $disertasi->nim
+					. WA_LINE_BREAK . 'Judul :' . $disertasi->judul
+					. WA_LINE_BREAK . WA_LINE_BREAK . 'Pada sistem IURIS';
+				$this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $promotor['nip']);
+			}
+			$this->session->set_flashdata('msg-title', 'alert-success');
+			$this->session->set_flashdata('msg', 'Notifikasi whatsapp berhasil dikirim');
+			redirect_back();
+		} else {
+			$this->session->set_flashdata('msg-title', 'alert-danger');
+			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+			redirect_back();
+		}
+	}
 
     public function promotor_save() {
         $hand = $this->input->post('hand', TRUE);

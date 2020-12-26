@@ -71,10 +71,13 @@
 		{
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
+				$id_dokumen = $this->input->post('id_dokumen', true);
 				$id_persetujuan = $this->input->post('id_persetujuan', true);
 				$nilai = $this->input->post('nilai', true);
 				$hasil = $this->input->post('hasil', true);
+				$jenis = $this->input->post('jenis', true);
 				$keterangan = $this->input->post('keterangan', true);
+				$dokumen = $this->dokumen->detail($id_dokumen);
 				$data = array(
 					'nilai' => $nilai,
 					'hasil' => $hasil,
@@ -82,6 +85,17 @@
 					'waktu' => date('Y-m-d H:i:s')
 				);
 				$this->dokumen->update_persetujuan($data, $id_persetujuan);
+				// Jika merupakan ketua penguji
+				if($jenis=='1'){
+					// Disertasi Kualifikasi
+					if($dokumen->jenis==DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR){
+						$data_disertasi=[
+							'status_kualifikasi'=>STATUS_DISERTASI_KUALIFIKASI_SELESAI,
+							'status_ujian_kualifikasi'=>$this->disertasi->get_id_status_ujian_by_text($hasil,UJIAN_DISERTASI_KUALIFIKASI),
+						];
+						$this->disertasi->update($data_disertasi,$dokumen->id_tugas_akhir);
+					}
+				}
 
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil melakukan persetujuan.');

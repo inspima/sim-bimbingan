@@ -20,6 +20,7 @@
                 <tr>
                     <th>No</th>
                     <th>Judul</th>
+					<th>Penasehat</th>
                     <th>Berkas</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
@@ -37,12 +38,13 @@
                             echo $judul->judul;
                             ?>
                         </td>
-                        <td>
+						<td><?php echo $list['nama_penasehat'] ?><br/><b><?php echo $list['nip_penasehat'] ?></b></td>
+						<td>
                             <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mpkk/<?php echo $list['berkas_mpkk'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
-                            <?php if ($list['status_mpkk'] > 3 && $list['status_proposal'] == 0) {
+                            <?php if ($list['status_mpkk'] >= STATUS_DISERTASI_MPKK_SELESAI && $list['status_proposal'] < STATUS_DISERTASI_PROPOSAL_PENGAJUAN) {
                                 ?>
                                 <hr style = "margin:5px"/>
                                 <a href = "<?= base_url() ?>mahasiswa/disertasi/proposal/add/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
@@ -51,7 +53,7 @@
                             ?>
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_mpkk'] > 0) {
+                            <?php if ($list['status_mpkk'] >= STATUS_DISERTASI_MPKK_PENGAJUAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/disertasi/mpkk/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php

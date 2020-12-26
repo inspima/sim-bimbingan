@@ -114,6 +114,8 @@ class Mpkk extends CI_Controller {
                     $this->disertasi->save_disertasi_mkpkk($data);
                 }
 
+				$this->disertasi->generate_disertasi_mkpkk_pengampu($id_disertasi);
+
                 $data = array(
                     'jenis' => TAHAPAN_DISERTASI_MPKK,
                     'berkas_mpkk' => $file_name,

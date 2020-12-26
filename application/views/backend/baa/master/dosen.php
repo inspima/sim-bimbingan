@@ -14,8 +14,6 @@
             <div class="box-header">
                 <h3 class="box-title"><?=$subtitle?></h3>
                 <div class="pull-right">
-                    <a class="btn btn-xs btn-primary" href="<?= base_url()?>dashboardb/master/semester/add">
-                    <i class="fa fa-plus"></i> Tambah</a>
                 </div>
             </div>
             <!-- /.box-header -->

@@ -51,7 +51,7 @@
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
 
-                            <?php if ($list['status_kualifikasi'] > STATUS_DISERTASI_KUALIFIKASI_SELESAI) {
+                            <?php if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SELESAI) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>

@@ -1,7 +1,18 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu" data-widget="tree">
     <li><a href="<?php echo base_url() ?>dashboardd"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-
+	<li class="treeview">
+		<a href="#">
+			<i class="fa fa-bar-chart"></i> <span>Laporan</span>
+			<span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+		</a>
+		<ul class="treeview-menu">
+			<li><a href=""><i class="fa fa-circle-o"></i>Bimbingan</a></li>
+			<li><a href=""><i class="fa fa-circle-o"></i>Penguji</a></li>
+		</ul>
+	</li>
     <?php
     $struktural = $this->struktural->read_struktural($this->session_data['username']);
     if ($struktural) {
@@ -182,7 +193,7 @@
         }
     }
     ?>
-    <li class="header">PERMINTAAN</li>
+    <li class="header">PERMINTAAN & PERSETUJUAN</li>
     <li class="treeview">
         <a href="#">
             <i class="fa fa-file"></i> <span>Skripsi</span>
@@ -248,6 +259,17 @@
             <li><a href="<?php echo base_url() ?>dosen/disertasi/permintaan/promotor"><i class="fa fa-circle-o"></i>Promotor/Ko-Promotor</a></li>
         </ul>
     </li>
+	<li class="treeview">
+		<a href="#">
+			<i class="fa fa-pencil"></i> <span>Penilaian</span>
+			<span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+		</a>
+		<ul class="treeview-menu">
+			<li><a href="<?php echo base_url() ?>dosen/disertasi/penilaian"><i class="fa fa-circle-o"></i>Disertasi</a></li>
+		</ul>
+	</li>
     <li class="treeview">
         <a href="#">
             <i class="fa fa-file-pdf-o"></i> <span>Dokumen</span>
@@ -261,17 +283,4 @@
             <li><a href=""><i class="fa fa-circle-o"></i>Surat Tugas</a></li>
         </ul>
     </li>
-	<li class="header">LAIN-LAIN</li>
-	<li class="treeview">
-		<a href="#">
-			<i class="fa fa-bar-chart"></i> <span>Laporan</span>
-			<span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-		</a>
-		<ul class="treeview-menu">
-			<li><a href=""><i class="fa fa-circle-o"></i>Bimbingan</a></li>
-			<li><a href=""><i class="fa fa-circle-o"></i>Penguji</a></li>
-		</ul>
-	</li>
 </ul>

@@ -1,5 +1,5 @@
 <table class="table table-condensed ">
-    <tr class="bg-gray-light">
+    <tr class="bg-gray">
         <th>Nama</th>
         <th>Tim</th>
         <th>Status</th>

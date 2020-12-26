@@ -211,6 +211,7 @@ class Permintaan extends CI_Controller {
 
                 $this->disertasi->save_disertasi_mkpkk($data);
             }
+			$this->disertasi->generate_disertasi_mkpkk_pengampu($id_disertasi);
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'MKPKK berhasil di save');

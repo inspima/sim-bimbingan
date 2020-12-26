@@ -117,10 +117,16 @@
 								?>
 								<div class="callout callout-info">Anda adalah penentu hasil akhir</div>
 								<?php
+							} else {
+								?>
+								<?php
 							}
 						?>
+
 						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+						<?php echo formtext('hidden', 'id_dokumen', $dokumen_persetujuan->id_dokumen, 'required') ?>
 						<?php echo formtext('hidden', 'id_persetujuan', $dokumen_persetujuan->id_dokumen_persetujuan, 'required') ?>
+						<?php echo formtext('hidden', 'jenis', $dokumen_persetujuan->jenis, 'required') ?>
 						<div class="form-group">
 							<label>Nilai</label>
 							<input type="text" name="nilai" class="form-control">

@@ -98,7 +98,8 @@
 				$data_dokumen = [
 					'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, 'kualifikasi', $disertasi->nim, $jadwal->tanggal),
 					'tipe' => DOKUMEN_BERITA_ACARA_STR,
-					'jenis' => 'kualifikasi',
+					'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
+					'id_tugas_akhir' => $id_disertasi,
 					'identitas' => $disertasi->nim,
 					'nama' => 'Berita Acara Ujian Kualifikasi - ' . $disertasi->nama,
 					'deskripsi' => $disertasi->judul,
