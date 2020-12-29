@@ -1,10 +1,9 @@
 <div class="row">
     <div class="col-md-8">
-        <p style="font-size:50px;color:#FFFFFF;">IURIS</p>
-        <p class="hidden-xs hidden-sm" style="font-size:35px;color:#FFFFFF;text-shadow: #000000 1px 0 10px;">Selamat Datang di aplikasi pengelolaan Proposal Skripsi, Skripsi Fakultas Hukum Universitas Airlangga</p>
+		<p class="hidden-xs hidden-sm" style="font-size:35px;color:black;margin-top:30px;font-weight: bold">Selamat Datang di SIM Tugas Akhir</p>
     </div>
     <div class="col-md-4">
-        <div class="box">
+        <div class="box box-default box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title text-shadow">Registrasi Mahasiswa</h3>
             </div>

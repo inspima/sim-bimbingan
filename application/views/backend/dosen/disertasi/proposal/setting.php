@@ -155,7 +155,13 @@
 
                     <?php echo form_close() ?>                
                     <?php $this->view('backend/widgets/disertasi/list_penguji_dosen', ['disertasi' => $disertasi, 'ujian' => $ujian]); ?>
-
+					<?php echo form_open('dosen/disertasi/proposal/penguji/kirim_whatsapp'); ?>
+					<div class="form-group">
+						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+						<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-comment"></i> Kirim Notifikasi Whatsapp</button>
+					</div>
+					<?php echo form_close() ?>
                     <?php
                 } else {
                     ?>

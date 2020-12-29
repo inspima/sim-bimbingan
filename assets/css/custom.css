@@ -7,41 +7,78 @@ and open the template in the editor.
     Created on : Nov 20, 2020, 1:10:21 AM
     Author     : NAMBI
 */
+.bg-layout {
+	background-image: url('/assets/img/bg_home_new.jpg');
+	background-size: 100% auto;
+}
+
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+	.bg-layout {
+		background-image: none;
+	}
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+	.bg-layout {
+		background-image: none;
+	}
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+	.bg-layout {
+		background-image: none;
+	}
+
+}
+
 /* TITLE*/
-.text-shadow{
-    text-shadow: #c9c9c9 2px 0 2px;
-    font-weight: bold;
+.text-shadow {
+	text-shadow: #c9c9c9 2px 0 2px;
+	font-weight: bold;
 }
+
 /* DIVIDER */
-.divider3{
-    margin: 3px;
-    display: block;
-}
-.divider5{
-    margin: 5px;
-    display: block;
-}
-.divider10{
-    margin: 10px;
-    display: block;
+.divider3 {
+	margin: 3px;
+	display: block;
 }
 
-.divider-line-thin{
-    margin: 5px 0px;
-    margin-right: 10px;
-    border-width:1px;
-    border-color: #dedede;
+.divider5 {
+	margin: 5px;
+	display: block;
 }
 
-.divider-line-semi-bold{
-    margin: 5px 0px;
-    margin-right: 10px;
-    border-width:2px;
-    border-color: #bbbbbb;
+.divider10 {
+	margin: 10px;
+	display: block;
 }
-.divider-line-bold{
-    margin: 5px 0px;
-    margin-right: 10px;
-    border-width:3px;
-    border-color: #797979;
+
+.divider-line-thin {
+	margin: 5px 0px;
+	margin-right: 10px;
+	border-width: 1px;
+	border-color: #dedede;
+}
+
+.divider-line-semi-bold {
+	margin: 5px 0px;
+	margin-right: 10px;
+	border-width: 2px;
+	border-color: #bbbbbb;
+}
+
+.divider-line-bold {
+	margin: 5px 0px;
+	margin-right: 10px;
+	border-width: 3px;
+	border-color: #797979;
 }

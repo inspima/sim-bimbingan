@@ -2,7 +2,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand">FAKULTAS HUKUM</a>
+          <a href="#" class="navbar-brand">IURIS</a>
         </div>
         <!--incl/topmenu-->
       </div>

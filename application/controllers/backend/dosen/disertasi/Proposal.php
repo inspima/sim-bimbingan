@@ -27,6 +27,8 @@ class Proposal extends CI_Controller {
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
+		$this->load->model('backend/utility/notification', 'notifikasi');
+		$this->load->model('backend/user', 'user');
         //END MODEL
     }
 
@@ -90,7 +92,7 @@ class Proposal extends CI_Controller {
             'disertasi' => $this->disertasi->detail($id_disertasi),
             'mruang' => $this->ruang->read_aktif(),
             'mjam' => $this->jam->read_aktif(),
-            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'mdosen' => $this->dosen->read_aktif_alldep_s3(),
             'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_PROPOSAL),
             'status_ujians' => $this->disertasi->read_status_ujian(UJIAN_DISERTASI_PROPOSAL),
         );
@@ -274,6 +276,35 @@ class Proposal extends CI_Controller {
             redirect('dosen/disertasi/permintaan/promotor');
         }
     }
+
+	public function penguji_kirim_whatsapp()
+	{
+		$hand = $this->input->post('hand', true);
+		if ($hand == 'center19') {
+			$id_disertasi = $this->input->post('id_disertasi', true);
+			$disertasi = $this->disertasi->detail($id_disertasi);
+			$ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_PROPOSAL);
+			$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+			$mhs = $this->user->read_mhs($disertasi->nim);
+			foreach ($pengujis as $penguji) {
+				$judul_notifikasi = 'Permintaan Penguji Ujian Proposal';
+				$isi_notifikasi = 'Mohon kesediaanya untuk menjadi penguji pada Ujian Proposal mahasiswa'
+					. WA_LINE_BREAK . WA_LINE_BREAK . 'Nama :' . $mhs->nama
+					. WA_LINE_BREAK . 'Nim :' . $disertasi->nim
+					. WA_LINE_BREAK . 'Judul :' . $disertasi->judul
+					. WA_LINE_BREAK . WA_LINE_BREAK . 'Pada sistem IURIS';
+				$this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $penguji['nip']);
+			}
+
+			$this->session->set_flashdata('msg-title', 'alert-success');
+			$this->session->set_flashdata('msg', 'Notifikasi whatsapp berhasil dikirim');
+			redirect_back();
+		} else {
+			$this->session->set_flashdata('msg-title', 'alert-danger');
+			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+			redirect_back();
+		}
+	}
 
     public function penguji_update_statustim() {
         $hand = $this->input->post('hand', TRUE);

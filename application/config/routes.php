@@ -468,6 +468,7 @@
 	$route['dosen/disertasi/proposal/penguji_save'] = 'backend/dosen/disertasi/proposal/penguji_save';
 	$route['dosen/disertasi/proposal/penguji_update_statustim'] = 'backend/dosen/disertasi/proposal/penguji_update_statustim';
 	$route['dosen/disertasi/proposal/penguji_delete'] = 'backend/dosen/disertasi/proposal/penguji_delete';
+	$route['dosen/disertasi/proposal/penguji/kirim_whatsapp'] = 'backend/dosen/disertasi/proposal/penguji_kirim_whatsapp';
 
 	$route['dosen/disertasi/proposal/update_status_ujian'] = 'backend/dosen/disertasi/proposal/update_status_ujian';
 	$route['dosen/disertasi/proposal/promotor_save'] = 'backend/dosen/disertasi/proposal/promotor_save';

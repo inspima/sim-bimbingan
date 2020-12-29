@@ -6,7 +6,7 @@
 <div class="wrapper">
 
   <?php $this->load->view('backend/incl/header')?>
-  <div class="content-wrapper" style="background-image: url('https://fh.unair.ac.id/iuris2019/assets/img/bg-home.png');background-size: 100% 100%">
+  <div class="content-wrapper bg-layout">
     <div class="container">
         <section class="content">
             
