@@ -9,6 +9,43 @@
 	</div>
 <?php endif; ?>
 <div class="row">
+	<div class="col-sm-12">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Dokumen</h3>
+			</div>
+			<div class="box-body">
+
+				<div class="form-group">
+					<label>Judul Dokumen</label>
+					<hr class="divider-line-thin"/>
+					<?php echo $dokumen->nama ?>
+				</div>
+				<div class="form-group">
+					<label>NIM</label>
+					<hr class="divider-line-thin"/>
+					<?php echo $dokumen->identitas ?>
+				</div>
+				<div class="form-group">
+					<label>Nama Mahasiswa</label>
+					<hr class="divider-line-thin"/>
+					<?php echo $dokumen->nama_mhs ?>
+				</div>
+				<div class="form-group">
+					<label>Judul Disertasi</label>
+					<hr class="divider-line-thin"/>
+					<?php echo $dokumen->deskripsi ?>
+				</div>
+				<div class="form-group">
+					<label>Link Dokumen</label>
+					<hr class="divider-line-thin"/>
+					<a class="btn btn-xs bg-red-active" href="<?php echo $dokumen->link_cetak ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Lihat</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
 	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">

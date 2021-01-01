@@ -1,9 +1,8 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<style type="text/css">
 		body {
@@ -11,7 +10,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			font-family: "Times New Roman", Times, serif;
 			font-size: 14px;
 		}
-
 		.line {
 			background-image: url("assets/backend/cetak/line.png");
 			background-repeat: repeat-x;
@@ -52,7 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td>
 			<table border="0" style="width:100%">
 				<tr>
-					<td align="center"><h3><b>BERITA ACARA UJIAN KUALIFIKASI</b></h3></td>
+					<td align="center"><h3><b>BERITA ACARA UJIAN PROPOSAL</b></h3></td>
 				</tr>
 			</table>
 		</td>
@@ -63,12 +61,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<table border="0" style="width:100%">
 				<tr>
 					<td>
-						<p style="line-height: 2;margin: 5px">Pada hari ini
-							<b><?php echo hari($jadwal->tanggal) ?></b> Tanggal
-							<b> <?php echo woday_toindo($jadwal->tanggal) ?></b> pukul
-							<b><?= substr($jadwal->jam, 0, 5); ?> - Selesai</b> WIB di
-							<b>Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></b> <?=$this->setting->get_value('universitas_fakultas_txt')?> <?=$this->setting->get_value('universitas_txt')?>, dilaksanakan Ujian Kualifikasi :
-						</p>
+						<p style="line-height: 2;margin: 5px">Pada hari ini <b><?php echo hari($jadwal->tanggal) ?></b> Tanggal <b> <?php echo woday_toindo($jadwal->tanggal) ?></b> pukul <b><?= substr($jadwal->jam, 0, 5); ?> - Selesai</b> WIB di <b>Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></b> <?=$this->setting->get_value('universitas_fakultas_txt')?> <?=$this->setting->get_value('universitas_txt')?>, dilaksanakan Ujian Proposal :</p>
 					</td>
 				</tr>
 			</table>
@@ -140,8 +133,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<td style="width: 58%"><?= $penguji['nama'] ?></td>
 							<?php if ($no % 2 == 0):
 								?>
-								<td style="width: 20%"></td>
-								<td style="width: 20%;text-align: left;">
+								<td style = "width: 20%"></td>
+								<td style = "width: 20%;text-align: left;">
 									<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
 										?>
 										<?= $no ?>.
@@ -167,7 +160,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<?php
 							else:
 								?>
-								<td style="width: 20%;text-align: left;">
+								<td style = "width: 20%;text-align: left;">
 									<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
 										?>
 										<?= $no ?>.
@@ -190,7 +183,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									endif;
 									?>
 								</td>
-								<td style="width: 20%"></td>
+								<td style = "width: 20%"></td>
 							<?php
 							endif;
 							?>
@@ -210,7 +203,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<table border="0" style="width:100%;margin-top: 10px">
 				<tr>
 					<td>
-						<p style="line-height: 2">Memutuskan bahwa Ujian Kualifikasi bagi mahasiswa tersebut : </p>
+						<p style="line-height: 2">Memutuskan bahwa Ujian Kualifikasi bagi mahasiswa tersebut :  </p>
 					</td>
 				</tr>
 				<tr>

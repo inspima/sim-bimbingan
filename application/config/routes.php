@@ -231,7 +231,10 @@
 	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
 	$route['baa/utility/registrasi/verifikasi'] = 'backend/baa/utility/registrasi/verifikasi';
 	$route['baa/utility/pencarian'] = 'backend/baa/utility/pencarian';
-
+        
+        $route['baa/report/skripsi'] = 'backend/baa/report/skripsi';
+        $route['baa/report/skripsi/bimbingan'] = 'backend/baa/report/skripsi/bimbingan';
+        $route['baa/report/skripsi/detail_bimbingan'] = 'backend/baa/report/skripsi/detail_bimbingan';
 	//3. Dashboard Mahasiswa S1
 
 	$route['dashboardm'] = 'backend/mahasiswa/home';
@@ -466,6 +469,7 @@
 	$route['dosen/disertasi/proposal/terima'] = 'backend/dosen/disertasi/proposal/terima';
 	$route['dosen/disertasi/proposal/jadwal_save'] = 'backend/dosen/disertasi/proposal/jadwal_save';
 	$route['dosen/disertasi/proposal/penguji_save'] = 'backend/dosen/disertasi/proposal/penguji_save';
+	$route['dosen/disertasi/proposal/penguji_promotor_save'] = 'backend/dosen/disertasi/proposal/penguji_promotor_save';
 	$route['dosen/disertasi/proposal/penguji_update_statustim'] = 'backend/dosen/disertasi/proposal/penguji_update_statustim';
 	$route['dosen/disertasi/proposal/penguji_delete'] = 'backend/dosen/disertasi/proposal/penguji_delete';
 	$route['dosen/disertasi/proposal/penguji/kirim_whatsapp'] = 'backend/dosen/disertasi/proposal/penguji_kirim_whatsapp';

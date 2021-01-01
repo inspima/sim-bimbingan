@@ -73,7 +73,7 @@ class Proposal extends CI_Controller {
                 'section' => 'backend/mahasiswa/disertasi/proposal/add',
                 'use_back' => true,
                 'back_link' => 'mahasiswa/disertasi/proposal',
-                'mdosen' => $this->dosen->read_aktif_alldep(),
+                'mdosen' => $this->dosen->read_aktif_alldep_s3(),
                 // DATA //
                 'departemen' => $this->departemen->read(),
                 'gelombang' => $this->gelombang->read_berjalan(),

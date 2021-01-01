@@ -88,8 +88,8 @@
 					'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN
 				];
 				$this->disertasi->update($update_disertasi, $id_disertasi);
-				$link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI;
-				$link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI;
+				$link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
+				$link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
 				// QR
 				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Kualifikasi', $disertasi->nim, $jadwal->tanggal);
 				$qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE

@@ -41,10 +41,11 @@
 
 		public function detail($id)
 		{
-			$this->db->select('*');
-			$this->db->from('dokumen');
-			$this->db->where('id_dokumen', $id);
-			$this->db->where('status', 1);
+			$this->db->select('d.*,m.nama nama_mhs');
+			$this->db->from('dokumen d');
+			$this->db->join('mahasiswa m', 'm.nim= d.identitas');
+			$this->db->where('d.id_dokumen', $id);
+			$this->db->where('d.status', 1);
 
 			$query = $this->db->get();
 			return $query->row();
@@ -124,11 +125,12 @@
 
 		public function generate_persetujuan_berita_acara($datas, $id_dokumen, $id_jenjang, $id_tugas_akhir)
 		{
+			$dokumen = $this->detail($id_dokumen);
 			if ($id_jenjang == JENJANG_S3) {
 				foreach ($datas as $data):
 					$link_dokumen = base_url() . 'document/persetujuan?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tugas_akhir . '$' . $id_dokumen . '$' . $data['nip'] . '$' . $jenis_persetujuan;
 					// QR
-					$qr_image = $this->qrcode->generateQrImageName('Persetujuan Dokumen Berita Acara', 'Kualifikasi', $data['nip'], date('Y-m-d'));
+					$qr_image = $this->qrcode->generateQrImageName('Persetujuan Dokumen Berita Acara', $dokumen->jenis, $data['nip'], date('Y-m-d'));
 					$qr_content = 'Persetujuan dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
 					$this->qrcode->generateQr($qr_image, $qr_content);
 					$data_dokumen_persetujuan = [

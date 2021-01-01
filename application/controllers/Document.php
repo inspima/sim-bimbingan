@@ -11,6 +11,7 @@ class Document extends CI_Controller {
 
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+		$this->load->model('backend/master/setting', 'setting');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
         $this->load->model('backend/transaksi/tesis', 'tesis');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
@@ -41,24 +42,24 @@ class Document extends CI_Controller {
 
     private function get_jenis_dokumen($jenis, &$page, &$title) {
         switch ($jenis) {
-            case TAHAPAN_DISERTASI_KUALIFIKASI:
-                $page .= 'kualifikasi';
+            case UJIAN_DISERTASI_KUALIFIKASI:
+                $page .= DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR;
                 $title .= ' - Ujian Kualifikasi';
                 break;
-            case TAHAPAN_DISERTASI_PROPOSAL:
-                $page .= 'proposal';
+            case UJIAN_DISERTASI_PROPOSAL:
+                $page .= DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR;
                 $title .= ' - Ujian Proposal';
                 break;
-            case TAHAPAN_DISERTASI_KELAYAKAN:
-                $page .= 'kelayakan';
+            case UJIAN_DISERTASI_KELAYAKAN:
+                $page .= DOKUMEN_JENIS_DISERTASI_UJIAN_KELAYAKAN_STR;
                 $title .= ' - Ujian Kelayakan';
                 break;
-            case TAHAPAN_DISERTASI_TERTUTUP:
-                $page .= 'tertutup';
+            case UJIAN_DISERTASI_TERTUTUP:
+                $page .= DOKUMEN_JENIS_DISERTASI_UJIAN_TERTUTUP_STR;
                 $title .= ' - Ujian Tahap 1';
                 break;
-            case TAHAPAN_DISERTASI_TERBUKA:
-                $page .= 'terbuka';
+            case UJIAN_DISERTASI_TERBUKA:
+                $page .= DOKUMEN_JENIS_DISERTASI_UJIAN_TERBUKA_STR;
                 $title .= ' - Ujian Terbuka';
                 break;
         }
@@ -198,10 +199,10 @@ class Document extends CI_Controller {
         $doc = $this->input->get('doc', TRUE);
         $params = explode('$', $doc);
         if (!empty($params) && count($params) == 5) {
-            $id_tugas_akhir = $params[1];
-            $tipe = $params[2];
-            $jenis_str = $params[3];
-            $jenis = $params[4];
+			$id_tugas_akhir = $params[1];
+			$tipe = $params[2];
+			$jenis_str = $params[3];
+			$jenis = $params[4];
             $jadwal = $this->disertasi->read_jadwal($id_tugas_akhir, $jenis);
             $tugas_akhir = $this->disertasi->detail($id_tugas_akhir);
             $page = '';

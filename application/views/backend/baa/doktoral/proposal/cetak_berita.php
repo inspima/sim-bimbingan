@@ -119,51 +119,72 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:80%;margin-left: 10px">
                         <?php
                         $no = 1;
-                        foreach ($promotors as $promotor):
-                            ?>
-                            <tr style="line-height: 2">
-                                <td style="width: 3%"><b><?= $no ?></b>.</td>
-                                <td style="width: 65%"><?= $promotor['nama'] ?></td>
-                                <?php if ($no % 2 == 0):
-                                    ?>
-                                    <td style = "width: 16%"></td>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
-                                    <?php
-                                else:
-                                    ?>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
-                                    <td style = "width: 16%"></td>
-                                <?php
-                                endif;
-                                ?>
-                            </tr>
-                            <?php
-                            $no++;
-                        endforeach;
                         foreach ($pengujis as $penguji):
-                            ?>
-                            <tr style="line-height: 2">
-                                <td style="width: 3%"><b><?= $no ?></b>.</td>
-                                <td style="width: 65%"><?= $penguji['nama'] ?></td>
-                                <?php if ($no % 2 == 0):
-                                    ?>
-                                    <td style = "width: 16%"></td>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
-                                    <?php
-                                else:
-                                    ?>
-                                    <td style = "width: 16%"><?= $no ?>..................</td>
-                                    <td style = "width: 16%"></td>
-                                <?php
-                                endif;
-                                ?>
-                            </tr>
-                            <?php
-                            $no++;
-                        endforeach;
+								?>
+								<tr style="line-height: 2">
+									<td style="width: 3%"><b><?= $no ?></b>.</td>
+									<td style="width: 58%"><?= $penguji['nama'] ?></td>
+									<?php if ($no % 2 == 0):
+										?>
+										<td style = "width: 20%"></td>
+										<td style = "width: 20%;text-align: left;">
+											<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+												?>
+												<?= $no ?>.
+												<?php
+												if (!empty($penguji['ttd'])) {
+													?>
+													<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+													<?php
+												} else {
+													?>
+													<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+													<?php
+												}
+												?>
+											<?php
+											else:
+												?>
+												<?= $no ?>  .........
+											<?php
+											endif;
+											?>
+										</td>
+									<?php
+									else:
+										?>
+										<td style = "width: 20%;text-align: left;">
+											<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+												?>
+												<?= $no ?>.
+												<?php
+												if (!empty($penguji['ttd'])) {
+													?>
+													<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+													<?php
+												} else {
+													?>
+													<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+													<?php
+												}
+												?>
+											<?php
+											else:
+												?>
+												<?= $no ?>  ..........
+											<?php
+											endif;
+											?>
+										</td>
+										<td style = "width: 20%"></td>
+									<?php
+									endif;
+									?>
+								</tr>
+								<?php
+								$no++;
+							endforeach;
                         ?>
-
-
                     </table>
                 </td>
             </tr>

@@ -93,6 +93,7 @@ class Proposal extends CI_Controller {
             'mruang' => $this->ruang->read_aktif(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep_s3(),
+            'promotors'=>$this->disertasi->read_promotor_kopromotor($id_disertasi),
             'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_PROPOSAL),
             'status_ujians' => $this->disertasi->read_status_ujian(UJIAN_DISERTASI_PROPOSAL),
         );
@@ -203,6 +204,35 @@ class Proposal extends CI_Controller {
         }
     }
 
+	public function penguji_promotor_save() {
+		$hand = $this->input->post('hand', TRUE);
+		if ($hand == 'center19') {
+			$id_disertasi = $this->input->post('id_disertasi', TRUE);
+			$id_ujian = $this->input->post('id_ujian', TRUE);
+			$promotors=$this->disertasi->read_promotor_kopromotor($id_disertasi);
+			foreach($promotors as $promotor){
+				$data = array(
+					'id_ujian' => $id_ujian,
+					'nip' => $promotor['nip'],
+					'status_tim' => 2,
+					'status' => 1
+				);
+				$cekpenguji = $this->disertasi->cek_penguji($data);
+				if(empty($cekpenguji)){
+					$this->disertasi->save_penguji($data);
+				}
+
+			}
+			$this->session->set_flashdata('msg-title', 'alert-success');
+			$this->session->set_flashdata('msg', 'Penguji Promotor Berhasil ditambahkan');
+			redirect_back();
+		} else {
+			$this->session->set_flashdata('msg-title', 'alert-danger');
+			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+			redirect('dosen/disertasi/permintaan/promotor');
+		}
+	}
+
     public function penguji_save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
@@ -238,7 +268,7 @@ class Proposal extends CI_Controller {
 
                         $this->disertasi->save_penguji($data);
                         $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', $mesg);
+                        $this->session->set_flashdata('msg', "Penguji berhasil ditambahkan");
                         redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
                     } else
                     if ($jumlah_penguji >= '7') {

@@ -348,6 +348,23 @@
 			return $query->row();
 		}
 
+		public function cek_penguji_promotor($id_disertasi, $id_ujian)
+		{
+			$sudah_ada = 0;
+			$promotors = $this->read_promotor_kopromotor($id_disertasi);
+			foreach ($promotors as $promotor) {
+				$data = [
+					'id_ujian' => $id_ujian,
+					'nip' => $promotor['nip']
+				];
+				$cek_ada = $this->cek_penguji($data);
+				if (!empty($cek_ada)) {
+					$sudah_ada++;
+				}
+			}
+			return $sudah_ada == 0 ? false : true;
+		}
+
 		public function read_penguji_ketua($id_ujian)
 		{
 			$stts = array('1', '2');
@@ -707,14 +724,14 @@
 
 		public function cek_mkpkk_sudah_publish($id_disertasi)
 		{
-			$jumlah_disertasi_mkpkk=count($this->read_disertasi_mkpkk($id_disertasi));
+			$jumlah_disertasi_mkpkk = count($this->read_disertasi_mkpkk($id_disertasi));
 			$this->db->select('m.*');
 			$this->db->from('disertasi_mkpkk m');
 			$this->db->where('m.id_disertasi', $id_disertasi);
 			$this->db->where('m.nilai_publish', 1);
 			$query = $this->db->get();
 			$result = $query->num_rows();
-			if ($result==$jumlah_disertasi_mkpkk) {
+			if ($result == $jumlah_disertasi_mkpkk) {
 				return true;
 			} else {
 				return false;
@@ -730,7 +747,7 @@
 			return $query->result_array();
 		}
 
-		public function detail_disertasi_mkpkk($id_disertasi,$id_mkpkk)
+		public function detail_disertasi_mkpkk($id_disertasi, $id_mkpkk)
 		{
 			$this->db->select('*');
 			$this->db->from('disertasi_mkpkk m');
@@ -831,6 +848,107 @@
 			$this->db->from('disertasi_mkpkk_pengampu m');
 			$this->db->where('id_disertasi', $id_disertasi);
 			$this->db->where('id_mkpkk', $id_mkpkk);
+			$query = $this->db->get();
+			$result = $query->row();
+			if (!empty($result)) {
+				return $result->nilai_angka;
+			} else {
+				return 0;
+			}
+		}
+
+		// MKPD
+
+
+		public function read_disertasi_mkpd($id_disertasi)
+		{
+			$this->db->select('*');
+			$this->db->from('disertasi_mkpd m');
+			$this->db->where('m.id_disertasi', $id_disertasi);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function detail_disertasi_mkpd($id_disertasi_mkpd)
+		{
+			$this->db->select('*');
+			$this->db->from('disertasi_mkpd m');
+			$this->db->where('m.id_disertasi_mkpd', $id_disertasi_mkpd);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function detail_disertasi_mkpd_by_data($data)
+		{
+			$this->db->select('*');
+			$this->db->from('disertasi_mkpd m');
+			$this->db->where('m.id_disertasi', $data['id_disertasi']);
+			$this->db->where('m.kode', $data['kode']);
+			$this->db->where('m.mkpd', $data['mkpd']);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function save_disertasi_mkpd($data)
+		{
+			$this->db->insert('disertasi_mkpd', $data);
+		}
+
+		public function update_disertasi_mkpd($data, $id_disertasi_mkpd)
+		{
+			$this->db->where('id_disertasi_mkpd', $id_disertasi_mkpd);
+			$this->db->update('disertasi_mkpd', $data);
+		}
+
+		public function delete_disertasi_mkpd($id_disertasi_mkpd)
+		{
+			$this->db->where('id_disertasi_mkpd', $id_disertasi_mkpd);
+			$this->db->delete('disertasi_mkpd');
+		}
+
+		public function read_disertasi_mkpd_pengampu($id_disertasi_mkpd)
+		{
+			$this->db->select('m.*,p.nama');
+			$this->db->from('disertasi_mkpd_pengampu m');
+			$this->db->join('pegawai p', 'p.nip = m.nip');
+			$this->db->where('m.id_disertasi_mkpd', $id_disertasi_mkpd);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function detail_disertasi_mkpd_pengampu($id)
+		{
+			$this->db->select('m.*,p.nama');
+			$this->db->from('disertasi_mkpd_pengampu m');
+			$this->db->join('pegawai p', 'p.nip = m.nip');
+			$this->db->where('m.id_disertasi_mkpd_pengampu', $id);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function save_disertasi_mkpd_pengampu($data)
+		{
+			$this->db->insert('disertasi_mkpd_pengampu', $data);
+		}
+
+		public function update_disertasi_mkpd_pengampu($data, $id_disertasi_mkpd_pengampu)
+		{
+			$this->db->where('id_disertasi_mkpd_pengampu', $id_disertasi_mkpd_pengampu);
+			$this->db->update('disertasi_mkpd_pengampu', $data);
+		}
+
+		public function delete_disertasi_mkpd_pengampu($id_disertasi)
+		{
+			$this->db->where('id_disertasi', $id_disertasi);
+			$this->db->delete('disertasi_mkpd_pengampu');
+		}
+
+		public function rata_nilai_disertasi_mkpd($id_disertasi, $id_disertasi_mkpd)
+		{
+			$this->db->select_avg('nilai_angka');
+			$this->db->from('disertasi_mkpd_pengampu m');
+			$this->db->where('id_disertasi', $id_disertasi);
+			$this->db->where('id_disertasi_mkpd', $id_disertasi_mkpd);
 			$query = $this->db->get();
 			$result = $query->row();
 			if (!empty($result)) {
@@ -1116,6 +1234,12 @@
 									'text' => 'Ujian',
 									'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 									'color' => 'bg-purple'
+								],
+								[
+									'value' => STATUS_DISERTASI_PROPOSAL_CETAK_DOKUMEN,
+									'text' => 'Persetujuan Berkas',
+									'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+									'color' => 'bg-orange'
 								],
 								[
 									'value' => STATUS_DISERTASI_PROPOSAL_SELESAI,

@@ -44,7 +44,7 @@
                         <td><?= date('Y-m-d', strtotime($list['waktu_pengajuan_proposal'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
-                            <?php if ($list['status_proposal'] > STATUS_DISERTASI_PROPOSAL_UJIAN) {
+                            <?php if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_SELESAI) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
