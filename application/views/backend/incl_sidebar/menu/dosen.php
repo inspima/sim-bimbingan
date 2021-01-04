@@ -267,7 +267,7 @@
             </span>
 		</a>
 		<ul class="treeview-menu">
-			<li><a href="<?php echo base_url() ?>dosen/disertasi/penilaian"><i class="fa fa-circle-o"></i>Disertasi</a></li>
+			<li><a href="<?php echo base_url() ?>dosen/disertasi/penilaian"><i class="fa fa-circle-o"></i>MK Doktoral</a></li>
 		</ul>
 	</li>
     <li class="treeview">

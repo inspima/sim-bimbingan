@@ -35,7 +35,7 @@
 				<h3 class="box-title">Promotor & Ko-Promotor</h3>
 			</div>
 			<div class="box-body table-responsive">
-				<?php $this->view('backend/widgets/disertasi/list_promotor_kopromotor', ['disertasi' => $disertasi, 'action' => 'mkpd']); ?>
+				<?php $this->view('backend/widgets/disertasi/list_promotor_kopromotor', ['disertasi' => $disertasi]); ?>
 			</div>
 		</div>
 		<!-- /.box -->
@@ -48,19 +48,13 @@
 
 <div class="row">
 	<div class="col-sm-12">
-		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
-				<h2 class="box-title">MKPD</h2>
-
+				<h3 class="box-title">MKPD</h3>
 			</div>
-			<!-- /.box-header -->
-			<!-- form start -->
-			<div class="box-body">
-				<?php $this->view('backend/widgets/disertasi/list_mkpd_mhs', ['disertasi' => $disertasi]); ?>
+			<div class="box-body table-responsive">
+				<?php $this->view('backend/widgets/disertasi/list_mkpd_dosen', ['disertasi' => $disertasi]); ?>
 			</div>
-			<!-- /.box-body -->
 		</div>
-		<!-- /.box -->
 	</div>
 </div>

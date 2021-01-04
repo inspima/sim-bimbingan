@@ -458,6 +458,8 @@
 	$route['dosen/disertasi/penilaian/mkpd'] = 'backend/dosen/disertasi/penilaian/mkpd';
 	$route['dosen/disertasi/penilaian/mkpd/input/(:num)'] = 'backend/dosen/disertasi/penilaian/mkpd_input';
 	$route['dosen/disertasi/penilaian/mkpd/save'] = 'backend/dosen/disertasi/penilaian/mkpd_save';
+	$route['dosen/disertasi/penilaian/mkpd/publish_nilai'] = 'backend/dosen/disertasi/penilaian/mkpd_publish_nilai';
+	$route['dosen/disertasi/penilaian/mkpd/cetak'] = 'backend/dosen/disertasi/penilaian/mkpd_cetak';
 
 
 	$route['dosen/disertasi/mpkk'] = 'backend/dosen/disertasi/mpkk';
@@ -533,6 +535,9 @@
 	$route['dosen/disertasi/permintaan/promotor/setujui'] = 'backend/dosen/disertasi/permintaan/promotor_setujui';
 	$route['dosen/disertasi/permintaan/promotor/proposal/setujui'] = 'backend/dosen/disertasi/permintaan/proposal_setujui';
 	$route['dosen/disertasi/permintaan/promotor/mkpd/setujui'] = 'backend/dosen/disertasi/permintaan/mkpd_setujui';
+	$route['dosen/disertasi/permintaan/promotor/mkpd/detail/(:num)'] = 'backend/dosen/disertasi/permintaan/mkpd_detail';
+	$route['dosen/disertasi/permintaan/promotor/mkpd/update'] = 'backend/dosen/disertasi/permintaan/mkpd_update';
+	$route['dosen/disertasi/permintaan/promotor/mkpd/set_pjmk'] = 'backend/dosen/disertasi/permintaan/mkpd_set_pjmk';
 	$route['dosen/disertasi/permintaan/promotor/kelayakan/setujui'] = 'backend/dosen/disertasi/permintaan/kelayakan_setujui';
 	$route['dosen/disertasi/permintaan/promotor/tertutup/setujui'] = 'backend/dosen/disertasi/permintaan/tertutup_setujui';
 	$route['dosen/disertasi/permintaan/promotor/terbuka/setujui'] = 'backend/dosen/disertasi/permintaan/terbuka_setujui';

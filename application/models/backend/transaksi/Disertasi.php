@@ -906,6 +906,13 @@
 			$this->db->delete('disertasi_mkpd');
 		}
 
+		public function delete_disertasi_mkpd_by_disertasi($id_disertasi)
+		{
+			$this->delete_disertasi_mkpd_pengampu($id_disertasi);
+			$this->db->where('id_disertasi', $id_disertasi);
+			$this->db->delete('disertasi_mkpd');
+		}
+
 		public function read_disertasi_mkpd_pengampu($id_disertasi_mkpd)
 		{
 			$this->db->select('m.*,p.nama');
@@ -922,6 +929,52 @@
 			$this->db->from('disertasi_mkpd_pengampu m');
 			$this->db->join('pegawai p', 'p.nip = m.nip');
 			$this->db->where('m.id_disertasi_mkpd_pengampu', $id);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function cek_mkpd_pengampu_pjmk($id_disertasi_mkpd, $nip)
+		{
+			$this->db->select('m.*,p.nama');
+			$this->db->from('disertasi_mkpd_pengampu m');
+			$this->db->join('pegawai p', 'p.nip = m.nip');
+			$this->db->where('m.id_disertasi_mkpd', $id_disertasi_mkpd);
+			$this->db->where('m.nip', $nip);
+			$query = $this->db->get();
+			$result = $query->row();
+			if (!empty($result)) {
+				if ($result->pjmk == '1') {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		public function cek_mkpd_ada_pjmk($id_disertasi_mkpd)
+		{
+			$this->db->select('m.*');
+			$this->db->from('disertasi_mkpd_pengampu m');
+			$this->db->where('m.id_disertasi_mkpd', $id_disertasi_mkpd);
+			$this->db->where('m.pjmk', 1);
+			$query = $this->db->get();
+			$result = $query->num_rows();
+			if ($result > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		public function detail_mkpd_pengampu_pjmk($id_disertasi_mkpd)
+		{
+			$this->db->select('m.*,p.nama');
+			$this->db->from('disertasi_mkpd_pengampu m');
+			$this->db->join('pegawai p', 'p.nip = m.nip');
+			$this->db->where('m.id_disertasi_mkpd', $id_disertasi_mkpd);
+			$this->db->where('pjmk', 1);
 			$query = $this->db->get();
 			return $query->row();
 		}
@@ -943,11 +996,10 @@
 			$this->db->delete('disertasi_mkpd_pengampu');
 		}
 
-		public function rata_nilai_disertasi_mkpd($id_disertasi, $id_disertasi_mkpd)
+		public function rata_nilai_disertasi_mkpd($id_disertasi_mkpd)
 		{
 			$this->db->select_avg('nilai_angka');
 			$this->db->from('disertasi_mkpd_pengampu m');
-			$this->db->where('id_disertasi', $id_disertasi);
 			$this->db->where('id_disertasi_mkpd', $id_disertasi_mkpd);
 			$query = $this->db->get();
 			$result = $query->row();
@@ -955,6 +1007,22 @@
 				return $result->nilai_angka;
 			} else {
 				return 0;
+			}
+		}
+
+		public function cek_mkpd_sudah_publish($id_disertasi)
+		{
+			$jumlah_disertasi_mkpd = count($this->read_disertasi_mkpd($id_disertasi));
+			$this->db->select('m.*');
+			$this->db->from('disertasi_mkpd m');
+			$this->db->where('m.id_disertasi', $id_disertasi);
+			$this->db->where('m.nilai_publish', 1);
+			$query = $this->db->get();
+			$result = $query->num_rows();
+			if ($result == $jumlah_disertasi_mkpd) {
+				return true;
+			} else {
+				return false;
 			}
 		}
 
@@ -968,6 +1036,20 @@
 			$this->db->join('mahasiswa m', 'm.nim= s.nim');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
 			$this->db->where('`s`.`id_disertasi` IN (SELECT `id_disertasi` from `disertasi_mkpkk_pengampu` where `nip`=\'' . $username . '\')', null, false);
+			$this->db->order_by('s.tgl_pengajuan', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_penilaian_mkpd($username)
+		{
+			$this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+			$this->db->from('disertasi s');
+			$this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+			$this->db->join('mahasiswa m', 'm.nim= s.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->where('`s`.`id_disertasi` IN (SELECT `id_disertasi` from `disertasi_mkpd_pengampu` where `nip`=\'' . $username . '\')', null, false);
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
 			$query = $this->db->get();
@@ -1100,7 +1182,7 @@
 					[
 						'value' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
 						'text' => 'Selesai',
-						'keterangan' => 'Ujian selesai, lanjut pengajuan promotor',
+						'keterangan' => 'Ujian selesai',
 						'color' => 'bg-red'
 					],
 				];
@@ -1134,7 +1216,7 @@
 						[
 							'value' => STATUS_DISERTASI_PROMOTOR_SELESAI,
 							'text' => 'Selesai',
-							'keterangan' => '',
+							'keterangan' => 'Penerbitan SK Dekan',
 							'color' => 'bg-red'
 						],
 					];
@@ -1264,22 +1346,22 @@
 										'color' => 'bg-blue'
 									],
 									[
+										'value' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
+										'text' => 'Disetujui KPS',
+										'keterangan' => 'Disetujui Ketua Prodi',
+										'color' => 'bg-green'
+									],
+									[
 										'value' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
 										'text' => 'Disetujui Promotor&Ko-promotor',
 										'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
 										'color' => 'bg-green'
 									],
 									[
-										'value' => STATUS_DISERTASI_MKPD_SETUJUI_SPS,
-										'text' => 'Disetujui SPS',
-										'keterangan' => 'Disetujui Sekertaris Prodi',
-										'color' => 'bg-green'
-									],
-									[
-										'value' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
-										'text' => 'Disetujui KPS',
-										'keterangan' => 'Disetujui Ketua Prodi',
-										'color' => 'bg-green'
+										'value' => STATUS_DISERTASI_MKPD_PENILAIAN,
+										'text' => 'Proses Penilaian',
+										'keterangan' => 'Proses Penilaian Oleh Masing Masing dosen pengampu',
+										'color' => 'bg-orange'
 									],
 									[
 										'value' => STATUS_DISERTASI_MKPD_SELESAI,

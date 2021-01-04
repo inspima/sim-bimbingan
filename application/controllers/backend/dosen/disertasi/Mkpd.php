@@ -50,19 +50,12 @@ class Mkpd extends CI_Controller {
         if ($hand == 'center19') {
             $struktural = $this->struktural->read_struktural($this->session_data['username']);
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            if ($struktural->id_struktur == STRUKTUR_SPS) {
-                $data = array(
-                    'status_mkpd' => STATUS_DISERTASI_MKPD_SETUJUI_SPS,
-                );
-            } else if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
+            if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
 
                 $data = array(
-                    'status_mkpd' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
+                    'status_mkpd' => STATUS_DISERTASI_MKPD_PENILAIAN,
                 );
 
-                $data = array(
-                    'status_mkpd' => STATUS_DISERTASI_MKPD_SELESAI,
-                );
             }
             $this->disertasi->update($data, $id_disertasi);
 

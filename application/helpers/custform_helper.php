@@ -49,6 +49,10 @@ function formfile($name, $value, $required) {
     return($form);
 }
 
+function array_pluck($array,$key){
+	return array_column($array,$key);
+}
+
 if (!function_exists('redirect_back')) {
 
     function redirect_back() {

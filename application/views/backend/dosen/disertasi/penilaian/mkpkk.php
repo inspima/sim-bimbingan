@@ -40,7 +40,7 @@
 							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
 							<?php
 
-								if ($list['status_mpkk'] >= STATUS_DISERTASI_MPKK_SETUJUI_KPS) {
+								if ($list['status_mpkk'] >= STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR) {
 									?>
 									<hr style="margin: 10px;border-width:2px;"/>
 									<a href="<?= base_url() ?>dosen/disertasi/penilaian/mkpkk/input/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Penilaian</a>
