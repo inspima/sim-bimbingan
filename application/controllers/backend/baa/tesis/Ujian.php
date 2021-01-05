@@ -715,6 +715,51 @@ class Ujian extends CI_Controller {
         }
     }
 
+    public function nilai_ujian() {
+        $id_tesis = $this->uri->segment('5');
+        $id_prodi = $this->tesis->cek_prodi($id_tesis);
+        $id_ujian = $this->uri->segment('6');
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Ujian',
+            'subtitle' => 'Nilai Ujian',
+            'section' => 'backend/baa/tesis/ujian/nilai_ujian',
+            'use_back' => true,
+            'back_link' => 'baa/tesis/ujian/index/'.$id_prodi,
+            // DATA //
+            'id_ujian' => $id_ujian,
+            'tesis' => $this->tesis->detail($id_tesis),
+            'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
+            'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function nilai_ujian_save() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_ujian = $this->input->post('id_ujian', TRUE);
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+
+            $data = array(
+                'rata_nilai_ujian' => $this->input->post('rata_nilai_ujian', TRUE),
+                'bobot_nilai_konversi' => $this->input->post('bobot_nilai_konversi', TRUE),
+                'nilai_ujian' => $this->input->post('nilai_ujian', TRUE)
+            );
+
+            $this->tesis->update_ujian($data, $id_ujian);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', $mesg);
+            redirect('baa/tesis/ujian/nilai_ujian/' . $id_tesis .'/'.$id_ujian);
+
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('baa/tesis/ujian/index');
+        }
+    }
+
     public function promotor_delete() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {

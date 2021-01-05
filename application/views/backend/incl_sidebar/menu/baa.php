@@ -114,4 +114,17 @@
             <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Disertasi</a></li>
         </ul>
     </li>
+    
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-th-list"></i> <span>Report</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="<?php echo base_url() ?>backend/baa/report/skripsi"><i class="fa fa-circle-o"></i>Report Ujian S1</a></li>
+            <li><a href="<?php echo base_url() ?>backend/baa/report/skripsi/bimbingan"><i class="fa fa-circle-o"></i>Report Bimbingan</a></li>
+        </ul>
+    </li>
 </ul>

@@ -1182,7 +1182,7 @@
 					[
 						'value' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
 						'text' => 'Selesai',
-						'keterangan' => 'Ujian selesai',
+						'keterangan' => 'Ujian selesai, lanjut pengajuan promotor',
 						'color' => 'bg-red'
 					],
 				];
@@ -1216,7 +1216,7 @@
 						[
 							'value' => STATUS_DISERTASI_PROMOTOR_SELESAI,
 							'text' => 'Selesai',
-							'keterangan' => 'Penerbitan SK Dekan',
+							'keterangan' => '',
 							'color' => 'bg-red'
 						],
 					];

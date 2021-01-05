@@ -95,18 +95,20 @@
                                     }
                                     ?>
                                 </td>
+                                <!--
                                 <td>
                                     <?php
-                                    $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
+                                    /*$ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
                                     if($ujian){
                                         if($ujian->tanggal <= date('Y-m-d')){
                                         ?>
                                             <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>baa/magister/tesis/ujian/nilai_ujian/<?php echo $list['id_tesis']?>/<?php echo $ujian->id_ujian?>"><i class="fa fa-edit"></i> Nilai</a>
                                         <?php
                                         }
-                                    }
+                                    }*/
                                     ?>
                                 </td>
+                                -->
                             </tr>      
                             <?php
                             $no++;
