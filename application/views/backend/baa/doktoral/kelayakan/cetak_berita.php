@@ -222,13 +222,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<table border="0" style="width:100%;margin-top: 30px">
 				<tr>
 					<td style="width: 50%">
-
+						<img src="<?= $qr_dokumen ?>" width="100px">
 					</td>
 					<td style="width: 50%">
 						<p>
-							Ketua Panitia Penilai Naskah Disertasi,.<br/><br/><br/><br/><br/><br/>
-							..........................<br/>
-							NIP. .............................
+							Ketua Panitia.
+							<?php
+								if ($setujui_semua):
+									if (!empty($ketua_penguji->ttd)) {
+										?>
+										<br/><br/>
+										<img src="<?= str_replace(base_url(), "", $ketua_penguji->ttd) ?>" width="100px"/>
+										<br/>
+										<?php
+									} else {
+										?>
+										<br/><br/><br/>
+										<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+										<br/><br/>
+										<?php
+									}
+								else:
+									?>
+									<br/><br/><br/><br/><br/><br/>
+								<?php
+								endif;
+							?>
+							<?= $ketua_penguji->nama ?><br/>
+							NIP. <?= $ketua_penguji->nip ?>
 						</p>
 					</td>
 				</tr>

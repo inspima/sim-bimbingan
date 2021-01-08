@@ -67,6 +67,19 @@
 			$this->load->view('backend/index_sidebar', $data);
 		}
 
+		public function riwayat()
+		{
+			$data = array(
+				// PAGE //
+				'title' => 'Berita Acara',
+				'subtitle' => 'Data',
+				'section' => 'backend/dosen/dokumen/berita_acara/index',
+				// DATA //
+				'dokumens' => $this->dokumen->read_persetujuan_dosen($this->session_data['username'], 'berita-acara'),
+			);
+			$this->load->view('backend/index_sidebar', $data);
+		}
+
 		public function persetujuan()
 		{
 			$id_dokumen = $this->uri->segment('5');

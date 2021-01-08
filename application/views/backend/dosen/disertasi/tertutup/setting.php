@@ -127,14 +127,27 @@
             <div class="box-header with-border">
                 <h3 class="box-title">3. Dosen Penguji</h3>
             </div>
-            <?php echo form_open('dosen/disertasi/tertutup/penguji_save'); ?>
             <div class="box-body table-responsive">
                 <?php
                 if ($ujian) {
+					$cek_penguji_ketua = $this->disertasi->read_penguji_ketua($id_ujian);
+					if (empty($cek_penguji_ketua)) {
+						?>
+						<div class="callout callout-danger">Perhatian ! Ketua penguji belum dipilih</div>
+						<?php
+					}
+					if (!$this->disertasi->cek_penguji_promotor($disertasi->id_disertasi, $id_ujian)) {
+						?>
+						<b>Penguji dari Promotor Ko-Promotor</b>
+						<?php $this->view('backend/widgets/disertasi/list_penguji_promotor_dosen', ['disertasi' => $disertasi, 'id_ujian' => $id_ujian, 'promotors' => $promotors]); ?>
+						<?php
+					}
+
                     ?>
                     <div class="form-group">
                         <label>Penguji</label>
-                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+						<?php echo form_open('dosen/disertasi/tertutup/penguji_save'); ?>
+						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
                         <select name="nip" class="form-control select2" style="width: 100%;" required>
@@ -155,7 +168,13 @@
 
                     <?php echo form_close() ?>                
                     <?php $this->view('backend/widgets/disertasi/list_penguji_dosen', ['disertasi' => $disertasi, 'ujian' => $ujian]); ?>
-
+					<?php echo form_open('dosen/disertasi/tertutup/penguji/kirim_whatsapp'); ?>
+					<div class="form-group">
+						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+						<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-comment"></i> Kirim Notifikasi Whatsapp</button>
+					</div>
+					<?php echo form_close() ?>
                     <?php
                 } else {
                     ?>

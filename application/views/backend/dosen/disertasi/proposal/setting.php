@@ -134,16 +134,16 @@
 					if ($ujian) {
 						?>
 						<?php
+						$cek_penguji_ketua = $this->disertasi->read_penguji_ketua($id_ujian);
+						if (empty($cek_penguji_ketua)) {
+							?>
+							<div class="callout callout-danger">Perhatian ! Ketua penguji belum dipilih</div>
+							<?php
+						}
 						if (!$this->disertasi->cek_penguji_promotor($disertasi->id_disertasi, $id_ujian)) {
 							?>
 							<b>Penguji dari Promotor Ko-Promotor</b>
 							<?php $this->view('backend/widgets/disertasi/list_penguji_promotor_dosen', ['disertasi' => $disertasi, 'id_ujian' => $id_ujian, 'promotors' => $promotors]); ?>
-							<?php
-						}
-						$cek_penguji_ketua = $this->disertasi->read_penguji_ketua($id_ujian);
-						if (empty($cek_penguji_ketua)) {
-							?>
-								<div class="callout callout-danger">Perhatian ! Ketua penguji belum dipilih</div>
 							<?php
 						}
 						?>

@@ -166,7 +166,19 @@
 			$this->db->from('dokumen d');
 			$this->db->join('mahasiswa m', 'm.nim= d.identitas');
 			$this->db->where('d.tipe', $tipe);
-			$this->db->where('`d`.`id_dokumen` IN (SELECT `id_dokumen` from `dokumen_persetujuan` where `identitas`=\'' . $username . '\')', null, false);
+			$this->db->where('`d`.`id_dokumen` IN (SELECT `id_dokumen` from `dokumen_persetujuan` where `waktu` is null and `identitas`=\'' . $username . '\')', null, false);
+			$this->db->order_by('date', 'desc');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_persetujuan_dosen_riwayat($username, $tipe)
+		{
+			$this->db->select('d.*,m.nama nama_mhs');
+			$this->db->from('dokumen d');
+			$this->db->join('mahasiswa m', 'm.nim= d.identitas');
+			$this->db->where('d.tipe', $tipe);
+			$this->db->where('`d`.`id_dokumen` IN (SELECT `id_dokumen` from `dokumen_persetujuan` where `waktu` is not null and `identitas`=\'' . $username . '\')', null, false);
 			$this->db->order_by('date', 'desc');
 			$query = $this->db->get();
 			return $query->result_array();

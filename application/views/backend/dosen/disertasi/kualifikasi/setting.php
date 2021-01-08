@@ -132,6 +132,12 @@
                 <div class="alert alert-info">Jumlah penguji Ujian Kualifikasi 6</div>
                 <?php
                 if ($ujian) {
+					$cek_penguji_ketua = $this->disertasi->read_penguji_ketua($id_ujian);
+					if (empty($cek_penguji_ketua)) {
+						?>
+						<div class="callout callout-danger">Perhatian ! Ketua penguji belum dipilih</div>
+						<?php
+					}
                     ?>
                     <div class="form-group">
                         <label>Penguji</label>

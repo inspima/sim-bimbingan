@@ -1486,6 +1486,12 @@
 												'color' => 'bg-purple'
 											],
 											[
+												'value' => STATUS_DISERTASI_TERTUTUP_CETAK_DOKUMEN,
+												'text' => 'Persetujuan Berkas',
+												'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+												'color' => 'bg-orange'
+											],
+											[
 												'value' => STATUS_DISERTASI_TERTUTUP_SELESAI,
 												'text' => 'Selesai',
 												'keterangan' => 'Hasil Ujian telah ditentukan',
@@ -1542,6 +1548,12 @@
 													'text' => 'Ujian',
 													'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 													'color' => 'bg-purple'
+												],
+												[
+													'value' => STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN_CETAK_DOKUMEN,
+													'text' => 'Persetujuan Berkas',
+													'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+													'color' => 'bg-orange'
 												],
 												[
 													'value' => STATUS_DISERTASI_TERBUKA_SELESAI,

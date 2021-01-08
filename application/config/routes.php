@@ -503,8 +503,10 @@
 	$route['dosen/disertasi/tertutup/terima'] = 'backend/dosen/disertasi/tertutup/terima';
 	$route['dosen/disertasi/tertutup/jadwal_save'] = 'backend/dosen/disertasi/tertutup/jadwal_save';
 	$route['dosen/disertasi/tertutup/penguji_save'] = 'backend/dosen/disertasi/tertutup/penguji_save';
+	$route['dosen/disertasi/tertutup/penguji_promotor_save'] = 'backend/dosen/disertasi/tertutup/penguji_promotor_save';
 	$route['dosen/disertasi/tertutup/penguji_update_statustim'] = 'backend/dosen/disertasi/tertutup/penguji_update_statustim';
 	$route['dosen/disertasi/tertutup/penguji_delete'] = 'backend/dosen/disertasi/tertutup/penguji_delete';
+	$route['dosen/disertasi/tertutup/penguji/kirim_whatsapp'] = 'backend/dosen/disertasi/tertutup/penguji_kirim_whatsapp';
 	$route['dosen/disertasi/tertutup/update_status_ujian'] = 'backend/dosen/disertasi/tertutup/update_status_ujian';
 	$route['dosen/disertasi/tertutup/promotor_save'] = 'backend/dosen/disertasi/tertutup/promotor_save';
 	$route['dosen/disertasi/tertutup/promotor_delete'] = 'backend/dosen/disertasi/tertutup/promotor_delete';

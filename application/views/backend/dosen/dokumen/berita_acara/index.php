@@ -8,6 +8,11 @@
 		<?php echo $this->session->flashdata('msg'); ?>
 	</div>
 <?php endif; ?>
+<div class="btn-group">
+	<a class="<?= ($this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-yellow'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara">Permintaan</a>
+	<a class="<?= ($this->uri->segment(4) == 'riwayat') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/riwayat">Riwayat</a>
+</div>
+<div class="divider10"></div>
 <div class="box">
 
 	<!-- /.box-header -->
