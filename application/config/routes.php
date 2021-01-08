@@ -489,8 +489,10 @@
 	$route['dosen/disertasi/kelayakan/terima'] = 'backend/dosen/disertasi/kelayakan/terima';
 	$route['dosen/disertasi/kelayakan/jadwal_save'] = 'backend/dosen/disertasi/kelayakan/jadwal_save';
 	$route['dosen/disertasi/kelayakan/penguji_save'] = 'backend/dosen/disertasi/kelayakan/penguji_save';
+	$route['dosen/disertasi/kelayakan/penguji_promotor_save'] = 'backend/dosen/disertasi/kelayakan/penguji_promotor_save';
 	$route['dosen/disertasi/kelayakan/penguji_update_statustim'] = 'backend/dosen/disertasi/kelayakan/penguji_update_statustim';
 	$route['dosen/disertasi/kelayakan/penguji_delete'] = 'backend/dosen/disertasi/kelayakan/penguji_delete';
+	$route['dosen/disertasi/kelayakan/penguji/kirim_whatsapp'] = 'backend/dosen/disertasi/kelayakan/penguji_kirim_whatsapp';
 	$route['dosen/disertasi/kelayakan/update_status_ujian'] = 'backend/dosen/disertasi/kelayakan/update_status_ujian';
 	$route['dosen/disertasi/kelayakan/promotor_save'] = 'backend/dosen/disertasi/kelayakan/promotor_save';
 	$route['dosen/disertasi/kelayakan/promotor_delete'] = 'backend/dosen/disertasi/kelayakan/promotor_delete';

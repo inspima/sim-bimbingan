@@ -40,12 +40,7 @@
                             <tr>
                                 <td><?= $no ?></td>
                                 <td>
-                                    <?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
-                                    <br/>
-                                    <b>Judul</b> <br/>
-                                    <?php
-                                    echo $list['judul']
-                                    ?>
+									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
                                 </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">

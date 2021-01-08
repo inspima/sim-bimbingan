@@ -229,7 +229,7 @@ class Proposal extends CI_Controller {
 		} else {
 			$this->session->set_flashdata('msg-title', 'alert-danger');
 			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-			redirect('dosen/disertasi/permintaan/promotor');
+			redirect_back();
 		}
 	}
 

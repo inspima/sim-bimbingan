@@ -1422,6 +1422,12 @@
 											'color' => 'bg-purple'
 										],
 										[
+											'value' => STATUS_DISERTASI_KELAYAKAN_CETAK_DOKUMEN,
+											'text' => 'Persetujuan Berkas',
+											'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+											'color' => 'bg-orange'
+										],
+										[
 											'value' => STATUS_DISERTASI_KELAYAKAN_SELESAI,
 											'text' => 'Selesai',
 											'keterangan' => 'Hasil Ujian telah ditentukan',

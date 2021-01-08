@@ -19,11 +19,11 @@
 					<dd>
 						<?php if ($setujui_semua) {
 							?>
-							<span class="btn btn-xs bg-green" >Selesai</span>
+							<span class="btn btn-xs bg-green">Selesai</span>
 							<?php
 						} else {
 							?>
-							<span class="btn btn-xs bg-red" >TTD Belum lengkap</span>
+							<span class="btn btn-xs bg-red">TTD Belum lengkap</span>
 							<?php
 						}
 						?>
@@ -31,7 +31,12 @@
 				</dl>
 				<dl>
 					<dt>File</dt>
-					<dd><a class="btn btn-xs bg-red" href="<?= $dokumen->link_cetak ?>"><i class="fa fa-file-pdf-o"></i> Unduh</a></dd>
+					<dd>
+						<a class="btn btn-xs bg-red" href="<?= $dokumen->link_cetak ?>"><i class="fa fa-file-pdf-o"></i> Unduh</a>
+					</dd>
 				</dl>
 			</div>
-			<!-- /.box-body
+			<!-- /.box-body-->
+		</div>
+	</div>
+</div>

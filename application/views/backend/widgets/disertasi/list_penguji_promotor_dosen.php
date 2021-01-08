@@ -1,4 +1,4 @@
-<?php echo form_open('dosen/disertasi/proposal/penguji_promotor_save'); ?>
+<?php echo form_open('dosen/disertasi/'.$this->uri->segment('3').'/penguji_promotor_save'); ?>
 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 <?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
 <?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
