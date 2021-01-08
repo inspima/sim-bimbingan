@@ -9,8 +9,8 @@
 	</div>
 <?php endif; ?>
 <div class="btn-group">
-	<a class="<?= ($this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-yellow'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara">Permintaan</a>
-	<a class="<?= ($this->uri->segment(4) == 'riwayat') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/riwayat">Riwayat</a>
+	<a class="<?= ($this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara"><i class="fa fa-check-circle-o"></i> Permintaan</a>
+	<a class="<?= ($this->uri->segment(4) == 'riwayat') ? 'btn btn-default' : 'btn bg-yellow'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/riwayat"><i class="fa fa-history"></i> Riwayat</a>
 </div>
 <div class="divider10"></div>
 <div class="box">
@@ -46,8 +46,21 @@
 						<td class="text-center">
 							<a class="btn btn-xs bg-red-active" href="<?php echo $dokumen['link_cetak'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Lihat</a>
 						</td>
-						<td>
-							<a class="btn btn-xs btn-primary" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/persetujuan/<?php echo $dokumen['id_dokumen'] ?>"><i class="fa fa-check-circle"></i> Persetujuan</a>
+						<td class="text-center">
+							<?php
+								$setujui_semua = $this->dokumen->cek_dokumen_setujui_semua($dokumen['id_dokumen']);
+								if ($setujui_semua) {
+									?>
+									<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Selesai</button>
+									<a class="btn btn-xs btn-primary" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/persetujuan/<?php echo $dokumen['id_dokumen'] ?>"><i class="fa fa-info"></i> Detail</a>
+									<?php
+								} else {
+									?>
+									<a class="btn btn-xs btn-primary" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/persetujuan/<?php echo $dokumen['id_dokumen'] ?>"><i class="fa fa-check-circle"></i> Persetujuan</a>
+									<?php
+								}
+							?>
+
 						</td>
 					</tr>
 					<?php

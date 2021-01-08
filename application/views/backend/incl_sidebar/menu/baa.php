@@ -22,7 +22,7 @@
         <ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>dashboardb/master/semester"><i class="fa fa-circle-o"></i> Semester</a></li>
             <li><a href="<?php echo base_url() ?>dashboardb/master/gelombang"><i class="fa fa-circle-o"></i> Gelombang</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardb/master/dosen"><i class="fa fa-circle-o"></i> Dosen</a></li>
+            <li><a href="<?php echo base_url() ?>baa/master/dosen"><i class="fa fa-circle-o"></i> Dosen</a></li>
             <li><a href="<?php echo base_url() ?>dashboardb/master/mahasiswa"><i class="fa fa-circle-o"></i> Mahasiswa</a></li>
 
         </ul>

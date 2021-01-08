@@ -228,13 +228,7 @@
 	$route['dashboardb/monitoring/jadwal'] = 'backend/baa/monitoring/jadwal';
 	$route['dashboardb/monitoring/jadwal/show'] = 'backend/baa/monitoring/jadwal/show';
 
-	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
-	$route['baa/utility/registrasi/verifikasi'] = 'backend/baa/utility/registrasi/verifikasi';
-	$route['baa/utility/pencarian'] = 'backend/baa/utility/pencarian';
-        
-        $route['baa/report/skripsi'] = 'backend/baa/report/skripsi';
-        $route['baa/report/skripsi/bimbingan'] = 'backend/baa/report/skripsi/bimbingan';
-        $route['baa/report/skripsi/detail_bimbingan'] = 'backend/baa/report/skripsi/detail_bimbingan';
+
 	//3. Dashboard Mahasiswa S1
 
 	$route['dashboardm'] = 'backend/mahasiswa/home';
@@ -429,6 +423,18 @@
 	$route['baa/doktoral/disertasi/terbuka/cetak_berita'] = 'backend/baa/doktoral/disertasi_terbuka/cetak_berita';
 	$route['baa/doktoral/disertasi/terbuka/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_terbuka/cetak_penilaian';
 	$route['baa/doktoral/disertasi/terbuka/cetak_absensi'] = 'backend/baa/doktoral/disertasi_terbuka/cetak_absensi';
+
+	$route['baa/master/dosen'] = 'backend/baa/master/dosen/index';
+	$route['baa/master/dosen/edit/(:num)'] = 'backend/baa/master/dosen/edit';
+	$route['baa/master/dosen/update'] = 'backend/baa/master/dosen/update';
+
+	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
+	$route['baa/utility/registrasi/verifikasi'] = 'backend/baa/utility/registrasi/verifikasi';
+	$route['baa/utility/pencarian'] = 'backend/baa/utility/pencarian';
+
+	$route['baa/report/skripsi'] = 'backend/baa/report/skripsi';
+	$route['baa/report/skripsi/bimbingan'] = 'backend/baa/report/skripsi/bimbingan';
+	$route['baa/report/skripsi/detail_bimbingan'] = 'backend/baa/report/skripsi/detail_bimbingan';
 
 	// KPS & SPS & PROMOTOR
 	$route['dosen/disertasi/kualifikasi'] = 'backend/dosen/disertasi/kualifikasi';
@@ -650,6 +656,7 @@
 
 	// DOKUMEN PERSETUJUAN
 	$route['dosen/dokumen/berita_acara'] = 'backend/dosen/dokumen/berita_acara';
+	$route['dosen/dokumen/berita_acara/riwayat'] = 'backend/dosen/dokumen/berita_acara/riwayat';
 	$route['dosen/dokumen/berita_acara/persetujuan/(:num)'] = 'backend/dosen/dokumen/berita_acara/persetujuan';
 	$route['dosen/dokumen/berita_acara/persetujuan/save'] = 'backend/dosen/dokumen/berita_acara/persetujuan_save';
 

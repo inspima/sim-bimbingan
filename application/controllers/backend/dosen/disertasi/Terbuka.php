@@ -60,9 +60,6 @@ class Terbuka extends CI_Controller {
                     'status_terbuka' => STATUS_DISERTASI_TERBUKA_SETUJUI_KPS,
                 );
 
-                $data = array(
-                    'status_terbuka' => STATUS_DISERTASI_TERBUKA_UJIAN,
-                );
             }
             $this->disertasi->update($data, $id_disertasi);
 

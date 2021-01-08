@@ -1550,7 +1550,7 @@
 													'color' => 'bg-purple'
 												],
 												[
-													'value' => STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN_CETAK_DOKUMEN,
+													'value' => STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN,
 													'text' => 'Persetujuan Berkas',
 													'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
 													'color' => 'bg-orange'
