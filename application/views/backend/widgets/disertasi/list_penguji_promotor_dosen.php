@@ -5,7 +5,7 @@
 
 <div class="form-group">
 	<table class="table table-bordered">
-		<tr>
+		<tr class="bg-gray">
 			<th>Nama</th>
 		</tr>
 		<?php

@@ -378,6 +378,8 @@
 	$route['baa/tesis/ujian/approve/(:num)'] = 'backend/baa/tesis/ujian/approve';
 	$route['baa/tesis/ujian/reject/(:num)'] = 'backend/baa/tesis/ujian/reject';
 	$route['baa/tesis/ujian/batal/(:num)'] = 'backend/baa/tesis/ujian/batal';
+	$route['baa/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/baa/tesis/ujian/nilai_ujian';
+	$route['baa/tesis/ujian/nilai_ujian_save'] = 'backend/baa/tesis/ujian/nilai_ujian_save';
 
 	$route['baa/magister/tesis/proposal'] = 'backend/baa/magister/tesis_proposal';
 	$route['baa/magister/tesis/proposal/cetak_undangan'] = 'backend/baa/magister/tesis_proposal/cetak_undangan';
@@ -523,8 +525,11 @@
 	$route['dosen/disertasi/terbuka/terima'] = 'backend/dosen/disertasi/terbuka/terima';
 	$route['dosen/disertasi/terbuka/jadwal_save'] = 'backend/dosen/disertasi/terbuka/jadwal_save';
 	$route['dosen/disertasi/terbuka/penguji_save'] = 'backend/dosen/disertasi/terbuka/penguji_save';
+	$route['dosen/disertasi/terbuka/penguji_rekomendasi_save'] = 'backend/dosen/disertasi/terbuka/penguji_rekomendasi_save';
+	$route['dosen/disertasi/terbuka/penguji_promotor_save'] = 'backend/dosen/disertasi/terbuka/penguji_promotor_save';
 	$route['dosen/disertasi/terbuka/penguji_update_statustim'] = 'backend/dosen/disertasi/terbuka/penguji_update_statustim';
 	$route['dosen/disertasi/terbuka/penguji_delete'] = 'backend/dosen/disertasi/terbuka/penguji_delete';
+	$route['dosen/disertasi/terbuka/penguji/kirim_whatsapp'] = 'backend/dosen/disertasi/terbuka/penguji_kirim_whatsapp';
 	$route['dosen/disertasi/terbuka/update_status_ujian'] = 'backend/dosen/disertasi/terbuka/update_status_ujian';
 	$route['dosen/disertasi/terbuka/promotor_save'] = 'backend/dosen/disertasi/terbuka/promotor_save';
 	$route['dosen/disertasi/terbuka/promotor_delete'] = 'backend/dosen/disertasi/terbuka/promotor_delete';

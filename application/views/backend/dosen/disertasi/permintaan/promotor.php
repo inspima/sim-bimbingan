@@ -200,7 +200,7 @@
 							<?php if ($list['status_terbuka'] >= STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR && $list['status_terbuka'] < STATUS_DISERTASI_TERBUKA_SELESAI):
 								?>
 								<hr style="margin: 10px;border-width:2px;"/>
-								<a href="<?= base_url() ?>dosen/disertasi/terbuka/setting/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penyanggah</a>
+								<a href="<?= base_url() ?>dosen/disertasi/terbuka/setting/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penguji</a>
 							<?php
 							endif;
 							?>

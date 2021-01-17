@@ -160,7 +160,7 @@
                         </div>
 
                         <?php echo form_close() ?>
-                        <?php $this->view('backend/widgets/tesis/list_penguji_dosen_temp', ['tesis' => $tesis]); ?>
+                        <?php $this->view('backend/widgets/tesis/list_penguji_dosen_temp', ['tesis' => $tesis, 'asal_pengusul' => '1']); ?>
                         <?php
                     } else {
                         ?>

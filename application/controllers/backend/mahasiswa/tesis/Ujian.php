@@ -101,7 +101,7 @@ class Ujian extends CI_Controller {
             }
 
             if($_FILES['berkas_syarat_tesis']['size'] != 0){
-                $file_name = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
+                $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
                 $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
                 $config['allowed_types'] = 'pdf';
                 $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
@@ -197,7 +197,7 @@ class Ujian extends CI_Controller {
             }
 
             if($_FILES['berkas_syarat_tesis']['size'] != 0) {
-                $file_name = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
+                $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
                 $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
                 $config['allowed_types'] = 'pdf';
                 $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
@@ -205,7 +205,7 @@ class Ujian extends CI_Controller {
                 $config['file_ext_tolower'] = TRUE;
                 $config['detect_mime'] = TRUE;
                 $config['mod_mime_fix'] = TRUE;
-                $config['file_name'] = $file_name;
+                $config['file_name'] = $file_name_syarat;
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
             }

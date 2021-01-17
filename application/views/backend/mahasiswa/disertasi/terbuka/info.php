@@ -63,7 +63,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Penyanggah</h3>
+                <h3 class="box-title">Penguji</h3>
             </div>
             <div class="box-body table-responsive">
                 <?php $this->view('backend/widgets/disertasi/list_penguji', ['jadwal' => $jadwal]); ?>

@@ -365,6 +365,28 @@
 			return $sudah_ada == 0 ? false : true;
 		}
 
+		public function read_rekomendasi_penguji_terbuka()
+		{
+			$query = $this->db->query("
+			select trim(replace(replace(peg.nama,'Dr.',''),'Prof.','')) nama,peg.nip,count(pd.id_penguji) jumlah 
+				from pegawai peg 
+				left join (
+					select nip,id_penguji
+					from penguji_disertasi pd
+					join ujian_disertasi uj on uj.id_ujian=pd.id_ujian and uj.jenis_ujian='5'
+				    where pd.status not in ('0','3')
+				) pd on pd.nip = peg.nip
+				where peg.jenis_pegawai='1'
+				and peg.id_jenjang='3'
+				and peg.external='0'
+				group by peg.nama,peg.nip
+				order by jumlah asc, nama asc
+				limit 0,5
+			");
+
+			return $query->result_array();
+		}
+
 		public function read_penguji_ketua($id_ujian)
 		{
 			$stts = array('1', '2');
@@ -466,6 +488,12 @@
 		{
 			$this->db->where('id_penguji', $id_penguji);
 			$this->db->update('penguji_disertasi', $data);
+		}
+
+		public function delete_penguji($id_penguji)
+		{
+			$this->db->where('id_penguji', $id_penguji);
+			$this->db->delete('penguji_disertasi');
 		}
 
 		// PENASEHAT AKADEMIK
