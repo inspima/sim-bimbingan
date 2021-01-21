@@ -12,11 +12,11 @@
     <!-- /.box-header -->
     <div class="box-body" style="display: none;">
         <?php
-        if ($jenis == '1') :// PROPOSAL
+        if ($jenis == TAHAPAN_TESIS_PROPOSAL) :// PROPOSAL
             ?>
             <dl style="margin-left: 20px">
                 <?php
-                $tahapan_statuses = $this->tesis->read_status_tahapan(1);
+                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_PROPOSAL, $prodi);
                 $index = 0;
                 foreach ($tahapan_statuses as $status):
                     if ($index > 0) {
@@ -31,11 +31,11 @@
 
             </dl>
             <?php
-        elseif ($jenis == '2') :// UJIAN
+        elseif ($jenis == TAHAPAN_TESIS_UJIAN) :// UJIAN
             ?>
             <dl style="margin-left: 20px">
                 <?php
-                $tahapan_statuses = $this->tesis->read_status_tahapan(2);
+                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_UJIAN, $prodi);
                 $index = 0;
                 foreach ($tahapan_statuses as $status):
                     if ($index > 0) {

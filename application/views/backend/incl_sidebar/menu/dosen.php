@@ -93,7 +93,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/index_kabag"><i class="fa fa-circle-o"></i> Persetujuan</a></li>
                 </ul>
             </li>
             <li class="treeview">

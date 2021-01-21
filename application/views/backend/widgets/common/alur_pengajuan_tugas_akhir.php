@@ -148,7 +148,7 @@ if ($jenjang == 2) {
         </li>
         <?php
         $index = 0;
-        $tahapans = $this->tesis->read_status_tahapan($process['value']);
+        $tahapans = $this->tesis->read_status_tahapan($process['value'], $prodi);
         foreach ($tahapans as $tahapan):
             if ($index > 0):
                 ?>

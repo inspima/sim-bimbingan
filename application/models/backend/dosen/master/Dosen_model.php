@@ -5,6 +5,16 @@ if (!defined('BASEPATH'))
 
 class Dosen_model extends CI_Model {
 
+    public function detail($username) {
+        $this->db->select('p.*');
+        $this->db->from('pegawai p');
+        $this->db->where('p.status', 1);
+        $this->db->where('p.nip', $username);
+
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     public function read_aktif($id_departemen) {
         $this->db->select('p.id_pegawai, p.id_departemen, p.nip, p.nama, p.email, p.status_berjalan, d.departemen');
         $this->db->from('pegawai p');

@@ -20,6 +20,7 @@ class Proposal extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
+        $this->load->model('backend/mahasiswa/master/biodata_model', 'biodata');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
@@ -37,7 +38,8 @@ class Proposal extends CI_Controller {
             'section' => 'backend/mahasiswa/tesis/proposal/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
-            'tesis' => $this->tesis->read_proposal_mahasiswa($this->session_data['username'])
+            'tesis' => $this->tesis->read_proposal_mahasiswa($this->session_data['username']),
+            'biodata' => $this->biodata->detail($this->session_data['username']),
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -75,55 +77,114 @@ class Proposal extends CI_Controller {
                 // DATA //
                 'mdosen' => $this->dosen->read_aktif_alldep(),
                 'departemen' => $this->departemen->read(),
-                'gelombang' => $this->gelombang->read_berjalan()
+                'gelombang' => $this->gelombang->read_berjalan(),
+                'biodata' => $this->biodata->detail($this->session_data['username']),
             );
             $this->load->view('backend/index_sidebar', $data);
         }
     }
 
     public function save() {
+        $biodata = $this->biodata->detail($this->session_data['username']);
+        $id_prodi = $biodata->id_prodi;
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
-            $file_name = $this->session_data['username'] . '_berkas_proposal.pdf';
-            $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal';
-            $config['allowed_types'] = 'pdf';
-            $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-            $config['remove_spaces'] = TRUE;
-            $config['file_ext_tolower'] = TRUE;
-            $config['detect_mime'] = TRUE;
-            $config['mod_mime_fix'] = TRUE;
-            $config['file_name'] = $file_name;
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-            $tgl_sekarang = date('Y-m-d');
-            if (!$this->upload->do_upload('berkas_proposal')) {
-                $this->session->set_flashdata('msg-title', 'alert-danger');
-                $this->session->set_flashdata('msg', $this->upload->display_errors());
-                redirect('mahasiswa/tesis/proposal');
-            } else {
-                $data = array(
-                    'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                    'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                    'berkas_proposal' => $file_name,
-                    'nim' => $this->session_data['username'],
-                    'tgl_pengajuan' => $tgl_sekarang,
-                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                );
+            if($id_prodi == S2_KENOTARIATAN){
+                $file_name = $this->session_data['username'] . '_berkas_orisinalitas.pdf';
+                $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+                $config['remove_spaces'] = TRUE;
+                $config['file_ext_tolower'] = TRUE;
+                $config['detect_mime'] = TRUE;
+                $config['mod_mime_fix'] = TRUE;
+                $config['file_name'] = $file_name;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                $tgl_sekarang = date('Y-m-d');
+                if (!$this->upload->do_upload('berkas_orisinalitas')) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', $this->upload->display_errors());
+                    redirect('mahasiswa/tesis/proposal');
+                } else {
+                    $data = array(
+                        //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                        //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                        'berkas_orisinalitas' => $file_name,
+                        'nim' => $this->session_data['username'],
+                        //'id_departemen' => $this->input->post('departemen', TRUE),
+                        'tgl_pengajuan' => $tgl_sekarang,
+                        'status_proposal' => MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL,
+                    );
 
-                $this->tesis->save($data);
-                $last_id = $this->db->insert_id();
+                    $this->tesis->save($data);
+                    $last_id = $this->db->insert_id();
 
-                $dataj = array(
-                    'id_tesis' => $last_id,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
+                    $dataj = array(
+                        'id_tesis' => $last_id,
+                        'judul' => $this->input->post('judul', TRUE),
+                        'latar_belakang' => $this->input->post('latar_belakang', TRUE),
+                        'rumusan_masalah_pertama' => $this->input->post('rumusan_masalah_pertama', TRUE),
+                        'rumusan_masalah_kedua' => $this->input->post('rumusan_masalah_kedua', TRUE),
+                        'rumusan_masalah_lain' => $this->input->post('rumusan_masalah_lain', TRUE),
+                        'penelusuran_artikel_internet' => $this->input->post('penelusuran_artikel_internet', TRUE),
+                        'penelusuran_artikel_unair' => $this->input->post('penelusuran_artikel_unair', TRUE),
+                        'uraian_topik' => $this->input->post('uraian_topik', TRUE),
+                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                    );
 
-                $this->tesis->save_judul($dataj);
+                    $this->tesis->save_judul($dataj);
 
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan ujian proposal..');
-                redirect('mahasiswa/tesis/proposal');
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan judul proposal..');
+                    redirect('mahasiswa/tesis/proposal');
+                }
+            }
+            else {
+                $file_name = $this->session_data['username'] . '_berkas_proposal.pdf';
+                $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+                $config['remove_spaces'] = TRUE;
+                $config['file_ext_tolower'] = TRUE;
+                $config['detect_mime'] = TRUE;
+                $config['mod_mime_fix'] = TRUE;
+                $config['file_name'] = $file_name;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                $tgl_sekarang = date('Y-m-d');
+                if (!$this->upload->do_upload('berkas_proposal')) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', $this->upload->display_errors());
+                    redirect('mahasiswa/tesis/proposal');
+                } else {
+                    $data = array(
+                        //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                        //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                        'berkas_proposal' => $file_name,
+                        'nim' => $this->session_data['username'],
+                        'id_departemen' => $this->input->post('departemen', TRUE),
+                        'tgl_pengajuan' => $tgl_sekarang,
+                        'status_proposal' => ($id_prodi == 2) ? MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN : STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                    );
+
+                    $this->tesis->save($data);
+                    $last_id = $this->db->insert_id();
+
+                    $dataj = array(
+                        'id_tesis' => $last_id,
+                        'judul' => $this->input->post('judul', TRUE),
+                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                    );
+
+                    $this->tesis->save_judul($dataj);
+
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan ujian proposal..');
+                    redirect('mahasiswa/tesis/proposal');
+                }
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
@@ -146,6 +207,7 @@ class Proposal extends CI_Controller {
             'departemen' => $this->departemen->read(),
             'gelombang' => $this->gelombang->read_berjalan(),
             'tesis' => $this->tesis->detail($id),
+            'biodata' => $this->biodata->detail($this->session_data['username']),
         );
 
         if ($data['tesis']) {
@@ -159,6 +221,8 @@ class Proposal extends CI_Controller {
     }
 
     public function update() {
+        $biodata = $this->biodata->detail($this->session_data['username']);
+        $id_prodi = $biodata->id_prodi;
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
@@ -167,82 +231,195 @@ class Proposal extends CI_Controller {
             $judul = $this->input->post('judul', TRUE);
             $tgl_sekarang = date('Y-m-d');
 
-            $file_name = $this->session_data['username'] . '_berkas_proposal.pdf';
-            $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal';
-            $config['allowed_types'] = 'pdf';
-            $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-            $config['remove_spaces'] = TRUE;
-            $config['file_ext_tolower'] = TRUE;
-            $config['detect_mime'] = TRUE;
-            $config['mod_mime_fix'] = TRUE;
-            $config['file_name'] = $file_name;
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-            $tgl_sekarang = date('Y-m-d');
+            if($id_prodi == S2_KENOTARIATAN){
+                $file_name = $this->session_data['username'] . '_berkas_orisinalitas.pdf';
+                $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+                $config['remove_spaces'] = TRUE;
+                $config['file_ext_tolower'] = TRUE;
+                $config['detect_mime'] = TRUE;
+                $config['mod_mime_fix'] = TRUE;
+                $config['file_name'] = $file_name;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                $tgl_sekarang = date('Y-m-d');
 
-            if ($judul == $read_judul->judul) {
-                if($_FILES['berkas_proposal']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                if ($judul == $read_judul->judul) {
+                    if($_FILES['berkas_orisinalitas']['size'] != 0){
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'berkas_orisinalitas' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+                    else {
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+
+                    $dataj = array(
+                        'id_tesis' => $id_tesis,
+                        'judul' => $this->input->post('judul', TRUE),
+                        'latar_belakang' => $this->input->post('latar_belakang', TRUE),
+                        'rumusan_masalah_pertama' => $this->input->post('rumusan_masalah_pertama', TRUE),
+                        'rumusan_masalah_kedua' => $this->input->post('rumusan_masalah_kedua', TRUE),
+                        'rumusan_masalah_lain' => $this->input->post('rumusan_masalah_lain', TRUE),
+                        'penelusuran_artikel_internet' => $this->input->post('penelusuran_artikel_internet', TRUE),
+                        'penelusuran_artikel_unair' => $this->input->post('penelusuran_artikel_unair', TRUE),
+                        'uraian_topik' => $this->input->post('uraian_topik', TRUE),
                         'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                        'berkas_proposal' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                     );
-                    $this->tesis->update($data, $id_tesis);
-                }
-                else {
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+
+                    $this->tesis->update_judul($dataj, $id_tesis);
+
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Berhasil update');
+                    redirect('mahasiswa/tesis/proposal');
+                } else {
+                    if($_FILES['berkas_orisinalitas']['size'] != 0){
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'berkas_orisinalitas' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+                    else {
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+
+                    $dataj = array(
+                        'id_tesis' => $id_tesis,
+                        'judul' => $this->input->post('judul', TRUE),
+                        'latar_belakang' => $this->input->post('latar_belakang', TRUE),
+                        'rumusan_masalah_pertama' => $this->input->post('rumusan_masalah_pertama', TRUE),
+                        'rumusan_masalah_kedua' => $this->input->post('rumusan_masalah_kedua', TRUE),
+                        'rumusan_masalah_lain' => $this->input->post('rumusan_masalah_lain', TRUE),
+                        'penelusuran_artikel_internet' => $this->input->post('penelusuran_artikel_internet', TRUE),
+                        'penelusuran_artikel_unair' => $this->input->post('penelusuran_artikel_unair', TRUE),
+                        'uraian_topik' => $this->input->post('uraian_topik', TRUE),
                         'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                     );
-                    $this->tesis->update($data, $id_tesis);
-                }
 
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('mahasiswa/tesis/proposal');
-            } else {
-                if($_FILES['berkas_proposal']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                    $this->tesis->update_judul($dataj, $id_tesis);
+
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Berhasil update');
+                    redirect('mahasiswa/tesis/proposal');
+                }
+            }
+            else {
+                $file_name = $this->session_data['username'] . '_berkas_proposal.pdf';
+                $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+                $config['remove_spaces'] = TRUE;
+                $config['file_ext_tolower'] = TRUE;
+                $config['detect_mime'] = TRUE;
+                $config['mod_mime_fix'] = TRUE;
+                $config['file_name'] = $file_name;
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                $tgl_sekarang = date('Y-m-d');
+
+                if ($judul == $read_judul->judul) {
+                    if($_FILES['berkas_proposal']['size'] != 0){
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'berkas_proposal' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => ($id_prodi == 2) ? MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN : STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+                    else {
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'nim' => $this->session_data['username'],
+                            'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => ($id_prodi == 2) ? MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN : STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Berhasil update');
+                    redirect('mahasiswa/tesis/proposal');
+                } else {
+                    if($_FILES['berkas_proposal']['size'] != 0){
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'berkas_proposal' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => ($id_prodi == 2) ? MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN : STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+                    else {
+                        $data = array(
+                            //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                            'nim' => $this->session_data['username'],
+                            'id_departemen' => $this->input->post('departemen', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_proposal' => ($id_prodi == 2) ? MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN : STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+
+                    $dataj = array(
+                        'id_tesis' => $id_tesis,
+                        'judul' => $this->input->post('judul', TRUE),
                         'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                        'berkas_proposal' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                     );
-                    $this->tesis->update($data, $id_tesis);
+
+                    $this->tesis->update_judul($dataj, $id_tesis);
+
+                    $this->session->set_flashdata('msg-title', 'alert-success');
+                    $this->session->set_flashdata('msg', 'Berhasil update');
+                    redirect('mahasiswa/tesis/proposal');
                 }
-                else {
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-
-                $dataj = array(
-                    'id_tesis' => $id_tesis,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
-
-                $this->tesis->update_judul($dataj, $id_tesis);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('mahasiswa/tesis/proposal');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');

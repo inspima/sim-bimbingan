@@ -33,7 +33,16 @@ class Proposal extends CI_Controller {
     // KPS / PENASEHAT AKADEMIK
 
     public function index() {
-        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $status_proposal = 0;
+        if($id_prodi == S2_ILMU_HUKUM){
+            $status_proposal = MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN;
+        }
+        else if($id_prodi == S2_KENOTARIATAN){
+            $status_proposal = MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL;
+        }
         $data = array(
             // PAGE //
             'title' => 'Tesis - Proposal',
@@ -41,12 +50,234 @@ class Proposal extends CI_Controller {
             'section' => 'backend/dosen/tesis/proposal/index',
             // DATA //
             //'tesis' => $this->tesis->read_proposal(),
+            //'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'id_prodi' => $id_prodi,
+            'tesis' => $this->tesis->read_proposal_prodi($id_prodi, $status_proposal),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'struktural' => $this->struktural->read_struktural($this->session_data['username']),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function disetujui() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $status_proposal = 0;
+        if($id_prodi == S2_ILMU_HUKUM){
+            $status_proposal = MIH_STATUS_TESIS_PROPOSAL_SETUJUI_SPS;
+        }
+        else if($id_prodi == S2_KENOTARIATAN){
+            $status_proposal = MKN_STATUS_TESIS_PROPOSAL_SETUJUI_SPS;
+        }
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Proposal',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/proposal/disetujui',
+            // DATA //
+            //'tesis' => $this->tesis->read_proposal(),
+            //'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'id_prodi' => $id_prodi,
+            'tesis' => $this->tesis->read_proposal_prodi($id_prodi, $status_proposal),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'struktural' => $this->struktural->read_struktural($this->session_data['username']),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function ditolak() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $status_proposal = 0;
+        if($id_prodi == S2_ILMU_HUKUM){
+            $status_proposal = MIH_STATUS_TESIS_PROPOSAL_TOLAK_SPS;
+        }
+        else if($id_prodi == S2_KENOTARIATAN){
+            $status_proposal = MKN_STATUS_TESIS_PROPOSAL_TOLAK_SPS;
+        }
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Proposal',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/proposal/ditolak',
+            // DATA //
+            //'tesis' => $this->tesis->read_proposal(),
+            //'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'id_prodi' => $id_prodi,
+            'tesis' => $this->tesis->read_proposal_prodi($id_prodi, $status_proposal),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'struktural' => $this->struktural->read_struktural($this->session_data['username']),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function index_kabag() {
+        $id_departemen = $this->dosen->detail($this->session_data['username'])->id_departemen;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Proposal',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/proposal/index_kabag',
+            // DATA //
+            //'tesis' => $this->tesis->read_proposal(),
             'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'tesis' => $this->tesis->read_proposal_prodi($id),
+            'tesis' => $this->tesis->read_proposal_departemen($id_departemen),
             'prodi' => $this->tesis->read_prodi_s2(),
             'struktural' => $this->struktural->read_struktural($this->session_data['username']),
         );
         $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function setting_pembimbing() {
+        $id = $this->uri->segment(5);
+        $username = $this->session_data['username'];
+
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Proposal',
+            'subtitle' => 'Setting Pembimbing',
+            'section' => 'backend/dosen/tesis/proposal/setting_pembimbing',
+            // DATA //
+            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'departemen' => $this->departemen->read(),
+            'gelombang' => $this->gelombang->read_berjalan(),
+            'tesis' => $this->tesis->detail($id),
+        );
+
+        if ($data['tesis']) {
+            $this->load->view('backend/index_sidebar', $data);
+        } else {
+            $data['section'] = 'backend/notification/danger';
+            $data['msg'] = 'Tidak ditemukan';
+            $data['linkback'] = 'mahasiswa/tesis/proposal';
+            $this->load->view('backend/index_sidebar', $data);
+        }
+    }
+
+    public function setting_pembimbing_save() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+
+            $read_judul = $this->tesis->read_judul($id_tesis);
+            $judul = $this->input->post('judul', TRUE);
+            $tgl_sekarang = date('Y-m-d');
+
+            if ($judul == $read_judul->judul) {
+                $data = array(
+                    'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                    'tgl_pengajuan' => $tgl_sekarang,
+                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                );
+                $this->tesis->update($data, $id_tesis);
+                
+
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Berhasil update');
+                redirect('dosen/tesis/proposal/index_kabag');
+            } else {
+                $data = array(
+                    'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                    'tgl_pengajuan' => $tgl_sekarang,
+                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                );
+                $this->tesis->update($data, $id_tesis);
+
+                $dataj = array(
+                    'id_tesis' => $id_tesis,
+                    'judul' => $this->input->post('judul', TRUE),
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                );
+
+                $this->tesis->update_judul($dataj, $id_tesis);
+
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Berhasil update');
+                redirect('dosen/tesis/proposal/index_kabag');
+            }
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/tesis/proposal/index_kabag');
+        }
+    }
+
+    public function setting_pembimbing_kedua() {
+        $id = $this->uri->segment(5);
+        $username = $this->session_data['username'];
+
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Proposal',
+            'subtitle' => 'Setting Pembimbing',
+            'section' => 'backend/dosen/tesis/proposal/setting_pembimbing_kedua',
+            // DATA //
+            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'departemen' => $this->departemen->read(),
+            'gelombang' => $this->gelombang->read_berjalan(),
+            'tesis' => $this->tesis->detail($id),
+        );
+
+        if ($data['tesis']) {
+            $this->load->view('backend/index_sidebar', $data);
+        } else {
+            $data['section'] = 'backend/notification/danger';
+            $data['msg'] = 'Tidak ditemukan';
+            $data['linkback'] = 'mahasiswa/tesis/proposal';
+            $this->load->view('backend/index_sidebar', $data);
+        }
+    }
+
+    public function setting_pembimbing_kedua_save() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+            $id_prodi = $this->tesis->cek_prodi($id_tesis);
+
+            $read_judul = $this->tesis->read_judul($id_tesis);
+            $judul = $this->input->post('judul', TRUE);
+
+            if ($judul == $read_judul->judul) {
+                $data = array(
+                    'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                );
+                $this->tesis->update($data, $id_tesis);
+                
+
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Berhasil update');
+                redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
+            } else {
+                $data = array(
+                    'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                );
+                $this->tesis->update($data, $id_tesis);
+
+                $dataj = array(
+                    'id_tesis' => $id_tesis,
+                    'judul' => $this->input->post('judul', TRUE),
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                );
+
+                $this->tesis->update_judul($dataj, $id_tesis);
+
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Berhasil update');
+                redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
+            }
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
+        }
     }
 
     /*public function index_prodi() {

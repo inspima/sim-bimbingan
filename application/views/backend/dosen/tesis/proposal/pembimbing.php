@@ -165,7 +165,13 @@
                         -->
                         <td>
                             <?php
-                            if ($list['status_proposal'] == STATUS_TESIS_PROPOSAL_SETUJUI_SPS) {
+                            if($list['nip_pembimbing_dua'] == NULL){
+                            ?>
+                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/setting_pembimbing_kedua/<?= $list['id_tesis']?>">
+                                <i class="fa fa-edit"></i> Setting Pembimbing Kedua</a><br>
+                            <?php
+                            }
+                            else if ($list['status_proposal'] == STATUS_TESIS_PROPOSAL_SETUJUI_SPS) {
                                 ?>
                                 <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
                                 <?php

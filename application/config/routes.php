@@ -559,7 +559,9 @@
 
 	// TESIS - PROPOSAL
 	$route['dosen/tesis/proposal'] = 'backend/dosen/tesis/proposal';
-	$route['dosen/tesis/proposal/index/(:num)'] = 'backend/dosen/tesis/proposal/index';
+	$route['dosen/tesis/proposal/index'] = 'backend/dosen/tesis/proposal/index';
+	$route['dosen/tesis/proposal/disetujui'] = 'backend/dosen/tesis/proposal/disetujui';
+	$route['dosen/tesis/proposal/ditolak'] = 'backend/dosen/tesis/proposal/ditolak';
 	$route['dosen/tesis/proposal/approve/(:num)'] = 'backend/dosen/tesis/proposal/approve';
 	$route['dosen/tesis/proposal/reject/(:num)'] = 'backend/dosen/tesis/proposal/reject';
 	$route['dosen/tesis/proposal/batal/(:num)'] = 'backend/dosen/tesis/proposal/batal';

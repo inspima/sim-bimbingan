@@ -20,7 +20,8 @@
                 <tr>
                     <th>No</th>
                     <th>Judul</th>
-                    <th colspan="2">Pembimbing</th>
+                    <th>Pembimbing Utama</th>
+                    <th>Pembimbing Kedua</th>
                     <th class="text-center">Berkas Proposal</th>
                     <th class="text-center">Berkas Tesis</th>
                     <th class="text-center">Berkas Syarat</th>
