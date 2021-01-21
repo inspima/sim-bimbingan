@@ -142,7 +142,7 @@
 							break;
 						case UJIAN_DISERTASI_TERBUKA:
 							$data = array(
-								'status_terbuka' => STATUS_DISERTASI_TERBUKA_SETUJUI_PENGUJI,
+								'status_terbuka' => STATUS_DISERTASI_TERBUKA_UJIAN,
 							);
 							break;
 					}
