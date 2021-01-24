@@ -484,6 +484,12 @@
 			$this->db->insert('penguji_disertasi', $data);
 		}
 
+		public function update_penguji_by_jadwal_lama($data, $id_ujian)
+		{
+			$this->db->where('id_ujian', $id_ujian);
+			$this->db->update('penguji_disertasi', $data);
+		}
+
 		public function update_penguji($data, $id_penguji)
 		{
 			$this->db->where('id_penguji', $id_penguji);
@@ -623,6 +629,33 @@
 
 		// JADWAL
 
+		public function read_jadwal_sebelum($id_disertasi, $jenis_ujian)
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian_disertasi u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_disertasi', $id_disertasi);
+			$this->db->where('u.jenis_ujian', $jenis_ujian);
+			$this->db->where('u.status', '0');
+			$this->db->order_by('u.id_ujian', 'desc');
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_jadwal_riwayat($id_disertasi, $jenis_ujian)
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian_disertasi u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_disertasi', $id_disertasi);
+			$this->db->where('u.jenis_ujian', $jenis_ujian);
+			$this->db->order_by('u.id_ujian', 'desc');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function read_jadwal($id_disertasi, $jenis_ujian)
 		{
 			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
@@ -631,6 +664,7 @@
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->where('u.id_disertasi', $id_disertasi);
 			$this->db->where('u.jenis_ujian', $jenis_ujian);
+			$this->db->where('u.status', '1');
 			$query = $this->db->get();
 			return $query->row();
 		}
@@ -687,6 +721,21 @@
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->where('u.id_ujian', $id_ujian);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function detail_ujian_by_data($id_disertasi, $data)
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian_disertasi u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_disertasi', $id_disertasi);
+			$this->db->where('u.id_ruang', $data['id_ruang']);
+			$this->db->where('u.id_jam', $data['id_jam']);
+			$this->db->where('u.tanggal', $data['tanggal']);
+			$this->db->where('u.jenis_ujian', $data['jenis_ujian']);
 			$query = $this->db->get();
 			return $query->row();
 		}

@@ -8,14 +8,10 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => '1']); ?>
+<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => TAHAPAN_TESIS_UJIAN]); ?>
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">Tabel <?= $subtitle ?></h3>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="<?= base_url() ?>mahasiswa/tesis/proposal/add">
-                <i class="fa fa-plus"></i> TAMBAH</a>
-        </div>
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive">
@@ -26,7 +22,9 @@
                     <th>Judul</th>
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
-                    <th class="text-center">Berkas</th>
+                    <th class="text-center">Berkas Proposal</th>
+                    <th class="text-center">Berkas Tesis</th>
+                    <th class="text-center">Berkas Syarat</th>
                     <th>Tanggal Pengajuan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
@@ -97,45 +95,48 @@
                             }
                             ?>
                         </td>
-                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
-                            <?php if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
-                                ?>
-                                <hr style="margin:5px"/>
-                                <b>Hasil Ujian</b><br/>
-                                <?php
-                                echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
-                                ?>
-                                <?php if ($list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI):
-                                    ?>
-                                    <hr style = "margin:5px"/>
-                                    <a href = "<?= base_url() ?>mahasiswa/tesis/ujian/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Tesis</a>
-                                    <?php
-                                endif;
+                            <?php
+                            if($list['berkas_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
                             }
                             ?>
                         </td>
                         <td class="text-center">
+                            <?php
+                            if($list['berkas_syarat_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_syarat_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                             <?php 
-                            if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_DIJADWALKAN_KPS) {
+                            }
+                            ?>
+                        </td>
+                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
+                        <td class="text-center">
+                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); ?>
+                        </td>
+                        <td class="text-center">
+                            <?php 
+                            if ($list['status_tesis'] > STATUS_TESIS_UJIAN_DIJADWALKAN_KPS) {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/proposal/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
+                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
                             }
                             if ($list['status_pembimbing_satu'] == '' && $list['status_pembimbing_dua'] == '') {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/proposal/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
                                 <?php
                             }
-                            if ($list['status_proposal'] == STATUS_TESIS_PROPOSAL_SETUJUI_SPS) {
+                            if ($list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA) {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/proposal/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
+                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
                                 <?php
                             }
-                            if ($list['status_proposal'] == STATUS_TESIS_PROPOSAL_DIJADWALKAN_KPS) {
+                            if ($list['status_tesis'] == STATUS_TESIS_UJIAN_DIJADWALKAN_KPS) {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/proposal/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal</a>
+                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal</a>
                                 <?php
                             }
                             ?>
@@ -145,7 +146,7 @@
                     $no++;
                 }
                 ?>
-                </tfoot>
+            </tbody>
         </table>
     </div>
     <!-- /.box-body -->

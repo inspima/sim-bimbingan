@@ -12,11 +12,11 @@
     <!-- /.box-header -->
     <div class="box-body" style="display: none;">
         <?php
-        if ($jenis == TAHAPAN_TESIS_PROPOSAL) :// PROPOSAL
+        if ($jenis == TAHAPAN_TESIS_JUDUL_PROPOSAL) :// JUDUL PROPOSAL
             ?>
             <dl style="margin-left: 20px">
                 <?php
-                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_PROPOSAL, $prodi);
+                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_JUDUL_PROPOSAL);
                 $index = 0;
                 foreach ($tahapan_statuses as $status):
                     if ($index > 0) {
@@ -31,11 +31,47 @@
 
             </dl>
             <?php
+        elseif ($jenis == TAHAPAN_TESIS_PROPOSAL) :// PROPOSAL
+            ?>
+            <dl style="margin-left: 20px">
+                <?php
+                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_PROPOSAL);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
+            </dl>
+            <?php
+        elseif ($jenis == TAHAPAN_TESIS_MKPT) :// MKPT
+            ?>
+            <dl style="margin-left: 20px">
+                <?php
+                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_MKPT);
+                $index = 0;
+                foreach ($tahapan_statuses as $status):
+                    if ($index > 0) {
+                        ?>
+                        <dt><label class="label <?= $status['color'] ?>"><?= $status['text'] ?></label></dt>
+                        <dd><?= $status['keterangan'] ?> </dd>
+                        <?php
+                    }
+                    $index++;
+                endforeach;
+                ?>
+            </dl>
+            <?php
         elseif ($jenis == TAHAPAN_TESIS_UJIAN) :// UJIAN
             ?>
             <dl style="margin-left: 20px">
                 <?php
-                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_UJIAN, $prodi);
+                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_UJIAN);
                 $index = 0;
                 foreach ($tahapan_statuses as $status):
                     if ($index > 0) {

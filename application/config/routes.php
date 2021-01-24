@@ -711,6 +711,12 @@
 	$route['mahasiswa/disertasi/terbuka/info/(:num)'] = 'backend/mahasiswa/disertasi/terbuka/info';
 
 	// MAGISTER
+	$route['mahasiswa/tesis/judul_proposal'] = 'backend/mahasiswa/tesis/judul_proposal';
+	$route['mahasiswa/tesis/judul_proposal/add'] = 'backend/mahasiswa/tesis/judul_proposal/add';
+	$route['mahasiswa/tesis/judul_proposal/edit/(:num)'] = 'backend/mahasiswa/tesis/judul_proposal/edit';
+	$route['mahasiswa/tesis/judul_proposal/save'] = 'backend/mahasiswa/tesis/judul_proposal/save';
+	$route['mahasiswa/tesis/judul_proposal/update'] = 'backend/mahasiswa/tesis/judul_proposal/update';
+
 	$route['mahasiswa/tesis/proposal'] = 'backend/mahasiswa/tesis/proposal';
 	$route['mahasiswa/tesis/proposal/add'] = 'backend/mahasiswa/tesis/proposal/add';
 	$route['mahasiswa/tesis/proposal/edit/(:num)'] = 'backend/mahasiswa/tesis/proposal/edit';
@@ -720,9 +726,14 @@
 	$route['mahasiswa/tesis/proposal/jadwal/(:num)'] = 'backend/mahasiswa/tesis/proposal/jadwal';
 	$route['mahasiswa/tesis/proposal/jadwal_save'] = 'backend/mahasiswa/tesis/proposal/jadwal_save';
 
-	//$route['mahasiswa/tesis/proposal/promotor_save'] = 'backend/mahasiswa/tesis/proposal/promotor_save';
-
-	//$route['mahasiswa/tesis/proposal/promotor_delete'] = 'backend/mahasiswa/tesis/proposal/promotor_delete';
+	$route['mahasiswa/tesis/mkpt'] = 'backend/mahasiswa/tesis/mkpt';
+	$route['mahasiswa/tesis/mkpt/add/(:num)'] = 'backend/mahasiswa/tesis/mkpt/add';
+	$route['mahasiswa/tesis/mkpt/edit/(:num)'] = 'backend/mahasiswa/tesis/mkpt/edit';
+	$route['mahasiswa/tesis/mkpt/save'] = 'backend/mahasiswa/tesis/mkpt/save';
+	$route['mahasiswa/tesis/mkpt/update'] = 'backend/mahasiswa/tesis/mkpt/update';
+	$route['mahasiswa/tesis/mkpt/info/(:num)'] = 'backend/mahasiswa/tesis/mkpt/info';
+	$route['mahasiswa/tesis/mkpt/jadwal/(:num)'] = 'backend/mahasiswa/tesis/mkpt/jadwal';
+	$route['mahasiswa/tesis/mkpt/jadwal_save'] = 'backend/mahasiswa/tesis/mkpt/jadwal_save';
 
 
 	$route['mahasiswa/tesis/ujian'] = 'backend/mahasiswa/tesis/ujian';
@@ -733,10 +744,6 @@
 	$route['mahasiswa/tesis/ujian/info/(:num)'] = 'backend/mahasiswa/tesis/ujian/info';
 	$route['mahasiswa/tesis/ujian/jadwal/(:num)'] = 'backend/mahasiswa/tesis/ujian/jadwal';
 	$route['mahasiswa/tesis/ujian/jadwal_save'] = 'backend/mahasiswa/tesis/ujian/jadwal_save';
-	//$route['mahasiswa/tesis/ujian/promotor_save'] = 'backend/mahasiswa/tesis/ujian/promotor_save';
-
-	//$route['mahasiswa/tesis/ujian/promotor_delete'] = 'backend/mahasiswa/tesis/ujian/promotor_delete';
-
 
 	/*
 

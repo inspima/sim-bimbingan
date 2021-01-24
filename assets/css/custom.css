@@ -48,37 +48,40 @@ and open the template in the editor.
 
 /* DIVIDER */
 .divider3 {
-	margin: 3px;
+	padding: 2px 0px 1px 0px;
 	display: block;
 }
 
 .divider5 {
-	margin: 5px;
+	padding: 2px 0px 3px 0px;
 	display: block;
 }
 
 .divider10 {
-	margin: 10px;
+	padding: 5px 0px 5px 0px;
 	display: block;
 }
 
 .divider-line-thin {
-	margin: 5px 0px;
-	margin-right: 10px;
+	margin: 0px;
+	padding: 2px 0px 3px 0px;
+	padding-right: 10px;
 	border-width: 1px;
 	border-color: #dedede;
 }
 
 .divider-line-semi-bold {
-	margin: 5px 0px;
-	margin-right: 10px;
+	margin: 0px;
+	padding: 2px 0px 3px 0px;
+	padding-right: 10px;
 	border-width: 2px;
 	border-color: #bbbbbb;
 }
 
 .divider-line-bold {
-	margin: 5px 0px;
-	margin-right: 10px;
+	margin: 0px;
+	padding: 2px 0px 3px 0px;
+	padding-right: 10px;
 	border-width: 3px;
 	border-color: #797979;
 }

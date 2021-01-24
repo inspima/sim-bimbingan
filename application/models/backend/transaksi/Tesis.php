@@ -32,6 +32,22 @@ class Tesis extends CI_Model {
         return $query->row_array();
     }
 
+    public function read_judul_proposal_mahasiswa($username) {
+        $this->db->select('s.*,pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua,
+            d.departemen ');
+        $this->db->from('tesis s');
+        $this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
+        $this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.status_judul_proposal >', 0);
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function read_proposal_mahasiswa($username) {
         $this->db->select('s.*,pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
             pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua,
@@ -582,7 +598,8 @@ class Tesis extends CI_Model {
         $this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
         $this->db->where('s.nim', $username);
         $this->db->where('s.jenis', 1);
-        $this->db->where_in('s.status_proposal', $stts);
+        //$this->db->where_in('s.status_proposal', $stts);
+        $this->db->where_in('s.status_judul_proposal', $stts);
         $this->db->limit(1);
         $this->db->order_by('s.id_tesis', 'desc');
 
@@ -1100,124 +1117,120 @@ class Tesis extends CI_Model {
         return $result;
     }
 
-    public function read_status_tahapan($urutan, $prodi) {
-        if ($urutan == TAHAPAN_TESIS_PROPOSAL) {
-        	if($prodi == S2_ILMU_HUKUM){
-        		return [
-	                [
-	                    'value' => 0,
-	                    'text' => 'Belum Pengajuan',
-	                    'keterangan' => '',
-	                    'color' => 'bg-gray'
-	                ],
-	                [
-	                    'value' => MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN,
-	                    'text' => 'Pengajuan',
-	                    'keterangan' => 'Diajukan oleh mahasiswa',
-	                    'color' => 'bg-blue'
-	                ],
-	                [
-	                    'value' => MIH_STATUS_TESIS_PROPOSAL_SETUJUI_SPS,
-	                    'text' => 'Disetujui Sekretaris Prodi',
-	                    'keterangan' => 'Disetujui oleh Sekretaris Prodi',
-	                    'color' => 'bg-green'
-	                ],
-                    [
-                        'value' => MIH_STATUS_TESIS_PROPOSAL_SETUJUI_KEBAG,
-                        'text' => 'Disetujui Ketua Bagian',
-                        'keterangan' => 'Disetujui oleh Ketua Bagian',
-                        'color' => 'bg-green'
-                    ],
-	                [
-	                    'value' => MIH_STATUS_TESIS_PROPOSAL_DIJADWALKAN_KPS,
-	                    'text' => 'Dijadwalkan Kaprodi',
-	                    'keterangan' => 'Dijadwalkan Oleh Kaprodi',
-	                    'color' => 'bg-navy'
-	                ],
-	                [
-	                    'value' => MIH_STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI,
-	                    'text' => 'Disetujui Penguji',
-	                    'keterangan' => 'Disetujui Dosen Penguji',
-	                    'color' => 'bg-green'
-	                ],
-	                [
-	                    'value' => MIH_STATUS_TESIS_PROPOSAL_UJIAN,
-	                    'text' => 'Ujian',
-	                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-	                    'color' => 'bg-green'
-	                ],
-	                [
-	                    'value' => MIH_STATUS_TESIS_PROPOSAL_UJIAN_SELESAI,
-	                    'text' => 'Ujian Selesai',
-	                    'keterangan' => 'Telah menyelesaikan Ujian',
-	                    'color' => 'bg-green'
-	                ],
-	            ];
-        	}
-        	else {
-	            return [
-	                [
-	                    'value' => 0,
-	                    'text' => 'Belum Pengajuan',
-	                    'keterangan' => '',
-	                    'color' => 'bg-gray'
-	                ],
-	                [
-	                    'value' => MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL,
-	                    'text' => 'Pengajuan Judul',
-	                    'keterangan' => 'Diajukan oleh mahasiswa',
-	                    'color' => 'bg-blue'
-	                ],
-	                [
-	                    'value' => MKN_STATUS_TESIS_PROPOSAL_SETUJUI_SPS,
-	                    'text' => 'Disetujui Sekretaris Prodi',
-	                    'keterangan' => 'Judul Disetujui oleh Sekretaris Prodi',
-	                    'color' => 'bg-green'
-	                ],
-	                [
-	                    'value' => MKN_STATUS_TESIS_PROPOSAL_KAPRODI_PILIH_PEMBIMBING,
-	                    'text' => 'Kaprodi Memilih Dosen Pembimbing',
-	                    'keterangan' => 'Pemilihan Dosen Pembimbing oleh Kaprodi',
-	                    'color' => 'bg-navy'
-	                ],
-	                [
-	                    'value' => MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_UJIAN,
-	                    'text' => 'Pengajuan Ujian Proposal',
-	                    'keterangan' => 'Pengajuan Ujian Proposal',
-	                    'color' => 'bg-green'
-	                ],
-	                [
-	                    'value' => MKN_STATUS_TESIS_PROPOSAL_SETUJUI_BAA,
-	                    'text' => 'Disetujui BAA',
-	                    'keterangan' => 'Disetujui oleh BAA',
-	                    'color' => 'bg-green'
-	                ],
-	                [
-	                    'value' => MKN_STATUS_TESIS_PROPOSAL_DIJADWALKAN_KPS,
-	                    'text' => 'Dijadwalkan Kaprodi',
-	                    'keterangan' => 'Dijadwalkan Oleh Kaprodi',
-	                    'color' => 'bg-green'
-	                ],
-	                [
-	                    'value' => MKN_STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI,
-	                    'text' => 'Disetujui Penguji',
-	                    'keterangan' => 'Disetujui Dosen Penguji',
-	                    'color' => 'bg-purple'
-	                ],
-                    [
-                        'value' => MKN_STATUS_TESIS_PROPOSAL_UJIAN,
-                        'text' => 'Ujian',
-                        'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-                        'color' => 'bg-purple'
-                    ],
-                    [
-                        'value' => MKN_STATUS_TESIS_PROPOSAL_UJIAN_SELESAI,
-                        'text' => 'Ujian Selesai',
-                        'keterangan' => 'Telah menyelesaikan Ujian',
-                        'color' => 'bg-purple'
-                    ],
-	            ];
-	        }
+    public function read_status_tahapan($urutan) {
+        if ($urutan == TAHAPAN_TESIS_JUDUL_PROPOSAL) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => STATUS_TESIS_JUDUL_PROPOSAL_PENGAJUAN,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => STATUS_TESIS_JUDUL_PROPOSAL_SETUJUI_SPS,
+                    'text' => 'Disetujui Sekretaris Prodi',
+                    'keterangan' => 'Disetujui oleh Sekretaris Prodi',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_TESIS_JUDUL_PROPOSAL_SETUJUI_PEMBIMBING,
+                    'text' => 'Disetujui Pembimbing',
+                    'keterangan' => 'Disetujui oleh Dosen Pembimbing',
+                    'color' => 'bg-navy'
+                ],
+            ];
+        }
+        else if ($urutan == TAHAPAN_TESIS_PROPOSAL) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => STATUS_TESIS_PROPOSAL_DIJADWALKAN_PEMBIMBING_UTAMA,
+                    'text' => 'Dijadwalkan Pembimbing Utama',
+                    'keterangan' => 'Dijadwalkan oleh Dosen Pembimbing Utama',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui oleh Dosen Penguji',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => STATUS_TESIS_PROPOSAL_UJIAN,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_TESIS_PROPOSAL_UJIAN_SELESAI,
+                    'text' => 'Ujian Selesai',
+                    'keterangan' => 'Telah menyelesaikan Ujian',
+                    'color' => 'bg-green'
+                ],
+            ];
+        }
+        else if ($urutan == TAHAPAN_TESIS_MKPT) {
+            return [
+                [
+                    'value' => 0,
+                    'text' => 'Belum Pengajuan',
+                    'keterangan' => '',
+                    'color' => 'bg-gray'
+                ],
+                [
+                    'value' => STATUS_TESIS_MKPT_PENGAJUAN,
+                    'text' => 'Pengajuan',
+                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'color' => 'bg-blue'
+                ],
+                [
+                    'value' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT,
+                    'text' => 'Disetujui Dosen MKPT',
+                    'keterangan' => 'Disetujui oleh Dosen MKPT',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_TESIS_MKPT_DIJADWALKAN_KPS,
+                    'text' => 'Dijadwalkan Kaprodi',
+                    'keterangan' => 'Dijadwalkan Oleh Kaprodi',
+                    'color' => 'bg-navy'
+                ],
+                [
+                    'value' => STATUS_TESIS_MKPT_SETUJUI_PENGUJI,
+                    'text' => 'Disetujui Penguji',
+                    'keterangan' => 'Disetujui Dosen Penguji',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_TESIS_MKPT_UJIAN,
+                    'text' => 'Ujian',
+                    'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+                    'color' => 'bg-green'
+                ],
+                [
+                    'value' => STATUS_TESIS_MKPT_UJIAN_SELESAI,
+                    'text' => 'Ujian Selesai',
+                    'keterangan' => 'Telah menyelesaikan Ujian',
+                    'color' => 'bg-green'
+                ],
+            ];
         }
         else if ($urutan == TAHAPAN_TESIS_UJIAN) {
             return [
@@ -1267,9 +1280,9 @@ class Tesis extends CI_Model {
         }
     }
 
-    public function get_status_tahapan($status_tahapan, $jenis, $prodi) {
+    public function get_status_tahapan($status_tahapan, $jenis) {
         $result = '';
-        $statuses = $this->read_status_tahapan($jenis, $prodi);
+        $statuses = $this->read_status_tahapan($jenis);
         foreach ($statuses as $status) {
             if ($status['value'] == $status_tahapan) {
                 $result = $status;

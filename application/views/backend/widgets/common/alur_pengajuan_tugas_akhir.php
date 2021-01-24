@@ -117,9 +117,21 @@ if ($jenjang == 3) {
 if ($jenjang == 2) {
     $arr_process = [
         [
+            'value' => TAHAPAN_TESIS_JUDUL_PROPOSAL,
+            'title' => "JUDUL PROPOSAL",
+            'field' => 'status_judul_proposal',
+            'bg_color' => 'bg-teal',
+        ],
+        [
             'value' => TAHAPAN_TESIS_PROPOSAL,
             'title' => "UJIAN PROPOSAL",
             'field' => 'status_proposal',
+            'bg_color' => 'bg-teal',
+        ],
+        [
+            'value' => TAHAPAN_TESIS_MKPT,
+            'title' => "UJIAN MKPT",
+            'field' => 'status_mkpt',
             'bg_color' => 'bg-teal',
         ],
         [

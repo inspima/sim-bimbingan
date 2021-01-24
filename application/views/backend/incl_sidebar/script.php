@@ -22,18 +22,24 @@
 <!-- DataTables -->
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script> 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
 <!-- bootstrap datepicker -->
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- Signature -->
-<script src="<?= base_url() ?>assets/template/backend/plugins/signature/signature_pad.umd.js"></script>
-<script src="<?= base_url() ?>assets/template/backend/plugins/signature/signature-pad-app.js"></script>
 <!-- Sweet Alert -->
 <script src="<?= base_url() ?>assets/template/backend/plugins/sweetalert/sweetalert.min.js"></script>
 <script src="<?php echo base_url() ?>assets/js/app.js"></script>
+<!-- Signature -->
+<?php
+	if ($this->uri->segment('2') == 'signature') {
+		?>
+		<script src="<?= base_url() ?>assets/template/backend/plugins/signature/signature_pad.umd.js"></script>
+		<script src="<?= base_url() ?>assets/template/backend/plugins/signature/signature-pad-app.js"></script>
+		<?php
+	}
+?>
 <!-- Custom JS -->
 <script src="<?php echo base_url() ?>assets/js/custom.js"></script>

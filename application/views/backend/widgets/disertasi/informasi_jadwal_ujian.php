@@ -12,11 +12,12 @@ if (!empty($jadwal)) {
     </div>
 
     <div class="form-group">
-        <label>Ruang</label>
+        <label>Tempat</label>
         <hr class="divider-line-thin"/>
         <p>
-            <i class="fa fa-building-o"></i>&nbsp;&nbsp;
-            Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?>
+			<i class="glyphicon glyphicon-blackboard"></i> <?= $jadwal->ruang ?>
+			<div class="divider10"></div>
+			<i class="fa fa-building-o"></i>  <?= $jadwal->gedung ?>
         </p>
     </div>
 
