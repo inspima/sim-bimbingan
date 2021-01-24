@@ -106,7 +106,7 @@
 								endif;
 							?>
 							<?php
-								if ($list['status_mpkk'] >= STATUS_DISERTASI_MKPD_PENGAJUAN):
+								if ($list['status_mkpd'] >= STATUS_DISERTASI_MKPD_PENGAJUAN):
 									?>
 									<hr style="margin: 10px;border-width:2px;"/>
 									<a href="<?= base_url() ?>dosen/disertasi/permintaan/promotor/mkpd/detail/<?= $list['id_disertasi'] ?>" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Detail</a>

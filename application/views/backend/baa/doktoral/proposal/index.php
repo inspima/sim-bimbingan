@@ -42,7 +42,7 @@
                                 <td>
                                     <?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
                                 </td>
-                                <td><?php echo toindo($list['tgl_pengajuan']) ?>
+                                <td><?php echo woday_toindo($list['waktu_pengajuan_proposal']) ?>
                                     <?php
                                     if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_PENGAJUAN):
                                         ?>

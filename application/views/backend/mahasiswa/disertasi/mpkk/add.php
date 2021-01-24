@@ -40,7 +40,7 @@ if (count($promotors) == 0) {
                 </div>
                 <div class="form-group">
                     <label>Judul</label>
-                    <textarea class="form-control" name="judul" required><?php echo $disertasi->judul ?></textarea>
+                    <textarea style="resize: none;height: 80px;" class="form-control" name="judul" required><?php echo $disertasi->judul ?></textarea>
                 </div>
                 <div class="form-group">
                     <label>Pilih MKPKK</label>

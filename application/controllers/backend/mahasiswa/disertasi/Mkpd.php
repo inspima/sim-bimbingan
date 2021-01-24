@@ -135,7 +135,7 @@
 					}
 					$tgl_sekarang = date('Y-m-d');
 					$data = array(
-						'jenis' => 2,
+						'jenis' => TAHAPAN_DISERTASI_MKPD,
 						'berkas_mkpd' => $file_name,
 						'status_mkpd' => STATUS_DISERTASI_MKPD_PENGAJUAN,
 					);

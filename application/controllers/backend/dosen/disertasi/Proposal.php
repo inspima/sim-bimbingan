@@ -117,12 +117,18 @@ class Proposal extends CI_Controller {
                 //echo 'jadwal sudah ada. tambah script update';  die();
                 $id_ujian = $this->input->post('id_ujian');
 
+				$data_update = array(
+					'status' => 0,
+					'status_ujian' => 1
+				);
+
                 $data = array(
                     'id_disertasi' => $id_disertasi,
                     'id_ruang' => $this->input->post('id_ruang', TRUE),
                     'id_jam' => $this->input->post('id_jam', TRUE),
                     'tanggal' => todb($this->input->post('tanggal', TRUE)),
                     'status' => 1,
+					'jenis_ujian' => UJIAN_DISERTASI_PROPOSAL,
                     'status_ujian' => 1
                 );
 
@@ -147,26 +153,29 @@ class Proposal extends CI_Controller {
                             $this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
                             redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
                         } else {
-                            $this->disertasi->update_ujian($data, $id_ujian);
-                            $update_proposal = array(
-                                'status_proposal' => STATUS_DISERTASI_PROPOSAL_DIJADWALKAN,
-                            );
-                            $this->disertasi->update($update_proposal, $id_disertasi);
-
-                            $this->session->set_flashdata('msg-title', 'alert-success');
-                            $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
-                            redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
+							// set ujian non aktif
+							$this->disertasi->update_ujian($data_update, $id_ujian);
+							// masukkan ujian baru
+							$this->disertasi->save_ujian($data);
+							$ujian_baru = $this->disertasi->detail_ujian_by_data($id_disertasi, $data);
+							// set penguji ke jadwal baru
+							$data_update_penguji = array(
+								'id_ujian' => $ujian_baru->id_ujian,
+							);
+							$this->disertasi->update_penguji_by_jadwal_lama($data_update_penguji, $ujian->id_ujian);
+							$this->session->set_flashdata('msg-title', 'alert-success');
+							$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
+							redirect_back();
                         }
                     } else { //langsung update
-                        $this->disertasi->update_ujian($data, $id_ujian);
-                        $update_proposal = array(
-                            'status_proposal' => STATUS_DISERTASI_PROPOSAL_DIJADWALKAN,
-                        );
-                        $this->disertasi->update($update_proposal, $id_disertasi);
+						// set ujian non aktif
+						$this->disertasi->update_ujian($data_update, $id_ujian);
+						// masukkan ujian baru
+						$this->disertasi->save_ujian($data);
 
-                        $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
-                        redirect('dosen/disertasi/proposal/setting/' . $id_disertasi);
+						$this->session->set_flashdata('msg-title', 'alert-success');
+						$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
+						redirect_back();
                     }
                 }
             } else { //JIKA BELUM ADA SAVE BARU

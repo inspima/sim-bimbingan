@@ -60,7 +60,6 @@ if (!in_array($mahasiswa['role'], [ROLE_MAHASISWA_S2, ROLE_MAHASISWA_S3])) {
             <span class = "btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>
             <?php
         elseif ($jenis == TAHAPAN_DISERTASI_MKPD) :// MKPD
-
             $status = $this->disertasi->get_status_tahapan($tugas_akhir->status_mkpd, TAHAPAN_DISERTASI_MKPD);
             ?>
             <span class = "btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>

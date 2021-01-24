@@ -309,9 +309,7 @@
 				$data = array(
 					'status_mpkk' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
 				);
-				$data = array(
-					'status_mpkk' => STATUS_DISERTASI_MPKK_SELESAI,
-				);
+
 				$this->disertasi->update($data, $id_disertasi);
 
 				$this->session->set_flashdata('msg-title', 'alert-success');

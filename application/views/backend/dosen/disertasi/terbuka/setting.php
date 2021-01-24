@@ -35,85 +35,12 @@
 				<h3 class="box-title">1. Setting Jadwal</h3>
 			</div>
 			<!-- /.box-header -->
-			<!-- form start -->
-			<?php echo form_open('dosen/disertasi/terbuka/jadwal_save'); ?>
 			<div class="box-body">
-
-				<div class="form-group">
-					<label>Tanggal</label>
-					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-					<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-					<div class="input-group date">
-						<div class="input-group-addon">
-							<i class="fa fa-calendar"></i>
-						</div>
-						<?php
-							if ($ujian) {
-								$id_ujian = $ujian->id_ujian;
-								$tanggal = toindo($ujian->tanggal);
-								$id_ruang = $ujian->id_ruang;
-								$ruang = $ujian->ruang . ' - ' . $ujian->gedung;
-								$id_jam = $ujian->id_jam;
-								$jam = $ujian->jam;
-							} else {
-								$id_ujian = '';
-								$tanggal = '';
-								$id_ruang = '';
-								$ruang = '-Pilih Ruang-';
-								$id_jam = '';
-								$jam = '-Pilih Jam-';
-							}
-						?>
-						<?php echo formtext('hidden', 'id_ujian', $id_ujian, '') ?>
-						<input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label>Ruang</label>
-					<select name="id_ruang" class="form-control select2" style="width: 100%;" required>
-						<option value="<?php echo $id_ruang ?>"><?php echo $ruang ?></option>
-						<?php
-							foreach ($mruang as $list) {
-								?>
-								<option value="<?php echo $list['id_ruang'] ?>"><?php echo $list['ruang'] . ' - ' . $list['gedung'] ?></option>
-								<?php
-							}
-						?>
-					</select>
-				</div>
-
-				<div class="form-group">
-					<label>Jam</label>
-					<select name="id_jam" class="form-control select2" style="width: 100%;" required>
-						<option value="<?php echo $id_jam ?>"><?php echo $jam ?></option>
-						<?php
-							foreach ($mjam as $list) {
-								?>
-								<option value="<?php echo $list['id_jam'] ?>"><?php echo $list['jam'] ?></option>
-								<?php
-							}
-						?>
-					</select>
-				</div>
-			</div>
-			<!-- /.box-body -->
-			<div class="box-footer">
 				<?php
-					if ($ujian) {
-						?>
-						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang
-						</button>
-						<?php
-					} else {
-						?>
-						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Jadwal
-						</button>
-						<?php
-					}
+					$this->view('backend/widgets/disertasi/form_jadwal_dosen', ['disertasi' => $disertasi, 'ujian' => $ujian, 'mruang' => $mruang, 'mjam' => $mjam, 'jenis' => UJIAN_DISERTASI_PROPOSAL]);
 				?>
 			</div>
-			<?php echo form_close() ?>
+			<!-- /.box-body -->
 		</div>
 		<!-- /.box -->
 	</div>
@@ -132,22 +59,22 @@
 			<div class="box-body table-responsive">
 				<?php
 					if ($ujian) {
-						$cek_penguji_ketua = $this->disertasi->read_penguji_ketua($id_ujian);
+						$cek_penguji_ketua = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
 						if (empty($cek_penguji_ketua)) {
 							?>
 							<div class="callout callout-danger">Perhatian ! Ketua penguji belum dipilih</div>
 							<?php
 						}
-						if (!$this->disertasi->cek_penguji_promotor($disertasi->id_disertasi, $id_ujian)) {
+						if (!$this->disertasi->cek_penguji_promotor($disertasi->id_disertasi, $ujian->id_ujian)) {
 							?>
 							<b>Penguji dari Promotor & Ko-Promotor</b>
-							<?php $this->view('backend/widgets/disertasi/list_penguji_promotor_dosen', ['disertasi' => $disertasi, 'id_ujian' => $id_ujian, 'promotors' => $promotors]); ?>
+							<?php $this->view('backend/widgets/disertasi/list_penguji_promotor_dosen', ['disertasi' => $disertasi, 'id_ujian' => $ujian->id_ujian, 'promotors' => $promotors]); ?>
 							<?php
 						}
 						?>
 						<b>Rekomendasi penguji Ujian Terbuka</b>
 						<p>Berdasarkan jumlah pengujian dan urutan nama dibatasi 5</p>
-						<?php $this->view('backend/widgets/disertasi/list_terbuka_rekom_penguji', ['disertasi' => $disertasi, 'id_ujian' => $id_ujian, 'promotors' => $promotors]); ?>
+						<?php $this->view('backend/widgets/disertasi/list_terbuka_rekom_penguji', ['disertasi' => $disertasi, 'id_ujian' => $ujian->id_ujian, 'promotors' => $promotors]); ?>
 						<hr class="divider-line-semi-bold"/>
 						<div class="divider10"></div>
 						<?php echo form_open('dosen/disertasi/terbuka/penguji_save'); ?>
@@ -155,7 +82,7 @@
 							<label>Cari Penguji</label>
 							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 							<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-							<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+							<?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
 							<select name="nip" class="form-control select2" style="width: 100%;" required>
 								<option value="">- Pilih -</option>
 								<?php
@@ -226,7 +153,7 @@
 			<div class="box-footer">
 				<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 				<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-				<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>
+				<!--<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>-->
 			</div>
 			<!-- /.box-body -->
 			<?php echo form_close() ?>

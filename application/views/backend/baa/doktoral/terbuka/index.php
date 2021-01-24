@@ -47,7 +47,7 @@
                                     echo $list['judul']
                                     ?>
                                 </td>
-                                <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
+                                <td><?php echo woday_toindo($list['waktu_pengajuan_terbuka']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_TERBUKA]); ?>
                                 </td>

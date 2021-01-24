@@ -37,7 +37,7 @@
 							<?php $this->view('backend/widgets/disertasi/column_mkpd', ['id_disertasi' => $list['id_disertasi']]); ?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
 							<?php
 
 								if ($list['status_mpkk'] >= STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR) {

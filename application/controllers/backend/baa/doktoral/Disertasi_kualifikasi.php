@@ -83,11 +83,6 @@
 				$disertasi = $this->disertasi->detail($id_disertasi);
 				$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
 				$ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
-				// Update Disertasi
-				$update_disertasi = [
-					'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN
-				];
-				$this->disertasi->update($update_disertasi, $id_disertasi);
 				$link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
 				$link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
 				// QR
@@ -111,6 +106,11 @@
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
 				if (empty($dokumen)) {
 					$this->dokumen->save($data_dokumen);
+					// Update Disertasi
+					$update_disertasi = [
+						'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN
+					];
+					$this->disertasi->update($update_disertasi, $id_disertasi);
 				}
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
 				// DOKUMEN PERSETUJUAN

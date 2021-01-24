@@ -42,7 +42,7 @@
                                 <td>
 									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
                                 </td>
-                                <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
+                                <td><?php echo woday_toindo($list['waktu_pengajuan_kualifikasi']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], UJIAN_DISERTASI_KUALIFIKASI]); ?>
                                 </td>

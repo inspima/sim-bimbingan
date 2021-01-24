@@ -710,6 +710,7 @@
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->where('u.id_disertasi', $id_disertasi);
 			$this->db->where('u.jenis_ujian', $jenis);
+			$this->db->where('u.status', '1');
 			$query = $this->db->get();
 			return $query->row();
 		}
@@ -1263,389 +1264,375 @@
 						'color' => 'bg-red'
 					],
 				];
-			} else {
-				if ($urutan == TAHAPAN_DISERTASI_PROMOTOR) {
-					return [
-						[
-							'value' => 0,
-							'text' => 'Belum Pengajuan',
-							'keterangan' => '',
-							'color' => 'bg-gray'
-						],
-						[
-							'value' => STATUS_DISERTASI_PROMOTOR_PENGAJUAN,
-							'text' => 'Pengajuan',
-							'keterangan' => 'Diajukan oleh mahasiswa',
-							'color' => 'bg-blue'
-						],
-						[
-							'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS,
-							'text' => 'Disetujui KPS',
-							'keterangan' => 'Disetujui Ketua Prodi',
-							'color' => 'bg-green'
-						],
-						[
-							'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
-							'text' => 'Disetujui Promotor&Ko-promotor',
-							'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
-							'color' => 'bg-green'
-						],
-						[
-							'value' => STATUS_DISERTASI_PROMOTOR_SELESAI,
-							'text' => 'Selesai',
-							'keterangan' => '',
-							'color' => 'bg-red'
-						],
-					];
-				} else {
-					if ($urutan == TAHAPAN_DISERTASI_MPKK) {
-						return [
-							[
-								'value' => 0,
-								'text' => 'Belum Pengajuan',
-								'keterangan' => '',
-								'color' => 'bg-gray'
-							],
-							[
-								'value' => STATUS_DISERTASI_MPKK_PENGAJUAN,
-								'text' => 'Pengajuan',
-								'keterangan' => 'Diajukan oleh mahasiswa, Upload Bukti Transkrip & Blanko MPKK',
-								'color' => 'bg-blue'
-							],
-							[
-								'value' => STATUS_DISERTASI_MPKK_SETUJUI_KPS,
-								'text' => 'Disetujui KPS',
-								'keterangan' => 'Disetujui Ketua Prodi',
-								'color' => 'bg-green'
-							],
-							[
-								'value' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
-								'text' => 'Disetujui Promotor&Ko-promotor',
-								'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
-								'color' => 'bg-green'
-							],
-							[
-								'value' => STATUS_DISERTASI_MPKK_PENILAIAN,
-								'text' => 'Proses Penilaian',
-								'keterangan' => 'Proses Penilaian Oleh Masing Masing dosen pengampu',
-								'color' => 'bg-orange'
-							],
-							[
-								'value' => STATUS_DISERTASI_MPKK_SELESAI,
-								'text' => 'Selesai',
-								'keterangan' => '',
-								'color' => 'bg-red'
-							],
-						];
-					} else {
-						if ($urutan == TAHAPAN_DISERTASI_PROPOSAL) {
-							return [
-								[
-									'value' => 0,
-									'text' => 'Belum Pengajuan',
-									'keterangan' => '',
-									'color' => 'bg-gray'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_PENGAJUAN,
-									'text' => 'Pengajuan',
-									'keterangan' => 'Diajukan oleh mahasiswa syarat min sks 16, Upload Bukti Transkrip, TOFL 500 dan TOEFL pendamping, Upload Bukti Transkrip dan Pembayaran SPP',
-									'color' => 'bg-blue'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA,
-									'text' => 'Diterima BAA',
-									'keterangan' => 'Disetujui oleh BAA',
-									'color' => 'bg-green'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PROMOTOR,
-									'text' => 'Disetujui Promotor&Ko-promotor',
-									'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
-									'color' => 'bg-green'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_DIJADWALKAN,
-									'text' => 'Dijadwalkan',
-									'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
-									'color' => 'bg-navy'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PENGUJI,
-									'text' => 'Disetujui Penguji',
-									'keterangan' => 'Disetujui  oleh semua penguji',
-									'color' => 'bg-green'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_SPS,
-									'text' => 'Disetujui SPS',
-									'keterangan' => 'Disetujui Sekertaris Prodi',
-									'color' => 'bg-green'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_KPS,
-									'text' => 'Disetujui KPS',
-									'keterangan' => 'Disetujui Ketua Prodi',
-									'color' => 'bg-green'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_UJIAN,
-									'text' => 'Ujian',
-									'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-									'color' => 'bg-purple'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_CETAK_DOKUMEN,
-									'text' => 'Persetujuan Berkas',
-									'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
-									'color' => 'bg-orange'
-								],
-								[
-									'value' => STATUS_DISERTASI_PROPOSAL_SELESAI,
-									'text' => 'Selesai',
-									'keterangan' => 'Hasil Ujian telah ditentukan',
-									'color' => 'bg-red'
-								],
-							];
-						} else {
-							if ($urutan == TAHAPAN_DISERTASI_MKPD) {
-								return [
-									[
-										'value' => 0,
-										'text' => 'Belum Pengajuan',
-										'keterangan' => '',
-										'color' => 'bg-gray'
-									],
-									[
-										'value' => STATUS_DISERTASI_MKPD_PENGAJUAN,
-										'text' => 'Pengajuan',
-										'keterangan' => 'Diajukan oleh mahasiswa, Upload Form MKPD',
-										'color' => 'bg-blue'
-									],
-									[
-										'value' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
-										'text' => 'Disetujui KPS',
-										'keterangan' => 'Disetujui Ketua Prodi',
-										'color' => 'bg-green'
-									],
-									[
-										'value' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
-										'text' => 'Disetujui Promotor&Ko-promotor',
-										'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
-										'color' => 'bg-green'
-									],
-									[
-										'value' => STATUS_DISERTASI_MKPD_PENILAIAN,
-										'text' => 'Proses Penilaian',
-										'keterangan' => 'Proses Penilaian Oleh Masing Masing dosen pengampu',
-										'color' => 'bg-orange'
-									],
-									[
-										'value' => STATUS_DISERTASI_MKPD_SELESAI,
-										'text' => 'Selesai',
-										'keterangan' => '',
-										'color' => 'bg-red'
-									],
-								];
-							} else {
-								if ($urutan == TAHAPAN_DISERTASI_KELAYAKAN) {
-									return [
-										[
-											'value' => 0,
-											'text' => 'Belum Pengajuan',
-											'keterangan' => '',
-											'color' => 'bg-gray'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_PENGAJUAN,
-											'text' => 'Pengajuan',
-											'keterangan' => 'Diajukan oleh mahasiswa syarat jangka waktu Ujian 1 dan Proposal Minimal 6 Bulan, Nilai MKPD lengkap beserta Transkrip',
-											'color' => 'bg-blue'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PROMOTOR,
-											'text' => 'Disetujui Promotor&Ko-promotor',
-											'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
-											'color' => 'bg-green'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_DIJADWALKAN,
-											'text' => 'Dijadwalkan',
-											'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
-											'color' => 'bg-navy'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PENGUJI,
-											'text' => 'Disetujui Penguji',
-											'keterangan' => 'Disetujui  oleh semua penguji',
-											'color' => 'bg-green'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_SPS,
-											'text' => 'Disetujui SPS',
-											'keterangan' => 'Disetujui Sekertaris Prodi',
-											'color' => 'bg-green'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_KPS,
-											'text' => 'Disetujui KPS',
-											'keterangan' => 'Disetujui Ketua Prodi',
-											'color' => 'bg-green'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_UJIAN,
-											'text' => 'Ujian',
-											'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-											'color' => 'bg-purple'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_CETAK_DOKUMEN,
-											'text' => 'Persetujuan Berkas',
-											'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
-											'color' => 'bg-orange'
-										],
-										[
-											'value' => STATUS_DISERTASI_KELAYAKAN_SELESAI,
-											'text' => 'Selesai',
-											'keterangan' => 'Hasil Ujian telah ditentukan',
-											'color' => 'bg-red'
-										],
-									];
-								} else {
-									if ($urutan == TAHAPAN_DISERTASI_TERTUTUP) {
-										return [
-											[
-												'value' => 0,
-												'text' => 'Belum Pengajuan',
-												'keterangan' => '',
-												'color' => 'bg-gray'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_PENGAJUAN,
-												'text' => 'Pengajuan',
-												'keterangan' => 'Diajukan oleh mahasiswa syarat Upload Naskah Ujian Kelayakan',
-												'color' => 'bg-blue'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PROMOTOR,
-												'text' => 'Disetujui Promotor&Ko-promotor',
-												'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
-												'color' => 'bg-green'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_DIJADWALKAN,
-												'text' => 'Dijadwalkan',
-												'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
-												'color' => 'bg-navy'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PENGUJI,
-												'text' => 'Disetujui Penguji',
-												'keterangan' => 'Disetujui  oleh semua penguji',
-												'color' => 'bg-green'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_SPS,
-												'text' => 'Disetujui SPS',
-												'keterangan' => 'Disetujui Sekertaris Prodi',
-												'color' => 'bg-green'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_KPS,
-												'text' => 'Disetujui KPS',
-												'keterangan' => 'Disetujui Ketua Prodi',
-												'color' => 'bg-green'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_UJIAN,
-												'text' => 'Ujian',
-												'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-												'color' => 'bg-purple'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_CETAK_DOKUMEN,
-												'text' => 'Persetujuan Berkas',
-												'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
-												'color' => 'bg-orange'
-											],
-											[
-												'value' => STATUS_DISERTASI_TERTUTUP_SELESAI,
-												'text' => 'Selesai',
-												'keterangan' => 'Hasil Ujian telah ditentukan',
-												'color' => 'bg-red'
-											],
-										];
-									} else {
-										if ($urutan == TAHAPAN_DISERTASI_TERBUKA) {
-											return [
-												[
-													'value' => 0,
-													'text' => 'Belum Pengajuan',
-													'keterangan' => '',
-													'color' => 'bg-gray'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_PENGAJUAN,
-													'text' => 'Pengajuan',
-													'keterangan' => 'Diajukan oleh mahasiswa syarat Form perbaikan Ujian Tertutup & Validasi Jurnal',
-													'color' => 'bg-blue'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR,
-													'text' => 'Disetujui Promotor&Ko-promotor',
-													'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
-													'color' => 'bg-green'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_DIJADWALKAN,
-													'text' => 'Dijadwalkan',
-													'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian',
-													'color' => 'bg-navy'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_SPS,
-													'text' => 'Disetujui SPS',
-													'keterangan' => 'Disetujui Sekertaris Prodi',
-													'color' => 'bg-green'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_KPS,
-													'text' => 'Disetujui KPS',
-													'keterangan' => 'Disetujui Ketua Prodi pengajuan dosen penguji',
-													'color' => 'bg-green'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PENGUJI,
-													'text' => 'Disetujui Penguji',
-													'keterangan' => 'Disetujui  oleh semua penguji',
-													'color' => 'bg-green'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_UJIAN,
-													'text' => 'Ujian',
-													'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-													'color' => 'bg-purple'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN,
-													'text' => 'Persetujuan Berkas',
-													'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
-													'color' => 'bg-orange'
-												],
-												[
-													'value' => STATUS_DISERTASI_TERBUKA_SELESAI,
-													'text' => 'Selesai',
-													'keterangan' => 'Hasil Ujian telah ditentukan',
-													'color' => 'bg-red'
-												],
-											];
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+			} else if ($urutan == TAHAPAN_DISERTASI_PROMOTOR) {
+				return [
+					[
+						'value' => 0,
+						'text' => 'Belum Pengajuan',
+						'keterangan' => '',
+						'color' => 'bg-gray'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROMOTOR_PENGAJUAN,
+						'text' => 'Pengajuan',
+						'keterangan' => 'Diajukan oleh mahasiswa',
+						'color' => 'bg-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROMOTOR_SELESAI,
+						'text' => 'Selesai',
+						'keterangan' => '',
+						'color' => 'bg-red'
+					],
+				];
+			} else if ($urutan == TAHAPAN_DISERTASI_MPKK) {
+				return [
+					[
+						'value' => 0,
+						'text' => 'Belum Pengajuan',
+						'keterangan' => '',
+						'color' => 'bg-gray'
+					],
+					[
+						'value' => STATUS_DISERTASI_MPKK_PENGAJUAN,
+						'text' => 'Pengajuan',
+						'keterangan' => 'Diajukan oleh mahasiswa, Upload Bukti Transkrip & Blanko MPKK',
+						'color' => 'bg-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_MPKK_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_MPKK_PENILAIAN,
+						'text' => 'Proses Penilaian',
+						'keterangan' => 'Proses Penilaian Oleh Masing Masing dosen pengampu',
+						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_MPKK_SELESAI,
+						'text' => 'Selesai',
+						'keterangan' => '',
+						'color' => 'bg-red'
+					],
+				];
+			} else if ($urutan == TAHAPAN_DISERTASI_PROPOSAL) {
+				return [
+					[
+						'value' => 0,
+						'text' => 'Belum Pengajuan',
+						'keterangan' => '',
+						'color' => 'bg-gray'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_PENGAJUAN,
+						'text' => 'Pengajuan',
+						'keterangan' => 'Diajukan oleh mahasiswa syarat min sks 16, Upload Bukti Transkrip, TOFL 500 dan TOEFL pendamping, Upload Bukti Transkrip dan Pembayaran SPP',
+						'color' => 'bg-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA,
+						'text' => 'Diterima BAA',
+						'keterangan' => 'Disetujui oleh BAA',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PROMOTOR,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_DIJADWALKAN,
+						'text' => 'Dijadwalkan',
+						'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
+						'color' => 'bg-navy'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PENGUJI,
+						'text' => 'Disetujui Penguji',
+						'keterangan' => 'Disetujui  oleh semua penguji',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_SPS,
+						'text' => 'Disetujui SPS',
+						'keterangan' => 'Disetujui Sekertaris Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_UJIAN,
+						'text' => 'Ujian',
+						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+						'color' => 'bg-purple'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_CETAK_DOKUMEN,
+						'text' => 'Persetujuan Berkas',
+						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROPOSAL_SELESAI,
+						'text' => 'Selesai',
+						'keterangan' => 'Hasil Ujian telah ditentukan',
+						'color' => 'bg-red'
+					],
+				];
+			} else if ($urutan == TAHAPAN_DISERTASI_MKPD) {
+				return [
+					[
+						'value' => 0,
+						'text' => 'Belum Pengajuan',
+						'keterangan' => '',
+						'color' => 'bg-gray'
+					],
+					[
+						'value' => STATUS_DISERTASI_MKPD_PENGAJUAN,
+						'text' => 'Pengajuan',
+						'keterangan' => 'Diajukan oleh mahasiswa, Upload Form MKPD',
+						'color' => 'bg-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_MKPD_PENILAIAN,
+						'text' => 'Proses Penilaian',
+						'keterangan' => 'Proses Penilaian Oleh Masing Masing dosen pengampu',
+						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_MKPD_SELESAI,
+						'text' => 'Selesai',
+						'keterangan' => '',
+						'color' => 'bg-red'
+					],
+				];
+			} else if ($urutan == TAHAPAN_DISERTASI_KELAYAKAN) {
+				return [
+					[
+						'value' => 0,
+						'text' => 'Belum Pengajuan',
+						'keterangan' => '',
+						'color' => 'bg-gray'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_PENGAJUAN,
+						'text' => 'Pengajuan',
+						'keterangan' => 'Diajukan oleh mahasiswa syarat jangka waktu Ujian 1 dan Proposal Minimal 6 Bulan, Nilai MKPD lengkap beserta Transkrip',
+						'color' => 'bg-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PROMOTOR,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_DIJADWALKAN,
+						'text' => 'Dijadwalkan',
+						'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
+						'color' => 'bg-navy'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_PENGUJI,
+						'text' => 'Disetujui Penguji',
+						'keterangan' => 'Disetujui  oleh semua penguji',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_SPS,
+						'text' => 'Disetujui SPS',
+						'keterangan' => 'Disetujui Sekertaris Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_UJIAN,
+						'text' => 'Ujian',
+						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+						'color' => 'bg-purple'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_CETAK_DOKUMEN,
+						'text' => 'Persetujuan Berkas',
+						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_SELESAI,
+						'text' => 'Selesai',
+						'keterangan' => 'Hasil Ujian telah ditentukan',
+						'color' => 'bg-red'
+					],
+				];
+			} else if ($urutan == TAHAPAN_DISERTASI_TERTUTUP) {
+				return [
+					[
+						'value' => 0,
+						'text' => 'Belum Pengajuan',
+						'keterangan' => '',
+						'color' => 'bg-gray'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_PENGAJUAN,
+						'text' => 'Pengajuan',
+						'keterangan' => 'Diajukan oleh mahasiswa syarat Upload Naskah Ujian Kelayakan',
+						'color' => 'bg-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PROMOTOR,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_DIJADWALKAN,
+						'text' => 'Dijadwalkan',
+						'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian dan pengajuan dosen penguji',
+						'color' => 'bg-navy'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_PENGUJI,
+						'text' => 'Disetujui Penguji',
+						'keterangan' => 'Disetujui  oleh semua penguji',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_SPS,
+						'text' => 'Disetujui SPS',
+						'keterangan' => 'Disetujui Sekertaris Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_UJIAN,
+						'text' => 'Ujian',
+						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+						'color' => 'bg-purple'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_CETAK_DOKUMEN,
+						'text' => 'Persetujuan Berkas',
+						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_SELESAI,
+						'text' => 'Selesai',
+						'keterangan' => 'Hasil Ujian telah ditentukan',
+						'color' => 'bg-red'
+					],
+				];
+			} else if ($urutan == TAHAPAN_DISERTASI_TERBUKA) {
+				return [
+					[
+						'value' => 0,
+						'text' => 'Belum Pengajuan',
+						'keterangan' => '',
+						'color' => 'bg-gray'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_PENGAJUAN,
+						'text' => 'Pengajuan',
+						'keterangan' => 'Diajukan oleh mahasiswa syarat Form perbaikan Ujian Tertutup & Validasi Jurnal',
+						'color' => 'bg-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_DIJADWALKAN,
+						'text' => 'Dijadwalkan',
+						'keterangan' => 'Telah dijadwalkan Oleh Promotor/Ko-Promotor untuk Ujian',
+						'color' => 'bg-navy'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_SPS,
+						'text' => 'Disetujui SPS',
+						'keterangan' => 'Disetujui Sekertaris Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi pengajuan dosen penguji',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PENGUJI,
+						'text' => 'Disetujui Penguji',
+						'keterangan' => 'Disetujui  oleh semua penguji',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_UJIAN,
+						'text' => 'Ujian',
+						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+						'color' => 'bg-purple'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN,
+						'text' => 'Persetujuan Berkas',
+						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_SELESAI,
+						'text' => 'Selesai',
+						'keterangan' => 'Hasil Ujian telah ditentukan',
+						'color' => 'bg-red'
+					],
+				];
 			}
 		}
 
