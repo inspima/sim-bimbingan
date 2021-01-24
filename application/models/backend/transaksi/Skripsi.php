@@ -311,19 +311,19 @@ class Skripsi extends CI_Model {
                 ],
                 [
                     'value' => STATUS_SKRIPSI_UJIAN_DIJADWALKAN,
-                    'text' => 'Disetujui Kadep',
+                    'text' => 'Dijadwalkan',
                     'keterangan' => 'Dijadwalkan oleh Kepala Departemen, pengajuan penguji',
                     'color' => 'bg-green'
                 ],
                 [
                     'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_PENGUJI,
-                    'text' => 'Dijadwalkan oleh Kepala Departemen, pengajuan penguji',
+                    'text' => 'Disetujui Penguj',
                     'keterangan' => 'Disetujui oleh semua penguji (5)',
                     'color' => 'bg-green'
                 ],
                 [
                     'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_KPS,
-                    'text' => 'Disetujui Kadep',
+                    'text' => 'Disetujui KPS',
                     'keterangan' => 'Disetujui Oleh Ketua Program Studi',
                     'color' => 'bg-green'
                 ],

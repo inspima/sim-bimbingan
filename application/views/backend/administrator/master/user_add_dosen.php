@@ -39,7 +39,7 @@
                     <input type="text" name="no_hp" class="form-control" value="" required="" />
                 </div>
                 <div class="form-group">
-                    <label>Departemen</label>
+                    <label>Bagian (Departemen)</label>
                     <select name="id_departemen" class="form-control select2" style="width: 100%;" required>
                         <?php
                         foreach ($departemen as $list) {

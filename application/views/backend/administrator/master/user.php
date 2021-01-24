@@ -22,6 +22,7 @@
                             <th>Nama</th>
                             <th>Sebagai</th>
                             <th>Role (Khusus Tendik)</th>
+							<th>Struktural</th>
                             <th>Status</th>
                             <th>Opsi</th>
                         </tr>
@@ -60,7 +61,8 @@
                                         echo 'BAA';
                                     }
                                     ?>
-                                </td> 
+                                </td>
+								<td><?=$list['struktural']?></td>
                                 <td>
                                     <?php
                                     if ($list['status'] == '0') {

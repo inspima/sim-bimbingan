@@ -21,15 +21,16 @@ class User extends CI_Model {
     }
 
     public function read() {
-        $this->db->select('u.id_user, u.username, u.sebagai, u.role, u.status, p.nama');
+        $this->db->select('u.id_user, u.username, u.sebagai, u.role, u.status, p.nama,st.nama as struktural');
         $this->db->from('user u');
         $this->db->join('pegawai p', 'u.username = p.nip');
+		$this->db->join('struktural st', 'st.nip = p.nip', 'left');
         $this->db->where('u.status', 1);
         $this->db->order_by('u.id_user', 'asc');
         $query1 = $this->db->get();
         $result1 = $query1->result_array();
 
-        $this->db->select('u.id_user, u.username, u.sebagai, u.role, u.status, m.nama');
+        $this->db->select("u.id_user, u.username, u.sebagai, u.role, u.status, m.nama, '' as struktural");
         $this->db->from('user u');
         $this->db->join('mahasiswa m', 'm.nim = u.username');
         $this->db->where('u.status', 1);

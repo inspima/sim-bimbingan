@@ -221,7 +221,8 @@ class Admin_user extends CI_Controller {
                 'username' => $result->username,
                 'nama' => $result->nama,
                 'role' => $result->role,
-                'sebagai' => $result->sebagai
+                'sebagai' => $result->sebagai,
+				'email' => $result->email,
             );
             $this->session->set_userdata('logged_in', $data);
             redirect('login', 'refresh');
