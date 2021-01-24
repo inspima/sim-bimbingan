@@ -126,6 +126,7 @@
 	$route['profile/phone/save'] = 'backend/profile/phone_save';
 	$route['profile/signature/change'] = 'backend/profile/signature_change';
 	$route['profile/signature/view'] = 'backend/profile/signature_view';
+	$route['profile/signature/upload'] = 'backend/profile/signature_upload';
 
 	/* API */
 	$route['api/profile/signature/save'] = 'backend/profile/signature_save';
