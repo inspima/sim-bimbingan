@@ -66,6 +66,8 @@
                             <td>
                                 <?php echo form_open('dashboardd/proposal/penguji_pengajuan/update_penguji');?>
                                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+								<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+								<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
                                 <?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
                                 <?php echo formtext('hidden', 'status', '2', 'required') ?>
                                 <button type="submit" class="btn btn-xs btn-success"> Approve</button>
@@ -73,7 +75,9 @@
 
                                 <?php echo form_open('dashboardd/proposal/penguji_pengajuan/update_penguji');?>
                                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                <?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
+								<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+								<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
+								<?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
                                 <?php echo formtext('hidden', 'status', '3', 'required') ?>
                                 <button type="submit" class="btn btn-xs btn-danger"> Tolak</button>
                                 <?php echo form_close();?>

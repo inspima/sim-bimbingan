@@ -3,13 +3,13 @@ class Skripsi_diterima_model extends CI_Model {
 
 	public function read()
 	{
-        $stts = array('2','3','4','5','6');
-		$this->db->select('s.id_skripsi, s.tgl_pengajuan, s.turnitin, s.toefl, dn.departemen, m.nim, m.nama, s.status_skripsi, s.berkas_skripsi, s.nilai ');
+        $this->db->select('s.id_skripsi, s.tgl_pengajuan, s.turnitin, s.toefl, dn.departemen, m.nim, m.nama, s.status_skripsi, s.berkas_skripsi, s.nilai ');
         $this->db->from('skripsi s');
         $this->db->join('departemen dn','s.id_departemen = dn.id_departemen');
         $this->db->join('mahasiswa m','s.nim = m.nim');
         $this->db->where('s.jenis',2);
-        $this->db->where_in('s.status_skripsi',$stts);
+        $this->db->where('s.status_skripsi >=',STATUS_SKRIPSI_UJIAN_SETUJUI_BAA);
+		$this->db->where('s.status_skripsi <',STATUS_SKRIPSI_UJIAN_UJIAN);
 		$this->db->order_by('s.id_skripsi','desc');
 
 		$query = $this -> db -> get();

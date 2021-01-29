@@ -11,7 +11,7 @@
         <?php echo form_open_multipart('dashboardm/modul/proposal/save');?>
             <div class="box-body">
                 <div class="form-group">
-                    <label>Departemen</label>
+                    <label>Bagian (Departemen)</label>
                     <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
                     <select name="id_departemen" class="form-control select2" style="width: 100%;" required>

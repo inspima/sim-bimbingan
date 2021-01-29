@@ -91,7 +91,7 @@
                         }
                         ?>
 
-                        <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required>              
+                        <input type="text" readonly name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required>
                     </div>
                 </div>
 

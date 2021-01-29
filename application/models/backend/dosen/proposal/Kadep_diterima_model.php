@@ -11,7 +11,8 @@ class Kadep_diterima_model extends CI_Model {
         $this->db->join('mahasiswa m','s.nim = m.nim');
         $this->db->where('s.id_departemen', $id_departemen);
         $this->db->where('s.jenis',1);
-        $this->db->where('s.status_proposal',2);
+        $this->db->where('s.status_proposal >=',STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP);
+		$this->db->where('s.status_proposal <',STATUS_SKRIPSI_PROPOSAL_SELESAI);
 		$this->db->order_by('s.id_skripsi','desc');
 
 		$query = $this -> db -> get();
@@ -45,7 +46,6 @@ class Kadep_diterima_model extends CI_Model {
         $this->db->join('mahasiswa m','s.nim = m.nim');
         $this->db->where('s.id_departemen', $id_departemen);
         $this->db->where('s.jenis',1);
-        $this->db->where('s.status_proposal',2);
         $this->db->where('s.id_skripsi', $id_skripsi);
 
 		$query = $this -> db -> get();

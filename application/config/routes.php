@@ -343,31 +343,27 @@
 	$route['dashboardd/proposal_tesis/penguji'] = 'backend/dosen/proposal_tesis/penguji';
 	$route['dashboardd/proposal_tesis/pembimbing'] = 'backend/dosen/proposal_tesis/pembimbing';
 	/*
-
 	 * JENJANG SARJANA
-
 	 */
-
 	// Proposal
 
 	// Kadep
-
 	$route['kadep/sarjana/proposal/penguji/kirim_whatsapp'] = 'backend/dosen/proposal/kadep_diterima/penguji_kirim_whatsapp';
 
 	//Dosen
 	$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/proposal/penguji_pengajuan';
-	$route['sarjanah/proposal/index'] = 'backend/baa/sarjanah/proposal';
-	$route['sarjanah/proposal/diterima'] = 'backend/baa/sarjanah/proposal/diterima';
-	$route['sarjanah/proposal/selesai'] = 'backend/baa/sarjanah/proposal/selesai';
-	$route['sarjanah/proposal/ditolak'] = 'backend/baa/sarjanah/proposal/ditolak';
-	$route['sarjanah/proposal/belum_approve'] = 'backend/baa/sarjanah/proposal/belum_approve';
 
-	// Skripsi
-	$route['sarjanah/skripsi/index'] = 'backend/baa/sarjanah/skripsi';
-	$route['sarjanah/skripsi/pengajuan'] = 'backend/baa/sarjanah/skripsi/pengajuan';
-	$route['sarjanah/skripsi/diterima'] = 'backend/baa/sarjanah/skripsi/diterima';
-	$route['sarjanah/skripsi/ujian'] = 'backend/baa/sarjanah/skripsi/ujian';
-	$route['sarjanah/skripsi/belum_approve'] = 'backend/baa/sarjanah/skripsi/belum_approve';
+	// BAA
+	$route['baa/sarjanah/proposal/index'] = 'backend/baa/sarjanah/proposal';
+	$route['baa/sarjanah/proposal/diterima'] = 'backend/baa/sarjanah/proposal/diterima';
+	$route['baa/sarjanah/proposal/selesai'] = 'backend/baa/sarjanah/proposal/selesai';
+	$route['baa/sarjanah/proposal/ditolak'] = 'backend/baa/sarjanah/proposal/ditolak';
+	$route['baa/sarjanah/proposal/belum_approve'] = 'backend/baa/sarjanah/proposal/belum_approve';
+	$route['baa/sarjanah/skripsi/index'] = 'backend/baa/sarjanah/skripsi';
+	$route['baa/sarjanah/skripsi/pengajuan'] = 'backend/baa/sarjanah/skripsi/pengajuan';
+	$route['baa/sarjanah/skripsi/diterima'] = 'backend/baa/sarjanah/skripsi/diterima';
+	$route['baa/sarjanah/skripsi/ujian'] = 'backend/baa/sarjanah/skripsi/ujian';
+	$route['baa/sarjanah/skripsi/belum_approve'] = 'backend/baa/sarjanah/skripsi/belum_approve';
 
 	/*
 	 * JENJANG DOKTOR
@@ -558,6 +554,28 @@
 	$route['dosen/disertasi/permintaan/promotor/tertutup/setujui'] = 'backend/dosen/disertasi/permintaan/tertutup_setujui';
 	$route['dosen/disertasi/permintaan/promotor/terbuka/setujui'] = 'backend/dosen/disertasi/permintaan/terbuka_setujui';
 
+	// TESIS - JUDUL
+	$route['dosen/tesis/judul'] = 'backend/dosen/tesis/judul';
+	$route['dosen/tesis/judul/index'] = 'backend/dosen/tesis/judul/index';
+	$route['dosen/tesis/judul/disetujui'] = 'backend/dosen/tesis/judul/disetujui';
+	$route['dosen/tesis/judul/ditolak'] = 'backend/dosen/tesis/judul/ditolak';
+	$route['dosen/tesis/judul/approve/(:num)'] = 'backend/dosen/tesis/judul/approve';
+	$route['dosen/tesis/judul/reject/(:num)'] = 'backend/dosen/tesis/judul/reject';
+	$route['dosen/tesis/judul/batal/(:num)'] = 'backend/dosen/tesis/judul/batal';
+	$route['dosen/tesis/judul/index_kabag'] = 'backend/dosen/tesis/judul/index_kabag';
+	$route['dosen/tesis/judul/index_kabag_pembimbing'] = 'backend/dosen/tesis/judul/index_kabag_pembimbing';
+	$route['dosen/tesis/judul/setting_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/setting_pembimbing';
+	$route['dosen/tesis/judul/setting_pembimbing_save'] = 'backend/dosen/tesis/judul/setting_pembimbing_save';
+	$route['dosen/tesis/judul/setting_pembimbing_kedua/(:num)'] = 'backend/dosen/tesis/judul/setting_pembimbing_kedua';
+	$route['dosen/tesis/judul/setting_pembimbing_kedua_save'] = 'backend/dosen/tesis/judul/setting_pembimbing_kedua_save';
+	$route['dosen/tesis/judul/batal_pembimbing_utama/(:num)'] = 'backend/dosen/tesis/judul/batal_pembimbing_utama';
+	$route['dosen/tesis/judul/pembimbing'] = 'backend/dosen/tesis/judul/pembimbing';
+	$route['dosen/tesis/judul/pembimbing/(:num)'] = 'backend/dosen/tesis/judul/pembimbing';
+
+	$route['dosen/tesis/judul/approve_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/approve_pembimbing';
+	$route['dosen/tesis/judul/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/reject_pembimbing';
+	$route['dosen/tesis/judul/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/batal_pembimbing';
+
 	// TESIS - PROPOSAL
 	$route['dosen/tesis/proposal'] = 'backend/dosen/tesis/proposal';
 	$route['dosen/tesis/proposal/index'] = 'backend/dosen/tesis/proposal/index';
@@ -607,6 +625,10 @@
 	$route['dosen/tesis/proposal/batal_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/batal_penguji';
 	$route['dosen/tesis/proposal/update_status_ujian'] = 'backend/dosen/tesis/proposal/update_status_ujian';
 	$route['dosen/tesis/proposal/update_status_ujian_ketua'] = 'backend/dosen/tesis/proposal/update_status_ujian_ketua';
+
+	// TESIS - MKPT
+	$route['dosen/tesis/mkpt/pengampu/(:num)'] = 'backend/dosen/tesis/mkpt/pengampu';
+	$route['dosen/tesis/mkpt/save'] = 'backend/dosen/tesis/mkpt/save';
 
 	// TESIS - UJIAN
 	$route['dosen/tesis/ujian'] = 'backend/dosen/tesis/ujian';
@@ -712,14 +734,15 @@
 	$route['mahasiswa/disertasi/terbuka/info/(:num)'] = 'backend/mahasiswa/disertasi/terbuka/info';
 
 	// MAGISTER
-	$route['mahasiswa/tesis/judul_proposal'] = 'backend/mahasiswa/tesis/judul_proposal';
-	$route['mahasiswa/tesis/judul_proposal/add'] = 'backend/mahasiswa/tesis/judul_proposal/add';
-	$route['mahasiswa/tesis/judul_proposal/edit/(:num)'] = 'backend/mahasiswa/tesis/judul_proposal/edit';
-	$route['mahasiswa/tesis/judul_proposal/save'] = 'backend/mahasiswa/tesis/judul_proposal/save';
-	$route['mahasiswa/tesis/judul_proposal/update'] = 'backend/mahasiswa/tesis/judul_proposal/update';
+	$route['mahasiswa/tesis/judul'] = 'backend/mahasiswa/tesis/judul';
+	$route['mahasiswa/tesis/judul/add'] = 'backend/mahasiswa/tesis/judul/add';
+	$route['mahasiswa/tesis/judul/edit/(:num)'] = 'backend/mahasiswa/tesis/judul/edit';
+	$route['mahasiswa/tesis/judul/save'] = 'backend/mahasiswa/tesis/judul/save';
+	$route['mahasiswa/tesis/judul/update'] = 'backend/mahasiswa/tesis/judul/update';
 
 	$route['mahasiswa/tesis/proposal'] = 'backend/mahasiswa/tesis/proposal';
-	$route['mahasiswa/tesis/proposal/add'] = 'backend/mahasiswa/tesis/proposal/add';
+	//$route['mahasiswa/tesis/proposal/add'] = 'backend/mahasiswa/tesis/proposal/add';
+	$route['mahasiswa/tesis/proposal/add/(:num)'] = 'backend/mahasiswa/tesis/proposal/add';
 	$route['mahasiswa/tesis/proposal/edit/(:num)'] = 'backend/mahasiswa/tesis/proposal/edit';
 	$route['mahasiswa/tesis/proposal/save'] = 'backend/mahasiswa/tesis/proposal/save';
 	$route['mahasiswa/tesis/proposal/update'] = 'backend/mahasiswa/tesis/proposal/update';

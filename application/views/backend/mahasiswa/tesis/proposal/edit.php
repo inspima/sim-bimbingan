@@ -15,7 +15,7 @@
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                         <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                         <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
-                        <select name="nip_pembimbing_satu" class="form-control select2" style="width: 100%;" required>
+                        <select name="nip_pembimbing_satu" class="form-control select2" style="width: 100%;" disabled>
                             <option value="">- Pilih -</option>
                             <?php
                             foreach ($mdosen as $list) {
@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label>Pembimbing Kedua</label>
-                        <select name="nip_pembimbing_dua" class="form-control select2" style="width: 100%;" required>
+                        <select name="nip_pembimbing_dua" class="form-control select2" style="width: 100%;" disabled>
                             <option value="">- Pilih -</option>
                             <?php
                             foreach ($mdosen as $list) {
@@ -55,8 +55,8 @@
                     </div>
                     <div class="form-group">
                         <label>Judul</label>
-                        <?php $judul = $this->tesis->read_judul($tesis->id_tesis);?>
-                        <textarea class="form-control" name="judul" required><?php echo $judul->judul?></textarea>
+                        <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);?>
+                        <textarea class="form-control" name="judul" readonly><?php echo $judul->judul?></textarea>
                     </div>
                     <?php
                     if($tesis->berkas_proposal != '') {

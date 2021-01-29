@@ -21,7 +21,7 @@
         </a>
         <ul class="treeview-menu">
                         <!--<li><a href="<?php //echo base_url() ?>dashboardm/magister/tesis"><i class="fa fa-circle-o"></i> Tesis</a></li>--> 
-            <li><a href="<?php echo base_url() ?>mahasiswa/tesis/judul_proposal"><i class="fa fa-circle-o"></i> Judul</a></li>
+            <li><a href="<?php echo base_url() ?>mahasiswa/tesis/judul"><i class="fa fa-circle-o"></i> Judul</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/tesis/proposal"><i class="fa fa-circle-o"></i> Proposal</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/tesis/mkpt"><i class="fa fa-circle-o"></i> MKPT</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/tesis/ujian"><i class="fa fa-circle-o"></i> Tesis</a></li>

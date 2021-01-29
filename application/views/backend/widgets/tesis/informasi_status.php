@@ -12,11 +12,11 @@
     <!-- /.box-header -->
     <div class="box-body" style="display: none;">
         <?php
-        if ($jenis == TAHAPAN_TESIS_JUDUL_PROPOSAL) :// JUDUL PROPOSAL
+        if ($jenis == TAHAPAN_TESIS_JUDUL) :// JUDUL PROPOSAL
             ?>
             <dl style="margin-left: 20px">
                 <?php
-                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_JUDUL_PROPOSAL);
+                $tahapan_statuses = $this->tesis->read_status_tahapan(TAHAPAN_TESIS_JUDUL);
                 $index = 0;
                 foreach ($tahapan_statuses as $status):
                     if ($index > 0) {

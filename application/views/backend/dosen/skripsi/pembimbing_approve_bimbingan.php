@@ -205,11 +205,8 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-                <?php echo form_open('dashboardd/skripsi/pembimbing_approve/approve_skripsi') ?>
                 <div class="form-group">
                     <label>Status</label>
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_skripsi', $skripsi->id_skripsi, 'required') ?>
                     <?php
                     if ($skripsi->status_skripsi == '0') {
                         $sttsk = 'Mahasiswa belum daftar';
@@ -235,11 +232,13 @@
                     <p><?php echo $sttsk; ?></p>
                 </div>
                 <?php
-                if ($skripsi->status_skripsi == '2') {
+                if ($skripsi->status_skripsi == STATUS_SKRIPSI_UJIAN_SETUJUI_BAA) {
                     ?>
-                    <div class="form-group">
-                        <label>Opsi</label>
-                        <p><button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Approve</button>    
+					<?php echo form_open('dashboardd/skripsi/pembimbing_approve/approve_skripsi') ?>
+					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+					<?php echo formtext('hidden', 'id_skripsi', $skripsi->id_skripsi, 'required') ?>
+					<div class="form-group">
+                        <p><button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-ok"></i> Setujui</button>
                         </p>
                     </div>
                     <?php echo form_close() ?>

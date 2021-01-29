@@ -33,11 +33,11 @@ class Mkpt extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Tesis - Ujian',
+            'subtitle' => 'Tesis - MKPT',
             'section' => 'backend/mahasiswa/tesis/mkpt/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
-            'tesis' => $this->tesis->read_ujian_mahasiswa($this->session_data['username'])
+            'tesis' => $this->tesis->read_mkpt_mahasiswa($this->session_data['username'])
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -49,7 +49,7 @@ class Mkpt extends CI_Controller {
             'subtitle' => 'Tesis - Ujian',
             'section' => 'backend/mahasiswa/tesis/mkpt/info',
             'use_back' => true,
-            'back_link' => 'mahasiswa/tesis/ujian',
+            'back_link' => 'mahasiswa/tesis/mkpt',
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
@@ -65,17 +65,19 @@ class Mkpt extends CI_Controller {
         if ($read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/tesis/ujian');
+            redirect('mahasiswa/tesis/mkpt');
         } else {
             $data = array(
                 // PAGE //
                 'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan Tesis',
+                'subtitle' => 'Pengajuan MKPT',
                 'section' => 'backend/mahasiswa/tesis/mkpt/add',
                 'use_back' => true,
-                'back_link' => 'mahasiswa/tesis/ujian',
+                'back_link' => 'mahasiswa/tesis/mkpt',
                 // DATA //
+                'mdosen' => $this->dosen->read_aktif_alldep(),
                 'departemen' => $this->departemen->read(),
+                'gelombang' => $this->gelombang->read_berjalan(),
                 'tesis' => $this->tesis->detail($id_tesis),
             );
             $this->load->view('backend/index_sidebar', $data);
@@ -86,9 +88,9 @@ class Mkpt extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
 
-            if($_FILES['berkas_tesis']['size'] != 0){
-                $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
-                $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
+            if($_FILES['berkas_mkpt']['size'] != 0){
+                $file_name = $this->session_data['username'] . '_berkas_mkpt.pdf';
+                $config['upload_path'] = './assets/upload/mahasiswa/tesis/mkpt';
                 $config['allowed_types'] = 'pdf';
                 $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
                 $config['remove_spaces'] = TRUE;
@@ -100,45 +102,43 @@ class Mkpt extends CI_Controller {
                 $this->upload->initialize($config);
             }
 
-            if($_FILES['berkas_syarat_tesis']['size'] != 0){
-                $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-                $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                $config['allowed_types'] = 'pdf';
-                $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                $config['remove_spaces'] = TRUE;
-                $config['file_ext_tolower'] = TRUE;
-                $config['detect_mime'] = TRUE;
-                $config['mod_mime_fix'] = TRUE;
-                $config['file_name'] = $file_name_syarat;
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
-            }
-
-            if (!$this->upload->do_upload('berkas_tesis')) {
+            if (!$this->upload->do_upload('berkas_mkpt')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
                 redirect_back();
             }
-            else if (!$this->upload->do_upload('berkas_syarat_tesis')) {
-                $this->session->set_flashdata('msg-title', 'alert-danger');
-                $this->session->set_flashdata('msg', $this->upload->display_errors());
-                redirect_back();
-            } 
             else {
                 $id_tesis = $this->input->post('id_tesis', TRUE);
+                $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_PROPOSAL);
+
                 $tgl_sekarang = date('Y-m-d');
+                
                 $data = array(
-                    'jenis' => TAHAPAN_TESIS_UJIAN,
-                    'berkas_tesis' => $file_name,
-                    'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    'berkas_syarat_tesis' => $file_name_syarat,
+                    'jenis' => TAHAPAN_TESIS_MKPT,
+                    'berkas_mkpt' => $file_name,
+                    'status_mkpt' => STATUS_TESIS_MKPT_PENGAJUAN,
                 );
 
                 $this->tesis->update($data, $id_tesis);
 
+                $dataj = array(
+                    'id_tesis' => $id_tesis,
+                    'judul' => $read_judul->judul,
+                    'latar_belakang' => $read_judul->latar_belakang,
+                    'rumusan_masalah_pertama' => $read_judul->rumusan_masalah_pertama,
+                    'rumusan_masalah_kedua' => $read_judul->rumusan_masalah_kedua,
+                    'rumusan_masalah_lain' => $read_judul->rumusan_masalah_lain,
+                    'penelusuran_artikel_internet' => $read_judul->penelusuran_artikel_internet,
+                    'penelusuran_artikel_unair' => $read_judul->penelusuran_artikel_unair,
+                    'uraian_topik' => $read_judul->uraian_topik,
+                    'jenis' => TAHAPAN_TESIS_MKPT,
+                );
+
+                $this->tesis->save_judul($dataj);
+
                 $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan Tesis..');
-                redirect('mahasiswa/tesis/ujian');
+                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPT..');
+                redirect('mahasiswa/tesis/mkpt');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
@@ -154,7 +154,7 @@ class Mkpt extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Modul (Mahasiswa)',
-            'subtitle' => 'Pengajuan Ujian Tesis',
+            'subtitle' => 'Pengajuan MKPT',
             'section' => 'backend/mahasiswa/tesis/mkpt/edit',
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
@@ -168,7 +168,7 @@ class Mkpt extends CI_Controller {
         } else {
             $data['section'] = 'backend/notification/danger';
             $data['msg'] = 'Tidak ditemukan';
-            $data['linkback'] = 'mahasiswa/tesis/ujian';
+            $data['linkback'] = 'mahasiswa/tesis/mkpt';
             $this->load->view('backend/index_sidebar', $data);
         }
     }
@@ -182,9 +182,9 @@ class Mkpt extends CI_Controller {
             $judul = $this->input->post('judul', TRUE);
             $tgl_sekarang = date('Y-m-d');
 
-            if($_FILES['berkas_tesis']['size'] != 0){
-                $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
-                $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
+            if($_FILES['berkas_mkpt']['size'] != 0){
+                $file_name = $this->session_data['username'] . '_berkas_mkpt.pdf';
+                $config['upload_path'] = './assets/upload/mahasiswa/tesis/mkpt';
                 $config['allowed_types'] = 'pdf';
                 $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
                 $config['remove_spaces'] = TRUE;
@@ -196,141 +196,37 @@ class Mkpt extends CI_Controller {
                 $this->upload->initialize($config);
             }
 
-            if($_FILES['berkas_syarat_tesis']['size'] != 0) {
-                $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-                $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                $config['allowed_types'] = 'pdf';
-                $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                $config['remove_spaces'] = TRUE;
-                $config['file_ext_tolower'] = TRUE;
-                $config['detect_mime'] = TRUE;
-                $config['mod_mime_fix'] = TRUE;
-                $config['file_name'] = $file_name_syarat;
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
-            }
-
-            $tgl_sekarang = date('Y-m-d');
-
             if ($judul == $read_judul->judul) {
-                if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
+                if($_FILES['berkas_mkpt']['size'] != 0){
                     $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-                else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
-
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-                else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-                else {
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        'jenis' => TAHAPAN_TESIS_MKPT,
+                        'berkas_mkpt' => $file_name,
+                        'status_mkpt' => STATUS_TESIS_MKPT_PENGAJUAN,
                     );
                     $this->tesis->update($data, $id_tesis);
                 }
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('mahasiswa/tesis/ujian');
+                redirect('mahasiswa/tesis/mkpt');
             } else {
-                if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
+                if($_FILES['berkas_mkpt']['size'] != 0){
                     $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        'jenis' => TAHAPAN_TESIS_MKPT,
+                        'berkas_mkpt' => $file_name,
+                        'status_mkpt' => STATUS_TESIS_MKPT_PENGAJUAN,
                     );
                     $this->tesis->update($data, $id_tesis);
                 }
-                else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-                else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-                else {
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-
-                $dataj = array(
-                    'id_tesis' => $id_tesis,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
-
-                $this->tesis->update_judul($dataj, $id_tesis);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('mahasiswa/tesis/ujian');
+                redirect('mahasiswa/tesis/mkpt');
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('mahasiswa/tesis/ujian');
+            redirect('mahasiswa/tesis/mkpt');
         }
     }
 
@@ -341,7 +237,7 @@ class Mkpt extends CI_Controller {
             'subtitle' => 'Tesis - Ujian',
             'section' => 'backend/mahasiswa/tesis/mkpt/jadwal',
             'use_back' => true,
-            'back_link' => 'mahasiswa/tesis/ujian',
+            'back_link' => 'mahasiswa/tesis/mkpt',
             // DATA //            
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'tesis' => $this->tesis->detail($id_tesis),

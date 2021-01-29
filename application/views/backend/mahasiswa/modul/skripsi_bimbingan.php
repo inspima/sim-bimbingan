@@ -71,7 +71,7 @@
                         <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" name="tanggal" value="" class="form-control pull-right" id="datepicker" required>              
+                        <input type="text" readonly name="tanggal" value="" class="form-control pull-right" id="datepicker" required>
                         </div>              
                 </div>
                 <div class="form-group">

@@ -114,6 +114,17 @@ class Kadep_blm_skripsi_model extends CI_Model {
 		return $query->result_array();
     }
 
+	public function cek_ujian_skripsi($id_skripsi)
+	{
+		$this->db->select('id_ujian, id_skripsi, status_ujian');
+		$this->db->from('ujian');
+		$this->db->where('id_skripsi', $id_skripsi);
+		$this->db->where('status',1);
+		$this->db->where('jenis_ujian',2);
+		$query = $this -> db -> get();
+		return $query->result_array();
+	}
+
   
     public function cek_ruang_terpakai($data)
     {

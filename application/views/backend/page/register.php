@@ -47,7 +47,7 @@
                     <input type="number" name="sks" placeholder="SKS Tempuh" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Masukkan Kode dalam gambar</label>
+                    <label>Masukkan Kode dalam gambar</label><br/>
                     <div id="image_captcha" style="display: inline"><?php echo $captcha_image; ?></div>
                     <a href="javascript:void(0);" class="captcha-refresh btn btn-success btn-sm" ><i class="fa fa-repeat"></i> </a>
                     <div class="divider5"></div>

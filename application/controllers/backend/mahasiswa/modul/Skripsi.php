@@ -297,7 +297,7 @@ class Skripsi extends CI_Controller {
             date_default_timezone_set('Asia/Jakarta');
             $now = date('Y-m-d H:i:s');
             $data = array(
-                'status_skripsi' => 1,
+                'status_skripsi' => STATUS_SKRIPSI_UJIAN_PENGAJUAN,
                 'tgl_pengajuan' => $now
             );
 
@@ -323,7 +323,7 @@ class Skripsi extends CI_Controller {
             'subtitle' => 'Skripsi (Jadwal Ujian)',
             'section' => 'backend/mahasiswa/modul/skripsi_ujian',
             // DATA //
-            'skripsi' => $this->skripsi->ujiana($id_skripsi, $username)
+            'skripsi' => $this->skripsi->ujiana_skripsi($id_skripsi, $username)
         );
         if ($data['skripsi']) {
             $this->load->view('backend/index_sidebar', $data);

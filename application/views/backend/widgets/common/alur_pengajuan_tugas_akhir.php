@@ -117,9 +117,9 @@ if ($jenjang == 3) {
 if ($jenjang == 2) {
     $arr_process = [
         [
-            'value' => TAHAPAN_TESIS_JUDUL_PROPOSAL,
+            'value' => TAHAPAN_TESIS_JUDUL,
             'title' => "JUDUL PROPOSAL",
-            'field' => 'status_judul_proposal',
+            'field' => 'status_judul',
             'bg_color' => 'bg-teal',
         ],
         [
@@ -160,9 +160,10 @@ if ($jenjang == 2) {
         </li>
         <?php
         $index = 0;
-        $tahapans = $this->tesis->read_status_tahapan($process['value'], $prodi);
+        $tahapans = $this->tesis->read_status_tahapan($process['value']);
         foreach ($tahapans as $tahapan):
             if ($index > 0):
+                if($tahapan['text'] != 'Ditolak Sekretaris Prodi'):
                 ?>
                 <li>
                     <?php
@@ -188,6 +189,7 @@ if ($jenjang == 2) {
                     </div>
                 </li>
                 <?php
+                endif;
             endif;
             $index++;
         endforeach;
@@ -239,11 +241,7 @@ if ($jenjang == 1) {
         </li>
         <?php
         $index = 0;
-        if ($index_process == 0) {
-            $tugas_akhir = $this->skripsi->read_mahasiswa_proposal($this->session_data['username']);
-        } else {
-            $tugas_akhir = $this->skripsi->read_mahasiswa($this->session_data['username']);
-        }
+		$tugas_akhir = $this->skripsi->read_mahasiswa_skripsi($this->session_data['username']);
         $tahapans = $this->skripsi->read_status_tahapan($process['value']);
         foreach ($tahapans as $tahapan):
             ?>

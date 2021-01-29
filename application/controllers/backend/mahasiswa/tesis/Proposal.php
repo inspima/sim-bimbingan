@@ -60,23 +60,27 @@ class Proposal extends CI_Controller {
     }
 
     public function add() {
-        $read_aktif = $this->tesis->read_aktif($this->session_data['username']);
+        $id = $this->uri->segment(5);
+        $username = $this->session_data['username'];
 
-        if ($read_aktif) {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/tesis/proposal');
+        $data = array(
+            // PAGE //
+            'title' => 'Modul (Mahasiswa)',
+            'subtitle' => 'Pengajuan Ujian Proposal',
+            'section' => 'backend/mahasiswa/tesis/proposal/add',
+            // DATA //
+            'mdosen' => $this->dosen->read_aktif_alldep(),
+            'departemen' => $this->departemen->read(),
+            'gelombang' => $this->gelombang->read_berjalan(),
+            'tesis' => $this->tesis->detail($id),
+        );
+
+        if ($data['tesis']) {
+            $this->load->view('backend/index_sidebar', $data);
         } else {
-            $data = array(
-                // PAGE //
-                'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan Ujian Proposal',
-                'section' => 'backend/mahasiswa/tesis/proposal/add',
-                // DATA //
-                'mdosen' => $this->dosen->read_aktif_alldep(),
-                'departemen' => $this->departemen->read(),
-                'gelombang' => $this->gelombang->read_berjalan()
-            );
+            $data['section'] = 'backend/notification/danger';
+            $data['msg'] = 'Tidak ditemukan';
+            $data['linkback'] = 'mahasiswa/tesis/proposal';
             $this->load->view('backend/index_sidebar', $data);
         }
     }
@@ -84,6 +88,9 @@ class Proposal extends CI_Controller {
     public function save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+            $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_JUDUL);
+
             $file_name = $this->session_data['username'] . '_berkas_proposal.pdf';
             $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal';
             $config['allowed_types'] = 'pdf';
@@ -95,28 +102,30 @@ class Proposal extends CI_Controller {
             $config['file_name'] = $file_name;
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-            $tgl_sekarang = date('Y-m-d');
+
             if (!$this->upload->do_upload('berkas_proposal')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
-                redirect('mahasiswa/tesis/proposal');
+                redirect('mahasiswa/tesis/judul');
             } else {
                 $data = array(
-                    'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                    'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
                     'jenis' => TAHAPAN_TESIS_PROPOSAL,
                     'berkas_proposal' => $file_name,
-                    'nim' => $this->session_data['username'],
-                    'tgl_pengajuan' => $tgl_sekarang,
                     'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                 );
-
-                $this->tesis->save($data);
-                $last_id = $this->db->insert_id();
+                $this->tesis->update($data, $id_tesis);
 
                 $dataj = array(
-                    'id_tesis' => $last_id,
-                    'judul' => $this->input->post('judul', TRUE)
+                    'id_tesis' => $id_tesis,
+                    'judul' => $read_judul->judul,
+                    'latar_belakang' => $read_judul->latar_belakang,
+                    'rumusan_masalah_pertama' => $read_judul->rumusan_masalah_pertama,
+                    'rumusan_masalah_kedua' => $read_judul->rumusan_masalah_kedua,
+                    'rumusan_masalah_lain' => $read_judul->rumusan_masalah_lain,
+                    'penelusuran_artikel_internet' => $read_judul->penelusuran_artikel_internet,
+                    'penelusuran_artikel_unair' => $read_judul->penelusuran_artikel_unair,
+                    'uraian_topik' => $read_judul->uraian_topik,
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
                 );
 
                 $this->tesis->save_judul($dataj);
@@ -125,6 +134,11 @@ class Proposal extends CI_Controller {
                 $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan ujian proposal..');
                 redirect('mahasiswa/tesis/proposal');
             }
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil update');
+            redirect('mahasiswa/tesis/proposal');
+
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
@@ -183,24 +197,7 @@ class Proposal extends CI_Controller {
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_proposal']['size'] != 0){
                     $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
                         'berkas_proposal' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-                else {
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                     );
                     $this->tesis->update($data, $id_tesis);
                 }
@@ -211,34 +208,10 @@ class Proposal extends CI_Controller {
             } else {
                 if($_FILES['berkas_proposal']['size'] != 0){
                     $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
                         'berkas_proposal' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                     );
                     $this->tesis->update($data, $id_tesis);
                 }
-                else {
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
-                }
-
-                $dataj = array(
-                    'id_tesis' => $id_tesis,
-                    'judul' => $this->input->post('judul', TRUE)
-                );
-
-                $this->tesis->update_judul($dataj, $id_tesis);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update');

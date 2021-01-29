@@ -76,13 +76,17 @@
                     ?>
                 </td>
                 <td>
-                    <?php echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_delete') ?>
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
-                    <?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
-                    <?php echo formtext('hidden', 'id_penguji', $listpenguji['id_penguji'], 'required') ?>
-                    <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
-                    <?php echo form_close() ?>
+                    <?php
+                    if($listpenguji['status'] != '2'){ 
+                        echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_delete') ?>
+                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                        <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                        <?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
+                        <?php echo formtext('hidden', 'id_penguji', $listpenguji['id_penguji'], 'required') ?>
+                        <button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                        <?php echo form_close(); 
+                    }
+                    ?>
                 </td>
             </tr>
             <?php
