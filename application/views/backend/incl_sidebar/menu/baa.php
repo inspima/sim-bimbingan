@@ -82,8 +82,8 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>sarjanah/proposal/index"><i class="fa fa-circle-o"></i>Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>sarjanah/skripsi/index"><i class="fa fa-circle-o"></i>Skripsi</a></li>
+            <li><a href="<?php echo base_url() ?>baa/sarjanah/proposal/index"><i class="fa fa-circle-o"></i>Proposal</a></li>
+            <li><a href="<?php echo base_url() ?>baa/sarjanah/skripsi/index"><i class="fa fa-circle-o"></i>Skripsi</a></li>
 
         </ul>
     </li>

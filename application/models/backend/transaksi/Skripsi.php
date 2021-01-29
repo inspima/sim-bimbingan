@@ -70,51 +70,77 @@
 			return $query->row();
 		}
 
-		public function read_pembimbing($id_skripsi)
+		public function read_kadep_pengajuan($id_departemen)
 		{
-			$this->db->select('pg.nama');
-			$this->db->from('pegawai pg');
-			$this->db->join('pembimbing p', 'pg.nip = p.nip');
-			$this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
-			$this->db->where('s.id_skripsi', $id_skripsi);
-			$this->db->where('p.status', 2);
-			$query = $this->db->get();
-			return $query->row();
-		}
+			$this->db->select('s.*, dn.departemen, sr.semester, m.nim, m.nama ,jud.judul');
+			$this->db->from('skripsi s');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
+			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
+			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->where('s.id_departemen', $id_departemen);
+			$this->db->where('s.jenis', 1);
+			$this->db->where('s.status_proposal', STATUS_SKRIPSI_PROPOSAL_PENGAJUAN);
+			$this->db->order_by('s.id_skripsi', 'desc');
 
-		public function read_bimbingan($id)
-		{
-			$stts = array('1', '2');
-			$this->db->select('b.id_bimbingan, b.id_skripsi, b.tanggal, b.hal, b.status');
-			$this->db->from('bimbingan b');
-			$this->db->join('skripsi s', 'b.id_skripsi = s.id_skripsi');
-			$this->db->where('s.id_skripsi', $id);
-			$this->db->where_in('b.status', $stts);
 			$query = $this->db->get();
 			return $query->result_array();
 		}
 
-		public function save_bimbingan($data)
+		public function read_kadep_diterima($id_departemen)
 		{
-			$this->db->insert('bimbingan', $data);
-		}
-
-		function update_bimbingan($data, $id_bimbingan)
-		{
-			$this->db->where('id_bimbingan', $id_bimbingan);
-			$this->db->update('bimbingan', $data);
-		}
-
-		public function read_gelombang($id_skripsi)
-		{
-			$this->db->select('g.gelombang, st.semester');
+			$this->db->select('s.*, dn.departemen, sr.semester, m.nim, m.nama ,jud.judul');
 			$this->db->from('skripsi s');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
 			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
-			$this->db->join('semester st', 'g.id_semester = st.id_semester');
-			$this->db->where('s.id_skripsi', $id_skripsi);
-			$this->db->where('s.jenis', 2);
+			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->where('s.id_departemen', $id_departemen);
+			$this->db->where('s.jenis', 1);
+			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP);
+			$this->db->where('s.status_proposal <', STATUS_SKRIPSI_PROPOSAL_SELESAI);
+			$this->db->order_by('s.id_skripsi', 'desc');
+
 			$query = $this->db->get();
-			return $query->row();
+			return $query->result_array();
+		}
+
+		public function read_kadep_selesai($id_departemen)
+		{
+			$status_ujians = ['1', '2'];
+			$this->db->select('s.*, dn.departemen, sr.semester, m.nim, m.nama ,jud.judul');
+			$this->db->from('skripsi s');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
+			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
+			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->where('s.id_departemen', $id_departemen);
+			$this->db->where_in('s.status_ujian_proposal', $status_ujians);
+			$this->db->order_by('s.id_skripsi', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_kadep_ditolak($id_departemen)
+		{
+			$this->db->select('s.*, dn.departemen, sr.semester, m.nim, m.nama ,jud.judul');
+			$this->db->from('skripsi s');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
+			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
+			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->where('s.id_departemen', $id_departemen);
+			$this->db->where('s.jenis', 1);
+			$this->db->where('s.status_proposal', STATUS_SKRIPSI_PROPOSAL_DITOLAK);
+			$this->db->order_by('s.id_skripsi', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
 		}
 
 		function detail($id, $username)
@@ -134,8 +160,9 @@
 
 		function detail_proposal($id_skripsi)
 		{
-			$this->db->select('s.id_skripsi, s.tgl_pengajuan, s.judul, s.berkas_proposal, s.id_departemen, s.status_proposal, s.status_ujian_proposal, s.keterangan_proposal, dn.departemen, sr.semester, m.nim, m.nama ');
+			$this->db->select('s.id_skripsi, s.tgl_pengajuan, jud.judul, s.berkas_proposal, s.id_departemen, s.status_proposal, s.status_ujian_proposal, s.keterangan_proposal, dn.departemen, sr.semester, m.nim, m.nama ');
 			$this->db->from('skripsi s');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
 			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
 			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
 			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
@@ -177,6 +204,102 @@
 		{
 			$this->db->insert('judul', $dataj);
 		}
+
+		// Pembimbing
+
+		public function read_pembimbing_row($id_skripsi)
+		{
+			$this->db->select('pg.nama');
+			$this->db->from('pegawai pg');
+			$this->db->join('pembimbing p', 'pg.nip = p.nip');
+			$this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
+			$this->db->where('s.id_skripsi', $id_skripsi);
+			$this->db->where('p.status', 2);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_pembimbing($id_skripsi)
+		{
+			$this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama, p.status ');
+			$this->db->from('pembimbing p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.id_skripsi', $id_skripsi);
+			$this->db->where('p.status !=', 4);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_bimbingan($id)
+		{
+			$stts = array('1', '2');
+			$this->db->select('b.id_bimbingan, b.id_skripsi, b.tanggal, b.hal, b.status');
+			$this->db->from('bimbingan b');
+			$this->db->join('skripsi s', 'b.id_skripsi = s.id_skripsi');
+			$this->db->where('s.id_skripsi', $id);
+			$this->db->where_in('b.status', $stts);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function cek_pembimbing($id_skripsi)
+		{
+			$stts = array('1', '2');
+			$this->db->select('p.id_pembimbing, p.nip');
+			$this->db->from('pembimbing p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.id_skripsi', $id_skripsi);
+			$this->db->where_in('p.status', $stts);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function hitung_bimbingan_aktif($nip)
+		{
+			$stts = array('2');
+			$this->db->where_in('p.status_bimbingan', $stts);
+			$this->db->where('p.nip', $nip);
+			$this->db->where('s.jenis', 2);
+			$this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
+			$this->db->from('pembimbing p');
+			$query = $this->db->count_all_results();
+			return $query;
+		}
+
+		public function save_pembimbing($datap)
+		{
+			$this->db->insert('pembimbing', $datap);
+		}
+
+		public function update_pembimbing($data, $id)
+		{
+			$this->db->where('id_pembimbing', $id);
+			$this->db->update('pembimbing', $data);
+		}
+
+		public function save_bimbingan($data)
+		{
+			$this->db->insert('bimbingan', $data);
+		}
+
+		function update_bimbingan($data, $id_bimbingan)
+		{
+			$this->db->where('id_bimbingan', $id_bimbingan);
+			$this->db->update('bimbingan', $data);
+		}
+
+		public function read_gelombang($id_skripsi)
+		{
+			$this->db->select('g.gelombang, st.semester');
+			$this->db->from('skripsi s');
+			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
+			$this->db->join('semester st', 'g.id_semester = st.id_semester');
+			$this->db->where('s.id_skripsi', $id_skripsi);
+			$this->db->where('s.jenis', 2);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 
 		public function jumlah_bimbingan($id_skripsi)
 		{
@@ -224,6 +347,32 @@
 
 		// Ujian
 
+		public function read_ujian_proposal($id_skripsi)
+		{
+			$this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_skripsi, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_skripsi', $id_skripsi);
+			$this->db->where('u.jenis_ujian', 1);//proposal
+			$this->db->where('u.status', 1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_ujian($id_skripsi)
+		{
+			$this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_skripsi, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_skripsi', $id_skripsi);
+			$this->db->where('u.jenis_ujian', 1);//proposal
+			$this->db->where('u.status', 1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		function ujian($id_skripsi, $username)
 		{
 			$this->db->select('u.id_ujian, u.id_skripsi, u.id_ruang, u.id_jam, u.tanggal, r.ruang, r.gedung, j.jam, m.nim, m.nama, g.id_gelombang, g.gelombang, d.departemen, sr.semester');
@@ -267,14 +416,40 @@
 			return $query->result_array();
 		}
 
+		public function cek_ruang_terpakai($data)
+		{
+			$this->db->select('u.id_ujian');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.tanggal', $data['tanggal']);
+			$this->db->where('u.id_ruang', $data['id_ruang']);
+			$this->db->where('u.id_jam', $data['id_jam']);
+			$this->db->where('u.status', 1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function save_ujian($datau)
+		{
+			$this->db->insert('ujian', $datau);
+		}
+
+		public function update_ujian($data, $id_ujian)
+		{
+			$this->db->where('id_ujian', $id_ujian);
+			$this->db->update('ujian', $data);
+		}
+
 		// Penguji
 
 		public function read_penguji_pengajuan_proposal($username)
 		{
-			$this->db->select('p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, s.id_skripsi, s.berkas_proposal, d.departemen');
+			$this->db->select('p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, s.id_skripsi, s.berkas_proposal, d.departemen,jud.judul');
 			$this->db->from('penguji p');
 			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
 			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
@@ -283,6 +458,28 @@
 			$this->db->where('p.status', 1);
 			$this->db->where('u.jenis_ujian', 1);
 			$this->db->where('u.status', 1);
+			$this->db->order_by('u.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_penguji_proposal($username)
+		{
+			$this->db->select('p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, s.id_skripsi, s.berkas_proposal, d.departemen,jud.judul');
+			$this->db->from('penguji p');
+			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+			$this->db->where('p.nip', $username);
+			$this->db->where('p.status', 2);
+			$this->db->where('u.jenis_ujian', 1);
+			$this->db->where('u.status', 1);
+			$this->db->order_by('u.tanggal', 'desc');
 
 			$query = $this->db->get();
 			return $query->result_array();
@@ -290,10 +487,11 @@
 
 		public function read_penguji_pengajuan_skripsi($username)
 		{
-			$this->db->select('p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, s.id_skripsi, s.berkas_proposal, d.departemen');
+			$this->db->select('s.*,p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, d.departemen,jud.judul');
 			$this->db->from('penguji p');
 			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
 			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
@@ -302,6 +500,28 @@
 			$this->db->where('p.status', 1);
 			$this->db->where('u.jenis_ujian', 2);
 			$this->db->where('u.status', 1);
+			$this->db->order_by('u.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_penguji_skripsi($username)
+		{
+			$this->db->select('s.*,p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, d.departemen,jud.judul');
+			$this->db->from('penguji p');
+			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+			$this->db->where('p.nip', $username);
+			$this->db->where('p.status', 2);
+			$this->db->where('u.jenis_ujian', 2);
+			$this->db->where('u.status', 1);
+			$this->db->order_by('u.tanggal', 'desc');
 
 			$query = $this->db->get();
 			return $query->result_array();
@@ -321,6 +541,50 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+		public function read_pengujiketua($id_ujian)
+		{
+			$stts = array('1', '2');
+			$this->db->select('id_penguji');
+			$this->db->from('penguji');
+			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status_tim', 1);
+			$this->db->where_in('status', $stts);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_pengujibentrok($tanggal, $id_jam, $nip)
+		{
+			$stts = array('1', '2');
+			$this->db->select('u.id_ujian');
+			$this->db->from('ujian u');
+			$this->db->join('penguji p', 'u.id_ujian = p.id_ujian');
+			$this->db->where('u.tanggal', $tanggal);
+			$this->db->where('u.id_jam', $id_jam);
+			$this->db->where('p.nip', $nip);
+			$this->db->where('u.status', 1);
+			$this->db->where_in('p.status', $stts);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function cek_penguji($data)
+		{
+			$stts = array('1', '2');
+			$this->db->select('p.id_penguji');
+			$this->db->from('penguji p');
+			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+			$this->db->where('u.id_ujian', $data['id_ujian']);
+			$this->db->where('p.nip', $data['nip']);
+			$this->db->where('u.status', 1);
+			$this->db->where_in('p.status', $stts);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 
 		public function count_penguji($id_ujian)
 		{
@@ -360,6 +624,14 @@
 				return false;
 			}
 		}
+
+		public function update_penguji($data, $id_penguji)
+		{
+			$this->db->where('id_penguji', $id_penguji);
+			$this->db->update('penguji', $data);
+		}
+
+		// Status
 
 		public function read_status_tahapan($urutan)
 		{

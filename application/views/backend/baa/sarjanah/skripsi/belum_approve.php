@@ -19,14 +19,8 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-                <div class="btn-group">
-                    <a class="btn btn-info" href="<?php echo base_url() ?>sarjanah/skripsi/index">Belum Daftar</a>
-                    <a class="btn btn-primary" href="<?php echo base_url() ?>sarjanah/skripsi/pengajuan">Pengajuan</a>
-                    <a class="btn btn-success" href="<?php echo base_url() ?>sarjanah/skripsi/diterima">Diterima</a>
-                    <a class="btn btn-danger" href="<?php echo base_url() ?>sarjanah/skripsi/ujian">Ujian</a>
-                    <a class="btn btn-default" href="<?php echo base_url() ?>sarjanah/skripsi/belum_approve">Penguji - Belum Approve</a>
-                </div>
-                <hr/>
+				<?php $this->view('backend/widgets/skripsi/tab_link_baa_skripsi'); ?>
+				<hr/>
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>

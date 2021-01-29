@@ -77,10 +77,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dashboardd/proposal/kadep_pengajuan"><i class="fa fa-user"></i>Proposal Pengajuan</a></li>
-                    <li><a href="<?php echo base_url() ?>dashboardd/proposal/kadep_diterima"><i class="fa fa-user"></i>Proposal Diterima</a></li>
-                    <li><a href="<?php echo base_url() ?>dashboardd/proposal/kadep_selesai"><i class="fa fa-user"></i>Proposal Selesai</a></li>
-                    <li><a href="<?php echo base_url() ?>dashboardd/proposal/kadep_ditolak"><i class="fa fa-user"></i>Proposal Ditolak</a></li>
+					<li><a href="<?php echo base_url() ?>dosen/sarjana/kadep/proposal/pengajuan"><i class="fa fa-user"></i>Proposal</a></li>
                     <li><a href="<?php echo base_url() ?>dashboardd/skripsi/kadep_blm_skripsi"><i class="fa fa-user"></i>Skripsi Persetujuan</a></li>
                     <li><a href="<?php echo base_url() ?>dashboardd/skripsi/kadep_skripsi"><i class="fa fa-user"></i>Data Skripsi</a></li>
                 </ul>
@@ -197,15 +194,9 @@
             </span>
         </a>
         <ul class="treeview-menu">
-			<li><a href="<?php echo base_url() ?>dashboardd/proposal/penguji_pengajuan"><i class="fa fa-circle-o"></i> Penguji</a></li>
-			<li><a href="<?php echo base_url() ?>dashboardd/proposal/penguji_pengajuan"><i class="fa fa-circle-o"></i> Pembimbing</a></li>
-			<li><a href="<?php echo base_url() ?>dashboardd/proposal/penguji_pengajuan"><i class="fa fa-circle-o"></i> Pengajuan Penguji Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardd/proposal/penguji_pengajuan"><i class="fa fa-circle-o"></i> Pengajuan Penguji Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardd/proposal/penguji_approve"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardd/skripsi/pembimbing_approve"><i class="fa fa-circle-o"></i> Bimbingan</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardd/skripsi/penguji_pengajuan"><i class="fa fa-circle-o"></i> Pengajuan Penguji Skripsi</a></li>
-            <li><a href="<?php echo base_url() ?>dashboardd/skripsi/penguji_approve"><i class="fa fa-circle-o"></i> Penguji Skripsi</a></li>
-
+			<li><a href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_pengajuan"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>
+			<li><a href="<?php echo base_url() ?>dashboardd/skripsi/pembimbing_approve"><i class="fa fa-circle-o"></i> Pembimbing</a></li>
+			<li><a href="<?php echo base_url() ?>dosen/sarjana/skripsi/penguji_pengajuan"><i class="fa fa-circle-o"></i> Penguji Skripsi</a></li>
         </ul>
     </li>
     <li class="treeview">

@@ -32,7 +32,7 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Proposal',
-            'subtitle' => 'Data Proposal (Pengajuan)',
+            'subtitle' => 'Data Proposal',
             'section' => 'backend/baa/sarjanah/proposal/index',
             // DATA //
             'proposal' => $this->proposal->read()
@@ -45,7 +45,7 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Proposal',
-            'subtitle' => 'Data Proposal (Pengajuan)',
+            'subtitle' => 'Data Proposal',
             'section' => 'backend/baa/sarjanah/proposal/diterima',
             // DATA //
             'proposal' => $this->proposal_diterima->read()
@@ -58,7 +58,7 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Proposal',
-            'subtitle' => 'Data Proposal (Pengajuan)',
+            'subtitle' => 'Data Proposal',
             'section' => 'backend/baa/sarjanah/proposal/selesai',
             // DATA //
             'proposal' => $this->proposal_selesai->read()
@@ -71,7 +71,7 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Proposal',
-            'subtitle' => 'Data Proposal (Pengajuan)',
+            'subtitle' => 'Data Proposal',
             'section' => 'backend/baa/sarjanah/proposal/ditolak',
             // DATA //
             'proposal' => $this->proposal->read()
@@ -84,7 +84,7 @@ class Proposal extends CI_Controller {
         $data = array(
             // PAGE //
             'title' => 'Proposal',
-            'subtitle' => 'Data Proposal (Pengajuan)',
+            'subtitle' => 'Data Proposal ',
             'section' => 'backend/baa/sarjanah/proposal/belum_approve',
             // DATA //
             'penguji' => $this->penguji->read()

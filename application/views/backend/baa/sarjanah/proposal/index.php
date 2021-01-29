@@ -21,13 +21,8 @@
 
             <!-- /.box-body -->
             <div class="box-body">
-                <div class="btn-group">
-                    <a class="btn btn-default" href="<?php echo base_url() ?>sarjanah/proposal/index">Pengajuan</a>
-                    <a class="btn btn-primary" href="<?php echo base_url() ?>sarjanah/proposal/diterima">Diterima</a>
-                    <a class="btn btn-success" href="<?php echo base_url() ?>sarjanah/proposal/selesai">Selesai</a>
-                    <a class="btn btn-danger" href="<?php echo base_url() ?>sarjanah/proposal/ditolak">Ditolak</a>
-                    <a class="btn btn-warning" href="<?php echo base_url() ?>sarjanah/proposal/belum_approve">Penguji - Belum Approve</a>
-                </div>
+
+				<?php $this->view('backend/widgets/skripsi/tab_link_baa_proposal'); ?>
                 <hr/>
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>

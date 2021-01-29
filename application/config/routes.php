@@ -348,10 +348,27 @@
 	// Proposal
 
 	// Kadep
-	$route['kadep/sarjana/proposal/penguji/kirim_whatsapp'] = 'backend/dosen/proposal/kadep_diterima/penguji_kirim_whatsapp';
+	$route['dosen/sarjana/kadep/proposal/pengajuan'] = 'backend/dosen/skripsi/kadep_proposal/pengajuan';
+	$route['dosen/sarjana/kadep/proposal/diterima'] = 'backend/dosen/skripsi/kadep_proposal/diterima';
+	$route['dosen/sarjana/kadep/proposal/edit/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/edit';
+	$route['dosen/sarjana/kadep/proposal/plot/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/plot';
+	$route['dosen/sarjana/kadep/proposal/selesai'] = 'backend/dosen/skripsi/kadep_proposal/selesai';
+	$route['dosen/sarjana/kadep/proposal/ditolak'] = 'backend/dosen/skripsi/kadep_proposal/ditolak';
+	$route['dosen/sarjana/kadep/proposal/update_departemen'] = 'backend/dosen/skripsi/kadep_proposal/update_departemen';
+	$route['dosen/sarjana/kadep/proposal/update_proses'] = 'backend/dosen/skripsi/kadep_proposal/update_proses';
+	$route['dosen/sarjana/kadep/proposal/ujian_save'] = 'backend/dosen/skripsi/kadep_proposal/ujian_save';
+	$route['dosen/sarjana/kadep/proposal/penguji_save'] = 'backend/dosen/skripsi/kadep_proposal/penguji_save';
+	$route['dosen/sarjana/kadep/proposal/penguji_delete'] = 'backend/dosen/skripsi/kadep_proposal/penguji_delete';
+	$route['dosen/sarjana/kadep/proposal/penguji_update_statustim'] = 'backend/dosen/skripsi/kadep_proposal/penguji_update_statustim';
+	$route['kadep/sarjana/kadep/proposal/kirim_whatsapp'] = 'backend/dosen/skripsi/kadep_proposal/penguji_kirim_whatsapp';
+	$route['kadep/sarjana/kadep/proposal/pembimbing_save'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_save';
+	$route['kadep/sarjana/kadep/proposal/pembimbing_delete'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_delete';
 
 	//Dosen
-	$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/proposal/penguji_pengajuan';
+	$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_proposal';
+	$route['dosen/sarjana/proposal/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_proposal';
+	$route['dosen/sarjana/skripsi/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_skripsi';
+	$route['dosen/sarjana/skripsi/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_skripsi';
 
 	// BAA
 	$route['baa/sarjanah/proposal/index'] = 'backend/baa/sarjanah/proposal';

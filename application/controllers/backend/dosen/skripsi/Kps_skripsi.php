@@ -40,9 +40,10 @@
 					// PAGE //
 					'title' => 'Skripsi',
 					'subtitle' => 'Data Skripsi',
-					'section' => 'backend/dosen/skripsi/kps_skripsi',
+					'section' => 'backend/dosen/skripsi/ujian/kps_skripsi',
 					// DATA //
-					'skripsi' => $this->skripsi->read($year)
+					'skripsi' => $this->skripsi->read($year),
+					'post_year' => $year,
 				);
 				//print_r($data['proposal']);die();
 				$this->load->view('backend/index_sidebar', $data);
@@ -63,9 +64,10 @@
 					// PAGE //
 					'title' => 'Skripsi',
 					'subtitle' => 'Data Skripsi',
-					'section' => 'backend/dosen/skripsi/kps_skripsi',
+					'section' => 'backend/dosen/skripsi/ujian/kps_skripsi',
 					// DATA //
-					'skripsi' => $this->skripsi->read_filter($year)
+					'skripsi' => $this->skripsi->read_filter($year),
+					'post_year' => $year,
 				);
 				//print_r($data['proposal']);die();
 				$this->load->view('backend/index_sidebar', $data);
