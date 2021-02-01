@@ -209,6 +209,8 @@
         <ul class="treeview-menu">
             <!--<li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/penguji"><i class="fa fa-circle-o"></i> Penguji Proposal</a></li>-->
             <!-- <li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li> -->
+            <li><a href="<?php echo base_url() ?>dosen/tesis/permintaan/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing</a></li>
+            <!--
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-o"></i> <span>Pembimbing</span>
@@ -217,10 +219,12 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/judul/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing Proposal</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing Tesis</a></li>
+                    <li><a href="<?php //echo base_url() ?>dosen/tesis/permintaan/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing Proposal</a></li>
+                    <li><a href="<?php //echo base_url() ?>dosen/tesis/ujian/pembimbing"><i class="fa fa-circle-o"></i> Pembimbing Tesis</a></li>
                 </ul>
             </li>
+            -->
+            <li><a href="<?php echo base_url() ?>dosen/tesis/mkpt/pengampu"><i class="fa fa-circle-o"></i> Pengampu MKPT</a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-o"></i> <span>Penguji</span>

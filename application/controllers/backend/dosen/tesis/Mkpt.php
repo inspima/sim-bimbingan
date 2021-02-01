@@ -32,43 +32,34 @@ class Mkpt extends CI_Controller {
 
     // KPS / PENASEHAT AKADEMIK
 
-    public function index() {
-        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
-        $struktural = $this->struktural->read_struktural($this->session_data['username']);
-        $id_prodi = $struktural->id_prodi;
-        $status_proposal = 0;
-        if($id_prodi == S2_ILMU_HUKUM){
-            $status_proposal = MIH_STATUS_TESIS_PROPOSAL_PENGAJUAN;
-        }
-        else if($id_prodi == S2_KENOTARIATAN){
-            $status_proposal = MKN_STATUS_TESIS_PROPOSAL_PENGAJUAN_JUDUL;
-        }
+    public function pengampu() {
+        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
         $data = array(
             // PAGE //
             'title' => 'Tesis - MKPT',
             'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/proposal/index',
+            'section' => 'backend/dosen/tesis/mkpt/pengampu',
             // DATA //
-            //'tesis' => $this->tesis->read_proposal(),
-            //'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'id_prodi' => $id_prodi,
-            'tesis' => $this->tesis->read_proposal_prodi($id_prodi, $status_proposal),
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
             'prodi' => $this->tesis->read_prodi_s2(),
-            //'struktural' => $this->struktural->read_struktural($this->session_data['username']),
+
+            'tesis_mkpt' => $this->tesis->read_tesis_mkpt_pengampu_prodi($this->session_data['username'], $id),
         );
         $this->load->view('backend/index_sidebar', $data);
     }
 
-    public function pengampu()
+    public function setting_pengampu()
     {
         $id_tesis = $this->uri->segment('5');
+        $id_prodi = $this->tesis->cek_prodi($id_tesis);
         $data = array(
             // PAGE //
             'title' => 'Tesis - MKPT',
             'subtitle' => 'Pengajuan MKPT',
-            'section' => 'backend/dosen/tesis/mkpt/pengampu',
+            'section' => 'backend/dosen/tesis/mkpt/setting_pengampu',
             'use_back' => true,
-            'back_link' => 'dosen/tesis/judul/pembimbing',
+            'id_prodi' => $id_prodi,
+            'back_link' => 'dosen/tesis/permintaan/pembimbing/'.$id_prodi,
             'mdosen' => $this->dosen->read_aktif_alldep(),
             // DATA //
             'gelombang' => $this->gelombang->read_berjalan(),
@@ -83,32 +74,70 @@ class Mkpt extends CI_Controller {
         $hand = $this->input->post('hand', true);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', true);
+            $id_prodi = $this->tesis->cek_prodi($id_tesis);
             $tgl_sekarang = date('Y-m-d');
-            for ($i = 1; $i <= 3; $i++) {
-                $kode = $this->input->post('kode' . $i, true);
-                $nama = $this->input->post('nama' . $i, true);
-                $sks = $this->input->post('sks' . $i, true);
-                $dosens = $this->input->post('pengampu' . $i, true);
-                $data_tesis_mkpt = [
-                    'id_tesis' => $id_tesis,
-                    'kode' => $kode,
-                    'mkpt' => $nama,
-                    'sks' => $sks,
-                ];
-                if (!empty($kode) && !empty($nama)) {
-                    $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
-                    $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
-                    foreach($dosens as $dosen){
-                        $data_pengampu = [
-                            'id_tesis' => $id_tesis,
-                            'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
-                            'nip' => $dosen,
-                        ];
-                        $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+            $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
+            if (!empty($tesis_mkpts)) {
+                foreach ($tesis_mkpts as $index => $mkpt) {
+                    $kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
+                    $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
+                    $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                    $dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
+                    $data_tesis_mkpt = [
+                        'id_tesis' => $id_tesis,
+                        'kode' => $kode,
+                        'mkpt' => $nama,
+                        'sks' => $sks,
+                    ];
+                    if (!empty($kode) && !empty($nama)) {
+                        $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
+                        $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                        $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
+                        foreach($dosens as $dosen){
+                            foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                                $data_pengampu = [
+                                    'id_tesis' => $id_tesis,
+                                    'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                    'nip' => $dosen,
+                                ];
+                                if($pengampu['nip'] == $dosen){
+                                    $this->tesis->update_tesis_mkpt_pengampu($data_pengampu, $pengampu['id_tesis_mkpt_pengampu']);
+                                }
+                                else {
+                                    $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                                }
+                            }
+                        }
                     }
                 }
-
             }
+            else {
+                for ($i = 1; $i <= 3; $i++) {
+                    $kode = $this->input->post('kode' . $i, true);
+                    $nama = $this->input->post('nama' . $i, true);
+                    $sks = $this->input->post('sks' . $i, true);
+                    $dosens = $this->input->post('pengampu' . $i, true);
+                    $data_tesis_mkpt = [
+                        'id_tesis' => $id_tesis,
+                        'kode' => $kode,
+                        'mkpt' => $nama,
+                        'sks' => $sks,
+                    ];
+                    if (!empty($kode) && !empty($nama)) {
+                        $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
+                        $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                        foreach($dosens as $dosen){
+                            $data_pengampu = [
+                                'id_tesis' => $id_tesis,
+                                'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                'nip' => $dosen,
+                            ];
+                            $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                        }
+                    }
+                }
+            }
+
             $tgl_sekarang = date('Y-m-d');
             $data = array(
                 'jenis' => TAHAPAN_TESIS_MKPT,
@@ -118,8 +147,8 @@ class Mkpt extends CI_Controller {
             $this->tesis->update($data, $id_tesis);
 
             $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan mkpt..');
-            redirect('dosen/tesis/judul/pembimbing');
+            $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPT..');
+            redirect('dosen/tesis/mkpt/setting_pengampu/'.$id_tesis);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
@@ -127,312 +156,101 @@ class Mkpt extends CI_Controller {
         }
     }
 
-    public function disetujui() {
-        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
-        $struktural = $this->struktural->read_struktural($this->session_data['username']);
-        $id_prodi = $struktural->id_prodi;
-        $status_proposal = 0;
-        if($id_prodi == S2_ILMU_HUKUM){
-            $status_proposal = MIH_STATUS_TESIS_PROPOSAL_SETUJUI_SPS;
-        }
-        else if($id_prodi == S2_KENOTARIATAN){
-            $status_proposal = MKN_STATUS_TESIS_PROPOSAL_SETUJUI_SPS;
-        }
+    public function nilai() {
+        $id_tesis = $this->uri->segment('6');
+        $id_prodi = $this->tesis->cek_prodi($id_tesis);
+        $id_tesis_mkpt_pengampu = $this->uri->segment('5');
         $data = array(
             // PAGE //
-            'title' => 'Tesis - Proposal',
-            'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/proposal/disetujui',
-            // DATA //
-            //'tesis' => $this->tesis->read_proposal(),
-            //'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'id_prodi' => $id_prodi,
-            'tesis' => $this->tesis->read_proposal_prodi($id_prodi, $status_proposal),
-            'prodi' => $this->tesis->read_prodi_s2(),
-            //'struktural' => $this->struktural->read_struktural($this->session_data['username']),
-        );
-        $this->load->view('backend/index_sidebar', $data);
-    }
-
-    public function ditolak() {
-        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
-        $struktural = $this->struktural->read_struktural($this->session_data['username']);
-        $id_prodi = $struktural->id_prodi;
-        $status_proposal = 0;
-        if($id_prodi == S2_ILMU_HUKUM){
-            $status_proposal = MIH_STATUS_TESIS_PROPOSAL_TOLAK_SPS;
-        }
-        else if($id_prodi == S2_KENOTARIATAN){
-            $status_proposal = MKN_STATUS_TESIS_PROPOSAL_TOLAK_SPS;
-        }
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Proposal',
-            'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/proposal/ditolak',
-            // DATA //
-            //'tesis' => $this->tesis->read_proposal(),
-            //'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'id_prodi' => $id_prodi,
-            'tesis' => $this->tesis->read_proposal_prodi($id_prodi, $status_proposal),
-            'prodi' => $this->tesis->read_prodi_s2(),
-            //'struktural' => $this->struktural->read_struktural($this->session_data['username']),
-        );
-        $this->load->view('backend/index_sidebar', $data);
-    }
-
-    public function index_kabag() {
-        $id_departemen = $this->dosen->detail($this->session_data['username'])->id_departemen;
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Proposal',
-            'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/proposal/index_kabag',
-            // DATA //
-            //'tesis' => $this->tesis->read_proposal(),
-            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'tesis' => $this->tesis->read_proposal_departemen($id_departemen),
-            'prodi' => $this->tesis->read_prodi_s2(),
-            'struktural' => $this->struktural->read_struktural($this->session_data['username']),
-        );
-        $this->load->view('backend/index_sidebar', $data);
-    }
-
-    public function setting_pembimbing() {
-        $id = $this->uri->segment(5);
-        $username = $this->session_data['username'];
-
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Proposal',
-            'subtitle' => 'Setting Pembimbing',
-            'section' => 'backend/dosen/tesis/proposal/setting_pembimbing',
-            // DATA //
-            'mdosen' => $this->dosen->read_aktif_alldep(),
-            'departemen' => $this->departemen->read(),
+            'title' => 'Tesis - Ujian',
+            'subtitle' => 'Nilai Penguji',
+            'section' => 'backend/dosen/tesis/mkpt/nilai',
+            'use_back' => true,
+            'back_link' => 'dosen/tesis/mkpt/pengampu/'.$id_prodi,
             'gelombang' => $this->gelombang->read_berjalan(),
-            'tesis' => $this->tesis->detail($id),
-        );
-
-        if ($data['tesis']) {
-            $this->load->view('backend/index_sidebar', $data);
-        } else {
-            $data['section'] = 'backend/notification/danger';
-            $data['msg'] = 'Tidak ditemukan';
-            $data['linkback'] = 'mahasiswa/tesis/proposal';
-            $this->load->view('backend/index_sidebar', $data);
-        }
-    }
-
-    public function setting_pembimbing_save() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_tesis = $this->input->post('id_tesis', TRUE);
-
-            $read_judul = $this->tesis->read_judul($id_tesis);
-            $judul = $this->input->post('judul', TRUE);
-            $tgl_sekarang = date('Y-m-d');
-
-            if ($judul == $read_judul->judul) {
-                $data = array(
-                    'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                    'tgl_pengajuan' => $tgl_sekarang,
-                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                );
-                $this->tesis->update($data, $id_tesis);
-                
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dosen/tesis/proposal/index_kabag');
-            } else {
-                $data = array(
-                    'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                    'tgl_pengajuan' => $tgl_sekarang,
-                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                );
-                $this->tesis->update($data, $id_tesis);
-
-                $dataj = array(
-                    'id_tesis' => $id_tesis,
-                    'judul' => $this->input->post('judul', TRUE),
-                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                );
-
-                $this->tesis->update_judul($dataj, $id_tesis);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dosen/tesis/proposal/index_kabag');
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/proposal/index_kabag');
-        }
-    }
-
-    public function setting_pembimbing_kedua() {
-        $id = $this->uri->segment(5);
-        $username = $this->session_data['username'];
-
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Proposal',
-            'subtitle' => 'Setting Pembimbing',
-            'section' => 'backend/dosen/tesis/proposal/setting_pembimbing_kedua',
             // DATA //
+            'id_penguji' => $id_penguji,
+            'tesis' => $this->tesis->detail($id_tesis),
+            'mruang' => $this->ruang->read_aktif(),
+            'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
-            'departemen' => $this->departemen->read(),
-            'gelombang' => $this->gelombang->read_berjalan(),
-            'tesis' => $this->tesis->detail($id),
+            'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_MKPT),
+            'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_MKPT),
         );
-
-        if ($data['tesis']) {
-            $this->load->view('backend/index_sidebar', $data);
-        } else {
-            $data['section'] = 'backend/notification/danger';
-            $data['msg'] = 'Tidak ditemukan';
-            $data['linkback'] = 'mahasiswa/tesis/proposal';
-            $this->load->view('backend/index_sidebar', $data);
-        }
+        $this->load->view('backend/index_sidebar', $data);
     }
 
-    public function setting_pembimbing_kedua_save() {
-        $hand = $this->input->post('hand', TRUE);
+    public function nilai_save()
+    {
+        $hand = $this->input->post('hand', true);
         if ($hand == 'center19') {
-            $id_tesis = $this->input->post('id_tesis', TRUE);
+            $id_tesis = $this->input->post('id_tesis', true);
             $id_prodi = $this->tesis->cek_prodi($id_tesis);
+            $tgl_sekarang = date('Y-m-d');
+            $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
+            if (!empty($tesis_mkpts)) {
+                foreach ($tesis_mkpts as $index => $mkpt) {
+                    $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
+                    foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                        if($pengampu['status'] == '1' && $pengampu['nip'] == $this->session_data['username']){
+                            $nilai_angka = $this->input->post('nilai_angka' . $mkpt['id_tesis_mkpt'], true);
+                            $data_tesis_mkpt = [
+                                'nilai_angka' => $nilai_angka,
+                                'nilai_publish' => $nilai_angka,
+                            ];
 
-            $read_judul = $this->tesis->read_judul($id_tesis);
-            $judul = $this->input->post('judul', TRUE);
-
-            if ($judul == $read_judul->judul) {
-                $data = array(
-                    'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                );
-                $this->tesis->update($data, $id_tesis);
-                
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
-            } else {
-                $data = array(
-                    'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                    'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
-                );
-                $this->tesis->update($data, $id_tesis);
-
-                $dataj = array(
-                    'id_tesis' => $id_tesis,
-                    'judul' => $this->input->post('judul', TRUE),
-                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
-                );
-
-                $this->tesis->update_judul($dataj, $id_tesis);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Berhasil update');
-                redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
+                            $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
+                                                
+                            $data_pengampu = [
+                                'nilai_angka' => $nilai_angka,
+                            ];
+                            
+                            $this->tesis->update_tesis_mkpt_pengampu($data_pengampu, $pengampu['id_tesis_mkpt_pengampu']);
+                        }
+                        
+                    }
+                    
+                }
             }
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPT..');
+            redirect('dosen/tesis/mkpt/setting_pengampu/'.$id_tesis);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
+            redirect_back();
         }
     }
 
-    /*public function index_prodi() {
-        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Proposal',
-            'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/proposal/index_prodi',
-            // DATA //
-            'tesis' => $this->tesis->read_proposal_prodi($id),
-            'prodi' => $this->tesis->read_prodi_s2(),
-            'struktural' => $this->struktural->read_struktural($this->session_data['username']),
-        );
-        $this->load->view('backend/index_sidebar', $data);
-    }*/
-
-    public function approve() {
-        $id = $this->uri->segment(5);
+    public function approve_pengampu() {
+        $id_tesis_mkpt_pengampu = $this->uri->segment(5);
+        $id = $this->uri->segment(6);
         $id_prodi = $this->tesis->cek_prodi($id);
-        $this->tesis->approval_proposal($id);
+        $this->tesis->approval_pengampu_mkpt($id_tesis_mkpt_pengampu);
         $this->session->set_flashdata('msg-title', 'alert-success');
-        $this->session->set_flashdata('msg', 'Proposal disetujui');
-        redirect('dosen/tesis/proposal/index/'.$id_prodi);
+        $this->session->set_flashdata('msg', 'Status Pengampu MKPT disetujui');
+        redirect('dosen/tesis/mkpt/pengampu/'.$id_prodi);
     }
 
-    
-
-    public function reject() {
-        $id = $this->uri->segment(5);
+    public function reject_pengampu() {
+    	$id_tesis_mkpt_pengampu = $this->uri->segment(5);
+        $id = $this->uri->segment(6);
         $id_prodi = $this->tesis->cek_prodi($id);
-        $this->tesis->reject_proposal($id);
+        $this->tesis->reject_pengampu_mkpt($id_tesis_mkpt_pengampu);
         $this->session->set_flashdata('msg-title', 'alert-danger');
-        $this->session->set_flashdata('msg', 'Proposal ditolak');
-        redirect('dosen/tesis/proposal/index/'.$id_prodi);
+        $this->session->set_flashdata('msg', 'Status Pengampu MKPT ditolak');
+        redirect('dosen/tesis/mkpt/pengampu/'.$id_prodi);
     }
 
-    public function batal() {
-        $id = $this->uri->segment(5);
+    public function batal_pengampu() {
+    	$id_tesis_mkpt_pengampu = $this->uri->segment(5);
+        $id = $this->uri->segment(6);
         $id_prodi = $this->tesis->cek_prodi($id);
-        $this->tesis->batal_proposal($id);
+        $this->tesis->batal_pengampu_mkpt($id_tesis_mkpt_pengampu);
         $this->session->set_flashdata('msg-title', 'alert-danger');
-        $this->session->set_flashdata('msg', 'Status Proposal dibatalkan');
-        redirect('dosen/tesis/proposal/index/'.$id_prodi);
-    }
-
-    public function pembimbing() {
-        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Pembimbing Proposal',
-            'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/proposal/pembimbing',
-            // DATA //
-            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'prodi' => $this->tesis->read_prodi_s2(),
-            //'tesis' => $this->tesis->read_permintaan_pembimbing($this->session_data['username']),
-            'tesis' => $this->tesis->read_permintaan_pembimbing_prodi($this->session_data['username'], $id),
-        );
-        $this->load->view('backend/index_sidebar', $data);
-    }
-
-    public function approve_pembimbing() {
-        $id = $this->uri->segment(5);
-        $id_prodi = $this->tesis->cek_prodi($id);
-        $this->tesis->approval_pembimbing_proposal($id);
-        $this->session->set_flashdata('msg-title', 'alert-success');
-        $this->session->set_flashdata('msg', 'Pembimbing Proposal disetujui');
-        redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
-    }
-
-    public function reject_pembimbing() {
-        $id = $this->uri->segment(5);
-        $id_prodi = $this->tesis->cek_prodi($id);
-        $this->tesis->reject_pembimbing_proposal($id);
-        $this->session->set_flashdata('msg-title', 'alert-danger');
-        $this->session->set_flashdata('msg', 'Status Pembimbing Proposal ditolak');
-        redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
-    }
-
-    public function batal_pembimbing() {
-        $id = $this->uri->segment(5);
-        $id_prodi = $this->tesis->cek_prodi($id);
-        $this->tesis->batal_pembimbing_proposal($id);
-        $this->session->set_flashdata('msg-title', 'alert-danger');
-        $this->session->set_flashdata('msg', 'Pembimbing Proposal dibatalkan');
-        redirect('dosen/tesis/proposal/pembimbing/'.$id_prodi);
+        $this->session->set_flashdata('msg', 'Status Pengampu MKPT dibatalkan');
+        redirect('dosen/tesis/mkpt/pengampu/'.$id_prodi);
     }
 
     public function penguji() {
@@ -500,18 +318,21 @@ class Mkpt extends CI_Controller {
         $id_prodi = $this->tesis->cek_prodi($id_tesis);
         $data = array(
             // PAGE //
-            'title' => 'Tesis - Proposal',
+            'title' => 'Tesis - MKPT',
             'subtitle' => 'Setting',
-            'section' => 'backend/dosen/tesis/proposal/setting',
+            'section' => 'backend/dosen/tesis/mkpt/setting',
             'use_back' => true,
-            'back_link' => 'dosen/tesis/proposal/penjadwalan/'.$id_prodi,
+            'back_link' => 'dosen/tesis/permintaan/pembimbing/'.$id_prodi,
             // DATA //
+            //'tesis' => $this->tesis->detail($id_tesis),
+            'gelombang' => $this->gelombang->read_berjalan(),
+            'id_prodi' => $id_prodi,
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
-            'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
-            'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
+            'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_MKPT),
+            'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_MKPT),
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -701,7 +522,7 @@ class Mkpt extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
-            $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
+            $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_MKPT);
 
             if (!empty($ujian)) { // JIKA SUDAH ADA
                 //echo 'jadwal sudah ada. tambah script update';  die();
@@ -713,7 +534,7 @@ class Mkpt extends CI_Controller {
                     'id_jam' => $this->input->post('id_jam', TRUE),
                     'tanggal' => todb($this->input->post('tanggal', TRUE)),
                     'status' => 1,
-                    'status_ujian' => 1,
+                    'status_ujian' => STATUS_TESIS_MKPT_DIJADWALKAN,
                     'status_apv_kaprodi' => 1,
                 );
 
@@ -722,7 +543,7 @@ class Mkpt extends CI_Controller {
                 if ($cek_jadwal) {
                     $this->session->set_flashdata('msg-title', 'alert-danger');
                     $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-                    redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                    redirect('dosen/tesis/mkpt/setting/' . $id_tesis);
                 } else {
                     $penguji = $this->tesis->read_penguji($id_ujian);
 
@@ -736,41 +557,42 @@ class Mkpt extends CI_Controller {
 
                             $this->session->set_flashdata('msg-title', 'alert-danger');
                             $this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
-                            redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                            redirect('dosen/tesis/mkpt/setting/' . $id_tesis);
                         } else {
                             $this->tesis->update_ujian($data, $id_ujian);
 
-                            $update_proposal = array(
-                                'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                            $update_mkpt = array(
+                                'status_mkpt' => STATUS_TESIS_MKPT_DIJADWALKAN,
                             );
-                            $this->tesis->update($update_proposal, $id_tesis);
+                            $this->tesis->update($update_mkpt, $id_tesis);
 
                             $this->session->set_flashdata('msg-title', 'alert-success');
                             $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
-                            redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                            redirect('dosen/tesis/mkpt/setting/' . $id_tesis);
                         }
                     } else { //langsung update
                         $this->tesis->update_ujian($data, $id_ujian);
 
-                        $update_proposal = array(
-                            'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                        $update_mkpt = array(
+                            'status_mkpt' => STATUS_TESIS_MKPT_DIJADWALKAN,
                         );
-                        $this->tesis->update($update_proposal, $id_tesis);
+                        $this->tesis->update($update_mkpt, $id_tesis);
 
                         $this->session->set_flashdata('msg-title', 'alert-success');
                         $this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
-                        redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                        redirect('dosen/tesis/mkpt/setting/' . $id_tesis);
                     }
                 }
-            } else { //JIKA BELUM ADA SAVE BARU
+            } else { 
+                //JIKA BELUM ADA SAVE BARU
                 $data = array(
                     'id_tesis' => $id_tesis,
                     'id_ruang' => $this->input->post('id_ruang', TRUE),
                     'id_jam' => $this->input->post('id_jam', TRUE),
                     'tanggal' => todb($this->input->post('tanggal', TRUE)),
-                    'jenis_ujian' => 1,
+                    'jenis_ujian' => UJIAN_TESIS_MKPT,
                     'status' => 1,
-                    'status_ujian' => 1,
+                    'status_ujian' => STATUS_TESIS_MKPT_DIJADWALKAN,
                     'status_apv_kaprodi' => 1,
                 );
 
@@ -779,22 +601,22 @@ class Mkpt extends CI_Controller {
                 if ($cek_jadwal) {
                     $this->session->set_flashdata('msg-title', 'alert-danger');
                     $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-                    redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                    redirect('dosen/tesis/mkpt/setting/' . $id_tesis);
                 } else {
-                    $update_proposal = array(
-                        'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                    $update_mkpt = array(
+                        'status_mkpt' => STATUS_TESIS_MKPT_DIJADWALKAN,
                     );
                     $this->tesis->save_ujian($data);
-                    $this->tesis->update($update_proposal, $id_tesis);
+                    $this->tesis->update($update_mkpt, $id_tesis);
                     $this->session->set_flashdata('msg-title', 'alert-success');
                     $this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
-                    redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                    redirect('dosen/tesis/mkpt/setting/' . $id_tesis);
                 }
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/proposal/penjadwalan');
+            redirect('dosen/tesis/mkpt/setting/' . $id_tesis);
         }
     }
 

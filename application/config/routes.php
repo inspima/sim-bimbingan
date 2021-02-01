@@ -586,12 +586,13 @@
 	$route['dosen/tesis/judul/setting_pembimbing_kedua/(:num)'] = 'backend/dosen/tesis/judul/setting_pembimbing_kedua';
 	$route['dosen/tesis/judul/setting_pembimbing_kedua_save'] = 'backend/dosen/tesis/judul/setting_pembimbing_kedua_save';
 	$route['dosen/tesis/judul/batal_pembimbing_utama/(:num)'] = 'backend/dosen/tesis/judul/batal_pembimbing_utama';
-	$route['dosen/tesis/judul/pembimbing'] = 'backend/dosen/tesis/judul/pembimbing';
-	$route['dosen/tesis/judul/pembimbing/(:num)'] = 'backend/dosen/tesis/judul/pembimbing';
 
-	$route['dosen/tesis/judul/approve_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/approve_pembimbing';
-	$route['dosen/tesis/judul/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/reject_pembimbing';
-	$route['dosen/tesis/judul/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/batal_pembimbing';
+	$route['dosen/tesis/permintaan/pembimbing'] = 'backend/dosen/tesis/permintaan/pembimbing';
+	$route['dosen/tesis/permintaan/pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/pembimbing';
+
+	$route['dosen/tesis/permintaan/approve_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/approve_pembimbing';
+	$route['dosen/tesis/permintaan/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/reject_pembimbing';
+	$route['dosen/tesis/permintaan/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/batal_pembimbing';
 
 	// TESIS - PROPOSAL
 	$route['dosen/tesis/proposal'] = 'backend/dosen/tesis/proposal';
@@ -644,8 +645,15 @@
 	$route['dosen/tesis/proposal/update_status_ujian_ketua'] = 'backend/dosen/tesis/proposal/update_status_ujian_ketua';
 
 	// TESIS - MKPT
+	$route['dosen/tesis/mkpt/pengampu'] = 'backend/dosen/tesis/mkpt/pengampu';
 	$route['dosen/tesis/mkpt/pengampu/(:num)'] = 'backend/dosen/tesis/mkpt/pengampu';
+	$route['dosen/tesis/mkpt/setting_pengampu/(:num)'] = 'backend/dosen/tesis/mkpt/setting_pengampu';
 	$route['dosen/tesis/mkpt/save'] = 'backend/dosen/tesis/mkpt/save';
+	$route['dosen/tesis/mkpt/approve_pengampu/(:num)/(:num)'] = 'backend/dosen/tesis/mkpt/approve_pengampu';
+	$route['dosen/tesis/mkpt/reject_pengampu/(:num)/(:num)'] = 'backend/dosen/tesis/mkpt/reject_pengampu';
+	$route['dosen/tesis/mkpt/batal_pengampu/(:num)/(:num)'] = 'backend/dosen/tesis/mkpt/batal_pengampu';
+	$route['dosen/tesis/mkpt/setting/(:num)'] = 'backend/dosen/tesis/mkpt/setting';
+	$route['dosen/tesis/mkpt/jadwal_save'] = 'backend/dosen/tesis/mkpt/jadwal_save';
 
 	// TESIS - UJIAN
 	$route['dosen/tesis/ujian'] = 'backend/dosen/tesis/ujian';

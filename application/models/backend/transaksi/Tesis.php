@@ -391,7 +391,7 @@ class Tesis extends CI_Model {
             $this->db->update('tesis', $data);
         }
 
-        if($tesis->status_pembimbing_satu == '1' && $tesis->status_pembimbing_satu == '1'){
+        if($tesis->status_pembimbing_satu == '1' && $tesis->status_pembimbing_dua == '1'){
             $data = array(
                 'status_judul' => STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING
             );
@@ -409,12 +409,14 @@ class Tesis extends CI_Model {
 
         if($tesis->nip_pembimbing_satu == $this->session_data['username']){
             $data = array(
-                'status_pembimbing_satu' => '2'
+                'status_pembimbing_satu' => '2',
+                'status_judul' => STATUS_TESIS_JUDUL_SETUJUI_SPS,
             );
         }
-        else if($tesis->nip_pembimbing_dua == $this->session_data['username']){
+        if($tesis->nip_pembimbing_dua == $this->session_data['username']){
             $data = array(
-                'status_pembimbing_dua' => '2'
+                'status_pembimbing_dua' => '2',
+                'status_judul' => STATUS_TESIS_JUDUL_SETUJUI_SPS,
             );
         }
 
@@ -431,16 +433,195 @@ class Tesis extends CI_Model {
 
         if($tesis->nip_pembimbing_satu == $this->session_data['username']){
             $data = array(
-                'status_pembimbing_satu' => NULL
+                'status_pembimbing_satu' => NULL,
+                'status_judul' => STATUS_TESIS_JUDUL_SETUJUI_SPS,
             );
         }
-        else if($tesis->nip_pembimbing_dua == $this->session_data['username']){
+        if($tesis->nip_pembimbing_dua == $this->session_data['username']){
             $data = array(
-                'status_pembimbing_dua' => NULL
+                'status_pembimbing_dua' => NULL,
+                'status_judul' => STATUS_TESIS_JUDUL_SETUJUI_SPS,
             );
         }
 
         $this->db->update('tesis', $data);
+    }
+
+    function approval_pengampu_mkpt($id_tesis_mkpt_pengampu)
+    {
+        $this->db->select('tesis.*, tmp.*');
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tmp.id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+        $query = $this->db->get();
+        $tesis = $query->row();
+
+        if($tesis->nip == $this->session_data['username']){
+            $data = array(
+                'status' => '1'
+            );
+            $this->db->from('tesis_mkpt_pengampu');
+            $this->db->where('id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+            $this->db->update('tesis_mkpt_pengampu', $data);
+        }
+
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tesis.id_tesis', $tesis->id_tesis);
+
+        $hitung_mkpt = $this->db->count_all_results();
+
+        $stts = '1';
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tesis.id_tesis', $tesis->id_tesis);
+        $this->db->where('tmp.status', $stts);
+
+        $hitung_approve = $this->db->count_all_results();
+
+        if($hitung_mkpt == $hitung_approve)
+        {
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else {
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
+            );
+
+            $this->db->update('tesis', $data);
+        }
+    }
+    
+    function reject_pengampu_mkpt($id_tesis_mkpt_pengampu)
+    {
+        $this->db->select('tesis.*, tmp.*');
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tmp.id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+        $query = $this->db->get();
+        $tesis = $query->row();
+
+        if($tesis->nip == $this->session_data['username']){
+            $data = array(
+                'status' => '2'
+            );
+            $this->db->from('tesis_mkpt_pengampu');
+            $this->db->where('id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+            $this->db->update('tesis_mkpt_pengampu', $data);
+        }
+
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tmp.id_tesis_mkpt', $tesis->id_tesis_mkpt);
+
+        $hitung_penguji = $this->db->count_all_results();
+
+        $stts = '1';
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tmp.id_tesis_mkpt', $tesis->id_tesis_mkpt);
+        $this->db->where('tmp.status', $stts);
+
+        $hitung_approve = $this->db->count_all_results();
+
+        if($hitung_mkpt == $hitung_approve)
+        {
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else {
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
+            );
+
+            $this->db->update('tesis', $data);
+        }
+    }
+
+    function batal_pengampu_mkpt($id_tesis_mkpt_pengampu)
+    {
+        $this->db->select('tmp.*, tmp.*');
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tmp.id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+        $query = $this->db->get();
+        $tesis = $query->row();
+
+        if($tesis->nip == $this->session_data['username']){
+            $data = array(
+                'status' => NULL
+            );
+            $this->db->from('tesis_mkpt_pengampu');
+            $this->db->where('id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+            $this->db->update('tesis_mkpt_pengampu', $data);
+        }
+
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tmp.id_tesis_mkpt', $tesis->id_tesis_mkpt);
+
+        $hitung_penguji = $this->db->count_all_results();
+
+        $stts = '1';
+        $this->db->from('tesis');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis = tesis.id_tesis', 'left');
+        $this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt', 'left');
+        $this->db->where('tmp.id_tesis_mkpt', $tesis->id_tesis_mkpt);
+        $this->db->where('tmp.status', $stts);
+
+        $hitung_approve = $this->db->count_all_results();
+
+        if($hitung_mkpt == $hitung_approve)
+        {
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else {
+            $data = array(
+                'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
+            );
+
+            $this->db->update('tesis', $data);
+        }
     }
 
     function reject_penguji_temp_proposal($id_tesis, $nip, $status)
@@ -492,16 +673,61 @@ class Tesis extends CI_Model {
 
             $this->db->update('tesis', $data);
         }
+        else {
+            $data = array(
+                'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
     }
     
     function reject_penguji_proposal($id_tesis, $id_ujian, $username)
     {
         $data = array(
-            'status' => '3'
+            'status' => '3',
         );
         $this->db->where('id_ujian', $id_ujian);
         $this->db->where('nip', $username);
         $this->db->update('penguji_tesis', $data);
+
+        $this->db->from('penguji_tesis p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->where_not_in('p.status', $stts);
+        $this->db->where('p.id_ujian', $id_ujian);
+
+        $hitung_penguji = $this->db->count_all_results();
+
+        $stts = '2';
+        $this->db->from('penguji_tesis p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->where('p.status', $stts);
+        $this->db->where('p.id_ujian', $id_ujian);
+
+        $hitung_approve = $this->db->count_all_results();
+
+        if($hitung_penguji == $hitung_approve)
+        {
+            $data = array(
+                'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else if($hitung_approve < $hitung_penguji && $hitung_approve > 0){
+            $data = array(
+                'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else {
+            $data = array(
+                'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
     }
 
     function batal_penguji_proposal($id_tesis, $id_ujian, $username)
@@ -512,6 +738,44 @@ class Tesis extends CI_Model {
         $this->db->where('id_ujian', $id_ujian);
         $this->db->where('nip', $username);
         $this->db->update('penguji_tesis', $data);
+
+        $this->db->from('penguji_tesis p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->where_not_in('p.status', $stts);
+        $this->db->where('p.id_ujian', $id_ujian);
+
+        $hitung_penguji = $this->db->count_all_results();
+
+        $stts = '2';
+        $this->db->from('penguji_tesis p');
+        $this->db->join('pegawai pg', 'p.nip = pg.nip');
+        $this->db->where('p.status', $stts);
+        $this->db->where('p.id_ujian', $id_ujian);
+
+        $hitung_approve = $this->db->count_all_results();
+
+        if($hitung_penguji == $hitung_approve)
+        {
+            $data = array(
+                'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else if($hitung_approve < $hitung_penguji && $hitung_approve > 0){
+            $data = array(
+                'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
+            );
+
+            $this->db->update('tesis', $data);
+        }
+        else {
+            $data = array(
+                'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
+            );
+
+            $this->db->update('tesis', $data);
+        }
     }
 
     function approval_penguji_tesis($id_tesis, $id_ujian, $username)
@@ -1144,6 +1408,21 @@ class Tesis extends CI_Model {
         }
     }
 
+    public function read_tesis_mkpt_pengampu_prodi($username, $id)
+    {
+        $this->db->select('m.*, t.*, tm.*, d.departemen, mhs.nim, mhs.nama as nama_mhs, p.nip as nip_pengampu_mkpt, p.nama as nama_pengampu_mkpt, m.status as status_pengampu_mkpt');
+        $this->db->from('tesis_mkpt_pengampu m');
+        $this->db->join('pegawai p', 'p.nip = m.nip');
+        $this->db->join('tesis_mkpt tm', 'tm.id_tesis_mkpt = m.id_tesis_mkpt', 'left');
+        $this->db->join('tesis t', 't.id_tesis = tm.id_tesis', 'left');
+        $this->db->join('mahasiswa mhs', 'mhs.nim= t.nim', 'left');
+        $this->db->join('departemen d', 't.id_departemen = d.id_departemen', 'left');
+        $this->db->where('mhs.id_prodi', $id);
+        $this->db->where('m.nip', $username);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function read_tesis_mkpt($id_tesis)
     {
         $this->db->select('*');
@@ -1350,6 +1629,13 @@ class Tesis extends CI_Model {
                 ['value' => '2', 'text' => 'Layak dengan Catatan'],
                 ['value' => '3', 'text' => 'Tidak Layak'],
             ];
+        } else if ($jenis == UJIAN_TESIS_MKPT) {
+            return [
+                ['value' => '0', 'text' => 'Belum Ujian'],
+                ['value' => '1', 'text' => 'Layak'],
+                ['value' => '2', 'text' => 'Layak dengan Catatan'],
+                ['value' => '3', 'text' => 'Tidak Layak'],
+            ];
         } else if ($jenis == UJIAN_TESIS_UJIAN) {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
@@ -1484,7 +1770,7 @@ class Tesis extends CI_Model {
                     'keterangan' => 'Disetujui oleh Dosen MKPT',
                     'color' => 'bg-green'
                 ],
-                [
+                /*[
                     'value' => STATUS_TESIS_MKPT_DIJADWALKAN,
                     'text' => 'MKPT - Dijadwalkan',
                     'keterangan' => 'Dijadwalkan',
@@ -1495,7 +1781,7 @@ class Tesis extends CI_Model {
                     'text' => 'MKPT - Disetujui Penguji',
                     'keterangan' => 'Disetujui Dosen Penguji',
                     'color' => 'bg-green'
-                ],
+                ],*/
                 [
                     'value' => STATUS_TESIS_MKPT_UJIAN,
                     'text' => 'MKPT - Ujian',
