@@ -9,6 +9,20 @@
 
 		// DISERTASI
 
+		public function read_admin_prodi()
+		{
+			$this->db->select('s.*,m.nama,pg.nip nip_penasehat,pg.nama nama_penasehat, d.departemen, jd.judul');
+			$this->db->from('disertasi s');
+			$this->db->join('pegawai pg', 'pg.nip = s.nip_penasehat', 'left');
+			$this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
+			$this->db->join('mahasiswa m', 'm.nim= s.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->order_by('s.tgl_pengajuan', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function read_mahasiswa($username)
 		{
 			$this->db->select('s.*,pg.nip nip_penasehat,pg.nama nama_penasehat, d.departemen ');
@@ -1219,6 +1233,12 @@
 						'value' => STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN,
 						'text' => 'Pengajuan',
 						'keterangan' => 'Diajukan oleh mahasiswa, Upload Berkas Ujian Kualifikasi',
+						'color' => 'bg-light-blue'
+					],
+					[
+						'value' => STATUS_DISERTASI_KUALIFIKASI_CETAK_SK_PENASEHAT,
+						'text' => 'Cetak SK Penasehat',
+						'keterangan' => 'SK Penasehat dari Admin Prodi',
 						'color' => 'bg-blue'
 					],
 					[

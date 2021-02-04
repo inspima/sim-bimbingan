@@ -43,9 +43,25 @@
                     <select name="role" class="form-control">
                         <option value="1">Administrator</option>
                         <option value="2">BAA</option>
+						<option value="3">Admin Prodi</option>
                     </select>
                 </div>
+				<div class="form-group">
+					<label>Jenjang</label>
+					<span class="text-info">Khusus Admin Prodi</span>
+					<select name="id_jenjang" class="form-control" style="width: 100%;" required>
+						<option value="0">Pilih Jenjang</option>
+						<?php
+							foreach ($jenjang as $list) {
+								?>
+								<option value="<?php echo $list['id_jenjang'] ?>"><?php echo $list['nm_jenjang'] ?></option>
+								<?php
+							}
+						?>
+					</select>
+				</div>
             </div>
+
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="callout callout-info">Default password adalah <b>iurisfh</b> bisa diganti pada fitur profile</div>

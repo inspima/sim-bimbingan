@@ -45,7 +45,8 @@ class Admin_user extends CI_Controller {
             'subtitle' => 'Administrator',
             'section' => 'backend/administrator/master/user_add_pegawai',
             'use_back' => true,
-            'back_link' => 'dashboarda/master/user'
+            'back_link' => 'dashboarda/master/user',
+			'jenjang' => $this->prodi->read_jenjang(),
                 // DATA //
         );
         $this->load->view('backend/index_sidebar', $data);
@@ -86,7 +87,7 @@ class Admin_user extends CI_Controller {
             $data_pegawai = [
                 'id_departemen' => '0',
                 'jenis_pegawai' => '2',
-                'id_jenjang' => '0',
+                'id_jenjang' => $this->input->post('id_jenjang', TRUE),
                 'status' => '1',
                 'status_berjalan' => '1',
                 'nip' => $this->input->post('nip', TRUE),

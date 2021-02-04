@@ -409,37 +409,6 @@
 	$route['baa/magister/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/baa/magister/tesis_ujian/nilai_ujian';
 	$route['baa/magister/tesis/ujian/nilai_ujian_save'] = 'backend/baa/magister/tesis_ujian/nilai_ujian_save';
 
-	$route['baa/doktoral/disertasi/kualifikasi'] = 'backend/baa/doktoral/disertasi_kualifikasi';
-	$route['baa/doktoral/disertasi/kualifikasi/cetak_undangan'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_undangan';
-	$route['baa/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_berita';
-	$route['baa/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_penilaian';
-	$route['baa/doktoral/disertasi/kualifikasi/cetak_absensi'] = 'backend/baa/doktoral/disertasi_kualifikasi/cetak_absensi';
-
-	$route['baa/doktoral/disertasi/proposal'] = 'backend/baa/doktoral/disertasi_proposal';
-	$route['baa/doktoral/disertasi/proposal/terima'] = 'backend/baa/doktoral/disertasi_proposal/terima';
-	$route['baa/doktoral/disertasi/proposal/cetak_undangan'] = 'backend/baa/doktoral/disertasi_proposal/cetak_undangan';
-	$route['baa/doktoral/disertasi/proposal/cetak_berita'] = 'backend/baa/doktoral/disertasi_proposal/cetak_berita';
-	$route['baa/doktoral/disertasi/proposal/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_proposal/cetak_penilaian';
-	$route['baa/doktoral/disertasi/proposal/cetak_absensi'] = 'backend/baa/doktoral/disertasi_proposal/cetak_absensi';
-
-	$route['baa/doktoral/disertasi/kelayakan'] = 'backend/baa/doktoral/disertasi_kelayakan';
-	$route['baa/doktoral/disertasi/kelayakan/cetak_undangan'] = 'backend/baa/doktoral/disertasi_kelayakan/cetak_undangan';
-	$route['baa/doktoral/disertasi/kelayakan/cetak_berita'] = 'backend/baa/doktoral/disertasi_kelayakan/cetak_berita';
-	$route['baa/doktoral/disertasi/kelayakan/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_kelayakan/cetak_penilaian';
-	$route['baa/doktoral/disertasi/kelayakan/cetak_absensi'] = 'backend/baa/doktoral/disertasi_kelayakan/cetak_absensi';
-
-	$route['baa/doktoral/disertasi/tertutup'] = 'backend/baa/doktoral/disertasi_tertutup';
-	$route['baa/doktoral/disertasi/tertutup/cetak_undangan'] = 'backend/baa/doktoral/disertasi_tertutup/cetak_undangan';
-	$route['baa/doktoral/disertasi/tertutup/cetak_berita'] = 'backend/baa/doktoral/disertasi_tertutup/cetak_berita';
-	$route['baa/doktoral/disertasi/tertutup/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_tertutup/cetak_penilaian';
-	$route['baa/doktoral/disertasi/tertutup/cetak_absensi'] = 'backend/baa/doktoral/disertasi_tertutup/cetak_absensi';
-
-	$route['baa/doktoral/disertasi/terbuka'] = 'backend/baa/doktoral/disertasi_terbuka';
-	$route['baa/doktoral/disertasi/terbuka/cetak_undangan'] = 'backend/baa/doktoral/disertasi_terbuka/cetak_undangan';
-	$route['baa/doktoral/disertasi/terbuka/cetak_berita'] = 'backend/baa/doktoral/disertasi_terbuka/cetak_berita';
-	$route['baa/doktoral/disertasi/terbuka/cetak_penilaian'] = 'backend/baa/doktoral/disertasi_terbuka/cetak_penilaian';
-	$route['baa/doktoral/disertasi/terbuka/cetak_absensi'] = 'backend/baa/doktoral/disertasi_terbuka/cetak_absensi';
-
 	$route['baa/master/dosen'] = 'backend/baa/master/dosen/index';
 	$route['baa/master/dosen/edit/(:num)'] = 'backend/baa/master/dosen/edit';
 	$route['baa/master/dosen/update'] = 'backend/baa/master/dosen/update';
@@ -654,6 +623,11 @@
 	$route['dosen/tesis/mkpt/batal_pengampu/(:num)/(:num)'] = 'backend/dosen/tesis/mkpt/batal_pengampu';
 	$route['dosen/tesis/mkpt/setting/(:num)'] = 'backend/dosen/tesis/mkpt/setting';
 	$route['dosen/tesis/mkpt/jadwal_save'] = 'backend/dosen/tesis/mkpt/jadwal_save';
+	$route['dosen/tesis/mkpt/nilai/(:num)/(:num)'] = 'backend/dosen/tesis/mkpt/nilai';
+	$route['dosen/tesis/mkpt/nilai_save'] = 'backend/dosen/tesis/mkpt/nilai_save';
+	$route['dosen/tesis/mkpt/publish_nilai/(:num)/(:num)'] = 'backend/dosen/tesis/mkpt/publish_nilai';
+	$route['dosen/tesis/mkpt/batal_publish_nilai/(:num)/(:num)'] = 'backend/dosen/tesis/mkpt/batal_publish_nilai';
+	$route['dosen/tesis/mkpt/update_status_ujian'] = 'backend/dosen/tesis/mkpt/update_status_ujian';
 
 	// TESIS - UJIAN
 	$route['dosen/tesis/ujian'] = 'backend/dosen/tesis/ujian';
@@ -715,6 +689,41 @@
 	$route['dosen/dokumen/berita_acara/persetujuan/(:num)'] = 'backend/dosen/dokumen/berita_acara/persetujuan';
 	$route['dosen/dokumen/berita_acara/persetujuan/save'] = 'backend/dosen/dokumen/berita_acara/persetujuan_save';
 
+	// ADMIN PRODI
+	$route['prodi/dashboard'] = 'backend/admin/prodi_page/dashboard';
+	$route['prodi/doktoral/disertasi/cetak_sk'] = 'backend/prodi/prodi_doktoral/cetak_sk';
+
+	$route['prodi/doktoral/disertasi/kualifikasi'] = 'backend/prodi/doktoral/disertasi_kualifikasi';
+	$route['prodi/doktoral/disertasi/kualifikasi/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_undangan';
+	$route['prodi/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_berita';
+	$route['prodi/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_penilaian';
+	$route['prodi/doktoral/disertasi/kualifikasi/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_absensi';
+
+	$route['prodi/doktoral/disertasi/proposal'] = 'backend/prodi/doktoral/disertasi_proposal';
+	$route['prodi/doktoral/disertasi/proposal/terima'] = 'backend/prodi/doktoral/disertasi_proposal/terima';
+	$route['prodi/doktoral/disertasi/proposal/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_proposal/cetak_undangan';
+	$route['prodi/doktoral/disertasi/proposal/cetak_berita'] = 'backend/prodi/doktoral/disertasi_proposal/cetak_berita';
+	$route['prodi/doktoral/disertasi/proposal/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_proposal/cetak_penilaian';
+	$route['prodi/doktoral/disertasi/proposal/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_proposal/cetak_absensi';
+
+	$route['prodi/doktoral/disertasi/kelayakan'] = 'backend/prodi/doktoral/disertasi_kelayakan';
+	$route['prodi/doktoral/disertasi/kelayakan/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_undangan';
+	$route['prodi/doktoral/disertasi/kelayakan/cetak_berita'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_berita';
+	$route['prodi/doktoral/disertasi/kelayakan/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_penilaian';
+	$route['prodi/doktoral/disertasi/kelayakan/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_absensi';
+
+	$route['prodi/doktoral/disertasi/tertutup'] = 'backend/prodi/doktoral/disertasi_tertutup';
+	$route['prodi/doktoral/disertasi/tertutup/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_undangan';
+	$route['prodi/doktoral/disertasi/tertutup/cetak_berita'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_berita';
+	$route['prodi/doktoral/disertasi/tertutup/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_penilaian';
+	$route['prodi/doktoral/disertasi/tertutup/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_absensi';
+
+	$route['prodi/doktoral/disertasi/terbuka'] = 'backend/prodi/doktoral/disertasi_terbuka';
+	$route['prodi/doktoral/disertasi/terbuka/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_undangan';
+	$route['prodi/doktoral/disertasi/terbuka/cetak_berita'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_berita';
+	$route['prodi/doktoral/disertasi/terbuka/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_penilaian';
+	$route['prodi/doktoral/disertasi/terbuka/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_absensi';
+
 	// MAHASISWA
 
 	// DOKTORAL
@@ -722,6 +731,7 @@
 	$route['mahasiswa/disertasi/kualifikasi/add'] = 'backend/mahasiswa/disertasi/kualifikasi/add';
 	$route['mahasiswa/disertasi/kualifikasi/save'] = 'backend/mahasiswa/disertasi/kualifikasi/save';
 	$route['mahasiswa/disertasi/kualifikasi/info/(:num)'] = 'backend/mahasiswa/disertasi/kualifikasi/info';
+	$route['mahasiswa/disertasi/kualifikasi/cetak-pengajuan'] = 'backend/mahasiswa/disertasi/kualifikasi/cetak_pengajuan';
 
 	$route['mahasiswa/disertasi/promotor'] = 'backend/mahasiswa/disertasi/promotor';
 	$route['mahasiswa/disertasi/promotor/info/(:num)'] = 'backend/mahasiswa/disertasi/promotor/info';

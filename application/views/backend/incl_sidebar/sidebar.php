@@ -19,7 +19,9 @@
             } else
             if ($role == '2') { // BAA
                 $this->load->view('backend/incl_sidebar/menu/baa');
-            }
+            }if ($role == '3') { // ADMIN PRODI
+				$this->load->view('backend/incl_sidebar/menu/admin_prodi');
+			}
         } else
         if ($sebagai == '3') { // mahasiswa
             if ($is_verifikasi == '1') {
