@@ -33,6 +33,8 @@
                     <th>Tanggal Pengajuan</th>
                     <th>Berkas Proposal</th>
                     <th>Berkas MKPT</th>
+                    <th>Berkas Tesis</th>
+                    <th>Berkas Syarat Tesis</th>
                     <th>Status</th>
                     <th>Opsi</th>
                     <th>Kontrol</th>
@@ -55,6 +57,9 @@
                             }
                             if($list['jenis'] == TAHAPAN_TESIS_MKPT){ 
                                 $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_MKPT);
+                            }
+                            if($list['jenis'] == TAHAPAN_TESIS_UJIAN){ 
+                                $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_UJIAN);
                             }
                             echo '<b>Judul : </b>'.$judul->judul.'<br>';
                             echo '<b>Latar Belakang : </b>'.$judul->latar_belakang.'<br>';
@@ -179,6 +184,24 @@
                         </td>
                         <td class="text-center">
                             <?php
+                            if($list['berkas_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php
+                            if($list['berkas_syarat_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_syarat_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php
                             if($list['jenis'] == TAHAPAN_TESIS_JUDUL){ 
                                 $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_JUDUL]); 
                             }
@@ -188,6 +211,9 @@
                             if($list['jenis'] == TAHAPAN_TESIS_MKPT){ 
                                 $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_MKPT]); 
                             }
+                            if($list['jenis'] == TAHAPAN_TESIS_UJIAN){ 
+                                $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); 
+                            }
                             if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
@@ -195,37 +221,54 @@
                                 <?php
                                 echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
                             }
+                            if ($list['status_mkpt'] > STATUS_TESIS_MKPT_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian MKPT</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_mkpt'], UJIAN_TESIS_MKPT);
+                            }
+                            if ($list['status_tesis'] > STATUS_TESIS_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian Tesis</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_tesis'], UJIAN_TESIS_UJIAN);
+                            }
                             ?>
                         </td>
                         <td>
                             <?php 
-                            if($list['nip_pembimbing_satu'] == $this->session_data['username']){
-                                if($list['status_pembimbing_satu'] == NULL) {
-                                ?>
-                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
-                                    <i class="fa fa-edit"></i> Approve</a>
-                                    <a class="btn btn-xs btn-danger" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?= $list['id_tesis']?>">
-                                    <i class="fa fa-edit"></i> Reject</a>
-                                <?php
-                                } else if($list['status_pembimbing_satu'] != NULL && $list['nip_pembimbing_dua'] == NULL) {
-                                ?>
-                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
-                                    <i class="fa fa-edit"></i> Batal</a>
-                                <?php
-                                } 
-                            } else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
-                                if($list['status_pembimbing_dua'] == NULL) {
-                                ?>
-                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
-                                    <i class="fa fa-edit"></i> Approve</a>
-                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?php echo $list['id_tesis']?>">
-                                    <i class="fa fa-edit"></i> Reject</a>
-                                <?php
-                                } else {
-                                ?>
-                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
-                                    <i class="fa fa-edit"></i> Batal</a>
-                                <?php
+                            if($list['status_judul'] < STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING){
+                                if($list['nip_pembimbing_satu'] == $this->session_data['username']){
+                                    if($list['status_pembimbing_satu'] == NULL) {
+                                    ?>
+                                        <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
+                                        <i class="fa fa-edit"></i> Approve</a>
+                                        <a class="btn btn-xs btn-danger" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?= $list['id_tesis']?>">
+                                        <i class="fa fa-edit"></i> Reject</a>
+                                    <?php
+                                    } //else if($list['status_pembimbing_satu'] != NULL && $list['nip_pembimbing_dua'] == NULL) {
+                                    else {
+                                    ?>
+                                        <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
+                                        <i class="fa fa-edit"></i> Batal</a>
+                                    <?php
+                                    } 
+                                } else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
+                                    if($list['status_pembimbing_dua'] == NULL) {
+                                    ?>
+                                        <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
+                                        <i class="fa fa-edit"></i> Approve</a>
+                                        <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?php echo $list['id_tesis']?>">
+                                        <i class="fa fa-edit"></i> Reject</a>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
+                                        <i class="fa fa-edit"></i> Batal</a>
+                                    <?php
+                                    }
                                 }
                             }
                             ?>
@@ -247,6 +290,11 @@
                                 if($list['jenis'] == TAHAPAN_TESIS_MKPT){
                                 ?>
                                     <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Setting MKPT</a>
+                                <?php
+                                }
+                                if($list['jenis'] == TAHAPAN_TESIS_UJIAN && $list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA){
+                                ?>
+                                    <a href="<?= base_url() ?>dosen/tesis/ujian/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji</a>
                                 <?php
                                 }
                                 /*if($list['jenis'] == TAHAPAN_TESIS_MKPT && $list['status_mkpt'] == STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT){

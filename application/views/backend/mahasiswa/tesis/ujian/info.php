@@ -19,7 +19,14 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-                <?php $this->view('backend/widgets/tesis/informasi_tesis_judul', ['tesis' => $tesis]); ?>
+                <?php 
+                    $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);
+                    echo '<b>Judul : </b>'.$judul->judul.'<br>';
+                    
+                    if($tesis->berkas_orisinalitas != '') {
+                        echo '<b>Berkas Orisinalitas : </b><a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$tesis->berkas_orisinalitas.'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
+                    }
+                ?>
                 <hr>
                 <b>Dosen Pembimbing</b><br><br>
                 <table class="table table-condensed ">
@@ -123,7 +130,7 @@
                 <div class="form-group">
                     <p>
                         <?php
-                        echo $this->tesis->get_status_ujian($tesis->status_ujian_proposal, 1);
+                        echo $this->tesis->get_status_ujian($tesis->status_ujian_tesis, 1);
                         ?>
                     </p>
                 </div>

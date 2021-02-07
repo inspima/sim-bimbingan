@@ -8,7 +8,7 @@
         <?php echo $this->session->flashdata('msg'); ?>
     </div>
 <?php endif; ?>
-<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => TAHAPAN_TESIS_UJIAN]); ?>
+<?php $this->view('backend/widgets/tesis/informasi_status', ['jenis' => TAHAPAN_TESIS_MKPT]); ?>
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">Tabel <?= $subtitle ?></h3>
@@ -59,10 +59,25 @@
                         </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_MKPT]); ?>
+                            <?php if ($list['status_proposal'] > STATUS_TESIS_MKPT_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_mkpt'], UJIAN_TESIS_MKPT);
+                                ?>
+                                <?php if ($list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN && $list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN_SELESAI):
+                                    ?>
+                                    <hr style = "margin:5px"/>
+                                    <a href = "<?= base_url() ?>mahasiswa/tesis/ujian/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Tesis</a>
+                                    <?php
+                                endif;
+                            }
+                            ?>
                         </td>
                         <td class="text-center">
                             <?php 
-                            if ($list['status_mkpt'] > STATUS_TESIS_MKPT_DIJADWALKAN) {
+                            if ($list['status_mkpt'] > STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php

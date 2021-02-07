@@ -53,6 +53,9 @@
                             if($list['jenis'] == TAHAPAN_TESIS_MKPT){ 
                                 $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_MKPT);
                             }
+                            if($list['jenis'] == TAHAPAN_TESIS_UJIAN){ 
+                                $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_UJIAN);
+                            }
                             echo '<b>Judul : </b>'.$judul->judul.'<br>';
                             echo '<b>Latar Belakang : </b>'.$judul->latar_belakang.'<br>';
                             echo '<b>Rumusan Masalah Pertama : </b>'.$judul->rumusan_masalah_pertama.'<br>';
@@ -113,12 +116,29 @@
                             if($list['jenis'] == TAHAPAN_TESIS_MKPT){ 
                                 $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_MKPT]); 
                             }
+                            if($list['jenis'] == TAHAPAN_TESIS_MKPT){ 
+                                $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); 
+                            }
                             if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian Proposal</b><br/>
                                 <?php
                                 echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
+                            }
+                            if ($list['status_mkpt'] > STATUS_TESIS_MKPT_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian Proposal</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_mkpt'], UJIAN_TESIS_MKPT);
+                            }
+                            if ($list['status_tesis'] > STATUS_TESIS_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian Tesis</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_tesis'], UJIAN_TESIS_UJIAN);
                             }
                             ?>
                         </td>

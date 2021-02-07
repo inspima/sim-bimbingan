@@ -100,46 +100,63 @@ class Ujian extends CI_Controller {
                 $this->upload->initialize($config);
             }
 
-            if($_FILES['berkas_syarat_tesis']['size'] != 0){
-                $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-                $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                $config['allowed_types'] = 'pdf';
-                $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                $config['remove_spaces'] = TRUE;
-                $config['file_ext_tolower'] = TRUE;
-                $config['detect_mime'] = TRUE;
-                $config['mod_mime_fix'] = TRUE;
-                $config['file_name'] = $file_name_syarat;
-                $this->load->library('upload', $config);
-                $this->upload->initialize($config);
-            }
-
             if (!$this->upload->do_upload('berkas_tesis')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
                 redirect_back();
             }
-            else if (!$this->upload->do_upload('berkas_syarat_tesis')) {
+
+            if($_FILES['berkas_syarat_tesis']['size'] != 0){
+                $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
+                $config_syarat['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
+                $config_syarat['allowed_types'] = 'pdf';
+                $config_syarat['max_size'] = MAX_SIZE_FILE_UPLOAD;
+                $config_syarat['remove_spaces'] = TRUE;
+                $config_syarat['file_ext_tolower'] = TRUE;
+                $config_syarat['detect_mime'] = TRUE;
+                $config_syarat['mod_mime_fix'] = TRUE;
+                $config_syarat['file_name'] = $file_name_syarat;
+                $this->load->library('upload', $config_syarat);
+                $this->upload->initialize($config_syarat);
+            }
+
+            if (!$this->upload->do_upload('berkas_syarat_tesis')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
                 redirect_back();
-            } 
-            else {
-                $id_tesis = $this->input->post('id_tesis', TRUE);
-                $tgl_sekarang = date('Y-m-d');
-                $data = array(
-                    'jenis' => TAHAPAN_TESIS_UJIAN,
-                    'berkas_tesis' => $file_name,
-                    'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    'berkas_syarat_tesis' => $file_name_syarat,
-                );
-
-                $this->tesis->update($data, $id_tesis);
-
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan Tesis..');
-                redirect('mahasiswa/tesis/ujian');
             }
+
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+            $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_MKPT);
+            $tgl_sekarang = date('Y-m-d');
+            $data = array(
+                'jenis' => TAHAPAN_TESIS_UJIAN,
+                'berkas_tesis' => $file_name,
+                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                'berkas_syarat_tesis' => $file_name_syarat,
+            );
+
+            $this->tesis->update($data, $id_tesis);
+
+            $dataj = array(
+                'id_tesis' => $id_tesis,
+                'judul' => $read_judul->judul,
+                'latar_belakang' => $read_judul->latar_belakang,
+                'rumusan_masalah_pertama' => $read_judul->rumusan_masalah_pertama,
+                'rumusan_masalah_kedua' => $read_judul->rumusan_masalah_kedua,
+                'rumusan_masalah_lain' => $read_judul->rumusan_masalah_lain,
+                'penelusuran_artikel_internet' => $read_judul->penelusuran_artikel_internet,
+                'penelusuran_artikel_unair' => $read_judul->penelusuran_artikel_unair,
+                'uraian_topik' => $read_judul->uraian_topik,
+                'jenis' => TAHAPAN_TESIS_UJIAN,
+            );
+
+            $this->tesis->save_judul($dataj);
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan Tesis..');
+            redirect('mahasiswa/tesis/ujian');
+        
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');

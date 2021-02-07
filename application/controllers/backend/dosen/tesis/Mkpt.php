@@ -65,6 +65,7 @@ class Mkpt extends CI_Controller {
             'gelombang' => $this->gelombang->read_berjalan(),
             'departemen' => $this->departemen->read(),
             'tesis' => $this->tesis->detail($id_tesis),
+            'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_MKPT),
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -169,7 +170,7 @@ class Mkpt extends CI_Controller {
             'back_link' => 'dosen/tesis/mkpt/pengampu/'.$id_prodi,
             'gelombang' => $this->gelombang->read_berjalan(),
             // DATA //
-            'id_penguji' => $id_penguji,
+            'id_prodi' => $id_prodi,
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif(),
             'mjam' => $this->jam->read_aktif(),
@@ -188,12 +189,14 @@ class Mkpt extends CI_Controller {
             $id_prodi = $this->tesis->cek_prodi($id_tesis);
             $tgl_sekarang = date('Y-m-d');
             $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
+            $id_tesis_mkpt_pengampu = '';
             if (!empty($tesis_mkpts)) {
                 foreach ($tesis_mkpts as $index => $mkpt) {
                     $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
                     foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
                         if($pengampu['status'] == '1' && $pengampu['nip'] == $this->session_data['username']){
-                            $nilai_angka = $this->input->post('nilai_angka' . $mkpt['id_tesis_mkpt'], true);
+                            $id_tesis_mkpt_pengampu = $pengampu['id_tesis_mkpt_pengampu'];
+                            $nilai_angka = str_replace(',', '.', $this->input->post('nilai_angka' . $mkpt['id_tesis_mkpt'], true));
                             $data_tesis_mkpt = [
                                 'nilai_angka' => $nilai_angka,
                                 'nilai_publish' => $nilai_angka,
@@ -215,7 +218,7 @@ class Mkpt extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPT..');
-            redirect('dosen/tesis/mkpt/setting_pengampu/'.$id_tesis);
+            redirect('dosen/tesis/mkpt/nilai/'.$id_tesis_mkpt_pengampu.'/'.$id_tesis);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
@@ -251,6 +254,26 @@ class Mkpt extends CI_Controller {
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Status Pengampu MKPT dibatalkan');
         redirect('dosen/tesis/mkpt/pengampu/'.$id_prodi);
+    }
+
+    public function publish_nilai() {
+        $id_tesis_mkpt_pengampu = $this->uri->segment(5);
+        $id = $this->uri->segment(6);
+        $id_prodi = $this->tesis->cek_prodi($id);
+        $this->tesis->publish_nilai_mkpt($id_tesis_mkpt_pengampu);
+        $this->session->set_flashdata('msg-title', 'alert-success');
+        $this->session->set_flashdata('msg', 'Status Nilai MKPT dipublish');
+        redirect('dosen/tesis/mkpt/nilai/'.$id_tesis_mkpt_pengampu.'/'.$id);
+    }
+
+    public function batal_publish_nilai() {
+        $id_tesis_mkpt_pengampu = $this->uri->segment(5);
+        $id = $this->uri->segment(6);
+        $id_prodi = $this->tesis->cek_prodi($id);
+        $this->tesis->batal_publish_nilai_mkpt($id_tesis_mkpt_pengampu);
+        $this->session->set_flashdata('msg-title', 'alert-danger');
+        $this->session->set_flashdata('msg', 'Status Nilai MKPT batal dipublish');
+        redirect('dosen/tesis/mkpt/nilai/'.$id_tesis_mkpt_pengampu.'/'.$id);
     }
 
     public function penguji() {
@@ -929,7 +952,7 @@ class Mkpt extends CI_Controller {
             $status_ujian = $this->input->post('status_ujian', TRUE);
 
             $data = array(
-                'status_ujian_proposal' => $status_ujian,
+                'status_ujian_mkpt' => $status_ujian,
             );
             $this->tesis->update($data, $id_tesis);
 
@@ -937,27 +960,26 @@ class Mkpt extends CI_Controller {
             if ($status_ujian == '0') { //belum ujian
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses');
-                redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                redirect('dosen/tesis/mkpt/setting_pengampu/' . $id_tesis);
             } else if (in_array($status_ujian, [1, 2])) { //layak
                 //update proposal selesai
                 $data = array(
-                    'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN_SELESAI,
-                    'status_ujian_proposal' => $status_ujian,
+                    'status_mkpt' => STATUS_TESIS_MKPT_UJIAN_SELESAI,
                 );
                 $this->tesis->update($data, $id_tesis);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
-                redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                redirect('dosen/tesis/mkpt/setting_pengampu/' . $id_tesis);
             } else if ($status_ujian == '3') {
                 $this->session->set_flashdata('msg-title', 'alert-warning');
                 $this->session->set_flashdata('msg', 'Ujian ditolak');
-                redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                redirect('dosen/tesis/mkpt/setting_pengampu/' . $id_tesis);
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+            redirect('dosen/tesis/mkpt/setting_pengampu/' . $id_tesis);
         }
     }
 

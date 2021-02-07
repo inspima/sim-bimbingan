@@ -26,11 +26,14 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Info Tesis</th>
-                    <th class="text-center">Berkas Proposal</th>
-                    <th class="text-center">Berkas Tesis</th>
-                    <th class="text-center">Berkas Syarat</th>
-                    <th>Tgl.Pengajuan</th>
+                    <th>Mahasiswa</th>
+                    <th>Tesis</th>
+                    <th>Pembimbing</th>
+                    <th>Departemen</th>
+                    <th>Tanggal Pengajuan</th>
+                    <th>Berkas Proposal</th>
+                    <th>Berkas Tesis</th>
+                    <th>Berkas Syarat</th>
                     <th>Jadwal</th>
                     <th>Status</th>
                     <th>Tim</th>
@@ -46,29 +49,101 @@
                     ?>
                     <tr>
                         <td><?= $no ?></td>
+                        <td><?= '<b>' . $list['nama'] . '</b><br>' . $list['nim'].'<br>';?></td>
+                        <td><?php
+                            $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_PROPOSAL);
+                            echo '<b>Judul : </b>'.$judul->judul.'<br>';
+                            echo '<b>Latar Belakang : </b>'.$judul->latar_belakang.'<br>';
+                            echo '<b>Rumusan Masalah Pertama : </b>'.$judul->rumusan_masalah_pertama.'<br>';
+                            echo '<b>Rumusan Masalah Kedua : </b>'.$judul->rumusan_masalah_kedua.'<br>';
+                            echo '<b>Rumusan Masalah Ketiga Dst. : </b>'.$judul->rumusan_masalah_lain.'<br>';
+                            echo '<b>Penelusuran Artikel Internet : </b>'.$judul->penelusuran_artikel_internet.'<br>';
+                            echo '<b>Penelusuran Artikel Repository UNAIR : </b>'.$judul->penelusuran_artikel_unair.'<br>';
+                            echo '<b>Uraian Topik : </b>'.$judul->uraian_topik.'<br>';
+
+                            if($list['berkas_orisinalitas'] != '') {
+                                echo '<b>Berkas Orisinalitas : </b><a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$list['berkas_orisinalitas'].'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
+                            }
+
+                            ?>
+                        </td>
                         <td>
-                            <?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
-                            <br/>
-                            <b>Judul</b> <br/>
+                            <?php 
+                            echo '<b>Pembimbing Utama</b><br>';
+                            $dosbing_satu = '<i>belum ditentukan</i>';
+                            if($list['nip_pembimbing_satu'] != '' && $list['nip_pembimbing_satu'] != ''){
+                                $dosbing_satu = '<b>'.$list['nama_pembimbing_satu'].'</b><br>'.$list['nip_pembimbing_satu'];
+                            }
+                            
+                            echo $dosbing_satu.'<br>';
+                            
+                            if($list['nip_pembimbing_satu'] == '' && $list['status_pembimbing_satu'] == NULL) {
+                                echo '';
+                            } else if($list['nip_pembimbing_satu'] != '' && $list['status_pembimbing_satu'] == NULL) {
+                                echo '<a class="btn btn-xs btn-warning pull-left" href="#">Menunggu Persetujuan</a>';
+                            } else if($list['status_pembimbing_satu'] == '1') {
+                                echo '<a class="btn btn-xs btn-success pull-left" href="#">
+                                <i class="fa fa-check"></i> Diterima</a>';
+                            } else if($list['status_pembimbing_satu'] == '2') {
+                                echo '<a class="btn btn-xs btn-danger pull-left" href="#">
+                                <i class="fa fa-close"></i> Ditolak</a>';
+                            }
+                            echo '<br><br>';
+                            echo '<b>Pembimbing Kedua</b><br>';
+                            $dosbing_dua = '<i>belum ditentukan</i>';
+                            if($list['nip_pembimbing_dua'] != '' && $list['nip_pembimbing_dua'] != ''){
+                                $dosbing_dua = '<b>'.$list['nama_pembimbing_dua'].'</b><br>'.$list['nip_pembimbing_dua'];
+                            }
+                                                        
+                            echo $dosbing_dua.'<br>';
+
+                            if($list['nip_pembimbing_dua'] == '' && $list['status_pembimbing_dua'] == NULL) {
+                                echo '';
+                            } else if($list['nip_pembimbing_dua'] != '' && $list['status_pembimbing_dua'] == NULL) {
+                                echo '<a class="btn btn-xs btn-warning pull-left" href="#">Menunggu Persetujuan</a>';
+                            } else if($list['status_pembimbing_dua'] == '1') {
+                                echo '<a class="btn btn-xs btn-success pull-left" href="#">
+                                <i class="fa fa-check"></i> Diterima</a>';
+                            } else if($list['status_pembimbing_dua'] == '2') {
+                                echo '<a class="btn btn-xs btn-danger pull-left" href="#">
+                                <i class="fa fa-close"></i> Ditolak</a>';
+                            }
+                            ?>
+                        </td>
+                        <td><?= $list['departemen'] ?></td>
+                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
+                        <td class="text-center">
                             <?php
-                            echo $list['judul']
+                            if($list['berkas_proposal'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
                             ?>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url()?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php
+                            if($list['berkas_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
+                            ?>
                         </td>
                         <td class="text-center">
-                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php
+                            if($list['berkas_syarat_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_syarat_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
+                            ?>
                         </td>
-                        <td class="text-center">
-                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_syarat_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                        </td>
-                        <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], 'jenis' => UJIAN_TESIS_UJIAN]); ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => UJIAN_TESIS_UJIAN]); ?>
+                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); ?>
                             <?php if ($list['status_tesis'] > STATUS_TESIS_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
@@ -118,23 +193,29 @@
                         </td>
                         <td>
                             <?php
-                            if($list['status_penguji'] == '1')
-                            {
-                            ?>
-                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
-                                <i class="fa fa-edit"></i> Approve</a>
-                                <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php echo $list['id_tesis']?>">
-                                <i class="fa fa-close"></i> Reject</a>
-                            <?php
+                            if($list['status_tesis'] < STATUS_TESIS_UJIAN){
+                                if($list['status_penguji'] == '1')
+                                {
+                                ?>
+                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
+                                    <i class="fa fa-edit"></i> Approve</a>
+                                    <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php echo $list['id_tesis']?>">
+                                    <i class="fa fa-close"></i> Reject</a>
+                                <?php
+                                }
+                                else if($list['status_penguji'] == '2') {
+                                ?>
+                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
+                                        <i class="fa fa-ban"></i> Batal</a>
+                                <?php
+                                }
                             }
-                            else if($list['status_penguji'] == '2') {
                             ?>
-                                <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
-                                    <i class="fa fa-ban"></i> Batal</a>
+                        </td>
+                        <td>
                             <?php
-                            }
                             $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
-                            if($ujian->tanggal <= date('Y-m-d')){
+                            if($ujian->tanggal >= date('Y-m-d')){
                             ?>
                             <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/nilai/<?php echo $list['id_tesis']?>/<?php echo $list['id_penguji']?>"><i class="fa fa-edit"></i> Nilai</a>
                             <?php

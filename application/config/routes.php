@@ -550,6 +550,8 @@
 	$route['dosen/tesis/judul/batal/(:num)'] = 'backend/dosen/tesis/judul/batal';
 	$route['dosen/tesis/judul/index_kabag'] = 'backend/dosen/tesis/judul/index_kabag';
 	$route['dosen/tesis/judul/index_kabag_pembimbing'] = 'backend/dosen/tesis/judul/index_kabag_pembimbing';
+	$route['dosen/tesis/judul/index_kps'] = 'backend/dosen/tesis/judul/index_kps';
+	$route['dosen/tesis/judul/index_kps_pembimbing'] = 'backend/dosen/tesis/judul/index_kps_pembimbing';
 	$route['dosen/tesis/judul/setting_pembimbing/(:num)'] = 'backend/dosen/tesis/judul/setting_pembimbing';
 	$route['dosen/tesis/judul/setting_pembimbing_save'] = 'backend/dosen/tesis/judul/setting_pembimbing_save';
 	$route['dosen/tesis/judul/setting_pembimbing_kedua/(:num)'] = 'backend/dosen/tesis/judul/setting_pembimbing_kedua';

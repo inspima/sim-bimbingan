@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : NAMBI
 */
 .bg-layout {
-	background-image: url('/assets/img/bg_home_new_2.png');
+	background-image: url('../img/bg_home_new_2.png');
 	background-size: 100% auto;
 }
 

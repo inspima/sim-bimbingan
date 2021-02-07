@@ -162,8 +162,9 @@
                     <!--
                     <li><a href="<?php //echo base_url() ?>dashboardd/proposal_tesis/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Proposal</a></li>
                     -->
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Proposal</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/penjadwalan"><i class="fa fa-user"></i>Set Jadwal Tesis</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/judul/index_kps"><i class="fa fa-circle-o"></i> Judul</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/penjadwalan"><i class="fa fa-user"></i>Proposal</a></li>
+                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/penjadwalan"><i class="fa fa-user"></i>Tesis</a></li>
                 </ul>
             </li>
             <?php

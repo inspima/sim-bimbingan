@@ -25,7 +25,7 @@ class Judul extends CI_Controller {
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/tesis', 'tesis');
-        $this->load->model('backend/administrator/master/struktural_model', 'struktural');
+        //$this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
         //END MODEL
     }
@@ -126,6 +126,44 @@ class Judul extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
+    public function index_kps() {
+        //$id_departemen = $this->dosen->detail($this->session_data['username'])->id_departemen;
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Judul',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/judul/index_kps',
+            // DATA //
+            //'tesis' => $this->tesis->read_proposal(),
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'tesis' => $this->tesis->read_judul_prodi($id_prodi),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            'struktural' => $this->struktural->read_struktural($this->session_data['username']),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function index_kps_pembimbing() {
+        //$id_departemen = $this->dosen->detail($this->session_data['username'])->id_departemen;
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Judul',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/judul/index_kps_pembimbing',
+            // DATA //
+            //'tesis' => $this->tesis->read_proposal(),
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'tesis' => $this->tesis->read_judul_prodi_pembimbing($id_prodi),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            'struktural' => $this->struktural->read_struktural($this->session_data['username']),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
     public function setting_pembimbing() {
         $id = $this->uri->segment(5);
         $username = $this->session_data['username'];
@@ -154,6 +192,8 @@ class Judul extends CI_Controller {
 
     public function setting_pembimbing_save() {
         $hand = $this->input->post('hand', TRUE);
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
 
@@ -164,12 +204,22 @@ class Judul extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil update pembimbing utama');
-            redirect('dosen/tesis/judul/index_kabag');
-
+            if($id_prodi != ''){
+                redirect('dosen/tesis/judul/index_kps');
+            }
+            else {
+                redirect('dosen/tesis/judul/index_kabag');
+            }
+            
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/judul/index_kabag');
+            if($id_prodi != ''){
+                redirect('dosen/tesis/judul/index_kps');
+            }
+            else {
+                redirect('dosen/tesis/judul/index_kabag');
+            }
         }
     }
 

@@ -98,6 +98,7 @@
                         </tr>
                         <?php
                         $tesis_mkpts = $this->tesis->read_tesis_mkpt($tesis->id_tesis);    
+                        $hitung_nilai_publish = 0;
                         if (!empty($tesis_mkpts)) {
                             $sudah_publish_semua=$this->tesis->cek_mkpt_sudah_publish($tesis->id_tesis);
                             foreach ($tesis_mkpts as $index => $mkpt) {
@@ -113,6 +114,11 @@
                                                 $dosen_mkpt = $list['nama'];
                                             }
                                         }
+
+                                        if($mkpt['nilai_publish'] != ''){
+                                            $hitung_nilai_publish = $hitung_nilai_publish + 1;
+                                        }
+
                                         echo '
                                         <tr>
                                             <td>'.$mkpt['kode'].'</td>
@@ -120,7 +126,7 @@
                                             <td>'.$mkpt['sks'].'</td>
                                             <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
                                             <td>'.$status.'</td>
-                                            <td>'.(($mkpt['nilai_publish'] == NULL) ? '<input name="nilai_angka'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$pengampu['nilai_angka'].'">' : $pengampu['nilai_angka']).'</td>
+                                            <td>'.(($mkpt['nilai_publish'] == NULL) ? '<input name="nilai_angka'.$mkpt['id_tesis_mkpt'].'" type="text" class="form-control" value="'.$pengampu['nilai_angka'].'">' : $pengampu['nilai_angka']).'</td>
                                             <td>'.(($mkpt['nilai_publish'] == NULL) ? '<a class="btn btn-xs btn-success" href="'.base_url().'dosen/tesis/mkpt/publish_nilai/'.$pengampu['id_tesis_mkpt_pengampu'].'/'.$mkpt['id_tesis'].'">
                                                 <i class="fa fa-edit"></i> Publish Nilai</a>' : '<a class="btn btn-xs btn-warning" href="'.base_url().'dosen/tesis/mkpt/batal_publish_nilai/'.$pengampu['id_tesis_mkpt_pengampu'].'/'.$mkpt['id_tesis'].'">
                                                 <i class="fa fa-edit"></i> Batal Publish Nilai</a>').'
@@ -137,10 +143,16 @@
                     </table>
                 </div>
             </div>
-            <div class="box-footer">
-                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Nilai</button>
-                <a class="btn btn-sm btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/pembimbing/<?= $id_prodi?>"><i class="fa fa-close"></i> Batal</a>
-            </div>
+            <?php 
+            if($hitung_nilai_publish == 0){
+            ?>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan & Publish Nilai</button>
+                    <a class="btn btn-sm btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/pembimbing/<?= $id_prodi?>"><i class="fa fa-close"></i> Batal</a>
+                </div>
+            <?php
+            }
+            ?>
             <?= form_close() ?>
         </div>
         <!-- /.box -->

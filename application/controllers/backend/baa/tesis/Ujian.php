@@ -42,7 +42,7 @@ class Ujian extends CI_Controller {
             // DATA //
             //'tesis' => $this->tesis->read_proposal(),
             'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'tesis' => $this->tesis->read_ujian_prodi($id),
+            'tesis' => $this->tesis->read_ujian_prodi($id, TAHAPAN_TESIS_UJIAN),
             'prodi' => $this->tesis->read_prodi_s2(),
             'struktural' => $this->struktural->read_struktural($this->session_data['username']),
         );
@@ -742,15 +742,15 @@ class Ujian extends CI_Controller {
             $id_tesis = $this->input->post('id_tesis', TRUE);
 
             $data = array(
-                'rata_nilai_ujian' => $this->input->post('rata_nilai_ujian', TRUE),
-                'bobot_nilai_konversi' => $this->input->post('bobot_nilai_konversi', TRUE),
-                'nilai_ujian' => $this->input->post('nilai_ujian', TRUE)
+                //'rata_nilai_ujian' => $this->input->post('rata_nilai_ujian', TRUE),
+                'bobot_nilai_konversi' => str_replace(',', '.', $this->input->post('bobot_nilai_konversi', TRUE)),
+                //'nilai_ujian' => $this->input->post('nilai_ujian', TRUE)
             );
 
             $this->tesis->update_ujian($data, $id_ujian);
 
             $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', $mesg);
+            $this->session->set_flashdata('msg', 'Bobot Nilai Konversi berhasil disimpan');
             redirect('baa/tesis/ujian/nilai_ujian/' . $id_tesis .'/'.$id_ujian);
 
         } else {

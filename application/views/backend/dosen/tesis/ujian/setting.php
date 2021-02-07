@@ -19,7 +19,45 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-                <?php $this->view('backend/widgets/tesis/informasi_tesis_judul', ['tesis' => $tesis]); ?>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><label>NIM</label></td>
+                            <td><?php echo $tesis->nim ?></td>            
+                        </tr>
+                        <tr>
+                            <td><label>Nama</label></td>
+                            <td><?php echo $tesis->nama; ?></td>            
+                        </tr>
+                        <tr>
+                            <td><label>Tesis</label></td>
+                            <td>
+                            <?php 
+                                $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_UJIAN);
+                                echo '<b>Judul : </b>'.$judul->judul.'<br>';
+                                
+                                if($tesis->berkas_orisinalitas != '') {
+                                    echo '<b>Berkas Orisinalitas : </b><a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$tesis->berkas_orisinalitas.'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
+                                }
+                            ?>
+                            </td>            
+                        </tr>
+                        <tr>
+                            <td><label>Pembimbing Utama</label></td>
+                            <td>
+                                <b><?php echo $tesis->nip_pembimbing_satu ?></b><br>
+                                <?php echo $tesis->nama_pembimbing_satu ?>
+                            </td>            
+                        </tr>
+                        <tr>
+                            <td><label>Pembimbing Kedua</label></td>
+                            <td>
+                                <b><?php echo $tesis->nip_pembimbing_dua ?></b><br>
+                                <?php echo $tesis->nama_pembimbing_dua ?>
+                            </td>            
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- /.box-body -->
         </div>
@@ -133,12 +171,12 @@
             <?php
             if($ujian){
                 ?>
+                <?php 
+                    $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_UJIAN, $ujian->id_ujian, 1); 
+                    foreach ($penguji as $listpenguji) {
+                    echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
+                ?>
                 <div class="box-body table-responsive">
-                    <?php 
-                        echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
-                        $penguji = $this->tesis->read_penguji_temp_belum_resmi($tesis->id_tesis, UJIAN_TESIS_UJIAN, $ujian->id_ujian, 1); 
-                        foreach ($penguji as $listpenguji) {
-                    ?>
                         <b>Usulan Pembimbing Utama</b>
                         <br>
                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
@@ -150,11 +188,11 @@
                         <br><br>
                         <button type="submit" name="terima" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Penguji</button>
                         <button type="submit" name="tolak" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Tolak Penguji</button>
-                    <?php
-                        } 
-                        echo form_close() 
-                    ?>
                 </div>
+                <?php
+                    echo form_close(); 
+                    } 
+                ?>
                 <div class="box-body table-responsive">
                     <?php 
                         echo form_open('dosen/tesis/' . $this->uri->segment(3) . '/penguji_usulan_save_kps');
@@ -308,23 +346,14 @@
                             echo "<b>Ujian belum dilaksanakan</b>";
                         }
                     }
+                    else {
+                        echo '<p>Setting ujian terlebih dahulu</p>';   
+                    }
                     ?>
                 </div>
-            </div>
-            <div class="box-footer">
-                <?php //echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                <?php //echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+
                 <?php
-                /*
                 if($ujian){
-                    echo '<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>';
-                }*/
-                ?>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-body">
-                <?php echo form_close() ?>
-                <?php
                 $rata_nilai_ujian = $ujian->rata_nilai_ujian ? number_format($ujian->rata_nilai_ujian,1) : 0;
                 $bobot_nilai_konversi = $ujian->bobot_nilai_konversi ? number_format($ujian->bobot_nilai_konversi,1) : 0;
                 $nilai_ujian = $ujian->nilai_ujian ? number_format($ujian->nilai_ujian,1) : 0;
@@ -345,6 +374,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <?php
+                }
+                ?>
             </div>
         </div>
         <!-- /.box -->
