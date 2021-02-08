@@ -10,22 +10,9 @@
             <!-- form start -->
 
             <?php echo form_open_multipart('mahasiswa/disertasi/kualifikasi/save'); ?>
-            <div class="box-body">
-                <div class="form-group">
-                    <label>Penasehat Akademik</label>
-                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                    <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
-                    <select name="nip" class="form-control select2" style="width: 100%;" required>
-                        <option value="">- Pilih -</option>
-                        <?php
-                        foreach ($mdosen as $list) {
-                            ?>
-                            <option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
+			<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+
+			<div class="box-body">
                 <div class="form-group">
                     <label>Judul</label>
                     <textarea class="form-control" name="judul" required></textarea>

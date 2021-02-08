@@ -108,7 +108,6 @@
 					redirect('mahasiswa/disertasi/kualifikasi');
 				} else {
 					$data = array(
-						'nip_penasehat' => $this->input->post('nip', true),
 						'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI,
 						'berkas_kualifikasi' => $file_name,
 						'nim' => $this->session_data['username'],

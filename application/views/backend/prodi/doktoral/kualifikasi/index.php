@@ -27,6 +27,7 @@
 						<th>No</th>
 						<th>Disertasi</th>
 						<th>Tgl.Pengajuan</th>
+						<th>Penasehat Akademik</th>
 						<th class="text-center">Penguji</th>
 						<th class="text-center">Jadwal</th>
 						<th class="text-center">Opsi</th>
@@ -43,6 +44,31 @@
 									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
 								</td>
 								<td><?php echo woday_toindo($list['waktu_pengajuan_kualifikasi']) ?></td>
+								<td>
+									<?php $this->view('backend/widgets/disertasi/column_penasehat', ['disertasi' => $list]); ?>
+									<?php
+										if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN) {
+											?>
+											<div class="divider5"></div>
+											<a class="btn btn-primary btn-xs" href="<?= base_url() ?>prodi/doktoral/disertasi/kualifikasi/setting/<?= $list['id_disertasi'] ?>"><i class="fa fa-pencil-square"></i> Ubah</a>
+											<?php
+										}
+										if (!empty($list['nip_penasehat'])) {
+											?>
+											<hr class="divider-line-semi-bold"/>
+											<!-- Undangan -->
+											<?php $attributes = array('target' => '_blank'); ?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_sk_penasehat', $attributes) ?>
+											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<input type="text" name="no_sk" class="form-control" required placeholder="NOMOR SK">
+											<br/><br/>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> SK Penasehat</button>
+											<?php echo form_close() ?>
+											<?php
+										}
+									?>
+								</td>
 								<td class="text-center">
 									<?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], UJIAN_DISERTASI_KUALIFIKASI]); ?>
 								</td>
@@ -81,13 +107,14 @@
 											<hr style="margin: 2px"/>
 											<!-- Daftar Hadir -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/kualifikasi/cetak_absensi', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_absensi', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Daftar Hadir</button>
 											<?php echo form_close() ?>
 											<?php
 										}
+
 									?>
 								</td>
 							</tr>

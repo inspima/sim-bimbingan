@@ -21,7 +21,13 @@
 			}
 			//END SESS
 			//START MODEL
+			$this->load->model('backend/master/setting', 'setting');
+			$this->load->model('backend/master/semester', 'semester');
 			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+			$this->load->model('backend/administrator/master/Struktural_model', 'struktural');
+			$this->load->model('backend/administrator/master/ruang_model', 'ruang');
+			$this->load->model('backend/administrator/master/jam_model', 'jam');
+			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
 			$this->load->model('backend/transaksi/disertasi', 'disertasi');
 			$this->load->model('backend/transaksi/dokumen', 'dokumen');
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
@@ -43,6 +49,73 @@
 			);
 
 			$this->load->view('backend/index_sidebar', $data);
+		}
+
+		public function setting()
+		{
+			$id_disertasi = $this->uri->segment('6');
+			$data = array(
+				// PAGE //
+				'title' => 'Disertasi - Kualifikasi',
+				'subtitle' => 'Setting',
+				'section' => 'backend/prodi/doktoral/kualifikasi/setting',
+				'use_back' => true,
+				'back_link' => 'prodi/doktoral/disertasi/kualifikasi',
+				// DATA //
+				'disertasi' => $this->disertasi->detail($id_disertasi),
+				'mdosen' => $this->dosen->read_aktif_alldep_s3(),
+			);
+			$this->load->view('backend/index_sidebar', $data);
+		}
+
+		public function penasehat_update()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_disertasi = $this->input->post('id_disertasi', true);
+				$data = array(
+					'nip_penasehat' => $this->input->post('nip', true),
+
+				);
+				$this->disertasi->update($data, $id_disertasi);
+
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Data berhasil disimpan..');
+				redirect_back();
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
+		}
+
+		public function cetak_sk_penasehat()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_disertasi = $this->input->post('id_disertasi', true);
+				$no_sk = $this->input->post('no_sk', true);
+
+				$data = array(
+					'no_sk' => $no_sk,
+					'semester'=>$this->semester->detail_berjalan(),
+					'disertasi' => $this->disertasi->detail($id_disertasi),
+					'wadek'=>$this->struktural->read_wadek1(),
+					'kps_s3'=>$this->struktural->read_kps_s3(),
+				);
+				//print_r($data['penguji_ketua']);die();
+				ob_end_clean();
+				$header = 'backend/widgets/common/pdf_header';
+				$page = 'backend/prodi/doktoral/kualifikasi/cetak_sk_penasehat';
+				$size = 'a4';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "SK_PENASEHAT.pdf";
+				$this->pdf->load_view($page, $data);
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
 		}
 
 		public function cetak_undangan()

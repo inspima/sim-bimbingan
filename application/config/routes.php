@@ -692,10 +692,13 @@
 	$route['dosen/dokumen/berita_acara/persetujuan/save'] = 'backend/dosen/dokumen/berita_acara/persetujuan_save';
 
 	// ADMIN PRODI
-	$route['prodi/dashboard'] = 'backend/admin/prodi_page/dashboard';
+	$route['prodi/dashboard'] = 'backend/prodi/prodi_page/dashboard';
 	$route['prodi/doktoral/disertasi/cetak_sk'] = 'backend/prodi/prodi_doktoral/cetak_sk';
 
 	$route['prodi/doktoral/disertasi/kualifikasi'] = 'backend/prodi/doktoral/disertasi_kualifikasi';
+	$route['prodi/doktoral/disertasi/kualifikasi/setting/(:num)'] = 'backend/prodi/doktoral/disertasi_kualifikasi/setting';
+	$route['prodi/doktoral/disertasi/kualifikasi/penasehat_update'] = 'backend/prodi/doktoral/disertasi_kualifikasi/penasehat_update';
+	$route['prodi/doktoral/disertasi/kualifikasi/cetak_sk_penasehat'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_sk_penasehat';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_undangan';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_berita';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_penilaian';

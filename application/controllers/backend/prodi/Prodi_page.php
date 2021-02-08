@@ -31,7 +31,7 @@
 				// PAGE //
 				'title' => 'Admin ',
 				'subtitle' => 'Prodi',
-				'section' => 'backend/admin/dashboard',
+				'section' => 'backend/prodi/dashboard',
 				// DATA //
 				'user' => $this->user->read(),
 			);

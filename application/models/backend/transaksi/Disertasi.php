@@ -52,10 +52,11 @@
 
 		public function read_kualifikasi()
 		{
-			$this->db->select('s.*,jd.judul, d.departemen ,m.nama');
+			$this->db->select('s.*,jd.judul,pg.nip nip_penasehat,pg.nama nama_penasehat, d.departemen ,m.nama');
 			$this->db->from('disertasi s');
 			$this->db->join('judul_disertasi jd', 'jd.id_disertasi=s.id_disertasi and jd.status=\'1\'');
 			$this->db->join('mahasiswa m', 'm.nim= s.nim');
+			$this->db->join('pegawai pg', 'pg.nip = s.nip_penasehat', 'left');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
 			$this->db->where('s.status_kualifikasi >', 0);
 			$this->db->order_by('s.tgl_pengajuan', 'desc');

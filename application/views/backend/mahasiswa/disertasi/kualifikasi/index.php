@@ -43,7 +43,9 @@
 								echo $judul->judul;
 							?>
 						</td>
-						<td><?php echo $list['nama_penasehat'] ?><br/><b><?php echo $list['nip_penasehat'] ?></b></td>
+						<td>
+							<?php $this->view('backend/widgets/disertasi/column_penasehat', ['disertasi' => $list]); ?>
+						</td>
 						<td class="text-center">
 							<?php $attributes = array('target' => '_blank'); ?>
 							<?php echo form_open('mahasiswa/disertasi/kualifikasi/cetak-pengajuan', $attributes) ?>
