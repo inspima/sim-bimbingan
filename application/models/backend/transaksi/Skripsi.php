@@ -696,7 +696,7 @@
 					],
 					[
 						'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_BAA,
-						'text' => 'Pengajuan',
+						'text' => 'Persetjuan BAA',
 						'keterangan' => 'Disetujui oleh BAA',
 						'color' => 'bg-blue'
 					],

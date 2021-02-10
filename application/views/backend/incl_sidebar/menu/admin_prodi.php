@@ -42,8 +42,7 @@
             </span>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="<?php echo base_url() ?>prodi/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Persetujuan</a></li>
-					<li><a href="<?php echo base_url() ?>prodi/doktoral/disertasi/cetak_sk"><i class="fa fa-circle-o"></i>Cetak SK</a></li>
+					<li><a href="<?php echo base_url() ?>prodi/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Disertasi</a></li>
 				</ul>
 			</li>
 

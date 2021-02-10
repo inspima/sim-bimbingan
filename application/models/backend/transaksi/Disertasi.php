@@ -1267,16 +1267,16 @@
 						'color' => 'bg-green'
 					],
 					[
+						'value' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN,
+						'text' => 'Persetujuan Berkas',
+						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'color' => 'bg-orange'
+					],
+					[
 						'value' => STATUS_DISERTASI_KUALIFIKASI_UJIAN,
 						'text' => 'Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
-					],
-					[
-						'value' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN,
-						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
-						'color' => 'bg-orange'
 					],
 					[
 						'value' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,
@@ -1300,16 +1300,22 @@
 						'color' => 'bg-blue'
 					],
 					[
+						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+						'color' => 'bg-green'
+					],
+					[
 						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS,
 						'text' => 'Disetujui KPS',
 						'keterangan' => 'Disetujui Ketua Prodi',
 						'color' => 'bg-green'
 					],
 					[
-						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
-						'text' => 'Disetujui Promotor&Ko-promotor',
-						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
-						'color' => 'bg-green'
+						'value' => STATUS_DISERTASI_PROMOTOR_CETAK_SK,
+						'text' => 'Cetak SK',
+						'keterangan' => 'Cetak SK Promotor oleh Admin Prodi',
+						'color' => 'bg-orange'
 					],
 					[
 						'value' => STATUS_DISERTASI_PROMOTOR_SELESAI,

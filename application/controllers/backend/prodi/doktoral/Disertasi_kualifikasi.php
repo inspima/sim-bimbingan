@@ -98,10 +98,10 @@
 
 				$data = array(
 					'no_sk' => $no_sk,
-					'semester'=>$this->semester->detail_berjalan(),
+					'semester' => $this->semester->detail_berjalan(),
 					'disertasi' => $this->disertasi->detail($id_disertasi),
-					'wadek'=>$this->struktural->read_wadek1(),
-					'kps_s3'=>$this->struktural->read_kps_s3(),
+					'wadek' => $this->struktural->read_wadek1(),
+					'kps_s3' => $this->struktural->read_kps_s3(),
 				);
 				//print_r($data['penguji_ketua']);die();
 				ob_end_clean();
@@ -183,6 +183,9 @@
 					$update_disertasi = [
 						'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN
 					];
+					$update_disertasi = [
+						'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_UJIAN
+					];
 					$this->disertasi->update($update_disertasi, $id_disertasi);
 				}
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
@@ -199,7 +202,7 @@
 					'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
 				);
 				ob_end_clean();
-				$page = 'backend/admin/doktoral/kualifikasi/cetak_berita';
+				$page = 'backend/prodi/doktoral/kualifikasi/cetak_berita';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
 				$this->pdf->filename = 'berita_acara_kualifikasi_' . $disertasi->nim;
@@ -222,7 +225,7 @@
 				);
 				//print_r($data['penguji_ketua']);die();
 				ob_end_clean();
-				$page = 'backend/admin/doktoral/kualifikasi/cetak_penilaian';
+				$page = 'backend/prodi/doktoral/kualifikasi/cetak_penilaian';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
 				$this->pdf->filename = "disertasi_penilaian.pdf";

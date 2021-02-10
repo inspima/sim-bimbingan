@@ -1569,6 +1569,7 @@ class Tesis extends CI_Model {
         $this->db->join('departemen d', 't.id_departemen = d.id_departemen', 'left');
         $this->db->where('mhs.id_prodi', $id);
         $this->db->where('m.nip', $username);
+        $this->db->order_by('m.id_tesis_mkpt_pengampu desc');
         $query = $this->db->get();
         return $query->result_array();
     }

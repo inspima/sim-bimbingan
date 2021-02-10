@@ -264,11 +264,11 @@ class Judul extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil update pembimbing kedua');
-            redirect('dosen/tesis/judul/pembimbing/'.$id_prodi);
+            redirect('dosen/tesis/permintaan/pembimbing/'.$id_prodi);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/judul/pembimbing/'.$id_prodi);
+            redirect('dosen/tesis/permintaan/pembimbing/'.$id_prodi);
         }
     }
 

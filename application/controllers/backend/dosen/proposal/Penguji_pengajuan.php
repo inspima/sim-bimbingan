@@ -34,7 +34,7 @@
 				// PAGE //
 				'title' => 'Proposal Skripsi (Pengajuan Penguji)',
 				'subtitle' => 'Data Proposal Skripsi(Pengajuan Penguji)',
-				'section' => 'backend/dosen/proposal/penguji_pengajuan',
+				'section' => 'backend/dosen/skripsi/proposal/penguji_pengajuan',
 				// DATA //
 				'penguji' => $this->skripsi->read_penguji_pengajuan_proposal($username)
 			);

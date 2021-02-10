@@ -704,6 +704,9 @@
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_penilaian';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_absensi';
 
+	$route['prodi/doktoral/disertasi/promotor'] = 'backend/prodi/doktoral/disertasi_promotor';
+	$route['prodi/doktoral/disertasi/promotor/cetak_sk'] = 'backend/prodi/doktoral/disertasi_promotor/cetak_sk_promotor';
+
 	$route['prodi/doktoral/disertasi/proposal'] = 'backend/prodi/doktoral/disertasi_proposal';
 	$route['prodi/doktoral/disertasi/proposal/terima'] = 'backend/prodi/doktoral/disertasi_proposal/terima';
 	$route['prodi/doktoral/disertasi/proposal/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_proposal/cetak_undangan';

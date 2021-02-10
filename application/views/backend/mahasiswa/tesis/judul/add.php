@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label>Rumusan Masalah 3 / 4 (Jika Ada)</label>
-                    <textarea class="form-control" name="rumusan_masalah_lain" required></textarea>
+                    <textarea class="form-control" name="rumusan_masalah_lain"></textarea>
                 </div>
                 <div class="form-group">
                     <label>Penelusuran Artikel di Internet</label>
@@ -54,7 +54,7 @@
                     <textarea class="form-control" name="penelusuran_artikel_unair" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Uraikan apa yang memberdakan topik Anda dengan karya ilmiah lain yang topiknya sama / serupa</label>
+                    <label>Uraikan apa yang membedakan topik Anda dengan karya ilmiah lain yang topiknya sama / serupa</label>
                     <textarea class="form-control" name="uraian_topik" required></textarea>
                 </div>
                 <div class="form-group">

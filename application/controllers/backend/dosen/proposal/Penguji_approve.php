@@ -36,7 +36,7 @@ class Penguji_approve extends CI_Controller {
             // PAGE //
             'title'	=> 'Proposal Skripsi (Penguji Approve)',
             'subtitle'	=> 'Data Proposal Skripsi(Penguji Approve)',
-            'section'	=> 'backend/dosen/proposal/penguji_approve',
+            'section'	=> 'backend/dosen/skripsi/proposal/penguji_approve',
             // DATA //
             'penguji'  => $this->penguji->read_approve($username)
         );

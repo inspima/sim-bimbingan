@@ -78,12 +78,12 @@
 								<td class="text-center">
 									<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
 									<?php
-										if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_UJIAN) {
+										if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS) {
 											?>
 											<hr style="margin: 5px"/>
 											<!-- Undangan -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/kualifikasi/cetak_undangan', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_undangan', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
@@ -91,7 +91,7 @@
 											<hr style="margin: 2px"/>
 											<!-- Berita Acara -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/kualifikasi/cetak_berita', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_berita', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
@@ -99,7 +99,7 @@
 											<hr style="margin: 2px"/>
 											<!-- Penilaian -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/kualifikasi/cetak_penilaian', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_penilaian', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>

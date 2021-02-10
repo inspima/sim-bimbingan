@@ -40,10 +40,11 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td><?= $list['nama'] . '<br>(' . $list['nim'] . ')' ?></td>
-								<td><?php
-										$judul = $this->penguji->read_judul($list['id_skripsi']);
-										echo $judul->judul;
-									?></td>
+								<td>
+									<?php
+										echo $list['judul']
+									?>
+								</td>
 								<td>
 									<a href="<?php echo base_url() ?>assets/upload/turnitin/<?php echo $list['turnitin'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
 								</td>

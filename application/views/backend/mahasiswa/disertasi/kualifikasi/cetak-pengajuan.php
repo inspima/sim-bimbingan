@@ -61,7 +61,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<tr>
 		<td width="17%"></td>
 		<td width="83%">
-			<table border="0"  style="width:100%;">
+			<table border="0" style="width:100%;">
 				<tr>
 					<td width="15%">
 						NAMA
@@ -102,14 +102,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<tr>
 		<td width="17%"></td>
 		<td width="83%">
-			<table border="0"  style="width:100%;">
+			<table border="0" style="width:100%;">
 				<tr>
 					<td width="15%">
 						Hari, Tanggal
 					</td>
 					<td width="2%">:</td>
 					<td width="83%">
-						<b></b>
+						<b><?php echo hari($jadwal->tanggal) ?></b>,<b> <?php echo woday_toindo($jadwal->tanggal) ?></b>
 					</td>
 				</tr>
 				<tr>
@@ -118,7 +118,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</td>
 					<td width="2%">:</td>
 					<td width="83%">
-						<b></b>
+						<b><?= substr($jadwal->jam, 0, 5); ?> - Selesai</b> WIB
 					</td>
 				</tr>
 				<tr style="vertical-align: text-top">
@@ -127,7 +127,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</td>
 					<td width="2%">:</td>
 					<td width="83%">
-						<b></b>
+						<b>Ruang <?= $jadwal->ruang . ', ' . $jadwal->gedung ?></b> <?= ucfirst($this->setting->get_value('universitas_fakultas_txt')) ?> <?= ucfirst($this->setting->get_value('universitas_txt')) ?>
 					</td>
 				</tr>
 			</table>
@@ -144,14 +144,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td width="17%"></td>
 		<td width="83%"></td>
 	</tr>
-	<tr>
-		<td width="17%"></td>
-		<td width="83%">1.................</td>
-	</tr>
-	<tr>
-		<td width="17%"></td>
-		<td width="83%">2.................</td>
-	</tr>
+	<?php
+		foreach ($pengujis as $no=>$penguji) {
+			?>
+
+			<tr>
+				<td width="17%"></td>
+				<td width="83%"><?=$no+1?>. <?=$penguji['nama']?></td>
+			</tr>
+			<?php
+		}
+	?>
 </table>
 
 <?php echo generateNewLineHTML(2); ?>
@@ -174,16 +177,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <table border="0" style="width:100%;">
 	<tr>
 		<td style="width: 60%;text-align: left;padding: 10px">
-			Koordinator Program Doktor Ilmu Hukum.
-
-			<br/>
-			NIP.
+			Koordinator <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?>.
+			<?php echo generateNewLineHTML(7); ?>
+			<?=$kps_s3->nama_dosen ?><br/>
+			NIP.<?=$kps_s3->nip ?><br/>
 		</td>
 		<td style="width: 40%;text-align: left;padding: 10px">
+			<?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?>
 			Penasehat Akademik.
-
-			<br/>
-			NIP.
+			<?php echo generateNewLineHTML(7); ?>
+			<?=$disertasi->nama_penasehat ?><br/>
+			NIP.<?=$disertasi->nip_penasehat ?><br/>
 		</td>
 	</tr>
 </body>

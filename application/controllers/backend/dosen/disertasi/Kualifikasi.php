@@ -60,20 +60,16 @@
 					$data = array(
 						'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_SPS,
 					);
+					$this->disertasi->update($data, $id_disertasi);
 				} else {
 					if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
 						// SETUJUI KPS
 						$data = array(
 							'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS,
 						);
-						// SEDANG UJIAN
-						$data = array(
-							'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_UJIAN,
-						);
+						$this->disertasi->update($data, $id_disertasi);
 					}
 				}
-				$this->disertasi->update($data, $id_disertasi);
-
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil approve');
 				redirect('dosen/disertasi/kualifikasi');
