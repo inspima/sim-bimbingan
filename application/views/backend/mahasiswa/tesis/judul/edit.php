@@ -13,12 +13,12 @@
                     <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                     <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                     <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Departemen</label>
                         <select name="departemen" class="form-control select2" style="width: 100%;" required>
                             <option value="">- Pilih -</option>
                             <?php
-                            foreach ($departemen as $list) {
+                            /*foreach ($departemen as $list) {
                                 $selected = '';
                                 if($list['id_departemen'] == $tesis->id_departemen){
                                     $selected = 'selected';
@@ -28,6 +28,26 @@
                                 }
                                 ?>
                                 <option value="<?php echo $list['id_departemen'] ?>" <?php echo $selected;?> ><?php echo $list['departemen'] ?></option>
+                                <?php
+                            }*/
+                            ?>
+                        </select>
+                    </div> -->
+                    <div class="form-group">
+                        <label>Minat</label>
+                        <select name="departemen" class="form-control select2" style="width: 100%;" required>
+                            <option value="">- Pilih -</option>
+                            <?php
+                            foreach ($minat as $list) {
+                                $selected = '';
+                                if($list['id_minat'] == $tesis->id_minat){
+                                    $selected = 'selected';
+                                }
+                                else {
+                                    $selected = '';
+                                }
+                                ?>
+                                <option value="<?php echo $list['id_minat'] ?>" <?php echo $selected;?> ><?php echo $list['nm_minat'] ?></option>
                                 <?php
                             }
                             ?>

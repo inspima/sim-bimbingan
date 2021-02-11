@@ -26,7 +26,8 @@
                     <th>Tesis</th>
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
-                    <th>Departemen</th>
+                    <!-- <th>Departemen</th> -->
+                    <th>Minat</th>
                     <th>Tanggal Pengajuan</th>
                     <th>Status</th>
                     <th>Kontrol</th>
@@ -100,7 +101,8 @@
                             }
                             ?>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
+                        <!-- <td><?php //echo $list['departemen'] ?></td> -->
+                        <td><?= $list['nm_minat']?></td>
                         <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_JUDUL]); 

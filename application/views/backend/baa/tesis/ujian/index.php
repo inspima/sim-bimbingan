@@ -27,7 +27,8 @@
                     <th>Tesis</th>
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
-                    <th>Departemen</th>
+                    <!-- <th>Departemen</th> -->
+                    <th>Minat</th>
                     <th>Tgl.Pengajuan</th>
                     <th>Berkas Proposal</th>
                     <th>Berkas Tesis</th>
@@ -105,7 +106,8 @@
                             }
                             ?>
                         </td>
-                        <td><?php echo $list['departemen'] ?></td>
+                        <td><?php //echo $list['departemen'] ?></td>
+                        <td><?php echo $list['nm_minat'] ?></td>
                         <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
                             <?php
@@ -162,6 +164,33 @@
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>baa/tesis/ujian/approve/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Approve</a><br>
+                                    <button type="button" class="n btn-xs btn-danger" data-toggle="modal" data-target="#myModalTolak<?= $list['id_tesis']?>">
+                                        <i class="fa fa-close"></i> Tolak
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModalTolak<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <form action="<?= base_url()?>baa/tesis/ujian/reject/<?= $list['id_tesis']?>" method="post">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Keterangan Tolak</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="text" name="id_tesis" value="<?= $list['id_tesis']?>" hidden="true">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" name="keterangan" style="margin: 0px; width: 570px; height: 180px;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger">Tolak Pengajuan Judul</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php
                                 }
                                 else {

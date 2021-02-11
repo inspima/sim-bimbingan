@@ -28,7 +28,8 @@
                     <th>No</th>
                     <th>Mahasiswa</th>
                     <th>Tesis</th>
-                    <th>Departemen</th>                    
+                    <!-- <th>Departemen</th> -->
+                    <th>Minat</th>                    
                     <th>MKPT</th>
                     <th>Berkas MKPT</th>
                     <th>Status</th>
@@ -71,7 +72,8 @@
 
                             ?>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
+                        <!-- <td><?php //echo $list['departemen'] ?></td> -->
+                        <td><?= $list['nm_minat'] ?></td>
                         <td>
                             <?php
                             echo '<b>Kode</b><br>'.$list['kode'].'<br>';

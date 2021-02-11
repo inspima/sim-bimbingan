@@ -21,6 +21,7 @@ class Mkpt extends CI_Controller {
         //START MODEL
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
+        $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
@@ -64,6 +65,7 @@ class Mkpt extends CI_Controller {
             // DATA //
             'gelombang' => $this->gelombang->read_berjalan(),
             'departemen' => $this->departemen->read(),
+            'minat' => $this->minat_tesis->read(),
             'tesis' => $this->tesis->detail($id_tesis),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_MKPT),
         );
@@ -80,17 +82,17 @@ class Mkpt extends CI_Controller {
             $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
             if (!empty($tesis_mkpts)) {
                 foreach ($tesis_mkpts as $index => $mkpt) {
-                    $kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
+                    //$kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
                     $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
                     $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
                     $dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
                     $data_tesis_mkpt = [
                         'id_tesis' => $id_tesis,
-                        'kode' => $kode,
+                        //'kode' => $kode,
                         'mkpt' => $nama,
                         'sks' => $sks,
                     ];
-                    if (!empty($kode) && !empty($nama)) {
+                    if (!empty($nama)) {
                         $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
                         $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
                         $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
@@ -114,17 +116,17 @@ class Mkpt extends CI_Controller {
             }
             else {
                 for ($i = 1; $i <= 3; $i++) {
-                    $kode = $this->input->post('kode' . $i, true);
+                    //$kode = $this->input->post('kode' . $i, true);
                     $nama = $this->input->post('nama' . $i, true);
                     $sks = $this->input->post('sks' . $i, true);
                     $dosens = $this->input->post('pengampu' . $i, true);
                     $data_tesis_mkpt = [
                         'id_tesis' => $id_tesis,
-                        'kode' => $kode,
+                        //'kode' => $kode,
                         'mkpt' => $nama,
                         'sks' => $sks,
                     ];
-                    if (!empty($kode) && !empty($nama)) {
+                    if (!empty($nama)) {
                         $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
                         $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
                         foreach($dosens as $dosen){

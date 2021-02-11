@@ -29,7 +29,8 @@
                     <th>Mahasiswa</th>
                     <th>Tesis</th>
                     <th>Status Pembimbing</th>
-                    <th>Departemen</th>                    
+                    <!-- <th>Departemen</th> -->
+                    <th>Minat</th>                    
                     <th>Tanggal Pengajuan</th>
                     <th>Berkas Proposal</th>
                     <th>Berkas MKPT</th>
@@ -162,7 +163,8 @@
                             }
                             ?>                            
                         </td>
-                        <td><?= $list['departemen'] ?></td>
+                        <!-- <td><?php //echo $list['departemen'] ?></td> -->
+                        <td><?= $list['nm_minat'] ?></td>
                         <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
                             <?php
@@ -282,19 +284,19 @@
                                     <i class="fa fa-edit"></i> Setting Pembimbing Kedua</a><br>
                                 <?php
                                 }
-                                if($list['jenis'] == TAHAPAN_TESIS_PROPOSAL && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_PENGAJUAN){
+                                if($list['jenis'] >= TAHAPAN_TESIS_PROPOSAL && $list['status_proposal'] >= STATUS_TESIS_PROPOSAL_PENGAJUAN){
                                 ?>
-                                    <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji</a>
+                                    <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Proposal</a>
                                 <?php
                                 }
-                                if($list['jenis'] == TAHAPAN_TESIS_MKPT){
+                                if($list['jenis'] >= TAHAPAN_TESIS_MKPT){
                                 ?>
-                                    <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Setting MKPT</a>
+                                    <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> MKPT</a>
                                 <?php
                                 }
-                                if($list['jenis'] == TAHAPAN_TESIS_UJIAN && $list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA){
+                                if($list['jenis'] >= TAHAPAN_TESIS_UJIAN && $list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA){
                                 ?>
-                                    <a href="<?= base_url() ?>dosen/tesis/ujian/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji</a>
+                                    <a href="<?= base_url() ?>dosen/tesis/ujian/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Tesis</a>
                                 <?php
                                 }
                                 /*if($list['jenis'] == TAHAPAN_TESIS_MKPT && $list['status_mkpt'] == STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT){

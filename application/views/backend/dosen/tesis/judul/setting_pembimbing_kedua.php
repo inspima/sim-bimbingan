@@ -63,12 +63,12 @@
                     }
                     ?>
                     
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Departemen</label>
                         <select name="departemen" class="form-control select2" style="width: 100%;" disabled>
                             <option value="">- Pilih -</option>
                             <?php
-                            foreach ($departemen as $list) {
+                            /*foreach ($departemen as $list) {
                                 $selected = '';
                                 if($list['id_departemen'] == $tesis->id_departemen){
                                     $selected = 'selected';
@@ -78,6 +78,26 @@
                                 }
                                 ?>
                                 <option value="<?php echo $list['id_departemen'] ?>" <?php echo $selected;?> ><?php echo $list['departemen'] ?></option>
+                                <?php
+                            }*/
+                            ?>
+                        </select>
+                    </div> -->
+                    <div class="form-group">
+                        <label>Minat</label>
+                        <select name="minat" class="form-control select2" style="width: 100%;" disabled>
+                            <option value="">- Pilih -</option>
+                            <?php
+                            foreach ($minat as $list) {
+                                $selected = '';
+                                if($list['id_minat'] == $tesis->id_minat){
+                                    $selected = 'selected';
+                                }
+                                else {
+                                    $selected = '';
+                                }
+                                ?>
+                                <option value="<?php echo $list['id_minat'] ?>" <?php echo $selected;?> ><?php echo $list['nm_minat'] ?></option>
                                 <?php
                             }
                             ?>
@@ -109,7 +129,7 @@
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
-                    <a class="btn btn-sm btn-warning" href="<?= base_url()?>mahasiswa/tesis/judul/pembimbing/<?= $id_prodi?>"><i class="fa fa-close"></i> Batal</a>
+                    <a class="btn btn-sm btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/pembimbing/<?= $id_prodi?>"><i class="fa fa-close"></i> Batal</a>
                 </div>
             <?=form_close()?>
         </div>

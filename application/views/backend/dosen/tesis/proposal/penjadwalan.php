@@ -30,7 +30,8 @@
                     <th>Tesis</th>
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
-                    <th>Departemen</th>
+                    <!-- <th>Departemen</th> -->
+                    <th>Minat</th>
                     <th>Tanggal Pengajuan</th>
                     <th>Berkas Proposal</th>
                     <th>Status</th>
@@ -106,7 +107,8 @@
                             }
                             ?>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
+                        <!-- <td><?php //echo $list['departemen'] ?></td> -->
+                        <td><?= $list['nm_minat'] ?></td>
                         <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
                             <?php

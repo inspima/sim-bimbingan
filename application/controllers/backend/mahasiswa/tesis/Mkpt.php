@@ -21,6 +21,7 @@ class Mkpt extends CI_Controller {
         //START MODEL
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
+        $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
@@ -63,7 +64,7 @@ class Mkpt extends CI_Controller {
         $id_tesis = $this->uri->segment('5');
         $read_aktif = $this->tesis->read_aktif($this->session_data['username']);
 
-        if ($read_aktif) {
+        if (!$read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Masih ada judul aktif');
             redirect('mahasiswa/tesis/mkpt');
@@ -111,8 +112,70 @@ class Mkpt extends CI_Controller {
             else {
                 $id_tesis = $this->input->post('id_tesis', TRUE);
                 $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_PROPOSAL);
-
                 $tgl_sekarang = date('Y-m-d');
+
+                $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
+
+                if (!empty($tesis_mkpts)) {
+                    foreach ($tesis_mkpts as $index => $mkpt) {
+                        //$kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
+                        $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
+                        $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                        //$dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
+                        $data_tesis_mkpt = [
+                            'id_tesis' => $id_tesis,
+                            //'kode' => $kode,
+                            'mkpt' => $nama,
+                            'sks' => $sks,
+                        ];
+                        if (!empty($nama)) {
+                            $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
+                            $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                            /*$mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
+                            foreach($dosens as $dosen){
+                                foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                                    $data_pengampu = [
+                                        'id_tesis' => $id_tesis,
+                                        'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                        'nip' => $dosen,
+                                    ];
+                                    if($pengampu['nip'] == $dosen){
+                                        $this->tesis->update_tesis_mkpt_pengampu($data_pengampu, $pengampu['id_tesis_mkpt_pengampu']);
+                                    }
+                                    else {
+                                        $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                                    }
+                                }
+                            }*/
+                        }
+                    }
+                }
+                else {
+                    for ($i = 1; $i <= 3; $i++) {
+                        //$kode = $this->input->post('kode' . $i, true);
+                        $nama = $this->input->post('nama' . $i, true);
+                        $sks = $this->input->post('sks' . $i, true);
+                        //$dosens = $this->input->post('pengampu' . $i, true);
+                        $data_tesis_mkpt = [
+                            'id_tesis' => $id_tesis,
+                            //'kode' => $kode,
+                            'mkpt' => $nama,
+                            'sks' => $sks,
+                        ];
+                        if (!empty($nama)) {
+                            $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
+                            $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                            /*foreach($dosens as $dosen){
+                                $data_pengampu = [
+                                    'id_tesis' => $id_tesis,
+                                    'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                    'nip' => $dosen,
+                                ];
+                                $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                            }*/
+                        }
+                    }
+                }
                 
                 $data = array(
                     'jenis' => TAHAPAN_TESIS_MKPT,
@@ -179,8 +242,8 @@ class Mkpt extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
 
-            $read_judul = $this->tesis->read_judul($id_tesis);
-            $judul = $this->input->post('judul', TRUE);
+            $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_MKPT);
+            //$judul = $this->input->post('judul', TRUE);
             $tgl_sekarang = date('Y-m-d');
 
             if($_FILES['berkas_mkpt']['size'] != 0){
@@ -199,6 +262,70 @@ class Mkpt extends CI_Controller {
 
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_mkpt']['size'] != 0){
+
+                    $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
+
+                    if (!empty($tesis_mkpts)) {
+                        foreach ($tesis_mkpts as $index => $mkpt) {
+                            //$kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
+                            $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
+                            $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                            //$dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
+                            $data_tesis_mkpt = [
+                                'id_tesis' => $id_tesis,
+                                //'kode' => $kode,
+                                'mkpt' => $nama,
+                                'sks' => $sks,
+                            ];
+                            if (!empty($nama)) {
+                                $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
+                                $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                                /*$mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
+                                foreach($dosens as $dosen){
+                                    foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                                        $data_pengampu = [
+                                            'id_tesis' => $id_tesis,
+                                            'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                            'nip' => $dosen,
+                                        ];
+                                        if($pengampu['nip'] == $dosen){
+                                            $this->tesis->update_tesis_mkpt_pengampu($data_pengampu, $pengampu['id_tesis_mkpt_pengampu']);
+                                        }
+                                        else {
+                                            $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                                        }
+                                    }
+                                }*/
+                            }
+                        }
+                    }
+                    else {
+                        for ($i = 1; $i <= 3; $i++) {
+                            //$kode = $this->input->post('kode' . $i, true);
+                            $nama = $this->input->post('nama' . $i, true);
+                            $sks = $this->input->post('sks' . $i, true);
+                            //$dosens = $this->input->post('pengampu' . $i, true);
+                            $data_tesis_mkpt = [
+                                'id_tesis' => $id_tesis,
+                                //'kode' => $kode,
+                                'mkpt' => $nama,
+                                'sks' => $sks,
+                            ];
+                            if (!empty($nama)) {
+                                $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
+                                $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                                /*foreach($dosens as $dosen){
+                                    $data_pengampu = [
+                                        'id_tesis' => $id_tesis,
+                                        'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                        'nip' => $dosen,
+                                    ];
+                                    $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                                }*/
+                            }
+                        }
+                    }
+                
                     $data = array(
                         'jenis' => TAHAPAN_TESIS_MKPT,
                         'berkas_mkpt' => $file_name,
@@ -212,6 +339,70 @@ class Mkpt extends CI_Controller {
                 redirect('mahasiswa/tesis/mkpt');
             } else {
                 if($_FILES['berkas_mkpt']['size'] != 0){
+
+                    $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
+
+                    if (!empty($tesis_mkpts)) {
+                        foreach ($tesis_mkpts as $index => $mkpt) {
+                            //$kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
+                            $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
+                            $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                            //$dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
+                            $data_tesis_mkpt = [
+                                'id_tesis' => $id_tesis,
+                                //'kode' => $kode,
+                                'mkpt' => $nama,
+                                'sks' => $sks,
+                            ];
+                            if (!empty($nama)) {
+                                $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
+                                $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                                /*$mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
+                                foreach($dosens as $dosen){
+                                    foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                                        $data_pengampu = [
+                                            'id_tesis' => $id_tesis,
+                                            'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                            'nip' => $dosen,
+                                        ];
+                                        if($pengampu['nip'] == $dosen){
+                                            $this->tesis->update_tesis_mkpt_pengampu($data_pengampu, $pengampu['id_tesis_mkpt_pengampu']);
+                                        }
+                                        else {
+                                            $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                                        }
+                                    }
+                                }*/
+                            }
+                        }
+                    }
+                    else {
+                        for ($i = 1; $i <= 3; $i++) {
+                            //$kode = $this->input->post('kode' . $i, true);
+                            $nama = $this->input->post('nama' . $i, true);
+                            $sks = $this->input->post('sks' . $i, true);
+                            //$dosens = $this->input->post('pengampu' . $i, true);
+                            $data_tesis_mkpt = [
+                                'id_tesis' => $id_tesis,
+                                //'kode' => $kode,
+                                'mkpt' => $nama,
+                                'sks' => $sks,
+                            ];
+                            if (!empty($nama)) {
+                                $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
+                                $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                                /*foreach($dosens as $dosen){
+                                    $data_pengampu = [
+                                        'id_tesis' => $id_tesis,
+                                        'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                        'nip' => $dosen,
+                                    ];
+                                    $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                                }*/
+                            }
+                        }
+                    }
+
                     $data = array(
                         'jenis' => TAHAPAN_TESIS_MKPT,
                         'berkas_mkpt' => $file_name,

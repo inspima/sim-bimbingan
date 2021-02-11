@@ -21,6 +21,7 @@ class Judul extends CI_Controller {
         //START MODEL
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
+        $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
@@ -75,6 +76,7 @@ class Judul extends CI_Controller {
                 // DATA //
                 'mdosen' => $this->dosen->read_aktif_alldep(),
                 'departemen' => $this->departemen->read(),
+                'minat' => $this->minat_tesis->read(),
                 'gelombang' => $this->gelombang->read_berjalan()
             );
             $this->load->view('backend/index_sidebar', $data);
@@ -107,7 +109,8 @@ class Judul extends CI_Controller {
                     'jenis' => TAHAPAN_TESIS_JUDUL,
                     'berkas_orisinalitas' => $file_name,
                     'nim' => $this->session_data['username'],
-                    'id_departemen' => $this->input->post('departemen', TRUE),
+                    //'id_departemen' => $this->input->post('departemen', TRUE),
+                    'id_minat' => $this->input->post('minat', TRUE),
                     'tgl_pengajuan' => $tgl_sekarang,
                     'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
                 );
@@ -153,6 +156,7 @@ class Judul extends CI_Controller {
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'departemen' => $this->departemen->read(),
+            'minat' => $this->minat_tesis->read(),
             'gelombang' => $this->gelombang->read_berjalan(),
             'tesis' => $this->tesis->detail($id),
         );
@@ -195,7 +199,8 @@ class Judul extends CI_Controller {
                         'jenis' => TAHAPAN_TESIS_JUDUL,
                         'berkas_orisinalitas' => $file_name,
                         'nim' => $this->session_data['username'],
-                        'id_departemen' => $this->input->post('departemen', TRUE),
+                        //'id_departemen' => $this->input->post('departemen', TRUE),
+                        'id_minat' => $this->input->post('minat', TRUE),
                         'tgl_pengajuan' => $tgl_sekarang,
                         'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
                     );
@@ -205,7 +210,8 @@ class Judul extends CI_Controller {
                     $data = array(
                         'jenis' => TAHAPAN_TESIS_JUDUL,
                         'nim' => $this->session_data['username'],
-                        'id_departemen' => $this->input->post('departemen', TRUE),
+                        //'id_departemen' => $this->input->post('departemen', TRUE),
+                        'id_minat' => $this->input->post('minat', TRUE),
                         'tgl_pengajuan' => $tgl_sekarang,
                         'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
                     );
@@ -236,7 +242,8 @@ class Judul extends CI_Controller {
                         'jenis' => TAHAPAN_TESIS_JUDUL,
                         'berkas_orisinalitas' => $file_name,
                         'nim' => $this->session_data['username'],
-                        'id_departemen' => $this->input->post('departemen', TRUE),
+                        //'id_departemen' => $this->input->post('departemen', TRUE),
+                        'id_minat' => $this->input->post('minat', TRUE),
                         'tgl_pengajuan' => $tgl_sekarang,
                         'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
                     );
@@ -246,7 +253,8 @@ class Judul extends CI_Controller {
                     $data = array(
                         'jenis' => TAHAPAN_TESIS_JUDUL,
                         'nim' => $this->session_data['username'],
-                        'id_departemen' => $this->input->post('departemen', TRUE),
+                        //'id_departemen' => $this->input->post('departemen', TRUE),
+                        'id_minat' => $this->input->post('minat', TRUE),
                         'tgl_pengajuan' => $tgl_sekarang,
                         'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
                     );

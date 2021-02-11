@@ -21,6 +21,7 @@ class Ujian extends CI_Controller {
         //START MODEL
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
+        $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
@@ -183,7 +184,7 @@ class Ujian extends CI_Controller {
             'subtitle' => 'Setting',
             'section' => 'backend/dosen/tesis/ujian/setting',
             'use_back' => true,
-            'back_link' => 'backend/dosen/tesis/ujian/penjadwalan/'.$id_prodi,
+            'back_link' => 'dosen/tesis/ujian/penjadwalan/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif(),

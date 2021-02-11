@@ -44,7 +44,8 @@
                     <th>Tesis</th>
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
-                    <th>Departemen</th>
+                    <!-- <th>Departemen</th> -->
+                    <th>Minat</th>
                     <th>Tanggal Pengajuan</th>
                     <th>Status</th>
                     <th>Kontrol</th>
@@ -119,7 +120,8 @@
                             }
                             ?>
                         </td>
-                        <td><?= $list['departemen'] ?></td>
+                        <!-- <td><?php //echo $list['departemen'] ?></td> -->
+                        <td><?= $list['nm_minat'] ?></td>
                         <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
                             <?php
@@ -168,7 +170,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-danger">Tolak Pengajuan Judul</button>
+                                                    <button type="submit" class="btn btn-danger">Tolak Pengajuan Ujian Tesis</button>
                                                 </div>
                                             </form>
                                         </div>

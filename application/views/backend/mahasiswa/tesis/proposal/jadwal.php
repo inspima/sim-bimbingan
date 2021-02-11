@@ -19,7 +19,72 @@
             <!-- /.box-header -->
             <!-- form start -->
             <div class="box-body">
-                <?php $this->view('backend/widgets/tesis/informasi_tesis_judul', ['tesis' => $tesis]); ?>
+                <?php //$this->view('backend/widgets/tesis/informasi_tesis_judul', ['tesis' => $tesis]); ?>
+                <?php 
+                    $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);
+                    echo '<b>Judul : </b>'.$judul->judul.'<br>';
+                    
+                    if($tesis->berkas_orisinalitas != '') {
+                        echo '<b>Berkas Orisinalitas : </b><a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$tesis->berkas_orisinalitas.'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
+                    }
+                ?>
+                <hr>
+                <b>Dosen Pembimbing</b><br><br>
+                <table class="table table-condensed ">
+                    <tr class="bg-gray-light">
+                        <th>Nama</th>
+                        <th>Keterangan</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo $tesis->nama_pembimbing_satu ?><br/><b><?php echo $tesis->nip_pembimbing_satu ?></b></td>
+                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing Utama</button>
+                        </td>
+                        <td>
+                            <?php
+                            if ($tesis->status_pembimbing_satu == NULL) {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-warning"> Belum disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_satu == '1') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_satu == '2') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $tesis->nama_pembimbing_dua ?><br/><b><?php echo $tesis->nip_pembimbing_dua ?></b></td>
+                        <td><button class="btn btn-xs bg-blue-gradient" style="color:white">Pembimbing Kedua</button>
+                        </td>
+                        <td>
+                            <?php
+                            if ($tesis->status_pembimbing_dua == NULL) {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-warning"> Belum disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_dua == '1') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
+                                <?php
+                            } else
+                            if ($tesis->status_pembimbing_dua == '2') {
+                                ?>
+                                <button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <!-- /.box-body -->
         </div>

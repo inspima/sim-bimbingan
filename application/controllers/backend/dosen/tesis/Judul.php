@@ -21,6 +21,7 @@ class Judul extends CI_Controller {
         //START MODEL
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
+        $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
@@ -166,6 +167,7 @@ class Judul extends CI_Controller {
 
     public function setting_pembimbing() {
         $id = $this->uri->segment(5);
+        $id_prodi = $this->tesis->cek_prodi($id);
         $username = $this->session_data['username'];
 
         $data = array(
@@ -176,8 +178,10 @@ class Judul extends CI_Controller {
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'departemen' => $this->departemen->read(),
+            'minat' => $this->minat_tesis->read(),
             'gelombang' => $this->gelombang->read_berjalan(),
             'tesis' => $this->tesis->detail($id),
+            'id_prodi' => $id_prodi,
         );
 
         if ($data['tesis']) {

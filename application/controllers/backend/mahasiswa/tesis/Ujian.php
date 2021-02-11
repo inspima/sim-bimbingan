@@ -20,7 +20,9 @@ class Ujian extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
+        $this->load->model('backend/mahasiswa/master/biodata_model', 'biodata');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
+        $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
@@ -37,6 +39,7 @@ class Ujian extends CI_Controller {
             'section' => 'backend/mahasiswa/tesis/ujian/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
+            'biodata' => $this->biodata->detail($this->session_data['username']),
             'tesis' => $this->tesis->read_ujian_mahasiswa($this->session_data['username'])
         );
         $this->load->view('backend/index_sidebar', $data);
@@ -60,7 +63,7 @@ class Ujian extends CI_Controller {
 
     public function add() {
         $id_tesis = $this->uri->segment('5');
-        $read_aktif = $this->tesis->read_aktif($this->session_data['username']);
+        $read_aktif = $this->tesis->read_aktif_tesis($this->session_data['username']);
 
         if ($read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');

@@ -62,8 +62,7 @@
                     <label>Mata Kuliah MKPT</label>
                         <table class="table table-bordered">
                             <tr>
-                                <th style="width: 10%">Kode MK</th>
-                                <th style="width: 35%">Nama MK</th>
+                                <th style="width: 35%">Topik</th>
                                 <th style="width: 10%">SKS</th>
                                 <th style="width: 45%">Dosen</th>
                                 <th style="width: 45%">Status</th>
@@ -99,7 +98,6 @@
                                             }
                                             echo '
                                             <tr>
-                                                <td>'.$mkpt['kode'].'</td>
                                                 <td>'.$mkpt['mkpt'].'</td>
                                                 <td>'.$mkpt['sks'].'</td>
                                                 <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
@@ -112,7 +110,6 @@
                                             $status = '<button type="button" class="btn btn-xs btn-warning"> Menunggu Persetujuan</button>';
                                             echo '
                                             <tr>
-                                                <td><input name="kode'.$mkpt['id_tesis_mkpt'].'" type="text" class="form-control" value="'.$mkpt['kode'].'"></td>
                                                 <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
                                                 <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
                                                 <td>
@@ -144,13 +141,10 @@
                                     ?>
                                     <tr>
                                         <td>
-                                            <input name="kode<?=$i?>" type="text" class="form-control" >
-                                        </td>
-                                        <td>
                                             <textarea name="nama<?=$i?>" class="form-control" style="resize: none" ></textarea>
                                         </td>
                                         <td>
-                                            <input name="sks<?=$i?>" type="number" class="form-control" >
+                                            <input name="sks<?=$i?>" type="number" value="2" class="form-control" >
                                         </td>
                                         <td>
                                             <select name="pengampu<?=$i?>[]" class="form-control select2" style="width: 100%;"  multiple>

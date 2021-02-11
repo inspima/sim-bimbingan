@@ -21,6 +21,7 @@ class Proposal extends CI_Controller {
         //START MODEL
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
+        $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
@@ -142,6 +143,7 @@ class Proposal extends CI_Controller {
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'departemen' => $this->departemen->read(),
+            'minat' => $this->minat_tesis->read(),
             'gelombang' => $this->gelombang->read_berjalan(),
             'tesis' => $this->tesis->detail($id),
         );
@@ -586,7 +588,7 @@ class Proposal extends CI_Controller {
             'subtitle' => 'Setting',
             'section' => 'backend/dosen/tesis/proposal/jadwal_pembimbing',
             'use_back' => true,
-            'back_link' => 'dosen/tesis/judul/pembimbing/'.$id_prodi,
+            'back_link' => 'dosen/tesis/permintaan/pembimbing/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif(),
@@ -961,11 +963,11 @@ class Proposal extends CI_Controller {
             
             $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
 
-            if($nip == $tesis->nip_pembimbing_satu){
+            /*if($nip == $tesis->nip_pembimbing_satu){
                 $data = array(
                     'id_ujian' => $id_ujian,
                     'nip' => $this->input->post('nip', TRUE),
-                    'status_tim' => 1,
+                    'status_tim' => 2,
                     'status' => 1
                 );
             }
@@ -976,7 +978,13 @@ class Proposal extends CI_Controller {
                     'status_tim' => 2,
                     'status' => 1
                 );
-            }
+            }*/
+            $data = array(
+                'id_ujian' => $id_ujian,
+                'nip' => $this->input->post('nip', TRUE),
+                'status_tim' => 2,
+                'status' => 1
+            );
 
             $cekpenguji = $this->tesis->cek_penguji($data);
             if ($cekpenguji) {

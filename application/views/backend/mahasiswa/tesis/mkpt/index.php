@@ -62,11 +62,11 @@
                             <?php if ($list['status_proposal'] > STATUS_TESIS_MKPT_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
-                                <b>Hasil Ujian</b><br/>
+                                <b>Hasil Ujian <?= $list['status_tesis'].' '.STATUS_TESIS_UJIAN_DITOLAK;?></b><br/>
                                 <?php
                                 echo $this->tesis->get_status_ujian($list['status_ujian_mkpt'], UJIAN_TESIS_MKPT);
                                 ?>
-                                <?php if ($list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN && $list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN_SELESAI):
+                                <?php if (($list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN && $list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN_SELESAI) OR $list['status_tesis'] == STATUS_TESIS_UJIAN_DITOLAK):
                                     ?>
                                     <hr style = "margin:5px"/>
                                     <a href = "<?= base_url() ?>mahasiswa/tesis/ujian/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Tesis</a>

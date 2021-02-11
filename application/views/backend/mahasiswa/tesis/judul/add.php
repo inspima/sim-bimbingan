@@ -12,14 +12,27 @@
             <div class="box-body">
                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                 <?php echo formtext('hidden', 'id_gelombang', $gelombang->id_gelombang, 'required') ?>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label>Departemen</label>
                     <select name="departemen" class="form-control select2" style="width: 100%;" required>
                         <option value="">- Pilih -</option>
                         <?php
-                        foreach ($departemen as $list) {
+                        /*foreach ($departemen as $list) {
                             ?>
                             <option value="<?php echo $list['id_departemen'] ?>" ><?php echo $list['departemen'] ?></option>
+                            <?php
+                        }*/
+                        ?>
+                    </select>
+                </div> -->
+                <div class="form-group">
+                    <label>Minat</label>
+                    <select name="departemen" class="form-control select2" style="width: 100%;" required>
+                        <option value="">- Pilih -</option>
+                        <?php
+                        foreach ($minat as $list) {
+                            ?>
+                            <option value="<?php echo $list['id_minat'] ?>" ><?php echo $list['nm_minat'] ?></option>
                             <?php
                         }
                         ?>

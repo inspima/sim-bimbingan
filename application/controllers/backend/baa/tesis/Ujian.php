@@ -73,13 +73,24 @@ class Ujian extends CI_Controller {
         redirect('baa/tesis/ujian/index/'.$id_prodi);
     }
 
-    public function reject() {
+    /*public function reject() {
         $id = $this->uri->segment(5);
         $id_prodi = $this->tesis->cek_prodi($id);
         $this->tesis->reject_tesis($id);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Tesis ditolak');
         redirect('baa/tesis/ujian/index/'.$id_prodi);
+    }*/
+
+    public function reject() {
+        $id = $this->input->post('id_tesis', TRUE);
+        $id_prodi = $this->tesis->cek_prodi($id);
+        $keterangan = $this->input->post('keterangan', TRUE);
+        $this->tesis->reject_tesis($id, $keterangan);
+        $this->session->set_flashdata('msg-title', 'alert-danger');
+        $this->session->set_flashdata('msg', 'Tesis ditolak');
+        //redirect('dosen/tesis/judul/index/'.$id_prodi);
+        redirect('baa/tesis/ujian/index'.$id_prodi);
     }
 
     public function batal() {

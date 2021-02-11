@@ -20,6 +20,7 @@ class Proposal extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
+        $this->load->model('backend/mahasiswa/master/biodata_model', 'biodata');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
@@ -37,6 +38,7 @@ class Proposal extends CI_Controller {
             'section' => 'backend/mahasiswa/tesis/proposal/index',
             // DATA //
             //'mahasiswa'      => $this->mahasiswa->read_aktif($this->session_data['username']),
+            'biodata' => $this->biodata->detail($this->session_data['username']),
             'tesis' => $this->tesis->read_proposal_mahasiswa($this->session_data['username'])
         );
         $this->load->view('backend/index_sidebar', $data);

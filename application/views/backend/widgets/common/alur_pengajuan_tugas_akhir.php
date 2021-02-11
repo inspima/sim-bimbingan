@@ -163,7 +163,7 @@ if ($jenjang == 2) {
         $tahapans = $this->tesis->read_status_tahapan($process['value']);
         foreach ($tahapans as $tahapan):
             if ($index > 0):
-                if($tahapan['text'] != 'Judul - Ditolak Sekretaris Prodi'):
+                if($tahapan['text'] != 'Judul - Ditolak Sekretaris Prodi' && $tahapan['text'] != 'Tesis - Ditolak BAA'):
                 ?>
                 <li>
                     <?php
