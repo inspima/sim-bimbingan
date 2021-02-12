@@ -19,9 +19,11 @@ class Proposal extends CI_Controller {
         }
         //END SESS
         //START MODEL
+		$this->load->model('backend/master/setting', 'setting');
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+		$this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
         //END MODEL
@@ -190,6 +192,40 @@ class Proposal extends CI_Controller {
             redirect('dashboardm/modul/proposal');
         }
     }
+
+	public function cetak_pengajuan()
+	{
+		$hand = $this->input->post('hand', true);
+		if ($hand == 'center19') {
+			$id_disertasi = $this->input->post('id_disertasi', true);
+			$ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_PROPOSAL);
+			if (!empty($ujian)) {
+				$id_ujian = $ujian->id_ujian;
+
+				$data = array(
+					'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
+					'pengujis' => $this->disertasi->read_penguji($id_ujian),
+					'disertasi' => $this->disertasi->detail($id_disertasi),
+					'kps_s3' => $this->struktural->read_kps_s3()
+				);
+				//print_r($data['penguji_ketua']);die();
+				ob_end_clean();
+				$page = 'backend/mahasiswa/disertasi/proposal/cetak-pengajuan';
+				$size = 'legal';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "FORM PENGAJUAN - UJIAN PROPOSAL.pdf";
+				$this->pdf->load_view($page, $data);
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Jadwal Ujian belum ada tunggu sampai status sudah dijadwalkan');
+				redirect_back();
+			}
+		} else {
+			$this->session->set_flashdata('msg-title', 'alert-danger');
+			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+			redirect_back();
+		}
+	}
 
 }
 

@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Upload Bukti Transkrip, TOEFL, TOEFL PENDAMPING & Pembayaran SPP Terakhir <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
+                    <label>Upload Transkrip MKPKK,TOEFL , Sertifikasi Bahasa Asing Lain, Bukti Pembayaran SPP <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
                     <input type="file" name="berkas_proposal" class="form-control" required>
                 </div>
             </div>

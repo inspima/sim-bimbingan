@@ -52,7 +52,7 @@
 			if ($hand == 'center19') {
 				$id_disertasi = $this->input->post('id_disertasi', true);
 				$data = array(
-					'status_proposal' => STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA,
+					'status_proposal' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PRODI,
 				);
 				$this->disertasi->update($data, $id_disertasi);
 
@@ -154,7 +154,7 @@
 				$page = 'backend/prodi/doktoral/proposal/cetak_berita';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = "disertasi_berita.pdf";
+				$this->pdf->filename = "BERITA ACARA DISERTASI - UJIAN PROPOSAL - " . $disertasi->nim . '.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');

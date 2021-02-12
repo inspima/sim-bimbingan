@@ -27,6 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			page-break-before: always;
 		}
 	</style>
+	<title>SURAT KEPUTUSAN - PENASEHAT AKADEMIK - <?=$disertasi->nim?></title>
 </head>
 <body>
 

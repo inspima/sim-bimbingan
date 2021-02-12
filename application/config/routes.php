@@ -758,6 +758,7 @@
 	$route['mahasiswa/disertasi/proposal/add/(:num)'] = 'backend/mahasiswa/disertasi/proposal/add';
 	$route['mahasiswa/disertasi/proposal/save'] = 'backend/mahasiswa/disertasi/proposal/save';
 	$route['mahasiswa/disertasi/proposal/info/(:num)'] = 'backend/mahasiswa/disertasi/proposal/info';
+	$route['mahasiswa/disertasi/proposal/cetak-pengajuan'] = 'backend/mahasiswa/disertasi/proposal/cetak_pengajuan';
 
 	$route['mahasiswa/disertasi/mkpd'] = 'backend/mahasiswa/disertasi/mkpd';
 	$route['mahasiswa/disertasi/mkpd/add/(:num)'] = 'backend/mahasiswa/disertasi/mkpd/add';

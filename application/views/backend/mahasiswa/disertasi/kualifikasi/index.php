@@ -23,7 +23,7 @@
 			<thead>
 			<tr>
 				<th>No</th>
-				<th>Judul</th>
+				<th style="width: 30%">Judul</th>
 				<th>Penasehat Akademik</th>
 				<th class="text-center">Berkas</th>
 				<th>Tanggal Pengajuan</th>
@@ -58,7 +58,7 @@
 								<i class="fa fa-print"></i> Berkas Syarat
 							</a>
 						</td>
-						<td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
+						<td><?= woday_toindo($list['waktu_pengajuan_proposal']) ?></td>
 						<td class="text-center">
 							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
 

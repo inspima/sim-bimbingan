@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			background-repeat: repeat-x;
 		}
 	</style>
-	<title>FORM PENGAJUAN DISERTASI - UJIAN KUALIFIKASI</title>
+	<title>FORM PENGAJUAN DISERTASI - UJIAN PROPOSAL</title>
 </head>
 <body>
 
@@ -27,12 +27,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td width="2%">:</td>
 		<td width="30%">1 Berkas</td>
 		<td width="20%"></td>
-		<td width="42%;border:2px solid black;font-size:1.1em;font-weight:bold;padding:5px;text-align:center">Permohonan Ujian Kualifikasi</td>
+		<td width="42%;border:2px solid black;font-size:1.1em;font-weight:bold;padding:5px;text-align:center">Permohonan Ujian Proposal</td>
 	</tr>
 	<tr>
 		<td width="15%">Perihal</td>
 		<td width="2%">:</td>
-		<td width="30%">Permohonan Ujian Kualifikasi</td>
+		<td width="30%">Permohonan Ujian Proposal</td>
 		<td></td>
 		<td></td>
 	</tr>

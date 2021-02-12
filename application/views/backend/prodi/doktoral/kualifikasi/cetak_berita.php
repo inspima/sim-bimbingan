@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 background-repeat: repeat-x;
             }
         </style>
+		<title>BERITA ACARA DISERTASI - UJIAN KUALIFIKASI - <?=$disertasi->nim?></title>
     </head>
     <body>
 

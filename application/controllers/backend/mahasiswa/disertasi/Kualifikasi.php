@@ -21,13 +21,13 @@
 			}
 			//END SESS
 			//START MODEL
+			$this->load->model('backend/master/setting', 'setting');
 			$this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
 			$this->load->model('backend/transaksi/disertasi', 'disertasi');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
-			$this->load->model('backend/master/setting', 'setting');
 			//END MODEL
 		}
 
@@ -225,7 +225,7 @@
 					$page = 'backend/mahasiswa/disertasi/kualifikasi/cetak-pengajuan';
 					$size = 'legal';
 					$this->pdf->setPaper($size, 'potrait');
-					$this->pdf->filename = "BERKAS_KUALIFIKASI.pdf";
+					$this->pdf->filename = "FORM PENGAJUAN - UJIAN KUALIFIKASI.pdf";
 					$this->pdf->load_view($page, $data);
 				} else {
 					$this->session->set_flashdata('msg-title', 'alert-danger');

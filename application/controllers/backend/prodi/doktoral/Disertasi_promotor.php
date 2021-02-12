@@ -80,7 +80,7 @@
 				$page = 'backend/prodi/doktoral/promotor/cetak_sk_promotor';
 				$size = 'a4';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = "SK_PROMOTOR.pdf";
+				$this->pdf->filename = "SURAT KEPUTUSAN - PROMOTOR & KO-PROMOTOR - ".$disertasi->nim.'.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');

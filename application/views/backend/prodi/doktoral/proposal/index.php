@@ -47,7 +47,7 @@
 										if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_PENGAJUAN):
 											?>
 											<hr style="margin: 10px;border-width:2px;" />
-											<?php echo form_open('baa/doktoral/disertasi/proposal/terima') ?>
+											<?php echo form_open('prodi/doktoral/disertasi/proposal/terima') ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
@@ -69,7 +69,7 @@
 											<hr style="margin: 5px"/>
 											<!-- Undangan -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/proposal/cetak_undangan', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_undangan', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
@@ -77,7 +77,7 @@
 											<hr style="margin: 2px"/>
 											<!-- Berita Acara -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/proposal/cetak_berita', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_berita', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
@@ -85,7 +85,7 @@
 											<hr style="margin: 2px"/>
 											<!-- Penilaian -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/proposal/cetak_penilaian', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_penilaian', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
@@ -93,7 +93,7 @@
 											<hr style="margin: 2px"/>
 											<!-- Daftar Hadir -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/proposal/cetak_absensi', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_absensi', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Daftar Hadir</button>

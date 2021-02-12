@@ -61,10 +61,7 @@ class Proposal extends CI_Controller {
                 $data = array(
                     'status_proposal' => STATUS_DISERTASI_PROPOSAL_SETUJUI_KPS,
                 );
-                
-                $data = array(
-                    'status_proposal' => STATUS_DISERTASI_PROPOSAL_UJIAN,
-                );
+
             }
             $this->disertasi->update($data, $id_disertasi);
 

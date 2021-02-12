@@ -328,7 +328,7 @@
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
 			$this->db->join('ujian_disertasi uj', 'uj.id_disertasi = s.id_disertasi');
 			$this->db->where('uj.jenis_ujian', $jenis);
-			$this->db->where('`uj`.`id_ujian` IN (SELECT `id_ujian` from `penguji_disertasi` where `status` in (1,2) and `nip`=\'' . $username . '\')', null, false);
+			$this->db->where('`uj`.`id_ujian` IN (SELECT `id_ujian` from `penguji_disertasi` where `status` in (1) and `nip`=\'' . $username . '\')', null, false);
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
 			$query = $this->db->get();
@@ -1378,9 +1378,9 @@
 						'color' => 'bg-blue'
 					],
 					[
-						'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA,
-						'text' => 'Diterima BAA',
-						'keterangan' => 'Disetujui oleh BAA',
+						'value' => STATUS_DISERTASI_PROPOSAL_SETUJUI_PRODI,
+						'text' => 'Diterima Admin Prodi',
+						'keterangan' => 'Disetujui oleh Admin Prodi',
 						'color' => 'bg-green'
 					],
 					[
@@ -1422,7 +1422,7 @@
 					[
 						'value' => STATUS_DISERTASI_PROPOSAL_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
 						'color' => 'bg-orange'
 					],
 					[
@@ -1524,7 +1524,7 @@
 					[
 						'value' => STATUS_DISERTASI_KELAYAKAN_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
 						'color' => 'bg-orange'
 					],
 					[
@@ -1587,7 +1587,7 @@
 					[
 						'value' => STATUS_DISERTASI_TERTUTUP_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
 						'color' => 'bg-orange'
 					],
 					[
@@ -1650,7 +1650,7 @@
 					[
 						'value' => STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
 						'color' => 'bg-orange'
 					],
 					[

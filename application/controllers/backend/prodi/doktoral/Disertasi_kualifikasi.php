@@ -118,7 +118,7 @@
 				$page = 'backend/prodi/doktoral/kualifikasi/cetak_sk_penasehat';
 				$size = 'a4';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = "SK_PENASEHAT.pdf";
+				$this->pdf->filename = "SURAT KEPUTUSAN - PENASEHAT AKADEMIK - ".$disertasi->nim.'.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
@@ -214,7 +214,7 @@
 				$page = 'backend/prodi/doktoral/kualifikasi/cetak_berita';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = 'berita_acara_kualifikasi_' . $disertasi->nim;
+				$this->pdf->filename = "BERITA ACARA DISERTASI - UJIAN KUALIFIKASI - ".$disertasi->nim.'.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');

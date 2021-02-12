@@ -69,7 +69,7 @@
 				$page = 'backend/prodi/doktoral/mkpkk/cetak';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = "NILAI_MKPKK.pdf";
+				$this->pdf->filename = "PENILAIAN MKPKK - ".$disertasi->nim." - ".$mkpkk->nama.'.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');

@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			background-repeat: repeat-x;
 		}
 	</style>
+	<title>PENILAIAN MKPKK - <?=$disertasi->nim?> - <?=$mkpkk->nama?> </title>
 </head>
 <body>
 

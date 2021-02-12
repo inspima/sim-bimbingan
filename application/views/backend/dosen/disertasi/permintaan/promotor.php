@@ -76,7 +76,7 @@
 							?>
 
 							<?php
-								if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_SETUJUI_BAA):
+								if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_SETUJUI_PRODI):
 									?>
 									<hr style="margin: 10px;border-width:2px;"/>
 									<?php echo form_open('dosen/disertasi/permintaan/promotor/proposal/setujui') ?>
