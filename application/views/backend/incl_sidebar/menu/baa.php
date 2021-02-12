@@ -39,41 +39,6 @@
 
         </ul>
     </li>
-    <!--    
-    <li class="treeview">
-            <a href="#">
-                <i class="fa fa-file-o"></i> <span>Proposal</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="<?php echo base_url() ?>dashboardb/proposal/proposal_pengajuan"><i class="fa fa-circle-o"></i>Proposal (Pengajuan)</a></li>
-                <li><a href="<?php echo base_url() ?>dashboardb/proposal/proposal_diterima"><i class="fa fa-circle-o"></i>Proposal (Diterima)</a></li>
-                <li><a href="<?php echo base_url() ?>dashboardb/proposal/proposal_selesai"><i class="fa fa-circle-o"></i>Proposal (Selesai)</a></li>
-                <li><a href="<?php echo base_url() ?>dashboardb/proposal/proposal_ditolak"><i class="fa fa-circle-o"></i>Proposal (Ditolak)</a></li>
-    
-                <li><a href="<?php echo base_url() ?>dashboardb/proposal/penguji_pengajuan"><i class="fa fa-circle-o"></i>Penguji (Belum Approve)</a></li>
-    
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-file"></i> <span>Skripsi</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="<?php echo base_url() ?>dashboardb/skripsi/skripsi_belum_daftar"><i class="fa fa-circle-o"></i>Skripsi (Belum Daftar)</a></li>
-                <li><a href="<?php echo base_url() ?>dashboardb/skripsi/skripsi_pengajuan"><i class="fa fa-circle-o"></i>Skripsi (Pengajuan)</a></li>
-                <li><a href="<?php echo base_url() ?>dashboardb/skripsi/skripsi_diterima"><i class="fa fa-circle-o"></i>Skripsi (Diterima)</a></li>
-                <li><a href="<?php echo base_url() ?>dashboardb/skripsi/skripsi_ujian"><i class="fa fa-circle-o"></i>Skripsi (Ujian)</a></li>
-                <li><a href="<?php echo base_url() ?>dashboardb/skripsi/skripsi_penguji_pengajuan"><i class="fa fa-circle-o"></i>Penguji Skripsi (Belum Approve)</a></li>
-    
-            </ul>
-        </li>
-    -->
     <li class="treeview">
         <a href="#">
             <i class="fa fa-file"></i> <span>Sarjana</span>
@@ -95,23 +60,8 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <!--<li><a href="<?php //echo base_url() ?>dashboardb/thesis/thesis"><i class="fa fa-circle-o"></i>Thesis</a></li>-->
             <li><a href="<?php echo base_url() ?>baa/tesis/ujian"><i class="fa fa-circle-o"></i> Persetujuan Tesis</a></li>
             <li><a href="<?php echo base_url() ?>baa/magister/tesis/proposal"><i class="fa fa-circle-o"></i>Tesis</a></li>
-
-
-        </ul>
-    </li>
-
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-book"></i> <span>Doktoral</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>baa/doktoral/disertasi/kualifikasi"><i class="fa fa-circle-o"></i>Disertasi</a></li>
         </ul>
     </li>
     

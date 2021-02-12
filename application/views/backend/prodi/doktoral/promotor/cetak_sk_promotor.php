@@ -1,8 +1,9 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<style type="text/css">
 		body {
@@ -10,19 +11,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			font-family: "Times New Roman", Times, serif;
 			font-size: 14px;
 		}
+
 		.line {
 			background-image: url("assets/backend/cetak/line.png");
 			background-repeat: repeat-x;
 		}
-		table.padded tr th,table.padded tr td{
+
+		table.padded tr th, table.padded tr td {
 			padding: 8px;
 		}
-		table tr td{
+
+		table tr td {
 			vertical-align: text-top;
 		}
-		table.bordered{
+
+		table.bordered {
 			border-collapse: collapse;
 		}
+
 		.page_break {
 			page-break-before: always;
 		}
@@ -62,10 +68,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<td align="center">
 						<h3 style="margin: 5px;font-weight: normal">
 							KEPUTUSAN DEKAN<br/>
-							NOMOR : <?=strtoupper($no_sk)?><br/>
-							TENTANG PENASEHAT AKADEMIK<br/>
+							NOMOR : <?= strtoupper($no_sk) ?><br/>
+							TENTANG <br/>
+							PENGANGKATAN PROMOTOR DAN KO-PROMOTOR<br/>
 							BAGI MAHASISWA <?= strtoupper($this->setting->get_value('universitas_prodi_s3_txt')) ?><br/>
-							SEMESTER <?=strtoupper($semester->semester)?><br/>
+							SEMESTER <?= strtoupper($semester->semester) ?><br/>
 							<br/>
 							<br/>
 							DEKAN <?= strtoupper($this->setting->get_value('universitas_fakultas_txt')) ?> <?= strtoupper($this->setting->get_value('universitas_txt')) ?>,
@@ -82,7 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
 			<ol style="list-style: lower-alpha;margin: 0px;">
-				<li>bahwa guna menunjang keberhasilan Pendidikan <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?> Semester <?=ucfirst($semester->semester)?>, perlu diangkat Penasehat Akademik sebagai Pemandu dalam melaksanakan Penelitian;</li>
+				<li>bahwa guna menunjang keberhasilan Pendidikan <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?> Semester <?= ucfirst($semester->semester) ?>, perlu diangkat Prommotor dan Ko-Promotor sebagai Pemandu dalam melaksanakan Penelitian;</li>
 				<li>bahwa berdasarkan pertimbangan sebagaimana dimaksud pada huruf a, perlu diterbitkan Keputusan Dekan <?= ucfirst($this->setting->get_value('universitas_fakultas_txt')) ?> <?= ucfirst($this->setting->get_value('universitas_txt')) ?>.</li>
 			</ol>
 		</td>
@@ -102,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<li>Peraturan Rektor Universitas Airlangga Nomor : 318/JO3/HK/2008 tentang Perubahan Atas Peraturan Rektor Nomor : 057/JO3/HK/2006 tentang Struktur Organisasi Universitas Airlangga-Badan Hukum Milik Negara;</li>
 				<li>Peraturan Rektor Universitas Airlangga Nomor : 9112/JO3/PT/2008 tentang Pendidikan Program Doktor Program Pascasarjana Universitas Airlangga;</li>
 				<li>Keputusan Rektor Universitas Airlangga Nomor : 1289/H3/KR/2009 tentang Pelimpahan Pengelolahan Penyelenggara Pendidikan Program Doktor Ilmu Hukum dari Program Pascasarjana ke Fakultas Hukum Universitas Airlangga;</li>
-				<li>Keputusan Rektor Universitas Airlangga Nomor : 762/UN3/2020 tentang pengangkatan Dekan pada Fakultas Hukum Universitas Airlangga;</li>
+				<li>Keputusan Rektor Universitas Airlangga Nomor : 1790/H3/KR/2018 tanggal 18 Desember 2018 tentang pengangkatan Dekan pada Fakultas Hukum Universitas Airlangga;</li>
 			</ol>
 		</td>
 	</tr>
@@ -161,21 +168,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<td style="width: 23%">PERTAMA</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			Mengangkat Penasehat Akademik bagi Mahasiswa <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?>, dengan susunan nama-nama sebagaimana tercantum dalam lampiran keputusan ini;
+			Mengangkat Promotor dan Ko-Promotor bagi Mahasiswa <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?>, dengan susunan nama-nama sebagaimana tercantum dalam lampiran keputusan ini;
 		</td>
 	</tr>
 	<tr>
 		<td style="width: 23%">KEDUA</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			Dalam melaksanakan tugasnya sebagai Penasehat Akademik sebagaimana dimaksud pada diktum PERTAMA berpedoman pada peraturan dan ketentuan-ketentuan yang berlaku serta mempertanggungjawabkan tugasnya kepada Dekan.
+			Dalam melaksanakan tugasnya sebagai Promotor dan Ko-Promotor sebagaimana dimaksud pada diktum PERTAMA berpedoman pada peraturan dan ketentuan-ketentuan yang berlaku serta mempertanggungjawabkan tugasnya kepada Dekan.
 		</td>
 	</tr>
 	<tr>
 		<td style="width: 23%">KETIGA</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			Biaya untuk keperluan pelaksanaan keputusan ini dibebankan pada Anggaran POPA Universitas Airlangga Tahun Anggaran 2020/2021
+			Biaya untuk keperluan pelaksanaan keputusan ini dibebankan pada Anggaran POPA Universitas Airlangga Tahun Anggaran <?= $semester->tahun ?>;
 		</td>
 	</tr>
 	<tr>
@@ -198,20 +205,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<br/>
 			<br/>
 			<br/>
-			<?=$kps_s3->nama_dosen?><br/>
-			NIP:<?=$kps_s3->nip?><
+			<?= $kps_s3->nama_dosen ?><br/>
+			NIP:<?= $kps_s3->nip ?><
 		</td>
 		<td style="width: 20%"></td>
 		<td style="width: 35%">
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
-			Pada tanggal <?=strtoupper(woday_toindo(date('Y-m-d')))?><br/>
+			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
 			<br/>
 			<br/>
 			<br/>
 			<br/>
 			<br/>
-			<?=$wadek->nama_dosen?><br/>
-			NIP:<?=$wadek->nip?><
+			<?= $wadek->nama_dosen ?><br/>
+			NIP:<?= $wadek->nip ?><
 		</td>
 	</tr>
 </table>
@@ -261,29 +268,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<td style="width: 23%">Nomor</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			<?=$no_sk?>
+			<?= $no_sk ?>
 		</td>
 	</tr>
 	<tr>
 		<td style="width: 23%">Tentang</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			Pengangkatan Penasehat Akademik bagi Mahasiswa <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?> <?= ucfirst($this->setting->get_value('universitas_fakultas_txt')) ?> <?= ucfirst($this->setting->get_value('universitas_txt')) ?> Semester <?=ucfirst($semester->semester)?>
+			Pengangkatan Promotor dan Ko-Promotor bagi Mahasiswa <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?> <?= ucfirst($this->setting->get_value('universitas_fakultas_txt')) ?> <?= ucfirst($this->setting->get_value('universitas_txt')) ?> Semester <?= ucfirst($semester->semester) ?>
 		</td>
 	</tr>
 </table>
+<?php
+	$promotors = $this->disertasi->read_promotor_kopromotor($disertasi->id_disertasi);
+
+?>
 <table class="bordered padded" border="1" style="width:100%;margin-top: 20px">
 	<tr>
 		<th>No</th>
 		<th>NIM</th>
 		<th>Nama</th>
-		<th>Penasehat Akademik</th>
+		<th>Promotor</th>
+		<th>Ko-Promotor</th>
 	</tr>
 	<tr>
 		<td>1</td>
-		<td><?=$disertasi->nim?></td>
-		<td><?=$disertasi->nama?></td>
-		<td><?=$disertasi->nama_penasehat?></td>
+		<td><?= $disertasi->nim ?></td>
+		<td><?= $disertasi->nama ?></td>
+		<td>
+			<?php
+				foreach ($promotors as $promotor) {
+					if ($promotor['status_tim'] == '1') {
+						echo $promotor['nama'];
+					}
+				}
+			?>
+		</td>
+		<td>
+			<?php
+				$num = 1;
+				foreach ($promotors as $promotor) {
+					if ($promotor['status_tim'] != '1') {
+						echo $num++.'. '.$promotor['nama'].generateNewLineHTML(3);
+					}
+				}
+			?>
+		</td>
 	</tr>
 </table>
 
@@ -297,20 +327,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<br/>
 			<br/>
 			<br/>
-			<?=$kps_s3->nama_dosen?><br/>
-			NIP:<?=$kps_s3->nip?><
+			<?= $kps_s3->nama_dosen ?><br/>
+			NIP:<?= $kps_s3->nip ?><
 		</td>
 		<td style="width: 20%"></td>
 		<td style="width: 35%">
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
-			Pada tanggal <?=strtoupper(woday_toindo(date('Y-m-d')))?><br/>
+			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
 			<br/>
 			<br/>
 			<br/>
 			<br/>
 			<br/>
-			<?=$wadek->nama_dosen?><br/>
-			NIP:<?=$wadek->nip?><
+			<?= $wadek->nama_dosen ?><br/>
+			NIP:<?= $wadek->nip ?><
 		</td>
 	</tr>
 </table>

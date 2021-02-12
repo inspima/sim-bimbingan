@@ -95,11 +95,20 @@
 			if ($hand == 'center19') {
 				$id_disertasi = $this->input->post('id_disertasi', true);
 				$no_sk = $this->input->post('no_sk', true);
+				$disertasi =$this->disertasi->detail($id_disertasi);
+				// Jika Status belum cetak SK
+				if ($disertasi->status_kualifikasi < STATUS_DISERTASI_KUALIFIKASI_CETAK_SK_PENASEHAT) {
+					$data = array(
+						'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_CETAK_SK_PENASEHAT,
+
+					);
+					$this->disertasi->update($data, $id_disertasi);
+				}
 
 				$data = array(
 					'no_sk' => $no_sk,
 					'semester' => $this->semester->detail_berjalan(),
-					'disertasi' => $this->disertasi->detail($id_disertasi),
+					'disertasi' => $disertasi,
 					'wadek' => $this->struktural->read_wadek1(),
 					'kps_s3' => $this->struktural->read_kps_s3(),
 				);

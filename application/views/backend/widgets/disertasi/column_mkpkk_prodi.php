@@ -1,0 +1,40 @@
+<?php
+	$disertasi_mkpkks = $this->disertasi->read_disertasi_mkpkk($id_disertasi);
+	if (!empty($disertasi_mkpkks)) {
+		?>
+		<ol>
+			<?php
+				foreach ($disertasi_mkpkks as $index => $mkpkk) {
+					?>
+					<li>
+						<?php echo $mkpkk['mkpkk'] ?><br/>
+						<?php
+							if ($mkpkk['nilai_publish'] != '0') {
+								?>
+								Nilai : <strong style="font-size: larger"><?php echo $mkpkk['nilai_angka'] ?></strong><br/>
+								<?php echo form_open('prodi/doktoral/disertasi/mkpkk/cetak', ['target' => '_blank']) ?>
+								<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+								<?php echo formtext('hidden', 'id_disertasi', $mkpkk['id_disertasi'], 'required') ?>
+								<?php echo formtext('hidden', 'id_mkpkk', $mkpkk['id_mkpkk'], 'required') ?>
+								<button type="submit" class="btn btn-xs btn-primary">
+									<i class="fa fa-print"></i> Cetak
+								</button>
+								<?php echo form_close(); ?>
+								<hr class="divider-line-thin">
+								<?php
+							}
+						?>
+					</li>
+					<?php
+				}
+			?>
+		</ol>
+		<?php
+	} else {
+		?>
+		<div class="form-group">
+			<p>Data belum ada</p>
+		</div>
+		<?php
+	}
+?>

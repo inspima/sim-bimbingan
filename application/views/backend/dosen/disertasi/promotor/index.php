@@ -48,7 +48,7 @@
                             if ($list['status_promotor'] >= STATUS_DISERTASI_PROMOTOR_PENGAJUAN && $struktural->id_struktur == STRUKTUR_KPS_S3) {
                                 ?>
                                 <hr style = "margin: 10px;border-width:2px;" />
-                                <a href = "<?= base_url() ?>dosen/disertasi/promotor/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Setting</a>
+                                <a href = "<?= base_url() ?>dosen/disertasi/promotor/setting/<?= $list['id_disertasi'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Periksa</a>
                                 <?php
                             }
                             ?>

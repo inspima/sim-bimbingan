@@ -543,7 +543,7 @@
 			$this->db->join('mahasiswa m', 'm.nim= s.nim');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
 			$this->db->where('`s`.`id_disertasi` IN (SELECT `id_disertasi` from `promotor` where `status` in (1,2) and `nip`=\'' . $username . '\')', null, false);
-			$this->db->where('s.status_promotor >=', STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS);
+			$this->db->where('s.status_promotor >=', STATUS_DISERTASI_PROMOTOR_PENGAJUAN);
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
 			$query = $this->db->get();
@@ -1339,15 +1339,15 @@
 						'color' => 'bg-blue'
 					],
 					[
-						'value' => STATUS_DISERTASI_MPKK_SETUJUI_KPS,
-						'text' => 'Disetujui KPS',
-						'keterangan' => 'Disetujui Ketua Prodi',
-						'color' => 'bg-green'
-					],
-					[
 						'value' => STATUS_DISERTASI_MPKK_SETUJUI_PROMOTOR,
 						'text' => 'Disetujui Promotor&Ko-promotor',
 						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_MPKK_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
 						'color' => 'bg-green'
 					],
 					[

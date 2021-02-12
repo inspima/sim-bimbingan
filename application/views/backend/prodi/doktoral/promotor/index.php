@@ -40,7 +40,12 @@
 									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
 								</td>
 								<td>
-									<?php $this->view('backend/widgets/disertasi/column_promotor', ['disertasi' => $list,'id_disertasi'=>$list['id_disertasi']]); ?>
+									<p class="text-center">
+									Status <br/>
+									<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis'=>TAHAPAN_DISERTASI_PROMOTOR]); ?>
+									</p>
+									<hr class="divider-line-semi-bold"/>
+									<?php $this->view('backend/widgets/disertasi/column_promotor_prodi', ['disertasi' => $list,'id_disertasi'=>$list['id_disertasi']]); ?>
 									<?php
 										if ($list['status_promotor'] >= STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS) {
 											?>

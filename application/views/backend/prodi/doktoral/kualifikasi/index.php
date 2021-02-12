@@ -76,7 +76,11 @@
 									<?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], UJIAN_DISERTASI_KUALIFIKASI]); ?>
 								</td>
 								<td class="text-center">
-									<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
+									<p class="text-center">
+										Status <br/>
+										<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis'=>TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
+									</p>
+									<hr class="divider-line-semi-bold"/>
 									<?php
 										if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS) {
 											?>

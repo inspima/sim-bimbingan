@@ -285,9 +285,6 @@
 					$data = array(
 						'status_promotor' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
 					);
-					$data = array(
-						'status_promotor' => STATUS_DISERTASI_PROMOTOR_SELESAI,
-					);
 					$this->disertasi->update($data, $id_disertasi);
 				}
 

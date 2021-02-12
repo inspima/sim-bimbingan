@@ -47,7 +47,7 @@
 			</div>
 			<div class="box-body table-responsive">
 				<?php
-					if ($disertasi->status_mpkk == STATUS_DISERTASI_MPKK_SETUJUI_KPS):
+					if ($disertasi->status_mpkk == STATUS_DISERTASI_MPKK_PENGAJUAN):
 						?>
 						<?php echo form_open('dosen/disertasi/permintaan/promotor/mkpkk/save'); ?>
 						<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
@@ -64,15 +64,15 @@
 								?>
 							</select>
 						</div>
-						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah</button>
+						<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Ubah</button>
 						<?= form_close() ?>
 					<?php
 					endif;
 				?>
-
+				<div class="divider10"></div>
 				<?php $this->view('backend/widgets/disertasi/list_mkpkk_promotor', ['disertasi' => $disertasi]); ?>
 				<?php
-					if ($disertasi->status_mpkk == STATUS_DISERTASI_MPKK_SETUJUI_KPS):
+					if ($disertasi->status_mpkk == STATUS_DISERTASI_MPKK_PENGAJUAN):
 						?>
 						<div class="divider10"></div>
 						<?php echo form_open('dosen/disertasi/permintaan/promotor/mpkk/setujui') ?>

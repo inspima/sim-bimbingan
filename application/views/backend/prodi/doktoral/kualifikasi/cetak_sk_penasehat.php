@@ -63,7 +63,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<h3 style="margin: 5px;font-weight: normal">
 							KEPUTUSAN DEKAN<br/>
 							NOMOR : <?=strtoupper($no_sk)?><br/>
-							TENTANG PENASEHAT AKADEMIK<br/>
+							TENTANG <br/>
+							PENASEHAT AKADEMIK<br/>
 							BAGI MAHASISWA <?= strtoupper($this->setting->get_value('universitas_prodi_s3_txt')) ?><br/>
 							SEMESTER <?=strtoupper($semester->semester)?><br/>
 							<br/>
@@ -175,7 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<td style="width: 23%">KETIGA</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			Biaya untuk keperluan pelaksanaan keputusan ini dibebankan pada Anggaran POPA Universitas Airlangga Tahun Anggaran 2020/2021
+			Biaya untuk keperluan pelaksanaan keputusan ini dibebankan pada Anggaran POPA Universitas Airlangga Tahun Anggaran <?=$semester->tahun ?>
 		</td>
 	</tr>
 	<tr>
