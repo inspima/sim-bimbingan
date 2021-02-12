@@ -89,25 +89,19 @@
 		{
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
-				$file_name = $this->session_data['username'] . '_berkas_mkpd.pdf';
-				$config['upload_path'] = './assets/upload/mahasiswa/disertasi/mkpd';
-				$config['allowed_types'] = 'pdf';
-				$config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-				$config['remove_spaces'] = true;
-				$config['file_ext_tolower'] = true;
-				$config['detect_mime'] = true;
-				$config['mod_mime_fix'] = true;
-				$config['file_name'] = $file_name;
-				$this->load->library('upload', $config);
-				$this->upload->initialize($config);
-
-				if (!$this->upload->do_upload('berkas_mkpd')) {
-					$this->session->set_flashdata('msg-title', 'alert-danger');
-					$this->session->set_flashdata('msg', $this->upload->display_errors());
-					redirect_back();
-				} else {
-					$id_disertasi = $this->input->post('id_disertasi', true);
-					$tgl_sekarang = date('Y-m-d');
+				$id_disertasi = $this->input->post('id_disertasi', true);
+				$tgl_sekarang = date('Y-m-d');
+				$total_sks = 0;
+				// CEK TOTAL SKS
+				for ($i = 1; $i <= 3; $i++) {
+					$kode = $this->input->post('kode' . $i, true);
+					$nama = $this->input->post('nama' . $i, true);
+					$sks = $this->input->post('sks' . $i, true);
+					if (!empty($kode) && !empty($nama)) {
+						$total_sks += $sks;
+					}
+				}
+				if ($total_sks == 6) {
 					for ($i = 1; $i <= 3; $i++) {
 						$kode = $this->input->post('kode' . $i, true);
 						$nama = $this->input->post('nama' . $i, true);
@@ -122,7 +116,7 @@
 						if (!empty($kode) && !empty($nama)) {
 							$this->disertasi->save_disertasi_mkpd($data_disertasi_mkpd);
 							$disertasi_mkpd = $this->disertasi->detail_disertasi_mkpd_by_data($data_disertasi_mkpd);
-							foreach($dosens as $dosen){
+							foreach ($dosens as $dosen) {
 								$data_pengampu = [
 									'id_disertasi' => $id_disertasi,
 									'id_disertasi_mkpd' => $disertasi_mkpd->id_disertasi_mkpd,
@@ -136,7 +130,6 @@
 					$tgl_sekarang = date('Y-m-d');
 					$data = array(
 						'jenis' => TAHAPAN_DISERTASI_MKPD,
-						'berkas_mkpd' => $file_name,
 						'status_mkpd' => STATUS_DISERTASI_MKPD_PENGAJUAN,
 					);
 
@@ -145,7 +138,12 @@
 					$this->session->set_flashdata('msg-title', 'alert-success');
 					$this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPD..');
 					redirect('mahasiswa/disertasi/mkpd');
+				} else {
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', 'Total SKS tidak sesuai harus 6 SKS untuk semua mata kuliah');
+					redirect_back();
 				}
+
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');

@@ -47,7 +47,7 @@
 			</div>
 			<div class="box-body table-responsive">
 				<?php
-					if ($disertasi->status_mkpd == STATUS_DISERTASI_MKPD_SETUJUI_KPS):
+					if ($disertasi->status_mkpd == STATUS_DISERTASI_MKPD_PENGAJUAN):
 						?>
 						<?php echo form_open('dosen/disertasi/permintaan/promotor/mkpd/update'); ?>
 						<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
@@ -79,7 +79,7 @@
 													$mkpd_pengampus = $this->disertasi->read_disertasi_mkpd_pengampu($mkpd['id_disertasi_mkpd']);
 													$arr_mkpd_pengampu=array_pluck($mkpd_pengampus,'nip');
 												?>
-												<select name="pengampu<?= $i+1 ?>[]" class="form-control select2" style="width: 100%;" data-placeholder="Pilih Pengampu" multiple>
+												<select name="pengampu<?= $i+1 ?>[]" class="form-control select2" style="width: 100%;" data-placeholder="Pilih Pengampu">
 													<option></option>
 													<?php
 														foreach ($mdosen as $list) {
@@ -105,7 +105,7 @@
 				<div class="divider10"></div>
 				<?php $this->view('backend/widgets/disertasi/list_mkpd_promotor', ['disertasi' => $disertasi]); ?>
 				<?php
-					if ($disertasi->status_mkpd == STATUS_DISERTASI_MKPD_SETUJUI_KPS):
+					if ($disertasi->status_mkpd == STATUS_DISERTASI_MKPD_PENGAJUAN):
 						?>
 						<?php echo form_open('dosen/disertasi/permintaan/promotor/mkpd/setujui') ?>
 						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>

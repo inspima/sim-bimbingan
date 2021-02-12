@@ -20,7 +20,6 @@
                 <tr>
                     <th>No</th>
                     <th>Judul</th>
-                    <th>Berkas</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
                 </tr>
@@ -36,9 +35,6 @@
                             $judul = $this->disertasi->read_judul($list['id_disertasi']);
                             echo $judul->judul;
                             ?>
-                        </td>
-                        <td>
-                            <a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/mkpd/<?php echo $list['berkas_mkpd'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                         </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>

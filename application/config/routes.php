@@ -717,6 +717,9 @@
 	$route['prodi/doktoral/disertasi/proposal/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_proposal/cetak_penilaian';
 	$route['prodi/doktoral/disertasi/proposal/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_proposal/cetak_absensi';
 
+	$route['prodi/doktoral/disertasi/mkpd'] = 'backend/prodi/doktoral/disertasi_mkpd';
+	$route['prodi/doktoral/disertasi/mkpd/cetak'] = 'backend/prodi/doktoral/disertasi_mkpd/cetak';
+
 	$route['prodi/doktoral/disertasi/kelayakan'] = 'backend/prodi/doktoral/disertasi_kelayakan';
 	$route['prodi/doktoral/disertasi/kelayakan/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_undangan';
 	$route['prodi/doktoral/disertasi/kelayakan/cetak_berita'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_berita';

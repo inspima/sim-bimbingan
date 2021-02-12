@@ -362,7 +362,7 @@
 			if ($hand == 'center19') {
 				$id_disertasi = $this->input->post('id_disertasi', true);
 				$data = array(
-					'status_mkpd' => STATUS_DISERTASI_MKPD_PENILAIAN,
+					'status_mkpd' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
 				);
 				$this->disertasi->update($data, $id_disertasi);
 

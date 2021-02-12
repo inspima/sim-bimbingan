@@ -33,7 +33,9 @@
 					<?php echo $disertasi->judul ?>
 				</div>
 				<div class="form-group">
-					<label>Mata Kuliah MKPD</label>
+					<label>Mata Kuliah MKPD
+						<i class="label label-info">Total SKS (Semua mata kuliah) harus 6 </i>
+					</label>
 					<table class="table table-bordered">
 						<tr>
 							<th style="width: 10%">Kode MK</th>
@@ -46,16 +48,16 @@
 								?>
 								<tr>
 									<td>
-										<input name="kode<?=$i?>" type="text" class="form-control" >
+										<input name="kode<?=$i?>" type="text" class="form-control" value="PDH807">
 									</td>
 									<td>
 										<textarea name="nama<?=$i?>" class="form-control" style="resize: none" ></textarea>
 									</td>
 									<td>
-										<input name="sks<?=$i?>" type="number" class="form-control" >
+										<input name="sks<?=$i?>" type="number" class="form-control sks-mkpd" value="2" >
 									</td>
 									<td>
-										<select name="pengampu<?=$i?>[]" class="form-control select2" style="width: 100%;"  multiple>
+										<select name="pengampu<?=$i?>[]" class="form-control select2" style="width: 100%;" >
 											<option value="">- Pilih -</option>
 											<?php
 												foreach ($mdosen as $list) {
@@ -71,11 +73,6 @@
 							}
 						?>
 					</table>
-				</div>
-
-				<div class="form-group">
-					<label>Upload Form MKPD <br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
-					<input type="file" name="berkas_mkpd" class="form-control" required>
 				</div>
 			</div>
 			<!-- /.box-body -->

@@ -49,7 +49,7 @@
 						<td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
                             <?php
-                           if ($list['status_mkpd'] == STATUS_DISERTASI_MKPD_PENGAJUAN && $struktural->id_struktur == STRUKTUR_KPS_S3) {
+                           if ($list['status_mkpd'] == STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR && $struktural->id_struktur == STRUKTUR_KPS_S3) {
                                 ?>
                                 <br/><br/>
                                 <?php echo form_open('dosen/disertasi/mkpd/terima') ?>

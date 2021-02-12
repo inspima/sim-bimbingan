@@ -55,7 +55,7 @@ if (count($promotors) == 0) {
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Upload Bukti Transkrip & Blanko MPKK <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
+                    <label>Upload Bukti Transkrip <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
                     <input type="file" name="berkas_mpkk" class="form-control" required>
                 </div>
             </div>

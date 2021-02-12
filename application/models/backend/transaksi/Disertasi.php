@@ -1447,15 +1447,15 @@
 						'color' => 'bg-blue'
 					],
 					[
-						'value' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
-						'text' => 'Disetujui KPS',
-						'keterangan' => 'Disetujui Ketua Prodi',
-						'color' => 'bg-green'
-					],
-					[
 						'value' => STATUS_DISERTASI_MKPD_SETUJUI_PROMOTOR,
 						'text' => 'Disetujui Promotor&Ko-promotor',
 						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
+						'text' => 'Disetujui KPS',
+						'keterangan' => 'Disetujui Ketua Prodi',
 						'color' => 'bg-green'
 					],
 					[
