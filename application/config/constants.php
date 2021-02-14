@@ -93,6 +93,9 @@
 	define('VIEW_ERROR_404', 'errors/html/error_404');
 	define('VIEW_ERROR_GENERAL', 'errors/html/error_general');
 
+	// LOCALE
+	define('PREFIX_PHONE_NUMBER', '+62');
+
 	// FILE UPLOAD
 	define('MAX_SIZE_FILE_UPLOAD', 10000);
 	define('MAX_SIZE_FILE_UPLOAD_DESCRIPTION', '10 MB');

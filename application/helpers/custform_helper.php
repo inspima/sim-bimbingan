@@ -58,6 +58,19 @@
 		return ($form);
 	}
 
+	function formatNoHpWhatsapp($no_hp)
+	{
+		$result = '';
+		if (substr($no_hp, 0, 1) == '0') {
+			$result = PREFIX_PHONE_NUMBER . substr($no_hp, 1);
+		} else if (substr($no_hp, 0, 2) == '62') {
+			$result = PREFIX_PHONE_NUMBER . substr($no_hp, 2);
+		} else {
+			$result = $no_hp;
+		}
+		return $result;
+	}
+
 	function generateNewLineHTML($count)
 	{
 		$html = '';

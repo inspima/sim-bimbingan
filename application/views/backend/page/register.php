@@ -46,12 +46,15 @@
                     <label>SKS Tempuh</label>
                     <input type="number" name="sks" placeholder="SKS Tempuh" class="form-control" required>
                 </div>
+				<div class="form-group">
+					<label>No HP/Whatsapp <span class="text-info">(Digunakan untuk notifikasi)</span></label>
+					<input type="number" name="no_hp" placeholder="08123456789" class="form-control" required>
+				</div>
                 <div class="form-group">
-                    <label>Masukkan Kode dalam gambar</label><br/>
-                    <div id="image_captcha" style="display: inline"><?php echo $captcha_image; ?></div>
-                    <a href="javascript:void(0);" class="captcha-refresh btn btn-success btn-sm" ><i class="fa fa-repeat"></i> </a>
+                    <label>Masukkan hasil perhitungan dibawah</label><br/>
+						<p><i><?=$captcha_num1?></i> x <span><?=$captcha_num2?></span> = ?</p>
                     <div class="divider5"></div>
-                    <input type="text" name="captcha" placeholder="Kode" class="form-control" required>
+                    <input type="text" name="captcha" placeholder="Hasil" class="form-control" required>
                 </div>
             </div>
             <div class="box-footer">

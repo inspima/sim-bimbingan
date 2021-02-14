@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-header with-border">
+            <div class="box-header bg-gray-active">
                 <h3 class="box-title">Biodata</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-bordered">
+                <table class="table table-striped table-condensed">
                     <tr>
-                        <td>Nama</td>
+                        <td style="width: 170px">Nama</td>
                         <td style="width: 10px">:</th>
                         <td><?php echo $biodata->nama ?></th>
                     </tr>
@@ -17,11 +17,11 @@
                         <td style="width: 10px">:</th>
                         <td><?php echo $biodata->nim ?></th>
                     </tr>
-                    <?php if ($biodata->id_jenjang != NULL) { ?>
+                    <?php if ($biodata->id_prodi != NULL) { ?>
                         <tr>
                             <td>Program Studi</td>
                             <td style="width: 10px">:</th>
-                            <td><?php echo $biodata->nm_jenjang . " " . $biodata->nm_prodi ?></th>
+                            <td><?php echo $biodata->nm_prodi ?></th>
                         </tr>
                     <?php } ?>
                     <tr>
@@ -34,6 +34,11 @@
                         <td style="width: 10px">:</th>
                         <td><?php echo $biodata->telp ?></th>
                     </tr>
+					<tr>
+						<td>No HP / Whatsapp</td>
+						<td style="width: 10px">:</th>
+						<td><?php echo $biodata->no_hp ?></th>
+					</tr>
                     <tr>
                         <td>Email</td>
                         <td style="width: 10px">:</th>
@@ -49,7 +54,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-            <div class="box-header">
+            <div class="box-header bg-green-gradient">
                 <h3 class="box-title">Pengumuman</h3>
             </div>
             <!-- /.box-header -->
@@ -88,7 +93,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-            <div class="box-header">
+            <div class="box-header bg-blue-gradient">
                 <h3 class="box-title">Alur Pengajuan</h3>
             </div>
             <!-- /.box-header -->

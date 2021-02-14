@@ -23,7 +23,6 @@
 			$this->load->model('backend/mahasiswa/master/Biodata_model', 'biodata');
 			$this->load->library('session', 'session');
 			$this->load->helper('string');
-			$this->load->helper('captcha');
 		}
 
 		public function register()
@@ -34,11 +33,12 @@
 				$nim = $this->input->post('nim');
 				$id_prodi = $this->input->post('prodi');
 				$sks = $this->input->post('sks');
+				$no_hp = $this->input->post('no_hp');
 				$captcha_insert = $this->input->post('captcha');
 				$password = random_string('alnum', 6);
 				$password_hash = password_hash($password, PASSWORD_BCRYPT);
 				$contain_sess_captcha = $this->session->userdata('captcha_code');
-				if ($captcha_insert === $contain_sess_captcha) {
+				if ($captcha_insert == $contain_sess_captcha) {
 					$prodi = $this->prodi->detail($id_prodi);
 					$role = 0;
 					// SET ROLE
@@ -54,11 +54,10 @@
 						'password' => $password_hash,
 						'sebagai' => 3,
 						'role' => $role,
+						'no_hp' => formatNoHpWhatsapp($no_hp),
 						'status' => 1,
 						'verifikasi' => 0
 					];
-					// Insert User
-					$this->user->create($data_user);
 					$data_mahasiswa = [
 						'nim' => $nim,
 						'nama' => $nama,
@@ -74,29 +73,34 @@
 						$this->session->set_flashdata('msg-title', 'alert-danger');
 						$this->session->set_flashdata('msg', 'Data mahasiswa sudah ada');
 					} else {
+						// Insert User
+						$this->user->create($data_user);
 						// Insert Mahasiswa Mahasiswa
 						$this->user->create_mahasiswa($data_mahasiswa);
 						// Kirim Email
 						$this->email_model->send_registration($email, $nim, $password);
 						$this->session->set_flashdata('msg-title', 'alert-success');
-						$this->session->set_flashdata('msg', 'Registrasi berhasil, silahkan cek email.');
+						$this->session->set_flashdata('msg', 'Registrasi berhasil, silahkan cek email untuk informasi akun.');
 					}
 				} else {
 					$this->session->set_flashdata('msg-title', 'alert-danger');
 					$this->session->set_flashdata('msg', 'Kode verifikasi tidak sesuai');
 				}
 			}
-			$captcha = create_captcha($this->captcha_config);
+			$captcha_num1 = rand(1, 5);
+			$captcha_num2 = rand(6, 9);
+			$captcha = $captcha_num1 * $captcha_num2;
 			$data = array(
 				// PAGE //
 				'title' => 'Registrasi',
 				'subtitle' => '',
 				'section' => 'backend/page/register',
 				'prodis' => $this->prodi->read_all_prodi(),
-				'captcha_image' => $captcha['image'],
+				'captcha_num1' => $captcha_num1,
+				'captcha_num2' => $captcha_num2,
 			);
 			$this->session->unset_userdata('captcha_code');
-			$this->session->set_userdata('captcha_code', $captcha['word']);
+			$this->session->set_userdata('captcha_code', $captcha);
 			$this->load->view('backend/index_top', $data);
 		}
 
@@ -115,10 +119,12 @@
 				$config['file_name'] = $file_name;
 				$this->load->library('upload', $config);
 				$this->upload->initialize($config);
+				$id_user = $this->input->post('id_user', true);
 				$id_mhs = $this->input->post('id_mhs', true);
 				$nama = $this->input->post('nama', true);
 				$alamat = $this->input->post('alamat', true);
 				$telp = $this->input->post('telp', true);
+				$no_hp = $this->input->post('no_hp', true);
 
 
 				if (!$this->upload->do_upload('berkas_verifikasi')) {
@@ -126,14 +132,17 @@
 					$this->session->set_flashdata('msg', $this->upload->display_errors());
 					redirect('auth/verifikasi');
 				} else {
-
+					$data_user = [
+						'no_hp' => formatNoHpWhatsapp($no_hp),
+					];
 					$data_mahasiswa = [
 						'nama' => $nama,
 						'telp' => $telp,
 						'alamat' => $alamat,
 						'berkas_verifikasi' => $file_name,
 					];
-					// Inser Mahasiswa Mahasiswa
+					$this->user->update_p($data_user, $id_user);
+					// Update Mahasiswa
 					$this->user->update_mahasiswa($data_mahasiswa, $id_mhs);
 
 					$this->session->set_flashdata('msg-title', 'alert-success');

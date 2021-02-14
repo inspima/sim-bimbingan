@@ -49,7 +49,7 @@
                         <td>Alamat</td>
                         <td style="width: 5%">:</td>
                         <td>
-                            <textarea name="alamat" class="form-control"><?php echo $biodata->alamat ?></textarea>
+                            <textarea name="alamat" class="form-control" required><?php echo $biodata->alamat ?></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -59,6 +59,13 @@
                             <input name="telp" type="text" class="form-control" value="<?php echo $biodata->telp ?>"/>
                         </td>
                     </tr>
+					<tr>
+						<td>No HP</td>
+						<td style="width: 5%">:</td>
+						<td>
+							<input name="no_hp" type="text" class="form-control" value="<?php echo $biodata->no_hp ?>"/>
+						</td>
+					</tr>
                     <tr>
                         <td style="width: 20%">Berkas - Bukti KRS <br/><b>(format file .pdf maks 1mb)</b>
                             <?php
@@ -72,13 +79,13 @@
                         </td>
                         <td style="width: 5%">:</td>
                         <td>
-
-                            <input name="berkas_verifikasi" type="file" class="form-control"/>
+                            <input name="berkas_verifikasi" type="file" class="form-control" required/>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="box-footer">
+				<input type="hidden" name="id_user" value="<?= $biodata->id_user ?>">
                 <input type="hidden" name="id_mhs" value="<?= $biodata->id_mahasiswa ?>">
                 <input type="hidden" name="_token" value="<?= sha1(rand(90000000, 9999999)) ?>">                
                 <button type="submit" class="btn btn-sm btn-success pull-right"><i class="fa fa-check"></i> Simpan</button>
