@@ -40,10 +40,10 @@
 							?>
 						</td>
 						<td>
-							<?php $this->view('backend/widgets/disertasi/column_mkpd_prodi', ['id_disertasi' => $list['id_disertasi']]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_mkpd_prodi', ['id_disertasi' => $list['id_disertasi'], 'disertasi' => $list]); ?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
 
 						</td>
 					</tr>

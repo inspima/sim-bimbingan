@@ -52,7 +52,7 @@
 						</td>
 						<td><?= woday_toindo($list['waktu_pengajuan_proposal']) ?></td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
 
 							<?php if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_SELESAI) {
 								?>

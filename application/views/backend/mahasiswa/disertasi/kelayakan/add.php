@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Upload Transkrip <br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
+                    <label>Upload Transkrip, Nilai MKPD, Bukti Turnitin 25 % <br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
                     <input type="file" name="berkas_kelayakan" class="form-control" required>
                 </div>
             </div>

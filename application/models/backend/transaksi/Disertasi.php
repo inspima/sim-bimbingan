@@ -833,8 +833,9 @@
 
 		public function read_disertasi_mkpkk($id_disertasi)
 		{
-			$this->db->select('*');
+			$this->db->select('m.*,mk.kode,mk.sks');
 			$this->db->from('disertasi_mkpkk m');
+			$this->db->join('mkpkk mk', 'mk.id_mkpkk = m.id_mkpkk');
 			$this->db->where('m.id_disertasi', $id_disertasi);
 			$query = $this->db->get();
 			return $query->result_array();
@@ -842,8 +843,9 @@
 
 		public function detail_disertasi_mkpkk($id_disertasi, $id_mkpkk)
 		{
-			$this->db->select('*');
+			$this->db->select('m.*,mk.kode,mk.sks');
 			$this->db->from('disertasi_mkpkk m');
+			$this->db->join('mkpkk mk', 'mk.id_mkpkk = m.id_mkpkk');
 			$this->db->where('m.id_disertasi', $id_disertasi);
 			$this->db->where('m.id_mkpkk', $id_mkpkk);
 			$query = $this->db->get();
@@ -1274,7 +1276,7 @@
 					],
 					[
 						'value' => STATUS_DISERTASI_KUALIFIKASI_UJIAN,
-						'text' => 'Ujian',
+						'text' => 'Menunggu Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
 					],
@@ -1351,6 +1353,12 @@
 						'color' => 'bg-green'
 					],
 					[
+						'value' => STATUS_DISERTASI_MPKK_CETAK_SK,
+						'text' => 'Cetak SK',
+						'keterangan' => 'Proses Penerbitan SK Oleh Admin Prodi',
+						'color' => 'bg-orange'
+					],
+					[
 						'value' => STATUS_DISERTASI_MPKK_PENILAIAN,
 						'text' => 'Proses Penilaian',
 						'keterangan' => 'Proses Penilaian Oleh Masing Masing dosen pengampu',
@@ -1415,7 +1423,7 @@
 					],
 					[
 						'value' => STATUS_DISERTASI_PROPOSAL_UJIAN,
-						'text' => 'Ujian',
+						'text' => 'Menunggu Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
 					],
@@ -1457,6 +1465,12 @@
 						'text' => 'Disetujui KPS',
 						'keterangan' => 'Disetujui Ketua Prodi',
 						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_MKPD_CETAK_SK,
+						'text' => 'Cetak SK',
+						'keterangan' => 'Proses Penerbitan SK Oleh Admin Prodi',
+						'color' => 'bg-orange'
 					],
 					[
 						'value' => STATUS_DISERTASI_MKPD_PENILAIAN,
@@ -1517,7 +1531,7 @@
 					],
 					[
 						'value' => STATUS_DISERTASI_KELAYAKAN_UJIAN,
-						'text' => 'Ujian',
+						'text' => 'Menunggu Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
 					],
@@ -1580,7 +1594,7 @@
 					],
 					[
 						'value' => STATUS_DISERTASI_TERTUTUP_UJIAN,
-						'text' => 'Ujian',
+						'text' => 'Menunggu Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
 					],
@@ -1643,7 +1657,7 @@
 					],
 					[
 						'value' => STATUS_DISERTASI_TERBUKA_UJIAN,
-						'text' => 'Ujian',
+						'text' => 'Menunggu Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
 					],

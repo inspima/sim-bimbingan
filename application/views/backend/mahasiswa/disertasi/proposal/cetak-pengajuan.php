@@ -98,7 +98,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <table align="center" width="100%" border="0">
 	<tr>
 		<td width="17%"></td>
-		<td width="83%">Sesuai dengan rekomendasi Program Doktor tentang Ujian Kualifikasi telah siap untuk melaksanakan Ujian Kualifikasi yang kami rencanakan pada :</td>
+		<td width="83%">Sesuai dengan rekomendasi Program Doktor tentang Ujian Proposal telah siap untuk melaksanakan Ujian Proposal yang kami rencanakan pada :</td>
 	</tr>
 	<tr>
 		<td width="17%"></td>
@@ -162,7 +162,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <table align="center" width="100%" border="0">
 	<tr>
 		<td width="17%"></td>
-		<td width="83%">Sehubungan dengan hal tersebut, dengan ini kami mohon bantuan Saudara memproses pelaksanaan Ujian Kualifikasi bagi yang bersangkutan.</td>
+		<td width="83%">Sehubungan dengan hal tersebut, dengan ini kami mohon bantuan Saudara memproses pelaksanaan Ujian Proposal bagi yang bersangkutan.</td>
 	</tr>
 	<tr>
 		<td width="17%"></td>

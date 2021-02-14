@@ -690,6 +690,8 @@
 	$route['dosen/dokumen/berita_acara/riwayat'] = 'backend/dosen/dokumen/berita_acara/riwayat';
 	$route['dosen/dokumen/berita_acara/persetujuan/(:num)'] = 'backend/dosen/dokumen/berita_acara/persetujuan';
 	$route['dosen/dokumen/berita_acara/persetujuan/save'] = 'backend/dosen/dokumen/berita_acara/persetujuan_save';
+	$route['dosen/dokumen/undangan'] = 'backend/dosen/dokumen/undangan';
+	$route['dosen/dokumen/undangan/riwayat'] = 'backend/dosen/dokumen/undangan/riwayat';
 
 	// ADMIN PRODI
 	$route['prodi/dashboard'] = 'backend/prodi/prodi_page/dashboard';
@@ -709,6 +711,7 @@
 
 	$route['prodi/doktoral/disertasi/mkpkk'] = 'backend/prodi/doktoral/disertasi_mkpkk';
 	$route['prodi/doktoral/disertasi/mkpkk/cetak'] = 'backend/prodi/doktoral/disertasi_mkpkk/cetak';
+	$route['prodi/doktoral/disertasi/mkpkk/cetak-sk'] = 'backend/prodi/doktoral/disertasi_mkpkk/cetak_sk';
 
 	$route['prodi/doktoral/disertasi/proposal'] = 'backend/prodi/doktoral/disertasi_proposal';
 	$route['prodi/doktoral/disertasi/proposal/terima'] = 'backend/prodi/doktoral/disertasi_proposal/terima';
@@ -719,6 +722,7 @@
 
 	$route['prodi/doktoral/disertasi/mkpd'] = 'backend/prodi/doktoral/disertasi_mkpd';
 	$route['prodi/doktoral/disertasi/mkpd/cetak'] = 'backend/prodi/doktoral/disertasi_mkpd/cetak';
+	$route['prodi/doktoral/disertasi/mkpd/cetak-sk'] = 'backend/prodi/doktoral/disertasi_mkpd/cetak_sk';
 
 	$route['prodi/doktoral/disertasi/kelayakan'] = 'backend/prodi/doktoral/disertasi_kelayakan';
 	$route['prodi/doktoral/disertasi/kelayakan/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_undangan';

@@ -22,6 +22,7 @@
 			//END SESS
 			//START MODEL
 			$this->load->model('backend/master/setting', 'setting');
+			$this->load->model('backend/master/semester', 'semester');
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
 			$this->load->model('backend/administrator/master/ruang_model', 'ruang');
@@ -68,6 +69,48 @@
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
 				$this->pdf->filename = "PENILAIAN MKPD - ".$disertasi->nim." - ".$disertasi_mkpd->mkpd.'.pdf';
+				$this->pdf->load_view($page, $data);
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
+		}
+
+		public function cetak_sk()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_disertasi = $this->input->post('id_disertasi', true);
+				$no_sk = $this->input->post('no_sk', true);
+				$disertasi = $this->disertasi->detail($id_disertasi);
+				$disertasi_mkpds = $this->disertasi->read_disertasi_mkpd($id_disertasi);
+				// Jika Status belum cetak SK
+				if ($disertasi->status_mkpd < STATUS_DISERTASI_MKPD_CETAK_SK) {
+					$data = array(
+						'status_mkpd' => STATUS_DISERTASI_MKPD_CETAK_SK,
+					);
+					$data = array(
+						'status_mkpd' => STATUS_DISERTASI_MKPD_PENILAIAN,
+					);
+					$this->disertasi->update($data, $id_disertasi);
+				}
+
+				$data = array(
+					'no_sk' => $no_sk,
+					'semester' => $this->semester->detail_berjalan(),
+					'disertasi' => $disertasi,
+					'wadek' => $this->struktural->read_wadek1(),
+					'kps_s3' => $this->struktural->read_kps_s3(),
+					'disertasi_mkpds' => $disertasi_mkpds,
+				);
+				//print_r($data['penguji_ketua']);die();
+				ob_end_clean();
+				$header = 'backend/widgets/common/pdf_header';
+				$page = 'backend/prodi/doktoral/mkpd/cetak-sk';
+				$size = 'a4';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "SURAT KEPUTUSAN - PENGAJAR MKPD - " . $disertasi->nim . '.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');

@@ -273,8 +273,8 @@
         </a>
         <ul class="treeview-menu">
             <li><a href="<?php echo base_url() ?>dosen/dokumen/berita_acara"><i class="fa fa-circle-o"></i>Berita Acara</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Undangan</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i>Surat Tugas</a></li>
+            <li><a href="<?php echo base_url() ?>dosen/dokumen/undangan"><i class="fa fa-circle-o"></i>Undangan</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>Surat Tugas</a></li>
         </ul>
     </li>
 </ul>

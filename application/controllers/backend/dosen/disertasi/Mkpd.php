@@ -53,7 +53,7 @@ class Mkpd extends CI_Controller {
             if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
 
                 $data = array(
-                    'status_mkpd' => STATUS_DISERTASI_MKPD_PENILAIAN,
+                    'status_mkpd' => STATUS_DISERTASI_MKPD_SETUJUI_KPS,
                 );
 
             }
