@@ -46,15 +46,16 @@
 						<option value="3">Admin Prodi</option>
                     </select>
                 </div>
+
 				<div class="form-group">
-					<label>Jenjang</label>
+					<label>Prodi</label>
 					<span class="text-info">Khusus Admin Prodi</span>
-					<select name="id_jenjang" class="form-control" style="width: 100%;" required>
-						<option value="0">Pilih Jenjang</option>
+					<select name="id_prodi" class="form-control" style="width: 100%;" required>
+						<option value="0">Pilih Prodi</option>
 						<?php
-							foreach ($jenjang as $list) {
+							foreach ($prodis as $prodi) {
 								?>
-								<option value="<?php echo $list['id_jenjang'] ?>"><?php echo $list['nm_jenjang'] ?></option>
+								<option value="<?php echo $prodi['id_prodi'] ?>"><?php echo $prodi['jenjang'] ?> <?php echo $prodi['nm_prodi'] ?></option>
 								<?php
 							}
 						?>
