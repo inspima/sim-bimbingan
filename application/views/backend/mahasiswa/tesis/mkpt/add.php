@@ -132,20 +132,23 @@
                                             <textarea name="nama<?=$i?>" class="form-control" style="resize: none" ></textarea>
                                         </td>
                                         <td>
-                                            <input name="sks<?=$i?>" type="number" value="2" class="form-control" >
+                                            2
+                                            <!-- <input name="sks<?php //echo $i?>" type="number" value="2" class="form-control" > -->
                                         </td>
                                         <td>
-                                            <select name="pengampu<?=$i?>[]" class="form-control select2" style="width: 100%;"  multiple>
+                                            <!-- <select name="pengampu<?=$i?>[]" class="form-control select2" style="width: 100%;"  multiple>
                                                 <option value="">- Pilih -</option>
                                                 <?php
-                                                    foreach ($mdosen as $list) {
+                                                    /*foreach ($mdosen as $list) {
                                                         ?>
                                                         <option value="<?php echo $list['nip'] ?>"><?php echo $list['nip'].' - '.$list['nama'] ?></option>
                                                         <?php
-                                                    }
+                                                    }*/
                                                 ?>
-                                            </select>
+                                            </select> -->
                                         </td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     <?php
                                 }

@@ -85,7 +85,7 @@ class Mkpt extends CI_Controller {
                     //$kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
                     $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
                     $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
-                    $dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
+                    $dosen = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
                     $data_tesis_mkpt = [
                         'id_tesis' => $id_tesis,
                         //'kode' => $kode,
@@ -96,7 +96,8 @@ class Mkpt extends CI_Controller {
                         $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
                         $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
                         $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
-                        foreach($dosens as $dosen){
+                        //foreach($dosens as $dosen){
+                        if(!empty($mkpt_pengampus)){
                             foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
                                 $data_pengampu = [
                                     'id_tesis' => $id_tesis,
@@ -111,6 +112,16 @@ class Mkpt extends CI_Controller {
                                 }
                             }
                         }
+                        else {
+                            $data_pengampu = [
+                                'id_tesis' => $id_tesis,
+                                'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                'nip' => $dosen,
+                            ];
+
+                            $this->tesis->save_tesis_mkpt_pengampu($data_pengampu);
+                        }
+                        //}
                     }
                 }
             }
@@ -963,7 +974,9 @@ class Mkpt extends CI_Controller {
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses');
                 redirect('dosen/tesis/mkpt/setting_pengampu/' . $id_tesis);
-            } else if (in_array($status_ujian, [1, 2])) { //layak
+            } 
+            //else if (in_array($status_ujian, [1, 2])) { //layak
+            else if ($status_ujian == '1' OR $status_ujian == '2') { //layak
                 //update proposal selesai
                 $data = array(
                     'status_mkpt' => STATUS_TESIS_MKPT_UJIAN_SELESAI,

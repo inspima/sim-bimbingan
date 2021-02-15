@@ -59,10 +59,10 @@
                         </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_MKPT]); ?>
-                            <?php if ($list['status_proposal'] > STATUS_TESIS_MKPT_UJIAN) {
+                            <?php if ($list['status_mkpt'] > STATUS_TESIS_MKPT_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
-                                <b>Hasil Ujian <?= $list['status_tesis'].' '.STATUS_TESIS_UJIAN_DITOLAK;?></b><br/>
+                                <b>Hasil Ujian</b><br/>
                                 <?php
                                 echo $this->tesis->get_status_ujian($list['status_ujian_mkpt'], UJIAN_TESIS_MKPT);
                                 ?>

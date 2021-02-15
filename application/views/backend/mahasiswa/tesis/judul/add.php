@@ -27,7 +27,7 @@
                 </div> -->
                 <div class="form-group">
                     <label>Minat</label>
-                    <select name="departemen" class="form-control select2" style="width: 100%;" required>
+                    <select name="minat" class="form-control select2" style="width: 100%;" required>
                         <option value="">- Pilih -</option>
                         <?php
                         foreach ($minat as $list) {

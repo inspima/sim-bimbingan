@@ -130,7 +130,14 @@ class Ujian extends CI_Controller {
             }
 
             $id_tesis = $this->input->post('id_tesis', TRUE);
-            $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_MKPT);
+            $id_prodi = $this->tesis->cek_prodi($id_tesis);
+
+            if($id_prodi == S2_ILMU_HUKUM){
+                $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_MKPT);
+            }
+            else {
+                $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_PROPOSAL);
+            }
             $tgl_sekarang = date('Y-m-d');
             $data = array(
                 'jenis' => TAHAPAN_TESIS_UJIAN,

@@ -415,16 +415,18 @@ class Tesis extends CI_Model {
             $data = array(
                 'status_pembimbing_satu' => '1'
             );
-            $this->db->update('tesis', $data);
             $this->db->where('id_tesis', $id_tesis);
+            $this->db->update('tesis', $data);
+            
         }
         
         if($tesis->nip_pembimbing_dua == $this->session_data['username']){
             $data = array(
                 'status_pembimbing_dua' => '1'
             );
-            $this->db->update('tesis', $data);
             $this->db->where('id_tesis', $id_tesis);
+            $this->db->update('tesis', $data);
+            
         }
 
         $this->db->select('tesis.*');
@@ -437,8 +439,9 @@ class Tesis extends CI_Model {
             $data = array(
                 'status_judul' => STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING
             );
-            $this->db->update('tesis', $data);
             $this->db->where('id_tesis', $id_tesis);
+            $this->db->update('tesis', $data);
+            
         }
     }
     
@@ -463,8 +466,9 @@ class Tesis extends CI_Model {
             );
         }
 
-        $this->db->update('tesis', $data);
         $this->db->where('id_tesis', $id_tesis);
+        $this->db->update('tesis', $data);
+        
     }
 
     function batal_pembimbing_proposal($id_tesis)
@@ -488,8 +492,9 @@ class Tesis extends CI_Model {
             );
         }
 
-        $this->db->update('tesis', $data);
         $this->db->where('id_tesis', $id_tesis);
+        $this->db->update('tesis', $data);
+        
     }
 
     function approval_pengampu_mkpt($id_tesis_mkpt_pengampu)
@@ -533,6 +538,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
@@ -540,6 +546,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -547,6 +554,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -592,6 +600,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
@@ -599,6 +608,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -606,6 +616,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -651,6 +662,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
@@ -658,6 +670,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -665,6 +678,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -710,6 +724,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
@@ -717,6 +732,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -724,6 +740,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -769,6 +786,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_mkpt && $hitung_approve > 0){
@@ -776,6 +794,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -783,6 +802,7 @@ class Tesis extends CI_Model {
                 'status_mkpt' => STATUS_TESIS_MKPT_UJIAN
             );
 
+            $this->db->where('id_tesis', $tesis->id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -827,6 +847,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_penguji && $hitung_approve > 0){
@@ -834,6 +855,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -841,6 +863,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -875,6 +898,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_penguji && $hitung_approve > 0){
@@ -882,6 +906,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -889,6 +914,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -923,6 +949,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung_approve < $hitung_penguji && $hitung_approve > 0){
@@ -930,6 +957,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else {
@@ -937,6 +965,7 @@ class Tesis extends CI_Model {
                 'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -972,6 +1001,7 @@ class Tesis extends CI_Model {
                 'status_tesis' => STATUS_TESIS_UJIAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung > 0){
@@ -979,6 +1009,7 @@ class Tesis extends CI_Model {
                 'status_tesis' => STATUS_TESIS_UJIAN_SETUJUI_PENGUJI
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -1032,6 +1063,7 @@ class Tesis extends CI_Model {
                 'status_tesis' => STATUS_TESIS_UJIAN
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
         else if($hitung > 0){
@@ -1039,6 +1071,7 @@ class Tesis extends CI_Model {
                 'status_tesis' => STATUS_TESIS_UJIAN_SETUJUI_PENGUJI
             );
 
+            $this->db->where('id_tesis', $id_tesis);
             $this->db->update('tesis', $data);
         }
     }
@@ -1146,7 +1179,7 @@ class Tesis extends CI_Model {
         $this->db->where('s.nim', $username);
         $this->db->where('s.jenis', TAHAPAN_TESIS_MKPT);
         //$this->db->where_in('s.status_proposal', $stts);
-        $this->db->where_in('s.status_judul', $stts);
+        $this->db->where_in('s.status_mkpt', $stts);
         $this->db->limit(1);
         $this->db->order_by('s.id_tesis', 'desc');
 
@@ -1180,10 +1213,11 @@ class Tesis extends CI_Model {
     function detail($id) {
         $this->db->select('s.*,pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
             pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, 
-            dn.departemen, m.nim, m.nama,jd.judul,pr.nm_prodi,jn.jenjang');
+            dn.departemen, m.nim, m.nama,jd.judul,pr.nm_prodi,jn.jenjang, mt.nm_minat');
         $this->db->from('tesis s');
         $this->db->join('judul_tesis jd', 'jd.id_tesis=s.id_tesis and jd.status=\'1\'');
         $this->db->join('departemen dn', 's.id_departemen = dn.id_departemen', 'left');
+        $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
         $this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
         $this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
         //$this->db->join('pegawai pg', 'pg.nip = s.nip_penasehat', 'left');
@@ -1660,7 +1694,7 @@ class Tesis extends CI_Model {
         $this->db->select('*');
         $this->db->from('tesis_mkpt m');
         $this->db->where('m.id_tesis', $data['id_tesis']);
-        $this->db->where('m.kode', $data['kode']);
+        //$this->db->where('m.kode', $data['kode']);
         $this->db->where('m.mkpt', $data['mkpt']);
         $query = $this->db->get();
         return $query->row();

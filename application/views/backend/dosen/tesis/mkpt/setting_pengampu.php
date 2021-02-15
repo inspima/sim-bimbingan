@@ -76,61 +76,86 @@
                                 $sudah_publish_semua=$this->tesis->cek_mkpt_sudah_publish($tesis->id_tesis);
                                 foreach ($tesis_mkpts as $index => $mkpt) {
                                     $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
-                                    foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
-                                        if($pengampu['status'] == '1' OR $pengampu['status'] == '2'){
-                                            if($pengampu['status'] == '1'){
-                                            	$hitung_pengampu_setuju = $hitung_pengampu_setuju + 1;
-                                                $status = '<button type="button" class="btn btn-xs btn-success"> Disetujui</button>';
-                                            } 
-                                            else if($pengampu['status'] == '2'){
-                                                $status = '<button type="button" class="btn btn-xs btn-danger"> Ditolak</button>';
-                                            }
-
-                                            foreach ($mdosen as $list) {
-                                                $dosen_mkpt = '';
-                                                if($pengampu['nip'] == $list['nip']){
-                                                    $dosen_mkpt = $list['nama'];
+                                    if(!empty($mkpt_pengampus)){
+                                        foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                                            if($pengampu['status'] == '1' OR $pengampu['status'] == '2'){
+                                                if($pengampu['status'] == '1'){
+                                                	$hitung_pengampu_setuju = $hitung_pengampu_setuju + 1;
+                                                    $status = '<button type="button" class="btn btn-xs btn-success"> Disetujui</button>';
+                                                } 
+                                                else if($pengampu['status'] == '2'){
+                                                    $status = '<button type="button" class="btn btn-xs btn-danger"> Ditolak</button>';
                                                 }
-                                            }
 
-                                            if($mkpt['nilai_publish'] != ''){
-                                            	$hitung_nilai_publish = $hitung_nilai_publish + 1;
+                                                foreach ($mdosen as $list) {
+                                                    $dosen_mkpt = '';
+                                                    if($pengampu['nip'] == $list['nip']){
+                                                        $dosen_mkpt = $list['nama'];
+                                                    }
+                                                }
+
+                                                if($mkpt['nilai_publish'] != ''){
+                                                	$hitung_nilai_publish = $hitung_nilai_publish + 1;
+                                                }
+                                                echo '
+                                                <tr>
+                                                    <td>'.$mkpt['mkpt'].'</td>
+                                                    <td>'.$mkpt['sks'].'</td>
+                                                    <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
+                                                    <td>'.$status.'</td>
+                                                    <td>'.$pengampu['nilai_angka'].'</td>
+                                                </tr>
+                                                ';
                                             }
-                                            echo '
-                                            <tr>
-                                                <td>'.$mkpt['mkpt'].'</td>
-                                                <td>'.$mkpt['sks'].'</td>
-                                                <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
-                                                <td>'.$status.'</td>
-                                                <td>'.$pengampu['nilai_angka'].'</td>
-                                            </tr>
-                                            ';
-                                        }
-                                        else {
-                                            $status = '<button type="button" class="btn btn-xs btn-warning"> Menunggu Persetujuan</button>';
-                                            echo '
-                                            <tr>
-                                                <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
-                                                <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
-                                                <td>
-                                                    <select name="pengampu'.$mkpt['id_tesis_mkpt'].'" class="form-control select2" style="width: 100%;">
-                                                        <option value="">- Pilih -</option>';
-                                                        foreach ($mdosen as $list) {
-                                                            $selected = '';
-                                                            if($pengampu['nip'] == $list['nip']){
-                                                                $selected = 'selected';
+                                            else {
+                                                $status = '<button type="button" class="btn btn-xs btn-warning"> Menunggu Persetujuan</button>';
+                                                echo '
+                                                <tr>
+                                                    <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
+                                                    <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
+                                                    <td>
+                                                        <select name="pengampu'.$mkpt['id_tesis_mkpt'].'" class="form-control select2" style="width: 100%;">
+                                                            <option value="">- Pilih -</option>';
+                                                            foreach ($mdosen as $list) {
+                                                                $selected = '';
+                                                                if($pengampu['nip'] == $list['nip']){
+                                                                    $selected = 'selected';
+                                                                }
+                                                                echo '<option value="'.$list['nip'].'" '.$selected.' >'.$list['nip'].' - '.$list['nama'].'</option>';
                                                             }
-                                                            echo '<option value="'.$list['nip'].'" '.$selected.' >'.$list['nip'].' - '.$list['nama'].'</option>';
-                                                        }
-                                                    echo '
-                                                    </select>
-                                                </td>
-                                                <td>'.$status.'</td>
-                                            </tr>
-                                            ';
+                                                        echo '
+                                                        </select>
+                                                    </td>
+                                                    <td>'.$status.'</td>
+                                                </tr>
+                                                ';
+                                            }
+                                            ?>
+                                        <?php
                                         }
-                                        ?>
-                                    <?php
+                                    }
+                                    else {
+                                        echo '
+                                        <tr>
+                                            <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
+                                            <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
+                                            <td>
+                                                <select name="pengampu'.$mkpt['id_tesis_mkpt'].'" class="form-control select2" style="width: 100%;">
+                                                    <option value="">- Pilih -</option>';
+                                                    foreach ($mdosen as $list) {
+                                                        $selected = '';
+                                                        if($pengampu['nip'] == $list['nip']){
+                                                            $selected = 'selected';
+                                                        }
+                                                        echo '<option value="'.$list['nip'].'" '.$selected.' >'.$list['nip'].' - '.$list['nama'].'</option>';
+                                                    }
+                                                echo '
+                                                </select>
+                                            </td>
+                                            <td>'.$status.'</td>
+                                            <td></td>
+                                        </tr>
+                                        ';
                                     }
                                 }
                             }
@@ -158,6 +183,8 @@
                                                 ?>
                                             </select>
                                         </td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     <?php
                                 }

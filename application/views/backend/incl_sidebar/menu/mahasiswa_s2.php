@@ -23,7 +23,13 @@
                         <!--<li><a href="<?php //echo base_url() ?>dashboardm/magister/tesis"><i class="fa fa-circle-o"></i> Tesis</a></li>--> 
             <li><a href="<?php echo base_url() ?>mahasiswa/tesis/judul"><i class="fa fa-circle-o"></i> Judul</a></li>
             <li><a href="<?php echo base_url() ?>mahasiswa/tesis/proposal"><i class="fa fa-circle-o"></i> Proposal</a></li>
+            <?php
+            if($this->session_data['id_prodi'] == S2_ILMU_HUKUM):
+            ?>
             <li><a href="<?php echo base_url() ?>mahasiswa/tesis/mkpt"><i class="fa fa-circle-o"></i> MKPT</a></li>
+            <?php
+            endif;
+            ?>
             <li><a href="<?php echo base_url() ?>mahasiswa/tesis/ujian"><i class="fa fa-circle-o"></i> Tesis</a></li>
         </ul>
     </li>

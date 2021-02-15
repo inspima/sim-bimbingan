@@ -240,6 +240,7 @@ class Judul extends CI_Controller {
             // DATA //
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'departemen' => $this->departemen->read(),
+            'minat' => $this->minat_tesis->read(),
             'gelombang' => $this->gelombang->read_berjalan(),
             'tesis' => $this->tesis->detail($id),
             'id_prodi' => $id_prodi,

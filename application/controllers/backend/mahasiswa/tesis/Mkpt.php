@@ -64,7 +64,7 @@ class Mkpt extends CI_Controller {
         $id_tesis = $this->uri->segment('5');
         $read_aktif = $this->tesis->read_aktif_mkpt($this->session_data['username']);
 
-        if (!$read_aktif) {
+        if ($read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Masih ada judul aktif');
             redirect('mahasiswa/tesis/mkpt');
@@ -120,7 +120,8 @@ class Mkpt extends CI_Controller {
                     foreach ($tesis_mkpts as $index => $mkpt) {
                         //$kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
                         $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
-                        $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                        //$sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                        $sks = '2';
                         //$dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
                         $data_tesis_mkpt = [
                             'id_tesis' => $id_tesis,
@@ -154,7 +155,8 @@ class Mkpt extends CI_Controller {
                     for ($i = 1; $i <= 3; $i++) {
                         //$kode = $this->input->post('kode' . $i, true);
                         $nama = $this->input->post('nama' . $i, true);
-                        $sks = $this->input->post('sks' . $i, true);
+                        //$sks = $this->input->post('sks' . $i, true);
+                        $sks = '2';
                         //$dosens = $this->input->post('pengampu' . $i, true);
                         $data_tesis_mkpt = [
                             'id_tesis' => $id_tesis,
@@ -269,7 +271,8 @@ class Mkpt extends CI_Controller {
                         foreach ($tesis_mkpts as $index => $mkpt) {
                             //$kode = $this->input->post('kode' . $mkpt['id_tesis_mkpt'], true);
                             $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
-                            $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                            //$sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
+                            $sks = '2';
                             //$dosens = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
                             $data_tesis_mkpt = [
                                 'id_tesis' => $id_tesis,
@@ -303,7 +306,8 @@ class Mkpt extends CI_Controller {
                         for ($i = 1; $i <= 3; $i++) {
                             //$kode = $this->input->post('kode' . $i, true);
                             $nama = $this->input->post('nama' . $i, true);
-                            $sks = $this->input->post('sks' . $i, true);
+                            //$sks = $this->input->post('sks' . $i, true);
+                            $sks = '2';
                             //$dosens = $this->input->post('pengampu' . $i, true);
                             $data_tesis_mkpt = [
                                 'id_tesis' => $id_tesis,
