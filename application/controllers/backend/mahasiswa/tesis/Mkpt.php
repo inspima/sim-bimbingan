@@ -62,7 +62,7 @@ class Mkpt extends CI_Controller {
 
     public function add() {
         $id_tesis = $this->uri->segment('5');
-        $read_aktif = $this->tesis->read_aktif($this->session_data['username']);
+        $read_aktif = $this->tesis->read_aktif_mkpt($this->session_data['username']);
 
         if (!$read_aktif) {
             $this->session->set_flashdata('msg-title', 'alert-danger');

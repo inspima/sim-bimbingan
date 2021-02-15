@@ -94,6 +94,7 @@ class Tesis extends CI_Model {
         $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
         $this->db->where('s.status_judul >', 0);
         $this->db->where('m.id_prodi =', $id);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -114,6 +115,7 @@ class Tesis extends CI_Model {
         $this->db->where('s.status_judul >=', STATUS_TESIS_JUDUL_SETUJUI_SPS);
         $this->db->where('m.id_prodi =', $id);
         $this->db->where('s.nip_pembimbing_satu IS NOT NULL');
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -139,6 +141,7 @@ class Tesis extends CI_Model {
         else {
             $this->db->where('s.status_judul =', $status);
         }
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -183,6 +186,7 @@ class Tesis extends CI_Model {
             $this->db->where('s.status_proposal =', $status_proposal);
         }
         $this->db->where('m.id_prodi =', $id);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -201,6 +205,7 @@ class Tesis extends CI_Model {
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('s.status_proposal >', 0);
         $this->db->where('d.id_departemen =', $id_departemen);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -220,6 +225,7 @@ class Tesis extends CI_Model {
         $this->db->where('s.status_judul =', STATUS_TESIS_JUDUL_SETUJUI_SPS);
         $this->db->where('d.id_departemen =', $id_departemen);
         $this->db->where('s.nip_pembimbing_satu IS NULL');
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -239,6 +245,7 @@ class Tesis extends CI_Model {
         $this->db->where('s.status_judul >=', STATUS_TESIS_JUDUL_SETUJUI_SPS);
         $this->db->where('d.id_departemen =', $id_departemen);
         $this->db->where('s.nip_pembimbing_satu IS NOT NULL');
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -1128,6 +1135,25 @@ class Tesis extends CI_Model {
         return $query->row();
     }
 
+    function read_aktif_mkpt($username) {
+        $stts = array('1', '2', '3');
+        $this->db->select('s.id_tesis, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, s.id_departemen, s.tgl_pengajuan, s.status_proposal, s.berkas_proposal, d.departemen');
+        $this->db->from('tesis s');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+        $this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
+        $this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
+        $this->db->where('s.nim', $username);
+        $this->db->where('s.jenis', TAHAPAN_TESIS_MKPT);
+        //$this->db->where_in('s.status_proposal', $stts);
+        $this->db->where_in('s.status_judul', $stts);
+        $this->db->limit(1);
+        $this->db->order_by('s.id_tesis', 'desc');
+
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     function read_aktif_tesis($username) {
         $stts = array('1', '2', '3', '4', '5', '6');
         $this->db->select('s.id_tesis, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
@@ -1165,6 +1191,7 @@ class Tesis extends CI_Model {
         $this->db->join('prodi pr', 'pr.id_prodi= m.id_prodi', 'left');
         $this->db->join('jenjang jn', 'jn.id_jenjang= m.id_jenjang', 'left');
         $this->db->where('s.id_tesis', $id);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis, pg1.nip, pg1.nama, pg2.nip,pg2.nama, dn.departemen, m.nim, m.nama,jd.judul,pr.nm_prodi,jn.jenjang');
 
         $query = $this->db->get();
@@ -1243,6 +1270,7 @@ class Tesis extends CI_Model {
         $this->db->where('m.id_prodi', $id);
         $this->db->where('uj.jenis_ujian', $jenis);
         $this->db->where('pt.nip=\'' . $username . '\'', NULL, FALSE);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis, pg1.nip,pg1.nama, pg2.nip,pg2.nama, pt.id_penguji, pt.status, pt.status_tim, jd.judul, pt.status, d.departemen ,m.nama, uj.id_ujian');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -1458,6 +1486,7 @@ class Tesis extends CI_Model {
         $this->db->join('mahasiswa m', 'm.nim= s.nim');
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->where('(s.id_tesis IN (SELECT id_tesis from tesis where nip_pembimbing_satu=\'' . $username . '\') OR s.id_tesis IN (SELECT id_tesis from tesis where nip_pembimbing_dua=\'' . $username . '\'))', NULL, FALSE);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -1478,6 +1507,7 @@ class Tesis extends CI_Model {
         $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
         $this->db->where('m.id_prodi =', $id);
         $this->db->where('(s.id_tesis IN (SELECT id_tesis from tesis where nip_pembimbing_satu=\'' . $username . '\') OR s.id_tesis IN (SELECT `id_tesis` from `tesis` where nip_pembimbing_dua=\'' . $username . '\'))', NULL, FALSE);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -1528,6 +1558,7 @@ class Tesis extends CI_Model {
         $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
         $this->db->where('m.id_prodi', $id);
         $this->db->where('s.jenis', $jenis);
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
