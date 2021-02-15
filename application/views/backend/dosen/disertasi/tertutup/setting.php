@@ -83,7 +83,7 @@
 								<?php
 									foreach ($mdosen as $list) {
 										?>
-										<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+										<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?> <?=$list['external']=='1'?'(Eksternal)':''?></option>
 										<?php
 									}
 								?>
@@ -125,28 +125,41 @@
 			<!-- /.box-header -->
 			<!-- form start -->
 			<?php echo form_open('dosen/disertasi/tertutup/update_status_ujian'); ?>
+			<?php
+				if ($disertasi->status_tertutup >= STATUS_DISERTASI_TERTUTUP_UJIAN):
+					?>
+					<div class="box-body">
+						<div class="form-group">
+							<label>Status Ujian</label>
 
-			<div class="box-body">
-				<div class="form-group">
-					<label>Status Ujian</label>
-
-					<select name="status_ujian" class="form-control select2" style="width: 100%;" required>
-						<?php
-							foreach ($status_ujians as $status_ujian) {
-								?>
-								<option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $disertasi->status_ujian_tertutup)
-									echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+							<select name="status_ujian" class="form-control select2" style="width: 100%;" required>
 								<?php
-							}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="box-footer">
-				<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-				<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
-				<!-- <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>-->
-			</div>
+									foreach ($status_ujians as $status_ujian) {
+										?>
+										<option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $disertasi->status_ujian_tertutup)
+											echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+										<?php
+									}
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="box-footer">
+						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+						<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
+						<!-- <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>-->
+					</div>
+				<?php
+				else:
+					?>
+					<div class="box-body">
+						<div class="form-group">
+							<i>Ujian belum dilaksanakan</i>
+						</div>
+					</div>
+				<?php
+				endif;
+			?>
 			<!-- /.box-body -->
 			<?php echo form_close() ?>
 		</div>

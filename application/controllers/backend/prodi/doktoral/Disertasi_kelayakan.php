@@ -111,6 +111,9 @@
 					$update_disertasi = [
 						'status_kelayakan' => STATUS_DISERTASI_KELAYAKAN_CETAK_DOKUMEN
 					];
+					$update_disertasi = [
+						'status_kelayakan' => STATUS_DISERTASI_KELAYAKAN_UJIAN
+					];
 					$this->disertasi->update($update_disertasi, $id_disertasi);
 				}
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);

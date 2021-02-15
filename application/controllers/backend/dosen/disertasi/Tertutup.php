@@ -65,10 +65,6 @@
 					$data = array(
 						'status_tertutup' => STATUS_DISERTASI_TERTUTUP_SETUJUI_KPS,
 					);
-
-					$data = array(
-						'status_tertutup' => STATUS_DISERTASI_TERTUTUP_UJIAN,
-					);
 				}
 				$this->disertasi->update($data, $id_disertasi);
 

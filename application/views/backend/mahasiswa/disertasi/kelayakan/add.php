@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="callout callout-info">
     <h4>Syarat</h4>
-    <p>Jangka waktu Ujian 1 dan Proposal Minimal 6 Bulan, Nilai MKPD lengkap beserta Transkrip</p>
+    <p>Transkrip, Nilai MKPD, Turnitin 25 %, 6 Bulan sejak Ujian Proposal</p>
 </div>
 <div class="row">
     <!-- left column -->

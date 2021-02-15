@@ -68,7 +68,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<b><?php echo hari($jadwal->tanggal) ?></b> Tanggal
 							<b> <?php echo woday_toindo($jadwal->tanggal) ?></b> pukul
 							<b><?= substr($jadwal->jam, 0, 5); ?> - Selesai</b> WIB di
-							<b>Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></b> Fakultas Hukum Universitas Airlangga, dilaksanakan Ujian Proposal :
+							<b>Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></b> Fakultas Hukum Universitas Airlangga, dilaksanakan Ujian Akhir Disertasi Tahap I (Ujian Tertutup)  :
 						</p>
 					</td>
 				</tr>

@@ -1271,7 +1271,7 @@
 					[
 						'value' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'keterangan' => 'Admin Prodi Cetak semua berkas untuk Ujian serta menunggu penilaian akhir para dosen',
 						'color' => 'bg-orange'
 					],
 					[
@@ -1422,16 +1422,16 @@
 						'color' => 'bg-green'
 					],
 					[
+						'value' => STATUS_DISERTASI_PROPOSAL_CETAK_DOKUMEN,
+						'text' => 'Persetujuan Berkas',
+						'keterangan' => 'Admin Prodi Cetak semua berkas untuk Ujian serta menunggu penilaian akhir para dosen',
+						'color' => 'bg-orange'
+					],
+					[
 						'value' => STATUS_DISERTASI_PROPOSAL_UJIAN,
 						'text' => 'Menunggu Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
-					],
-					[
-						'value' => STATUS_DISERTASI_PROPOSAL_CETAK_DOKUMEN,
-						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
-						'color' => 'bg-orange'
 					],
 					[
 						'value' => STATUS_DISERTASI_PROPOSAL_SELESAI,
@@ -1496,7 +1496,7 @@
 					[
 						'value' => STATUS_DISERTASI_KELAYAKAN_PENGAJUAN,
 						'text' => 'Pengajuan',
-						'keterangan' => 'Diajukan oleh mahasiswa syarat jangka waktu Ujian 1 dan Proposal Minimal 6 Bulan, Nilai MKPD lengkap beserta Transkrip',
+						'keterangan' => 'Diajukan oleh mahasiswa syarat 6 bulan sejak ujian proposal, Nilai MKPD lengkap beserta Transkrip dan Turnitin 25 %',
 						'color' => 'bg-blue'
 					],
 					[
@@ -1530,16 +1530,16 @@
 						'color' => 'bg-green'
 					],
 					[
-						'value' => STATUS_DISERTASI_KELAYAKAN_UJIAN,
-						'text' => 'Menunggu Ujian',
-						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-						'color' => 'bg-purple'
-					],
-					[
 						'value' => STATUS_DISERTASI_KELAYAKAN_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'keterangan' => 'Admin Prodi Cetak semua berkas untuk Ujian serta menunggu penilaian akhir para dosen',
 						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_KELAYAKAN_UJIAN,
+						'text' => 'Menunggu Ujian',
+						'keterangan' => 'Sedang menunggu jadwal Ujian',
+						'color' => 'bg-purple'
 					],
 					[
 						'value' => STATUS_DISERTASI_KELAYAKAN_SELESAI,
@@ -1593,16 +1593,16 @@
 						'color' => 'bg-green'
 					],
 					[
-						'value' => STATUS_DISERTASI_TERTUTUP_UJIAN,
-						'text' => 'Menunggu Ujian',
-						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
-						'color' => 'bg-purple'
-					],
-					[
 						'value' => STATUS_DISERTASI_TERTUTUP_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
-						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
+						'keterangan' => 'Admin Prodi Cetak semua berkas untuk Ujian serta menunggu penilaian akhir para dosen',
 						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERTUTUP_UJIAN,
+						'text' => 'Menunggu Ujian',
+						'keterangan' => 'Sedang menunggu jadwal Ujian',
+						'color' => 'bg-purple'
 					],
 					[
 						'value' => STATUS_DISERTASI_TERTUTUP_SELESAI,
@@ -1658,7 +1658,7 @@
 					[
 						'value' => STATUS_DISERTASI_TERBUKA_UJIAN,
 						'text' => 'Menunggu Ujian',
-						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+						'keterangan' => 'Sedang menunggu jadwal Ujian',
 						'color' => 'bg-purple'
 					],
 					[

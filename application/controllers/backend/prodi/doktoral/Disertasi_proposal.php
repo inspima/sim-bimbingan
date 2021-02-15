@@ -133,6 +133,9 @@
 					$update_disertasi = [
 						'status_proposal' => STATUS_DISERTASI_PROPOSAL_CETAK_DOKUMEN
 					];
+					$update_disertasi = [
+						'status_proposal' => STATUS_DISERTASI_PROPOSAL_UJIAN
+					];
 					$this->disertasi->update($update_disertasi, $id_disertasi);
 				}
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
