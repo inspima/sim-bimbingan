@@ -10,6 +10,8 @@ and open the template in the editor.
 .bg-layout {
 	background-image: url('../img/bg_home_new_2.png');
 	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: white;
 }
 
 

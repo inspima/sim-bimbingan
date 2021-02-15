@@ -42,13 +42,6 @@
 					$prodi = $this->prodi->detail($id_prodi);
 					$role = 0;
 					// SET ROLE
-					// S2
-					if ($prodi->id_jenjang == 2) {
-						$role = 5;
-					} // S3
-					else if ($prodi->id_jenjang == 3) {
-						$role = 6;
-					}
 					$data_user = [
 						'username' => $nim,
 						'password' => $password_hash,
@@ -65,6 +58,7 @@
 						'email' => $email,
 						'status' => 1,
 						'sks' => $sks,
+						'id_jenjang' => $prodi->id_jenjang,
 						'id_prodi' => $id_prodi,
 					];
 					// Cek Mahasiswa sudah ada

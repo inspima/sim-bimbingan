@@ -62,6 +62,8 @@
 					$is_mahasiswa = true;
 				}
 
+				// Prodi Check
+
 				if ($result) {
 					$hsh = $result->password;
 					// HARCODE ADMIN LOGIN
@@ -70,6 +72,7 @@
 						if ($is_mahasiswa) {
 							$sess_array = array(
 								'id_user' => $result->id_user,
+								'id_jenjang' => $result->id_jenjang,
 								'id_prodi' => $result->id_prodi,
 								'username' => $result->username,
 								'nama' => $result->nama,
@@ -81,6 +84,7 @@
 						} else {
 							$sess_array = array(
 								'id_user' => $result->id_user,
+								'id_jenjang' => $result->id_jenjang,
 								'id_prodi' => $result->id_prodi,
 								'username' => $result->username,
 								'nama' => $result->nama,
