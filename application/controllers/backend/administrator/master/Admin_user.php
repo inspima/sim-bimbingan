@@ -292,6 +292,8 @@
 				$data = array(
 					'id_user' => $result->id_user,
 					'username' => $result->username,
+					'id_jenjang' => $result->id_jenjang,
+					'id_prodi' => $result->id_prodi,
 					'nama' => $result->nama,
 					'role' => $result->role,
 					'sebagai' => $result->sebagai,

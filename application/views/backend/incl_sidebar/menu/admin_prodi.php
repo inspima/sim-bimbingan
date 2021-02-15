@@ -1,8 +1,8 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu" data-widget="tree">
 	<?php
-		$jenjang = $this->session_data['jenjang'];
-		if ($jenjang == 1) {
+		$id_jenjang = $this->session_data['id_jenjang'];
+		if ($id_jenjang == JENJANG_S1) {
 			?>
 			<li class="treeview">
 				<a href="#">
@@ -17,7 +17,7 @@
 			</li>
 
 			<?php
-		} else if ($jenjang == 2) {
+		} else if ($id_jenjang == JENJANG_S2) {
 			?>
 			<li class="treeview">
 				<a href="#">
@@ -32,7 +32,7 @@
 			</li>
 
 			<?php
-		} else if ($jenjang == 3) {
+		} else if ($id_jenjang == JENJANG_S3) {
 			?>
 			<li class="treeview">
 				<a href="#">
