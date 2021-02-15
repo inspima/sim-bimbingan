@@ -35,16 +35,14 @@
 		public function index()
 		{
 			$username = $this->session_data['username'];
-			$id_jenjang = 1;
-			if ($this->session_data['role'] == '5') {
-				$id_jenjang = 2;
-				$tugas_akhir = $this->tesis->read_mahasiswa($this->session_data['username']);
-			} else if ($this->session_data['role'] == '6') {
-				$id_jenjang = 3;
-				$tugas_akhir = $this->disertasi->read_mahasiswa($this->session_data['username']);
-			} else {
-				$id_jenjang = 1;
+			$id_jenjang = $this->session_data['id_jenjang'];
+			if ($id_jenjang == JENJANG_S1) {
 				$tugas_akhir = $this->skripsi->read_mahasiswa($this->session_data['username']);
+			} else if ($id_jenjang == JENJANG_S2) {
+				$tugas_akhir = $this->tesis->read_mahasiswa($this->session_data['username']);
+			} else {
+
+				$tugas_akhir = $this->disertasi->read_mahasiswa($this->session_data['username']);
 			}
 			$data = array(
 				// PAGE //
