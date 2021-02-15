@@ -68,7 +68,7 @@
 
 		function read_mhs($username)
 		{
-			$this->db->select('u.id_user, u.username, u.sebagai, u.role, u.password,u.no_hp,u.verifikasi, m.nama, m.email');
+			$this->db->select('u.id_user, u.username, u.sebagai, u.role, u.password,u.no_hp,u.verifikasi, m.*');
 			$this->db->from('user u');
 			$this->db->join('mahasiswa m', 'm.nim = u.username');
 			$this->db->where('u.username', $username);

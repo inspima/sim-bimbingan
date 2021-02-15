@@ -70,6 +70,7 @@
 						if ($is_mahasiswa) {
 							$sess_array = array(
 								'id_user' => $result->id_user,
+								'id_prodi' => $result->id_prodi,
 								'username' => $result->username,
 								'nama' => $result->nama,
 								'role' => $result->role,
@@ -80,6 +81,7 @@
 						} else {
 							$sess_array = array(
 								'id_user' => $result->id_user,
+								'id_prodi' => $result->id_prodi,
 								'username' => $result->username,
 								'nama' => $result->nama,
 								'role' => $result->role,
