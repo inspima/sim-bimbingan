@@ -243,7 +243,7 @@
 				$id_user = $this->input->post('id_user', true);
 				$no_hp = $this->input->post('no_hp', true);
 				$datap = array(
-					'no_hp' => $no_hp,
+					'no_hp' => formatNoHpWhatsapp($no_hp),
 				);
 				$this->user->update_p($datap, $id_user);
 				$this->session->set_flashdata('msg-title', 'alert-success');

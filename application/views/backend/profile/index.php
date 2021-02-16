@@ -47,7 +47,7 @@
                     <?php echo form_open('profile/phone/save'); ?>
                     <div class="col-sm-4" style="padding: 0px">
                         <input type="hidden" name="id_user" value="<?php echo $biodata->id_user ?>"/>
-                        <input type="text" name="no_hp" value="<?php echo $biodata->no_hp ?>" class="form-control" />
+                        <input type="text" name="no_hp" value="<?php echo str_replace('+62','0',$biodata->no_hp) ?>" class="form-control" />
                     </div>
                     <div class="col-sm-4 text-left" style="padding: 3px">
                         <button type="submit" class="btn btn-sm btn-success">Update NO HP</button>
