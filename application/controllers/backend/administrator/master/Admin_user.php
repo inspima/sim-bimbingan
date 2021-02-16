@@ -199,7 +199,7 @@
 					'no_hp' => $this->input->post('no_hp', true),
 					'role' => $this->input->post('role', true),
 				];
-				$this->user->update_user($data_user,$id_user);
+				$this->user->update_user($data_user, $id_user);
 
 				$data_pegawai = [
 					'id_jenjang' => $id_jenjang,
@@ -208,7 +208,7 @@
 					'email' => $this->input->post('email', true),
 				];
 
-				$this->user->update_pegawai_by_id($data_pegawai,$id_pegawai);
+				$this->user->update_pegawai_by_id($data_pegawai, $id_pegawai);
 
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Data berhasil diperbarui');
@@ -316,17 +316,31 @@
 					$result = $this->user->read_mhs($username);
 				}
 
+				if ($cekuser->sebagai == '3') {
+					$data = array(
+						'id_user' => $result->id_user,
+						'username' => $result->username,
+						'id_jenjang' => $result->id_jenjang,
+						'id_prodi' => $result->id_prodi,
+						'nama' => $result->nama,
+						'role' => $result->role,
+						'sebagai' => $result->sebagai,
+						'email' => $result->email,
+						'verifikasi'=>$result->verifikasi
+					);
+				} else {
+					$data = array(
+						'id_user' => $result->id_user,
+						'username' => $result->username,
+						'id_jenjang' => $result->id_jenjang,
+						'id_prodi' => $result->id_prodi,
+						'nama' => $result->nama,
+						'role' => $result->role,
+						'sebagai' => $result->sebagai,
+						'email' => $result->email,
+					);
+				}
 
-				$data = array(
-					'id_user' => $result->id_user,
-					'username' => $result->username,
-					'id_jenjang' => $result->id_jenjang,
-					'id_prodi' => $result->id_prodi,
-					'nama' => $result->nama,
-					'role' => $result->role,
-					'sebagai' => $result->sebagai,
-					'email' => $result->email,
-				);
 				$this->session->set_userdata('logged_in', $data);
 				redirect('login', 'refresh');
 			} else {
