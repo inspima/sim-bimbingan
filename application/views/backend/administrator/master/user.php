@@ -28,7 +28,7 @@
 					<thead>
 					<tr>
 						<th>No</th>
-						<th>Username & Nama</th>
+						<th>Info Akun</th>
 						<th style="width: 120px">Akses & Role</th>
 						<th>Struktural</th>
 						<th>Prodi</th>
@@ -44,9 +44,14 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td>
-									<?= $list['username'] ?>
+									Username : <b> <?= $list['username'] ?></b>
 									<hr class="divider-line-semi-bold"/>
-									<?= $list['nama'] ?></td>
+									Nama : <b><?= $list['nama'] ?></b>
+									<hr class="divider-line-semi-bold"/>
+									Email : <b><?= $list['email'] ?></b>
+									<hr class="divider-line-semi-bold"/>
+									No HP : <b><?= $list['no_hp'] ?></b>
+								</td>
 								<td>
 									Akses <br/>
 									<b>

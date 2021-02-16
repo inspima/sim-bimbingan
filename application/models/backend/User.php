@@ -25,7 +25,7 @@
 
 		public function read()
 		{
-			$this->db->select("u.id_user, u.username, u.sebagai,u.verifikasi, u.role, u.status, p.nama,p.id_pegawai,st.nama as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
+			$this->db->select("u.id_user, u.username, u.sebagai,u.verifikasi, u.role, u.status,u.no_hp,p.email, p.nama,p.id_pegawai,st.nama as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
 			$this->db->from('user u');
 			$this->db->join('pegawai p', 'u.username = p.nip');
 			$this->db->join('prodi pr', 'pr.id_prodi = p.id_prodi', 'left');
@@ -36,7 +36,7 @@
 			$query1 = $this->db->get();
 			$result1 = $query1->result_array();
 
-			$this->db->select("u.id_user, u.username, u.sebagai,u.verifikasi, u.role, u.status, m.nama,'' as id_pegawai, '' as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
+			$this->db->select("u.id_user, u.username, u.sebagai,u.verifikasi, u.role, u.status,u.no_hp,m.email, m.nama,'' as id_pegawai, '' as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
 			$this->db->from('user u');
 			$this->db->join('mahasiswa m', 'm.nim = u.username');
 			$this->db->join('prodi pr', 'pr.id_prodi = m.id_prodi', 'left');
