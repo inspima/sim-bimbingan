@@ -185,7 +185,8 @@
 				$alamat = $this->input->post('alamat', true);
 				$telp = $this->input->post('telp', true);
 				$no_hp = $this->input->post('no_hp', true);
-
+				$id_prodi = $this->input->post('prodi', true);
+				$prodi = $this->prodi->detail($id_prodi);
 
 				if (!$this->upload->do_upload('berkas_verifikasi')) {
 					$this->session->set_flashdata('msg-title', 'alert-danger');
@@ -200,6 +201,8 @@
 						'telp' => $telp,
 						'alamat' => $alamat,
 						'berkas_verifikasi' => $file_name,
+						'id_jenjang' => $prodi->id_jenjang,
+						'id_prodi' => $id_prodi,
 					];
 					$this->user->update_p($data_user, $id_user);
 					// Update Mahasiswa
