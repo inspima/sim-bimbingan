@@ -283,7 +283,7 @@
 
 				// Kirim Whatsapp
 				$judul_notifikasi = 'Verifikasi Ulang';
-				$isi_notifikasi = 'Terdapat kesalahan data silahkan isi ulang data pada menu verifikasi';
+				$isi_notifikasi = 'Terdapat kesalahan data silahkan logout kemudian login kembali lalu isi ulang data pada menu verifikasi';
 				$this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 2, $username);
 
 				$this->session->set_flashdata('msg-title', 'alert-success');
