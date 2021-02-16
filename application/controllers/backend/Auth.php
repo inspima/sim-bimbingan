@@ -175,6 +175,7 @@
 				$config['remove_spaces'] = true;
 				$config['file_ext_tolower'] = true;
 				$config['detect_mime'] = true;
+				$config['overwrite'] = true;
 				$config['mod_mime_fix'] = true;
 				$config['file_name'] = $file_name;
 				$this->load->library('upload', $config);
