@@ -256,15 +256,15 @@
 					'password' => $passhash
 				);
 
-				$this->user->update($data, $id_user);
+				$this->user->update_user($data, $id_user);
 
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil update Password');
-				redirect('dashboarda/master/user/detail/' . $id_user);
+				redirect_back();
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-				redirect('dashboarda/master/user/detail/' . $id_user);
+				redirect_back();
 			}
 		}
 
