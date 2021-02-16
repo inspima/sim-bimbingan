@@ -66,12 +66,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('.captcha-refresh').on('click', function () {
-            $.get('<?php echo base_url() . 'auth/captcha/refresh'; ?>', function (data) {
-                $('#image_captcha').html(data);
-            });
-        });
-    });
-</script>

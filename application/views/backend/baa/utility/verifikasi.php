@@ -58,6 +58,7 @@
 							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 							<?php echo formtext('hidden', 'id_user', $mahasiswa['id_user'], 'required') ?>
 							<?php echo formtext('hidden', 'nama', $mahasiswa['nama'], 'required') ?>
+							<?php echo formtext('hidden', 'nim', $mahasiswa['nim'], 'required') ?>
 							<?php echo formtext('hidden', 'email', $mahasiswa['email'], 'required') ?>
 							<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button>
 							<?php echo form_close() ?>

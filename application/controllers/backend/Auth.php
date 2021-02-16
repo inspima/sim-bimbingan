@@ -21,6 +21,7 @@
 			$this->load->model('backend/master/prodi', 'prodi', true);
 			$this->load->model('backend/utility/email', 'email_model', true);
 			$this->load->model('backend/mahasiswa/master/Biodata_model', 'biodata');
+			$this->load->model('backend/utility/notification', 'notifikasi');
 			$this->load->library('session', 'session');
 			$this->load->helper('string');
 		}
@@ -98,6 +99,71 @@
 			$this->load->view('backend/index_top', $data);
 		}
 
+		public function reset_account()
+		{
+			if ($this->input->post('_token')) {
+				$nim = $this->input->post('nim');
+				$no_hp = $this->input->post('no_hp');
+				$email = $this->input->post('email');
+				$captcha_insert = $this->input->post('captcha');
+				$password = random_string('alnum', 6);
+				$password_hash = password_hash($password, PASSWORD_BCRYPT);
+				$contain_sess_captcha = $this->session->userdata('captcha_code');
+				if ($captcha_insert == $contain_sess_captcha) {
+					$data_user = [
+						'password' => $password_hash,
+					];
+					$data_check = [
+						'nim' => $nim,
+						'no_hp' => formatNoHpWhatsapp($no_hp),
+						'email' => $email,
+					];
+					// Cek Mahasiswa sudah ada
+					$check_mhs = $this->user->check_mhs_by_data($data_check);
+					if (!empty($check_mhs)) {
+						// Update Password
+						$this->user->update_user($data_user, $check_mhs->id_user);
+						// Kirim Email
+						$this->email_model->send_registration($email, $nim, $password);
+						// Kirim Whatsapp
+						$judul_notifikasi = 'Reset Akun Mahasiswa';
+						$isi_notifikasi = 'Silahkan Login dengan menggunakan akun dibawah ini'
+							. WA_LINE_BREAK . 'Username : ' . $nim
+							. WA_LINE_BREAK . 'Password : ' . $password
+							. WA_LINE_BREAK . WA_LINE_BREAK . 'Harap simpan dan segera ubah password anda di fitur profile';
+						$this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 2, $check_mhs->nim);
+						$this->session->set_flashdata('msg-title', 'alert-success');
+						$this->session->set_flashdata('msg',
+							'Informasi akun telah dikirimkan ke email <b>'
+							. substr($check_mhs->email, 0, 8) . '***'
+							. '</b> dan No Whatsapp <b>'
+							. substr($check_mhs->no_hp, 0, 8) . '***'
+							. '</b>');
+					} else {
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', 'Data mahasiswa tidak ditemukan');
+					}
+				} else {
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', 'Kode verifikasi tidak sesuai');
+				}
+			}
+			$captcha_num1 = rand(1, 5);
+			$captcha_num2 = rand(6, 9);
+			$captcha = $captcha_num1 * $captcha_num2;
+			$data = array(
+				// PAGE //
+				'title' => 'Kirim Ulang Informasi Akun',
+				'subtitle' => '',
+				'section' => 'backend/page/reset-account',
+				'captcha_num1' => $captcha_num1,
+				'captcha_num2' => $captcha_num2,
+			);
+			$this->session->unset_userdata('captcha_code');
+			$this->session->set_userdata('captcha_code', $captcha);
+			$this->load->view('backend/index_top', $data);
+		}
+
 		public function verifikasi()
 		{
 			$this->session_data = $this->session->userdata('logged_in');
@@ -151,6 +217,7 @@
 				'subtitle' => 'Verifikasi',
 				'section' => 'backend/mahasiswa/verifikasi',
 				'biodata' => $this->biodata->detail($username),
+				'prodis' => $this->prodi->read_all_prodi(),
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}

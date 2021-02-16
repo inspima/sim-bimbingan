@@ -21,6 +21,7 @@ class Registrasi extends CI_Controller {
         //START MODEL
         $this->load->model('backend/user', 'user', TRUE);
         $this->load->model('backend/utility/email', 'email_model', TRUE);
+		$this->load->model('backend/utility/notification', 'notifikasi');
         //END MODEL
     }
 
@@ -42,6 +43,7 @@ class Registrasi extends CI_Controller {
             $id_user = $this->input->post('id_user', TRUE);
             $email = $this->input->post('email', TRUE);
             $nama = $this->input->post('nama', TRUE);
+			$nim = $this->input->post('nim', TRUE);
 
             $data = array(
                 'verifikasi' => 1,
@@ -49,7 +51,10 @@ class Registrasi extends CI_Controller {
             $this->user->update_p($data, $id_user);
             // KIRIM EMAIL VERIFIKASI
             $this->email_model->send_verified($email, $nama);
-            
+			// Kirim Whatsapp
+			$judul_notifikasi = 'Verifikasi Berhasil';
+			$isi_notifikasi = 'Akun telah diverifikasi silahkan logout kemudian login kembali';
+			$this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 2, $nim);
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil diverifikasi');
             redirect('baa/utility/registrasi');

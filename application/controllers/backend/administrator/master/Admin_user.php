@@ -24,6 +24,7 @@
 			$this->load->model('backend/user');
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
 			$this->load->model('backend/master/prodi');
+			$this->load->model('backend/utility/notification', 'notifikasi');
 			//END MODEL
 		}
 
@@ -260,6 +261,33 @@
 
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil update Password');
+				redirect_back();
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
+		}
+
+		public function reset_verifikasi()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_user = $this->input->post('id_user', true);
+				$username = $this->input->post('username', true);
+
+				$data = array(
+					'verifikasi' => '0'
+				);
+				$this->user->update_user($data, $id_user);
+
+				// Kirim Whatsapp
+				$judul_notifikasi = 'Verifikasi Ulang';
+				$isi_notifikasi = 'Terdapat kesalahan data silahkan isi ulang data pada menu verifikasi';
+				$this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 2, $username);
+
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil reset verifikasi');
 				redirect_back();
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');

@@ -12,6 +12,16 @@
 					</a>
 				</div>
 			</div>
+			<?php if ($this->session->flashdata('msg')): ?>
+				<?php
+				$class_alert = 'alert ' . $this->session->flashdata('msg-title') . ' alert-dismissable';
+				?>
+				<div class='<?= $class_alert ?>'>
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<h4><i class="icon fa fa-check"></i> Notifikasi</h4>
+					<?php echo $this->session->flashdata('msg'); ?>
+				</div>
+			<?php endif; ?>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive">
 				<table id="example1" class="table table-bordered table-striped">
@@ -69,6 +79,33 @@
 												?>
 											</b>
 											<?php
+										}
+									?>
+									<?php
+										if ($list['sebagai'] == '3') {
+											if ($list['verifikasi'] == '1') {
+												?>
+												<br/>
+												<label class="text-success text-sm">Sudah Verifikasi</label>
+												<?php
+												echo form_open('dashboarda/master/user/reset_verifikasi');
+												echo formtext('hidden', 'hand', 'center19', 'required');
+												echo formtext('hidden', 'username', $list['username'], 'required');
+												echo formtext('hidden', 'id_user', $list['id_user'], 'required');
+												?>
+												<button type="submit" class="btn btn-xs btn-warning" style="margin-right:3px;">
+													<i class="fa fa-refresh"></i> Reset Verifikasi
+												</button>
+												<?php
+												echo form_close();
+												?>
+												<?php
+											} else {
+												?>
+												<br/>
+												<label class="text-danger text-sm">Belum Verifikasi</label>
+												<?php
+											}
 										}
 									?>
 								</td>

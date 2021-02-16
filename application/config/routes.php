@@ -111,9 +111,11 @@
 	$route['logout'] = 'backend/login/logout';
 
 	$route['register'] = 'backend/auth/register';
+	$route['reset-account'] = 'backend/auth/reset_account';
 
 	$route['auth/register'] = 'backend/auth/register';
 	$route['auth/verifikasi'] = 'backend/auth/verifikasi';
+	$route['auth/reset-account'] = 'backend/auth/reset_account';
 	$route['auth/captcha/refresh'] = 'backend/auth/captcha_refresh';
 
 	$route['utility'] = 'backend/utility';
@@ -144,6 +146,7 @@
 	$route['dashboarda/master/user/detail/(:num)'] = 'backend/administrator/master/admin_user/detail/$1';
 	$route['dashboarda/master/user/update_password'] = 'backend/administrator/master/admin_user/update_password';
 	$route['dashboarda/master/user/direct_login'] = 'backend/administrator/master/admin_user/direct_login';
+	$route['dashboarda/master/user/reset_verifikasi'] = 'backend/administrator/master/admin_user/reset_verifikasi';
 
 	$route['dashboarda/master/struktural'] = 'backend/administrator/master/struktural';
 	$route['dashboarda/master/struktural/detail/(:num)'] = 'backend/administrator/master/struktural/detail/$1';

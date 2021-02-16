@@ -25,7 +25,7 @@
 
 		public function read()
 		{
-			$this->db->select("u.id_user, u.username, u.sebagai, u.role, u.status, p.nama,p.id_pegawai,st.nama as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
+			$this->db->select("u.id_user, u.username, u.sebagai,u.verifikasi, u.role, u.status, p.nama,p.id_pegawai,st.nama as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
 			$this->db->from('user u');
 			$this->db->join('pegawai p', 'u.username = p.nip');
 			$this->db->join('prodi pr', 'pr.id_prodi = p.id_prodi', 'left');
@@ -36,7 +36,7 @@
 			$query1 = $this->db->get();
 			$result1 = $query1->result_array();
 
-			$this->db->select("u.id_user, u.username, u.sebagai, u.role, u.status, m.nama,'' as id_pegawai, '' as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
+			$this->db->select("u.id_user, u.username, u.sebagai,u.verifikasi, u.role, u.status, m.nama,'' as id_pegawai, '' as struktural,concat(pr.nm_prodi,' ',j.jenjang) prodi");
 			$this->db->from('user u');
 			$this->db->join('mahasiswa m', 'm.nim = u.username');
 			$this->db->join('prodi pr', 'pr.id_prodi = m.id_prodi', 'left');
@@ -140,6 +140,22 @@
 			$this->db->select('id_user, username, sebagai, role, status');
 			$this->db->from('user');
 			$this->db->where('id_user', $id);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		function check_mhs_by_data($data)
+		{
+			$this->db->select('u.id_user, u.username, u.sebagai, u.role, u.password,u.no_hp,u.verifikasi, m.*');
+			$this->db->from('user u');
+			$this->db->join('mahasiswa m', 'm.nim = u.username');
+			$this->db->where('u.username', $data['nim']);
+			$this->db->where('u.no_hp', $data['no_hp']);
+			$this->db->where('m.email', $data['email']);
+			$this->db->where('u.status', 1);
+			$this->db->where('m.status', 1);
+			$this->db->limit(1);
 
 			$query = $this->db->get();
 			return $query->row();
