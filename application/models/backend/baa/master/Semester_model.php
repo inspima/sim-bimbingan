@@ -3,7 +3,7 @@ class Semester_model extends CI_Model {
 
 	public function read()
 	{
-		$this->db->select('id_semester, semester, berjalan');
+		$this->db->select('*');
         $this->db->from('semester');
         $this->db->where('status',1);
 		$this->db->order_by('id_semester','desc');
@@ -20,7 +20,7 @@ class Semester_model extends CI_Model {
 
     public function detail($id)
     {
-        $this->db->select('id_semester, semester');
+        $this->db->select('*');
         $this->db->from('semester');
         $this->db->where('status',1);
         $this->db->where('id_semester',$id);
