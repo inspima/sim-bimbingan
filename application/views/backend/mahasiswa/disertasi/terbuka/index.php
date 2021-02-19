@@ -64,7 +64,7 @@
 
                         </td>
                         <td class="text-center">
-                            <?php if ($list['status_terbuka'] > STATUS_DISERTASI_TERBUKA_SETUJUI_PENGUJI) {
+                            <?php if ($list['status_terbuka'] >= STATUS_DISERTASI_TERBUKA_DIJADWALKAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/disertasi/terbuka/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php

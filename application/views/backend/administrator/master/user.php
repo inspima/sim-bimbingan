@@ -78,8 +78,10 @@
 														echo 'Administrator';
 													} else if ($list['role'] == '2') { // BAA
 														echo 'BAA';
-													} else if ($list['role'] == '3') { // BAA
+													} else if ($list['role'] == '3') { // Admin Prodi
 														echo 'Admin Prodi';
+													} else if ($list['role'] == '4') { // up4i
+														echo 'UP4I';
 													}
 												?>
 											</b>

@@ -46,6 +46,7 @@
 						<option value="1" <?= $pegawai->role == 1 ? 'selected' : '' ?>>Administrator</option>
 						<option value="2" <?= $pegawai->role == 2 ? 'selected' : '' ?>>BAA</option>
 						<option value="3" <?= $pegawai->role == 3 ? 'selected' : '' ?>>Admin Prodi</option>
+						<option value="4" <?= $pegawai->role == 4 ? 'selected' : '' ?>>UP4I</option>
 					</select>
 				</div>
 

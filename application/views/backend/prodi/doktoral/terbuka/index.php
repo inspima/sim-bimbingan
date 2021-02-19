@@ -40,11 +40,42 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td>
-									<?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?>
-									<br/>
-									<b>Judul</b> <br/>
+									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_TERBUKA]); ?>
+									<hr class="divider-line-semi-bold">
+									<b>Jurnal</b>
+									<div class="divider5"></div>
 									<?php
-										echo $list['judul']
+										$jurnal = $this->jurnal->detail($list['nim']);
+										if (!empty($jurnal)) {
+											if ($jurnal->status == '0') {
+												?>
+												<span class="text-danger">Belum Divalidasi</span><br/>
+												<a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/jurnal/<?php echo $jurnal->berkas_jurnal ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas Jurnal</a>
+												<?php
+											} else if ($jurnal->status == '1') {
+												?>
+												<span class="text-success">Sudah Divalidasi</span><br/>
+												<p class="text-muted"><i>Oleh <b><?= $jurnal->validator ?></b> pada <b><?= woday_toindo($jurnal->validation_date) ?></b></i></p>
+												<a class="btn btn-xs bg-red-active" href="<?php echo base_url() ?>assets/upload/mahasiswa/jurnal/<?php echo $jurnal->berkas_jurnal ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas Jurnal</a>
+												<?php
+											}
+										} else {
+											?>
+											<span class="text-danger">Jurnal Kosong</span>
+											<?php
+										}
+										if ($list['status_terbuka'] == STATUS_DISERTASI_TERBUKA_SETUJUI_UP4I) {
+											?>
+											<hr class="divider-line-semi-bold"/>
+											<p><b>Persetujuan Berkas</b> </p>
+											<?php echo form_open('prodi/doktoral/disertasi/terbuka/terima') ?>
+											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<button type="submit" class="btn btn-xs bg-green-active"><i class="glyphicon glyphicon-check"></i> Setujui Berkas
+											</button>
+											<?php echo form_close() ?>
+											<?php
+										}
 									?>
 								</td>
 								<td><?php echo woday_toindo($list['waktu_pengajuan_terbuka']) ?></td>

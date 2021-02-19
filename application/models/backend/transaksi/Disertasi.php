@@ -1626,6 +1626,18 @@
 						'color' => 'bg-blue'
 					],
 					[
+						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_UP4I,
+						'text' => 'Disetujui UP4I',
+						'keterangan' => 'Validasi Publikasi Jurnal oleh UP4I',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_ADMIN_PRODI,
+						'text' => 'Disetujui Admin Prodi',
+						'keterangan' => 'Persetujuan berkas syarat Oleh admin Prodi',
+						'color' => 'bg-green'
+					],
+					[
 						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PROMOTOR,
 						'text' => 'Disetujui Promotor&Ko-promotor',
 						'keterangan' => 'Disetujui oleh Promotor/Ko-Promotor',
@@ -1647,12 +1659,6 @@
 						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_KPS,
 						'text' => 'Disetujui KPS',
 						'keterangan' => 'Disetujui Ketua Prodi pengajuan dosen penguji',
-						'color' => 'bg-green'
-					],
-					[
-						'value' => STATUS_DISERTASI_TERBUKA_SETUJUI_PENGUJI,
-						'text' => 'Disetujui Penguji',
-						'keterangan' => 'Disetujui  oleh semua penguji',
 						'color' => 'bg-green'
 					],
 					[

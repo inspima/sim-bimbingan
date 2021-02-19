@@ -70,6 +70,7 @@
 			if ($hand == 'center19') {
 				$id_pegawai = $this->input->post('id_pegawai', true);
 				$external = $this->input->post('external', true);
+				$external_pt = $this->input->post('external_pt', true);
 
 				$data = array(
 					'nama' => $this->input->post('nama', true),
@@ -80,6 +81,7 @@
 					'pangkat' => $this->input->post('pangkat', true),
 					'golongan' => $this->input->post('golongan', true),
 					'external' => !empty($external) ? $external : "0",
+					'external_pt' => !empty($external_pt) ? $external_pt : "",
 				);
 				$this->dosen->update($data, $id_pegawai);
 

@@ -742,10 +742,16 @@
 	$route['prodi/doktoral/disertasi/tertutup/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_absensi';
 
 	$route['prodi/doktoral/disertasi/terbuka'] = 'backend/prodi/doktoral/disertasi_terbuka';
+	$route['prodi/doktoral/disertasi/terbuka/terima'] = 'backend/prodi/doktoral/disertasi_terbuka/terima';
 	$route['prodi/doktoral/disertasi/terbuka/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_undangan';
 	$route['prodi/doktoral/disertasi/terbuka/cetak_berita'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_berita';
 	$route['prodi/doktoral/disertasi/terbuka/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_penilaian';
 	$route['prodi/doktoral/disertasi/terbuka/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_absensi';
+
+	// UP4i
+	$route['up4i/dashboard'] = 'backend/up4i/home/index';
+	$route['up4i/doktoral/jurnal/index'] = 'backend/up4i/jurnal_doktoral/index';
+	$route['up4i/doktoral/jurnal/validasi'] = 'backend/up4i/jurnal_doktoral/validasi';
 
 	// MAHASISWA
 

@@ -186,7 +186,7 @@
 								endif;
 							?>
 							<?php
-								if ($list['status_terbuka'] == STATUS_DISERTASI_TERBUKA_PENGAJUAN):
+								if ($list['status_terbuka'] == STATUS_DISERTASI_TERBUKA_SETUJUI_ADMIN_PRODI):
 									?>
 									<hr style="margin: 10px;border-width:2px;"/>
 									<?php echo form_open('dosen/disertasi/permintaan/promotor/terbuka/setujui') ?>

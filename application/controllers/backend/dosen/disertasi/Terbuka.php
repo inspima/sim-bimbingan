@@ -228,7 +228,7 @@
 					'id_ujian' => $id_ujian,
 					'nip' => $this->input->post('nip', true),
 					'status_tim' => 2,
-					'status' => 1
+					'status' => 2
 				);
 
 				$cekpenguji = $this->disertasi->cek_penguji($data);
@@ -335,7 +335,7 @@
 						'id_ujian' => $id_ujian,
 						'nip' => $promotor['nip'],
 						'status_tim' => 2,
-						'status' => 1
+						'status' => 2
 					);
 					$cekpenguji = $this->disertasi->cek_penguji($data);
 					if (empty($cekpenguji)) {
@@ -365,7 +365,7 @@
 					'id_ujian' => $id_ujian,
 					'nip' => $this->input->post('nip', true),
 					'status_tim' => 2,
-					'status' => 1
+					'status' => 2
 				);
 
 				$cekpenguji = $this->disertasi->cek_penguji($data);

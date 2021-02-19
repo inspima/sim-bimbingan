@@ -21,6 +21,7 @@ class Disertasi_terbuka extends CI_Controller {
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
+		$this->load->model('backend/transaksi/jurnal', 'jurnal');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         //END MODEL
     }
@@ -37,6 +38,26 @@ class Disertasi_terbuka extends CI_Controller {
 
         $this->load->view('backend/index_sidebar', $data);
     }
+
+	public function terima()
+	{
+		$hand = $this->input->post('hand', true);
+		if ($hand == 'center19') {
+			$id_disertasi = $this->input->post('id_disertasi', true);
+			$data = array(
+				'status_terbuka' => STATUS_DISERTASI_TERBUKA_SETUJUI_ADMIN_PRODI,
+			);
+			$this->disertasi->update($data, $id_disertasi);
+
+			$this->session->set_flashdata('msg-title', 'alert-success');
+			$this->session->set_flashdata('msg', 'Berhasil setujui');
+			redirect_back();
+		} else {
+			$this->session->set_flashdata('msg-title', 'alert-danger');
+			$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+			redirect_back();
+		}
+	}
 
     public function cetak_undangan() {
         $hand = $this->input->post('hand', TRUE);

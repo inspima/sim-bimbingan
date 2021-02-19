@@ -37,12 +37,21 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td>
-									<?= $list['nama'] ?><br/>
+									<?= $list['nama'] ?> <?= $list['external'] == '1' ? '<b class="label bg-red-gradient">EKSTERNAL</b>' : '' ?><br/>
+									<?php
+										if ($list['external'] == '1') {
+											if (!empty($list['external_pt'])) {
+												?>
+													Asal PT : <b><?=$list['external_pt']?></b><br/>
+												<?php
+											}
+										}
+									?>
 									<b><?= $list['nip'] ?></b><br/>
 									<hr class="divider-line-semi-bold"/>
-									Jabatan : <b><?= !empty($list['jabatan'])?$list['jabatan']:'-'; ?></b><br/>
-									Pangkat : <b><?= !empty($list['pangkat'])?$list['pangkat']:'-'; ?></b><br/>
-									Golongan : <b><?= !empty($list['golongan'])?$list['golongan']:'-'; ?></b><br/>
+									Jabatan : <b><?= !empty($list['jabatan']) ? $list['jabatan'] : '-'; ?></b><br/>
+									Pangkat : <b><?= !empty($list['pangkat']) ? $list['pangkat'] : '-'; ?></b><br/>
+									Golongan : <b><?= !empty($list['golongan']) ? $list['golongan'] : '-'; ?></b><br/>
 								</td>
 								<td><?= $list['departemen'] ?></td>
 								<td><?= $list['email'] ?></td>

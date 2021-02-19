@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="callout callout-info">
     <h4>Syarat</h4>
-    <p>Daftar Ujian Terbuka, upload naskah perbaikan Ujian Tertutup, Validasi Jurnal</p>
+    <p>Daftar Ujian Terbuka, upload naskah perbaikan Ujian Tertutup dan Publikasi Jurnal </p>
 </div>
 <div class="row">
     <!-- left column -->
@@ -37,9 +37,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Upload upload naskah perbaikan Ujian Tertutup, Validasi Jurnal <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
+                    <label>Upload upload naskah perbaikan Ujian Tertutup <br/><i>Dijadikan 1 file</i><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
                     <input type="file" name="berkas_terbuka" class="form-control" required>
                 </div>
+				<div class="form-group">
+					<label>Bukti Publikasi Jurnal<br/><br/>(format file .pdf maks <?= MAX_SIZE_FILE_UPLOAD_DESCRIPTION ?>)</label>
+					<input type="file" name="berkas_jurnal" class="form-control" required>
+				</div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

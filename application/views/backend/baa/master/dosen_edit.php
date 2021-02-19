@@ -62,7 +62,7 @@
 				</div>
 				<div class="form-group">
 					<label>Jabatan</label>
-					<select name="jabatan" class="form-control select2" style="width: 100%;" required>
+					<select name="jabatan" class="form-control select2" style="width: 100%;">
 						<option value="">- Pilih -</option>
 						<?php
 							foreach ($jabatan as $list) {
@@ -75,7 +75,7 @@
 				</div>
 				<div class="form-group">
 					<label>Pangkat</label>
-					<select name="pangkat" class="form-control select2" style="width: 100%;" required>
+					<select name="pangkat" class="form-control select2" style="width: 100%;">
 						<option value="">- Pilih -</option>
 						<?php
 							foreach ($pangkat as $list) {
@@ -88,7 +88,7 @@
 				</div>
 				<div class="form-group">
 					<label>Golongan</label>
-					<select name="golongan" class="form-control select2" style="width: 100%;" required>
+					<select name="golongan" class="form-control select2" style="width: 100%;">
 						<option value="">- Pilih -</option>
 						<?php
 							foreach ($golongan as $list) {
@@ -101,8 +101,13 @@
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="external" value="1"> Dosen Eksternal
+						<input type="checkbox" name="external" value="1" <?= $dosen->external == '1' ? 'checked' : '' ?>> Dosen Eksternal
 					</label>
+				</div>
+
+				<div class="form-group">
+					<label>Asal Perguruan Tinggi (Khusus Eksternal)</label>
+					<input type="text" name="external_pt" class="form-control" value="<?= $dosen->external_pt ?>" required=""/>
 				</div>
 			</div>
 			<!-- /.box-body -->

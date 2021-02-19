@@ -17,6 +17,8 @@
 				redirect('dashboardb', 'refresh');
 			}else if ($role == '3') { // BAA
 				redirect('prodi/dashboard', 'refresh');
+			}else if ($role == '4') { // BAA
+				redirect('up4i/dashboard', 'refresh');
 			}
 		} else if ($sebagai == '3') { // mahasiswa
 			if ($is_verifikasi == '1') {

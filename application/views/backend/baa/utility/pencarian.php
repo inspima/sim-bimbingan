@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="row">
     <!-- left column -->
-    <div class="col-md-4">
+    <div class="col-sm-12">
         <!-- general form elements -->
         <div class="box box-default">
             <!-- /.box-header -->
@@ -18,7 +18,7 @@
             <?php echo form_open('baa/utility/pencarian', ['method' => 'get']); ?>
             <div class="box-body">
                 <div class="form-group form-inline">
-                    <input type="text" class="form-control" size="28" name="search" placeholder="Masukkan Nama/NIM" required=""/>
+                    <input type="text" class="form-control"  name="search" placeholder="Masukkan Nama/NIM" required=""/>
                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-search"></i> Cari</button>
                 </div>
                 <?= form_close() ?>
