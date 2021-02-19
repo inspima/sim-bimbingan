@@ -27,7 +27,8 @@
             </span>
 				</a>
 				<ul class="treeview-menu">
-
+					<li><a href="<?php echo base_url() ?>prodi/tesis/ujian"><i class="fa fa-circle-o"></i> Persetujuan Tesis</a></li>
+					<li><a href="<?php echo base_url() ?>prodi/magister/tesis/ujian"><i class="fa fa-circle-o"></i> Dokumen Tesis</a></li>
 				</ul>
 			</li>
 
