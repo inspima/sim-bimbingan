@@ -73,13 +73,13 @@ class Tesis_proposal extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_PROPOSAL);
-            $jadwal = $this->tesis->read_jadwal($id_tesis, TAHAPAN_TESIS_PROPOSAL);
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_PROPOSAL);
+            $jadwal = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
             $tesis = $this->tesis->detail($id_tesis);
             $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
 
-            $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
-            $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
+            $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . UJIAN_TESIS_PROPOSAL;
+            $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . UJIAN_TESIS_PROPOSAL;
             // QR
             $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Proposal', $tesis->nim, $jadwal->tanggal);
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
@@ -88,7 +88,8 @@ class Tesis_proposal extends CI_Controller {
             $data_dokumen = [
                 'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, 'proposal', $tesis->nim, $jadwal->tanggal),
                 'tipe' => DOKUMEN_BERITA_ACARA_STR,
-                'jenis' => 'proposal',
+                'jenis' => 'proposal_tesis',
+                'id_tugas_akhir' => $id_tesis,
                 'identitas' => $tesis->nim,
                 'nama' => 'Berita Acara Ujian Proposal - ' . $tesis->nama,
                 'link' => $link_dokumen,

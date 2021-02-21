@@ -42,7 +42,7 @@ class Tesis extends CI_Model {
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
         $this->db->where('s.nim', $username);
-        $this->db->where('s.status_judul >', 0);
+        $this->db->where('s.status_judul >=', 0);
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -97,6 +97,7 @@ class Tesis extends CI_Model {
         $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
         $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
         $this->db->where('s.status_judul >', 0);
+        $this->db->where('s.status_judul <', STATUS_TESIS_JUDUL_DITOLAK);
         $this->db->where('m.id_prodi =', $id);
         $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
@@ -1162,7 +1163,7 @@ class Tesis extends CI_Model {
     }
 
     function read_aktif($username) {
-        $stts = array('1', '2', '3');
+        $stts = array('0', '1', '2', '3');
         $this->db->select('s.id_tesis, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
             pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, s.id_departemen, s.tgl_pengajuan, s.status_proposal, s.berkas_proposal, d.departemen');
         $this->db->from('tesis s');
@@ -1604,7 +1605,8 @@ class Tesis extends CI_Model {
         $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
         $this->db->where('m.id_prodi', $id);
         $this->db->where('s.jenis', $jenis);
-        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
+        $this->db->where('jd.jenis', $jenis);
+        //$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -2072,8 +2074,8 @@ class Tesis extends CI_Model {
                 ],
                 [
                     'value' => STATUS_TESIS_UJIAN_SETUJUI_BAA,
-                    'text' => 'Tesis - Disetujui BAA',
-                    'keterangan' => 'Disetujui oleh BAA',
+                    'text' => 'Tesis - Disetujui Admin Prodi',
+                    'keterangan' => 'Disetujui oleh Admin Prodi',
                     'color' => 'bg-green'
                 ],
                 [
@@ -2102,8 +2104,8 @@ class Tesis extends CI_Model {
                 ],
                 [
                     'value' => STATUS_TESIS_UJIAN_DITOLAK,
-                    'text' => 'Tesis - Ditolak BAA',
-                    'keterangan' => 'Ditolak oleh BAA',
+                    'text' => 'Tesis - Ditolak Admin Prodi',
+                    'keterangan' => 'Ditolak oleh Admin Prodi',
                     'color' => 'bg-red'
                 ],
             ];

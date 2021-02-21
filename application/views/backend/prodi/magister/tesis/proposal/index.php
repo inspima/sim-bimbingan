@@ -49,13 +49,13 @@
                                 </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], UJIAN_TESIS_PROPOSAL]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], 'jenis' => UJIAN_TESIS_PROPOSAL]); ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], UJIAN_TESIS_PROPOSAL]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_jadwal', ['id_tesis' => $list['id_tesis'], 'jenis' => UJIAN_TESIS_PROPOSAL]); ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, UJIAN_TESIS_PROPOSAL]); ?>
+                                    <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
                                     <?php
                                     if ($list['status_proposal'] >= STATUS_TESIS_PROPOSAL_UJIAN) {
                                         ?>

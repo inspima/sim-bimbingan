@@ -127,7 +127,7 @@
 	define('DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR', 'skripsi');
 	// S2
 	define('DOKUMEN_JENIS_TESIS_UJIAN_PROPOSAL_STR', 'tesis_proposal');
-	define('DOKUMEN_JENIS_TESIS_UJIAN_SKRIPSI_STR', 'tesis');
+	define('DOKUMEN_JENIS_TESIS_UJIAN_TESIS_STR', 'tesis');
 	// S3
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR', 'kualifikasi');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR', 'disertasi_proposal');

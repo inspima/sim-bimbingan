@@ -748,6 +748,28 @@
 	$route['prodi/doktoral/disertasi/terbuka/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_penilaian';
 	$route['prodi/doktoral/disertasi/terbuka/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_absensi';
 
+	$route['prodi/tesis/ujian'] = 'backend/prodi/tesis/ujian';
+	$route['prodi/tesis/ujian/index/(:num)'] = 'backend/prodi/tesis/ujian/index';
+	$route['prodi/tesis/ujian/approve/(:num)'] = 'backend/prodi/tesis/ujian/approve';
+	$route['prodi/tesis/ujian/reject/(:num)'] = 'backend/prodi/tesis/ujian/reject';
+	$route['prodi/tesis/ujian/batal/(:num)'] = 'backend/prodi/tesis/ujian/batal';
+	$route['prodi/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/prodi/tesis/ujian/nilai_ujian';
+	$route['prodi/tesis/ujian/nilai_ujian_save'] = 'backend/prodi/tesis/ujian/nilai_ujian_save';
+
+	$route['prodi/magister/tesis/proposal'] = 'backend/prodi/magister/tesis/tesis_proposal';
+	$route['prodi/magister/tesis/proposal/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_undangan';
+	$route['prodi/magister/tesis/proposal/cetak_berita'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_berita';
+	$route['prodi/magister/tesis/proposal/cetak_penilaian'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_penilaian';
+	$route['prodi/magister/tesis/proposal/cetak_absensi'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_absensi';
+
+	$route['prodi/magister/tesis/ujian'] = 'backend/prodi/magister/tesis/tesis_ujian';
+	$route['prodi/magister/tesis/ujian/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_undangan';
+	$route['prodi/magister/tesis/ujian/cetak_berita'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_berita';
+	$route['prodi/magister/tesis/ujian/cetak_penilaian'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_penilaian';
+	$route['prodi/magister/tesis/ujian/cetak_absensi'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_absensi';
+	$route['prodi/magister/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/prodi/magister/tesis/tesis_ujian/nilai_ujian';
+	$route['prodi/magister/tesis/ujian/nilai_ujian_save'] = 'backend/prodi/magister/tesis/tesis_ujian/nilai_ujian_save';
+
 	// UP4i
 	$route['up4i/dashboard'] = 'backend/up4i/home/index';
 	$route['up4i/doktoral/jurnal/index'] = 'backend/up4i/jurnal_doktoral/index';

@@ -103,17 +103,33 @@ class Judul extends CI_Controller {
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
                 redirect('mahasiswa/tesis/judul');
             } else {
-                $data = array(
-                    //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                    //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                    'jenis' => TAHAPAN_TESIS_JUDUL,
-                    'berkas_orisinalitas' => $file_name,
-                    'nim' => $this->session_data['username'],
-                    //'id_departemen' => $this->input->post('departemen', TRUE),
-                    'id_minat' => $this->input->post('minat', TRUE),
-                    'tgl_pengajuan' => $tgl_sekarang,
-                    'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
-                );
+
+                if(isset($_POST['simpan_draft'])){
+                    $data = array(
+                        //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                        //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                        'jenis' => TAHAPAN_TESIS_JUDUL,
+                        'berkas_orisinalitas' => $file_name,
+                        'nim' => $this->session_data['username'],
+                        //'id_departemen' => $this->input->post('departemen', TRUE),
+                        'id_minat' => $this->input->post('minat', TRUE),
+                        'tgl_pengajuan' => $tgl_sekarang,
+                        'status_judul' => 0,
+                    );
+                }
+                else {
+                    $data = array(
+                        //'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                        //'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                        'jenis' => TAHAPAN_TESIS_JUDUL,
+                        'berkas_orisinalitas' => $file_name,
+                        'nim' => $this->session_data['username'],
+                        //'id_departemen' => $this->input->post('departemen', TRUE),
+                        'id_minat' => $this->input->post('minat', TRUE),
+                        'tgl_pengajuan' => $tgl_sekarang,
+                        'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
+                    );
+                }
 
                 $this->tesis->save($data);
                 $last_id = $this->db->insert_id();
@@ -195,26 +211,52 @@ class Judul extends CI_Controller {
 
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_orisinalitas']['size'] != 0){
-                    $data = array(
-                        'jenis' => TAHAPAN_TESIS_JUDUL,
-                        'berkas_orisinalitas' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        //'id_departemen' => $this->input->post('departemen', TRUE),
-                        'id_minat' => $this->input->post('minat', TRUE),
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
-                    );
+                    if(isset($_POST['simpan_draft'])){
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'berkas_orisinalitas' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => 0,
+                        );
+                    }
+                    else {
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'berkas_orisinalitas' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
+                        );
+                    }
                     $this->tesis->update($data, $id_tesis);
                 }
                 else {
-                    $data = array(
-                        'jenis' => TAHAPAN_TESIS_JUDUL,
-                        'nim' => $this->session_data['username'],
-                        //'id_departemen' => $this->input->post('departemen', TRUE),
-                        'id_minat' => $this->input->post('minat', TRUE),
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
-                    );
+                    if(isset($_POST['simpan_draft'])){
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'berkas_orisinalitas' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => 0,
+                        );
+                    }
+                    else {
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
+                        );
+                    }
                     $this->tesis->update($data, $id_tesis);
                 }
 
@@ -238,26 +280,51 @@ class Judul extends CI_Controller {
                 redirect('mahasiswa/tesis/judul');
             } else {
                 if($_FILES['berkas_orisinalitas']['size'] != 0){
-                    $data = array(
-                        'jenis' => TAHAPAN_TESIS_JUDUL,
-                        'berkas_orisinalitas' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        //'id_departemen' => $this->input->post('departemen', TRUE),
-                        'id_minat' => $this->input->post('minat', TRUE),
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
-                    );
+                    if(isset($_POST['simpan_draft'])){
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'berkas_orisinalitas' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => 0,
+                        );
+                    }
+                    else {
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'berkas_orisinalitas' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
+                        );
+                    }
                     $this->tesis->update($data, $id_tesis);
                 }
                 else {
-                    $data = array(
-                        'jenis' => TAHAPAN_TESIS_JUDUL,
-                        'nim' => $this->session_data['username'],
-                        //'id_departemen' => $this->input->post('departemen', TRUE),
-                        'id_minat' => $this->input->post('minat', TRUE),
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
-                    );
+                    if(isset($_POST['simpan_draft'])){
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => 0,
+                        );
+                    }
+                    else {
+                        $data = array(
+                            'jenis' => TAHAPAN_TESIS_JUDUL,
+                            'nim' => $this->session_data['username'],
+                            //'id_departemen' => $this->input->post('departemen', TRUE),
+                            'id_minat' => $this->input->post('minat', TRUE),
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_judul' => STATUS_TESIS_JUDUL_PENGAJUAN,
+                        );
+                    }
                     $this->tesis->update($data, $id_tesis);
                 }
 

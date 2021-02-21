@@ -98,13 +98,18 @@
                     }
                     ?>
                     <div class="form-group">
-                        <label>Upload Surat Pernyataan Orisinalitas<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
+                        <label>Upload Surat Pernyataan Orisinalitas (<a href="https://tinyurl.com/wbzhaw6" target="_blank">Template Surat Pernyataan Orisinalitas</a>)<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
                         <input type="file" name="berkas_orisinalitas" class="form-control" <?php echo ($tesis->berkas_orisinalitas != '') ? '' : 'required';?> >
                     </div>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
                     <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
+                    <?php
+                    if($tesis->status_judul == 0) {
+                        echo '<button type="submit" name="simpan_draft" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Simpan Draft</button>';
+                    }
+                    ?>
                     <a class="btn btn-sm btn-warning" href="<?= base_url()?>mahasiswa/tesis/judul"><i class="fa fa-close"></i> Batal</a>
                 </div>
             <?=form_close()?>

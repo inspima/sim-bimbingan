@@ -65,7 +65,7 @@ class Tesis_ujian extends CI_Controller {
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('baa/magister/tesis/ujian/');
+            redirect('prodi/magister/tesis/ujian/');
         }
     }
 
@@ -73,13 +73,13 @@ class Tesis_ujian extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_UJIAN);
-            $jadwal = $this->tesis->read_jadwal($id_tesis, TAHAPAN_TESIS_UJIAN);
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
+            $jadwal = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN);
             $tesis = $this->tesis->detail($id_tesis);
             $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
 
-            $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
-            $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
+            $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . UJIAN_TESIS_UJIAN;
+            $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . UJIAN_TESIS_UJIAN;
             // QR
             $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Tesis', $tesis->nim, $jadwal->tanggal);
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
@@ -88,7 +88,8 @@ class Tesis_ujian extends CI_Controller {
             $data_dokumen = [
                 'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, 'tesis', $tesis->nim, $jadwal->tanggal),
                 'tipe' => DOKUMEN_BERITA_ACARA_STR,
-                'jenis' => 'tesis',
+                'jenis' => 'ujian_tesis',
+                'id_tugas_akhir' => $id_tesis,
                 'identitas' => $tesis->nim,
                 'nama' => 'Berita Acara Ujian Tesis - ' . $tesis->nama,
                 'link' => $link_dokumen,
@@ -134,7 +135,7 @@ class Tesis_ujian extends CI_Controller {
             );
             //print_r($data['penguji_ketua']);die();
             ob_end_clean();
-            $page = 'backend/baa/magister/ujian/cetak_penilaian';
+            $page = 'backend/prodi/magister/ujian/cetak_penilaian';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
             $this->pdf->filename = "tesis_penilaian.pdf";
@@ -159,7 +160,7 @@ class Tesis_ujian extends CI_Controller {
             );
             //print_r($data['penguji_ketua']);die();
             ob_end_clean();
-            $page = 'backend/baa/magister/ujian/cetak_absensi';
+            $page = 'backend/prodi/magister/ujian/cetak_absensi';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
             $this->pdf->filename = "tesis_absensi.pdf";
