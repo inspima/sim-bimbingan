@@ -123,7 +123,7 @@
 
 		function read_mhs_cari($search)
 		{
-			$this->db->select('u.*,m.id_mahasiswa, m.nama, m.email,m.nim,m.sks,m.alamat,m.telp,m.berkas_verifikasi,p.nm_prodi,j.jenjang');
+			$this->db->select('u.*,m.id_mahasiswa, m.nama, m.email,m.nim,m.sks,m.alamat,m.telp,m.berkas_verifikasi,p.nm_prodi,j.id_jenjang,j.jenjang');
 			$this->db->from('user u');
 			$this->db->join('mahasiswa m', 'm.nim = u.username');
 			$this->db->join('prodi p', 'm.id_prodi = p.id_prodi', 'left');
