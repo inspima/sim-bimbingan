@@ -772,6 +772,11 @@
 	$route['prodi/magister/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/prodi/magister/tesis/tesis_ujian/nilai_ujian';
 	$route['prodi/magister/tesis/ujian/nilai_ujian_save'] = 'backend/prodi/magister/tesis/tesis_ujian/nilai_ujian_save';
 
+	$route['prodi/magister/tesis/judul'] = 'backend/prodi/magister/tesis/tesis_judul';
+	$route['prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing'] = 'backend/prodi/magister/tesis/tesis_judul/cetak_surat_tugas_pembimbing';
+
+	$route['prodi/magister/tesis/mkpt'] = 'backend/prodi/magister/tesis/tesis_mkpt';
+
 	// UP4i
 	$route['up4i/dashboard'] = 'backend/up4i/home/index';
 	$route['up4i/doktoral/jurnal/index'] = 'backend/up4i/jurnal_doktoral/index';

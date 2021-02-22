@@ -66,6 +66,19 @@
 			return $query->row();
 		}
 
+		function read_dekan()
+		{
+			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen');
+			$this->db->from('struktural l');
+			$this->db->join('struktur s', 'l.id_struktur = s.id_struktur');
+			$this->db->join('pegawai p', 'l.nip = p.nip');
+			$this->db->where('s.id_struktur', 1);
+			$this->db->limit(1);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		function read_kps()
 		{
 			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen');
