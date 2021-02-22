@@ -303,7 +303,7 @@
                         <td>
                             <?php
                             if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
-                                if($list['status_pembimbing_satu'] == '1' && $list['nip_pembimbing_dua'] == NULL){
+                                if($list['status_pembimbing_satu'] == '1' && ($list['nip_pembimbing_dua'] == NULL OR $list['status_pembimbing_dua'] == '2')){
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/judul/setting_pembimbing_kedua/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Setting Pembimbing Kedua</a><br>

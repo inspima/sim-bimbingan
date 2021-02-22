@@ -186,7 +186,13 @@
 			$tahapans = $this->tesis->read_status_tahapan($process['value']);
 			foreach ($tahapans as $tahapan):
 				if ($index > 0):
-					if ($tahapan['text'] != 'Judul - Ditolak Sekretaris Prodi' && $tahapan['text'] != 'Tesis - Ditolak BAA'):
+					if ($tahapan['text'] != 'Judul - Ditolak Sekretaris Prodi' && $tahapan['text'] != 'Tesis - Ditolak Admin Prodi'):
+						if($tugas_akhir[$process['field']] == STATUS_TESIS_JUDUL_DITOLAK && $process['field'] == 'status_judul'){
+							$tugas_akhir[$process['field']] = STATUS_TESIS_JUDUL_PENGAJUAN;
+						}
+						if($tugas_akhir[$process['field']] == STATUS_TESIS_UJIAN_DITOLAK && $process['field'] == 'status_tesis'){
+							$tugas_akhir[$process['field']] = STATUS_TESIS_UJIAN_PENGAJUAN;
+						}
 						?>
 						<li>
 							<?php

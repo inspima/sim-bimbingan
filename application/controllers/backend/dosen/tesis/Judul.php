@@ -203,6 +203,7 @@ class Judul extends CI_Controller {
 
             $data = array(
                 'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                'status_pembimbing_satu' => NULL,
             );
             $this->tesis->update($data, $id_tesis);
 
@@ -264,6 +265,7 @@ class Judul extends CI_Controller {
 
             $data = array(
                 'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                'status_pembimbing_dua' => NULL,
             );
             $this->tesis->update($data, $id_tesis);
 

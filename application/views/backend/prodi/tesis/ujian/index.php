@@ -24,15 +24,7 @@
                 <tr>
                     <th>No</th>
                     <th>Mahasiswa</th>
-                    <th>Judul</th>
-                    <th>Latar Belakang</th>
-                    <th>Rumusan Masalah Pertama</th>
-                    <th>Rumusan Masalah Kedua</th>
-                    <th>Rumusan Masalah Ketiga Dst.</th>
-                    <th>Penelusuran Artikel Internet</th>
-                    <th>Penelusuran Artikel Repository UNAIR</th>
-                    <th>Uraian Topik Pembeda</th>
-                    <th>Berkas Orisinalitas</th>
+                    <th>Tesis</th>
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
                     <!-- <th>Departemen</th> -->
@@ -53,24 +45,58 @@
                     <tr>
                         <td><?= $no ?></td>
                         <td><?= '<b>' . $list['nama'] . '</b><br>' . $list['nim'].'<br>';?></td>
-                        <?php
-                        $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_UJIAN);
-                        echo '<td>'.$judul->judul.'</td>';
-                        echo '<td>'.$judul->latar_belakang.'</td>';
-                        echo '<td>'.$judul->rumusan_masalah_pertama.'</td>';
-                        echo '<td>'.$judul->rumusan_masalah_kedua.'</td>';
-                        echo '<td>'.$judul->rumusan_masalah_lain.'</td>';
-                        echo '<td>'.$judul->penelusuran_artikel_internet.'</td>';
-                        echo '<td>'.$judul->penelusuran_artikel_unair.'</td>';
-                        echo '<td>'.$judul->uraian_topik.'</td>';
+                        <td><?php
+                            $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_JUDUL);
+                            echo '<b>Judul : </b>'.$judul->judul.'<br>';
+                            /*echo '<b>Latar Belakang : </b>'.$judul->latar_belakang.'<br>';
+                            echo '<b>Rumusan Masalah Pertama : </b>'.$judul->rumusan_masalah_pertama.'<br>';
+                            echo '<b>Rumusan Masalah Kedua : </b>'.$judul->rumusan_masalah_kedua.'<br>';
+                            echo '<b>Rumusan Masalah Ketiga Dst. : </b>'.$judul->rumusan_masalah_lain.'<br>';
+                            echo '<b>Penelusuran Artikel Internet : </b>'.$judul->penelusuran_artikel_internet.'<br>';
+                            echo '<b>Penelusuran Artikel Repository UNAIR : </b>'.$judul->penelusuran_artikel_unair.'<br>';
+                            echo '<b>Uraian Topik : </b>'.$judul->uraian_topik.'<br>';
 
-                        echo '<td>';
-                        if($list['berkas_orisinalitas'] != '') {
-                            echo '<a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$list['berkas_orisinalitas'].'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
-                        }
-                        echo '</td>';
+                            if($list['berkas_orisinalitas'] != '') {
+                                echo '<b>Berkas Orisinalitas : </b><a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$list['berkas_orisinalitas'].'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
+                            }*/
 
-                        ?>
+                            ?>
+
+                            <span class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModalSelengkapnya<?= $judul->id_judul;?>">
+                                <i class="fa fa-search"></i> Lihat Selengkapnya
+                            </span>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModalSelengkapnya<?= $judul->id_judul;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Detail Tesis</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php
+                                            echo '<b>Judul : </b>'.$judul->judul.'<br>';
+                                            echo '<b>Latar Belakang : </b>'.$judul->latar_belakang.'<br>';
+                                            echo '<b>Rumusan Masalah Pertama : </b>'.$judul->rumusan_masalah_pertama.'<br>';
+                                            echo '<b>Rumusan Masalah Kedua : </b>'.$judul->rumusan_masalah_kedua.'<br>';
+                                            echo '<b>Rumusan Masalah Ketiga Dst. : </b>'.$judul->rumusan_masalah_lain.'<br>';
+                                            echo '<b>Penelusuran Artikel Internet : </b>'.$judul->penelusuran_artikel_internet.'<br>';
+                                            echo '<b>Penelusuran Artikel Repository UNAIR : </b>'.$judul->penelusuran_artikel_unair.'<br>';
+                                            echo '<b>Uraian Topik Pembeda : </b>'.$judul->uraian_topik.'<br>';
+
+                                            if($list['berkas_orisinalitas'] != '') {
+                                                echo '<b>Berkas Orisinalitas : </b><a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$list['berkas_orisinalitas'].'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <?php 
                             $dosbing_satu = '<i>belum ditentukan</i>';
