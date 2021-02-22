@@ -88,17 +88,40 @@
 								<td class="text-center">
 									<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_TERBUKA]); ?>
 									<?php
-										if ($list['status_terbuka'] >= 4) {
+										if ($list['status_terbuka'] >= STATUS_DISERTASI_TERBUKA_DIJADWALKAN) {
 											?>
 											<hr style="margin: 5px"/>
 											<!-- Undangan -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('baa/doktoral/disertasi/terbuka/cetak_undangan', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/terbuka/cetak_undangan', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
 											<?php echo form_close() ?>
 											<hr style="margin: 2px"/>
+											<!-- Berita Acara -->
+											<?php $attributes = array('target' => '_blank'); ?>
+											<?php echo form_open('prodi/doktoral/disertasi/terbuka/cetak_berita', $attributes) ?>
+											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
+											<?php echo form_close() ?>
+											<hr style="margin: 2px"/>
+											<!-- Penilaian -->
+											<?php $attributes = array('target' => '_blank'); ?>
+											<?php echo form_open('prodi/doktoral/disertasi/terbuka/cetak_penilaian', $attributes) ?>
+											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
+											<?php echo form_close() ?>
+											<hr style="margin: 2px"/>
+											<!-- Daftar Hadir -->
+											<?php $attributes = array('target' => '_blank'); ?>
+											<?php echo form_open('prodi/doktoral/disertasi/terbuka/cetak_absensi', $attributes) ?>
+											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Daftar Hadir</button>
+											<?php echo form_close() ?>
 											<?php
 										}
 									?>

@@ -1662,16 +1662,16 @@
 						'color' => 'bg-green'
 					],
 					[
-						'value' => STATUS_DISERTASI_TERBUKA_UJIAN,
-						'text' => 'Menunggu Ujian',
-						'keterangan' => 'Sedang menunggu jadwal Ujian',
-						'color' => 'bg-purple'
-					],
-					[
 						'value' => STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN,
 						'text' => 'Persetujuan Berkas',
 						'keterangan' => 'Admin Prodi Cetak semua berkas Ujian menunggu persetujuan para dosen',
 						'color' => 'bg-orange'
+					],
+					[
+						'value' => STATUS_DISERTASI_TERBUKA_UJIAN,
+						'text' => 'Menunggu Ujian',
+						'keterangan' => 'Sedang menunggu jadwal Ujian',
+						'color' => 'bg-purple'
 					],
 					[
 						'value' => STATUS_DISERTASI_TERBUKA_SELESAI,
