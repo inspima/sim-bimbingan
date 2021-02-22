@@ -63,11 +63,11 @@
 				}
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil update proses.');
-				redirect('dashboardd/proposal/penguji_pengajuan');
+				redirect_back();
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-				redirect('dashboardd/proposal/penguji_pengajuan');
+				redirect_back();
 			}
 		}
 

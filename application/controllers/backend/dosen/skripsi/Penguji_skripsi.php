@@ -115,35 +115,32 @@
 
 		public function update_nilai()
 		{
-			$id_ujian = $this->input->post('id_ujian', true);
-			$id_skripsi = $this->input->post('id_skripsi', true);
-			$username = $this->session_data['username'];
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
-				$status_tim = $this->penguji->read_ketuapenguji($username, $id_ujian);
-				if ($status_tim->status_tim == '1') {
-					$id_skripsi = $this->input->post('id_skripsi', true);
-
+				$id_ujian = $this->input->post('id_ujian', true);
+				$id_skripsi = $this->input->post('id_skripsi', true);
+				$status_tim = $this->skripsi->read_pengujiketua($id_ujian);
+				if (!empty($status_tim)) {
 					$data = array(
 						'status_skripsi' => STATUS_SKRIPSI_UJIAN_SELESAI,
 						'nilai' => $this->input->post('nilai', true),
 					);
-					$this->penguji->update_nilai($data, $id_skripsi);
+					$this->skripsi->update_nilai($data, $id_skripsi);
 
 					$this->session->set_flashdata('msg-title', 'alert-success');
 					$this->session->set_flashdata('msg', 'Berhasil update nilai.');
-					redirect('dashboardd/skripsi/penguji_approve');
+					redirect_back();
 				} else {
 					$this->session->set_flashdata('msg-title', 'alert-danger');
 					$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-					redirect('dashboardd/skripsi/penguji_approve');
+					redirect_back();
 				}
 
 
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-				redirect('dashboardd/skripsi/penguji_approve');
+				redirect_back();
 			}
 		}
 

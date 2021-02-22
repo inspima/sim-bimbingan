@@ -20,6 +20,7 @@ class Proposal extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/user', 'user');
+		$this->load->model('backend/transaksi/skripsi', 'skripsi');
         $this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
         $this->load->model('backend/mahasiswa/modul/proposal_model', 'proposal');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');

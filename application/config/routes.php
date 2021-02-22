@@ -365,6 +365,7 @@
 	$route['dosen/sarjana/kadep/proposal/penguji_save'] = 'backend/dosen/skripsi/kadep_proposal/penguji_save';
 	$route['dosen/sarjana/kadep/proposal/penguji_delete'] = 'backend/dosen/skripsi/kadep_proposal/penguji_delete';
 	$route['dosen/sarjana/kadep/proposal/penguji_update_statustim'] = 'backend/dosen/skripsi/kadep_proposal/penguji_update_statustim';
+	$route['dosen/sarjana/kadep/proposal/update_status_ujian'] = 'backend/dosen/skripsi/kadep_proposal/update_status_ujian';
 	$route['kadep/sarjana/kadep/proposal/kirim_whatsapp'] = 'backend/dosen/skripsi/kadep_proposal/penguji_kirim_whatsapp';
 	$route['kadep/sarjana/kadep/proposal/pembimbing_save'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_save';
 	$route['kadep/sarjana/kadep/proposal/pembimbing_delete'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_delete';
@@ -374,6 +375,7 @@
 	$route['dosen/sarjana/proposal/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_proposal';
 	$route['dosen/sarjana/skripsi/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_skripsi';
 	$route['dosen/sarjana/skripsi/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_skripsi';
+	$route['dosen/sarjana/skripsi/penguji_riwayat/update_nilai'] = 'backend/dosen/skripsi/penguji_skripsi/update_nilai';
 
 	// BAA
 	$route['baa/sarjanah/proposal/index'] = 'backend/baa/sarjanah/proposal';

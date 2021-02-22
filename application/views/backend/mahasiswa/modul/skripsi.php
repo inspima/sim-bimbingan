@@ -8,6 +8,7 @@
 		<?php echo $this->session->flashdata('msg'); ?>
 	</div>
 <?php endif; ?>
+<?php $this->view('backend/widgets/skripsi/informasi_status', ['jenis' => TAHAPAN_SKRIPSI_UJIAN]); ?>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">

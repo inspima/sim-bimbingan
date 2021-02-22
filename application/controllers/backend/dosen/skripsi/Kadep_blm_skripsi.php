@@ -73,19 +73,12 @@
 					'id_departemen' => $id_departemen
 				);
 
-				if ($data['skripsi']) {
-					$this->load->view('backend/index_sidebar', $data);
-				} else {
-					$data['section'] = 'backend/notification/danger';
-					$data['msg'] = 'Tidak ditemukan';
-					$data['linkback'] = 'dashboardd/skripsi/kadep_blm_skripsi';
-					$this->load->view('backend/index_sidebar', $data);
-				}
+				$this->load->view('backend/index_sidebar', $data);
 
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-				redirect('dashboardd');
+				redirect_back();
 			}
 		}
 

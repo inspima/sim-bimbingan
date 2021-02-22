@@ -548,7 +548,7 @@
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
 
-				$cekpembimbing = $this->proposal->cek_pembimbing($id_skripsi);
+				$cekpembimbing = $this->skripsi->cek_pembimbing($id_skripsi);
 
 				if ($cekpembimbing) {
 					//CK INI
@@ -565,7 +565,7 @@
 						$this->session->set_flashdata('msg', 'Berhasil update proses');
 						redirect_back();
 					} else if ($status_ujian_proposal == '1') { //layak
-						$cekskripsi = $this->proposal->cekskripsi($proposal->nim);
+						$cekskripsi = $this->skripsi->cekskripsi($proposal->nim);
 
 						if ($cekskripsi) {
 							$this->session->set_flashdata('msg-title', 'alert-success');
@@ -580,7 +580,7 @@
 							$this->proposal->update($data, $id_skripsi);
 
 							// trigger pembimbing
-							$cekpembimbing = $this->proposal->cek_pembimbing($id_skripsi);
+							$cekpembimbing = $this->skripsi->cek_pembimbing($id_skripsi);
 
 							$datap = array(
 								'id_skripsi' => $id_skripsi,
@@ -588,7 +588,7 @@
 								'status' => 2,
 								'status_bimbingan' => 2
 							);
-							$this->proposal->save_pembimbing($datap);
+							$this->skripsi->update_pembimbing($datap,$cekpembimbing->id_pembimbing);
 
 							$this->session->set_flashdata('msg-title', 'alert-success');
 							$this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proposal Skripsi Selesai.');
@@ -619,7 +619,7 @@
 								'status' => 2,
 								'status_bimbingan' => 2
 							);
-							$this->proposal->save_pembimbing($datap);
+							$this->skripsi->update_pembimbing($datap,$cekpembimbing->id_pembimbing);
 
 							$this->session->set_flashdata('msg-title', 'alert-success');
 							$this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proposal Skripsi Selesai.');

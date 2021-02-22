@@ -363,31 +363,21 @@
 			</div>
 			<!-- /.box-header -->
 			<!-- form start -->
-			<?php echo form_open('dashboardd/proposal/kadep_diterima/update_status_ujian'); ?>
+			<?php echo form_open('dosen/sarjana/kadep/proposal/update_status_ujian'); ?>
 			<div class="box-body">
 				<label>input dosen pembimbing terlebih dahulu, jika status proposal layak maka akan pindah ke menu proposal skripsi selesai dan skripsi </label>
 				<label>Status Ujian</label>
 				<?php
 					$sup = $proposal->status_ujian_proposal;
-					if ($sup == '0') {
-						$ksup = 'Belum Ujian';
-					} else if ($sup == '1') {
-						$ksup = 'Layak dan dapat dilanjutkan untuk penulisan skripsi';
-					} else if ($sup == '2') {
-						$ksup = 'Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi';
-					} else if ($sup == '3') {
-						$ksup = 'Tidak layak dan harus diuji kembali';
-					}
 				?>
 				<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 				<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
 
 				<select name="status_ujian_proposal" class="form-control select2" style="width: 100%;" required>
-					<option value="<?php echo $sup ?>"><?php echo $ksup ?></option>
-					<option value="0">Belum Ujian</option>
-					<option value="1">Layak dan dapat dilanjutkan untuk penulisan skripsi</option>
-					<option value="2">Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi</option>
-					<option value="3">Tidak layak dan harus diuji kembali</option>
+					<option value="0" <?=$sup=='0'?'selected':''?>>Belum Ujian</option>
+					<option value="1" <?=$sup=='1'?'selected':''?>>Layak dan dapat dilanjutkan untuk penulisan skripsi</option>
+					<option value="2" <?=$sup=='2'?'selected':''?>>Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi</option>
+					<option value="3" <?=$sup=='3'?'selected':''?>>Tidak layak dan harus diuji kembali</option>
 				</select>
 
 			</div>

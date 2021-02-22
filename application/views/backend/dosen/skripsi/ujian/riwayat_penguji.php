@@ -73,7 +73,7 @@
 												echo 'KPS belum approve';
 											} else if ($list['status_skripsi'] >= STATUS_SKRIPSI_UJIAN_SETUJUI_KPS) {
 												?>
-												<?php echo form_open('dashboardd/skripsi/penguji_approve/update_nilai'); ?>
+												<?php echo form_open('dosen/sarjana/skripsi/penguji_riwayat/update_nilai'); ?>
 												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
 												<?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>

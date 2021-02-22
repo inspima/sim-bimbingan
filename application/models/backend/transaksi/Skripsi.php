@@ -189,6 +189,16 @@
 			return $query->row();
 		}
 
+		public function cekskripsi($nim)
+		{
+			$this->db->select('s.id_skripsi');
+			$this->db->from('skripsi s');
+			$this->db->where('s.nim', $nim);
+			$this->db->where('s.jenis', TAHAPAN_SKRIPSI_UJIAN);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		function update($data, $id_skripsi)
 		{
 			$this->db->where('id_skripsi', $id_skripsi);
@@ -545,7 +555,7 @@
 		public function read_pengujiketua($id_ujian)
 		{
 			$stts = array('1', '2');
-			$this->db->select('id_penguji');
+			$this->db->select('*');
 			$this->db->from('penguji');
 			$this->db->where('id_ujian', $id_ujian);
 			$this->db->where('status_tim', 1);
@@ -631,6 +641,17 @@
 			$this->db->update('penguji', $data);
 		}
 
+		public function save_penguji($data)
+		{
+			$this->db->insert('penguji', $data);
+		}
+
+		public function update_nilai($data, $id_skripsi)
+		{
+			$this->db->where('id_skripsi', $id_skripsi);
+			$this->db->update('skripsi', $data);
+		}
+
 		// Status
 
 		public function read_status_tahapan($urutan)
@@ -696,7 +717,7 @@
 					],
 					[
 						'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_BAA,
-						'text' => 'Persetjuan BAA',
+						'text' => 'Persetujuan BAA',
 						'keterangan' => 'Disetujui oleh BAA',
 						'color' => 'bg-blue'
 					],

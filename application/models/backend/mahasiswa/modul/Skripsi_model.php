@@ -290,7 +290,7 @@ class Skripsi_model extends CI_Model {
 				],
 				[
 					'value' => STATUS_SKRIPSI_UJIAN_SETUJUI_BAA,
-					'text' => 'Pengajuan',
+					'text' => 'Persetujuan BAA',
 					'keterangan' => 'Disetujui oleh BAA',
 					'color' => 'bg-blue'
 				],

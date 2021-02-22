@@ -90,38 +90,16 @@
 				<div class="form-group">
 					<p>Jika sesuai dengan departemen, pilih proses selanjutnya lalu klik tombol proses. </p>
 				</div>
+
 				<div class="form-group">
 					<label>Proses</label>
 					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 					<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
 					<select name="status_proposal" class="form-control select2" style="width: 100%;" required>
-						<option value="<?php echo $proposal->status_proposal?>">
-							<?php
-								if($proposal->status_proposal == '1')
-								{
-									echo 'Pengajuan';
-								}
-								else
-									if($proposal->status_proposal == '2')
-									{
-										echo 'Diterima';
-									}
-									else
-										if($proposal->status_proposal == '3')
-										{
-											echo 'Selesai';
-										}
-										else
-											if($proposal->status_proposal == '4')
-											{
-												echo 'Ditolak';
-											}
-							?>
-						</option>
-						<option value="1">Pengajuan</option>
-						<option value="2">Diterima</option>
-						<option value="3">Selesai</option>
-						<option value="4">Ditolak</option>
+						<option value="<?= STATUS_SKRIPSI_PROPOSAL_PENGAJUAN ?>" <?= $proposal->status_proposal == STATUS_SKRIPSI_PROPOSAL_PENGAJUAN ? 'selected' : '' ?>>Pengajuan</option>
+						<option value="<?= STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP ?>" <?= $proposal->status_proposal >= STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP && $proposal->status_proposal < STATUS_SKRIPSI_PROPOSAL_SELESAI ? 'selected' : '' ?>>Diterima</option>
+						<option value="<?= STATUS_SKRIPSI_PROPOSAL_SELESAI ?>" <?= $proposal->status_proposal >= STATUS_SKRIPSI_PROPOSAL_SELESAI ? 'selected' : '' ?>>Selesai</option>
+						<option value="<?= STATUS_SKRIPSI_PROPOSAL_DITOLAK ?>" <?= $proposal->status_proposal == STATUS_SKRIPSI_PROPOSAL_DITOLAK ? 'selected' : '' ?>>Ditolak</option>
 					</select>
 				</div>
 				<div class="form-group">

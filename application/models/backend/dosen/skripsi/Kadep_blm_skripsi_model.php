@@ -3,7 +3,7 @@ class Kadep_blm_skripsi_model extends CI_Model {
 
 	public function read($id_departemen)
 	{   
-        $stts = array('2','3');
+
 		$this->db->select('s.id_skripsi, dn.departemen, g.gelombang, sr.semester, m.nim, m.nama ');
         $this->db->from('skripsi s');
         $this->db->join('departemen dn','s.id_departemen = dn.id_departemen');
@@ -13,7 +13,7 @@ class Kadep_blm_skripsi_model extends CI_Model {
         $this->db->where('s.id_departemen', $id_departemen);
         $this->db->where('s.jenis',2);
         //$this->db->where_in('s.status_skripsi',3);
-        $this->db->where_in('s.status_skripsi',$stts);
+        $this->db->where('s.status_skripsi <',STATUS_SKRIPSI_UJIAN_SELESAI);
 		$this->db->order_by('s.id_skripsi','desc');
 
 		$query = $this -> db -> get();
@@ -34,7 +34,6 @@ class Kadep_blm_skripsi_model extends CI_Model {
     
     public function detail($id_departemen, $id_skripsi)
 	{
-		$stts = array('3','4','5');
 		$this->db->select('s.id_skripsi, s.status_skripsi, dn.departemen, g.gelombang, sr.semester, m.nim, m.nama ');
         $this->db->from('skripsi s');
         $this->db->join('departemen dn','s.id_departemen = dn.id_departemen');
@@ -43,7 +42,7 @@ class Kadep_blm_skripsi_model extends CI_Model {
         $this->db->join('mahasiswa m','s.nim = m.nim');
         $this->db->where('s.id_departemen', $id_departemen);
         $this->db->where('s.jenis',2);
-        $this->db->where_in('s.status_skripsi',$stts);
+		$this->db->where('s.status_skripsi <',STATUS_SKRIPSI_UJIAN_SELESAI);
         $this->db->where('s.id_skripsi', $id_skripsi);
 
 		$query = $this -> db -> get();
