@@ -81,7 +81,9 @@ class Proposal extends CI_Controller {
 
             if (!$this->upload->do_upload('berkas_proposal')) {
                 $error = array('error' => $this->upload->display_errors());
-                print_r($error);
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', $error['error']);
+				redirect('dashboardm/modul/proposal');
             } else {
                 $upload_data = $this->upload->data();
                 $file = $upload_data['file_name'];

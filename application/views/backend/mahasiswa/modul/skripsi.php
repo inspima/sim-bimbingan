@@ -51,7 +51,7 @@
 									<?php
 										$pembimbing = $this->skripsi->read_pembimbing($list['id_skripsi']);
 										if ($pembimbing) {
-											echo $pembimbing->nama;
+											echo $pembimbing->nama.'<br/>'.$pembimbing->nip;
 										} else {
 											echo 'Belum ada pembimbing';
 										}

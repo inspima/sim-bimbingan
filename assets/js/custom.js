@@ -40,8 +40,13 @@ $(function () {
 		var r = confirm("Apakah anda yakin melakukan ini!");
 		if (r == true) {
 			$("form").submit();
-		}else{
+		} else {
 			return false;
+		}
+	});
+	$('form').submit(function (e) {
+		if ($(':submit').text().trim() == 'Simpan') {
+			$(':submit').attr('disabled', true);
 		}
 	});
 });

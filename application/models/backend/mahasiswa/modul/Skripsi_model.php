@@ -29,7 +29,7 @@ class Skripsi_model extends CI_Model {
     }
 
     public function read_pembimbing($id_skripsi) {
-        $this->db->select('pg.nama');
+        $this->db->select('pg.*');
         $this->db->from('pegawai pg');
         $this->db->join('pembimbing p', 'pg.nip = p.nip');
         $this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
