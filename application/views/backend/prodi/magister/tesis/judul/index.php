@@ -52,13 +52,12 @@
                                     if ($list['status_judul'] == STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING) {
                                     ?>
                                         <hr style="margin: 5px"/>
-                                        <!-- Undangan -->
+                                        <!-- Surat Tugas -->
                                         <?php $attributes = array('target' => '_blank'); ?>
                                         <?php echo form_open('prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing', $attributes) ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                         <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
                                         <input type="text" name="no_surat" class="form-control" required placeholder="NOMOR SURAT">
-                                        <br/><br/>
                                         <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
                                         <?php echo form_close() ?>
                                     <?php

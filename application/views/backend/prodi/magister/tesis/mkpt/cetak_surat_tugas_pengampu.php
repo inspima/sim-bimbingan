@@ -46,37 +46,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <br>Nomor : <?php echo $no_surat; ?>
         </p>
         <p align="justify">
-            Menunjuk Surat Keputusan Dekan Fakultas Hukum Universitas Airlangga No. 003/UN3.1.3/KD/2020 tanggal 03 Januari 2020 tentang Pembimbing dan Penguji Tesis Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?>, dengan ini Dekan menugaskan Dosen yang namanya tersebut di bawah ini sebagai <b>Pembimbing Tesis</b> Mahasiswa Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> Fakultas Hukum Universitas Airlangga, yang mengajukan bimbingan Tesis :
+            Dekan Fakultas Hukum Universitas Airlangga menugaskan Dosen yang namanya tercantum di bawah ini sebagai <b>Dosen Mata Kuliah Penunjang Tesis</b> pada Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> Mahasiswa Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> Fakultas Hukum Universitas Airlangga, a.n<br>
+            <b><?= $tesis->nama.' / NIM. '.$tesis->nim ?>.</b>
         </p>
 
         <table border="1" cellspacing="0" cellpadding="5" style="width:100%">   
             <tr align="center">
                 <td><b>No.</b></td>
-                <td><b>Dosen Pembimbing</b></td>
-                <td><b>Mahasiswa</b></td>
-                <td><b>Judul Tesis</b></td>
+                <td><b>Nama</b></td>
+                <td><b>Topik</b></td>
             </tr>
-            <tr>
-                <td>1.</td>
-                <td>
-                    <?= $tesis->nip_pembimbing_satu.'<br>NIP. '.$tesis->nama_pembimbing_satu.'<br><b>(Pembimbing Utama)</b>'; ?>
-                </td>
-                <td rowspan="2" valign="top">
-                    <?= $tesis->nama.'<br>NIM. '.$tesis->nim ?> 
-                </td>
-                <td rowspan="2" valign="top">
+            <?php
+            $tesis_mkpts = $this->tesis->read_tesis_mkpt($tesis->id_tesis); 
+            $no = 0;   
+            $hitung_nilai_publish = 0;
+            if (!empty($tesis_mkpts)) {
+                $sudah_publish_semua=$this->tesis->cek_mkpt_sudah_publish($tesis->id_tesis);
+                foreach ($tesis_mkpts as $index => $mkpt) {
+                    $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
+                    foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                        $no++;
+
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$pengampu['nama'].'<br>NIP. '.$pengampu['nip'].'</td>
+                            <td>'.$mkpt['mkpt'].'</td>
+                        </tr>
+                        ';
+
+                        ?>
                     <?php
-                    $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);
-                    echo $judul->judul;
-                    ?>
-                </td>
-            </tr>
-            <tr>
-                <td>2.</td>
-                <td>
-                    <?= $tesis->nip_pembimbing_dua.'<br>NIP. '.$tesis->nama_pembimbing_dua.'<br><b>(Pembimbing Kedua)</b>'; ?>
-                </td>
-            </tr>
+                    }
+                }
+            }
+            ?>
         </table>
 
         <table border="0" style="width:100%">            

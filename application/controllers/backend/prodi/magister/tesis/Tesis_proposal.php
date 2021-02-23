@@ -20,6 +20,7 @@ class Tesis_proposal extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+        $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/transaksi/tesis', 'tesis');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
@@ -42,10 +43,11 @@ class Tesis_proposal extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
-    public function cetak_undangan() {
+    public function cetak_sk_proposal() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
+            $no_sk = $this->input->post('no_sk', TRUE);
             $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, 1);
             $id_ujian = $ujian->id_ujian;
 
@@ -53,14 +55,16 @@ class Tesis_proposal extends CI_Controller {
                 'jadwal' => $this->tesis->read_jadwal($id_tesis, 1),
                 'pengujis' => $this->tesis->read_penguji($id_ujian),
                 'tesis' => $this->tesis->detail($id_tesis),
-                'wadek1' => $this->struktural->read_wadek1()
+                'no_sk' => $no_sk,
+                'semester' => $this->semester->detail_berjalan(),
+                'dekan' => $this->struktural->read_dekan()
             );
             //print_r($data['penguji_ketua']);die();
             ob_end_clean();
-            $page = 'backend/prodi/magister/tesis/proposal/cetak_undangan';
+            $page = 'backend/prodi/magister/tesis/proposal/cetak_sk_proposal';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
-            $this->pdf->filename = "tesis_undangan.pdf";
+            $this->pdf->filename = "tesis_sk_proposal.pdf";
             $this->pdf->load_view($page, $data);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
@@ -117,53 +121,6 @@ class Tesis_proposal extends CI_Controller {
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
             $this->pdf->filename = 'berita_acara_proposal_' . $tesis->nim;
-            $this->pdf->load_view($page, $data);
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('prodi/magister/tesis/tesis/proposal/');
-        }
-    }
-
-    public function cetak_penilaian() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_tesis = $this->input->post('id_tesis', TRUE);
-            $data = array(
-                'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
-                'tesis' => $this->tesis->detail($id_tesis)
-            );
-            //print_r($data['penguji_ketua']);die();
-            ob_end_clean();
-            $page = 'backend/prodi/magister/tesis/proposal/cetak_penilaian';
-            $size = 'legal';
-            $this->pdf->setPaper($size, 'potrait');
-            $this->pdf->filename = "tesis_penilaian.pdf";
-            $this->pdf->load_view($page, $data);
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('prodi/magister/tesis/tesis/proposal/');
-        }
-    }
-
-    public function cetak_absensi() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_tesis = $this->input->post('id_tesis', TRUE);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_PROPOSAL);
-            $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
-            $data = array(
-                'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
-                'tesis' => $this->tesis->detail($id_tesis),
-                'pengujis' => $this->tesis->read_penguji($ujian->id_ujian)
-            );
-            //print_r($data['penguji_ketua']);die();
-            ob_end_clean();
-            $page = 'backend/prodi/magister/tesis/proposal/cetak_absensi';
-            $size = 'legal';
-            $this->pdf->setPaper($size, 'potrait');
-            $this->pdf->filename = "tesis_absensi.pdf";
             $this->pdf->load_view($page, $data);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');

@@ -48,38 +48,21 @@
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, TAHAPAN_TESIS_MKPT]); ?>
-                                    <hr style="margin: 5px"/>
-                                    <!-- Undangan -->
-                                    <?php $attributes = array('target' => '_blank'); ?>
-                                    <?php echo form_open('prodi/magister/tesis/proposal/cetak_undangan', $attributes) ?>
-                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                    <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                    <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
-                                    <?php echo form_close() ?>                                        
-                                    <hr style="margin: 2px"/>
-                                    <!-- Berita Acara -->
-                                    <?php $attributes = array('target' => '_blank'); ?>
-                                    <?php echo form_open('prodi/magister/tesis/proposal/cetak_berita', $attributes) ?>
-                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                    <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                    <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
-                                    <?php echo form_close() ?>                                        
-                                    <hr style="margin: 2px"/>
-                                    <!-- Penilaian -->
-                                    <?php $attributes = array('target' => '_blank'); ?>
-                                    <?php echo form_open('prodi/magister/tesis/proposal/cetak_penilaian', $attributes) ?>
-                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                    <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                    <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
-                                    <?php echo form_close() ?>                                      
-                                    <hr style="margin: 2px"/>
-                                    <!-- Daftar Hadir -->
-                                    <?php $attributes = array('target' => '_blank'); ?>
-                                    <?php echo form_open('prodi/magister/tesis/proposal/cetak_absensi', $attributes) ?>
-                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                    <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                    <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Daftar Hadir</button>
-                                    <?php echo form_close() ?>
+                                    <?php
+                                    if ($list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
+                                    ?>
+                                        <hr style="margin: 5px"/>
+                                        <!-- Surat Tugas -->
+                                        <?php $attributes = array('target' => '_blank'); ?>
+                                        <?php echo form_open('prodi/magister/tesis/mkpt/cetak_surat_tugas_pengampu', $attributes) ?>
+                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                        <input type="text" name="no_surat" class="form-control" required placeholder="NOMOR SURAT">
+                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
+                                        <?php echo form_close() ?>
+                                    <?php
+                                    }
+                                    ?>
                                 </td>
                             </tr>      
                             <?php

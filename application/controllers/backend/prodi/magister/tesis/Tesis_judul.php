@@ -60,7 +60,7 @@ class Tesis_judul extends CI_Controller {
             //print_r($data['penguji_ketua']);die();
             ob_end_clean();
             $page = 'backend/prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing';
-            $size = 'legal';
+            $size = 'A4';
             $this->pdf->setPaper($size, 'potrait');
             $this->pdf->filename = "tesis_sp_pembimbing.pdf";
             $this->pdf->load_view($page, $data);

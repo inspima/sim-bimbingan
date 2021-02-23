@@ -266,44 +266,44 @@
                         </td>
                         <td>
                             <?php 
-                            if($list['status_judul'] < STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING){
-                                if($list['nip_pembimbing_satu'] == $this->session_data['username']){
-                                    if($list['status_pembimbing_satu'] == NULL) {
-                                    ?>
-                                        <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
-                                        <i class="fa fa-edit"></i> Approve</a>
-                                        <a class="btn btn-xs btn-danger" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?= $list['id_tesis']?>">
-                                        <i class="fa fa-edit"></i> Reject</a>
-                                    <?php
-                                    } //else if($list['status_pembimbing_satu'] != NULL && $list['nip_pembimbing_dua'] == NULL) {
-                                    else {
-                                    ?>
-                                        <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
-                                        <i class="fa fa-edit"></i> Batal</a>
-                                    <?php
-                                    } 
-                                } else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
-                                    if($list['status_pembimbing_dua'] == NULL) {
-                                    ?>
-                                        <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
-                                        <i class="fa fa-edit"></i> Approve</a>
-                                        <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?php echo $list['id_tesis']?>">
-                                        <i class="fa fa-edit"></i> Reject</a>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
-                                        <i class="fa fa-edit"></i> Batal</a>
-                                    <?php
-                                    }
+                            //if($list['status_judul'] < STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING){
+                            if($list['nip_pembimbing_satu'] == $this->session_data['username']){
+                                if($list['status_pembimbing_satu'] == NULL) {
+                                ?>
+                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Approve</a>
+                                    <a class="btn btn-xs btn-danger" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Reject</a>
+                                <?php
+                                } //else if($list['status_pembimbing_satu'] != NULL && $list['nip_pembimbing_dua'] == NULL) {
+                                else {
+                                ?>
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Batal</a>
+                                <?php
+                                } 
+                            } else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
+                                if($list['status_pembimbing_dua'] == NULL) {
+                                ?>
+                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Approve</a>
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?php echo $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Reject</a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Batal</a>
+                                <?php
                                 }
                             }
+                            //}
                             ?>
                         </td>
                         <td>
                             <?php
                             if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
-                                if($list['status_pembimbing_satu'] == '1' && ($list['nip_pembimbing_dua'] == NULL OR $list['status_pembimbing_dua'] == '2')){
+                                if($list['status_pembimbing_satu'] == '1' && ($list['status_pembimbing_dua'] == NULL OR $list['status_pembimbing_dua'] == '2')){
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/judul/setting_pembimbing_kedua/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Setting Pembimbing Kedua</a><br>

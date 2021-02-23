@@ -59,8 +59,7 @@
                 <label>Mata Kuliah MKPT</label>
                     <table class="table table-bordered">
                         <tr>
-                            <th style="width: 10%">Kode MK</th>
-                            <th style="width: 35%">Nama MK</th>
+                            <th style="width: 45%">Topik</th>
                             <th style="width: 10%">SKS</th>
                             <th style="width: 45%">Dosen</th>
                             <th style="width: 45%">Status</th>
@@ -96,7 +95,6 @@
                                         }
                                         echo '
                                         <tr>
-                                            <td>'.$mkpt['kode'].'</td>
                                             <td>'.$mkpt['mkpt'].'</td>
                                             <td>'.$mkpt['sks'].'</td>
                                             <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
