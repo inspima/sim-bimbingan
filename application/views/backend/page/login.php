@@ -18,7 +18,7 @@
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Password" class="form-control" required>
                 </div>
-				<p>Tidak menerima email/lupa password, silahkan klik <a href="<?= base_url() ?>reset-account"><b>disini</b></a></p>
+				<p>Tidak menerima <b>Email Registrasi</b>, <b>Lupa Password</b> dan <b>Reset Akun</b> silahkan klik <a href="<?= base_url() ?>reset-account"><b>disini</b></a></p>
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i> Masuk</button>
