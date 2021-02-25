@@ -42,10 +42,11 @@ class Tesis_ujian extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
-    public function cetak_undangan() {
+    public function cetak_sk_tesis() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
+            $no_sk = $this->input->post('no_sk', TRUE);
             $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
             $id_ujian = $ujian->id_ujian;
 
@@ -53,19 +54,21 @@ class Tesis_ujian extends CI_Controller {
                 'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
                 'pengujis' => $this->tesis->read_penguji($id_ujian),
                 'tesis' => $this->tesis->detail($id_tesis),
-                'wadek1' => $this->struktural->read_wadek1()
+                'no_sk' => $no_sk,
+                'semester' => $this->semester->detail_berjalan(),
+                'dekan' => $this->struktural->read_dekan()
             );
             //print_r($data['penguji_ketua']);die();
             ob_end_clean();
-            $page = 'backend/prodi/magister/tesis/ujian/cetak_undangan';
+            $page = 'backend/prodi/magister/tesis/ujian/cetak_sk_tesis';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
-            $this->pdf->filename = "tesis_undangan.pdf";
+            $this->pdf->filename = "tesis_sk_proposal.pdf";
             $this->pdf->load_view($page, $data);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('prodi/magister/tesis/ujian/');
+            redirect('prodi/magister/tesis/tesis/ujian/');
         }
     }
 
@@ -124,54 +127,6 @@ class Tesis_ujian extends CI_Controller {
             redirect('prodi/magister/tesis/tesis/ujian/');
         }
     }
-
-    public function cetak_penilaian() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_tesis = $this->input->post('id_tesis', TRUE);
-            $data = array(
-                'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
-                'tesis' => $this->tesis->detail($id_tesis)
-            );
-            //print_r($data['penguji_ketua']);die();
-            ob_end_clean();
-            $page = 'backend/prodi/magister/ujian/cetak_penilaian';
-            $size = 'legal';
-            $this->pdf->setPaper($size, 'potrait');
-            $this->pdf->filename = "tesis_penilaian.pdf";
-            $this->pdf->load_view($page, $data);
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('prodi/magister/tesis/ujian/');
-        }
-    }
-
-    public function cetak_absensi() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_tesis = $this->input->post('id_tesis', TRUE);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, TAHAPAN_TESIS_UJIAN);
-            $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
-            $data = array(
-                'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
-                'tesis' => $this->tesis->detail($id_tesis),
-                'pengujis' => $this->tesis->read_penguji($ujian->id_ujian)
-            );
-            //print_r($data['penguji_ketua']);die();
-            ob_end_clean();
-            $page = 'backend/prodi/magister/ujian/cetak_absensi';
-            $size = 'legal';
-            $this->pdf->setPaper($size, 'potrait');
-            $this->pdf->filename = "tesis_absensi.pdf";
-            $this->pdf->load_view($page, $data);
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('prodi/magister/tesis/ujian/');
-        }
-    }
-
 }
 
 ?>

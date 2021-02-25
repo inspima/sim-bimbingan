@@ -57,9 +57,26 @@
                                         <?php echo form_open('prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing', $attributes) ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                         <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                        <input type="text" name="no_surat" class="form-control" required placeholder="NOMOR SURAT">
+                                        <input type="text" name="no_surat" class="form-control" style="width: 100%" required placeholder="Nomor Surat">
+                                        <input type="text" name="no_sk" class="form-control" style="width: 100%" required placeholder="Nomor SK">
+                                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                            <input type="text" name="tgl_sk" class="form-control" required placeholder="Tanggal SK">
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </div>
+                                        </div>
+                                        <!-- <select name="smt" class="form-control" style="width: 100%" required>
+                                            <option value="" disabled selected>Semester</option>
+                                            <?php
+                                            /*foreach ($semester as $sem => $dt) {
+                                                echo '<option value="'.$dt['id_semester'].'">'.$dt['semester'].'</option>';
+                                            }*/                                            
+                                            ?>
+                                        </select> -->
+                                        <br>
                                         <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
                                         <?php echo form_close() ?>
+
                                     <?php
                                     }
                                     ?>

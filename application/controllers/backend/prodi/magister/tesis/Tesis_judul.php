@@ -37,6 +37,7 @@ class Tesis_judul extends CI_Controller {
             'subtitle' => 'Tesis - Judul',
             'section' => 'backend/prodi/magister/tesis/judul/index',
             // DATA //
+            'semester' => $this->semester->read(),
             'tesis' => $this->tesis->read_judul_tesis($this->session_data['username']),
         );
 
@@ -48,13 +49,20 @@ class Tesis_judul extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
             $no_surat = $this->input->post('no_surat', TRUE);
+            $no_sk = $this->input->post('no_sk', TRUE);
+            $tgl_sk = $this->input->post('tgl_sk', TRUE);
+            $tgl_sk_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_sk)));
+            //$smt = $this->input->post('smt', TRUE);
             $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, 1);
             $id_ujian = $ujian->id_ujian;
 
             $data = array(
                 'tesis' => $this->tesis->detail($id_tesis),
                 'no_surat' => $no_surat,
+                //'semester' => $this->semester->detail($smt),
                 'semester' => $this->semester->detail_berjalan(),
+                'no_sk' => $no_sk,
+                'tgl_sk' => $tgl_sk_ymd,
                 'dekan' => $this->struktural->read_dekan()
             );
             //print_r($data['penguji_ketua']);die();

@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 FAKULTAS HUKUM UNIVERSITAS AIRLANGGA<br>
                 Nomor : <?= $no_sk?><br><br>
                 Tentang<br><br>
-                PENGUJI PROPOSAL TESIS PROGRAM STUDI MAGISTER <?= strtoupper($tesis->nm_prodi);?><br>
+                PENGUJI TESIS PROGRAM STUDI MAGISTER <?= strtoupper($tesis->nm_prodi);?><br>
                 <?= strtoupper(explode(' ', $semester->semester)[0]) ?> TAHUN AKADEMIK <?= explode(' ', $semester->semester)[1] ?>
             </p>
             <p align="justify">
@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td rowspan="2" valign="top">MENIMBANG</td>   
                             <td rowspan="2" valign="top">:</td>   
                             <td valign="top">a.</td> 
-                            <td align="justify">bahwa dalam rangka untuk melaksanakan ujian proposal tesis bagi mahasiswa Program Studi Magister Ilmu Hukum yang telah menyelesaikan proposal tesis perlu ditetapkan Dosen Penguji Proposal Tesis;</td>
+                            <td align="justify">bahwa dalam rangka untuk melaksanakan ujian tesis bagi mahasiswa Program Studi Magister Ilmu Hukum yang telah menyelesaikan tesis perlu ditetapkan Dosen Penguji Tesis;</td>
                         </tr>
                         <tr>
                             <td valign="top">b.</td> 
@@ -112,12 +112,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <td valign="top">Pertama</td> 
                             <td valign="top">:</td>
-                            <td align="justify">Menetapkan penguji proposal tesis sesuai dengan bidang penulisannya pada Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> seperti tercantum dalam lampiran keputusan ini;</td>
+                            <td align="justify">Menetapkan penguji tesis sesuai dengan bidang penulisannya pada Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> seperti tercantum dalam lampiran keputusan ini;</td>
                         </tr>
                         <tr>
                             <td valign="top">Kedua</td>
                             <td valign="top">:</td>
-                            <td align="justify">Penguji proposal tesis wajib memberikan penilaian sesuai dengan kemampuan/penguasaan materi yang diuji;</td>
+                            <td align="justify">Penguji tesis wajib memberikan penilaian sesuai dengan kemampuan/penguasaan materi yang diuji;</td>
                         </tr>
                         <tr>
                             <td valign="top">Ketiga</td>  
@@ -167,9 +167,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <div style="padding: 25px 25px 25px 25px;">
             <p align="justify">
-                Lampiran 1: Keputusan Dekan tanggal, <?= woday_toindo(date('Y-m-d'))?>  Nomor : <?= $no_sk?> tentang Penguji Proposal Tesis Program Studi Magister Ilmu Hukum Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> untuk mahasiswa an. <b><?= $tesis->nama.' ('.$tesis->nim.')' ?></b> dengan judul : 
+                Lampiran 1: Keputusan Dekan tanggal, <?= woday_toindo(date('Y-m-d'))?>  Nomor : <?= $no_sk?> tentang Penguji Tesis Program Studi Magister Ilmu Hukum Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> untuk mahasiswa an. <b><?= $tesis->nama.' ('.$tesis->nim.')' ?></b> dengan judul : 
                 <?php
-                $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);
+                $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_UJIAN);
                 echo $judul->judul;
                 ?>.
             </p>
@@ -183,7 +183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <table border="1" cellspacing="0" cellpadding="5" style="width:100%">   
                 <tr align="center">
                     <td>No</td> 
-                    <td>Nama Penguji Proposal Tesis</td> 
+                    <td>Nama Penguji Tesis</td> 
                     <td>Keterangan</td>
                 </tr>
                 <?php

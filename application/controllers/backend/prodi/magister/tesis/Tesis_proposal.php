@@ -48,11 +48,11 @@ class Tesis_proposal extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
             $no_sk = $this->input->post('no_sk', TRUE);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, 1);
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_PROPOSAL);
             $id_ujian = $ujian->id_ujian;
 
             $data = array(
-                'jadwal' => $this->tesis->read_jadwal($id_tesis, 1),
+                'jadwal' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
                 'pengujis' => $this->tesis->read_penguji($id_ujian),
                 'tesis' => $this->tesis->detail($id_tesis),
                 'no_sk' => $no_sk,
