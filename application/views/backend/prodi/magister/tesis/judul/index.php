@@ -65,6 +65,12 @@
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </div>
                                         </div>
+                                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                            <input type="text" name="tgl_surat" class="form-control" required placeholder="Tanggal Surat">
+                                            <div class="input-group-addon">
+                                                <span class="glyphicon glyphicon-th"></span>
+                                            </div>
+                                        </div>
                                         <!-- <select name="smt" class="form-control" style="width: 100%" required>
                                             <option value="" disabled selected>Semester</option>
                                             <?php

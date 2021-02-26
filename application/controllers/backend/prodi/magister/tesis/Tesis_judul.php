@@ -50,6 +50,8 @@ class Tesis_judul extends CI_Controller {
             $id_tesis = $this->input->post('id_tesis', TRUE);
             $no_surat = $this->input->post('no_surat', TRUE);
             $no_sk = $this->input->post('no_sk', TRUE);
+            $tgl_surat = $this->input->post('tgl_surat', TRUE);
+            $tgl_surat_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_surat)));
             $tgl_sk = $this->input->post('tgl_sk', TRUE);
             $tgl_sk_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_sk)));
             //$smt = $this->input->post('smt', TRUE);
@@ -63,6 +65,7 @@ class Tesis_judul extends CI_Controller {
                 'semester' => $this->semester->detail_berjalan(),
                 'no_sk' => $no_sk,
                 'tgl_sk' => $tgl_sk_ymd,
+                'tgl_surat' => $tgl_surat_ymd,
                 'dekan' => $this->struktural->read_dekan()
             );
             //print_r($data['penguji_ketua']);die();

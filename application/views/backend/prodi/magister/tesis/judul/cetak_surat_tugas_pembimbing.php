@@ -87,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </td> 
                             <td style="width: 45%">
                                 <p>
-                                    <?= woday_toindo(date('Y-m-d'))?><br>
+                                    <?= woday_toindo($tgl_surat); ?><br>
                                     Dekan,
                                     <br/><br/><br/><br/><br/><br/>
                                     <?= $dekan ? $dekan->nama_dosen : 'Iman Prihandono, Ph.D.' ?><br/>
