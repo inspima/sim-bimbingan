@@ -233,11 +233,11 @@
 														<?php
 													} else if ($listpenguji['status'] == '2') {
 														?>
-														<button type="submit" class="btn btn-xs btn-success"> Approved</button>
+														<button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
 														<?php
 													} else if ($listpenguji['status'] == '3') {
 														?>
-														<button type="submit" class="btn btn-xs btn-danger"> Rejected</button>
+														<button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
 														<?php
 													}
 												?>
@@ -328,7 +328,10 @@
 							foreach ($pembimbing as $listpembimbing) {
 								?>
 								<tr>
-									<td><?php echo $listpembimbing['nama'] ?></td>
+									<td>
+										<?php echo $listpembimbing['nama'] ?><br/>
+										<?= $listpembimbing['nip'] ?>
+									</td>
 									<td>
 										<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_delete') ?>
 										<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
@@ -374,10 +377,10 @@
 				<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
 
 				<select name="status_ujian_proposal" class="form-control select2" style="width: 100%;" required>
-					<option value="0" <?=$sup=='0'?'selected':''?>>Belum Ujian</option>
-					<option value="1" <?=$sup=='1'?'selected':''?>>Layak dan dapat dilanjutkan untuk penulisan skripsi</option>
-					<option value="2" <?=$sup=='2'?'selected':''?>>Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi</option>
-					<option value="3" <?=$sup=='3'?'selected':''?>>Tidak layak dan harus diuji kembali</option>
+					<option value="0" <?= $sup == '0' ? 'selected' : '' ?>>Belum Ujian</option>
+					<option value="1" <?= $sup == '1' ? 'selected' : '' ?>>Layak dan dapat dilanjutkan untuk penulisan skripsi</option>
+					<option value="2" <?= $sup == '2' ? 'selected' : '' ?>>Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi</option>
+					<option value="3" <?= $sup == '3' ? 'selected' : '' ?>>Tidak layak dan harus diuji kembali</option>
 				</select>
 
 			</div>

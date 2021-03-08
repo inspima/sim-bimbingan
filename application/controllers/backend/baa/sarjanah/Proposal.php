@@ -1,170 +1,335 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+	defined('BASEPATH') or exit('No direct script access allowed');
 
-class Proposal extends CI_Controller {
+	class Proposal extends CI_Controller
+	{
 
-    public function __construct() {
-        parent::__construct();
+		public function __construct()
+		{
+			parent::__construct();
 
-        //START SESS
-        $this->session_data = $this->session->userdata('logged_in');
+			//START SESS
+			$this->session_data = $this->session->userdata('logged_in');
 
-        if (!$this->session_data) {
-            redirect('logout', 'refresh');
-        } else {
-            if ($this->session_data['sebagai'] != 2 AND $this->session_data['role'] != 2) {
-                redirect('logout', 'refresh');
-            }
-        }
-        //END SESS
-        //START MODEL
-        $this->load->model('backend/administrator/master/struktural_model', 'struktural');
-        $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
-        $this->load->model('backend/baa/proposal/proposal_pengajuan_model', 'proposal');
-        $this->load->model('backend/baa/proposal/proposal_diterima_model', 'proposal_diterima');
-        $this->load->model('backend/baa/proposal/proposal_selesai_model', 'proposal_selesai');
-        $this->load->model('backend/baa/proposal/penguji_pengajuan_model', 'penguji');
-        //END MODEL
-    }
+			if (!$this->session_data) {
+				redirect('logout', 'refresh');
+			} else {
+				if ($this->session_data['sebagai'] != 2 and $this->session_data['role'] != 2) {
+					redirect('logout', 'refresh');
+				}
+			}
+			//END SESS
+			//START MODEL
+			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
+			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+			$this->load->model('backend/baa/proposal/proposal_pengajuan_model', 'proposal');
+			$this->load->model('backend/baa/proposal/proposal_diterima_model', 'proposal_diterima');
+			$this->load->model('backend/baa/proposal/proposal_selesai_model', 'proposal_selesai');
+			$this->load->model('backend/baa/proposal/penguji_pengajuan_model', 'penguji');
+			$this->load->model('backend/transaksi/skripsi', 'transaksi_proposal');
+			$this->load->model('backend/transaksi/dokumen', 'dokumen');
+			$this->load->model('backend/utility/qr', 'qrcode');
+			//END MODEL
+		}
 
-    public function index() {
-        $data = array(
-            // PAGE //
-            'title' => 'Proposal',
-            'subtitle' => 'Data Proposal',
-            'section' => 'backend/baa/sarjanah/proposal/index',
-            // DATA //
-            'proposal' => $this->proposal->read()
-        );
+		public function index()
+		{
+			$data = array(
+				// PAGE //
+				'title' => 'Proposal',
+				'subtitle' => 'Data Proposal',
+				'section' => 'backend/baa/sarjanah/proposal/index',
+				// DATA //
+				'proposal' => $this->proposal->read()
+			);
 
-        $this->load->view('backend/index_sidebar', $data);
-    }
+			$this->load->view('backend/index_sidebar', $data);
+		}
 
-    public function diterima() {
-        $data = array(
-            // PAGE //
-            'title' => 'Proposal',
-            'subtitle' => 'Data Proposal',
-            'section' => 'backend/baa/sarjanah/proposal/diterima',
-            // DATA //
-            'proposal' => $this->proposal_diterima->read()
-        );
+		public function diterima()
+		{
+			$data = array(
+				// PAGE //
+				'title' => 'Proposal',
+				'subtitle' => 'Data Proposal',
+				'section' => 'backend/baa/sarjanah/proposal/diterima',
+				// DATA //
+				'proposal' => $this->proposal_diterima->read()
+			);
 
-        $this->load->view('backend/index_sidebar', $data);
-    }
+			$this->load->view('backend/index_sidebar', $data);
+		}
 
-    public function selesai() {
-        $data = array(
-            // PAGE //
-            'title' => 'Proposal',
-            'subtitle' => 'Data Proposal',
-            'section' => 'backend/baa/sarjanah/proposal/selesai',
-            // DATA //
-            'proposal' => $this->proposal_selesai->read()
-        );
+		public function selesai()
+		{
+			$data = array(
+				// PAGE //
+				'title' => 'Proposal',
+				'subtitle' => 'Data Proposal',
+				'section' => 'backend/baa/sarjanah/proposal/selesai',
+				// DATA //
+				'proposal' => $this->proposal_selesai->read()
+			);
 
-        $this->load->view('backend/index_sidebar', $data);
-    }
+			$this->load->view('backend/index_sidebar', $data);
+		}
 
-    public function ditolak() {
-        $data = array(
-            // PAGE //
-            'title' => 'Proposal',
-            'subtitle' => 'Data Proposal',
-            'section' => 'backend/baa/sarjanah/proposal/ditolak',
-            // DATA //
-            'proposal' => $this->proposal->read()
-        );
+		public function ditolak()
+		{
+			$data = array(
+				// PAGE //
+				'title' => 'Proposal',
+				'subtitle' => 'Data Proposal',
+				'section' => 'backend/baa/sarjanah/proposal/ditolak',
+				// DATA //
+				'proposal' => $this->proposal->read()
+			);
 
-        $this->load->view('backend/index_sidebar', $data);
-    }
+			$this->load->view('backend/index_sidebar', $data);
+		}
 
-    public function belum_approve() {
-        $data = array(
-            // PAGE //
-            'title' => 'Proposal',
-            'subtitle' => 'Data Proposal ',
-            'section' => 'backend/baa/sarjanah/proposal/belum_approve',
-            // DATA //
-            'penguji' => $this->penguji->read()
-        );
+		public function belum_approve()
+		{
+			$data = array(
+				// PAGE //
+				'title' => 'Proposal',
+				'subtitle' => 'Data Proposal ',
+				'section' => 'backend/baa/sarjanah/proposal/belum_approve',
+				// DATA //
+				'penguji' => $this->penguji->read()
+			);
 
-        $this->load->view('backend/index_sidebar', $data);
-    }
+			$this->load->view('backend/index_sidebar', $data);
+		}
 
-    public function edit() {
-        $struktural = $this->struktural->read_struktural($this->session_data['username']);
-        $id_departemen = $struktural->id_departemen;
-        if ($struktural->id_struktur == '5') {
-            $id_skripsi = $this->uri->segment('5');
+		public function edit()
+		{
+			$struktural = $this->struktural->read_struktural($this->session_data['username']);
+			$id_departemen = $struktural->id_departemen;
+			if ($struktural->id_struktur == '5') {
+				$id_skripsi = $this->uri->segment('5');
 
-            $data = array(
-                // PAGE //
-                'title' => 'Pengajuan Proposal (Modul Ketua Departemen)',
-                'subtitle' => 'Data Pengajuan Proposal',
-                'section' => 'backend/dosen/proposal/kadep_pengajuan_detail',
-                // DATA //
-                'proposal' => $this->proposal->detail($id_departemen, $id_skripsi),
-                'departemen' => $this->departemen->read()
-            );
+				$data = array(
+					// PAGE //
+					'title' => 'Pengajuan Proposal (Modul Ketua Departemen)',
+					'subtitle' => 'Data Pengajuan Proposal',
+					'section' => 'backend/dosen/proposal/kadep_pengajuan_detail',
+					// DATA //
+					'proposal' => $this->proposal->detail($id_departemen, $id_skripsi),
+					'departemen' => $this->departemen->read()
+				);
 
-            if ($data['proposal']) {
-                $this->load->view('backend/index_sidebar', $data);
-            } else {
-                $data['section'] = 'backend/notification/danger';
-                $data['msg'] = 'Tidak ditemukan';
-                $data['linkback'] = 'dashboardd/proposal/kadep_pengajuan';
-                $this->load->view('backend/index_sidebar', $data);
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardd');
-        }
-    }
+				if ($data['proposal']) {
+					$this->load->view('backend/index_sidebar', $data);
+				} else {
+					$data['section'] = 'backend/notification/danger';
+					$data['msg'] = 'Tidak ditemukan';
+					$data['linkback'] = 'dashboardd/proposal/kadep_pengajuan';
+					$this->load->view('backend/index_sidebar', $data);
+				}
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardd');
+			}
+		}
 
-    public function update_proses() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_skripsi = $this->input->post('id_skripsi', TRUE);
 
-            $data = array(
-                'status_proposal' => $this->input->post('status_proposal', TRUE),
-                'keterangan_proposal' => $this->input->post('keterangan_proposal', TRUE),
-            );
-            $this->proposal->update($data, $id_skripsi);
+		public function update_proses()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
 
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil update proses');
-            redirect('dashboardd/proposal/kadep_pengajuan');
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardd/proposal/kadep_pengajuan');
-        }
-    }
+				$data = array(
+					'status_proposal' => $this->input->post('status_proposal', true),
+					'keterangan_proposal' => $this->input->post('keterangan_proposal', true),
+				);
+				$this->proposal->update($data, $id_skripsi);
 
-    public function update_departemen() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_skripsi = $this->input->post('id_skripsi', TRUE);
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil update proses');
+				redirect('dashboardd/proposal/kadep_pengajuan');
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardd/proposal/kadep_pengajuan');
+			}
+		}
 
-            $data = array(
-                'id_departemen' => $this->input->post('id_departemen', TRUE),
-            );
-            $this->proposal->update($data, $id_skripsi);
+		public function update_departemen()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
 
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil update departemen. Data pengajuan proposal akan berpindah ke departemen yang dituju.');
-            redirect('dashboardd/proposal/kadep_pengajuan');
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dashboardd/proposal/kadep_pengajuan');
-        }
-    }
+				$data = array(
+					'id_departemen' => $this->input->post('id_departemen', true),
+				);
+				$this->proposal->update($data, $id_skripsi);
 
-}
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil update departemen. Data pengajuan proposal akan berpindah ke departemen yang dituju.');
+				redirect('dashboardd/proposal/kadep_pengajuan');
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardd/proposal/kadep_pengajuan');
+			}
+		}
+
+		public function cetak_surat_tugas()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+				$id_ujian = $this->input->post('id_ujian', true);
+
+				$data = array(
+					'proposal' => $this->proposal->detail($id_skripsi),
+					'gelombang' => $this->proposal->read_gelombangaktif(),
+					'penguji_ketua' => $this->proposal->read_pengujiketuacetak($id_skripsi),
+					'penguji_anggota' => $this->proposal->read_pengujianggota($id_skripsi),
+					'wadek' => $this->proposal->read_wadek(),
+					'judul' => $this->proposal->read_judul($id_skripsi)
+				);
+				//print_r($data['penguji_ketua']);die();
+				ob_end_clean();
+				$page = 'backend/baa/cetak/proposal_surat_tugas';
+				$size = 'legal';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "proposal_surat_tugas.pdf";
+				$this->pdf->load_view($page, $data);
+
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardb/proposal/proposal_diterima');
+			}
+		}
+
+
+		public function cetak_undangan()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+
+				$data = array(
+					'proposal' => $this->proposal->detail($id_skripsi),
+					'jadwal' => $this->proposal->read_ujian($id_skripsi),
+					'penguji' => $this->proposal->read_penguji($id_skripsi),
+					'wadek1' => $this->struktural->read_wadek1()
+				);
+
+				$page = 'backend/baa/cetak/proposal_skripsi_undangan';
+				$size = 'legal';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "undangan_proposal_skripsi.pdf";
+				$this->pdf->load_view($page, $data);
+
+
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardb/proposal/proposal_diterima');
+			}
+		}
+
+		public function cetak_berita()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+				$skripsi = $this->transaksi_proposal->detail_by_id($id_skripsi);
+				$jadwal = $this->transaksi_proposal->read_ujian_proposal($id_skripsi);
+				$pengujis = $this->transaksi_proposal->read_penguji_ujian($jadwal->id_ujian, UJIAN_SKRIPSI_PROPOSAL);
+				$link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				$link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				// QR
+				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Kualifikasi', $skripsi->nim, $jadwal->tanggal);
+				$qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+				// DOKUMEN
+				$data_dokumen = [
+					'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, TAHAPAN_SKRIPSI_PROPOSAL_STR, $skripsi->nim, $jadwal->tanggal),
+					'tipe' => DOKUMEN_BERITA_ACARA_STR,
+					'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
+					'id_tugas_akhir' => $id_skripsi,
+					'id_jenjang' => JENJANG_S1,
+					'identitas' => $skripsi->nim,
+					'nama' => 'Berita Acara Ujian Proposal Skripsi - ' . $skripsi->nama,
+					'deskripsi' => $skripsi->judul,
+					'link' => $link_dokumen,
+					'link_cetak' => $link_dokumen_cetak,
+					'date' => $jadwal->tanggal,
+					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+				];
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				if (empty($dokumen)) {
+					$this->dokumen->save($data_dokumen);
+					// Update Disertasi
+					$update_skripsi = [
+						'status_proposal' => STATUS_SKRIPSI_PROPOSAL_CETAK_DOKUMEN
+					];
+					$this->transaksi_proposal->update($update_skripsi, $id_skripsi);
+				}
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				// DOKUMEN PERSETUJUAN
+				$this->dokumen->generate_persetujuan_berita_acara($pengujis, $dokumen->id_dokumen, JENJANG_S1, $id_skripsi);
+				$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
+				$data = array(
+					'proposal' => $skripsi,
+					'jadwal' => $jadwal,
+					'penguji' => $pengujis,
+					'wadek1' => $this->struktural->read_wadek1(),
+					'kps' => $this->struktural->read_kps(),
+					'judul' => $this->transaksi_proposal->read_judul($id_skripsi),
+				);
+				$data['kadep'] = $this->struktural->read_kadep($data['proposal']->id_departemen);
+				$page = 'backend/baa/cetak/proposal_skripsi_berita';
+				$size = 'legal';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "proposal_skripsi_berita.pdf";
+				$this->pdf->load_view($page, $data);
+
+
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardb/proposal/proposal_diterima');
+			}
+		}
+
+
+		public function cetak_absensi()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+
+				$data = array(
+					'proposal' => $this->proposal->detail($id_skripsi),
+					'jadwal' => $this->proposal->read_ujian($id_skripsi),
+					'penguji' => $this->proposal->read_penguji($id_skripsi),
+					'wadek1' => $this->struktural->read_wadek1()
+				);
+
+				$page = 'backend/baa/cetak/proposal_skripsi_absensi';
+				$size = 'legal';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "absensi_proposal_skripsi.pdf";
+				$this->pdf->load_view($page, $data);
+
+
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardb/proposal/proposal_diterima');
+			}
+		}
+
+	}
 
 ?>

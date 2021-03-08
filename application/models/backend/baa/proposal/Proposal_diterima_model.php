@@ -13,7 +13,7 @@ class Proposal_diterima_model extends CI_Model {
         $this->db->join('semester sr', 'g.id_semester = sr.id_semester');
         $this->db->join('mahasiswa m', 's.nim = m.nim');
         $this->db->where('s.jenis', 1);
-        $this->db->where('s.status_proposal', 2);
+        $this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP);
         $this->db->order_by('s.id_skripsi', 'desc');
 
         $query = $this->db->get();
@@ -21,7 +21,6 @@ class Proposal_diterima_model extends CI_Model {
     }
 
     public function detail($id_skripsi) {
-        $stts = array('2', '3');
         $this->db->select('s.id_skripsi, s.tgl_pengajuan, s.id_departemen, s.judul, s.berkas_proposal, ,s.keterangan_proposal, dn.departemen, g.gelombang, sr.semester, m.nim, m.nama, m.telp ');
         $this->db->from('skripsi s');
         $this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
@@ -30,7 +29,6 @@ class Proposal_diterima_model extends CI_Model {
         $this->db->join('mahasiswa m', 's.nim = m.nim');
         $this->db->where('s.jenis', 1);
         $this->db->where('s.id_skripsi', $id_skripsi);
-        $this->db->where_in('s.status_proposal', $stts);
         $this->db->order_by('s.id_skripsi', 'desc');
 
         $query = $this->db->get();

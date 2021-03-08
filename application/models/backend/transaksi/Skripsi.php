@@ -158,6 +158,22 @@
 			return $query->row();
 		}
 
+		function detail_by_id($id)
+		{
+			$this->db->select('s.*, jud.judul, dn.departemen, sr.semester, m.nim, m.nama ');
+			$this->db->from('skripsi s');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
+			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
+			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->where('s.id_skripsi', $id);
+			$this->db->order_by('s.id_skripsi', 'desc');
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		function detail_proposal($id_skripsi)
 		{
 			$this->db->select('s.id_skripsi, s.tgl_pengajuan, jud.judul, s.berkas_proposal, s.id_departemen, s.status_proposal, s.status_ujian_proposal, s.keterangan_proposal, dn.departemen, sr.semester, m.nim, m.nama ');
@@ -231,7 +247,7 @@
 
 		public function read_pembimbing($id_skripsi)
 		{
-			$this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama, p.status ');
+			$this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama,pg.nip, p.status ');
 			$this->db->from('pembimbing p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('p.id_skripsi', $id_skripsi);
@@ -364,7 +380,7 @@
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->where('u.id_skripsi', $id_skripsi);
-			$this->db->where('u.jenis_ujian', 1);//proposal
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_PROPOSAL);//proposal
 			$this->db->where('u.status', 1);
 			$query = $this->db->get();
 			return $query->row();
@@ -453,6 +469,7 @@
 
 		// Penguji
 
+
 		public function read_penguji_pengajuan_proposal($username)
 		{
 			$this->db->select('p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, s.id_skripsi, s.berkas_proposal, d.departemen,jud.judul');
@@ -487,7 +504,7 @@
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
 			$this->db->where('p.nip', $username);
 			$this->db->where('p.status', 2);
-			$this->db->where('u.jenis_ujian', 1);
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_PROPOSAL);
 			$this->db->where('u.status', 1);
 			$this->db->order_by('u.tanggal', 'desc');
 
@@ -546,6 +563,20 @@
 			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
 			$this->db->where_in('p.status', $stts);
 			$this->db->where('u.status', 1);
+			$this->db->where('u.id_ujian', $id_ujian);
+			$this->db->order_by('p.status_tim', 'asc');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_penguji_ujian($id_ujian, $jenis_ujian)
+		{
+			$this->db->select('p.id_penguji, p.nip, p.status_tim,p.usulan_dosbing, p.status, pg.nama');
+			$this->db->from('penguji p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+			$this->db->where('p.status', 2);
+			$this->db->where('u.jenis_ujian', $jenis_ujian);
 			$this->db->where('u.id_ujian', $id_ujian);
 			$this->db->order_by('p.status_tim', 'asc');
 			$query = $this->db->get();
@@ -689,9 +720,15 @@
 						'color' => 'bg-green'
 					],
 					[
+						'value' => STATUS_SKRIPSI_PROPOSAL_CETAK_DOKUMEN,
+						'text' => 'Cetak Dokumen',
+						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu penilaian para dosen',
+						'color' => 'bg-purple'
+					],
+					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_UJIAN,
 						'text' => 'Ujian',
-						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+						'keterangan' => 'Sedang jadwal Ujian',
 						'color' => 'bg-purple'
 					],
 					[

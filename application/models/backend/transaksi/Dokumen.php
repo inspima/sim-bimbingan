@@ -128,7 +128,27 @@
 			$dokumen = $this->detail($id_dokumen);
 			if ($id_jenjang == JENJANG_S3) {
 				foreach ($datas as $data):
-					$link_dokumen = base_url() . 'document/persetujuan?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tugas_akhir . '$' . $id_dokumen . '$' . $data['nip'] . '$' . $jenis_persetujuan;
+					$link_dokumen = base_url() . 'document/persetujuan?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tugas_akhir . '$' . $id_dokumen . '$' . $data['nip'] ;
+					// QR
+					$qr_image = $this->qrcode->generateQrImageName('Persetujuan Dokumen Berita Acara', $dokumen->jenis, $data['nip'], date('Y-m-d'));
+					$qr_content = 'Persetujuan dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+					$this->qrcode->generateQr($qr_image, $qr_content);
+					$data_dokumen_persetujuan = [
+						'id_dokumen' => $id_dokumen,
+						'identitas' => $data['nip'],
+						'nama' => $data['nama'],
+						'link' => $link_dokumen,
+						'jenis' => $data['status_tim'] == '1' ? '1' : '0',
+						'qr_image' => PATH_FILE_QR . $qr_image,
+					];
+					$dokumen_persetujuan = $this->detail_persetujuan_by_data($data_dokumen_persetujuan);
+					if (empty($dokumen_persetujuan)) {
+						$this->save_persetujuan($data_dokumen_persetujuan);
+					}
+				endforeach;
+			}else if ($id_jenjang == JENJANG_S1) {
+				foreach ($datas as $data):
+					$link_dokumen = base_url() . 'document/persetujuan?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tugas_akhir . '$' . $id_dokumen . '$' . $data['nip'] ;
 					// QR
 					$qr_image = $this->qrcode->generateQrImageName('Persetujuan Dokumen Berita Acara', $dokumen->jenis, $data['nip'], date('Y-m-d'));
 					$qr_content = 'Persetujuan dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE

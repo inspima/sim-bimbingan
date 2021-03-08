@@ -76,7 +76,7 @@
 									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
 									<?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
 									<?php echo formtext('hidden', 'status', '2', 'required') ?>
-									<button type="submit" class="btn btn-xs btn-success"> Approve</button>
+									<button type="submit" class="btn btn-xs btn-success"> Setujui</button>
 									<?php echo form_close();?>
 
 									<?php echo form_open('dashboardd/proposal/penguji_pengajuan/update_penguji');?>

@@ -383,6 +383,11 @@
 	$route['baa/sarjanah/proposal/selesai'] = 'backend/baa/sarjanah/proposal/selesai';
 	$route['baa/sarjanah/proposal/ditolak'] = 'backend/baa/sarjanah/proposal/ditolak';
 	$route['baa/sarjanah/proposal/belum_approve'] = 'backend/baa/sarjanah/proposal/belum_approve';
+	$route['baa/sarjanah/proposal/cetak_surat_tugas'] = 'backend/baa/sarjanah/proposal/cetak_surat_tugas';
+	$route['baa/sarjanah/proposal/cetak_undangan'] = 'bbackend/baa/sarjanah/proposal/cetak_undangan';
+	$route['baa/sarjanah/proposal/cetak_berita'] = 'backend/baa/sarjanah/proposal/cetak_berita';
+	$route['baa/sarjanah/proposal/cetak_absensi'] = 'backend/baa/sarjanah/proposal/cetak_absensi';
+
 	$route['baa/sarjanah/skripsi/index'] = 'backend/baa/sarjanah/skripsi';
 	$route['baa/sarjanah/skripsi/pengajuan'] = 'backend/baa/sarjanah/skripsi/pengajuan';
 	$route['baa/sarjanah/skripsi/diterima'] = 'backend/baa/sarjanah/skripsi/diterima';

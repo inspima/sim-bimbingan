@@ -264,6 +264,8 @@ class Proposal extends CI_Controller {
             'title' => 'Modul (Mahasiswa)',
             'subtitle' => 'Pengajuan Proposal Skripsi (Jadwal Ujian)',
             'section' => 'backend/mahasiswa/modul/proposal_ujian',
+			'use_back' => true,
+			'back_link' => 'dashboardm/modul/proposal',
             // DATA //
             'proposal' => $this->proposal->detail($id, $username),
             'ujian' => $this->proposal->ujian($id, $username)
