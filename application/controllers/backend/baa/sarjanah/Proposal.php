@@ -257,7 +257,6 @@
 					'tipe' => DOKUMEN_BERITA_ACARA_STR,
 					'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
 					'id_tugas_akhir' => $id_skripsi,
-					'id_jenjang' => JENJANG_S1,
 					'identitas' => $skripsi->nim,
 					'nama' => 'Berita Acara Ujian Proposal Skripsi - ' . $skripsi->nama,
 					'deskripsi' => $skripsi->judul,
