@@ -421,6 +421,12 @@
 	$route['baa/magister/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/baa/magister/tesis_ujian/nilai_ujian';
 	$route['baa/magister/tesis/ujian/nilai_ujian_save'] = 'backend/baa/magister/tesis_ujian/nilai_ujian_save';
 
+	$route['baa/master/pekan'] = 'backend/baa/master/pekan/index';
+	$route['baa/master/pekan/add'] = 'backend/baa/master/pekan/add';
+	$route['baa/master/pekan/save'] = 'backend/baa/master/pekan/save';
+	$route['baa/master/pekan/edit/(:num)'] = 'backend/baa/master/pekan/edit';
+	$route['baa/master/pekan/update'] = 'backend/baa/master/pekan/update';
+
 	$route['baa/master/dosen'] = 'backend/baa/master/dosen/index';
 	$route['baa/master/dosen/edit/(:num)'] = 'backend/baa/master/dosen/edit';
 	$route['baa/master/dosen/update'] = 'backend/baa/master/dosen/update';
@@ -878,4 +884,7 @@
 	$route['document/persetujuan'] = 'document/persetujuan';
 	$route['document/persetujuan/save'] = 'document/persetujuan_save';
 	$route['document/cetak'] = 'document/cetak';
+
+	$route['document/lihat_tesis'] = 'document/lihat_tesis';
+	$route['document/cetak_tesis'] = 'document/cetak_tesis';
 
