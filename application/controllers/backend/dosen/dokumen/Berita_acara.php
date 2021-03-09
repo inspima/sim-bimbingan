@@ -25,6 +25,7 @@
 			$this->load->model('backend/utility/notification', 'notifikasi');
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/transaksi/disertasi', 'disertasi');
+			$this->load->model('backend/transaksi/skripsi', 'skripsi');
 			$this->load->model('backend/user', 'user');
 			//END MODEL
 		}
@@ -33,6 +34,12 @@
 		{
 			$result = 0;
 			switch ($jenis) {
+				case DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR:
+					$result = UJIAN_SKRIPSI_PROPOSAL;
+					break;
+				case DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR:
+					$result = UJIAN_SKRIPSI_UJIAN;
+					break;
 				case DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR:
 					$result = UJIAN_DISERTASI_KUALIFIKASI;
 					break;
@@ -99,8 +106,12 @@
 				'dosens' => $this->dokumen->read_persetujuan($id_dokumen),
 				'dokumen' => $dokumen,
 				'dokumen_persetujuan' => $this->dokumen->detail_persetujuan_by_data($data_persetujuan),
-				'status_ujians' => $this->disertasi->read_status_ujian($this->get_value_jenis_dokumen($dokumen->jenis)),
 			);
+			if ($dokumen->id_jenjang == JENJANG_S1) {
+				$data['status_ujians'] = $this->skripsi->read_status_ujian($this->get_value_jenis_dokumen($dokumen->jenis));
+			} else if ($dokumen->id_jenjang == JENJANG_S3) {
+				$data['status_ujians'] = $this->disertasi->read_status_ujian($this->get_value_jenis_dokumen($dokumen->jenis));
+			}
 			$this->load->view('backend/index_sidebar', $data);
 		}
 
@@ -125,7 +136,21 @@
 				$this->dokumen->update_persetujuan($data, $id_persetujuan);
 				// Jika merupakan ketua penguji
 				if ($jenis == '1') {
-					// Disertasi Kualifikasi
+					// Skripsi
+					if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR) {
+						$data_skripsi = [
+							'status_proposal' => STATUS_SKRIPSI_PROPOSAL_SELESAI,
+							'status_ujian_proposal' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_PROPOSAL),
+						];
+						$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
+					} else if ($dokumen->jenis == DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR) {
+						$data_skripsi = [
+							'status_skripsi' => STATUS_SKRIPSI_UJIAN_SELESAI,
+							'status_ujian_skripsi' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_UJIAN),
+						];
+						$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
+					}
+					// Disertasi
 					if ($dokumen->jenis == DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR) {
 						$data_disertasi = [
 							'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,

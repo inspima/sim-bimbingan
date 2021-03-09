@@ -1,3 +1,16 @@
+<?php
+	$judul = $this->proposal->read_judul($proposal->id_skripsi);
+?>
+<?php if($this->session->flashdata('msg')): ?>
+	<?php
+	$class_alert = 'alert '.$this->session->flashdata('msg-title').' alert-dismissable';
+	?>
+	<div class='<?=$class_alert?>'>
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<h4><i class="icon fa fa-check"></i> Notifikasi</h4>
+		<?php echo $this->session->flashdata('msg'); ?>
+	</div>
+<?php endif; ?>
 <div class="row">
 	<!-- left column -->
 	<div class="col-md-6">
@@ -16,6 +29,7 @@
 					<label>NIM</label>
 					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 					<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+					<?php echo formtext('hidden', 'id_judul', $judul->id_judul, 'required') ?>
 					<input type="text" name="nim" class="form-control" value="<?php echo $proposal->nim ?>" readonly>
 				</div>
 				<div class="form-group">
@@ -24,10 +38,7 @@
 				</div>
 				<div class="form-group">
 					<label>Judul</label>
-					<?php
-						$judul = $this->proposal->read_judul($proposal->id_skripsi);
-					?>
-					<textarea class="form-control" name="judul" readonly><?php echo $judul->judul ?></textarea>
+					<textarea class="form-control" name="judul" readonly rows="5" style="resize: none"><?php echo $judul->judul ?></textarea>
 				</div>
 				<div class="form-group">
 					<label>Berkas Proposal</label>
@@ -94,6 +105,9 @@
 			<!-- /.box-header -->
 			<!-- form start -->
 			<?php echo form_open('dashboardd/proposal/kadep_pengajuan/update_proses'); ?>
+			<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+			<?php echo formtext('hidden', 'id_judul', $judul->id_judul, 'required') ?>
+
 			<div class="box-body">
 				<div class="form-group">
 					<p>Jika sesuai dengan departemen, pilih proses selanjutnya lalu klik tombol proses. </p>
@@ -103,9 +117,7 @@
 					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 					<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
 					<select name="status_proposal" class="form-control select2" style="width: 100%;" required>
-						<option value="<?= STATUS_SKRIPSI_PROPOSAL_PENGAJUAN ?>" <?= $proposal->status_proposal == STATUS_SKRIPSI_PROPOSAL_PENGAJUAN ? 'selected' : '' ?>>Pengajuan</option>
 						<option value="<?= STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP ?>" <?= $proposal->status_proposal >= STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP && $proposal->status_proposal < STATUS_SKRIPSI_PROPOSAL_SELESAI ? 'selected' : '' ?>>Diterima</option>
-						<option value="<?= STATUS_SKRIPSI_PROPOSAL_SELESAI ?>" <?= $proposal->status_proposal >= STATUS_SKRIPSI_PROPOSAL_SELESAI ? 'selected' : '' ?>>Selesai</option>
 						<option value="<?= STATUS_SKRIPSI_PROPOSAL_DITOLAK ?>" <?= $proposal->status_proposal == STATUS_SKRIPSI_PROPOSAL_DITOLAK ? 'selected' : '' ?>>Ditolak</option>
 					</select>
 				</div>

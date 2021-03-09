@@ -486,7 +486,7 @@
 				$datap = array(
 					'id_skripsi' => $id_skripsi,
 					'nip' => $nip,
-					'status' => 2,
+					'status' => 1,
 					'status_bimbingan' => 2
 				);
 
@@ -530,6 +530,34 @@
 				$this->skripsi->update_pembimbing($data, $id_pembimbing);
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil hapus pembimbing');
+				redirect_back();
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
+		}
+
+		public function pembimbing_konfirm()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+				$id_pembimbing = $this->input->post('id_pembimbing', true);
+
+				$data_skripsi =[
+					'status_proposal'=>STATUS_SKRIPSI_PROPOSAL_PEMBIMBING
+				];
+				$this->skripsi->update($data_skripsi, $id_skripsi);
+
+				$datap = array(
+					'status' => 2,
+					'status_bimbingan' => 2
+				);
+				$this->skripsi->update_pembimbing($datap, $id_pembimbing);
+
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil simpan pembimbing');
 				redirect_back();
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
@@ -588,7 +616,7 @@
 								'status' => 2,
 								'status_bimbingan' => 2
 							);
-							$this->skripsi->update_pembimbing($datap,$cekpembimbing->id_pembimbing);
+							$this->skripsi->update_pembimbing($datap, $cekpembimbing->id_pembimbing);
 
 							$this->session->set_flashdata('msg-title', 'alert-success');
 							$this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proposal Skripsi Selesai.');
@@ -619,7 +647,7 @@
 								'status' => 2,
 								'status_bimbingan' => 2
 							);
-							$this->skripsi->update_pembimbing($datap,$cekpembimbing->id_pembimbing);
+							$this->skripsi->update_pembimbing($datap, $cekpembimbing->id_pembimbing);
 
 							$this->session->set_flashdata('msg-title', 'alert-success');
 							$this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proposal Skripsi Selesai.');

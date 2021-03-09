@@ -121,13 +121,17 @@
 	define('DOKUMEN_BERITA_ACARA_STR', 'berita-acara');
 	define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
+	define('DOKUMEN_SP_TESIS', 'surat-tugas-pembimbing');
+
 	// JENIS DOKUMEN
 	/// S1
 	define('DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR', 'skripsi_proposal');
 	define('DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR', 'skripsi');
 	// S2
-	define('DOKUMEN_JENIS_TESIS_UJIAN_PROPOSAL_STR', 'tesis_proposal');
-	define('DOKUMEN_JENIS_TESIS_UJIAN_TESIS_STR', 'tesis');
+	define('DOKUMEN_JENIS_TESIS_JUDUL_STR', 'tesis_judul');
+	define('DOKUMEN_JENIS_TESIS_PROPOSAL_STR', 'tesis_proposal');
+	define('DOKUMEN_JENIS_TESIS_MKPT_STR', 'tesis_mkpt');
+	define('DOKUMEN_JENIS_TESIS_UJIAN_STR', 'tesis');
 	// S3
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR', 'kualifikasi');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR', 'disertasi_proposal');
@@ -183,7 +187,8 @@
 	define('STATUS_SKRIPSI_PROPOSAL_SETUJUI_PENGUJI', 4);
 	define('STATUS_SKRIPSI_PROPOSAL_CETAK_DOKUMEN', 5);
 	define('STATUS_SKRIPSI_PROPOSAL_UJIAN', 6);
-	define('STATUS_SKRIPSI_PROPOSAL_SELESAI', 7);
+	define('STATUS_SKRIPSI_PROPOSAL_PEMBIMBING', 7);
+	define('STATUS_SKRIPSI_PROPOSAL_SELESAI', 8);
 	define('STATUS_SKRIPSI_PROPOSAL_DITOLAK', 21);
 
 	// STATUS TAHAPAN PROSES SKRIPSI UJIAN
@@ -201,9 +206,6 @@
 	define('TAHAPAN_TESIS_PROPOSAL', 2);
 	define('TAHAPAN_TESIS_MKPT', 3);
 	define('TAHAPAN_TESIS_UJIAN', 4);
-
-	define('TAHAPAN_TESIS_PROPOSAL_STR', 'proposal_tesis');
-	define('TAHAPAN_TESIS_UJIAN_STR', 'ujian_tesis');
 
 	// JENIS UJIAN TESIS
 	define('UJIAN_TESIS_PROPOSAL', 1);
@@ -255,6 +257,11 @@
 	define('TAHAPAN_DISERTASI_KELAYAKAN_STR', 'kelayakan');
 	define('TAHAPAN_DISERTASI_TERTUTUP_STR', 'tertutup');
 	define('TAHAPAN_DISERTASI_TERBUKA_STR', 'terbuka');
+
+	define('TAHAPAN_TESIS_JUDUL_STR', 'judul_tesis');
+	define('TAHAPAN_TESIS_PROPOSAL_STR', 'proposal_tesis');
+	define('TAHAPAN_TESIS_MKPT_STR', 'mkpt_tesis');
+	define('TAHAPAN_TESIS_UJIAN_STR', 'ujian_tesis');
 
 	// JENIS UJIAN DISERTASI
 	define('UJIAN_DISERTASI_KUALIFIKASI', 1);

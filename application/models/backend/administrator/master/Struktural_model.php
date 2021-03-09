@@ -55,7 +55,7 @@
 
 		function read_wadek1()
 		{
-			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen');
+			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen,p.ttd');
 			$this->db->from('struktural l');
 			$this->db->join('struktur s', 'l.id_struktur = s.id_struktur');
 			$this->db->join('pegawai p', 'l.nip = p.nip');
@@ -68,7 +68,7 @@
 
 		function read_dekan()
 		{
-			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen');
+			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen, p.ttd');
 			$this->db->from('struktural l');
 			$this->db->join('struktur s', 'l.id_struktur = s.id_struktur');
 			$this->db->join('pegawai p', 'l.nip = p.nip');
@@ -81,11 +81,11 @@
 
 		function read_kps()
 		{
-			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen');
+			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen,p.ttd');
 			$this->db->from('struktural l');
 			$this->db->join('struktur s', 'l.id_struktur = s.id_struktur');
 			$this->db->join('pegawai p', 'l.nip = p.nip');
-			$this->db->where('s.id_struktur', 6);
+			$this->db->where('s.id_struktur', STRUKTUR_KPS_S1);
 			$this->db->limit(1);
 
 			$query = $this->db->get();
@@ -107,7 +107,7 @@
 
 		function read_kadep($id_departemen)
 		{
-			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen');
+			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen,p.ttd');
 			$this->db->from('struktural l');
 			$this->db->join('struktur s', 'l.id_struktur = s.id_struktur');
 			$this->db->join('pegawai p', 'l.nip = p.nip');

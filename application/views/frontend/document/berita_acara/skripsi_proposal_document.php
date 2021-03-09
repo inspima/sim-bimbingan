@@ -50,22 +50,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<tr>
 					<td style="width:15%" align="left">Nama</td>
 					<td style="width:1%" align="left">:</td>
-					<td style="width:84%" align="left"><?= $proposal->nama ?></td>
+					<td style="width:84%" align="left"><?= $skripsi->nama ?></td>
 				</tr>
 				<tr>
 					<td align="left">NIM</td>
 					<td align="left">:</td>
-					<td align="left"><?= $proposal->nim ?></td>
+					<td align="left"><?= $skripsi->nim ?></td>
 				</tr>
 				<tr>
 					<td align="left">Minat Studi</td>
 					<td align="left">:</td>
-					<td align="left"><?= $proposal->departemen ?></td>
+					<td align="left"><?= $skripsi->departemen ?></td>
 				</tr>
 				<tr>
 					<td align="left">Judul Proposal</td>
 					<td align="left">:</td>
-					<td align="left"><?= $judul->judul ?></td>
+					<td align="left"><?= $skripsi->judul ?></td>
 				</tr>
 			</table>
 			<br>
@@ -276,24 +276,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">- Sub Bagian Akademik</td>
+					<td align="left" >- Sub Bagian Akademik</td>
 
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">- Sub Bagian Keuangan</td>
+					<td align="left" >- Sub Bagian Keuangan</td>
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">- Ketua Departemen</td>
+					<td align="left" >- Ketua Departemen</td>
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">- Koordinator Program Studi</td>
+					<td align="left" >- Koordinator Program Studi</td>
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">- Dosen Pembimbing Skripsi yang ditunjuk</td>
+					<td align="left" >- Dosen Pembimbing Skripsi yang ditunjuk</td>
 				</tr>
 				<tr>
 					<td align="left"></td>

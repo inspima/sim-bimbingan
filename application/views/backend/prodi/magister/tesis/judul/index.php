@@ -50,6 +50,24 @@
                                     <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, TAHAPAN_TESIS_JUDUL]); ?>
                                     <?php
                                     if ($list['status_judul'] == STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING) {
+                                    	$data_dokumen = [
+							                'tipe' => DOKUMEN_SP_TESIS,
+							                'jenis' => DOKUMEN_JENIS_TESIS_JUDUL_STR,
+							                'identitas' => $list['nim'],
+							            ];
+							            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+
+							            $no_surat = '';
+							            $no_sk = '';
+							            $tgl_sk = '';
+							            $tgl_surat = '';
+
+							            if(!empty($dokumen)){
+							            	$no_surat = $dokumen->no_doc;
+							            	$no_sk = $dokumen->no_ref_doc;
+							            	$tgl_sk = date('d/m/Y', strtotime($dokumen->date_doc));
+							            	$tgl_surat = date('d/m/Y', strtotime($dokumen->date));
+							            }
                                     ?>
                                         <hr style="margin: 5px"/>
                                         <!-- Surat Tugas -->
@@ -57,16 +75,16 @@
                                         <?php echo form_open('prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing', $attributes) ?>
                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                         <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                        <input type="text" name="no_surat" class="form-control" style="width: 100%" required placeholder="Nomor Surat">
-                                        <input type="text" name="no_sk" class="form-control" style="width: 100%" required placeholder="Nomor SK">
+                                        <input type="text" name="no_surat" class="form-control" style="width: 100%" value="<?= $no_surat; ?>" required placeholder="Nomor Surat">
+                                        <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
                                         <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                            <input type="text" name="tgl_sk" class="form-control" required placeholder="Tanggal SK">
+                                            <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal SK">
                                             <div class="input-group-addon">
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </div>
                                         </div>
                                         <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                            <input type="text" name="tgl_surat" class="form-control" required placeholder="Tanggal Surat">
+                                            <input type="text" name="tgl_surat" class="form-control" value="<?= $tgl_surat; ?>" required placeholder="Tanggal Surat">
                                             <div class="input-group-addon">
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </div>

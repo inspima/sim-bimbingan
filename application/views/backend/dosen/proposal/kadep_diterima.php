@@ -52,8 +52,6 @@
                             <td><?php echo toindo($list['tgl_pengajuan'])?></td>
                             <td><?=$list['semester']?></td>
                             <td>
-                                <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dashboardd/proposal/kadep_diterima/edit/<?= $list['id_skripsi']?>">
-                                <i class="fa fa-edit"></i> Proses</a>
                                 <a class="btn btn-xs btn-primary pull-left" href="<?= base_url()?>dashboardd/proposal/kadep_diterima/plot/<?= $list['id_skripsi']?>">
                                 <i class="fa fa-gear"></i> Setting Ujian</a>
                             </td>

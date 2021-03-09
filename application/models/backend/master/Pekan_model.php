@@ -17,6 +17,17 @@
 			return $query->result_array();
 		}
 
+		function read_aktif_skripsi()
+		{
+			$this->db->select('*');
+			$this->db->from('pekan');
+			$this->db->where('jenis', 'skripsi');
+			$this->db->where('status', '1');
+			$this->db->order_by('tgl_awal', 'desc');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		function detail($id)
 		{
 			$this->db->select('*');
@@ -26,9 +37,15 @@
 			return $query->row();
 		}
 
+
 		public function save($data)
 		{
 			$this->db->insert('pekan', $data);
+		}
+
+		public function save_skripsi($data)
+		{
+			$this->db->insert('skripsi_pekan', $data);
 		}
 
 		public function update($data, $id_semester)

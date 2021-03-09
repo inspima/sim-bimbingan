@@ -24,7 +24,7 @@
 
 		public function read_judul($id_skripsi)
 		{
-			$this->db->select('j.judul');
+			$this->db->select('j.*');
 			$this->db->from('judul j');
 			$this->db->join('skripsi s', 'j.id_skripsi = s.id_skripsi');
 			$this->db->where('j.id_skripsi', $id_skripsi);
@@ -55,6 +55,12 @@
 		{
 			$this->db->where('id_skripsi', $id_skripsi);
 			$this->db->update('skripsi', $data);
+		}
+
+		public function update_judul($data, $id)
+		{
+			$this->db->where('id_judul', $id);
+			$this->db->update('judul', $data);
 		}
 
 	}

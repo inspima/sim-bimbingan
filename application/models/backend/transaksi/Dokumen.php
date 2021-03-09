@@ -104,7 +104,7 @@
 				foreach ($datas as $data):
 					$link_dokumen = base_url() . 'document/persetujuan?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tugas_akhir . '$' . $id_dokumen . '$' . $data['nip'] . '$' . $jenis_persetujuan;
 					// QR
-					$qr_image = $this->qrcode->generateQrImageName('Persetujuan Dokumen Berita Acara', 'Proposal', $data['nip'], date('Y-m-d'));
+					$qr_image = $this->qrcode->generateQrImageName('Persetujuan Dokumen Berita Acara', 'Tesis', $data['nip'], date('Y-m-d'));
 					$qr_content = 'Persetujuan dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
 					$this->qrcode->generateQr($qr_image, $qr_content);
 					$data_dokumen_persetujuan = [

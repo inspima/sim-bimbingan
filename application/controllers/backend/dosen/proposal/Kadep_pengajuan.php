@@ -83,12 +83,26 @@
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
 				$id_skripsi = $this->input->post('id_skripsi', true);
-
-				$data = array(
-					'status_proposal' => $this->input->post('status_proposal', true),
-					'keterangan_proposal' => $this->input->post('keterangan_proposal', true),
-				);
-				$this->proposal->update($data, $id_skripsi);
+				$id_judul = $this->input->post('id_judul', true);
+				$status_proposal = $this->input->post('status_proposal', true);
+				if ($status_proposal == STATUS_SKRIPSI_PROPOSAL_DITOLAK) {
+					$data_judul = [
+						'persetujuan' => 2,
+						'persetujuan_keterangan' => $this->input->post('keterangan_proposal', true),
+					];
+					$this->proposal->update_judul($data_judul, $id_judul);
+				} else {
+					$data = array(
+						'status_proposal' => $this->input->post('status_proposal', true),
+						'keterangan_proposal' => $this->input->post('keterangan_proposal', true),
+					);
+					$this->proposal->update($data, $id_skripsi);
+					$data_judul = [
+						'persetujuan' => 1,
+						'status' => 1,
+					];
+					$this->proposal->update_judul($data_judul, $id_judul);
+				};
 
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil update proses');

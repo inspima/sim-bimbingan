@@ -7,11 +7,13 @@
 
 		public function read($username)
 		{
-			$this->db->select('s.id_skripsi, s.id_departemen, s.id_gelombang, s.tgl_pengajuan,  s.berkas_proposal, s.status_proposal, d.departemen, g.gelombang, t.semester ');
+			$this->db->select('s.id_skripsi, s.id_departemen, s.id_gelombang, s.tgl_pengajuan,  s.berkas_proposal, s.status_proposal, d.departemen, g.gelombang, t.semester,pek.nama as nama_pekan ');
 			$this->db->from('skripsi s');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
 			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
 			$this->db->join('semester t', 'g.id_semester = t.id_semester');
+			$this->db->join('skripsi_pekan sp', "sp.id_skripsi = s.id_skripsi and sp.status=1", 'left');
+			$this->db->join('pekan pek', "sp.id_pekan = pek.id_pekan", 'left');
 			$this->db->where('s.nim', $username);
 			$this->db->where('s.jenis', 1);
 			$this->db->order_by('s.id_skripsi', 'desc');
@@ -22,16 +24,15 @@
 
 		function read_aktif($username)
 		{
-			//$stts = array('1','2','3');
-			$stts = array('1', '2');
 			$this->db->select('s.id_skripsi, s.id_departemen, s.id_gelombang, s.tgl_pengajuan, s.berkas_proposal, s.status_proposal, d.departemen, g.gelombang, t.semester ');
 			$this->db->from('skripsi s');
+			$this->db->join('judul j', 's.id_skripsi = j.id_skripsi');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
 			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
 			$this->db->join('semester t', 'g.id_semester = t.id_semester');
 			$this->db->where('s.nim', $username);
-			$this->db->where('s.jenis', 1);
-			$this->db->where_in('s.status_proposal', $stts);
+			$this->db->where('s.jenis', TAHAPAN_SKRIPSI_PROPOSAL);
+			$this->db->where_in('j.status', 1);
 			$this->db->limit(1);
 			$this->db->order_by('s.id_skripsi', 'desc');
 
@@ -46,17 +47,24 @@
 
 		function save_judul($dataj)
 		{
+			$this->db->query("update judul set status=0 where id_skripsi='{$dataj['id_skripsi']}'");
 			$this->db->insert('judul', $dataj);
+		}
+
+		public function update_judul($data, $id)
+		{
+			$this->db->where('id_judul', $id);
+			$this->db->update('judul', $data);
 		}
 
 		public function read_judul($id_skripsi)
 		{
-			$this->db->select('j.judul');
+			$this->db->select('j.*');
 			$this->db->from('judul j');
 			$this->db->join('skripsi s', 'j.id_skripsi = s.id_skripsi');
+			$this->db->where('j.status', 1);
 			$this->db->where('j.id_skripsi', $id_skripsi);
 			$this->db->order_by('j.id_judul', 'desc');
-			$this->db->limit(1);
 			$query = $this->db->get();
 			return $query->row();
 		}

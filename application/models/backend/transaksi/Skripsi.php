@@ -109,7 +109,6 @@
 
 		public function read_kadep_selesai($id_departemen)
 		{
-			$status_ujians = ['1', '2'];
 			$this->db->select('s.*, dn.departemen, sr.semester, m.nim, m.nama ,jud.judul');
 			$this->db->from('skripsi s');
 			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
@@ -118,7 +117,7 @@
 			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
 			$this->db->where('s.id_departemen', $id_departemen);
-			$this->db->where_in('s.status_ujian_proposal', $status_ujians);
+			$this->db->where('s.status_ujian_proposal >', 0);
 			$this->db->order_by('s.id_skripsi', 'desc');
 
 			$query = $this->db->get();
@@ -235,23 +234,21 @@
 
 		public function read_pembimbing_row($id_skripsi)
 		{
-			$this->db->select('pg.nama');
+			$this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama,pg.nip, p.status,pg.ttd ');
 			$this->db->from('pegawai pg');
 			$this->db->join('pembimbing p', 'pg.nip = p.nip');
 			$this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
 			$this->db->where('s.id_skripsi', $id_skripsi);
-			$this->db->where('p.status', 2);
 			$query = $this->db->get();
 			return $query->row();
 		}
 
 		public function read_pembimbing($id_skripsi)
 		{
-			$this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama,pg.nip, p.status ');
+			$this->db->select('p.id_pembimbing, p.id_skripsi, pg.nama,pg.nip, p.status,pg.ttd ');
 			$this->db->from('pembimbing p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('p.id_skripsi', $id_skripsi);
-			$this->db->where('p.status !=', 4);
 			$query = $this->db->get();
 			return $query->result_array();
 		}
@@ -394,6 +391,19 @@
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->where('u.id_skripsi', $id_skripsi);
 			$this->db->where('u.jenis_ujian', 1);//proposal
+			$this->db->where('u.status', 1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_jadwal($id_skripsi, $jenis)
+		{
+			$this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_skripsi, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_skripsi', $id_skripsi);
+			$this->db->where('u.jenis_ujian', $jenis);//proposal
 			$this->db->where('u.status', 1);
 			$query = $this->db->get();
 			return $query->row();
@@ -571,7 +581,7 @@
 
 		public function read_penguji_ujian($id_ujian, $jenis_ujian)
 		{
-			$this->db->select('p.id_penguji, p.nip, p.status_tim,p.usulan_dosbing, p.status, pg.nama');
+			$this->db->select('p.id_penguji, p.nip, p.status_tim,p.usulan_dosbing, p.status, pg.nama,pg.ttd');
 			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
@@ -685,6 +695,47 @@
 
 		// Status
 
+		public function read_status_ujian($jenis)
+		{
+			if ($jenis == UJIAN_SKRIPSI_PROPOSAL) {
+				return [
+					['value' => '0', 'text' => 'Belum Ujian'],
+					['value' => '1', 'text' => 'Layak'],
+					['value' => 'u', 'text' => 'Tidak Layak'],
+				];
+			} else {
+				return [
+					['value' => '0', 'text' => 'Belum Ujian'],
+					['value' => '1', 'text' => 'Lulus'],
+					['value' => 'u', 'text' => 'Mengulang Kembali'],
+				];
+			}
+		}
+
+		public function get_status_ujian($status_ujian, $jenis)
+		{
+			$result = '';
+			$status_ujians = $this->read_status_ujian($jenis);
+			foreach ($status_ujians as $s) {
+				if ($s['value'] == $status_ujian) {
+					$result = $s['text'];
+				}
+			}
+			return $result;
+		}
+
+		public function get_id_status_ujian_by_text($status_ujian, $jenis)
+		{
+			$result = '';
+			$status_ujians = $this->read_status_ujian($jenis);
+			foreach ($status_ujians as $s) {
+				if ($s['text'] == $status_ujian) {
+					$result = $s['value'];
+				}
+			}
+			return $result;
+		}
+
 		public function read_status_tahapan($urutan)
 		{
 			if ($urutan == TAHAPAN_SKRIPSI_PROPOSAL) {
@@ -723,19 +774,25 @@
 						'value' => STATUS_SKRIPSI_PROPOSAL_CETAK_DOKUMEN,
 						'text' => 'Cetak Dokumen',
 						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu penilaian para dosen',
-						'color' => 'bg-purple'
+						'color' => 'bg-orange'
 					],
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_UJIAN,
 						'text' => 'Ujian',
-						'keterangan' => 'Sedang jadwal Ujian',
+						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
+					],
+					[
+						'value' => STATUS_SKRIPSI_PROPOSAL_PEMBIMBING,
+						'text' => 'Penentuan Pembimbing',
+						'keterangan' => 'Ketua Bagian menentukan pembimbing',
+						'color' => 'bg-maroon-active'
 					],
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_SELESAI,
 						'text' => 'Ujian Selesai',
 						'keterangan' => 'Selesai, hasil sudah ditentukan oleh Kepala Departemen',
-						'color' => 'bg-maroon-active'
+						'color' => 'bg-red'
 					],
 				];
 			} else if ($urutan == TAHAPAN_SKRIPSI_UJIAN) {

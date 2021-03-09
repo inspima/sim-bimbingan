@@ -297,7 +297,7 @@
 			<div class="box-body table-responsive">
 				<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_save'); ?>
 				<div class="form-group">
-					<label>Usulan pembimbing </label>
+					<label>Pengajuan Pembimbing</label>
 					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 					<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
 					<select name="nip" class="form-control select2" style="width: 100%;" required>
@@ -329,17 +329,34 @@
 								?>
 								<tr>
 									<td>
-										<?php echo $listpembimbing['nama'] ?><br/>
+										<?= $listpembimbing['status'] == '1' ? '<b class="text-primary">Usulan</b><br/>' : '' ?>
+										<?php echo $listpembimbing['nama'] ?>
+										<br/>
 										<?= $listpembimbing['nip'] ?>
 									</td>
-									<td>
-										<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_delete') ?>
-										<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-										<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-										<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
-										<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
-										<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
-										<?php echo form_close() ?>
+									<td class="text-center">
+
+										<?php
+											if ($listpembimbing['status'] == '1') {
+												?>
+												<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_delete') ?>
+												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+												<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+												<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+												<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
+												<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+												<?php echo form_close() ?>
+												<br/>
+												<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_konfirm') ?>
+												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+												<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+												<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+												<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
+												<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-square-o"></i> Konfirmasi</button>
+												<?php echo form_close() ?>
+												<?php
+											}
+										?>
 									</td>
 								</tr>
 								<?php
@@ -352,67 +369,4 @@
 		<!-- /.box -->
 	</div>
 
-</div>
-
-<div class="row">
-	<div class="col-md-4">
-
-	</div>
-	<div class="col-md-8">
-		<!-- general form elements -->
-		<div class="box box-primary">
-			<div class="box-header with-border">
-				<h3 class="box-title">4. Status Ujian Proposal</h3>
-			</div>
-			<!-- /.box-header -->
-			<!-- form start -->
-			<?php echo form_open('dosen/sarjana/kadep/proposal/update_status_ujian'); ?>
-			<div class="box-body">
-				<label>input dosen pembimbing terlebih dahulu, jika status proposal layak maka akan pindah ke menu proposal skripsi selesai dan skripsi </label>
-				<label>Status Ujian</label>
-				<?php
-					$sup = $proposal->status_ujian_proposal;
-				?>
-				<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-				<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-
-				<select name="status_ujian_proposal" class="form-control select2" style="width: 100%;" required>
-					<option value="0" <?= $sup == '0' ? 'selected' : '' ?>>Belum Ujian</option>
-					<option value="1" <?= $sup == '1' ? 'selected' : '' ?>>Layak dan dapat dilanjutkan untuk penulisan skripsi</option>
-					<option value="2" <?= $sup == '2' ? 'selected' : '' ?>>Layak dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi</option>
-					<option value="3" <?= $sup == '3' ? 'selected' : '' ?>>Tidak layak dan harus diuji kembali</option>
-				</select>
-
-			</div>
-			<!-- /.box-body -->
-			<div class="box-footer">
-				<?php
-					$semua_approve = $this->skripsi->semua_penguji_setuju($id_ujian);
-					if ($semua_approve) {
-						?>
-						<?php
-						$ketua = $this->skripsi->read_pengujiketua($id_ujian);
-						if ($ketua) {
-							?>
-							<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
-							<?php
-						} else {
-							?>
-							<div class="form-group">
-								<p>Belum Set Ketua Penguji</p>
-							</div>
-							<?php
-						}
-						?>
-
-						<?php
-					} else {
-						echo 'penguji belum lengkap/belum approve';
-					}
-				?>
-			</div>
-			<?php echo form_close() ?>
-		</div>
-		<!-- /.box -->
-	</div>
 </div>

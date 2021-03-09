@@ -1430,7 +1430,7 @@ class Tesis extends CI_Model {
         $stts = array('1', '2');
         $this->db->select('p.id_penguji');
         $this->db->from('penguji_tesis p');
-        $this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+        $this->db->join('ujian_tesis u', 'p.id_ujian = u.id_ujian');
         $this->db->where('u.id_ujian', $data['id_ujian']);
         $this->db->where('p.nip', $data['nip']);
         $this->db->where('u.status', 1);
@@ -1478,7 +1478,7 @@ class Tesis extends CI_Model {
 
         $this->db->select('u.id_ujian');
         $this->db->from('ujian_tesis u');
-        $this->db->join('penguji p', 'u.id_ujian = p.id_ujian');
+        $this->db->join('penguji_tesis p', 'u.id_ujian = p.id_ujian');
         $this->db->where('u.tanggal', $tanggal);
         $this->db->where('u.id_jam', $id_jam);
         $this->db->where('p.nip', $nip);
@@ -1488,8 +1488,8 @@ class Tesis extends CI_Model {
         $s2->row();
 
         $this->db->select('u.id_ujian');
-        $this->db->from('ujian_tesis u');
-        $this->db->join('penguji p', 'u.id_ujian = p.id_ujian');
+        $this->db->from('ujian_disertasi u');
+        $this->db->join('penguji_disertasi p', 'u.id_ujian = p.id_ujian');
         $this->db->where('u.tanggal', $tanggal);
         $this->db->where('u.id_jam', $id_jam);
         $this->db->where('p.nip', $nip);
@@ -1696,7 +1696,7 @@ class Tesis extends CI_Model {
         $s2->row();
 
         $this->db->select('u.id_ujian');
-        $this->db->from('ujian_tesis u');
+        $this->db->from('ujian_disertasi u');
         $this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
         $this->db->join('jam j', 'u.id_jam = j.id_jam');
         $this->db->where('u.tanggal', $data['tanggal']);

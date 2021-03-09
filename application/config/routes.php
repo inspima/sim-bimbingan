@@ -369,6 +369,7 @@
 	$route['kadep/sarjana/kadep/proposal/kirim_whatsapp'] = 'backend/dosen/skripsi/kadep_proposal/penguji_kirim_whatsapp';
 	$route['kadep/sarjana/kadep/proposal/pembimbing_save'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_save';
 	$route['kadep/sarjana/kadep/proposal/pembimbing_delete'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_delete';
+	$route['kadep/sarjana/kadep/proposal/pembimbing_konfirm'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_konfirm';
 
 	//Dosen
 	$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_proposal';
@@ -884,6 +885,11 @@
 	$route['document/persetujuan'] = 'document/persetujuan';
 	$route['document/persetujuan/save'] = 'document/persetujuan_save';
 	$route['document/cetak'] = 'document/cetak';
+
+	$route['document/lihat_skripsi'] = 'document/lihat_skripsi';
+	$route['document/persetujuan/skripsi'] = 'document/persetujuan_skripsi';
+	$route['document/persetujuan/skripsi/save'] = 'document/persetujuan_skripsi_save';
+	$route['document/cetak_skripsi'] = 'document/cetak_skripsi';
 
 	$route['document/lihat_tesis'] = 'document/lihat_tesis';
 	$route['document/cetak_tesis'] = 'document/cetak_tesis';

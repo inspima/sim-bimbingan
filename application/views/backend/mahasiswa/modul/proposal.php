@@ -15,8 +15,9 @@
 			<div class="box-header">
 				<h3 class="box-title"><?= $subtitle ?></h3>
 				<div class="pull-right">
-					<a class="btn btn-xs btn-primary" href="<?= base_url() ?>dashboardm/modul/proposal/add">
-						<i class="fa fa-plus"></i> Pengajuan Proposal Skripsi</a>
+					<a class="btn btn-primary" href="<?= base_url() ?>dashboardm/modul/proposal/add">
+						<i class="fa fa-plus"></i> Pengajuan Proposal
+					</a>
 				</div>
 			</div>
 			<!-- /.box-header -->
@@ -27,9 +28,8 @@
 						<th>No</th>
 						<th>Judul</th>
 						<th>Departemen</th>
-						<th>Gelombang</th>
-						<th>Tanggal Pengajuan</th>
-						<th>File (BAB I)</th>
+						<th>Pekan & Gelombang</th>
+						<th>Tgl. Pengajuan</th>
 						<th>Status</th>
 						<th>Opsi</th>
 					</tr>
@@ -38,35 +38,51 @@
 					<?php
 						$no = 1;
 						foreach ($proposal as $list) {
+							$judul = $this->proposal->read_judul($list['id_skripsi']);
+
 							?>
 							<tr>
 								<td><?= $no ?></td>
-								<td><?php
-										$judul = $this->proposal->read_judul($list['id_skripsi']);
+								<td>
+									<?php
 										echo $judul->judul;
 									?>
-								</td>
-								<td><?= $list['departemen'] ?></td>
-								<td><?= $list['semester'] . ' (' . $list['gelombang'] . ')' ?></td>
-								<td><?= $list['tgl_pengajuan'] ?></td>
-								<td>
+									<?php
+										if ($judul->persetujuan == 2) {
+											?>
+											<div class="text-danger">
+												Judul anda ditolak, Komentar : <b><?= $judul->persetujuan_keterangan ?></b><br/>
+												Silahkan ganti melalui fitur edit
+											</div>
+											<?
+										}
+									?>
+									<hr class="divider-line-semi-bold"/>
+									<b>Berkas</b> <br/>
 									<a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
 								</td>
+								<td><?= $list['departemen'] ?></td>
+								<td>
+									<?= !empty($list['nama_pekan']) ? $list['nama_pekan'] . '<hr/>' : '' ?>
+
+									<?= $list['semester'] . ' (' . $list['gelombang'] . ')' ?>
+								</td>
+								<td><?= woday_toindo($list['tgl_pengajuan']) ?></td>
 								<td>
 									<?php $this->view('backend/widgets/skripsi/column_status', ['skripsi' => $list, 'jenis' => TAHAPAN_SKRIPSI_PROPOSAL]); ?>
 								</td>
-								<td>
+								<td class="text-center">
 									<?php
 										if ($list['status_proposal'] == STATUS_SKRIPSI_PROPOSAL_PENGAJUAN) {
 											?>
-											<a class="btn btn-xs btn-warning pull-left" href="<?= base_url() ?>dashboardm/modul/proposal/edit/<?= $list['id_skripsi'] ?>">
+											<a class="btn btn-xs btn-warning" href="<?= base_url() ?>dashboardm/modul/proposal/edit/<?= $list['id_skripsi'] ?>">
 												<i class="fa fa-edit"></i> Edit
-											</a>
+											</a><br/><br/>
 											<?php
 										}
 									?>
 
-									<a class="btn btn-xs btn-primary pull-left" href="<?= base_url() ?>dashboardm/modul/proposal/ujian/<?= $list['id_skripsi'] ?>">
+									<a class="btn btn-xs btn-primary" href="<?= base_url() ?>dashboardm/modul/proposal/ujian/<?= $list['id_skripsi'] ?>">
 										<i class="fa fa-calendar"></i> Detail Ujian
 									</a>
 								</td>

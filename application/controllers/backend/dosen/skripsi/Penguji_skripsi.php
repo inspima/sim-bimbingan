@@ -98,7 +98,7 @@
 				$semua_approve = $this->skripsi->semua_penguji_setuju($id_ujian);
 				if ($semua_approve) {
 					$data_skripsi = [
-						'status_proposal' => STATUS_SKRIPSI_PROPOSAL_UJIAN
+						'status_proposal' => STATUS_SKRIPSI_PROPOSAL_SETUJUI_PENGUJI
 					];
 					$this->skripsi->update($data_skripsi, $id_skripsi);
 				}
