@@ -130,6 +130,7 @@ class Ujian extends CI_Controller {
             }
 
             $id_tesis = $this->input->post('id_tesis', TRUE);
+            $judul = $this->input->post('judul', TRUE);
             $id_prodi = $this->tesis->cek_prodi($id_tesis);
 
             if($id_prodi == S2_ILMU_HUKUM){
@@ -150,7 +151,8 @@ class Ujian extends CI_Controller {
 
             $dataj = array(
                 'id_tesis' => $id_tesis,
-                'judul' => $read_judul->judul,
+                //'judul' => $read_judul->judul,
+                'judul' => $judul,
                 'latar_belakang' => $read_judul->latar_belakang,
                 'rumusan_masalah_pertama' => $read_judul->rumusan_masalah_pertama,
                 'rumusan_masalah_kedua' => $read_judul->rumusan_masalah_kedua,
@@ -345,7 +347,15 @@ class Ujian extends CI_Controller {
 
                 $dataj = array(
                     'id_tesis' => $id_tesis,
-                    'judul' => $this->input->post('judul', TRUE)
+                    'judul' => $this->input->post('judul', TRUE),
+                    'latar_belakang' => $this->input->post('latar_belakang', TRUE),
+                    'rumusan_masalah_pertama' => $this->input->post('rumusan_masalah_pertama', TRUE),
+                    'rumusan_masalah_kedua' => $this->input->post('rumusan_masalah_kedua', TRUE),
+                    'rumusan_masalah_lain' => $this->input->post('rumusan_masalah_lain', TRUE),
+                    'penelusuran_artikel_internet' => $this->input->post('penelusuran_artikel_internet', TRUE),
+                    'penelusuran_artikel_unair' => $this->input->post('penelusuran_artikel_unair', TRUE),
+                    'uraian_topik' => $this->input->post('uraian_topik', TRUE),
+                    'jenis' => TAHAPAN_TESIS_UJIAN,
                 );
 
                 $this->tesis->update_judul($dataj, $id_tesis);

@@ -91,6 +91,7 @@ class Proposal extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
+            $judul = $this->input->post('judul', TRUE);
             $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_JUDUL);
 
             $file_name = $this->session_data['username'] . '_berkas_proposal.pdf';
@@ -119,7 +120,8 @@ class Proposal extends CI_Controller {
 
                 $dataj = array(
                     'id_tesis' => $id_tesis,
-                    'judul' => $read_judul->judul,
+                    //'judul' => $read_judul->judul,
+                    'judul' => $judul,
                     'latar_belakang' => $read_judul->latar_belakang,
                     'rumusan_masalah_pertama' => $read_judul->rumusan_masalah_pertama,
                     'rumusan_masalah_kedua' => $read_judul->rumusan_masalah_kedua,
@@ -214,6 +216,21 @@ class Proposal extends CI_Controller {
                     );
                     $this->tesis->update($data, $id_tesis);
                 }
+
+                $dataj = array(
+                    'id_tesis' => $id_tesis,
+                    'judul' => $this->input->post('judul', TRUE),
+                    'latar_belakang' => $this->input->post('latar_belakang', TRUE),
+                    'rumusan_masalah_pertama' => $this->input->post('rumusan_masalah_pertama', TRUE),
+                    'rumusan_masalah_kedua' => $this->input->post('rumusan_masalah_kedua', TRUE),
+                    'rumusan_masalah_lain' => $this->input->post('rumusan_masalah_lain', TRUE),
+                    'penelusuran_artikel_internet' => $this->input->post('penelusuran_artikel_internet', TRUE),
+                    'penelusuran_artikel_unair' => $this->input->post('penelusuran_artikel_unair', TRUE),
+                    'uraian_topik' => $this->input->post('uraian_topik', TRUE),
+                    'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                );
+
+                $this->tesis->update_judul($dataj, $id_tesis);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update');

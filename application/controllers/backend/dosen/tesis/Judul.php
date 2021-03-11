@@ -200,20 +200,28 @@ class Judul extends CI_Controller {
         $id_prodi = $struktural->id_prodi;
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
+            $tesis = $this->tesis->detail($id_tesis);
 
-            $data = array(
-                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                'status_pembimbing_satu' => NULL,
-            );
-            $this->tesis->update($data, $id_tesis);
-
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil update pembimbing utama');
-            if($id_prodi != ''){
-                redirect('dosen/tesis/judul/index_kps');
+            if($tesis->nip_pembimbing_dua != '' && ($tesis->nip_pembimbing_dua == $this->input->post('nip_pembimbing_satu', TRUE) )){
+                $this->session->set_flashdata('msg-title', 'alert-danger');
+                $this->session->set_flashdata('msg', 'Pembimbing satu tidak boleh sama dengan pembimbing dua');
+                redirect('dosen/tesis/judul/index_kps');   
             }
             else {
-                redirect('dosen/tesis/judul/index_kabag');
+                $data = array(
+                    'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                    'status_pembimbing_satu' => NULL,
+                );
+                $this->tesis->update($data, $id_tesis);
+
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Berhasil update pembimbing utama');
+                if($id_prodi != ''){
+                    redirect('dosen/tesis/judul/index_kps');
+                }
+                else {
+                    redirect('dosen/tesis/judul/index_kabag');
+                }
             }
             
         } else {
@@ -261,17 +269,25 @@ class Judul extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
+            $tesis = $this->tesis->detail($id_tesis);
             $id_prodi = $this->tesis->cek_prodi($id_tesis);
 
-            $data = array(
-                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                'status_pembimbing_dua' => NULL,
-            );
-            $this->tesis->update($data, $id_tesis);
+            if($tesis->nip_pembimbing_satu != '' && ($tesis->nip_pembimbing_satu == $this->input->post('nip_pembimbing_dua', TRUE) )){
+                $this->session->set_flashdata('msg-title', 'alert-danger');
+                $this->session->set_flashdata('msg', 'Pembimbing dua tidak boleh sama dengan pembimbing satu');
+                redirect('dosen/tesis/permintaan/pembimbing/'.$id_prodi);   
+            }
+            else {
+                $data = array(
+                    'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                    'status_pembimbing_dua' => NULL,
+                );
+                $this->tesis->update($data, $id_tesis);
 
-            $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil update pembimbing kedua');
-            redirect('dosen/tesis/permintaan/pembimbing/'.$id_prodi);
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Berhasil update pembimbing kedua');
+                redirect('dosen/tesis/permintaan/pembimbing/'.$id_prodi);
+            }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');

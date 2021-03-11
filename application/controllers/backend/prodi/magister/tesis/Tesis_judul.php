@@ -62,16 +62,16 @@ class Tesis_judul extends CI_Controller {
 
             $tesis = $this->tesis->detail($id_tesis);
 
-            $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_SP_TESIS . '$' . TAHAPAN_TESIS_JUDUL_STR . '$' . TAHAPAN_TESIS_JUDUL;
-            $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_SP_TESIS . '$' . TAHAPAN_TESIS_JUDUL_STR . '$' . TAHAPAN_TESIS_JUDUL;
+            $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_SP_PEMBIMBING_TESIS . '$' . TAHAPAN_TESIS_JUDUL_STR . '$' . TAHAPAN_TESIS_JUDUL;
+            $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_SP_PEMBIMBING_TESIS . '$' . TAHAPAN_TESIS_JUDUL_STR . '$' . TAHAPAN_TESIS_JUDUL;
             // QR
             $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SP Pembimbing', 'Judul Tesis', $tesis->nim, $tgl_surat_ymd);
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
             $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
             // DOKUMEN
             $data_dokumen = [
-                'kode' => $this->dokumen->generate_kode(DOKUMEN_SP_TESIS, 'judul_tesis', $tesis->nim, ''),
-                'tipe' => DOKUMEN_SP_TESIS,
+                'kode' => $this->dokumen->generate_kode(DOKUMEN_SP_PEMBIMBING_TESIS, 'tesis_judul', $tesis->nim, ''),
+                'tipe' => DOKUMEN_SP_PEMBIMBING_TESIS,
                 'jenis' => DOKUMEN_JENIS_TESIS_JUDUL_STR,
                 'no_doc' => $no_surat,
                 'no_ref_doc' => $no_sk,

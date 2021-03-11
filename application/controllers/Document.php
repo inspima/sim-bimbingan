@@ -15,6 +15,7 @@
 			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
 			$this->load->model('backend/master/setting', 'setting');
 			$this->load->model('backend/transaksi/disertasi', 'disertasi');
+			$this->load->model('backend/master/semester', 'semester');
 			$this->load->model('backend/transaksi/skripsi', 'skripsi');
 			$this->load->model('backend/transaksi/tesis', 'tesis');
 			$this->load->model('backend/transaksi/dokumen', 'dokumen');
@@ -88,8 +89,24 @@
 		private function get_tipe_dokumen_tesis($tipe, &$page, &$title)
 		{
 			switch ($tipe) {
-				case DOKUMEN_SP_TESIS:
-					$page = 'frontend/document/berita_acara_tesis/';
+				case DOKUMEN_SP_PEMBIMBING_TESIS:
+					$page = 'frontend/document_tesis/sp_pembimbing/';
+					$title = "Surat Pembimbing Tesis";
+					break;
+				case DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS:
+					$page = 'frontend/document_tesis/berita_acara_proposal/';
+					$title = "Surat Pembimbing Tesis";
+					break;
+				case DOKUMEN_DAFTAR_HADIR_PROPOSAL_TESIS:
+					$page = 'frontend/document_tesis/daftar_hadir_proposal/';
+					$title = "Surat Pembimbing Tesis";
+					break;
+				case DOKUMEN_SK_PROPOSAL_TESIS:
+					$page = 'frontend/document_tesis/sk_proposal/';
+					$title = "Surat Pembimbing Tesis";
+					break;
+				case DOKUMEN_UNDANGAN_PROPOSAL_TESIS:
+					$page = 'frontend/document_tesis/undangan_proposal/';
 					$title = "Surat Pembimbing Tesis";
 					break;
 			}
@@ -98,12 +115,20 @@
 		private function get_jenis_dokumen_tesis($jenis, &$page, &$title)
 		{
 			switch ($jenis) {
-				case UJIAN_TESIS_PROPOSAL:
-					$page .= DOKUMEN_JENIS_TESIS_UJIAN_PROPOSAL_STR;
-					$title .= ' - Ujian Proposal Tesis';
+				case TAHAPAN_TESIS_JUDUL:
+					$page .= DOKUMEN_JENIS_TESIS_JUDUL_STR;
+					$title .= ' - Judul Tesis';
 					break;
-				case UJIAN_TESIS_UJIAN:
-					$page .= DOKUMEN_JENIS_TESIS_UJIAN_TESIS_STR;
+				case TAHAPAN_TESIS_PROPOSAL:
+					$page .= DOKUMEN_JENIS_TESIS_PROPOSAL_STR;
+					$title .= ' - Proposal Tesis';
+					break;
+				case TAHAPAN_TESIS_MKPT:
+					$page .= DOKUMEN_JENIS_TESIS_MKPT_STR;
+					$title .= ' - MKPT Tesis';
+					break;
+				case TAHAPAN_TESIS_UJIAN:
+					$page .= DOKUMEN_JENIS_TESIS_UJIAN_STR;
 					$title .= ' - Ujian Tesis';
 					break;
 			}
@@ -461,13 +486,15 @@
 					$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
 					// QR
 					$data = array(
-						'jadwal' => $jadwal,
-						'pengujis' => $this->tesis->read_penguji($jadwal->id_ujian),
-						'ketua_penguji' => $this->tesis->read_penguji_ketua($jadwal->id_ujian),
-						'disertasi' => $tugas_akhir,
-						'qr_dokumen' => $dokumen->qr_image,
-						'dokumen_persetujuan' => $dokumen_persetujuan,
-						'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
+						'tesis' => $tugas_akhir,
+						'qr_dokumen' => $dokumen->qr_image,						
+						'no_surat' => $dokumen->no_doc,
+		                //'semester' => $this->semester->detail($smt),
+		                'semester' => $this->semester->semester_pengajuan($tugas_akhir->tgl_pengajuan),
+		                'no_sk' => $dokumen->no_ref_doc,
+		                'tgl_sk' => $dokumen->date_doc,
+		                'tgl_surat' => $dokumen->date,
+		                'dekan' => $this->struktural->read_dekan()
 					);
 					ob_end_clean();
 

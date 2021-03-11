@@ -50,57 +50,74 @@
                                     <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, TAHAPAN_TESIS_JUDUL]); ?>
                                     <?php
                                     if ($list['status_judul'] == STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING) {
-                                    	$data_dokumen = [
-							                'tipe' => DOKUMEN_SP_TESIS,
-							                'jenis' => DOKUMEN_JENIS_TESIS_JUDUL_STR,
-							                'identitas' => $list['nim'],
-							            ];
-							            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+                                        $data_dokumen = [
+                                            'tipe' => DOKUMEN_SP_PEMBIMBING_TESIS,
+                                            'jenis' => DOKUMEN_JENIS_TESIS_JUDUL_STR,
+                                            'identitas' => $list['nim'],
+                                        ];
+                                        $dokumen = $this->dokumen->detail_by_data($data_dokumen);
 
-							            $no_surat = '';
-							            $no_sk = '';
-							            $tgl_sk = '';
-							            $tgl_surat = '';
+                                        $no_surat = '';
+                                        $no_sk = '';
+                                        $tgl_sk = '';
+                                        $tgl_surat = '';
 
-							            if(!empty($dokumen)){
-							            	$no_surat = $dokumen->no_doc;
-							            	$no_sk = $dokumen->no_ref_doc;
-							            	$tgl_sk = date('d/m/Y', strtotime($dokumen->date_doc));
-							            	$tgl_surat = date('d/m/Y', strtotime($dokumen->date));
-							            }
+                                        if(!empty($dokumen)){
+                                            $no_surat = $dokumen->no_doc;
+                                            $no_sk = $dokumen->no_ref_doc;
+                                            $tgl_sk = date('d/m/Y', strtotime($dokumen->date_doc));
+                                            $tgl_surat = date('d/m/Y', strtotime($dokumen->date));
+                                        }
                                     ?>
-                                        <hr style="margin: 5px"/>
-                                        <!-- Surat Tugas -->
-                                        <?php $attributes = array('target' => '_blank'); ?>
-                                        <?php echo form_open('prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing', $attributes) ?>
-                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                        <input type="text" name="no_surat" class="form-control" style="width: 100%" value="<?= $no_surat; ?>" required placeholder="Nomor Surat">
-                                        <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
-                                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                            <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal SK">
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                            <input type="text" name="tgl_surat" class="form-control" value="<?= $tgl_surat; ?>" required placeholder="Tanggal Surat">
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-th"></span>
-                                            </div>
-                                        </div>
-                                        <!-- <select name="smt" class="form-control" style="width: 100%" required>
-                                            <option value="" disabled selected>Semester</option>
-                                            <?php
-                                            /*foreach ($semester as $sem => $dt) {
-                                                echo '<option value="'.$dt['id_semester'].'">'.$dt['semester'].'</option>';
-                                            }*/                                            
-                                            ?>
-                                        </select> -->
-                                        <br>
-                                        <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
-                                        <?php echo form_close() ?>
+                                    <br><br>
+                                    <button type="button" class="n btn-xs btn-primary" data-toggle="modal" data-target="#myModalSP<?= $list['id_tesis']?>">
+                                        <i class="fa fa-file"></i> Surat Tugas
+                                    </button>
 
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModalSP<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                
+                                                <?php $attributes = array('target' => '_blank'); ?>
+                                                <?php echo form_open('prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing', $attributes) ?>
+                                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">
+                                                            Surat Tugas Pembimbing Tesis
+                                                            <br><?= $list['judul']?>
+                                                            <br><?= $list['nama'].' - '.$list['nim'];?> 
+                                                        </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                        <input type="text" name="no_surat" class="form-control" style="width: 100%" value="<?= $no_surat; ?>" required placeholder="Nomor Surat">
+                                                        <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
+                                                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                            <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal SK">
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                            <input type="text" name="tgl_surat" class="form-control" value="<?= $tgl_surat; ?>" required placeholder="Tanggal Surat">
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
+                                                    </div>
+                                                </form>
+                                                <?php echo form_close() ?>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php
                                     }
                                     ?>

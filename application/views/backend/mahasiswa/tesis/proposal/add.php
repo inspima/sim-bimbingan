@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label>Judul</label>
                         <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);?>
-                        <textarea class="form-control" name="judul" readonly><?php echo $judul->judul?></textarea>
+                        <textarea class="form-control" name="judul" required><?php echo $judul->judul?></textarea>
                     </div>
                     <?php
                     if($tesis->berkas_proposal != '') {

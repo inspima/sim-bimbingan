@@ -1498,7 +1498,7 @@ class Tesis extends CI_Model {
         $s3 = $this->db->get();
         $s3->row();
 
-        if (empty($s1) && empty($s2) && empty($s3)) {
+        if (empty($s1->row()) && empty($s2->row()) && empty($s3->row())) {
             return true;
         } else {
             return false;
@@ -1706,7 +1706,7 @@ class Tesis extends CI_Model {
         $s3 = $this->db->get();
         $s3->row();
 
-        if (empty($s1) && empty($s2) && empty($s3)) {
+        if (empty($s1->row()) && empty($s2->row()) && empty($s3->row())) {
             return true;
         } else {
             return false;

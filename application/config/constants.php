@@ -121,17 +121,22 @@
 	define('DOKUMEN_BERITA_ACARA_STR', 'berita-acara');
 	define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
-	define('DOKUMEN_SP_TESIS', 'surat-tugas-pembimbing');
+	define('DOKUMEN_SP_PEMBIMBING_TESIS', 'surat-tugas-pembimbing-tesis');
+	
+	define('DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS', 'berita-acara-proposal-tesis');
+	define('DOKUMEN_DAFTAR_HADIR_PROPOSAL_TESIS', 'daftar-hadir-proposal-tesis');
+	define('DOKUMEN_SK_PROPOSAL_TESIS', 'sk-proposal-tesis');
+	define('DOKUMEN_UNDANGAN_PROPOSAL_TESIS', 'undangan-ujian-proposal-tesis');
 
 	// JENIS DOKUMEN
 	/// S1
 	define('DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR', 'skripsi_proposal');
 	define('DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR', 'skripsi');
 	// S2
-	define('DOKUMEN_JENIS_TESIS_JUDUL_STR', 'tesis_judul');
-	define('DOKUMEN_JENIS_TESIS_PROPOSAL_STR', 'tesis_proposal');
-	define('DOKUMEN_JENIS_TESIS_MKPT_STR', 'tesis_mkpt');
-	define('DOKUMEN_JENIS_TESIS_UJIAN_STR', 'tesis');
+	define('DOKUMEN_JENIS_TESIS_JUDUL_STR', 'judul_tesis');
+	define('DOKUMEN_JENIS_TESIS_PROPOSAL_STR', 'proposal_tesis');
+	define('DOKUMEN_JENIS_TESIS_MKPT_STR', 'mkpt_tesis');
+	define('DOKUMEN_JENIS_TESIS_UJIAN_STR', 'ujian_tesis');
 	// S3
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR', 'kualifikasi');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR', 'disertasi_proposal');

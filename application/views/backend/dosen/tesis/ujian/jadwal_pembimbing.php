@@ -45,8 +45,8 @@
                         <tr>
                             <td><label>Pembimbing Utama</label></td>
                             <td>
-                                <b><?php echo $tesis->nip_pembimbing_dua ?></b><br>
-                                <?php echo $tesis->nama_pembimbing_dua ?>
+                                <b><?php echo $tesis->nip_pembimbing_satu ?></b><br>
+                                <?php echo $tesis->nama_pembimbing_satu ?>
                             </td>            
                         </tr>
                         <tr>
