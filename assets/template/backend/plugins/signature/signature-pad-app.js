@@ -97,7 +97,7 @@ savePNGButton.addEventListener("click", function (event) {
         var blob = dataURLToBlob(dataURL);
         $.ajax({
             type: "POST",
-            url: '/api/profile/signature/save',
+            url: '../../../api/profile/signature/save',
             data: {
                 ttd: dataURL
             },
