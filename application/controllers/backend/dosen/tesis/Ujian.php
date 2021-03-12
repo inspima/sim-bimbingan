@@ -141,13 +141,16 @@ class Ujian extends CI_Controller {
         redirect('dosen/tesis/ujian/penguji/'.$id_prodi);
     }    
 
-    /*public function reject_penguji() {
+    public function reject_penguji() {
         $id = $this->uri->segment(5);
-        $this->tesis->reject_penguji_tesis($id, $this->session_data['username']);
+        $id_prodi = $this->tesis->cek_prodi($id_tesis);
+        $id_tesis_ujian = $this->uri->segment(6);
+        $keterangan = $this->input->post('keterangan', TRUE);
+        $this->tesis->reject_penguji_tesis($id, $id_tesis_ujian, $this->session_data['username'], $keterangan);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Penguji Tesis ditolak');
         redirect('dosen/tesis/ujian/penguji');
-    }*/
+    }
 
     public function batal_penguji() {
         $id_tesis = $this->uri->segment(5);
@@ -810,18 +813,19 @@ class Ujian extends CI_Controller {
                         redirect('dosen/tesis/ujian/setting/' . $id_tesis);
                     } else {
                         $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
-                        if ($jumlah_penguji < '6') {
+                        if ($jumlah_penguji < '5') {
 
                             $this->tesis->save_penguji($data);
+                            $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
                             $data_temp = array(
                                 'status' => 2
                             );
                             $this->tesis->update_penguji_temp($data_temp, $id_penguji);
                             $this->session->set_flashdata('msg-title', 'alert-success');
-                            $this->session->set_flashdata('msg', $mesg);
+                            //$this->session->set_flashdata('msg', $mesg);
+                            $this->session->set_flashdata('msg', "Berhasil simpan, Jumlah penguji kurang ".(5-$jumlah_penguji));
                             redirect('dosen/tesis/ujian/setting/' . $id_tesis);
-                        } else
-                        if ($jumlah_penguji >= '5') {
+                        } else if ($jumlah_penguji >= '5') {
                             $this->session->set_flashdata('msg-title', 'alert-danger');
                             $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah 5');
                             redirect('dosen/tesis/ujian/setting/' . $id_tesis);
@@ -889,14 +893,15 @@ class Ujian extends CI_Controller {
                     redirect('dosen/tesis/ujian/setting/' . $id_tesis);
                 } else {
                     $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
-                    if ($jumlah_penguji < '6') {
+                    if ($jumlah_penguji < '5') {
 
                         $this->tesis->save_penguji($data);
+                        $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
                         $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', $mesg);
+                        //$this->session->set_flashdata('msg', $mesg);
+                        $this->session->set_flashdata('msg', "Berhasil simpan, Jumlah penguji kurang ".(5-$jumlah_penguji));
                         redirect('dosen/tesis/ujian/setting/' . $id_tesis);
-                    } else
-                    if ($jumlah_penguji >= '5') {
+                    } else if ($jumlah_penguji >= '5') {
                         $this->session->set_flashdata('msg-title', 'alert-danger');
                         $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah 5');
                         redirect('dosen/tesis/ujian/setting/' . $id_tesis);

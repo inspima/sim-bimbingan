@@ -236,11 +236,38 @@
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                     <i class="fa fa-edit"></i> Approve</a>
-                                    <a class="btn btn-xs btn-danger pull-left" href="<?= base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php echo $list['id_tesis']?>">
-                                    <i class="fa fa-close"></i> Reject</a>
+                                    <!-- <a class="btn btn-xs btn-danger pull-left" href="<?php //echo base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php //echo $list['id_tesis']?>">
+                                    <i class="fa fa-close"></i> Reject</a> -->
+                                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModalTolak<?= $list['id_tesis']?>">
+                                        <i class="fa fa-close"></i> Reject
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModalTolak<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <form action="<?= base_url()?>dosen/tesis/ujian/reject_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>" method="post">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">Keterangan Tolak</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="text" name="id_tesis" value="<?= $list['id_tesis']?>" hidden="true">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" name="keterangan" style="margin: 0px; width: 570px; height: 180px;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger">Tolak</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php
                                 }
-                                else if($list['status_penguji'] == '2') {
+                                else if(($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') && (date('Y-m-d') < $ujian->tanggal)) {
                                 ?>
                                     <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                         <i class="fa fa-ban"></i> Batal</a>
@@ -250,6 +277,14 @@
                             ?>
                         </td>
                         <td>
+                            <?php
+                            if($list['status_penguji'] == '2')
+                            {
+                            ?>
+                                <a href = "<?= base_url() ?>dosen/tesis/proposal/status_ujian/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Status Ujian</a>
+                            <?php
+                            }
+                            ?>
                             <?php
                             $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
                             if($ujian->tanggal >= date('Y-m-d')){

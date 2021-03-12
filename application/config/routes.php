@@ -627,8 +627,7 @@
 	$route['dosen/tesis/proposal/penguji'] = 'backend/dosen/tesis/proposal/penguji';
 	$route['dosen/tesis/proposal/penguji/(:num)'] = 'backend/dosen/tesis/proposal/penguji';
 	$route['dosen/tesis/proposal/approve_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/approve_penguji';
-
-	//$route['dosen/tesis/proposal/reject_penguji/(:num)'] = 'backend/dosen/tesis/proposal/reject_penguji';
+	$route['dosen/tesis/proposal/reject_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/reject_penguji';
 
 	$route['dosen/tesis/proposal/batal_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/batal_penguji';
 	$route['dosen/tesis/proposal/update_status_ujian'] = 'backend/dosen/tesis/proposal/update_status_ujian';
@@ -696,8 +695,7 @@
 	$route['dosen/tesis/ujian/penguji'] = 'backend/dosen/tesis/ujian/penguji';
 	$route['dosen/tesis/ujian/penguji/(:num)'] = 'backend/dosen/tesis/ujian/penguji';
 	$route['dosen/tesis/ujian/approve_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/ujian/approve_penguji';
-
-	//$route['dosen/tesis/ujian/reject_penguji/(:num)'] = 'backend/dosen/tesis/ujian/reject_penguji';
+	$route['dosen/tesis/ujian/reject_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/ujian/reject_penguji';
 
 	$route['dosen/tesis/ujian/batal_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/ujian/batal_penguji';
 

@@ -153,6 +153,7 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>Nama</th>
+                                <th>Keterangan Pengujia</th>
                                 <th>Tim</th>
                                 <th>Status</th>
                             </tr>
@@ -177,6 +178,24 @@
                                 ?>
                                 <tr>
                                     <td><?= $index + 1 ?>. <?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b></td>
+                                    <td>
+                                        <?php
+                                        $penguji = $this->tesis->read_penguji_temp($tesis->id_tesis, 1); 
+
+                                        if($listpenguji['nip'] == $tesis->nip_pembimbing_satu){
+                                            echo 'Penguji (Pembimibing Utama)';
+                                        }
+                                        else if($listpenguji['nip'] == $tesis->nip_pembimbing_dua){
+                                            echo 'Penguji (Pembimibing Kedua)';
+                                        }
+                                        else if($listpenguji['nip'] == $penguji[0]['nip']){
+                                            echo 'Penguji Usulan Pembimibing Utama';
+                                        }
+                                        else {
+                                            echo 'Penguji Usulan KPS';
+                                        }
+                                        ?>
+                                    </td>
                                     <td>
                                         <button type="button" class="btn btn-xs <?= $btn;?>" style="color:white" data-toggle="modal" data-target="#modal-tim-penguji-<?php echo $listpenguji['id_penguji'] ?>">
                                             <?php echo $str_status_tim ?>
@@ -231,6 +250,8 @@
                                             ?>
                                             <button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
                                             <?php
+                                            echo '<br>
+                                            <b>Keterangan : </b><br>'.$listpenguji['keterangan'];
                                         }
                                         ?>
                                     </td>
@@ -300,6 +321,7 @@
                 if($ujian){
                     $penguji = $this->tesis->read_penguji($ujian->id_ujian);
                     foreach ($penguji as $listpenguji) {
+                        $status_tim = '';
                         if($listpenguji['nip'] == $this->session_data['username']){
                             $status_tim = $listpenguji['status_tim'];
                         }
