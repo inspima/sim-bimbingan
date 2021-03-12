@@ -95,9 +95,10 @@ savePNGButton.addEventListener("click", function (event) {
     } else {
         var dataURL = signaturePad.toDataURL();
         var blob = dataURLToBlob(dataURL);
+        var base_url = $('#base_url').val();
         $.ajax({
             type: "POST",
-            url: '../../../api/profile/signature/save',
+            url: base_url+'api/profile/signature/save',
             data: {
                 ttd: dataURL
             },
