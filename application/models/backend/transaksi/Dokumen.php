@@ -75,6 +75,15 @@
 			$this->db->update('dokumen', $data);
 		}
 
+		public function delete($id)
+		{
+			$this->db->where('id_dokumen', $id);
+			$this->db->delete('dokumen');
+
+			$this->db->where('id_dokumen', $id);
+			$this->db->delete('dokumen_persetujuan');
+		}
+
 		// DOKUMEN PERSETUJUAN
 
 		public function generate_persetujuan($datas, $id_dokumen, $id_jenjang, $id_tugas_akhir, $jenis_persetujuan)

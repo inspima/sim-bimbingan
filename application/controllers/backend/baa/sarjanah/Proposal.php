@@ -217,9 +217,10 @@
 					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
 				];
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
-				if (empty($dokumen)) {
-					$this->dokumen->save($data_dokumen);
+				if (!empty($dokumen)) {
+					$this->dokumen->delete($dokumen->id_dokumen);
 				}
+				$this->dokumen->save($data_dokumen);
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
 				// DOKUMEN PERSETUJUAN
 				$this->dokumen->generate_persetujuan_surat_tugas_skripsi($pengujis, $dokumen->id_dokumen, JENJANG_S1, $id_skripsi);
