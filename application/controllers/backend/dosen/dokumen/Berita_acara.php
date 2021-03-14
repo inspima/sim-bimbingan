@@ -138,11 +138,29 @@
 				if ($jenis == '1') {
 					// Skripsi
 					if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR) {
-						$data_skripsi = [
-							'status_proposal' => STATUS_SKRIPSI_PROPOSAL_SELESAI,
-							'status_ujian_proposal' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_PROPOSAL),
-						];
-						$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
+						if ($hasil == HASIL_UJIAN_LANJUT) {
+							$ujian_aktif = $this->skripsi->read_ujian_aktif($dokumen->id_tugas_akhir, UJIAN_SKRIPSI_PROPOSAL);
+							$data_ujian = [
+								'hasil_ujian' => HASIL_UJIAN_LANJUT,
+							];
+							$this->skripsi->update_ujian($data_ujian, $ujian_aktif->id_ujian);
+							$data_skripsi = [
+								'status_proposal' => STATUS_SKRIPSI_PROPOSAL_SELESAI,
+								'status_ujian_proposal' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_PROPOSAL),
+							];
+							$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
+						} else {
+							$ujian_aktif = $this->skripsi->read_ujian_aktif($dokumen->id_tugas_akhir, UJIAN_SKRIPSI_PROPOSAL);
+							$data_ujian = [
+								'hasil_ujian' => HASIL_UJIAN_ULANG,
+							];
+							$this->skripsi->update_ujian($data_ujian, $ujian_aktif->id_ujian);
+							$data_skripsi = [
+								'status_ujian_proposal' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_PROPOSAL),
+							];
+							$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
+						}
+
 					} else if ($dokumen->jenis == DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR) {
 						$data_skripsi = [
 							'status_skripsi' => STATUS_SKRIPSI_UJIAN_SELESAI,

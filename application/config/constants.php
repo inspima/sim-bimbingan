@@ -122,7 +122,7 @@
 	define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
 	define('DOKUMEN_SP_PEMBIMBING_TESIS', 'surat-tugas-pembimbing-tesis');
-	
+
 	define('DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS', 'berita-acara-proposal-tesis');
 	define('DOKUMEN_DAFTAR_HADIR_PROPOSAL_TESIS', 'daftar-hadir-proposal-tesis');
 	define('DOKUMEN_SK_PROPOSAL_TESIS', 'sk-proposal-tesis');
@@ -173,6 +173,10 @@
 	define('STRUKTUR_KPS_S1', 6);
 	define('STRUKTUR_KPS_S2', 8);
 	define('STRUKTUR_KPS_S3', 9);
+
+	// UJIAN
+	define('HASIL_UJIAN_LANJUT', 1);
+	define('HASIL_UJIAN_ULANG', 2);
 
 	// TAHAPAN PROSES SKRIPSI
 	define('TAHAPAN_SKRIPSI_PROPOSAL', 1);

@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="row">
 	<!-- left column -->
-	<div class="col-md-4">
+	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -46,42 +46,103 @@
 	</div>
 
 	<!-- left column -->
-	<div class="col-md-8">
+	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
-				<h3 class="box-title">1. Setting Jadwal</h3>
+				<h3 class="box-title">1. Jadwal</h3>
 			</div>
 			<!-- /.box-header -->
 			<!-- form start -->
-			<?php echo form_open('dosen/sarjana/kadep/proposal/ujian_save'); ?>
 			<div class="box-body">
-
+				<h4>Riwayat Ujian</h4>
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<th style="width: 10px">#</th>
+						<th class="text-center">Tgl & Waktu</th>
+						<th>Tempat</th>
+						<th class="text-center">Hasil</th>
+					</tr>
+					<?php
+						foreach ($riwayat_ujians as $no => $riwayat_ujian) {
+							?>
+							<tr>
+								<td><?= $no + 1 ?></td>
+								<td class="text-center">
+									<?= toindo($riwayat_ujian['tanggal']) ?>
+									<br/>
+									<?= $riwayat_ujian['jam'] ?><br/>
+									<?php
+										if ($riwayat_ujian['status_ujian'] == 1) {
+											?>
+											<span class="btn btn-xs bg-primary">Utama</span>
+											<?php
+										} else if ($riwayat_ujian['status_ujian'] == 2) {
+											?>
+											<span class="btn btn-xs bg-info">Mengulang</span>
+											<?php
+										}
+									?>
+								</td>
+								<td>
+									<?php echo $riwayat_ujian['ruang'] . ' - ' . $riwayat_ujian['gedung'] ?>
+								</td>
+								<td class="text-center">
+									<?php
+										if ($riwayat_ujian['hasil_ujian'] == 0) {
+											?>
+											<span class="btn btn-xs bg-gray">Belum Ujian</span>
+											<?php
+										} else if ($riwayat_ujian['hasil_ujian'] == HASIL_UJIAN_LANJUT) {
+											?>
+											<span class="btn btn-xs bg-primary">Layak/Lulus</span>
+											<?php
+										} else {
+											?>
+											<span class="btn btn-xs bg-orange">Tidak Layak</span>
+											<?php
+										}
+									?>
+								</td>
+							</tr>
+							<?php
+						}
+					?>
+					</tbody>
+				</table>
+				<h4>Penjadwalan Ulang</h4>
+				<?php echo form_open('dosen/sarjana/kadep/proposal/ujian_ulang_save'); ?>
+				<?php
+					$ujian = $this->skripsi->read_ujian_aktif($proposal->id_skripsi, UJIAN_SKRIPSI_PROPOSAL);
+					$is_update = !empty($ujian) ? 1 : 0;
+					if (!empty($ujian)) {
+						$id_ujian = $ujian->id_ujian;
+						$tanggal = toindo($ujian->tanggal);
+						$id_ruang = $ujian->id_ruang;
+						$ruang = $ujian->ruang . ' - ' . $ujian->gedung;
+						$id_jam = $ujian->id_jam;
+						$jam = $ujian->jam;
+					} else {
+						$id_ujian = '';
+						$tanggal = '';
+						$id_ruang = '';
+						$ruang = '-Pilih Ruang-';
+						$id_jam = '';
+						$jam = '-Pilih Jam-';
+					}
+				?>
 				<div class="form-group">
 					<label>Tanggal</label>
 					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+					<?php echo formtext('hidden', 'is_update', $is_update, 'required') ?>
+					<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
 					<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
 					<div class="input-group date">
 						<div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						</div>
-						<?php
-							if ($ujian) {
-								$id_ujian = $ujian->id_ujian;
-								$tanggal = toindo($ujian->tanggal);
-								$id_ruang = $ujian->id_ruang;
-								$ruang = $ujian->ruang . ' - ' . $ujian->gedung;
-								$id_jam = $ujian->id_jam;
-								$jam = $ujian->jam;
-							} else {
-								$id_ujian = '';
-								$tanggal = '';
-								$id_ruang = '';
-								$ruang = '-Pilih Ruang-';
-								$id_jam = '';
-								$jam = '-Pilih Jam-';
-							}
-						?>
+
 						<?php echo formtext('hidden', 'id_ujian', $id_ujian, '') ?>
 						<input readonly type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required>
 					</div>
@@ -118,7 +179,7 @@
 			<!-- /.box-body -->
 			<div class="box-footer">
 				<?php
-					if ($ujian) {
+					if (!empty($ujian)) {
 						?>
 						<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Perbarui</button>
 						<?php
@@ -135,7 +196,9 @@
 	</div>
 
 	<!-- left column -->
-	<div class="col-md-8">
+</div>
+<div class="row">
+	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -145,31 +208,47 @@
 			<!-- form start -->
 			<div class="box-body table-responsive">
 				<?php
+					$is_update = 0;
+					if (!$is_update) {
+						$ujian = $this->skripsi->read_ujian_selesai($proposal->id_skripsi, UJIAN_SKRIPSI_PROPOSAL);
+					}
 					if ($ujian) {
 						?>
 						<?php echo form_open('dosen/sarjana/kadep/proposal/penguji_save'); ?>
 						<div class="form-group">
 							<label>Penguji</label>
-							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-							<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-							<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
-							<select name="nip" class="form-control select2" style="width: 100%;" required>
-								<option value="">- Pilih Penguji -</option>
-								<?php
-									foreach ($mdosen as $list) {
-										?>
-										<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+							<?php
+								if ($is_update) {
+									?>
+									<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+									<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+									<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+									<select name="nip" class="form-control select2" style="width: 100%;" required>
+										<option value="">- Pilih Penguji -</option>
 										<?php
-									}
-								?>
-							</select>
-						</div>
+											foreach ($mdosen as $list) {
+												?>
+												<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+												<?php
+											}
+										?>
+									</select>
+									<?php
+								}
+							?>
 
-						<div class="form-group">
-							<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
 						</div>
 						<?php
-						$ketua = $this->skripsi->read_pengujiketua($id_ujian);
+						if ($is_update) {
+							?>
+							<div class="form-group">
+								<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
+							</div>
+							<?php
+						}
+						?>
+						<?php
+						$ketua = $this->skripsi->read_pengujiketua($ujian->id_ujian);
 						if ($ketua) {
 							echo '';
 						} else {
@@ -254,13 +333,6 @@
 									}
 								?>
 							</table>
-							<?php echo form_open('kadep/sarjana/kadep/proposal/kirim_whatsapp'); ?>
-							<div class="form-group">
-								<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-								<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-								<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-comment"></i> Kirim Notifikasi Whatsapp</button>
-							</div>
-							<?php echo form_close() ?>
 						</div>
 
 						<?php
@@ -278,13 +350,7 @@
 		</div>
 		<!-- /.box -->
 	</div>
-
-</div>
-<div class="row">
-	<div class="col-md-4">
-
-	</div>
-	<div class="col-md-8">
+	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">

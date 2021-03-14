@@ -357,11 +357,13 @@
 	$route['dosen/sarjana/kadep/proposal/diterima'] = 'backend/dosen/skripsi/kadep_proposal/diterima';
 	$route['dosen/sarjana/kadep/proposal/edit/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/edit';
 	$route['dosen/sarjana/kadep/proposal/plot/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/plot';
+	$route['dosen/sarjana/kadep/proposal/plot_ulang/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/plot_ulang';
 	$route['dosen/sarjana/kadep/proposal/selesai'] = 'backend/dosen/skripsi/kadep_proposal/selesai';
 	$route['dosen/sarjana/kadep/proposal/ditolak'] = 'backend/dosen/skripsi/kadep_proposal/ditolak';
 	$route['dosen/sarjana/kadep/proposal/update_departemen'] = 'backend/dosen/skripsi/kadep_proposal/update_departemen';
 	$route['dosen/sarjana/kadep/proposal/update_proses'] = 'backend/dosen/skripsi/kadep_proposal/update_proses';
 	$route['dosen/sarjana/kadep/proposal/ujian_save'] = 'backend/dosen/skripsi/kadep_proposal/ujian_save';
+	$route['dosen/sarjana/kadep/proposal/ujian_ulang_save'] = 'backend/dosen/skripsi/kadep_proposal/ujian_ulang_save';
 	$route['dosen/sarjana/kadep/proposal/penguji_save'] = 'backend/dosen/skripsi/kadep_proposal/penguji_save';
 	$route['dosen/sarjana/kadep/proposal/penguji_delete'] = 'backend/dosen/skripsi/kadep_proposal/penguji_delete';
 	$route['dosen/sarjana/kadep/proposal/penguji_update_statustim'] = 'backend/dosen/skripsi/kadep_proposal/penguji_update_statustim';

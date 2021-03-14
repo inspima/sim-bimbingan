@@ -84,7 +84,7 @@
 				'subtitle' => 'Data Proposal',
 				'section' => 'backend/baa/sarjanah/proposal/ditolak',
 				// DATA //
-				'proposal' => $this->proposal->read()
+				'proposal' => $this->transaksi_proposal->read_baa_proposal_ditolak()
 			);
 
 			$this->load->view('backend/index_sidebar', $data);
@@ -98,7 +98,7 @@
 				'subtitle' => 'Data Proposal ',
 				'section' => 'backend/baa/sarjanah/proposal/belum_approve',
 				// DATA //
-				'penguji' => $this->penguji->read()
+				'penguji' => $this->transaksi_proposal->read()
 			);
 
 			$this->load->view('backend/index_sidebar', $data);

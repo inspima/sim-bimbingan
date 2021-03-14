@@ -12,8 +12,10 @@ class Proposal_diterima_model extends CI_Model {
         $this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
         $this->db->join('semester sr', 'g.id_semester = sr.id_semester');
         $this->db->join('mahasiswa m', 's.nim = m.nim');
-        $this->db->where('s.jenis', 1);
+        $this->db->where('s.jenis', UJIAN_SKRIPSI_PROPOSAL);
         $this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP);
+		$this->db->where('s.status_proposal <', STATUS_SKRIPSI_PROPOSAL_SELESAI);
+		$this->db->where('s.status_ujian_proposal', 0);
         $this->db->order_by('s.id_skripsi', 'desc');
 
         $query = $this->db->get();

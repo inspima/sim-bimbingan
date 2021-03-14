@@ -31,7 +31,7 @@
 						<th>Departemen</th>
 						<th>Tanggal Pengajuan</th>
 						<th>Semester</th>
-						<th>Opsi</th>
+						<th class="text-center">Opsi</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -50,9 +50,10 @@
 								<td><?php echo $list['departemen']?></td>
 								<td><?php echo toindo($list['tgl_pengajuan'])?></td>
 								<td><?=$list['semester']?></td>
-								<td>
-									<a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dashboardd/proposal/kadep_ditolak/edit/<?= $list['id_skripsi']?>">
-										<i class="fa fa-edit"></i> Proses</a>
+								<td class="text-center">
+									<a class="btn btn-xs bg-navy pull-left" href="<?= base_url()?>dosen/sarjana/kadep/proposal/plot_ulang/<?= $list['id_skripsi']?>">
+										<i class="fa fa-repeat"></i> Penjadwalan Ulang
+									</a>
 								</td>
 							</tr>
 							<?php
