@@ -70,7 +70,7 @@
                                         }
                                     ?>
                                     <br><br>
-                                    <button type="button" class="n btn-xs btn-primary" data-toggle="modal" data-target="#myModalSP<?= $list['id_tesis']?>">
+                                    <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModalSP<?= $list['id_tesis']?>">
                                         <i class="fa fa-file"></i> Surat Tugas
                                     </button>
 
@@ -95,15 +95,15 @@
                                                         <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                                         <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
                                                         <input type="text" name="no_surat" class="form-control" style="width: 100%" value="<?= $no_surat; ?>" required placeholder="Nomor Surat">
-                                                        <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
                                                         <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                                            <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal SK">
+                                                            <input type="text" name="tgl_surat" class="form-control" value="<?= $tgl_surat; ?>" required placeholder="Tanggal Surat">
                                                             <div class="input-group-addon">
                                                                 <span class="glyphicon glyphicon-th"></span>
                                                             </div>
                                                         </div>
+                                                        <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
                                                         <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                                            <input type="text" name="tgl_surat" class="form-control" value="<?= $tgl_surat; ?>" required placeholder="Tanggal Surat">
+                                                            <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal SK">
                                                             <div class="input-group-addon">
                                                                 <span class="glyphicon glyphicon-th"></span>
                                                             </div>

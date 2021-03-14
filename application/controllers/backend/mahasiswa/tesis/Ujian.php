@@ -358,7 +358,7 @@ class Ujian extends CI_Controller {
                     'jenis' => TAHAPAN_TESIS_UJIAN,
                 );
 
-                $this->tesis->update_judul($dataj, $id_tesis);
+                $this->tesis->update_judul($dataj, $id_tesis, TAHAPAN_TESIS_UJIAN);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update');

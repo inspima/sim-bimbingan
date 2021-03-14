@@ -90,6 +90,7 @@
                             $ruang = $ujian->ruang . ' - ' . $ujian->gedung;
                             $id_jam = $ujian->id_jam;
                             $jam = $ujian->jam;
+                            $link_zoom = $ujian->link_zoom;
                         } else {
                             $id_ujian = '';
                             $tanggal = '';
@@ -97,6 +98,7 @@
                             $ruang = '-Pilih Ruang-';
                             $id_jam = '';
                             $jam = '-Pilih Jam-';
+                            $link_zoom = '';
                         }
                         ?>
                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, '') ?>
@@ -129,6 +131,16 @@
                         ?>
                     </select>
                 </div>
+                <?php
+                if($link_zoom != ''){
+                    echo '
+                    <div class="form-group">
+                        <label>Link Zoom</label>
+                        <br>
+                        <a href="'.$link_zoom.'" target="_blank">'.$link_zoom.'</a>
+                    </div>';   
+                }
+                ?>
             </div>
             <!-- /.box-body -->
             <?php echo form_close() ?>
@@ -289,6 +301,7 @@
                     <?php
                     if($ujian){
                         $penguji = $this->tesis->read_penguji($ujian->id_ujian);
+                        $status_tim = '';
                         foreach ($penguji as $listpenguji) {
                             if($listpenguji['nip'] == $this->session_data['username']){
                                 $status_tim = $listpenguji['status_tim'];
@@ -320,8 +333,8 @@
                 <?php
                 if($ujian){
                     $penguji = $this->tesis->read_penguji($ujian->id_ujian);
+                    $status_tim = '';
                     foreach ($penguji as $listpenguji) {
-                        $status_tim = '';
                         if($listpenguji['nip'] == $this->session_data['username']){
                             $status_tim = $listpenguji['status_tim'];
                         }
@@ -334,6 +347,35 @@
             </div>
             <!-- /.box-body -->
             <?php echo form_close() ?>
+            <?php 
+            if($tesis->status_ujian_proposal != '' OR $tesis->status_ujian_proposal != '0'){
+                echo form_open('dosen/tesis/proposal/kirim_berita_acara'); ?>
+                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                <?php
+                if($tesis->status_ujian_proposal == '3'){
+                ?>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Tanggal Ujian Ulang (Hanya untuk keterangan di berita acara ujian proposal)</label>
+                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : ''; ?>" class="form-control pull-right" id="datepicker">
+                        </div>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan dan Setujui Berita Acara</button>
+                </div>
+                <?php 
+                echo form_close(); 
+            }
+            ?>
         </div>
         <!-- /.box -->
     </div>

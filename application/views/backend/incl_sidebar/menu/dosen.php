@@ -82,7 +82,7 @@
                     <li><a href="<?php echo base_url() ?>dashboardd/skripsi/kadep_skripsi"><i class="fa fa-user"></i>Data Skripsi</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <!-- <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-o"></i> <span>Tesis</span>
                     <span class="pull-right-container">
@@ -90,12 +90,12 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/judul/index_kabag"><i class="fa fa-circle-o"></i> Judul</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/proposal/index_kabag"><i class="fa fa-circle-o"></i> Proposal</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/mkpt/index_kabag"><i class="fa fa-circle-o"></i> MKPT</a></li>
-                    <li><a href="<?php echo base_url() ?>dosen/tesis/ujian/index_kabag"><i class="fa fa-circle-o"></i> Tesis</a></li>
+                    <li><a href="<?php //echo base_url() ?>dosen/tesis/judul/index_kabag"><i class="fa fa-circle-o"></i> Judul</a></li>
+                    <li><a href="<?php //echo base_url() ?>dosen/tesis/proposal/index_kabag"><i class="fa fa-circle-o"></i> Proposal</a></li>
+                    <li><a href="<?php //echo base_url() ?>dosen/tesis/mkpt/index_kabag"><i class="fa fa-circle-o"></i> MKPT</a></li>
+                    <li><a href="<?php //echo base_url() ?>dosen/tesis/ujian/index_kabag"><i class="fa fa-circle-o"></i> Tesis</a></li>
                 </ul>
-            </li>
+            </li> -->
             <?php
         } else if ($struktural->id_struktur == STRUKTUR_SPS) {//SPS
             ?>

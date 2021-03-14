@@ -90,6 +90,7 @@
                             $ruang = $ujian->ruang . ' - ' . $ujian->gedung;
                             $id_jam = $ujian->id_jam;
                             $jam = $ujian->jam;
+                            $link_zoom = $ujian->link_zoom;
                         } else {
                             $id_ujian = '';
                             $tanggal = '';
@@ -97,6 +98,7 @@
                             $ruang = '-Pilih Ruang-';
                             $id_jam = '';
                             $jam = '-Pilih Jam-';
+                            $link_zoom = '';
                         }
                         ?>
                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, '') ?>
@@ -129,6 +131,16 @@
                         ?>
                     </select>
                 </div>
+                <?php
+                if($link_zoom != ''){
+                    echo '
+                    <div class="form-group">
+                        <label>Link Zoom</label>
+                        <br>
+                        <a href="'.$link_zoom.'" target="_blank">'.$link_zoom.'</a>
+                    </div>';   
+                }
+                ?>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

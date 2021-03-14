@@ -259,6 +259,7 @@
                     <?php
                     if($ujian){
                         $penguji = $this->tesis->read_penguji($ujian->id_ujian);
+                        $status_tim = '';
                         foreach ($penguji as $listpenguji) {
                             if($listpenguji['nip'] == $this->session_data['username']){
                                 $status_tim = $listpenguji['status_tim'];
@@ -290,6 +291,7 @@
                 <?php
                 if($ujian){
                     $penguji = $this->tesis->read_penguji($ujian->id_ujian);
+                    $status_tim = '';
                     foreach ($penguji as $listpenguji) {
                         if($listpenguji['nip'] == $this->session_data['username']){
                             $status_tim = $listpenguji['status_tim'];

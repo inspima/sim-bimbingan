@@ -156,12 +156,17 @@
                         </td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
-                            <?php if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
+                            <?php if ($list['status_proposal'] >= STATUS_TESIS_PROPOSAL_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
                                 <?php
                                 echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
+                                if($list['status_ujian_proposal'] == '3'){
+                                ?>
+                                    <a href = "<?= base_url() ?>dosen/tesis/proposal/jadwalkan_ulang/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Jadwalkan Ulang</a>
+                                <?php
+                                }
                             }
                             ?>
                         </td>

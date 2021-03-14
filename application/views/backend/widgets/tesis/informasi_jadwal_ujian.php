@@ -28,6 +28,15 @@ if (!empty($jadwal)) {
             <?= substr($jadwal->jam, 0, 5); ?> - Selesai
         </p>
     </div>
+
+    <div class="form-group">
+        <label>Link Zoom</label>
+        <hr class="divider-line-thin"/>
+        <p>
+            <i class="fa fa-globe"></i>&nbsp;&nbsp;
+            <?= '<a href="'.$jadwal->link_zoom.'" target="_blank">'.$jadwal->link_zoom.'</a>'; ?>
+        </p>
+    </div>
     <?php
 } else {
     ?>

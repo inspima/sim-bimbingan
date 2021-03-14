@@ -82,7 +82,7 @@ class Tesis extends CI_Model {
         $this->db->join('pegawai pg3', 'pg3.id_prodi = ps.id_prodi', 'left');
         $this->db->where('s.status_proposal >', 0);
         $this->db->where('pg3.nip', $username);
-        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.jenis=2 and jd.status=\'1\')');
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jenis=2 and status=\'1\')');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -103,7 +103,7 @@ class Tesis extends CI_Model {
         $this->db->where('s.status_judul >', 0);
         $this->db->where('s.status_judul !=', STATUS_TESIS_JUDUL_DITOLAK);
         $this->db->where('pg3.nip', $username);
-        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.jenis=1 and jd.status=\'1\')');
+        $this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jenis=1 and status=\'1\')');
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -888,7 +888,7 @@ class Tesis extends CI_Model {
 
         $this->db->from('penguji_tesis p');
         $this->db->join('pegawai pg', 'p.nip = pg.nip');
-        //$this->db->where_not_in('p.status', $stts);
+        $this->db->where_not_in('p.status', array('0'));
         $this->db->where('p.id_ujian', $id_ujian);
 
         $hitung_penguji = $this->db->count_all_results();
@@ -940,7 +940,7 @@ class Tesis extends CI_Model {
 
         $this->db->from('penguji_tesis p');
         $this->db->join('pegawai pg', 'p.nip = pg.nip');
-        //$this->db->where_not_in('p.status', $stts);
+        $this->db->where_not_in('p.status', array('0'));
         $this->db->where('p.id_ujian', $id_ujian);
 
         $hitung_penguji = $this->db->count_all_results();
@@ -991,7 +991,7 @@ class Tesis extends CI_Model {
 
         $this->db->from('penguji_tesis p');
         $this->db->join('pegawai pg', 'p.nip = pg.nip');
-        //$this->db->where_not_in('p.status', $stts);
+        $this->db->where_not_in('p.status', array('0'));
         $this->db->where('p.id_ujian', $id_ujian);
 
         $hitung_penguji = $this->db->count_all_results();
@@ -1349,8 +1349,9 @@ class Tesis extends CI_Model {
         $this->db->insert('penilaian_tesis', $data);
     }
 
-    function update_judul($data, $id_tesis) {
+    function update_judul($data, $id_tesis, $jenis) {
         $this->db->where('id_tesis', $id_tesis);
+        $this->db->where('jenis', $jenis);
         $this->db->update('judul_tesis', $data);
     }
 
@@ -1964,21 +1965,21 @@ class Tesis extends CI_Model {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
                 ['value' => '1', 'text' => 'Layak'],
-                ['value' => '2', 'text' => 'Layak dengan Catatan'],
+                //['value' => '2', 'text' => 'Layak dengan Catatan'],
                 ['value' => '3', 'text' => 'Tidak Layak'],
             ];
         } else if ($jenis == UJIAN_TESIS_MKPT) {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
                 ['value' => '1', 'text' => 'Syarat Lengkap'],
-                ['value' => '2', 'text' => 'Syarat Lengkap dengan Catatan'],
+                //['value' => '2', 'text' => 'Syarat Lengkap dengan Catatan'],
                 ['value' => '3', 'text' => 'Syarat Tidak Lengkap'],
             ];
         } else if ($jenis == UJIAN_TESIS_UJIAN) {
             return [
                 ['value' => '0', 'text' => 'Belum Ujian'],
                 ['value' => '1', 'text' => 'Layak'],
-                ['value' => '2', 'text' => 'Layak dengan Catatan'],
+                //['value' => '2', 'text' => 'Layak dengan Catatan'],
                 ['value' => '3', 'text' => 'Tidak Layak'],
             ];
         }

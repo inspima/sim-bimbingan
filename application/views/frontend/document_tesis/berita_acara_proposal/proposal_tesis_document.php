@@ -171,13 +171,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php
                          $status_lanjut = '';
                         if($tesis->status_ujian_proposal != ''){
-                            if($tesis->status_ujian_proposal != '0'){
+                            if($tesis->status_ujian_proposal == '0'){
                                 $status_lanjut = 'Dapat / Tidak Dapat *)';
                             }
-                            if($tesis->status_ujian_proposal != '1'){
+                            if($tesis->status_ujian_proposal == '1'){
                                  $status_lanjut = 'Dapat';
                             }
-                            if($tesis->status_ujian_proposal != '3'){
+                            if($tesis->status_ujian_proposal == '3'){
                                  $status_lanjut = 'Tidak Dapat';
                             }
                         }
@@ -190,7 +190,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p>
                                     Memutuskan bahwa ujian proposal tesis bagi mahasiswa tersebut :
                                     <br><b><?= $status_lanjut?></b> dilanjutkan sebagai materi penelitiannya 
-                                    <br>Masih harus diuji kembali pada tanggal : <?= $date_doc; ?>
+                                    <br>Masih harus diuji kembali pada tanggal : <?= $tgl_sk; ?>
                                 </p>
                             </td>
                         </tr>
