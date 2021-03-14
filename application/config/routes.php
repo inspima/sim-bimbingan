@@ -634,6 +634,7 @@
 	$route['dosen/tesis/proposal/batal_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/batal_penguji';
 	$route['dosen/tesis/proposal/update_status_ujian'] = 'backend/dosen/tesis/proposal/update_status_ujian';
 	$route['dosen/tesis/proposal/update_status_ujian_ketua'] = 'backend/dosen/tesis/proposal/update_status_ujian_ketua';
+	$route['dosen/tesis/proposal/kirim_berita_acara'] = 'backend/dosen/tesis/proposal/kirim_berita_acara';
 
 	// TESIS - MKPT
 	$route['dosen/tesis/mkpt/pengampu'] = 'backend/dosen/tesis/mkpt/pengampu';
@@ -773,6 +774,8 @@
 	$route['prodi/magister/tesis/proposal'] = 'backend/prodi/magister/tesis/tesis_proposal';
 	$route['prodi/magister/tesis/proposal/cetak_sk_proposal'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_sk_proposal';
 	$route['prodi/magister/tesis/proposal/cetak_berita'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_berita';
+	$route['prodi/magister/tesis/proposal/cetak_daftar_hadir'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_daftar_hadir';
+	$route['prodi/magister/tesis/proposal/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_undangan';
 
 	$route['prodi/magister/tesis/ujian'] = 'backend/prodi/magister/tesis/tesis_ujian';
 	//$route['prodi/magister/tesis/ujian/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_undangan';

@@ -43,8 +43,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     	<td>
     	<table border="0" style="width:100%">
 		    <tr>
-		      <td align="center"><b>SURAT   TUGAS<br />
-		      Nomor : <?php echo $gelombang->no_sk?> </b></td>
+		      <td align="center"><b>SURAT TUGAS<br />
+		      Nomor : <?php echo $dokumen->no_sk?> </b></td>
 		    </tr>
 		</table> 
 		</td>
@@ -144,7 +144,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     	<table border="0" style="width:100%">
     	    <tr>
 		    	<td style="width:60%" align="left"></td>
-		    	<td style="width:40%" align="left">Surabaya, ...................................</td>
+		    	<td style="width:40%" align="left">Surabaya, <?php echo waktu_format_indonesia($dokumen->date_doc)?></td>
 		    </tr>
 		    <tr>
 		      <td style="width:60%" align="left"></td>

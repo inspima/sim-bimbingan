@@ -186,14 +186,52 @@
 			if ($hand == 'center19') {
 				$id_skripsi = $this->input->post('id_skripsi', true);
 				$id_ujian = $this->input->post('id_ujian', true);
-
+				$no_sk = $this->input->post('no_sk', true);
+				$tgl_sk = $this->input->post('tgl_sk', true);
+				$skripsi = $this->transaksi_proposal->detail_proposal($id_skripsi);
+				$gelombang = $this->proposal_diterima->read_gelombangaktif();
+				$pengujis = $this->transaksi_proposal->read_penguji_ujian($id_ujian, UJIAN_SKRIPSI_PROPOSAL);
+				$wadek = $this->proposal_diterima->read_wadek();
+				// DOKUMEN
+				$link_dokumen = base_url() . 'document/lihat_skripsi_surat_tugas?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi . '$' . DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				$link_dokumen_cetak = base_url() . 'document/cetak_skripsi_surat_tugas?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi . '$' . DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				// QR
+				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Kualifikasi', $skripsi->nim, $tgl_sk);
+				$qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+				// DOKUMEN
+				$data_dokumen = [
+					'kode' => $this->dokumen->generate_kode(DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR, TAHAPAN_SKRIPSI_PROPOSAL_STR, $skripsi->nim, $tgl_sk),
+					'tipe' => DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR,
+					'jenis' => DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR,
+					'id_jenjang' => JENJANG_S1,
+					'id_tugas_akhir' => $id_skripsi,
+					'identitas' => $skripsi->nim,
+					'no_doc' => $no_sk,
+					'date_doc' => date('Y-m-d', strtotime($tgl_sk)),
+					'nama' => 'Surat Tugas Penguji - Proposal Skripsi - ' . $skripsi->nama,
+					'deskripsi' => $skripsi->judul,
+					'link' => $link_dokumen,
+					'link_cetak' => $link_dokumen_cetak,
+					'date' => date('Y-m-d', strtotime($tgl_sk)),
+					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+				];
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				if (empty($dokumen)) {
+					$this->dokumen->save($data_dokumen);
+				}
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				// DOKUMEN PERSETUJUAN
+				$this->dokumen->generate_persetujuan_surat_tugas_skripsi($pengujis, $dokumen->id_dokumen, JENJANG_S1, $id_skripsi);
 				$data = array(
-					'proposal' => $this->proposal->detail($id_skripsi),
-					'gelombang' => $this->proposal->read_gelombangaktif(),
-					'penguji_ketua' => $this->proposal->read_pengujiketuacetak($id_skripsi),
-					'penguji_anggota' => $this->proposal->read_pengujianggota($id_skripsi),
-					'wadek' => $this->proposal->read_wadek(),
-					'judul' => $this->proposal->read_judul($id_skripsi)
+					'dokumen' => $dokumen,
+					'proposal' => $skripsi,
+					'gelombang' => $gelombang,
+					'penguji_ketua' => $this->proposal_diterima->read_ketua_penguji($id_ujian),
+					'penguji_anggota' => $this->proposal_diterima->read_anggota_penguji($id_ujian),
+					'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
+					'wadek' => $wadek,
+					'judul' => $this->proposal_diterima->read_judul($id_skripsi)
 				);
 				//print_r($data['penguji_ketua']);die();
 				ob_end_clean();
@@ -216,12 +254,15 @@
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
 				$id_skripsi = $this->input->post('id_skripsi', true);
-
+				$skripsi = $this->proposal->detail($id_skripsi);
+				$ujian = $this->proposal->read_ujian($id_skripsi);
+				$pengujis = $this->proposal->read_penguji($id_skripsi);
+				$wadek = $this->struktural->read_wadek1();
 				$data = array(
-					'proposal' => $this->proposal->detail($id_skripsi),
-					'jadwal' => $this->proposal->read_ujian($id_skripsi),
-					'penguji' => $this->proposal->read_penguji($id_skripsi),
-					'wadek1' => $this->struktural->read_wadek1()
+					'proposal' => $skripsi,
+					'jadwal' => $ujian,
+					'penguji' => $pengujis,
+					'wadek1' => $wadek
 				);
 
 				$page = 'backend/baa/cetak/proposal_skripsi_undangan';

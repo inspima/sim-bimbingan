@@ -93,7 +93,6 @@
 
 		function ujian($id, $username)
 		{
-			$stts = array('2', '3');
 			$this->db->select('u.id_ujian, u.id_skripsi, u.id_ruang, u.id_jam, u.tanggal, r.ruang, r.gedung, j.jam');
 			$this->db->from('ujian u');
 			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
@@ -101,7 +100,7 @@
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->where('s.id_skripsi', $id);
 			$this->db->where('s.nim', $username);
-			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SETUJUI_PENGUJI);
+			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_DIJADWALKAN);
 			$this->db->where('u.status', 1);
 			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_PROPOSAL);
 

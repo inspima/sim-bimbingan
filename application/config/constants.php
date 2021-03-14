@@ -119,6 +119,7 @@
 
 	// TIPE DOKUMEN
 	define('DOKUMEN_BERITA_ACARA_STR', 'berita-acara');
+	define('DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR', 'surat-tugas-skripsi-proposal');
 	define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
 	define('DOKUMEN_SP_PEMBIMBING_TESIS', 'surat-tugas-pembimbing-tesis');

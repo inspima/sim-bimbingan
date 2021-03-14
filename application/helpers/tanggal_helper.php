@@ -215,6 +215,73 @@
 		return ($exp_date);
 	}
 
+	function tanggal_hari_format_indonesia($tanggal)
+	{
+		$exp = explode('-', date("Y-m-d", strtotime($tanggal)));
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
+
+		$hari = date('D', strtotime($tanggal));
+		$bulan = date('M', strtotime($tanggal));
+		$harilist = array(
+			'Sun' => 'Minggu',
+			'Mon' => 'Senin',
+			'Tue' => 'Selasa',
+			'Wed' => 'Rabu',
+			'Thu' => 'Kamis',
+			'Fri' => 'Jumat',
+			'Sat' => 'Sabtu'
+		);
+
+		$monList = array(
+			'Jan' => 'Januari',
+			'Feb' => 'Februari',
+			'Mar' => 'Maret',
+			'Apr' => 'April',
+			'May' => 'Mei',
+			'Jun' => 'Juni',
+			'Jul' => 'Juli',
+			'Aug' => 'Agustus',
+			'Sep' => 'September',
+			'Oct' => 'Oktober',
+			'Nov' => 'November',
+			'Dec' => 'Desember'
+		);
+
+		$exp_date = $harilist[$hari] . ', ' . $day . ' ' . $monList[$bulan] . ' ' . $year;
+		return ($exp_date);
+	}
+
+	function tanggal_format_indonesia($tanggal)
+	{
+		$exp = explode('-', date("Y-m-d", strtotime($tanggal)));
+		$day = $exp[2];
+		$month = $exp[1];
+		$year = $exp[0];
+
+		$hari = date('D', strtotime($tanggal));
+		$bulan = date('M', strtotime($tanggal));
+
+		$monList = array(
+			'Jan' => 'Januari',
+			'Feb' => 'Februari',
+			'Mar' => 'Maret',
+			'Apr' => 'April',
+			'May' => 'Mei',
+			'Jun' => 'Juni',
+			'Jul' => 'Juli',
+			'Aug' => 'Agustus',
+			'Sep' => 'September',
+			'Oct' => 'Oktober',
+			'Nov' => 'November',
+			'Dec' => 'Desember'
+		);
+
+		$exp_date = $day . ' ' . $monList[$bulan] . ' ' . $year;
+		return ($exp_date);
+	}
+
 	function waktu_format_indonesia($waktu)
 	{
 		$exp = explode('-', date("Y-m-d-H-i", strtotime($waktu)));
