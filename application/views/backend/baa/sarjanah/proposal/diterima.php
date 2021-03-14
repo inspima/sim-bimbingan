@@ -94,14 +94,20 @@
 											$ketua = $this->proposal_diterima->read_ketua_penguji($ujian->id_ujian);
 											if (!empty($ketua)) {
 												if ($list['status_proposal'] >= STATUS_SKRIPSI_PROPOSAL_SETUJUI_PENGUJI) {
+													$data_dokumen = [
+															'tipe' => DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR,
+															'jenis' => DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR,
+															'identitas' => $list['nim']
+													];
+													$dokumen = $this->dokumen->detail_by_data($data_dokumen);
 													?>
 													<?php
 													$attributes = array('target' => '_blank', 'autocomplete' => 'off');
 													echo form_open('baa/sarjanah/proposal/cetak_surat_tugas', $attributes)
 													?>
 													<h4>Surat Tugas</h4>
-													<input type="text" name="no_sk" style="margin-bottom: 10px" class="form-control" placeholder="NO SK" required/>
-													<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control" placeholder="TGL SK" required/>
+													<input type="text" name="no_sk" style="margin-bottom: 10px" class="form-control" placeholder="NO SK" value="<?= !empty($dokumen) ? $dokumen->no_doc : '' ?>" required/>
+													<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control"  placeholder="TGL SK" value="<?= !empty($dokumen) ? date('d-m-Y',strtotime($dokumen->date_doc)) : '' ?>" required/>
 													<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 													<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
 													<?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>

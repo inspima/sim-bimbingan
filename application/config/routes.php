@@ -894,6 +894,9 @@
 	$route['document/persetujuan/skripsi/save'] = 'document/persetujuan_skripsi_save';
 	$route['document/cetak_skripsi'] = 'document/cetak_skripsi';
 
+	$route['document/lihat_skripsi_surat_tugas'] = 'document/lihat_skripsi_surat_tugas';
+	$route['document/cetak_skripsi_surat_tugas'] = 'document/cetak_skripsi_surat_tugas';
+
 	$route['document/lihat_tesis'] = 'document/lihat_tesis';
 	$route['document/cetak_tesis'] = 'document/cetak_tesis';
 

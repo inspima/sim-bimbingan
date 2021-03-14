@@ -667,14 +667,29 @@
 		public function read_pengujiketua($id_ujian)
 		{
 			$stts = array('1', '2');
-			$this->db->select('*');
+			$this->db->select('p*,pg.nama,pg.ttd');
 			$this->db->from('penguji');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('id_ujian', $id_ujian);
 			$this->db->where('status_tim', 1);
 			$this->db->where_in('status', $stts);
 
 			$query = $this->db->get();
 			return $query->row();
+		}
+
+		public function read_pengujianggota($id_ujian)
+		{
+			$stts = array('1', '2');
+			$this->db->select('p*,pg.nama,pg.ttd');
+			$this->db->from('penguji');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status_tim', 2);
+			$this->db->where_in('status', $stts);
+
+			$query = $this->db->get();
+			return $query->result_array();
 		}
 
 		public function read_pengujibentrok($tanggal, $id_jam, $nip)
