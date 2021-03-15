@@ -667,7 +667,7 @@
 		public function read_pengujiketua($id_ujian)
 		{
 			$stts = array('1', '2');
-			$this->db->select('p*,pg.nama,pg.ttd');
+			$this->db->select('p.*,pg.nama,pg.ttd');
 			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('id_ujian', $id_ujian);
@@ -681,7 +681,7 @@
 		public function read_pengujianggota($id_ujian)
 		{
 			$stts = array('1', '2');
-			$this->db->select('p*,pg.nama,pg.ttd');
+			$this->db->select('p.*,pg.nama,pg.ttd');
 			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('id_ujian', $id_ujian);
