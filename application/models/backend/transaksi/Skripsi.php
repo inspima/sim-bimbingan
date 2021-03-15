@@ -668,7 +668,7 @@
 		{
 			$stts = array('1', '2');
 			$this->db->select('p*,pg.nama,pg.ttd');
-			$this->db->from('penguji');
+			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('id_ujian', $id_ujian);
 			$this->db->where('status_tim', 1);
@@ -682,7 +682,7 @@
 		{
 			$stts = array('1', '2');
 			$this->db->select('p*,pg.nama,pg.ttd');
-			$this->db->from('penguji');
+			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('id_ujian', $id_ujian);
 			$this->db->where('status_tim', 2);
