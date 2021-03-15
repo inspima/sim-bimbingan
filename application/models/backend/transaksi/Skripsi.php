@@ -671,8 +671,8 @@
 			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('id_ujian', $id_ujian);
-			$this->db->where('status_tim', 1);
-			$this->db->where_in('status', $stts);
+			$this->db->where('p.status_tim', 1);
+			$this->db->where_in('p.status', $stts);
 
 			$query = $this->db->get();
 			return $query->row();
@@ -684,9 +684,9 @@
 			$this->db->select('p.*,pg.nama,pg.ttd');
 			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
-			$this->db->where('id_ujian', $id_ujian);
-			$this->db->where('status_tim', 2);
-			$this->db->where_in('status', $stts);
+			$this->db->where('p.id_ujian', $id_ujian);
+			$this->db->where('p.status_tim', 2);
+			$this->db->where_in('p.status', $stts);
 
 			$query = $this->db->get();
 			return $query->result_array();
