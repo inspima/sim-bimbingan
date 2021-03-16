@@ -196,6 +196,41 @@
 			}
 		}
 
+		public function plot_pembimbing()
+		{
+			$struktural = $this->struktural->read_struktural($this->session_data['username']);
+			$id_departemen = $struktural->id_departemen;
+			if ($struktural->id_struktur == '5') {
+				$id_skripsi = $this->uri->segment('6');
+
+				$data = array(
+					// PAGE //
+					'title' => 'Ketua Bagian (Departemen) - Skripsi - Proposal',
+					'subtitle' => 'Setting Pembimbing',
+					'section' => 'backend/dosen/skripsi/proposal/plot_pembimbing',
+					'use_back' => true,
+					'back_link' => 'dosen/sarjana/kadep/proposal/selesai',
+					// DATA //
+					'proposal' => $this->skripsi->detail_proposal($id_skripsi),
+					'mdosen' => $this->dosen->read_aktif_alldep(),
+					'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
+					'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),
+				);
+				if ($data['proposal']) {
+					$this->load->view('backend/index_sidebar', $data);
+				} else {
+					$data['section'] = 'backend/notification/danger';
+					$data['msg'] = 'Tidak ditemukan';
+					$data['linkback'] = 'dashboardd/proposal/selesai';
+					$this->load->view('backend/index_sidebar', $data);
+				}
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
+		}
+
 		public function plot_ulang()
 		{
 			$struktural = $this->struktural->read_struktural($this->session_data['username']);
@@ -668,11 +703,6 @@
 			if ($hand == 'center19') {
 				$id_skripsi = $this->input->post('id_skripsi', true);
 				$id_pembimbing = $this->input->post('id_pembimbing', true);
-
-				$data_skripsi = [
-					'status_proposal' => STATUS_SKRIPSI_PROPOSAL_PEMBIMBING
-				];
-				$this->skripsi->update($data_skripsi, $id_skripsi);
 
 				$datap = array(
 					'status' => 2,

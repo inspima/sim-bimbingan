@@ -100,7 +100,7 @@
 			$this->db->where('s.id_departemen', $id_departemen);
 			$this->db->where('s.jenis', TAHAPAN_SKRIPSI_PROPOSAL);
 			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP);
-			$this->db->where('s.status_proposal <', STATUS_SKRIPSI_PROPOSAL_SELESAI);
+			$this->db->where('s.status_proposal <=', STATUS_SKRIPSI_PROPOSAL_UJIAN);
 			$this->db->where('s.status_ujian_proposal', 0);
 			$this->db->order_by('s.id_skripsi', 'desc');
 
@@ -118,7 +118,7 @@
 			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
 			$this->db->where('s.id_departemen', $id_departemen);
-			$this->db->where('s.status_ujian_proposal', HASIL_UJIAN_LANJUT);
+			$this->db->where('s.status_proposal >',STATUS_SKRIPSI_PROPOSAL_UJIAN);
 			$this->db->order_by('s.id_skripsi', 'desc');
 
 			$query = $this->db->get();

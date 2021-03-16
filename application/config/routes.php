@@ -357,6 +357,7 @@
 	$route['dosen/sarjana/kadep/proposal/diterima'] = 'backend/dosen/skripsi/kadep_proposal/diterima';
 	$route['dosen/sarjana/kadep/proposal/edit/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/edit';
 	$route['dosen/sarjana/kadep/proposal/plot/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/plot';
+	$route['dosen/sarjana/kadep/proposal/plot_pembimbing/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/plot_pembimbing';
 	$route['dosen/sarjana/kadep/proposal/plot_ulang/(:num)'] = 'backend/dosen/skripsi/kadep_proposal/plot_ulang';
 	$route['dosen/sarjana/kadep/proposal/selesai'] = 'backend/dosen/skripsi/kadep_proposal/selesai';
 	$route['dosen/sarjana/kadep/proposal/ditolak'] = 'backend/dosen/skripsi/kadep_proposal/ditolak';

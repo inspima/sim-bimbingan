@@ -17,7 +17,7 @@ class Proposal_selesai_model extends CI_Model {
         $this->db->join('jam ja', 'u.id_jam = ja.id_jam');
         $this->db->join('judul ju', 'ju.id_skripsi = s.id_skripsi');
         $this->db->where('s.jenis', UJIAN_SKRIPSI_PROPOSAL);
-        $this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SELESAI);
+        $this->db->where('s.status_proposal >', STATUS_SKRIPSI_PROPOSAL_UJIAN);
         $this->db->order_by('s.id_skripsi', 'desc');
 
         $query = $this->db->get();

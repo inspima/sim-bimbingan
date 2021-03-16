@@ -17,7 +17,7 @@
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
 			$this->db->where('s.jenis', UJIAN_SKRIPSI_PROPOSAL);
 			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP);
-			$this->db->where('s.status_proposal <', STATUS_SKRIPSI_PROPOSAL_SELESAI);
+			$this->db->where('s.status_proposal <=', STATUS_SKRIPSI_PROPOSAL_UJIAN);
 			$this->db->where('s.status_ujian_proposal', 0);
 			$this->db->order_by('s.id_skripsi', 'desc');
 

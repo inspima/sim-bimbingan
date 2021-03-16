@@ -24,10 +24,7 @@
 					<thead>
 					<tr>
 						<th>No</th>
-						<th>NIM</th>
-						<th>Nama</th>
-						<th>Judul</th>
-						<th>Berkas Proposal</th>
+						<th>Info Proposal</th>
 						<th>Departemen</th>
 						<th>Pembimbing</th>
 						<th>Tgl Pengajuan</th>
@@ -42,11 +39,11 @@
 							?>
 							<tr>
 								<td><?= $no ?></td>
-								<td><?= $list['nim'] ?></td>
-								<td><?= $list['nama'] ?></td>
-								<td><?= $list['judul']; ?></td>
 								<td>
-									<a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+									<b>Nim</b> : <?= $list['nim'] ?><br/>
+									<b>Nama</b> : <?= $list['nama'] ?><br/>
+									<b>Judul</b> : <?= $list['judul']; ?><br/>
+									<b>Berkas</b> : <a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
 								</td>
 								<td><?php echo $list['departemen'] ?></td>
 								<td>
@@ -72,6 +69,14 @@
 										} else if ($list['status_ujian_proposal'] == '3') {
 											echo 'Tidak layak dan harus diuji kembali';
 										}
+									?>
+									<?php if ($list['status_ujian_proposal'] == 1) {
+										?>
+										<a class="btn btn-xs btn-primary pull-left" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_pembimbing/<?= $list['id_skripsi'] ?>">
+											<i class="fa fa-gear"></i> Pilih Pembimbing
+										</a>
+										<?php
+									}
 									?>
 								</td>
 							</tr>
