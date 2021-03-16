@@ -24,7 +24,7 @@
 					<thead>
 					<tr>
 						<th>No</th>
-						<th>Info Proposal</th
+						<th>Info Proposal</th>
 						<th>Departemen</th>
 						<th>Tanggal Pengajuan</th>
 						<th>Semester</th>
