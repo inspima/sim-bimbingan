@@ -134,7 +134,7 @@
 							<?php echo $dokumen_persetujuan->hasil ?>
 						</div>
 						<div class="form-group">
-							<label>Keterangan</label>
+							<label>Keterangan Hasil</label>
 							<hr class="divider-line-thin"/>
 							<?php echo $dokumen_persetujuan->hasil_keterangan ?>
 						</div>

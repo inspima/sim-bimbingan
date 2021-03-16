@@ -43,7 +43,7 @@
 				<div class="divider10"></div>
 				<?php echo form_open_multipart('profile/signature/upload'); ?>
 				<div class="form-group">
-					<label>Upload TTD format PNG</label>
+					<label>Upload TTD format PNG (Maksimal 1MB)</label>
 					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 					<input type="file" name="ttd_image" class="form-control" required>
 					<div class="divider5"></div>
