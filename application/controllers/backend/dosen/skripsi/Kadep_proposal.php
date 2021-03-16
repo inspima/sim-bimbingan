@@ -704,6 +704,11 @@
 				$id_skripsi = $this->input->post('id_skripsi', true);
 				$id_pembimbing = $this->input->post('id_pembimbing', true);
 
+				$data_skripsi = [
+					'status_proposal' => STATUS_SKRIPSI_PROPOSAL_PEMBIMBING
+				];
+				$this->skripsi->update($data_skripsi, $id_skripsi);
+
 				$datap = array(
 					'status' => 2,
 					'status_bimbingan' => 2
