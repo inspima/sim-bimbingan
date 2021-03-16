@@ -183,7 +183,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<td align="left">
 						Mengusulkan
 						<br>
-						Ketua Departemen,
+						Ketua Bagian,
 						<?php
 							if ($setujui_semua):
 								if (!empty($kadep->ttd)) {
