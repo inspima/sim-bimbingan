@@ -205,7 +205,7 @@
 				$upload_path = '/assets/upload/profile/signature/';
 				$config['upload_path'] = '.' . $upload_path;
 				$config['allowed_types'] = 'png';
-				$config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+				$config['max_size'] = MAX_SIZE_FILE_UPLOAD_IMG;
 				$config['remove_spaces'] = true;
 				$config['file_ext_tolower'] = true;
 				$config['detect_mime'] = true;
@@ -222,7 +222,7 @@
 				} else {
 					// Update Database
 					$data_update = [
-						'ttd' => base_url() . $upload_path . $file_name
+						'ttd' => substr(base_url(),0,strlen(base_url())-1) . $upload_path . $file_name
 					];
 					$this->user->update_pegawai($data_update, $username);
 					$this->session->set_flashdata('msg-title', 'alert-success');

@@ -98,6 +98,7 @@
 
 	// FILE UPLOAD
 	define('MAX_SIZE_FILE_UPLOAD', 10000);
+	define('MAX_SIZE_FILE_UPLOAD_IMG', 1000);
 	define('MAX_SIZE_FILE_UPLOAD_DESCRIPTION', '10 MB');
 	define('PATH_FILE_DISERTASI_KUALIFIKASI', 'assets/upload/mahasiswa/disertasi/kualifikasi');
 	define('PATH_FILE_DISERTASI_MPKK', 'assets/upload/mahasiswa/disertasi/mpkk');
