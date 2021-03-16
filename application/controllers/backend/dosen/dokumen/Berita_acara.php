@@ -125,6 +125,7 @@
 				$nilai = $this->input->post('nilai', true);
 				$hasil = $this->input->post('hasil', true);
 				$jenis = $this->input->post('jenis', true);
+				$hasil_id = $this->skripsi->get_id_status_ujian_by_text($hasil,UJIAN_SKRIPSI_PROPOSAL);
 				$keterangan = $this->input->post('keterangan', true);
 				$dokumen = $this->dokumen->detail($id_dokumen);
 				$data = array(
@@ -138,7 +139,7 @@
 				if ($jenis == '1') {
 					// Skripsi
 					if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR) {
-						if ($hasil == HASIL_UJIAN_LANJUT) {
+						if ($hasil_id == HASIL_UJIAN_LANJUT) {
 							$ujian_aktif = $this->skripsi->read_ujian_aktif($dokumen->id_tugas_akhir, UJIAN_SKRIPSI_PROPOSAL);
 							$data_ujian = [
 								'hasil_ujian' => HASIL_UJIAN_LANJUT,

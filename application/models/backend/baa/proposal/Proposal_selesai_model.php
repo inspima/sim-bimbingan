@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
 class Proposal_selesai_model extends CI_Model {
 
     public function read() {
-        $this->db->select('s.id_skripsi, s.tgl_pengajuan, s.judul, s.berkas_proposal, ,s.keterangan_proposal, dn.departemen, g.gelombang, sr.semester, m.nim, m.nama,u.id_ujian, u.tanggal, r.ruang, r.gedung,ju.judul, ja.jam,u.id_ujian, u.tanggal, r.ruang, r.gedung, ja.jam ');
+        $this->db->select('s.*, dn.departemen, g.gelombang, sr.semester, m.nim, m.nama,u.id_ujian, u.tanggal, r.ruang, r.gedung,ju.judul, ja.jam,u.id_ujian, u.tanggal, r.ruang, r.gedung, ja.jam ');
         $this->db->from('skripsi s');
         $this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
         $this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
@@ -16,8 +16,8 @@ class Proposal_selesai_model extends CI_Model {
         $this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
         $this->db->join('jam ja', 'u.id_jam = ja.id_jam');
         $this->db->join('judul ju', 'ju.id_skripsi = s.id_skripsi');
-        $this->db->where('s.jenis', 1);
-        $this->db->where('s.status_proposal', 3);
+        $this->db->where('s.jenis', UJIAN_SKRIPSI_PROPOSAL);
+        $this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SELESAI);
         $this->db->order_by('s.id_skripsi', 'desc');
 
         $query = $this->db->get();

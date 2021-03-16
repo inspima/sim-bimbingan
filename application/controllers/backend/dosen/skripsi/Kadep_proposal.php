@@ -651,10 +651,7 @@
 				$id_skripsi = $this->input->post('id_skripsi', true);
 				$id_pembimbing = $this->input->post('id_pembimbing', true);
 
-				$data = array(
-					'status' => 4,
-				);
-				$this->skripsi->update_pembimbing($data, $id_pembimbing);
+				$this->skripsi->delete_pembimbing( $id_pembimbing);
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil hapus pembimbing');
 				redirect_back();

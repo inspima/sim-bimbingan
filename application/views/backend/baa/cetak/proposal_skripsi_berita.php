@@ -209,8 +209,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</td>
 					<td align="left">
 						Menerima<br>
-						<?= $pembimbing->status == '1' ? 'Usulan' : '' ?> Dosen Pembimbing,
-						<?php
+						<? if (!empty($pembimbing)) {
+							?>
+							<?= $pembimbing->status == '1' ? 'Usulan' : '' ?> Dosen Pembimbing,
+							<?php
 							if ($setujui_semua):
 								if (!empty($pembimbing->ttd)) {
 									?>
@@ -230,8 +232,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<br><br><br><br><br>
 							<?php
 							endif;
+							?>
+							<?= $pembimbing->nama . '<br>NIP. ' . $pembimbing->nip ?>
+							<?php
+						} else {
+							?>
+							Dosen Pembimbing,
+							<br><br><br><br><br>
+							(Belum diusulkan)
+							<?php
+						}
 						?>
-						<?= $pembimbing->nama . '<br>NIP. ' . $pembimbing->nip ?>
+
 					</td>
 					<td align="left">
 						Menyetujui<br>

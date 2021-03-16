@@ -40,7 +40,9 @@
                             ?>
                             <tr>
                                 <td><?= $no ?></td>
-                                <td><?php echo $list['nama_dosen'] ?></td>
+                                <td>
+									<?php $this->view('backend/widgets/skripsi/column_penguji', ['skripsi' => $list, 'jenis' => UJIAN_SKRIPSI_PROPOSAL]); ?>
+								</td>
                                 <td><?php echo '<strong>' . $list['nama'] . '</strong><br>' . $list['nim'] ?></td>
                                 <td>
                                     <?php

@@ -98,7 +98,7 @@
 				'subtitle' => 'Data Proposal ',
 				'section' => 'backend/baa/sarjanah/proposal/belum_approve',
 				// DATA //
-				'penguji' => $this->transaksi_proposal->read()
+				'penguji' => $this->transaksi_proposal->read_baa_proposal_penguji_blm_approve()
 			);
 
 			$this->load->view('backend/index_sidebar', $data);
