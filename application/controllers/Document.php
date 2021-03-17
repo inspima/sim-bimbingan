@@ -477,13 +477,14 @@
 		{
 			$doc = $this->input->get('doc', true);
 			$params = explode('$', $doc);
-			if (!empty($params) && count($params) == 5) {
+			if (!empty($params) && count($params) == 6) {
 				$id_tugas_akhir = $params[1];
-				$tipe = $params[2];
-				$jenis_str = $params[3];
-				$jenis = $params[4];
-				$jadwal = $this->skripsi->read_jadwal($id_tugas_akhir, $jenis);
+				$id_jadwal = $params[2];
+				$tipe = $params[3];
+				$jenis_str = $params[4];
+				$jenis = $params[5];
 				$tugas_akhir = $this->skripsi->detail_by_id($id_tugas_akhir);
+				$jadwal = $this->skripsi->read_jadwal_by_id($id_jadwal);
 				$page = '';
 				$section_title = '';
 				$this->get_tipe_dokumen($tipe, $page, $section_title);
@@ -492,8 +493,9 @@
 					'tipe' => $tipe,
 					'jenis' => $jenis_str,
 					'identitas' => $tugas_akhir->nim,
+					'date' => $jadwal->tanggal,
 				];
-				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 				if (!empty($dokumen)) {
 					$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
 					// QR

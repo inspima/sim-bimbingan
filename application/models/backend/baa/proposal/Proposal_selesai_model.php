@@ -12,12 +12,13 @@ class Proposal_selesai_model extends CI_Model {
         $this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
         $this->db->join('semester sr', 'g.id_semester = sr.id_semester');
         $this->db->join('mahasiswa m', 's.nim = m.nim');
-        $this->db->join('ujian u', 'u.id_skripsi = s.id_skripsi and u.status=1 and u.jenis_ujian=1');
+        $this->db->join('ujian u', 'u.id_skripsi = s.id_skripsi and u.jenis_ujian='.UJIAN_SKRIPSI_PROPOSAL.' and u.hasil_ujian='.HASIL_UJIAN_LANJUT);
         $this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
         $this->db->join('jam ja', 'u.id_jam = ja.id_jam');
         $this->db->join('judul ju', 'ju.id_skripsi = s.id_skripsi');
         $this->db->where('s.jenis', UJIAN_SKRIPSI_PROPOSAL);
         $this->db->where('s.status_proposal >', STATUS_SKRIPSI_PROPOSAL_UJIAN);
+		$this->db->where('s.status_ujian_proposal', HASIL_UJIAN_LANJUT);
         $this->db->order_by('s.id_skripsi', 'desc');
 
         $query = $this->db->get();

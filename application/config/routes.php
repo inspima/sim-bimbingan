@@ -390,6 +390,7 @@
 	$route['baa/sarjanah/proposal/cetak_surat_tugas'] = 'backend/baa/sarjanah/proposal/cetak_surat_tugas';
 	$route['baa/sarjanah/proposal/cetak_undangan'] = 'bbackend/baa/sarjanah/proposal/cetak_undangan';
 	$route['baa/sarjanah/proposal/cetak_berita'] = 'backend/baa/sarjanah/proposal/cetak_berita';
+	$route['baa/sarjanah/proposal/cetak_berita_ulang'] = 'backend/baa/sarjanah/proposal/cetak_berita_ulang';
 	$route['baa/sarjanah/proposal/cetak_absensi'] = 'backend/baa/sarjanah/proposal/cetak_absensi';
 
 	$route['baa/sarjanah/skripsi/index'] = 'backend/baa/sarjanah/skripsi';

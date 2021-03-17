@@ -43,7 +43,8 @@
 									<b>Nim</b> : <?= $list['nim'] ?><br/>
 									<b>Nama</b> : <?= $list['nama'] ?><br/>
 									<b>Judul</b> : <?= $list['judul']; ?><br/>
-									<b>Berkas</b> : <a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+									<b>Berkas</b> :
+									<a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
 								</td>
 								<td><?php echo $list['departemen'] ?></td>
 								<td>
@@ -72,8 +73,9 @@
 									?>
 									<?php if ($list['status_ujian_proposal'] == 1) {
 										?>
+										<hr class="divider-line-thin"/>
 										<a class="btn btn-xs btn-primary pull-left" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_pembimbing/<?= $list['id_skripsi'] ?>">
-											<i class="fa fa-gear"></i> Pilih Pembimbing
+											<i class="fa fa-check-square"></i> Pembimbing
 										</a>
 										<?php
 									}

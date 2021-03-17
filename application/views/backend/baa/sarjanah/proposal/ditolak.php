@@ -40,6 +40,8 @@
 					<?php
 						$no = 1;
 						foreach ($proposal as $list) {
+							$ujian = $this->proposal_diterima->read_ujian_ditolak($list['id_skripsi']);
+
 							?>
 							<tr>
 								<td><?= $no ?></td>
@@ -58,83 +60,65 @@
 								<td><?php echo toindo($list['tgl_pengajuan']) ?></td>
 								<td>
 									<?php
-										$ujian = $this->proposal_diterima->read_ujian($list['id_skripsi']);
 										if ($ujian) {
 											echo '<strong>Tanggal</strong> :<br>' . toindo($ujian->tanggal) . '<br>';
 											echo '<strong>Ruang</strong>  :<br>' . $ujian->ruang . ' ' . $ujian->gedung . '<br>';
 											echo '<strong>Jam</strong>     :<br>' . $ujian->jam;
 										} else {
-											echo '';
-										}
-									?>
-								</td>
-								<td>
-									<?php
-										$penguji = $this->proposal_diterima->read_penguji($list['id_skripsi']);
-										$num = 1;
-										foreach ($penguji as $show) {
-											if ($show['status'] == '1') {
-												?>
-												<p style="color:red">
-													<?php
-														echo $num . ' ' . $show['nama'] . '<br>';
-													?>
-												</p>
-												<?php
-											} else {
-												echo $num . ' ' . $show['nama'] . '<br>';
-											}
-											$num++;
+											echo '<b class="text-danger">Ujian belum dimasukkan</b>';
 										}
 									?>
 								</td>
 								<td>
 									<?php
 										if ($ujian) {
-											$ketua = $this->proposal_diterima->read_pengujiketua($list['id_skripsi']);
-											if ($ketua) {
-												?>
-												<?php
-												$attributes = array('target' => '_blank');
-												echo form_open('dashboardb/proposal/proposal_diterima/cetak_surat_tugas', $attributes)
-												?>
-												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-												<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Surat Tugas</button>
-												<?php echo form_close(); ?>
-												<div class="divider5"></div>
-												<?php
-												$attributes = array('target' => '_blank');
-												echo form_open('dashboardb/proposal/proposal_diterima/cetak_undangan', $attributes)
-												?>
-												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-												<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Undangan</button>
-												<?php echo form_close(); ?>
-												<div class="divider5"></div>
-												<?php
-												$attributes = array('target' => '_blank');
-												echo form_open('baa/sarjanah/proposal/cetak_berita', $attributes)
-												?>
-												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-												<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Berita Acara</button>
-												<?php echo form_close(); ?>
-												<div class="divider5"></div>
-												<?php
-												$attributes = array('target' => '_blank');
-												echo form_open('dashboardb/proposal/proposal_diterima/cetak_absensi', $attributes)
-												?>
-												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-												<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Berita Acara Konsumsi</button>
-												<?php echo form_close(); ?>
-												<?php
-											} else {
-												echo 'belum set ketua';
+											$penguji = $this->proposal_diterima->read_penguji_bu_ujian($ujian->id_ujian);
+											$num = 1;
+											foreach ($penguji as $show) {
+												if ($show['status'] == '1') {
+													?>
+													<p style="color:red">
+														<?php
+															echo $num . ' ' . $show['nama'] . '<br>';
+														?>
+													</p>
+													<?php
+												} else {
+													echo $num . ' ' . $show['nama'] . '<br>';
+												}
+												$num++;
 											}
 										} else {
-											echo 'belum setting ujian';
+											echo '<b class="text-danger">Ujian belum dimasukkan</b>';
+										}
+									?>
+								</td>
+								<td>
+									<?php
+										if ($ujian) {
+											$ketua = $this->proposal_diterima->read_ketua_penguji($ujian->id_ujian);
+											if (!empty($ketua)) {
+												if ($list['status_proposal'] >= STATUS_SKRIPSI_PROPOSAL_SETUJUI_PENGUJI) {
+
+													$attributes = array('target' => '_blank');
+													echo form_open('baa/sarjanah/proposal/cetak_berita_ulang', $attributes)
+													?>
+													<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+													<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+													<?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
+													<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Berita Acara</button>
+													<?php echo form_close(); ?>
+													<div class="divider5"></div>
+													<?php
+												} else {
+													echo '<b class="text-danger">Penguji belum menyetujui</b>';
+												}
+
+											} else {
+												echo '<b class="text-danger">Ketua penguji belum dipilih</b>';
+											}
+										} else {
+											echo '<b class="text-danger">Ujian belum dimasukkan</b>';
 										}
 									?>
 								</td>

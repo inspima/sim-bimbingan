@@ -27,7 +27,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td>
 			<table border="0" style="width:100%">
 				<tr>
-					<td align="center"><u><b>BERITA ACARA UJIAN PROPOSAL SKRIPSI</b></u></td>
+					<td align="center"><u><b>BERITA ACARA UJIAN <?= $jadwal->status_ujian == 2 ? 'ULANG' : '' ?> PROPOSAL SKRIPSI</b></u></td>
 				</tr>
 			</table>
 		</td>
@@ -87,33 +87,77 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<td align="left" style="vertical-align: top;">1.</td>
 					<td align="left">Proposal skripsi yang diajukan oleh mahasiswa tersebut(pilih salah satu)</td>
 				</tr>
-				<tr>
-					<td align="left" style="vertical-align: top;"></td>
-					<td align="left"><img src="assets/backend/cetak/kotak.png" width="10px"> LAYAK dan dapat dilanjutkan untuk penulisan skripsi.<br><br></td>
-				</tr>
-				<tr>
-					<td align="left"></td>
-					<td align="left">
-						<img src="assets/backend/cetak/kotak.png" width="10px"> LAYAK dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi.<br><br>
-					</td>
-				</tr>
-				<tr>
-					<td align="left"></td>
-					<td align="left">
-						<img src="assets/backend/cetak/kotak.png" width="10px"> TIDAK LAYAK dan harus diuji kembali pada hari _____________ tanggal ____________________.<br><br>
-					</td>
-				</tr>
+				<?php
+					if ($jadwal->hasil_ujian == 0) {
+						?>
+						<tr>
+							<td align="left" style="vertical-align: top;"></td>
+							<td align="left">
+								<img src="assets/backend/cetak/kotak.png" width="10px"> LAYAK dan dapat dilanjutkan untuk penulisan skripsi.<br><br>
+							</td>
+						</tr>
+						<tr>
+							<td align="left"></td>
+							<td align="left">
+								<img src="assets/backend/cetak/kotak.png" width="10px"> LAYAK dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi.<br><br>
+							</td>
+						</tr>
+						<tr>
+							<td align="left"></td>
+							<td align="left">
+								<img src="assets/backend/cetak/kotak.png" width="10px"> TIDAK LAYAK dan harus diuji kembali pada hari _____________ tanggal ____________________.<br><br>
+							</td>
+						</tr>
+						<?php
+					} else if ($jadwal->hasil_ujian == HASIL_UJIAN_LANJUT) {
+						if (!empty($jadwal->hasil_keterangan)) {
+							?>
+							<tr>
+								<td align="left"></td>
+								<td align="left">
+									<img src="assets/backend/cetak/kotak_check.png" width="10px"> LAYAK dengan catatan perbaikan dan dapat dilanjutkan untuk penulisan skripsi.<br>
+									Catatan : <i><b><?= $jadwal->hasil_keterangan ?></b></i><br><br>
+								</td>
+							</tr>
+							<?php
+						} else {
+							?>
+							<td align="left" style="vertical-align: top;"></td>
+							<td align="left">
+								<img src="assets/backend/cetak/kotak_check.png" width="10px"> LAYAK dan dapat dilanjutkan untuk penulisan skripsi.<br><br>
+							</td>
+							<?php
+						}
+					} else {
+						?>
+						<tr>
+							<td align="left"></td>
+							<td align="left">
+								<img src="assets/backend/cetak/kotak_check.png" width="10px"> TIDAK LAYAK dan harus diuji kembali pada hari _____________ tanggal ____________________.<br><br>
+							</td>
+						</tr>
+						<?php
+					}
+				?>
 				<tr>
 					<td align="left" style="valign:top;">2.</td>
 					<td align="left">Merekomendasikan dosen berikut ini sebagai Pembimbing Skripsi (diisi apabila dinyatakan LAYAK atau LAYAK DENGAN PERBAIKAN) :</td>
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">- _____________________________________________________ ; atau</td>
-				</tr>
-				<tr>
-					<td align="left"></td>
-					<td align="left">- _____________________________________________________ .</td>
+					<td align="left">
+						<?php if (!empty($pembimbing)) {
+							?>
+							- <?= $pembimbing->nama . ' (' . $pembimbing->nip . ')' ?>;
+							<?php
+						} else {
+							?>
+							- _____________________________________________________ ;
+							<?php
+						}
+						?>
+
+					</td>
 				</tr>
 				<tr>
 					<td align="left"></td>

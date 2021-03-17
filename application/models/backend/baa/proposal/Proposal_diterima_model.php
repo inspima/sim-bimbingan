@@ -67,6 +67,20 @@
 			return $query->row();
 		}
 
+		public function read_ujian_ditolak($id_skripsi)
+		{
+			$this->db->select('u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('s.id_skripsi', $id_skripsi);
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_PROPOSAL);
+			$this->db->where('u.status_ujian', 2);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function read_penguji($id_skripsi)
 		{
 			$stts = array('1', '2');
@@ -78,6 +92,21 @@
 			$this->db->where_in('p.status', $stts);
 			$this->db->where('u.status', 1);
 			$this->db->where('s.id_skripsi', $id_skripsi);
+			$this->db->order_by('p.status_tim', 'asc');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_penguji_bu_ujian($id_ujian)
+		{
+			$stts = array('1', '2');
+			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama');
+			$this->db->from('penguji p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->where_in('p.status', $stts);
+			$this->db->where('u.id_ujian', $id_ujian);
 			$this->db->order_by('p.status_tim', 'asc');
 			$query = $this->db->get();
 			return $query->result_array();

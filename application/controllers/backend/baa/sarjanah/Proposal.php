@@ -197,7 +197,7 @@
 				$link_dokumen_cetak = base_url() . 'document/cetak_skripsi_surat_tugas?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi . '$' . DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
 				// QR
 				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Kualifikasi', $skripsi->nim, $tgl_sk);
-				$qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+				$qr_content =  $link_dokumen; //data yang akan di jadikan QR CODE
 				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
 				// DOKUMEN
 				$data_dokumen = [
@@ -288,11 +288,11 @@
 				$skripsi = $this->transaksi_proposal->detail_by_id($id_skripsi);
 				$jadwal = $this->transaksi_proposal->read_ujian_proposal($id_skripsi);
 				$pengujis = $this->transaksi_proposal->read_penguji_ujian($jadwal->id_ujian, UJIAN_SKRIPSI_PROPOSAL);
-				$link_dokumen = base_url() . 'document/lihat_skripsi?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
-				$link_dokumen_cetak = base_url() . 'document/cetak_skripsi?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				$link_dokumen = base_url() . 'document/lihat_skripsi?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi  . '$' . $jadwal->id_ujian . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				$link_dokumen_cetak = base_url() . 'document/cetak_skripsi?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi  . '$' . $jadwal->id_ujian . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
 				// QR
 				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Kualifikasi', $skripsi->nim, $jadwal->tanggal);
-				$qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+				$qr_content = $link_dokumen; //data yang akan di jadikan QR CODE
 				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
 				// DOKUMEN
 				$data_dokumen = [
@@ -301,6 +301,7 @@
 					'jenis' => DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR,
 					'id_jenjang' => JENJANG_S1,
 					'id_tugas_akhir' => $id_skripsi,
+					'id_jadwal'=>$jadwal->id_ujian,
 					'identitas' => $skripsi->nim,
 					'nama' => 'Berita Acara Ujian Proposal Skripsi - ' . $skripsi->nama,
 					'deskripsi' => $skripsi->judul,
@@ -309,7 +310,7 @@
 					'date' => $jadwal->tanggal,
 					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
 				];
-				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 				if (empty($dokumen)) {
 					$this->dokumen->save($data_dokumen);
 				}
@@ -320,7 +321,78 @@
 					];
 					$this->transaksi_proposal->update($update_skripsi, $id_skripsi);
 				}
-				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
+				// DOKUMEN PERSETUJUAN
+				$this->dokumen->generate_persetujuan_berita_acara($pengujis, $dokumen->id_dokumen, JENJANG_S1, $id_skripsi);
+				$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
+				$data = array(
+					'proposal' => $skripsi,
+					'jadwal' => $jadwal,
+					'pengujis' => $pengujis,
+					'pembimbing' => $this->transaksi_proposal->read_pembimbing_row($id_skripsi),
+					'wadek1' => $this->struktural->read_wadek1(),
+					'kps' => $this->struktural->read_kps(),
+					'judul' => $this->transaksi_proposal->read_judul($id_skripsi),
+					'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
+					'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen),
+					'dokumen_persetujuan' => $dokumen_persetujuan,
+				);
+				$data['kadep'] = $this->struktural->read_kadep($data['proposal']->id_departemen);
+				$page = 'backend/baa/cetak/proposal_skripsi_berita';
+				$size = 'legal';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "proposal_skripsi_berita.pdf";
+				$this->pdf->load_view($page, $data);
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboardb/proposal/proposal_diterima');
+			}
+		}
+
+		public function cetak_berita_ulang()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+				$id_ujian = $this->input->post('id_ujian', true);
+				$skripsi = $this->transaksi_proposal->detail_by_id($id_skripsi);
+				$jadwal = $this->transaksi_proposal->read_ujian_by_id($id_ujian);
+				$pengujis = $this->transaksi_proposal->read_penguji_ujian($jadwal->id_ujian, UJIAN_SKRIPSI_PROPOSAL);
+				$link_dokumen = base_url() . 'document/lihat_skripsi?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi  . '$' . $jadwal->id_ujian . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				$link_dokumen_cetak = base_url() . 'document/cetak_skripsi?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_skripsi  . '$' . $jadwal->id_ujian . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_SKRIPSI_PROPOSAL_STR . '$' . UJIAN_SKRIPSI_PROPOSAL;
+				// QR
+				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Kualifikasi', $skripsi->nim, $jadwal->tanggal);
+				$qr_content = $link_dokumen; //data yang akan di jadikan QR CODE
+				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+				// DOKUMEN
+				$data_dokumen = [
+					'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, TAHAPAN_SKRIPSI_PROPOSAL_STR, $skripsi->nim, $jadwal->tanggal),
+					'tipe' => DOKUMEN_BERITA_ACARA_STR,
+					'jenis' => DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR,
+					'id_jenjang' => JENJANG_S1,
+					'id_tugas_akhir' => $id_skripsi,
+					'id_jadwal'=>$jadwal->id_ujian,
+					'identitas' => $skripsi->nim,
+					'nama' => 'Berita Acara Ujian Proposal Skripsi - ' . $skripsi->nama,
+					'deskripsi' => $skripsi->judul,
+					'link' => $link_dokumen,
+					'link_cetak' => $link_dokumen_cetak,
+					'date' => $jadwal->tanggal,
+					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+				];
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
+				if (empty($dokumen)) {
+					$this->dokumen->save($data_dokumen);
+				}
+				if ($skripsi->status_proposal < STATUS_SKRIPSI_PROPOSAL_UJIAN) {
+					// Update Disertasi
+					$update_skripsi = [
+						'status_proposal' => STATUS_SKRIPSI_PROPOSAL_UJIAN
+					];
+					$this->transaksi_proposal->update($update_skripsi, $id_skripsi);
+				}
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 				// DOKUMEN PERSETUJUAN
 				$this->dokumen->generate_persetujuan_berita_acara($pengujis, $dokumen->id_dokumen, JENJANG_S1, $id_skripsi);
 				$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);

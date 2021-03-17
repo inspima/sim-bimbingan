@@ -121,8 +121,10 @@
 			<!-- form start -->
 			<?php
 				if (!empty($dokumen_persetujuan->waktu)) {
+
 					?>
 					<div class="box-body">
+
 						<div class="form-group">
 							<label>Nilai</label>
 							<hr class="divider-line-thin"/>
@@ -131,7 +133,36 @@
 						<div class="form-group">
 							<label>Hasil</label>
 							<hr class="divider-line-thin"/>
-							<?php echo $dokumen_persetujuan->hasil ?>
+							<?php echo $dokumen_persetujuan->hasil ?><br/>
+							<?php
+								if (!empty($dokumen_persetujuan->waktu) && $dokumen_persetujuan->jenis == '1') {
+									if ($dokumen->id_jenjang == JENJANG_S1) {
+										$id_hasil = $this->skripsi->get_id_status_ujian_by_text($dokumen_persetujuan->hasil, UJIAN_SKRIPSI_PROPOSAL);
+										if ($id_hasil != HASIL_UJIAN_LANJUT) {
+											?>
+											<hr class="divider-line-thin"/>
+											<a class="btn btn-xs bg-navy pull-left" target="_blank" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_ulang/<?= $dokumen->id_tugas_akhir ?>">
+												<i class="fa fa-repeat"></i> Penjadwalan Ulang
+											</a>
+											<br/>
+											<?php
+										} else if ($id_hasil == HASIL_UJIAN_LANJUT) {
+											$pembimbing = $this->skripsi->read_pembimbing_row($dokumen->id_tugas_akhir);
+											if (empty($pembimbing)) {
+												?>
+												<hr class="divider-line-thin"/>
+												<a class="btn btn-xs bg-green-active pull-left" target="_blank" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_pembimbing/<?= $dokumen->id_tugas_akhir ?>">
+													<i class="fa fa-user-circle-o"></i> Usulkan Pembimbing
+												</a>
+												<br/>
+												<?php
+											}
+
+										}
+									}
+
+								}
+							?>
 						</div>
 						<div class="form-group">
 							<label>Keterangan Hasil</label>
@@ -184,7 +215,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label>Keterangan</label>
+							<label>Keterangan (Catatan Perbaikan)</label>
 							<textarea name="keterangan" class="form-control"></textarea>
 						</div>
 					</div>

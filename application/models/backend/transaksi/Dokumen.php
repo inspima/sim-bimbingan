@@ -36,6 +36,7 @@
 			$kode .= CODE_DELIMITER . $this->generate_slug($jenis);
 			$kode .= CODE_DELIMITER . $this->generate_slug($identitas);
 			$kode .= CODE_DELIMITER . date('m/y', strtotime($tgl));
+			$kode .= CODE_DELIMITER . rand(100, 999);
 			return $kode;
 		}
 
@@ -58,6 +59,20 @@
 			$this->db->where('identitas', $data['identitas']);
 			$this->db->where('tipe', $data['tipe']);
 			$this->db->where('jenis', $data['jenis']);
+			$this->db->where('status', 1);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function check_by_data($data)
+		{
+			$this->db->select('*');
+			$this->db->from('dokumen');
+			$this->db->where('identitas', $data['identitas']);
+			$this->db->where('tipe', $data['tipe']);
+			$this->db->where('jenis', $data['jenis']);
+			$this->db->where('date', $data['date']);
 			$this->db->where('status', 1);
 
 			$query = $this->db->get();

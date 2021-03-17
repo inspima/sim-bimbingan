@@ -118,7 +118,7 @@
 			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
 			$this->db->where('s.id_departemen', $id_departemen);
-			$this->db->where('s.status_proposal >',STATUS_SKRIPSI_PROPOSAL_UJIAN);
+			$this->db->where('s.status_proposal >', STATUS_SKRIPSI_PROPOSAL_UJIAN);
 			$this->db->order_by('s.id_skripsi', 'desc');
 
 			$query = $this->db->get();
@@ -411,9 +411,20 @@
 
 		// Ujian
 
+		public function read_ujian_by_id($id_ujian)
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_ujian', $id_ujian);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function read_ujian_proposal($id_skripsi)
 		{
-			$this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_skripsi, r.ruang, r.gedung, j.jam');
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
 			$this->db->from('ujian u');
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
@@ -473,6 +484,17 @@
 			$this->db->where('u.id_skripsi', $id_skripsi);
 			$this->db->where('u.jenis_ujian', $jenis);//proposal
 			$this->db->where('u.status', 1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_jadwal_by_id($id_ujian)
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_ujian', $id_ujian);
 			$query = $this->db->get();
 			return $query->row();
 		}

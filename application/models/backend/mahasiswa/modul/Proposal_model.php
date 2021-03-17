@@ -101,7 +101,7 @@
 			$this->db->where('s.id_skripsi', $id);
 			$this->db->where('s.nim', $username);
 			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_DIJADWALKAN);
-			$this->db->where('u.status', 1);
+			$this->db->where_in('u.hasil_ujian', [0,1]);
 			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_PROPOSAL);
 
 			$query = $this->db->get();

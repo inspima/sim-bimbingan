@@ -87,7 +87,9 @@
 						</tr>
 						<?php
 							$pembimbing = $this->skripsi->read_pembimbing($proposal->id_skripsi);
-							foreach ($pembimbing as $listpembimbing) {
+							foreach ($pembimbing
+
+									 as $listpembimbing) {
 								?>
 								<tr>
 									<td>
@@ -108,15 +110,20 @@
 												<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
 												<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
 												<?php echo form_close() ?>
-												<br/>
-												<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_konfirm') ?>
-												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-												<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-												<?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
-												<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
-												<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-square-o"></i> Konfirmasi</button>
-												<?php echo form_close() ?>
 												<?php
+												if ($is_kadep == '1') {
+													?>
+													<br/>
+													<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_konfirm') ?>
+													<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+													<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+													<?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
+													<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
+													<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-square-o"></i> Konfirmasi
+													</button>
+													<?php echo form_close() ?>
+													<?php
+												}
 											}
 										?>
 									</td>

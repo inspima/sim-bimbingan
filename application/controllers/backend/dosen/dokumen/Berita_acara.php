@@ -143,6 +143,7 @@
 							$ujian_aktif = $this->skripsi->read_ujian_aktif($dokumen->id_tugas_akhir, UJIAN_SKRIPSI_PROPOSAL);
 							$data_ujian = [
 								'hasil_ujian' => HASIL_UJIAN_LANJUT,
+								'hasil_keterangan'=>$keterangan,
 							];
 							$this->skripsi->update_ujian($data_ujian, $ujian_aktif->id_ujian);
 							$data_skripsi = [
@@ -154,6 +155,7 @@
 							$ujian_aktif = $this->skripsi->read_ujian_aktif($dokumen->id_tugas_akhir, UJIAN_SKRIPSI_PROPOSAL);
 							$data_ujian = [
 								'hasil_ujian' => HASIL_UJIAN_ULANG,
+								'hasil_keterangan'=>$keterangan,
 							];
 							$this->skripsi->update_ujian($data_ujian, $ujian_aktif->id_ujian);
 							$data_skripsi = [
