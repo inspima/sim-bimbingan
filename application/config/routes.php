@@ -609,8 +609,11 @@
 	$route['dosen/tesis/proposal/approve_pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/approve_pembimbing';
 	$route['dosen/tesis/proposal/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/reject_pembimbing';
 	$route['dosen/tesis/proposal/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/batal_pembimbing';
+	$route['dosen/tesis/proposal/pengajuan_baru'] = 'backend/dosen/tesis/proposal/pengajuan_baru';
 	$route['dosen/tesis/proposal/penjadwalan'] = 'backend/dosen/tesis/proposal/penjadwalan';
-	$route['dosen/tesis/proposal/penjadwalan/(:num)'] = 'backend/dosen/tesis/proposal/penjadwalan';
+	$route['dosen/tesis/proposal/penjadwalan_sudah'] = 'backend/dosen/tesis/proposal/penjadwalan_sudah';
+	$route['dosen/tesis/proposal/penjadwalan_selesai_proposal'] = 'backend/dosen/tesis/proposal/penjadwalan_selesai_proposal';
+	//$route['dosen/tesis/proposal/penjadwalan/(:num)'] = 'backend/dosen/tesis/proposal/penjadwalan';
 	$route['dosen/tesis/proposal/jadwal_pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/jadwal_pembimbing';
 	$route['dosen/tesis/proposal/jadwal_pembimbing_save'] = 'backend/dosen/tesis/proposal/jadwal_pembimbing_save';
 	$route['dosen/tesis/proposal/setting/(:num)'] = 'backend/dosen/tesis/proposal/setting';

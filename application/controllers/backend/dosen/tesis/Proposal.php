@@ -417,8 +417,28 @@ class Proposal extends CI_Controller {
         redirect('dosen/tesis/proposal/penguji/'.$id_prodi);
     }
 
+    public function pengajuan_baru() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Penjadwalan Proposal',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/proposal/pengajuan_baru',
+            // DATA //
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'tesis' => $this->tesis->read_penjadwalan_prodi_proposal_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_PROPOSAL, 'anyar')
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
     public function penjadwalan() {
-        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
         $data = array(
             // PAGE //
             'title' => 'Tesis - Penjadwalan Proposal',
@@ -428,7 +448,43 @@ class Proposal extends CI_Controller {
             'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
             'prodi' => $this->tesis->read_prodi_s2(),
             //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
-            'tesis' => $this->tesis->read_penjadwalan_prodi($this->session_data['username'], $id, TAHAPAN_TESIS_PROPOSAL)
+            'tesis' => $this->tesis->read_penjadwalan_prodi_proposal_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_PROPOSAL, STATUS_TESIS_PROPOSAL_PENGAJUAN)
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function penjadwalan_sudah() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Penjadwalan Proposal',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/proposal/penjadwalan_sudah',
+            // DATA //
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'tesis' => $this->tesis->read_penjadwalan_prodi_proposal_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_PROPOSAL, STATUS_TESIS_PROPOSAL_DIJADWALKAN)
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function penjadwalan_selesai_proposal() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Penjadwalan Proposal',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/proposal/penjadwalan_selesai_proposal',
+            // DATA //
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'tesis' => $this->tesis->read_penjadwalan_prodi_proposal_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_PROPOSAL, STATUS_TESIS_PROPOSAL_UJIAN_SELESAI)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -442,7 +498,8 @@ class Proposal extends CI_Controller {
             'subtitle' => 'Setting',
             'section' => 'backend/dosen/tesis/proposal/setting',
             'use_back' => true,
-            'back_link' => 'dosen/tesis/proposal/penjadwalan/'.$id_prodi,
+            //'back_link' => 'dosen/tesis/proposal/penjadwalan/'.$id_prodi,
+            'back_link' => 'dosen/tesis/proposal/penjadwalan/',
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif(),
@@ -617,6 +674,7 @@ class Proposal extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
+            $tesis = $this->tesis->detail($id_tesis);
             $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
 
             if (!empty($ujian)) { // JIKA SUDAH ADA
@@ -653,18 +711,50 @@ class Proposal extends CI_Controller {
                             $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
                             redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
                         } else {
-                            $this->tesis->update_ujian($data, $id_ujian);
+                            $bentrok_pembimbing_satu = $this->tesis->read_pengujibentrok($data['tanggal'], $data['id_jam'], $tesis->nip_pembimbing_satu);
+                            if (!$bentrok_pembimbing_satu) {
+                                $this->session->set_flashdata('msg-title', 'alert-danger');
+                                $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Utama Sudah ada jadwal di tanggal dan jam sama');
+                                redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                            }
+                            else {
+                                $bentrok_pembimbing_dua = $this->tesis->read_pengujibentrok($data['tanggal'], $data['id_jam'], $tesis->nip_pembimbing_dua);
+                                if (!$bentrok_pembimbing_dua) {
+                                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                                    $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Kedua Sudah ada jadwal di tanggal dan jam sama');
+                                    redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                                }
+                                else {
+                                    $this->tesis->update_ujian($data, $id_ujian);
 
-                            $this->session->set_flashdata('msg-title', 'alert-success');
-                            $this->session->set_flashdata('msg', 'Berhasil Ubah Usulan Jadwal.');
-                            redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                                    $this->session->set_flashdata('msg-title', 'alert-success');
+                                    $this->session->set_flashdata('msg', 'Berhasil Ubah Usulan Jadwal.');
+                                    redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                                }
+                            }
                         }
                     } else { //langsung update
-                        $this->tesis->update_ujian($data, $id_ujian);
+                        $bentrok_pembimbing_satu = $this->tesis->read_pengujibentrok($data['tanggal'], $data['id_jam'], $tesis->nip_pembimbing_satu);
+                        if (!$bentrok_pembimbing_satu) {
+                            $this->session->set_flashdata('msg-title', 'alert-danger');
+                            $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Utama Sudah ada jadwal di tanggal dan jam sama');
+                            redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                        }
+                        else {
+                            $bentrok_pembimbing_dua = $this->tesis->read_pengujibentrok($data['tanggal'], $data['id_jam'], $tesis->nip_pembimbing_dua);
+                            if (!$bentrok_pembimbing_dua) {
+                                $this->session->set_flashdata('msg-title', 'alert-danger');
+                                $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Kedua Sudah ada jadwal di tanggal dan jam sama');
+                                redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                            }
+                            else {
+                                $this->tesis->update_ujian($data, $id_ujian);
 
-                        $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', 'Berhasil Ubah Usulan Jadwal.');
-                        redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                                $this->session->set_flashdata('msg-title', 'alert-success');
+                                $this->session->set_flashdata('msg', 'Berhasil Ubah Usulan Jadwal.');
+                                redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                            }
+                        }
                     }
                 }
             } else { //JIKA BELUM ADA SAVE BARU
@@ -828,10 +918,38 @@ class Proposal extends CI_Controller {
                     'asal_pengusul' => 1 // 1 = Usul dari Pembimbing
                 );
 
-                $this->tesis->save_penguji_temp($data);
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', $mesg);
-                redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                $data_cek_bentrok = array(
+                    'id_ujian' => $id_ujian,
+                    'nip' => $this->input->post('nip', TRUE),
+                    'status_tim' => 2,
+                    'status' => 1
+                );
+
+                $cekpenguji = $this->tesis->cek_penguji($data_cek_bentrok);
+
+                if ($cekpenguji) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar.');
+                    redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                } else {
+                    $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
+                    $tanggal = $ujian->tanggal;
+                    $id_jam = $ujian->id_jam;
+                    $pengujibentrok = $this->tesis->read_pengujibentrok($tanggal, $id_jam, $nip);
+
+                    if (!$pengujibentrok) {
+                        $this->session->set_flashdata('msg-title', 'alert-danger');
+                        $this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar di hari dan jam yang sama.');
+                        redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                    } else {
+
+                        $this->tesis->save_penguji_temp($data);
+                        
+                        $this->session->set_flashdata('msg-title', 'alert-success');
+                        $this->session->set_flashdata('msg', $mesg);
+                        redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                    }
+                }
             }
             else {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
@@ -845,7 +963,7 @@ class Proposal extends CI_Controller {
         }
     }
 
-    public function penguji_usulan_penguji_save() {
+    /*public function penguji_usulan_penguji_save() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
@@ -878,7 +996,7 @@ class Proposal extends CI_Controller {
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
             redirect('dosen/tesis/proposal');
         }
-    }
+    }*/
 
     public function penguji_usulan_save_kps() {
         $hand = $this->input->post('hand', TRUE);

@@ -1664,12 +1664,6 @@ class Tesis extends CI_Model {
     }
 
     public function read_penjadwalan_prodi($username, $id, $jenis) {
-        /*$this->db->select('struktural.*');
-        $this->db->from('struktural');
-        $this->db->where('struktural.nip', $username);
-        $query_s = $this->db->get();
-        $struktural = $query_s->row();*/
-
         $this->db->select('s.*,jd.judul, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
             pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, 
             d.departemen ,m.nama, mt.nm_minat');
@@ -1685,6 +1679,45 @@ class Tesis extends CI_Model {
         $this->db->where('jd.jenis', $jenis);
         //$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and status=\'1\')');
         //$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
+        $this->db->order_by('s.tgl_pengajuan', 'desc');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function read_penjadwalan_prodi_proposal_status($username, $id, $jenis, $status) {
+        $this->db->select('s.*,jd.judul, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, 
+            d.departemen ,m.nama, mt.nm_minat');
+        $this->db->from('tesis s');
+        $this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
+        $this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
+        $this->db->join('judul_tesis jd', 'jd.id_tesis=s.id_tesis and jd.status=\'1\'');
+        $this->db->join('mahasiswa m', 'm.nim= s.nim');
+        $this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+        $this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
+        $this->db->join('ujian_tesis u', 'u.id_tesis = s.id_tesis', 'left');
+        $this->db->where('m.id_prodi', $id);
+        $this->db->where('s.jenis', $jenis);
+        $this->db->where('jd.jenis', $jenis);
+        if($status == STATUS_TESIS_PROPOSAL_DIJADWALKAN){
+            $this->db->where('s.status_proposal >=', $status);
+            $this->db->where('s.status_proposal <', STATUS_TESIS_PROPOSAL_UJIAN_SELESAI);
+            $this->db->where('s.status_ujian_proposal =', 0);
+        }
+        else if($status == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI){
+            $this->db->where('s.status_proposal >=', $status);
+            $this->db->where('s.status_ujian_proposal !=', 0);
+        }
+        else if($status == 'anyar'){
+            $this->db->where('u.id_ujian =', NULL);
+            $this->db->where('s.status_proposal', STATUS_TESIS_PROPOSAL_PENGAJUAN);  
+        }
+        else {
+        	$this->db->where('u.id_ujian !=', NULL);
+        	//$this->db->where('u.status_apv_kaprodi !=', 1);
+            $this->db->where('s.status_proposal', $status);            
+        }
         $this->db->order_by('s.tgl_pengajuan', 'desc');
 
         $query = $this->db->get();
@@ -1738,7 +1771,7 @@ class Tesis extends CI_Model {
         $s3 = $this->db->get();
         $s3->row();
 
-        if (empty($s1->row()) && empty($s2->row()) && empty($s3->row())) {
+        if ((empty($s1->row()) && empty($s2->row()) && empty($s3->row())) OR $data['id_ruang'] == 11) {
             return true;
         } else {
             return false;
@@ -2026,7 +2059,7 @@ class Tesis extends CI_Model {
                 [
                     'value' => STATUS_TESIS_JUDUL_PENGAJUAN,
                     'text' => 'Judul - Pengajuan',
-                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'keterangan' => 'Diajukan oleh Mahasiswa',
                     'color' => 'bg-blue'
                 ],
                 [
@@ -2060,13 +2093,13 @@ class Tesis extends CI_Model {
                 [
                     'value' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                     'text' => 'Proposal - Pengajuan',
-                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'keterangan' => 'Diajukan oleh Mahasiswa',
                     'color' => 'bg-blue'
                 ],
                 [
                     'value' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
                     'text' => 'Proposal - Dijadwalkan',
-                    'keterangan' => 'Dijadwalkan',
+                    'keterangan' => 'Dijadwalkan Oleh Pembimbing Utama dan KPS',
                     'color' => 'bg-green'
                 ],
                 [
@@ -2100,7 +2133,7 @@ class Tesis extends CI_Model {
                 [
                     'value' => STATUS_TESIS_MKPT_PENGAJUAN,
                     'text' => 'MKPT - Pengajuan',
-                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'keterangan' => 'Diajukan oleh Mahasiswa',
                     'color' => 'bg-blue'
                 ],
                 [
@@ -2146,7 +2179,7 @@ class Tesis extends CI_Model {
                 [
                     'value' => STATUS_TESIS_UJIAN_PENGAJUAN,
                     'text' => 'Tesis - Pengajuan',
-                    'keterangan' => 'Diajukan oleh mahasiswa',
+                    'keterangan' => 'Diajukan oleh Mahasiswa',
                     'color' => 'bg-blue'
                 ],
                 [
@@ -2158,7 +2191,7 @@ class Tesis extends CI_Model {
                 [
                     'value' => STATUS_TESIS_UJIAN_DIJADWALKAN,
                     'text' => 'Tesis - Dijadwalkan',
-                    'keterangan' => 'Dijadwalkan',
+                    'keterangan' => 'Dijadwalkan oleh Pembimbing Utama dan KPS',
                     'color' => 'bg-navy'
                 ],
                 [

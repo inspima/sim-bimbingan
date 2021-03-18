@@ -56,5 +56,10 @@ if (!empty($jadwal)) {
         -->
         <?php
     }
+    else {
+    ?>
+        <p align="center"><b><i class="fa fa-check text-yellow"></i> Menunggu Verifikasi Kaprodi</b></p>
+    <?php
+    }
 }
 ?>
