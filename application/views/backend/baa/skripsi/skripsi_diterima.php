@@ -25,8 +25,8 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Judul</th>
-                            <th>Departemen</th>
-                            <th>Berkas Skripsi & Turnitin</th>
+                            <th>Bagian</th>
+                            <th>Berkas Skripsi & TurnitinS
                             <th>Toefl</th>
                             <th>Bimbingan</th>
                             <th>Tanggal Pengajuan</th>

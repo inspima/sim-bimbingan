@@ -24,8 +24,8 @@
 					<thead>
 					<tr>
 						<th>No</th>
-						<th>Info Proposal</th
-						<th>Departemen</th>
+						<th>Info Proposal</th>
+						<th>Bagian</th>
 						<th>Tanggal Pengajuan</th>
 						<th>Semester</th>
 						<th>Opsi</th>

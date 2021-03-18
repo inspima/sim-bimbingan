@@ -912,13 +912,13 @@
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP,
 						'text' => 'Disetujui Kadep',
-						'keterangan' => 'Disetujui oleh Kepala Departemen',
+						'keterangan' => 'Disetujui oleh Kepala Bagian',
 						'color' => 'bg-green'
 					],
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_DIJADWALKAN,
 						'text' => 'Dijadwalkan',
-						'keterangan' => 'Dijadwalkan, diajukan Penguji dan Pembimbing oleh Kepala Departemen',
+						'keterangan' => 'Dijadwalkan, diajukan Penguji dan Pembimbing oleh Kepala Bagian',
 						'color' => 'bg-navy'
 					],
 					[
@@ -941,14 +941,14 @@
 					],
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_PEMBIMBING,
-						'text' => 'Penentuan Pembimbing',
+						'text' => 'Konfirmasi Pembimbing',
 						'keterangan' => 'Ketua Bagian menentukan pembimbing',
 						'color' => 'bg-maroon-active'
 					],
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_SELESAI,
 						'text' => 'Ujian Selesai',
-						'keterangan' => 'Selesai, hasil sudah ditentukan oleh Kepala Departemen',
+						'keterangan' => 'Selesai, hasil sudah ditentukan oleh ketua penguji',
 						'color' => 'bg-red'
 					],
 				];
@@ -981,7 +981,7 @@
 					[
 						'value' => STATUS_SKRIPSI_UJIAN_DIJADWALKAN,
 						'text' => 'Dijadwalkan',
-						'keterangan' => 'Dijadwalkan oleh Kepala Departemen, pengajuan penguji',
+						'keterangan' => 'Dijadwalkan oleh Kepala Bagian, pengajuan penguji',
 						'color' => 'bg-green'
 					],
 					[
