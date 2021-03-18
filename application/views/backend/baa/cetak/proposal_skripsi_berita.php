@@ -122,10 +122,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<?php
 						} else {
 							?>
-							<td align="left" style="vertical-align: top;"></td>
-							<td align="left">
-								<img src="assets/backend/cetak/kotak_check.png" width="10px"> LAYAK dan dapat dilanjutkan untuk penulisan skripsi.<br><br>
-							</td>
+							<tr>
+								<td align="left" style="vertical-align: top;"></td>
+								<td align="left">
+									<img src="assets/backend/cetak/kotak_check.png" width="10px"> LAYAK dan dapat dilanjutkan untuk penulisan skripsi.<br><br>
+								</td>
+							</tr>
 							<?php
 						}
 					} else {
