@@ -78,7 +78,7 @@
 			},
 			//Random default events
 			events: {
-				url: '/api/jadwal/get-data-kalender',
+				url: '../api/jadwal/get-data-kalender',
 				failure: function () {
 					document.getElementById('script-warning').style.display = 'block'
 				}
@@ -86,7 +86,7 @@
 			eventClick: function (info) {
 				$('#modal-ujian').modal('show');
 				$.ajax({
-					url: "/api/jadwal/get-detail/" + info.id+'/'+ info.type,
+					url: "../api/jadwal/get-detail/" + info.id+'/'+ info.type,
 					beforeSend: function () {
 						$('#modal-ujian-content').html('<p><b>Loading Data....</b></p>');
 					},
