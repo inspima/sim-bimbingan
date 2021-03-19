@@ -411,7 +411,17 @@
 			return $query->row();
 		}
 
-		// Ujian
+		// Ujian & Jadwal
+
+		public function read_jadwal_all()
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 
 		public function read_ujian_by_id($id_ujian)
 		{

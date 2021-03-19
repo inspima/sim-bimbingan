@@ -907,3 +907,10 @@
 	$route['document/lihat_tesis'] = 'document/lihat_tesis';
 	$route['document/cetak_tesis'] = 'document/cetak_tesis';
 
+	// Dashboard
+	$route['dashboard/jadwal-kalender'] = 'dashboard/jadwal_kalender';
+	$route['dashboard/jadwal-tabel'] = 'dashboard/jadwal_tabel';
+	// API
+	$route['api/jadwal/get-data-kalender'] = 'api/jadwal_get_data_kalender';
+	$route['api/jadwal/get-detail/(:num)/(:num)'] = 'api/jadwal_get_detail/$1/$2';
+
