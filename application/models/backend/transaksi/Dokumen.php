@@ -97,6 +97,9 @@
 
 			$this->db->where('id_dokumen', $id);
 			$this->db->delete('dokumen_persetujuan');
+
+			$this->db->where('id_dokumen', $id);
+			$this->db->delete('dokumen_tujuan');
 		}
 
 		// DOKUMEN PERSETUJUAN
@@ -220,6 +223,25 @@
 			}
 		}
 
+		public function generate_tujuan_dokumen($datas, $id_dokumen, $jenis, $tujuan)
+		{
+			foreach ($datas as $data):
+				$data_dokumen_tujuan = [
+					'id_dokumen' => $id_dokumen,
+					'identitas' => $data['identitas'],
+					'nama' => $data['nama'],
+					'jenis' => $jenis,
+					'tujuan' => $tujuan,
+					'waktu' => date('Y-m-d H:i:s')
+				];
+				$dokumen_tujuan = $this->detail_tujuan_by_data($data_dokumen_tujuan);
+				if (!empty($dokumen_tujuan)) {
+					$this->delete_tujuan($dokumen_tujuan->id_dokumen_tujuan);
+				}
+				$this->save_tujuan($data_dokumen_tujuan);
+			endforeach;
+		}
+
 		public function read_persetujuan($id_dokumen)
 		{
 			$this->db->select('*');
@@ -300,6 +322,47 @@
 		{
 			$this->db->where('id_dokumen_persetujuan', $id);
 			$this->db->update('dokumen_persetujuan', $data);
+		}
+
+		// Dokumen Tujuan
+
+		public function detail_tujuan($id)
+		{
+			$this->db->select('*');
+			$this->db->from('dokumen_persetujuan');
+			$this->db->where('id_dokumen_persetujuan', $id);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function detail_tujuan_by_data($data)
+		{
+			$this->db->select('*');
+			$this->db->from('dokumen_tujuan');
+			$this->db->where('identitas', $data['identitas']);
+			$this->db->where('id_dokumen', $data['id_dokumen']);
+			$this->db->where('jenis', $data['jenis']);
+			$this->db->where('tujuan', $data['tujuan']);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function save_tujuan($data)
+		{
+			$this->db->insert('dokumen_tujuan', $data);
+		}
+
+		public function update_tujuan($data, $id)
+		{
+			$this->db->where('id_dokumen_tujuan', $id);
+			$this->db->update('dokumen_tujuan', $data);
+		}
+
+		public function delete_tujuan($id)
+		{
+			$this->db->where('id_dokumen_tujuan', $id);
+			$this->db->delete('dokumen_tujuan');
 		}
 
 	}

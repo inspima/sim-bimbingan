@@ -121,6 +121,7 @@
 	// TIPE DOKUMEN
 	define('DOKUMEN_BERITA_ACARA_STR', 'berita-acara');
 	define('DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR', 'surat-tugas-skripsi-proposal');
+	define('DOKUMEN_SURAT_UNDANGAN_PROPOSAL_STR', 'surat-undangan-skripsi-proposal');
 	define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
 	define('DOKUMEN_SP_PEMBIMBING_TESIS', 'surat-tugas-pembimbing-tesis');
@@ -145,6 +146,12 @@
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_KELAYAKAN_STR', 'kelayakan');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_TERBUKA_STR', 'terbua');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_TERTUTUP_STR', 'tertutup');
+	// TUJUAN DOKUMEN
+	define('DOKUMEN_TUJUAN_JENIS_DITUJUKAN', '1');
+	define('DOKUMEN_TUJUAN_JENIS_MENGETAHUI', '2');
+	define('DOKUMEN_TUJUAN_MAHASISWA', '1');
+	define('DOKUMEN_TUJUAN_DOSEN', '2');
+	define('DOKUMEN_TUJUAN_PEGAWAI', '3');
 
 	// PROCESS VARIABLE
 	define('MAX_PENGUJI_S3', 6);

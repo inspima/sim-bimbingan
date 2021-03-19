@@ -3,14 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-
 	<style type="text/css">
 		body {
 			margin: -30px 0px 0 0px;
 			font-family: "Times New Roman", Times, serif;
 			font-size: 14px;
 		}
-
 		.line {
 			background-image: url("assets/backend/cetak/line.png");
 			background-repeat: repeat-x;

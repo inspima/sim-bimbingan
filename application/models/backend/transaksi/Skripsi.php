@@ -194,13 +194,14 @@
 
 		function detail_by_id($id)
 		{
-			$this->db->select('s.*, jud.judul, dn.departemen, sr.semester, m.nim, m.nama ');
+			$this->db->select('s.*, jud.judul, dn.departemen, sr.semester, m.nim, m.nama,us.no_hp ');
 			$this->db->from('skripsi s');
 			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
 			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
 			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
 			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('user us', 'us.username = m.nim');
 			$this->db->where('s.id_skripsi', $id);
 			$this->db->order_by('s.id_skripsi', 'desc');
 
@@ -210,13 +211,14 @@
 
 		function detail_proposal($id_skripsi)
 		{
-			$this->db->select('s.id_skripsi, s.tgl_pengajuan, jud.judul, s.berkas_proposal, s.id_departemen, s.status_proposal, s.status_ujian_proposal, s.keterangan_proposal, dn.departemen, sr.semester, m.nim, m.nama ');
+			$this->db->select('s.id_skripsi, s.tgl_pengajuan, jud.judul, s.berkas_proposal, s.id_departemen, s.status_proposal, s.status_ujian_proposal, s.keterangan_proposal, dn.departemen, sr.semester, m.nim, m.nama,us.no_hp ');
 			$this->db->from('skripsi s');
 			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
 			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen');
 			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
 			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('user us', 'us.username = m.nim');
 			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP);
 			$this->db->where('s.id_skripsi', $id_skripsi);
 			$this->db->order_by('s.id_skripsi', 'desc');
@@ -710,7 +712,7 @@
 
 		public function read_penguji_ujian($id_ujian, $jenis_ujian)
 		{
-			$this->db->select('p.id_penguji, p.nip, p.status_tim,p.usulan_dosbing, p.status, pg.nama,pg.ttd');
+			$this->db->select('p.id_penguji, p.nip, p.status_tim,p.usulan_dosbing, p.status,pg.nip identitas, pg.nama,pg.ttd');
 			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
