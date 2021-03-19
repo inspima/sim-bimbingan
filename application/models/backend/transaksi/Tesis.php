@@ -436,7 +436,7 @@ class Tesis extends CI_Model {
         $this->db->update('tesis', $data);
     }
 
-    function approval_proposal($id_tesis)
+    /*function approval_proposal($id_tesis)
     {
         $data = array(
             'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_SPS
@@ -461,7 +461,7 @@ class Tesis extends CI_Model {
         );
         $this->db->where('id_tesis', $id_tesis);
         $this->db->update('tesis', $data);
-    }
+    }*/
 
     function approval_pembimbing_proposal($id_tesis)
     {
@@ -1201,7 +1201,7 @@ class Tesis extends CI_Model {
         $this->db->update('ujian_tesis', $data);
 
         $data_tesis = array(
-            'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_SPS
+            'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN
         );
         $this->db->where('id_tesis', $id_tesis);
         $this->db->update('tesis', $data_tesis);
