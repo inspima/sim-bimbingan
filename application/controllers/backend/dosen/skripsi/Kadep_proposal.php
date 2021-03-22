@@ -684,11 +684,13 @@
 			if ($hand == 'center19') {
 				$id_skripsi = $this->input->post('id_skripsi', true);
 				$id_pembimbing = $this->input->post('id_pembimbing', true);
-
-				$data_skripsi = [
-					'status_proposal' => STATUS_SKRIPSI_PROPOSAL_PEMBIMBING
-				];
-				$this->skripsi->update($data_skripsi, $id_skripsi);
+				$skripsi = $this->skripsi->detail_by_id($id_skripsi);
+				if ($skripsi->status_proposal < STATUS_SKRIPSI_UJIAN_SELESAI) {
+					$data_skripsi = [
+						'status_proposal' => STATUS_SKRIPSI_PROPOSAL_PEMBIMBING
+					];
+					$this->skripsi->update($data_skripsi, $id_skripsi);
+				}
 
 				$datap = array(
 					'status' => 2,
