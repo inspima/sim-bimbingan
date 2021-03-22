@@ -59,6 +59,7 @@
 			$this->db->where('identitas', $data['identitas']);
 			$this->db->where('tipe', $data['tipe']);
 			$this->db->where('jenis', $data['jenis']);
+			$this->db->order_by('id_dokumen', 'desc');
 			$this->db->where('status', 1);
 
 			$query = $this->db->get();

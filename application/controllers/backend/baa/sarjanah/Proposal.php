@@ -216,12 +216,12 @@
 					'date' => date('Y-m-d', strtotime($tgl_sk)),
 					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
 				];
-				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 				if (!empty($dokumen)) {
 					$this->dokumen->delete($dokumen->id_dokumen);
 				}
 				$this->dokumen->save($data_dokumen);
-				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 				// DOKUMEN PERSETUJUAN
 				$this->dokumen->generate_tujuan_dokumen($pengujis, $dokumen->id_dokumen, DOKUMEN_TUJUAN_JENIS_DITUJUKAN, DOKUMEN_TUJUAN_DOSEN);
 				$data = array(
@@ -287,12 +287,12 @@
 					'date' => date('Y-m-d', strtotime($tgl_sk)),
 					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
 				];
-				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 				if (!empty($dokumen)) {
 					$this->dokumen->delete($dokumen->id_dokumen);
 				}
 				$this->dokumen->save($data_dokumen);
-				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 				// DOKUMEN PERSETUJUAN
 				$data_tujuans = [
 					[

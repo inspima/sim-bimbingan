@@ -25,7 +25,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td>
 			<table border="0" style="width:100%">
 				<tr>
-					<td align="right"><?php echo woday_toindo(date("d-m-Y")); ?></td>
+					<td align="right"><?php echo woday_toindo($dokumen->date_doc); ?></td>
 				</tr>
 			</table>
 		</td>
