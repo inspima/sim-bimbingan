@@ -79,87 +79,283 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td colspan="2">Tanda tangan</td>
                         </tr>
                         <?php
-                        $no = 1;
+                        $no = 0;
                         foreach ($pengujis as $penguji):
                             $status_tim = '';
                             if($penguji['status_tim'] == '1'){
+                                $no++;
                                 $status_tim = 'Ketua';
-                            }
-                            else {
-                                if($penguji['nip'] == $tesis->nip_pembimbing_satu){
-                                    $status_tim = 'Pembimbing Utama';
-                                }
-                                else if($penguji['nip'] == $tesis->nip_pembimbing_dua){
-                                    $status_tim = 'Pembimbing Kedua';
-                                }
-                                else {
-                                    $status_tim = 'Anggota';
-                                }
-                            }
-                            ?>
-                            <tr style="line-height: 2">
-                                <td style="width: 4%"><?= $no ?>.</td>
-                                <td style="width: 30%"><?= $penguji['nama'] ?></td>
-                                <td style="width: 26%" align="center"><?= $status_tim ?></td>
-                                <?php if ($no % 2 == 0):
-                                    ?>
-                                    <td style = "width: 20%"></td>
-                                    <td style = "width: 20%;text-align: left;">
-                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
-                                            ?>
-                                            <?= $no ?>.
-                                            <?php
-                                            if (!empty($penguji['ttd'])) {
-                                                ?>
-                                                <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-                                                <?php
-                                            }
-                                            ?>
-                                            <?php
-                                        else:
-                                            ?>
-                                            <?= $no ?>.
-                                        <?php
-                                        endif;
-                                        ?>
-                                    </td>
-                                    <?php
-                                else:
-                                    ?>
-                                    <td style = "width: 20%;text-align: left;">
-                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
-                                            ?>
-                                            <?= $no ?>.
-                                            <?php
-                                            if (!empty($penguji['ttd'])) {
-                                                ?>
-                                                <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-                                                <?php
-                                            }
-                                            ?>
-                                            <?php
-                                        else:
-                                            ?>
-                                            <?= $no ?>.
-                                        <?php
-                                        endif;
-                                        ?>
-                                    </td>
-                                    <td style = "width: 20%"></td>
-                                <?php
-                                endif;
                                 ?>
-                            </tr>
+                                <tr style="line-height: 2">
+                                    <td style="width: 4%"><?= $no ?>.</td>
+                                    <td style="width: 30%"><?= $penguji['nama'] ?></td>
+                                    <td style="width: 26%" align="center"><?= $status_tim ?></td>
+                                    <?php if ($no % 2 == 0):
+                                        ?>
+                                        <td style = "width: 20%"></td>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <?php
+                                    else:
+                                        ?>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <td style = "width: 20%"></td>
+                                    <?php
+                                    endif;
+                                    ?>
+                                </tr>
                             <?php
-                            $no++;
+                            }
+                        endforeach;
+                        foreach ($pengujis as $penguji):
+                            if($penguji['nip'] == $tesis->nip_pembimbing_satu){
+                                $no++;
+                                $status_tim = 'Pembimbing Utama / Anggota';
+                                ?>
+                                <tr style="line-height: 2">
+                                    <td style="width: 4%"><?= $no ?>.</td>
+                                    <td style="width: 30%"><?= $penguji['nama'] ?></td>
+                                    <td style="width: 26%" align="center"><?= $status_tim ?></td>
+                                    <?php if ($no % 2 == 0):
+                                        ?>
+                                        <td style = "width: 20%"></td>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <?php
+                                    else:
+                                        ?>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <td style = "width: 20%"></td>
+                                    <?php
+                                    endif;
+                                    ?>
+                                </tr>
+                            <?php
+                            }
+                        endforeach;
+                        foreach ($pengujis as $penguji):
+                            if($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                                $no++;
+                                $status_tim = 'Pembimbing Kedua / Anggota';
+                                ?>
+                                <tr style="line-height: 2">
+                                    <td style="width: 4%"><?= $no ?>.</td>
+                                    <td style="width: 30%"><?= $penguji['nama'] ?></td>
+                                    <td style="width: 26%" align="center"><?= $status_tim ?></td>
+                                    <?php if ($no % 2 == 0):
+                                        ?>
+                                        <td style = "width: 20%"></td>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <?php
+                                    else:
+                                        ?>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <td style = "width: 20%"></td>
+                                    <?php
+                                    endif;
+                                    ?>
+                                </tr>
+                            <?php
+                            }
+                        endforeach;
+                        foreach ($pengujis as $penguji):
+                            if($penguji['status_tim'] == '2' && $penguji['nip'] != $tesis->nip_pembimbing_satu && $penguji['nip'] != $tesis->nip_pembimbing_dua){
+                                $no++;
+                                $status_tim = 'Anggota';
+                                ?>
+                                <tr style="line-height: 2">
+                                    <td style="width: 4%"><?= $no ?>.</td>
+                                    <td style="width: 30%"><?= $penguji['nama'] ?></td>
+                                    <td style="width: 26%" align="center"><?= $status_tim ?></td>
+                                    <?php if ($no % 2 == 0):
+                                        ?>
+                                        <td style = "width: 20%"></td>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <?php
+                                    else:
+                                        ?>
+                                        <td style = "width: 20%;text-align: left;">
+                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                                ?>
+                                                <?= $no ?>.
+                                                <?php
+                                                if (!empty($penguji['ttd'])) {
+                                                    ?>
+                                                    <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <?= $no ?>.
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </td>
+                                        <td style = "width: 20%"></td>
+                                    <?php
+                                    endif;
+                                    ?>
+                                </tr>
+                            <?php
+                            }
                         endforeach;
                         ?>
                     </table>

@@ -28,6 +28,7 @@ class Proposal extends CI_Controller {
         $this->load->model('backend/transaksi/tesis', 'tesis');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
+        $this->load->model('backend/utility/notification', 'notifikasi');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
         //END MODEL
     }
@@ -1398,82 +1399,24 @@ class Proposal extends CI_Controller {
         }
     }
 
-    public function promotor_save() {
-        $hand = $this->input->post('hand', TRUE);
+    public function penguji_kirim_whatsapp()
+    {
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $hand = $this->input->post('hand', true);
         if ($hand == 'center19') {
-            $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            $status_tim = $this->input->post('status_tim', TRUE);
-            $nip = $this->input->post('nip', TRUE);
-
-            $data = array(
-                'id_disertasi' => $id_disertasi,
-                'nip' => $nip,
-                'status_tim' => $status_tim,
-                'status' => 1
-            );
-
-            $cek_promotor = $this->disertasi->cek_promotor_kopromotor($data);
-            if ($cek_promotor) {
-                $this->session->set_flashdata('msg-title', 'alert-danger');
-                $this->session->set_flashdata('msg', 'Gagal simpan. Promotor/Co-Promotor sudah terdaftar.');
-                redirect_back();
-            } else {
-                $jumlah_promotor = $this->disertasi->count_penguji($id_disertasi);
-                if ($jumlah_promotor < 3) {
-                    if ($status_tim == '1') {
-                        $cek_promotor_ada = $this->disertasi->cek_promotor_ada($id_disertasi);
-                        if (empty($cek_promotor_ada)) {
-                            $this->disertasi->save_promotor($data);
-                            $this->session->set_flashdata('msg-title', 'alert-success');
-                            $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                            redirect_back();
-                        } else {
-                            $this->session->set_flashdata('msg-title', 'alert-danger');
-                            $this->session->set_flashdata('msg', 'Gagal simpan. Promotor sudah ada');
-                            redirect_back();
-                        }
-                    } else {
-                        $this->disertasi->save_promotor($data);
-                        $this->disertasi->update($update_disertasi, $id_disertasi);
-                        $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', "Data berhasil disimpan");
-                        redirect_back();
-                    }
-                } else if ($jumlah_promotor >= 3) {
-                    $this->session->set_flashdata('msg-title', 'alert-danger');
-                    $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah Promotor/Ko-Promotor sudah 3');
-                    redirect_back();
-                }
-            }
-        } else {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect_back();
-        }
-    }
-
-    public function promotor_delete() {
-        $hand = $this->input->post('hand', TRUE);
-        if ($hand == 'center19') {
-            $id_disertasi = $this->input->post('id_disertasi', TRUE);
-            $id_promotor = $this->input->post('id_promotor', TRUE);
-
-            $data = array(
-                'status' => 0,
-            );
-
-            $this->disertasi->update_promotor($data, $id_promotor);
-
-            $semua_promotor_setujui = $this->disertasi->semua_promotor_setujui($id_disertasi);
-            if ($semua_promotor_setujui) {
-                $data = array(
-                    'status_promotor' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
-                );
-                $this->disertasi->update($data, $id_disertasi);
+            $id_tesis = $this->input->post('id_tesis', true);
+            $tesis = $this->tesis->detail($id_tesis);
+            $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
+            $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
+            foreach ($pengujis as $penguji) {
+                $judul_notifikasi = 'Permintaan Penguji Proposal';
+                $isi_notifikasi = 'Mohon kesediaanya untuk menjadi penguji proposal tesis mahasiswa dengan NIM ' . $tesis->nim . ' pada sistem IURIS';
+                $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $penguji['nip']);
             }
 
             $this->session->set_flashdata('msg-title', 'alert-success');
-            $this->session->set_flashdata('msg', 'Berhasil hapus penguji.');
+            $this->session->set_flashdata('msg', 'Notifikasi whatsapp berhasil dikirim');
             redirect_back();
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');

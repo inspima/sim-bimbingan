@@ -200,10 +200,15 @@ class Proposal extends CI_Controller {
 
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_proposal']['size'] != 0){
-                    $data = array(
-                        'berkas_proposal' => $file_name,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    if ($this->upload->do_upload('berkas_proposal')) {
+                        $data = array(
+                            'berkas_proposal' => $file_name,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+                    else {
+                        echo "Error Upload"; die;
+                    }
                 }
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
@@ -211,10 +216,15 @@ class Proposal extends CI_Controller {
                 redirect('mahasiswa/tesis/proposal');
             } else {
                 if($_FILES['berkas_proposal']['size'] != 0){
-                    $data = array(
-                        'berkas_proposal' => $file_name,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    if ($this->upload->do_upload('berkas_proposal')) {
+                        $data = array(
+                            'berkas_proposal' => $file_name,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
+                    else {
+                        echo "Error Upload"; die;
+                    }
                 }
 
                 $dataj = array(

@@ -19,6 +19,7 @@
 			$this->load->model('backend/baa/proposal/proposal_diterima_model', 'proposal_skripsi_diterima');
 			$this->load->model('backend/transaksi/skripsi', 'skripsi');
 			$this->load->model('backend/transaksi/tesis', 'tesis');
+			$this->load->model('backend/dosen/master/dosen_model', 'dosen');
 			$this->load->model('backend/transaksi/dokumen', 'dokumen');
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/utility/qr', 'qrcode');
@@ -702,7 +703,17 @@
 				$tipe = $params[2];
 				$jenis_str = $params[3];
 				$jenis = $params[4];
-				$jadwal = $this->tesis->read_jadwal($id_tugas_akhir, $jenis);
+				$jenis_ujian = 0;
+				if($jenis == TAHAPAN_TESIS_JUDUL OR $jenis == TAHAPAN_TESIS_PROPOSAL){
+					$jenis_ujian = UJIAN_TESIS_PROPOSAL;
+				}
+				else if($jenis == TAHAPAN_TESIS_MKPT){
+					$jenis_ujian = UJIAN_TESIS_MKPT;
+				}
+				else if($jenis == TAHAPAN_TESIS_UJIAN){
+					$jenis_ujian = UJIAN_TESIS_UJIAN;
+				}
+				$jadwal = $this->tesis->read_jadwal($id_tugas_akhir, $jenis_ujian);
 				$tugas_akhir = $this->tesis->detail($id_tugas_akhir);
 				$page = '';
 				$section_title = '';
@@ -721,6 +732,8 @@
 						'tesis' => $tugas_akhir,
 						'qr_dokumen' => $dokumen->qr_image,
 						'no_surat' => $dokumen->no_doc,
+						'jadwal' => $jadwal,
+						'pengujis' => $this->tesis->read_penguji($jadwal->id_ujian),
 						//'semester' => $this->semester->detail($smt),
 						'semester' => $this->semester->semester_pengajuan($tugas_akhir->tgl_pengajuan),
 						'no_sk' => $dokumen->no_ref_doc,

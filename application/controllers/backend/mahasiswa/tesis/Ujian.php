@@ -207,7 +207,7 @@ class Ujian extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
 
-            $read_judul = $this->tesis->read_judul($id_tesis);
+            $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_UJIAN);
             $judul = $this->input->post('judul', TRUE);
             $tgl_sekarang = date('Y-m-d');
 
@@ -243,42 +243,47 @@ class Ujian extends CI_Controller {
 
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    if ($this->upload->do_upload('berkas_tesis') && $this->upload->do_upload('berkas_syarat_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
                 }
                 else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
-
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    if ($this->upload->do_upload('berkas_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
                 }
                 else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    $this->upload->do_upload('berkas_syarat_tesis')
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
                 }
                 else {
                     $data = array(
@@ -297,41 +302,47 @@ class Ujian extends CI_Controller {
                 redirect('mahasiswa/tesis/ujian');
             } else {
                 if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    if ($this->upload->do_upload('berkas_tesis') && $this->upload->do_upload('berkas_syarat_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
                 }
                 else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_tesis' => $file_name,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    if ($this->upload->do_upload('berkas_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
                 }
                 else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    $data = array(
-                        'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                        'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                        'jenis' => TAHAPAN_TESIS_UJIAN,
-                        'berkas_syarat_tesis' => $file_name_syarat,
-                        'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
-                        'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                    if ($this->upload->do_upload('berkas_syarat_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
+                    }
                 }
                 else {
                     $data = array(

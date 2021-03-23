@@ -22,6 +22,7 @@ class Tesis_proposal extends CI_Controller {
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/transaksi/tesis', 'tesis');
+        $this->load->model('backend/dosen/master/dosen_model', 'dosen');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/utility/qr', 'qrcode');
@@ -91,6 +92,9 @@ class Tesis_proposal extends CI_Controller {
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             if (empty($dokumen)) {
                 $this->dokumen->save($data_dokumen);
+            }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
             }
 
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
@@ -196,6 +200,9 @@ class Tesis_proposal extends CI_Controller {
             if (empty($dokumen)) {
                 $this->dokumen->save($data_dokumen);
             }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
+            }
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             // DOKUMEN PERSETUJUAN
             $this->dokumen->generate_persetujuan($pengujis, $dokumen->id_dokumen, JENJANG_S2, $id_tesis, 0);
@@ -277,6 +284,9 @@ class Tesis_proposal extends CI_Controller {
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             if (empty($dokumen)) {
                 $this->dokumen->save($data_dokumen);
+            }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
             }
 
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
@@ -376,6 +386,9 @@ class Tesis_proposal extends CI_Controller {
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             if (empty($dokumen)) {
                 $this->dokumen->save($data_dokumen);
+            }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
             }
 
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);

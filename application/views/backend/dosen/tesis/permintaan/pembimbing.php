@@ -276,7 +276,7 @@
                                     <i class="fa fa-edit"></i> Reject</a>
                                 <?php
                                 } //else if($list['status_pembimbing_satu'] != NULL && $list['nip_pembimbing_dua'] == NULL) {
-                                else if($list['status_proposal'] == NULL OR $list['status_proposal'] != '1') {
+                                else if($list['status_proposal'] == NULL OR $list['status_proposal'] < STATUS_TESIS_PROPOSAL_PENGAJUAN) {
                                 ?>
                                     <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
@@ -290,7 +290,7 @@
                                     <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?php echo $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Reject</a>
                                 <?php
-                                } else if($list['status_proposal'] == NULL OR $list['status_proposal'] != '1') {
+                                } else if($list['status_proposal'] == NULL OR $list['status_proposal'] < STATUS_TESIS_PROPOSAL_PENGAJUAN) {
                                 ?>
                                     <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>

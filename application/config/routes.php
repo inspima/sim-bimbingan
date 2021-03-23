@@ -599,6 +599,7 @@
 
 	$route['dosen/tesis/proposal/pembimbing'] = 'backend/dosen/tesis/proposal/pembimbing';
 	$route['dosen/tesis/proposal/pembimbing/(:num)'] = 'backend/dosen/tesis/proposal/pembimbing';
+	$route['dosen/tesis/proposal/kirim_whatsapp'] = 'backend/dosen/tesis/proposal/penguji_kirim_whatsapp';
 
 	//$route['dosen/tesis/proposal/approve/(:num)'] = 'backend/dosen/tesis/proposal/approve';
 

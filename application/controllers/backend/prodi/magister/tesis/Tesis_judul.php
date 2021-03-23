@@ -92,6 +92,9 @@ class Tesis_judul extends CI_Controller {
             if (empty($dokumen)) {
                 $this->dokumen->save($data_dokumen);
             }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
+            }
 
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
 

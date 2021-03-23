@@ -91,6 +91,7 @@
                             $id_jam = $ujian->id_jam;
                             $jam = $ujian->jam;
                             $link_zoom = $ujian->link_zoom;
+                            $status_apv_kaprodi = $ujian->status_apv_kaprodi;
                         } else {
                             $id_ujian = '';
                             $tanggal = '';
@@ -99,15 +100,16 @@
                             $id_jam = '';
                             $jam = '-Pilih Jam-';
                             $link_zoom = '';
+                            $status_apv_kaprodi = '';
                         }
                         ?>
                         <?php echo formtext('hidden', 'id_ujian', $id_ujian, '') ?>
-                        <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required>              
+                        <input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" <?php echo ($status_apv_kaprodi == '1') ? 'disabled' : ''; ?> required>              
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Ruang</label>
-                    <select name="id_ruang" class="form-control select2" style="width: 100%;" required>
+                    <select name="id_ruang" class="form-control select2" style="width: 100%;" <?php echo ($status_apv_kaprodi == '1') ? 'disabled' : ''; ?> required>
                         <option value="<?php echo $id_ruang ?>"><?php echo $ruang ?></option>
                         <?php
                         foreach ($mruang as $list) {
@@ -120,7 +122,7 @@
                 </div>
                 <div class="form-group">
                     <label>Jam</label>
-                    <select name="id_jam" class="form-control select2" style="width: 100%;" required>
+                    <select name="id_jam" class="form-control select2" style="width: 100%;" <?php echo ($status_apv_kaprodi == '1') ? 'disabled' : ''; ?> required>
                         <option value="<?php echo $id_jam ?>"><?php echo $jam ?></option>
                         <?php
                         foreach ($mjam as $list) {
@@ -307,6 +309,13 @@
                     </div>
                     <?php echo form_close() ?>
                     <?php $this->view('backend/widgets/tesis/list_penguji_dosen', ['tesis' => $tesis, 'ujian' => $ujian]); ?>
+                    <?php echo form_open('dosen/tesis/proposal/kirim_whatsapp'); ?>
+                    <div class="form-group">
+                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                        <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-comment"></i> Kirim Notifikasi Whatsapp</button>
+                    </div>
+                    <?php echo form_close() ?>
                     <?php
                 } else {
                     ?>

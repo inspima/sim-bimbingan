@@ -189,19 +189,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                 $no = 0;
                 foreach ($pengujis as $uji) {
-                    $no++;
                     $str_status_tim = '';
                     if ($uji['status_tim'] == '1') {
+                        $no++;
                         $str_status_tim = 'Ketua';
-                    } else if ($uji['status_tim'] == '2') {
-                        $str_status_tim = 'Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
                     }
-                    echo '
-                    <tr>
-                        <td>'.$no.'</td>
-                        <td>'.$uji['nama'].'</td>
-                        <td>'.$str_status_tim.'</td>
-                    </tr>';
+                }
+                foreach ($pengujis as $uji) { 
+                    if($uji['nip'] == $tesis->nip_pembimbing_satu){
+                        $no++;
+                        $str_status_tim = 'Pembimbing Utama / Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
+                    }
+                }
+                foreach ($pengujis as $uji) { 
+                    if($uji['nip'] == $tesis->nip_pembimbing_dua){
+                        $no++;
+                        $str_status_tim = 'Pembimbing Kedua / Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
+                    }
+                }
+                foreach ($pengujis as $uji) {
+                    if($uji['status_tim'] == '2' && $uji['nip'] != $tesis->nip_pembimbing_satu && $uji['nip'] != $tesis->nip_pembimbing_dua){
+                        $no++;
+                        $str_status_tim = 'Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
+                    }
                 }
                 ?>
             </table>

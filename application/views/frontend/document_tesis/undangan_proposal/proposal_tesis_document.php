@@ -96,21 +96,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </p>
                                 <table border="0" style="width:100%">
                                     <tr>
-                                        <td>Hari, Tanggal</td>
-                                        <td>:</td>
-                                        <td><?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ruang</td>
-                                        <td>:</td>
-                                        <td><?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pukul</td>
-                                        <td>:</td>
-                                        <td><?= substr($jadwal->jam, 0, 5); ?> - Selesai</td>
-                                    </tr>
-                                    <tr>
                                         <td>Nama Mahasiswa</td>
                                         <td>:</td>
                                         <td><?php echo $tesis->nama ?></td>
@@ -166,33 +151,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <br><br>
                                     Atas perhatian Saudara, kami sampaikan terima kasih
                                 </p>
+                                <table border="0" style="width:100%;margin-top: 30px">
+                                    <tr>
+                                        <td style="width: 60%">
+                                            <img src="<?= $qr_dokumen ?>" width="100px">
+                                        </td> 
+                                        <td style="width: 40%">
+                                            <p>
+                                                <?= woday_toindo($tgl_surat); ?><br>
+                                                Dekan,
+                                                <br/><br/>
+                                                <img src="<?= str_replace(base_url(), "", ($dekan->ttd ? $dekan->ttd : $this->dosen->detail('197602042005011003')->ttd)); ?>" width="70px"/>
+                                                <br/><br/>
+                                                <?= $dekan ? $dekan->nama_dosen : 'Iman Prihandono, Ph.D.' ?><br/>
+                                                NIP. <?= $dekan ? $dekan->nip : '197602042005011003' ?>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table> 
-                </td>
-            </tr>
-        </table> 
-        <table border="0" style="width:100%">            
-            <tr>
-                <td>
-                    <table border="0" style="width:100%;margin-top: 30px">
-                        <tr>
-                            <td style="width: 55%">
-                                <img src="<?= $qr_dokumen ?>" width="100px">
-                            </td> 
-                            <td style="width: 45%">
-                                <p>
-                                    <?= woday_toindo($tgl_surat); ?><br>
-                                    Dekan,
-                                    <br/><br/>
-                                    <img src="<?= str_replace(base_url(), "", ($dekan->ttd ? $dekan->ttd : $this->dosen->detail('197602042005011003')->ttd)); ?>" width="70px"/>
-                                    <br/><br/>
-                                    <?= $dekan ? $dekan->nama_dosen : 'Iman Prihandono, Ph.D.' ?><br/>
-                                    NIP. <?= $dekan ? $dekan->nip : '197602042005011003' ?>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
                 </td>
             </tr>
         </table> 
