@@ -211,7 +211,7 @@
                         <td>
                             <?php
                             $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_PROPOSAL);
-                            if($list['status_penguji'] == '1')
+                            if($list['status_penguji'] == '1' && $ujian->status_apv_kaprodi == '1')
                             {
                             ?>
                                 <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/proposal/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
@@ -247,7 +247,7 @@
                                 </div>
                             <?php
                             }
-                            else if(($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') && (date('Y-m-d') < $ujian->tanggal)) {
+                            else if(($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') && (date('Y-m-d') < $ujian->tanggal) && $ujian->status_apv_kaprodi == '1') {
                             ?>
                                 <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/proposal/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                     <i class="fa fa-ban"></i> Batal</a>

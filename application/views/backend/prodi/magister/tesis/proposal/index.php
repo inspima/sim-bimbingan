@@ -27,6 +27,7 @@
                             <th>No</th>
                             <th>Tesis</th>
                             <th>Tgl.Pengajuan</th>
+                            <th>Berkas Proposal</th>
                             <th class="text-center">Penguji</th>
                             <th class="text-center">Jadwal</th>
                             <th class="text-center">Opsi</th>
@@ -48,6 +49,15 @@
                                     ?>
                                 </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
+                                <td class="text-center">
+                                    <?php
+                                    if($list['berkas_proposal'] != '') {
+                                    ?>
+                                        <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                                    <?php 
+                                    }
+                                    ?>
+                                </td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], 'jenis' => UJIAN_TESIS_PROPOSAL]); ?>
                                 </td>

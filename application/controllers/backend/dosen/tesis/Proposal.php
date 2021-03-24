@@ -503,7 +503,7 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/penjadwalan/',
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
@@ -532,7 +532,7 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/penguji/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
@@ -554,7 +554,7 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/pembimbing/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
@@ -575,7 +575,7 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/penguji/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
@@ -626,7 +626,7 @@ class Proposal extends CI_Controller {
             'back_link' => 'backend/dosen/disertasi/permintaan/penasehat',
             // DATA //
             'disertasi' => $this->disertasi->detail($id_disertasi),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
@@ -662,7 +662,7 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/permintaan/pembimbing/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),

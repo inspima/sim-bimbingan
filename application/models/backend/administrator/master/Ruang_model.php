@@ -12,6 +12,17 @@ class Ruang_model extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function read_aktif_id_desc()
+	{
+		$this->db->select('id_ruang, ruang, gedung');
+        $this->db->from('ruang');
+        $this->db->where('status',1);
+		$this->db->order_by('id_ruang','desc');
+
+		$query = $this -> db -> get();
+		return $query->result_array();
+	}
+
 	public function read_ujian()
 	{
 		$jenis = 'ujian';

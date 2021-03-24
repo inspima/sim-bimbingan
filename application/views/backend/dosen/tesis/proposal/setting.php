@@ -110,11 +110,10 @@
                 <div class="form-group">
                     <label>Ruang</label>
                     <select name="id_ruang" class="form-control select2" style="width: 100%;" <?php echo ($status_apv_kaprodi == '1') ? 'disabled' : ''; ?> required>
-                        <option value="<?php echo $id_ruang ?>"><?php echo $ruang ?></option>
                         <?php
                         foreach ($mruang as $list) {
                             ?>
-                            <option value="<?php echo $list['id_ruang'] ?>"><?php echo $list['ruang'] . ' - ' . $list['gedung'] ?></option>
+                            <option value="<?php echo $list['id_ruang'] ?>" <?php echo ($list['id_ruang'] == $ruang) ? 'selected' : ''; ?> ><?php echo $list['ruang'] . ' - ' . $list['gedung'] ?></option>
                             <?php
                         }
                         ?>

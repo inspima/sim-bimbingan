@@ -50,7 +50,10 @@ if (!empty($jadwal)) {
 if (!empty($jadwal)) {
     if ($jadwal->status_apv_kaprodi == '1') {
         ?>
-        <p align="center"><b><i class="fa fa-check text-green"></i> Sudah Diverifikasi Kaprodi</b></p>
+        <p align="center">
+            <b><i class="fa fa-check text-green"></i> Sudah Diverifikasi Kaprodi</b>
+            <br>Jika Ingin Reschedule silahkan menghubungi KPS
+        </p>
         <!--
         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
         -->

@@ -200,6 +200,7 @@ class Proposal extends CI_Controller {
 
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_proposal']['size'] != 0){
+                    unlink('./assets/upload/mahasiswa/tesis/proposal/'.$file_name);
                     if ($this->upload->do_upload('berkas_proposal')) {
                         $data = array(
                             'berkas_proposal' => $file_name,
@@ -216,6 +217,7 @@ class Proposal extends CI_Controller {
                 redirect('mahasiswa/tesis/proposal');
             } else {
                 if($_FILES['berkas_proposal']['size'] != 0){
+                    unlink('./assets/upload/mahasiswa/tesis/proposal/'.$file_name);
                     if ($this->upload->do_upload('berkas_proposal')) {
                         $data = array(
                             'berkas_proposal' => $file_name,

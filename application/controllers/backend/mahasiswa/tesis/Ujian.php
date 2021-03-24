@@ -243,6 +243,8 @@ class Ujian extends CI_Controller {
 
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
                     if ($this->upload->do_upload('berkas_tesis') && $this->upload->do_upload('berkas_syarat_tesis')) {
                         $data = array(
                             'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
@@ -258,6 +260,7 @@ class Ujian extends CI_Controller {
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
                     if ($this->upload->do_upload('berkas_tesis')) {
                         $data = array(
                             'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
@@ -272,7 +275,8 @@ class Ujian extends CI_Controller {
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    $this->upload->do_upload('berkas_syarat_tesis')
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
+                    if($this->upload->do_upload('berkas_syarat_tesis')){
                         $data = array(
                             'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
                             'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
@@ -302,6 +306,8 @@ class Ujian extends CI_Controller {
                 redirect('mahasiswa/tesis/ujian');
             } else {
                 if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
                     if ($this->upload->do_upload('berkas_tesis') && $this->upload->do_upload('berkas_syarat_tesis')) {
                         $data = array(
                             'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
@@ -317,6 +323,7 @@ class Ujian extends CI_Controller {
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
                     if ($this->upload->do_upload('berkas_tesis')) {
                         $data = array(
                             'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
@@ -331,6 +338,7 @@ class Ujian extends CI_Controller {
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
                     if ($this->upload->do_upload('berkas_syarat_tesis')) {
                         $data = array(
                             'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),

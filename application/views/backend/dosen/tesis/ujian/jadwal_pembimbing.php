@@ -108,11 +108,10 @@
                 <div class="form-group">
                     <label>Ruang</label>
                     <select name="id_ruang" class="form-control select2" style="width: 100%;" <?= ($status_apv_kaprodi == 1) ? 'disabled' : '';?> required>
-                        <option value="<?php echo $id_ruang ?>"><?php echo $ruang ?></option>
                         <?php
                         foreach ($mruang as $list) {
                             ?>
-                            <option value="<?php echo $list['id_ruang'] ?>"><?php echo $list['ruang'] . ' - ' . $list['gedung'] ?></option>
+                            <option value="<?php echo $list['id_ruang'] ?>" <?php echo ($list['id_ruang'] == $ruang) ? 'selected' : ''; ?>><?php echo $list['ruang'] . ' - ' . $list['gedung'] ?></option>
                             <?php
                         }
                         ?>
@@ -138,7 +137,10 @@
                 if ($ujian) {
                     if ($status_apv_kaprodi == '1') {
                         ?>
-                        <p align="center"><b><i class="fa fa-check text-green"></i> Sudah Diverifikasi Kaprodi</b></p>
+                        <p align="center">
+                            <b><i class="fa fa-check text-green"></i> Sudah Diverifikasi Kaprodi</b>
+                            <br>Jika Ingin Reschedule silahkan menghubungi KPS
+                        </p>
                         <!--
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
                         -->

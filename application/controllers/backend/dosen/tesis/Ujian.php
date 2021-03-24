@@ -190,7 +190,7 @@ class Ujian extends CI_Controller {
             'back_link' => 'dosen/tesis/ujian/penjadwalan/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
@@ -210,7 +210,7 @@ class Ujian extends CI_Controller {
             'back_link' => 'backend/dosen/tesis/ujian/pembimbing',
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
@@ -233,7 +233,7 @@ class Ujian extends CI_Controller {
             // DATA //
             'id_penguji' => $id_penguji,
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
@@ -254,7 +254,7 @@ class Ujian extends CI_Controller {
             'back_link' => 'dosen/tesis/ujian/penguji/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
@@ -305,7 +305,7 @@ class Ujian extends CI_Controller {
             'back_link' => 'backend/dosen/disertasi/permintaan/penasehat',
             // DATA //
             'disertasi' => $this->disertasi->detail($id_disertasi),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
@@ -341,7 +341,7 @@ class Ujian extends CI_Controller {
             'back_link' => 'dosen/tesis/ujian/pembimbing/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            'mruang' => $this->ruang->read_aktif(),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
             'mjam' => $this->jam->read_aktif(),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
