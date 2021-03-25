@@ -161,30 +161,59 @@
 			$id_departemen = $struktural->id_departemen;
 			if ($struktural->id_struktur == '5') {
 				$id_skripsi = $this->uri->segment('6');
-
-				$data = array(
-					// PAGE //
-					'title' => 'Ketua Bagian (Departemen) - Skripsi - Proposal',
-					'subtitle' => 'Setting Ujian',
-					'section' => 'backend/dosen/skripsi/proposal/plot',
-					'use_back' => true,
-					'back_link' => 'dosen/sarjana/kadep/proposal/diterima',
-					// DATA //
-					'proposal' => $this->skripsi->detail_proposal($id_skripsi),
-					'mruang' => $this->ruang->read_aktif(),
-					'mjam' => $this->jam->read_aktif(),
-					'mdosen' => $this->dosen->read_aktif_alldep(),
-					'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
-					'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),
-				);
-				if ($data['proposal']) {
-					$this->load->view('backend/index_sidebar', $data);
+				$is_ulang = $this->input->get('is_ulang', true);
+				if ($is_ulang == '1') {
+					$data = array(
+						// PAGE //
+						'title' => 'Ketua Bagian (Departemen) - Skripsi - Proposal',
+						'subtitle' => 'Setting Ujian - Ulang',
+						'section' => 'backend/dosen/skripsi/proposal/plot',
+						'use_back' => true,
+						'back_link' => 'dosen/sarjana/kadep/proposal/ditolak',
+						'is_ulang' => $is_ulang,
+						// DATA //
+						'proposal' => $this->skripsi->detail_proposal($id_skripsi),
+						'mruang' => $this->ruang->read_aktif(),
+						'mjam' => $this->jam->read_aktif(),
+						'mdosen' => $this->dosen->read_aktif_alldep(),
+						'ujian' => $this->skripsi->read_ujian_ulang($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
+						'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),
+					);
+					if ($data['proposal']) {
+						$this->load->view('backend/index_sidebar', $data);
+					} else {
+						$data['section'] = 'backend/notification/danger';
+						$data['msg'] = 'Tidak ditemukan';
+						$data['linkback'] = 'dashboardd/proposal/kadep_diterima';
+						$this->load->view('backend/index_sidebar', $data);
+					}
 				} else {
-					$data['section'] = 'backend/notification/danger';
-					$data['msg'] = 'Tidak ditemukan';
-					$data['linkback'] = 'dashboardd/proposal/kadep_diterima';
-					$this->load->view('backend/index_sidebar', $data);
+					$data = array(
+						// PAGE //
+						'title' => 'Ketua Bagian (Departemen) - Skripsi - Proposal',
+						'subtitle' => 'Setting Ujian',
+						'section' => 'backend/dosen/skripsi/proposal/plot',
+						'use_back' => true,
+						'back_link' => 'dosen/sarjana/kadep/proposal/diterima',
+						'is_ulang' => $is_ulang,
+						// DATA //
+						'proposal' => $this->skripsi->detail_proposal($id_skripsi),
+						'mruang' => $this->ruang->read_aktif(),
+						'mjam' => $this->jam->read_aktif(),
+						'mdosen' => $this->dosen->read_aktif_alldep(),
+						'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
+						'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),
+					);
+					if ($data['proposal']) {
+						$this->load->view('backend/index_sidebar', $data);
+					} else {
+						$data['section'] = 'backend/notification/danger';
+						$data['msg'] = 'Tidak ditemukan';
+						$data['linkback'] = 'dashboardd/proposal/kadep_diterima';
+						$this->load->view('backend/index_sidebar', $data);
+					}
 				}
+
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
@@ -488,12 +517,13 @@
 				$id_skripsi = $this->input->post('id_skripsi', true);
 				$id_ujian = $this->input->post('id_ujian', true);
 				$nip = $this->input->post('nip', true);
+				$is_ulang = $this->input->post('is_ulang', true);
 
 				$data = array(
 					'id_ujian' => $id_ujian,
 					'nip' => $this->input->post('nip', true),
 					'status_tim' => 2,
-					'status' => 1
+					'status' => $is_ulang == '1' ? 2 : 1,
 				);
 
 				$cekpenguji = $this->skripsi->cek_penguji($data);

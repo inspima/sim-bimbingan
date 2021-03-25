@@ -89,7 +89,7 @@
 
 				<div class="form-group">
 					<label>Ruang</label>
-					<select name="id_ruang" class="form-control select2" style="width: 100%;" required>
+					<select name="id_ruang" readonly="" class="form-control select2" style="width: 100%;" required>
 						<option value="<?php echo $id_ruang ?>"><?php echo $ruang ?></option>
 						<?php
 							foreach ($mruang as $list) {
@@ -118,15 +118,18 @@
 			<!-- /.box-body -->
 			<div class="box-footer">
 				<?php
-					if ($ujian) {
-						?>
-						<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Perbarui</button>
-						<?php
-					} else {
-						?>
-						<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Simpan</button>
-						<?php
+					if ($is_ulang == '0') {
+						if ($ujian) {
+							?>
+							<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Perbarui</button>
+							<?php
+						} else {
+							?>
+							<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Simpan</button>
+							<?php
+						}
 					}
+
 				?>
 			</div>
 			<?php echo form_close() ?>
@@ -153,6 +156,7 @@
 							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 							<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
 							<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+							<?php echo formtext('hidden', 'is_ulang', $is_ulang, 'required') ?>
 							<select name="nip" class="form-control select2" style="width: 100%;" required>
 								<option value="">- Pilih Penguji -</option>
 								<?php

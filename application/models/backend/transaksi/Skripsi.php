@@ -473,6 +473,20 @@
 			return $query->row();
 		}
 
+		public function read_ujian_ulang($id_skripsi, $jenis)
+		{
+			$this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_skripsi, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_skripsi', $id_skripsi);
+			$this->db->where('u.jenis_ujian', $jenis);
+			$this->db->where('u.status_ujian', 2);
+			$this->db->where('u.hasil_ujian', 0);// Belum Ujian
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function read_ujian_selesai($id_skripsi, $jenis)
 		{
 			$this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_skripsi, r.ruang, r.gedung, j.jam');
