@@ -52,34 +52,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<tr>
 		<td>
-			<table border="1" style="width:100%">
+			<table class="table" border="1" style="width:100%">
 				<tr>
-					<td style="width:15%" align="left"><strong>No</strong></td>
-					<td style="width:40%" align="left"><strong>Nama Penguji Skripsi/Tesis </strong></td>
-					<td style="width:40%" align="left"><strong>Keterangan</strong></td>
+					<td style="width:5%" align="left"><strong>No</strong></td>
+					<td style="width:60%" align="left"><strong>Nama Penguji Proposal </strong></td>
+					<td style="width:30%" align="left"><strong>Keterangan</strong></td>
 				</tr>
 
 				<tr>
-					<td style="width:15%" align="left">1</td>
-					<td style="width:40%" align="left"><?= $penguji_ketua->nama ?></td>
-					<td style="width:40%" align="left">(Ketua)</td>
+					<td align="left">1</td>
+					<td style="" align="left"><?= $penguji_ketua->nama ?></td>
+					<td style="" align="left">(Ketua)</td>
 				</tr>
 
-
-				<tr>
-					<td style="width:15%" align="left">2</td>
-					<td style="width:40%" align="left"><?= $penguji_pembimbing->nama ?></td>
-					<td style="width:40%" align="left">(Pembimbing & Penguji)</td>
-				</tr>
 
 				<?php
-					$no = '3';
+					$no = '2';
 					foreach ($penguji_anggota as $list) {
 						?>
 						<tr>
-							<td style="width:15%" align="left"><?= $no ?></td>
-							<td style="width:40%" align="left"><?= $list['nama'] ?></td>
-							<td style="width:40%" align="left">(Penguji)</td>
+							<td align="left"><?= $no ?></td>
+							<td style="" align="left"><?= $list['nama'] ?></td>
+							<td style="" align="left">(Penguji)</td>
 						</tr>
 						<?php $no++;
 					} ?>

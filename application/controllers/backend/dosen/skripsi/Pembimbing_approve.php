@@ -80,6 +80,8 @@
 				'title' => 'Bimbingan Skripsi',
 				'subtitle' => 'Bimbingan Skripsi',
 				'section' => 'backend/dosen/skripsi/pembimbing_approve_bimbingan',
+				'use_back' => true,
+				'back_link' => 'dashboardd/skripsi/pembimbing_approve',
 				// DATA //
 				'skripsi' => $this->pembimbing->detail_approve($username, $id_skripsi),
 				'bimbingan' => $this->pembimbing->bimbingan($id_skripsi),
@@ -92,7 +94,7 @@
 			} else {
 				$data['section'] = 'backend/notification/danger';
 				$data['msg'] = 'Tidak ditemukan';
-				$data['linkback'] = 'dashboardd/proposal/kadep_diterima';
+				$data['linkback'] = 'dashboardd/skripsi/pembimbing_approve';
 				$this->load->view('backend/index_sidebar', $data);
 			}
 		}

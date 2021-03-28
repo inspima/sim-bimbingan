@@ -15,9 +15,6 @@
         <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title"><?php echo $subtitle?></h3>
-            <div class="pull-right">
-                <a class="btn btn-xs btn-warning" href="<?= base_url()?>dashboardm/modul/skripsi"><i class="fa fa-arrow-left"></i> Kembali</a>
-            </div>
         </div>
         <!-- /.box-header -->
         <!-- form start -->

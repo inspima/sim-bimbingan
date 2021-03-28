@@ -137,7 +137,12 @@
 							<?php
 								if (!empty($dokumen_persetujuan->waktu) && $dokumen_persetujuan->jenis == '1') {
 									if ($dokumen->id_jenjang == JENJANG_S1) {
-										$id_hasil = $this->skripsi->get_id_status_ujian_by_text($dokumen_persetujuan->hasil, UJIAN_SKRIPSI_PROPOSAL);
+										if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR) {
+											$id_hasil = $this->skripsi->get_id_status_ujian_by_text($dokumen_persetujuan->hasil, UJIAN_SKRIPSI_PROPOSAL);
+										}
+										if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR) {
+											$id_hasil = $this->skripsi->get_id_status_ujian_by_text($dokumen_persetujuan->hasil, UJIAN_SKRIPSI_UJIAN);
+										}
 										if ($id_hasil != HASIL_UJIAN_LANJUT) {
 											?>
 											<hr class="divider-line-thin"/>

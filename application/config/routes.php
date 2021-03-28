@@ -393,11 +393,14 @@
 	$route['baa/sarjanah/proposal/cetak_berita_ulang'] = 'backend/baa/sarjanah/proposal/cetak_berita_ulang';
 	$route['baa/sarjanah/proposal/cetak_absensi'] = 'backend/baa/sarjanah/proposal/cetak_absensi';
 
-	$route['baa/sarjanah/skripsi/index'] = 'backend/baa/sarjanah/skripsi';
-	$route['baa/sarjanah/skripsi/pengajuan'] = 'backend/baa/sarjanah/skripsi/pengajuan';
-	$route['baa/sarjanah/skripsi/diterima'] = 'backend/baa/sarjanah/skripsi/diterima';
-	$route['baa/sarjanah/skripsi/ujian'] = 'backend/baa/sarjanah/skripsi/ujian';
-	$route['baa/sarjanah/skripsi/belum_approve'] = 'backend/baa/sarjanah/skripsi/belum_approve';
+	$route['baa/sarjanah/skripsi/index'] = 'backend/baa/sarjanah/skripsi_baa';
+	$route['baa/sarjanah/skripsi/pengajuan'] = 'backend/baa/sarjanah/skripsi_baa/pengajuan';
+	$route['baa/sarjanah/skripsi/diterima'] = 'backend/baa/sarjanah/skripsi_baa/diterima';
+	$route['baa/sarjanah/skripsi/ujian'] = 'backend/baa/sarjanah/skripsi_baa/ujian';
+	$route['baa/sarjanah/skripsi/belum_approve'] = 'backend/baa/sarjanah/skripsi_baa/belum_approve';
+	$route['baa/sarjanah/skripsi/cetak_surat_tugas'] = 'backend/baa/sarjanah/skripsi_baa/cetak_surat_tugas';
+	$route['baa/sarjanah/skripsi/cetak_berita'] = 'backend/baa/sarjanah/skripsi_baa/cetak_berita';
+	$route['baa/sarjanah/skripsi/cetak_berita_ulang'] = 'backend/baa/sarjanah/skripsi_baa/cetak_berita_ulang';
 
 	/*
 	 * JENJANG DOKTOR
@@ -896,14 +899,18 @@
 	$route['document/cetak'] = 'document/cetak';
 
 	$route['document/lihat_skripsi'] = 'document/lihat_skripsi';
+	$route['document/cetak_skripsi'] = 'document/cetak_skripsi';
+	$route['document/lihat_skripsi_ujian'] = 'document/lihat_skripsi_ujian';
+	$route['document/cetak_skripsi_ujian'] = 'document/cetak_skripsi_ujian';
 	$route['document/persetujuan/skripsi'] = 'document/persetujuan_skripsi';
 	$route['document/persetujuan/skripsi/save'] = 'document/persetujuan_skripsi_save';
-	$route['document/cetak_skripsi'] = 'document/cetak_skripsi';
 
 	$route['document/lihat_proposal_skripsi_surat_tugas'] = 'document/lihat_proposal_skripsi_surat_tugas';
 	$route['document/cetak_proposal_skripsi_surat_tugas'] = 'document/cetak_proposal_skripsi_surat_tugas';
 	$route['document/lihat_proposal_skripsi_undangan'] = 'document/lihat_proposal_skripsi_undangan';
 	$route['document/cetak_proposal_skripsi_undangan'] = 'document/cetak_proposal_skripsi_undangan';
+	$route['document/lihat_skripsi_surat_tugas'] = 'document/lihat_skripsi_surat_tugas';
+	$route['document/cetak_skripsi_surat_tugas'] = 'document/cetak_skripsi_surat_tugas';
 
 	$route['document/lihat_tesis'] = 'document/lihat_tesis';
 	$route['document/cetak_tesis'] = 'document/cetak_tesis';

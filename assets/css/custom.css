@@ -71,6 +71,7 @@ and open the template in the editor.
 	padding-right: 10px;
 	border-width: 1px;
 	border-color: #dedede;
+	width: 90%;
 }
 
 .divider-line-semi-bold {
@@ -80,6 +81,7 @@ and open the template in the editor.
 	padding-right: 10px;
 	border-width: 2px;
 	border-color: #bbbbbb;
+	width: 90%;
 }
 
 .divider-line-bold {
@@ -89,4 +91,5 @@ and open the template in the editor.
 	padding-right: 10px;
 	border-width: 3px;
 	border-color: #797979;
+	width: 90%;
 }

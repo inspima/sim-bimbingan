@@ -25,9 +25,7 @@
 					<thead>
 					<tr>
 						<th>No</th>
-						<th>Nama</th>
-						<th>Judul</th>
-						<th>Berkas Skripsi&Turnitin</th>
+						<th>Skripsi</th>
 						<th>Pembimbing</th>
 						<th>Departemen</th>
 						<th>Gelombang / Semester</th>
@@ -40,15 +38,17 @@
 					<?php
 						$no = 1;
 						foreach ($skripsi as $list) {
+							$ujian = $this->skripsi->read_jadwal($list['id_skripsi'],UJIAN_SKRIPSI_UJIAN);
 							?>
 							<tr>
 								<td><?= $no ?></td>
-								<td><?= $list['nama'] . '<br>' . $list['nim'] ?></td>
-								<td><?php
+								<td><?= $list['nama'] . '<br>' . $list['nim'] ?>
+									<br/><b>Judul</b><br/>
+									<?php
 										$judul = $this->skripsi_ujian->read_judul($list['id_skripsi']);
 										echo $judul->judul;
-									?></td>
-								<td>
+									?>
+									<br/><b>Berkas</b><br/>
 									<a href="<?php echo base_url() ?>assets/upload/turnitin/<?php echo $list['turnitin'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
 								</td>
 								<td><?php
@@ -96,21 +96,37 @@
 										}
 									?>
 									<!-- Surat Tugas -->
-									<?php $attributes = array('target' => '_blank'); ?>
-									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_surat_tugas', $attributes) ?>
+									<?php
+										$data_dokumen_surat_tugas = [
+												'tipe' => DOKUMEN_SURAT_TUGAS_SKRIPSI_PENGUJI_STR,
+												'jenis' => DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR,
+												'identitas' => $list['nim'],
+										];
+										$dokumen_surat_tugas = $this->dokumen->detail_by_data($data_dokumen_surat_tugas);
+									?>
+									<h4>Surat Tugas</h4>
+									<?php
+										$attributes = array('target' => '_blank', 'autocomplete' => 'off');
+										echo form_open('baa/sarjanah/skripsi/cetak_surat_tugas', $attributes)
+									?>
+									<input type="text" name="no_sk" style="margin-bottom: 10px" class="form-control" placeholder="NO SK" value="<?= !empty($dokumen_surat_tugas) ? $dokumen_surat_tugas->no_doc : '' ?>" required/>
+									<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control" placeholder="TGL SK" value="<?= !empty($dokumen_surat_tugas) ? date('d-m-Y', strtotime($dokumen_surat_tugas->date_doc)) : '' ?>" required/>
 									<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 									<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
-									<button type="submit" class="btn btn-xs btn-primary">Surat Tugas</button>
-									<?php echo form_close() ?>
+									<?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
+									<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Surat Tugas</button>
+									<?php echo form_close(); ?>
+									<hr class="divider-line-semi-bold"/>
 									<!-- Berita Acara -->
-									<?php $attributes = array('target' => '_blank'); ?>
-									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_berita', $attributes) ?>
+									<?php
+										$attributes = array('target' => '_blank');
+										echo form_open('baa/sarjanah/skripsi/cetak_berita', $attributes)
+									?>
 									<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 									<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
-									<button type="submit" class="btn btn-xs btn-primary">Cetak Berita</button>
-									<?php echo form_close() ?>
+									<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Berita Acara</button>
+									<?php echo form_close(); ?>
+									<hr class="divider-line-semi-bold"/>
 									<!-- Pemberitahuan -->
 									<?php $attributes = array('target' => '_blank'); ?>
 									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_pemberitahuan', $attributes) ?>
@@ -119,6 +135,7 @@
 									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
 									<button type="submit" class="btn btn-xs btn-primary">Cetak Pemberitahuan</button>
 									<?php echo form_close() ?>
+									<hr class="divider-line-semi-bold"/>
 									<!-- Penilaian -->
 									<?php $attributes = array('target' => '_blank'); ?>
 									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_penilaian', $attributes) ?>
@@ -127,6 +144,7 @@
 									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
 									<button type="submit" class="btn btn-xs btn-primary">Cetak Penilaian</button>
 									<?php echo form_close() ?>
+									<hr class="divider-line-semi-bold"/>
 									<!-- Rekapitulasi -->
 									<?php $attributes = array('target' => '_blank'); ?>
 									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_rekapitulasi', $attributes) ?>
@@ -135,6 +153,7 @@
 									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
 									<button type="submit" class="btn btn-xs btn-primary">Cetak Rekapitulasi</button>
 									<?php echo form_close() ?>
+									<hr class="divider-line-semi-bold"/>
 									<!-- Perbaikan -->
 									<?php $attributes = array('target' => '_blank'); ?>
 									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_perbaikan', $attributes) ?>
@@ -143,6 +162,7 @@
 									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
 									<button type="submit" class="btn btn-xs btn-primary">Cetak Perbaikan</button>
 									<?php echo form_close() ?>
+									<hr class="divider-line-semi-bold"/>
 									<!-- konsumsi -->
 									<?php $attributes = array('target' => '_blank'); ?>
 									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_absensi', $attributes) ?>

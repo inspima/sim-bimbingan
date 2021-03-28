@@ -11,7 +11,7 @@ class Kadep_blm_skripsi_model extends CI_Model {
         $this->db->join('semester sr','g.id_semester = sr.id_semester');
         $this->db->join('mahasiswa m','s.nim = m.nim');
         $this->db->where('s.id_departemen', $id_departemen);
-        $this->db->where('s.jenis',2);
+        $this->db->where('s.jenis',TAHAPAN_SKRIPSI_UJIAN);
         //$this->db->where_in('s.status_skripsi',3);
         $this->db->where('s.status_skripsi <',STATUS_SKRIPSI_UJIAN_SELESAI);
 		$this->db->order_by('s.id_skripsi','desc');

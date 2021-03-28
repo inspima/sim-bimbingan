@@ -45,6 +45,10 @@
 					$page = 'frontend/document/surat_tugas/';
 					$title = "Surat Tugas";
 					break;
+				case DOKUMEN_SURAT_TUGAS_SKRIPSI_PENGUJI_STR:
+					$page = 'frontend/document/surat_tugas/';
+					$title = "Surat Tugas";
+					break;
 				case DOKUMEN_SURAT_UNDANGAN_PROPOSAL_STR:
 					$page = 'frontend/document/undangan/';
 					$title = "Undangan";
@@ -98,6 +102,10 @@
 				case UJIAN_SKRIPSI_PROPOSAL:
 					$page .= DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR;
 					$title .= ' - Ujian Proposal Skripsi';
+					break;
+				case UJIAN_SKRIPSI_UJIAN:
+					$page .= DOKUMEN_SURAT_TUGAS_SKRIPSI_PENGUJI_STR;
+					$title .= ' - Ujian Skripsi';
 					break;
 			}
 		}
@@ -214,6 +222,59 @@
 			}
 		}
 
+		public function lihat_skripsi_ujian()
+		{
+			$doc = $this->input->get('doc', true);
+			$params = explode('$', $doc);
+			if (!empty($params) && count($params) == 6) {
+				$id_tugas_akhir = $params[1];
+				$id_jadwal = $params[2];
+				$tipe = $params[3];
+				$jenis_str = $params[4];
+				$jenis = $params[5];
+				$tugas_akhir = $this->skripsi->detail_by_id($id_tugas_akhir);
+				$page = '';
+				$section_title = '';
+				$jadwal = $this->skripsi->read_jadwal_by_id($id_jadwal);
+				$this->get_tipe_dokumen($tipe, $page, $section_title);
+				$this->get_jenis_dokumen_skripsi($jenis, $page, $section_title);
+
+				if ($tugas_akhir) {
+					$data_dokumen = [
+						'tipe' => $tipe,
+						'jenis' => $jenis_str,
+						'identitas' => $tugas_akhir->nim,
+						'date' => $jadwal->tanggal,
+					];
+				}
+
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
+				if (!empty($dokumen)) {
+					$data = array(
+						// PAGE //
+						'title' => 'Informasi Dokumen ',
+						'subtitle' => 'Berita Acara',
+						'section' => $page,
+						// DATA //
+						'dokumen' => $dokumen,
+						'disertasi' => $tugas_akhir,
+						'jadwal' => $jadwal,
+						'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
+					);
+
+					$this->load->view('frontend/index', $data);
+				} else {
+					$data["heading"] = "Invalid Page";
+					$data["message"] = "The page you requested was not found ";
+					$this->load->view(VIEW_ERROR_404, $data);
+				}
+			} else {
+				$data["heading"] = "Invalid Page";
+				$data["message"] = "The page you requested was not found ";
+				$this->load->view(VIEW_ERROR_404, $data);
+			}
+		}
+
 		public function lihat_proposal_skripsi_surat_tugas()
 		{
 			$doc = $this->input->get('doc', true);
@@ -251,6 +312,55 @@
 						'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
 					);
 
+					$this->load->view('frontend/index', $data);
+				} else {
+					$data["heading"] = "Invalid Page";
+					$data["message"] = "The page you requested was not found ";
+					$this->load->view(VIEW_ERROR_404, $data);
+				}
+			} else {
+				$data["heading"] = "Invalid Page";
+				$data["message"] = "The page you requested was not found ";
+				$this->load->view(VIEW_ERROR_404, $data);
+			}
+		}
+
+		public function lihat_skripsi_surat_tugas()
+		{
+			$doc = $this->input->get('doc', true);
+			$params = explode('$', $doc);
+			if (!empty($params) && count($params) == 5) {
+				$id_tugas_akhir = $params[1];
+				$tipe = $params[2];
+				$jenis_str = $params[3];
+				$jenis = $params[4];
+				$tugas_akhir = $this->skripsi->detail_by_id($id_tugas_akhir);
+				$page = '';
+				$section_title = '';
+				$this->get_tipe_dokumen($tipe, $page, $section_title);
+				$this->get_jenis_dokumen_surat_tugas($jenis, $page, $section_title);
+
+				if ($tugas_akhir) {
+					$data_dokumen = [
+						'tipe' => $tipe,
+						'jenis' => $jenis_str,
+						'identitas' => $tugas_akhir->nim,
+					];
+				}
+
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				if (!empty($dokumen)) {
+					$data = array(
+						// PAGE //
+						'title' => 'Informasi Dokumen ',
+						'subtitle' => 'Surat Tugas',
+						'section' => $page,
+						// DATA //
+						'dokumen' => $dokumen,
+						'disertasi' => $tugas_akhir,
+						'jadwal' => $this->skripsi->read_jadwal($id_tugas_akhir, $jenis),
+						'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
+					);
 					$this->load->view('frontend/index', $data);
 				} else {
 					$data["heading"] = "Invalid Page";
@@ -593,6 +703,66 @@
 			}
 		}
 
+		public function cetak_skripsi_ujian()
+		{
+			$doc = $this->input->get('doc', true);
+			$params = explode('$', $doc);
+			if (!empty($params) && count($params) == 6) {
+				$id_tugas_akhir = $params[1];
+				$id_jadwal = $params[2];
+				$tipe = $params[3];
+				$jenis_str = $params[4];
+				$jenis = $params[5];
+				$tugas_akhir = $this->skripsi->detail_by_id($id_tugas_akhir);
+				$jadwal = $this->skripsi->read_jadwal_by_id($id_jadwal);
+				$page = '';
+				$section_title = '';
+				$this->get_tipe_dokumen($tipe, $page, $section_title);
+				$this->get_jenis_dokumen_skripsi($jenis, $page, $section_title);
+				$data_dokumen = [
+					'tipe' => $tipe,
+					'jenis' => $jenis_str,
+					'identitas' => $tugas_akhir->nim,
+					'date' => $jadwal->tanggal,
+				];
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
+				if (!empty($dokumen)) {
+					$dokumen_persetujuan_ketua = $this->dokumen->read_persetujuan_ketua($dokumen->id_dokumen);
+					$dokumen_persetujuan_anggota = $this->dokumen->read_persetujuan_anggota($dokumen->id_dokumen);
+
+					// QR
+					$data = array(
+						'skripsi' => $tugas_akhir,
+						'judul' => $this->skripsi->read_judul($id_tugas_akhir),
+						'jadwal' => $jadwal,
+						'penguji_ketua' => $this->skripsi->read_pengujiketua($jadwal->id_ujian),
+						'penguji_pembimbing' => $this->skripsi->read_pengujipembimbing($jadwal->id_ujian),
+						'penguji_anggota' => $this->skripsi->read_pengujianggota($jadwal->id_ujian),
+						'gelombang' => $this->skripsi->read_gelombangaktif(),
+						'wadek1' => $this->struktural->read_wadek1(),
+						'kps' => $this->struktural->read_kps(),
+						'kadep' => $this->struktural->read_kadep($tugas_akhir->id_departemen),
+						'qr_dokumen' => $dokumen->qr_image,
+						'dokumen_persetujuan_ketua' => $dokumen_persetujuan_ketua,
+						'dokumen_persetujuan_anggota' => $dokumen_persetujuan_anggota,
+						'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
+					);
+					$size = 'legal';
+					$this->pdf->setPaper($size, 'potrait');
+					$this->pdf->filename = $this->generate_slug($section_title) . '_' . $tugas_akhir->nim;
+					$this->pdf->load_view($page . '_document', $data);
+				} else {
+					$data["heading"] = "Invalid Page";
+					$data["message"] = "The page you requested was not found ";
+					$this->load->view(VIEW_ERROR_404, $data);
+				}
+			} else {
+				$data["heading"] = "Invalid Page";
+				$data["message"] = "The page you requested was not found ";
+				$this->load->view(VIEW_ERROR_404, $data);
+			}
+		}
+
 		public function cetak_proposal_skripsi_surat_tugas()
 		{
 			$doc = $this->input->get('doc', true);
@@ -624,6 +794,56 @@
 						'pembimbing' => $this->skripsi->read_pembimbing_row($id_tugas_akhir),
 						'wadek' => $this->struktural->read_wadek1(),
 						'proposal' => $tugas_akhir,
+						'qr_dokumen' => $dokumen->qr_image,
+						'judul' => $this->proposal_skripsi_diterima->read_judul($tugas_akhir->id_skripsi)
+					);
+					$size = 'legal';
+					$this->pdf->setPaper($size, 'potrait');
+					$this->pdf->filename = $this->generate_slug($section_title) . '_' . $tugas_akhir->nim;
+					$this->pdf->load_view($page . '_document', $data);
+				} else {
+					$data["heading"] = "Invalid Page";
+					$data["message"] = "The page you requested was not found ";
+					$this->load->view(VIEW_ERROR_404, $data);
+				}
+			} else {
+				$data["heading"] = "Invalid Page";
+				$data["message"] = "The page you requested was not found ";
+				$this->load->view(VIEW_ERROR_404, $data);
+			}
+		}
+
+		public function cetak_skripsi_surat_tugas()
+		{
+			$doc = $this->input->get('doc', true);
+			$params = explode('$', $doc);
+			if (!empty($params) && count($params) == 5) {
+				$id_tugas_akhir = $params[1];
+				$tipe = $params[2];
+				$jenis_str = $params[3];
+				$jenis = $params[4];
+				$jadwal = $this->skripsi->read_jadwal($id_tugas_akhir, $jenis);
+				$tugas_akhir = $this->skripsi->detail_by_id($id_tugas_akhir);
+				$page = '';
+				$section_title = '';
+				$this->get_tipe_dokumen($tipe, $page, $section_title);
+				$this->get_jenis_dokumen_surat_tugas($jenis, $page, $section_title);
+				$data_dokumen = [
+					'tipe' => $tipe,
+					'jenis' => $jenis_str,
+					'identitas' => $tugas_akhir->nim,
+				];
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				if (!empty($dokumen)) {
+					// QR
+					$data = array(
+						'dokumen' => $dokumen,
+						'jadwal' => $jadwal,
+						'penguji_ketua' => $this->proposal_skripsi_diterima->read_ketua_penguji($jadwal->id_ujian),
+						'penguji_anggota' => $this->proposal_skripsi_diterima->read_anggota_penguji($jadwal->id_ujian),
+						'pembimbing' => $this->skripsi->read_pembimbing_row($id_tugas_akhir),
+						'wadek' => $this->struktural->read_wadek1(),
+						'skripsi' => $tugas_akhir,
 						'qr_dokumen' => $dokumen->qr_image,
 						'judul' => $this->proposal_skripsi_diterima->read_judul($tugas_akhir->id_skripsi)
 					);
@@ -704,13 +924,11 @@
 				$jenis_str = $params[3];
 				$jenis = $params[4];
 				$jenis_ujian = 0;
-				if($jenis == TAHAPAN_TESIS_JUDUL OR $jenis == TAHAPAN_TESIS_PROPOSAL){
+				if ($jenis == TAHAPAN_TESIS_JUDUL or $jenis == TAHAPAN_TESIS_PROPOSAL) {
 					$jenis_ujian = UJIAN_TESIS_PROPOSAL;
-				}
-				else if($jenis == TAHAPAN_TESIS_MKPT){
+				} else if ($jenis == TAHAPAN_TESIS_MKPT) {
 					$jenis_ujian = UJIAN_TESIS_MKPT;
-				}
-				else if($jenis == TAHAPAN_TESIS_UJIAN){
+				} else if ($jenis == TAHAPAN_TESIS_UJIAN) {
 					$jenis_ujian = UJIAN_TESIS_UJIAN;
 				}
 				$jadwal = $this->tesis->read_jadwal($id_tugas_akhir, $jenis_ujian);

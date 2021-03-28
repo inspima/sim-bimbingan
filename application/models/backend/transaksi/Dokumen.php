@@ -254,6 +254,30 @@
 			return $query->result_array();
 		}
 
+		public function read_persetujuan_ketua($id_dokumen)
+		{
+			$this->db->select('*');
+			$this->db->from('dokumen_persetujuan');
+			$this->db->where('id_dokumen', $id_dokumen);
+			$this->db->where('jenis', 1);
+			$this->db->order_by('id_dokumen_persetujuan', 'asc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_persetujuan_anggota($id_dokumen)
+		{
+			$this->db->select('*');
+			$this->db->from('dokumen_persetujuan');
+			$this->db->where('id_dokumen', $id_dokumen);
+			$this->db->where('jenis', 0);
+			$this->db->order_by('id_dokumen_persetujuan', 'asc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function read_persetujuan_dosen($username, $tipe)
 		{
 			$this->db->select('d.*,m.nama nama_mhs');

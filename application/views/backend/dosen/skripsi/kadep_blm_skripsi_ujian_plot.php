@@ -15,9 +15,6 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"><?php echo $subtitle ?></h3>
-                <div class="pull-right">
-                    <a class="btn btn-xs btn-warning" href="<?= base_url() ?>dashboardd/skripsi/kadep_blm_skripsi/ujian/<?php echo $skripsi->id_skripsi ?>"><i class="fa fa-arrow-left"></i> Kembali</a>
-                </div>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -133,11 +130,11 @@
                     if ($ujian) {
                         //print_r($skripsi);die();
                         ?>
-                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i>  Perbarui</button>
                         <?php
                     } else {
                         ?>
-                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan Ruang</button>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i>  Simpan</button>
                         <?php
                     }
                 }

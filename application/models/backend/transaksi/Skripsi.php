@@ -447,6 +447,19 @@
 			return $query->row();
 		}
 
+		public function read_ujian_skripsi($id_skripsi)
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_skripsi', $id_skripsi);
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_UJIAN);//proposal
+			$this->db->where('u.status', 1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function read_ujian($id_skripsi)
 		{
 			$this->db->select('u.id_ujian, u.tanggal, u.id_ruang, u.id_jam, u.id_skripsi, r.ruang, r.gedung, j.jam');
@@ -762,6 +775,19 @@
 			return $query->row();
 		}
 
+		public function read_pengujipembimbing($id_ujian)
+		{
+			$this->db->select('pg.nama');
+			$this->db->from('penguji p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.id_ujian', $id_ujian);
+			$this->db->where('p.usulan_dosbing', 2);
+			$this->db->where('p.status', 2);
+			$this->db->limit(1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function read_pengujianggota($id_ujian)
 		{
 			$stts = array('1', '2');
@@ -874,6 +900,28 @@
 		{
 			$this->db->where('id_skripsi', $id_skripsi);
 			$this->db->update('skripsi', $data);
+		}
+
+		public function read_wadek()
+		{
+			$this->db->select('pg.nip, pg.nama,pg.ttd');
+			$this->db->from('pegawai pg');
+			$this->db->join('struktural st', 'pg.nip = st.nip');
+			$this->db->where('st.id_struktur', STRUKTUR_WADEK_1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_gelombangaktif()
+		{
+			$this->db->select('g.id_gelombang, g.no_sk, g.tgl_sk, g.gelombang,sr.semester');
+			$this->db->from('gelombang_skripsi g');
+			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
+			$this->db->where('g.status_berjalan', 1);
+			$this->db->where('g.status', 1);
+
+			$query = $this->db->get();
+			return $query->row();
 		}
 
 		// Status

@@ -67,6 +67,8 @@
 					'title' => 'Skripsi (Modul Ketua Departemen)',
 					'subtitle' => 'Data Skripsi',
 					'section' => 'backend/dosen/skripsi/kadep_blm_skripsi_ujian',
+					'use_back' => true,
+					'back_link' => 'dashboardd/skripsi/kadep_blm_skripsi',
 					// DATA //
 					'skripsi' => $this->skripsi->detail($id_departemen, $id_skripsi),
 					'ujian' => $this->skripsi->read_ujian($id_skripsi),
@@ -150,6 +152,8 @@
 					'title' => 'Skripsi (Modul Ketua Departemen)',
 					'subtitle' => 'Data Skripsi',
 					'section' => 'backend/dosen/skripsi/kadep_blm_skripsi_ujian_plot',
+					'use_back' => true,
+					'back_link' => 'dashboardd/skripsi/kadep_blm_skripsi',
 					// DATA //
 					'skripsi' => $this->skripsi->detail($id_departemen, $id_skripsi),
 					'nid_ujian' => $this->skripsi->cek_id_ujian($id_ujian, $id_skripsi),
