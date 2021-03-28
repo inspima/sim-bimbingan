@@ -138,7 +138,7 @@
                     <div class="form-group">
                         <label>Link Zoom</label>
                         <br>
-                        <a href="'.$link_zoom.'" target="_blank">'.$link_zoom.'</a>
+                        '.$link_zoom.'
                     </div>';   
                 }
                 ?>

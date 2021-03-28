@@ -30,11 +30,14 @@ if (!empty($jadwal)) {
     </div>
 
     <div class="form-group">
-        <label>Link Zoom</label>
+        <label>Link Zoom / Meeting</label>
         <hr class="divider-line-thin"/>
         <p>
             <i class="fa fa-globe"></i>&nbsp;&nbsp;
-            <?= '<a href="'.$jadwal->link_zoom.'" target="_blank">'.$jadwal->link_zoom.'</a>'; ?>
+            <?php 
+                echo $jadwal->link_zoom; 
+                //echo '<a href="'.$jadwal->link_zoom.'" target="_blank">'.$jadwal->link_zoom.'</a>'; 
+            ?>
         </p>
     </div>
     <?php

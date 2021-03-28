@@ -181,7 +181,7 @@
                                 <a href="<?= base_url() ?>mahasiswa/tesis/proposal/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
                             //}
-                            if ($list['status_proposal'] == STATUS_TESIS_PROPOSAL_PENGAJUAN) {
+                            if ($list['status_proposal'] < STATUS_TESIS_PROPOSAL_UJIAN_SELESAI) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/proposal/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
                                 <?php

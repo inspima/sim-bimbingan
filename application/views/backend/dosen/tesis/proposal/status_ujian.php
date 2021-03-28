@@ -137,7 +137,7 @@
                     <div class="form-group">
                         <label>Link Zoom</label>
                         <br>
-                        <a href="'.$link_zoom.'" target="_blank">'.$link_zoom.'</a>
+                        '.$link_zoom.'
                     </div>';   
                 }
                 ?>
@@ -165,7 +165,7 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>Nama</th>
-                                <th>Keterangan Pengujia</th>
+                                <th>Keterangan Penguji</th>
                                 <th>Tim</th>
                                 <th>Status</th>
                             </tr>
@@ -362,7 +362,7 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : ''; ?>" class="form-control pull-right" id="datepicker">
+                            <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : date('d/m/Y'); ?>" class="form-control pull-right" id="datepicker">
                         </div>
                     </div>
                 </div>

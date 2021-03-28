@@ -913,14 +913,14 @@
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else if ($hitung_approve < $hitung_penguji && $hitung_approve > 0) {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve > 0)) {
 				$data = array(
 					'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve == 0)) {
 				$data = array(
 					'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
 				);
@@ -962,14 +962,14 @@
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else if ($hitung_approve < $hitung_penguji && $hitung_approve > 0) {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve > 0)) {
 				$data = array(
 					'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve == 0)) {
 				$data = array(
 					'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
 				);
@@ -1010,14 +1010,14 @@
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else if ($hitung_approve < $hitung_penguji && $hitung_approve > 0) {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve > 0)) {
 				$data = array(
 					'status_proposal' => STATUS_TESIS_PROPOSAL_SETUJUI_PENGUJI
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve == 0)) {
 				$data = array(
 					'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN
 				);
@@ -1468,7 +1468,7 @@
 
 		public function cek_penguji($data)
 		{
-			$stts = array('1', '2');
+			$stts = array('1', '2', '3');
 			$this->db->select('p.id_penguji');
 			$this->db->from('penguji_tesis p');
 			$this->db->join('ujian_tesis u', 'p.id_ujian = u.id_ujian');

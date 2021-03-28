@@ -365,20 +365,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td>
                     <table border="0" style="width:100%;margin-top: 10px">
                         <?php
-                         $status_lanjut = '';
+                        $status_lanjut = '';
+                        $keterangan = '';
                         if($tesis->status_ujian_proposal != ''){
                             if($tesis->status_ujian_proposal == '0'){
                                 $status_lanjut = 'Dapat / Tidak Dapat *)';
+                                $keterangan = '';
                             }
                             if($tesis->status_ujian_proposal == '1'){
-                                 $status_lanjut = 'Dapat';
+                                $status_lanjut = 'Dapat';
+                                $keterangan = '';
                             }
                             if($tesis->status_ujian_proposal == '3'){
-                                 $status_lanjut = 'Tidak Dapat';
+                                $status_lanjut = 'Tidak Dapat';
+                                $keterangan = '<br>Masih harus diuji kembali pada tanggal : '.$tgl_sk;
                             }
                         }
                         else {
                              $status_lanjut = 'Dapat / Tidak Dapat *)';
+                             $keterangan = '';
                         }
                         ?>
                         <tr>
@@ -386,7 +391,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p>
                                     Memutuskan bahwa ujian proposal tesis bagi mahasiswa tersebut :
                                     <br><b><?= $status_lanjut?></b> dilanjutkan sebagai materi penelitiannya 
-                                    <br>Masih harus diuji kembali pada tanggal : <?= $tgl_sk; ?>
+                                    <?= $keterangan?>
                                 </p>
                             </td>
                         </tr>

@@ -405,7 +405,7 @@ class Proposal extends CI_Controller {
         $this->tesis->reject_penguji_proposal($id, $id_tesis_ujian, $this->session_data['username'], $keterangan);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Penguji Proposal ditolak');
-        redirect('dosen/tesis/proposal/penguji');
+        redirect('dosen/tesis/proposal/penguji/'.$id_prodi);
     }
 
     public function batal_penguji() {
