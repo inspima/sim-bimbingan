@@ -79,7 +79,7 @@
 									<?php
 										if ($list['status_skripsi'] < STATUS_SKRIPSI_UJIAN_PENGAJUAN) {
 											?>
-											<b style="text-decoration: underline">Pengajuan</b><br/>
+											<b style="text-decoration: underline"> Pengajuan</b><br/>
 											<?php
 											$jumlah_bimbingan = $this->skripsi->jumlah_bimbingan($list['id_skripsi']);
 
@@ -97,42 +97,36 @@
 											//tanggal 2 bulan kedepan
 											$batas_true = date('Y-m-d', strtotime('+2 month', strtotime($awal_bimbingan)));
 
-
-											if ($jumlah_bimbingan >= 8) {
-												if ($now >= $batas_true) {
-													if ($list['status_skripsi'] == '0') {
-														if ($list['toefl'] != '0') {
-															if ($list['turnitin'] == '') {
-																?>
-																<b class="text-danger" style="font-size: 0.8em">Berkas Turnitin belum di upload</b>
-																<?php
-															} else {
-																?>
-																<?php echo form_open('dashboardm/modul/skripsi/daftar') ?>
-																<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-																<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-																<button type="submit" class="btn btn-xs btn-success pull-left" style="margin: 10px 0px">
-																	<i class="fa fa-check"></i> Daftar
-																</button><br/><br/>
-																<?php echo form_close() ?>
-																<?php
-															}
-														} else if ($list['toefl'] == '0') {
-															?>
-															<b class="text-danger" style="font-size: 0.8em">Nilai TOEFL Belum dimasukkan</b>
-															<?php
-														}
-													} else {
-
-													}
-												} else {
-													?>
-													<b class="text-danger" style="font-size: 0.8em">Jangka waktu bimbingan awal dan pengajuan minimal 2 bulan</b>
-													<?php
-												}
-											} else {
+											if ($jumlah_bimbingan >= 8 && $now >= $batas_true && $list['toefl'] != '0' && $list['turnitin'] != '') {
 												?>
-												<b class="text-danger" style="font-size: 0.8em">Total bimbingan minimal 8x dan sudah disetujui pembimbing</b>
+												<?php echo form_open('dashboardm/modul/skripsi/daftar') ?>
+												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+												<button type="submit" class="btn btn-xs btn-success pull-left" style="margin: 10px 0px">
+													<i class="fa fa-check"></i> Daftar
+												</button><br/><br/>
+												<?php echo form_close() ?>
+												<?php
+											}
+											if ($list['toefl'] == '0') {
+												?>
+												<b class="text-danger" style="font-size: 0.8em">- Nilai TOEFL Belum dimasukkan</b><br/>
+												<?php
+											}
+											if ($list['turnitin'] == '') {
+												?>
+												<b class="text-danger" style="font-size: 0.8em">- Berkas Turnitin belum di upload</b><br/>
+												<?php
+											}
+											if ($jumlah_bimbingan < 8) {
+												?>
+												<b class="text-danger" style="font-size: 0.8em">- Total bimbingan minimal 8x dan sudah disetujui pembimbing</b><br/>
+												<?php
+
+											}
+											if ($now < $batas_true) {
+												?>
+												<b class="text-danger" style="font-size: 0.8em">- Jangka waktu bimbingan awal dan pengajuan minimal 2 bulan</b><br/>
 												<?php
 											}
 											?>

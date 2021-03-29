@@ -98,7 +98,7 @@
 
 					$this->session->set_flashdata('msg-title', 'alert-success');
 					$this->session->set_flashdata('msg', 'Berhasil upload');
-					redirect('dashboardm/modul/skripsi');
+					redirect_back();
 				}
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
@@ -120,7 +120,7 @@
 
 				$this->session->set_flashdata('msg-title', 'alert-success');
 				$this->session->set_flashdata('msg', 'Berhasil update');
-				redirect('dashboardm/modul/skripsi');
+				redirect_back();
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
