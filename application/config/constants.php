@@ -184,6 +184,10 @@
 	define('STRUKTUR_KPS_S2', 8);
 	define('STRUKTUR_KPS_S3', 9);
 
+	// BERITA
+	define('BERITA_KATEGORI_MAHASISWA', 1);
+	define('BERITA_KATEGORI_DOSEN', 2);
+
 	// UJIAN
 	define('HASIL_UJIAN_LANJUT', 1);
 	define('HASIL_UJIAN_ULANG', 2);
