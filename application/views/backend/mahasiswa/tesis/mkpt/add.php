@@ -64,9 +64,6 @@
                             <tr>
                                 <th style="width: 35%">Topik</th>
                                 <th style="width: 10%">SKS</th>
-                                <th style="width: 45%">Dosen</th>
-                                <th style="width: 45%">Status</th>
-                                <th style="width: 10%">Nilai</th>
                             </tr>
                             <?php
                             $tesis_mkpts = $this->tesis->read_tesis_mkpt($tesis->id_tesis); 
@@ -135,41 +132,12 @@
                                             2
                                             <!-- <input name="sks<?php //echo $i?>" type="number" value="2" class="form-control" > -->
                                         </td>
-                                        <td>
-                                            <!-- <select name="pengampu<?=$i?>[]" class="form-control select2" style="width: 100%;"  multiple>
-                                                <option value="">- Pilih -</option>
-                                                <?php
-                                                    /*foreach ($mdosen as $list) {
-                                                        ?>
-                                                        <option value="<?php echo $list['nip'] ?>"><?php echo $list['nip'].' - '.$list['nama'] ?></option>
-                                                        <?php
-                                                    }*/
-                                                ?>
-                                            </select> -->
-                                        </td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                     <?php
                                 }
                             }
                             ?>
                         </table>
-                    </div>
-                    <?php
-                    if($tesis->berkas_mkpt != '') {
-                    ?>
-                    <div class="form-group">
-                        <label>File Form MKPT</label>
-                        <br/>
-                        <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/mkpt/<?php echo $tesis->berkas_mkpt ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                    </div>
-                    <?php 
-                    }
-                    ?>
-                    <div class="form-group">
-                        <label>Upload Form MKPT<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
-                        <input type="file" name="berkas_mkpt" class="form-control" required>
                     </div>
                 </div>
                 <!-- /.box-body -->

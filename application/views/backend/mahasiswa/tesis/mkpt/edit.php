@@ -100,7 +100,7 @@
                                             <tr>
                                                 <td>'.$mkpt['mkpt'].'</td>
                                                 <td>'.$mkpt['sks'].'</td>
-                                                <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
+                                                <td>'.($pengampu['nip'] ? ('<b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama']) : 'Belum Disetting').'</td>
                                                 <td>'.$status.'</td>
                                                 <td>'.$pengampu['nilai_angka'].'</td>
                                             </tr>
@@ -152,21 +152,6 @@
                             }
                             ?>
                         </table>
-                    </div>
-                    <?php
-                    if($tesis->berkas_mkpt != '') {
-                    ?>
-                    <div class="form-group">
-                        <label>File Form MKPT</label>
-                        <br/>
-                        <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/mkpt/<?php echo $tesis->berkas_mkpt ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                    </div>
-                    <?php 
-                    }
-                    ?>
-                    <div class="form-group">
-                        <label>Upload Form MKPT<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
-                        <input type="file" name="berkas_mkpt" class="form-control" required>
                     </div>
                 </div>
                 <!-- /.box-body -->

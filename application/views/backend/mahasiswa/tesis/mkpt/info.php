@@ -142,17 +142,6 @@
                         ?>
                     </table>
                 </div>
-                <?php
-                if($tesis->berkas_mkpt != '') {
-                ?>
-                <div class="form-group">
-                    <label>File Form MKPT</label>
-                    <br/>
-                    <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/mkpt/<?php echo $tesis->berkas_mkpt ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                </div>
-                <?php 
-                }
-                ?>
             </div>
             <!-- /.box-body -->
         </div>

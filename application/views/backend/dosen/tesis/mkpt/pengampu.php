@@ -31,7 +31,6 @@
                     <!-- <th>Departemen</th> -->
                     <th>Minat</th>                    
                     <th>MKPT</th>
-                    <th>Berkas MKPT</th>
                     <th>Status</th>
                     <th>Opsi</th>
                 </tr>
@@ -130,15 +129,6 @@
                                 <a class="btn btn-xs btn-success pull-left" href="#">
                                 <i class="fa fa-check"></i> Ditolak</a>
                             <?php
-                            }
-                            ?>
-                        </td>
-                        <td class="text-center">
-                            <?php
-                            if($list['berkas_mkpt'] != '') {
-                            ?>
-                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/mkpt/<?php echo $list['berkas_mkpt'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                            <?php 
                             }
                             ?>
                         </td>

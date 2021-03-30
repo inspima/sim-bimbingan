@@ -20,7 +20,6 @@
                 <tr>
                     <th>No</th>
                     <th>Tesis</th>
-                    <th class="text-center">Berkas MKPT</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
                 </tr>
@@ -84,15 +83,6 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <?php
-                            if($list['berkas_mkpt'] != '') {
-                            ?>
-                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/mkpt/<?php echo $list['berkas_mkpt'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                            <?php 
-                            }
-                            ?>
-                        </td>
-                        <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_MKPT]); ?>
                             <?php if ($list['status_mkpt'] > STATUS_TESIS_MKPT_UJIAN) {
                                 ?>
@@ -117,7 +107,7 @@
                                 <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
                             }
-                            if ($list['status_mkpt'] == STATUS_TESIS_MKPT_PENGAJUAN) {
+                            if ($list['status_mkpt'] <= STATUS_TESIS_MKPT_UJIAN_SELESAI && $list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
                                 <?php

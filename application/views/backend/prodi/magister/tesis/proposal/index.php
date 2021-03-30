@@ -157,6 +157,12 @@
                                             $tgl_sk = date('d/m/Y', strtotime($dokumen_berita->date_doc));
                                             $tgl_surat = date('d/m/Y', strtotime($dokumen_berita->date));
                                         }
+
+                                        $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_PROPOSAL);
+
+                                        if(!empty($ujian)){
+                                            $link_zoom = $ujian->link_zoom ? $ujian->link_zoom : '';
+                                        }
                                         ?>
                                         <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModalBeritaAcara<?= $list['id_tesis']?>">
                                             <i class="fa fa-file"></i> Berita Acara
@@ -181,7 +187,6 @@
                                                         <div class="modal-body">
                                                             <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                                             <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                                            <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -194,7 +199,7 @@
                                         </div>
                                         <?php
                                         $data_dokumen_undangan = [
-                                            'tipe' => DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS,
+                                            'tipe' => DOKUMEN_UNDANGAN_PROPOSAL_TESIS,
                                             'jenis' => DOKUMEN_JENIS_TESIS_PROPOSAL_STR,
                                             'identitas' => $list['nim'],
                                         ];
@@ -256,7 +261,7 @@
                                         </div>
                                         <?php
                                         $data_dokumen_presensi = [
-                                            'tipe' => DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS,
+                                            'tipe' => DOKUMEN_DAFTAR_HADIR_PROPOSAL_TESIS,
                                             'jenis' => DOKUMEN_JENIS_TESIS_PROPOSAL_STR,
                                             'identitas' => $list['nim'],
                                         ];

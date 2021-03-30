@@ -1371,20 +1371,22 @@ class Proposal extends CI_Controller {
                 $identitas = $penguji['nip'];
                 //}
 
-                $data_dokumen_persetujuan = [
-                    'id_dokumen' => $dokumen->id_dokumen,
-                    'identitas' => $identitas,
-                    'jenis' => 0,
-                ];
+                if($identitas == $this->session_data['username']){
+                    $data_dokumen_persetujuan = [
+                        'id_dokumen' => $dokumen->id_dokumen,
+                        'identitas' => $identitas,
+                        'jenis' => 0,
+                    ];
 
-                $dokumen_persetujuan = $this->dokumen->detail_persetujuan_by_data($data_dokumen_persetujuan);
+                    $dokumen_persetujuan = $this->dokumen->detail_persetujuan_by_data($data_dokumen_persetujuan);
 
-                $id_dokumen_persetujuan = $dokumen_persetujuan->id_dokumen_persetujuan;
+                    $id_dokumen_persetujuan = $dokumen_persetujuan->id_dokumen_persetujuan;
 
-                $data_persetujuan = [
-                    'waktu' => date('Y-m-d H:i:s')
-                ];
-                $this->dokumen->update_persetujuan($data_persetujuan, $id_dokumen_persetujuan);
+                    $data_persetujuan = [
+                        'waktu' => date('Y-m-d H:i:s')
+                    ];
+                    $this->dokumen->update_persetujuan($data_persetujuan, $id_dokumen_persetujuan);
+                }
                 //$this->session->set_flashdata('msg-title', 'alert-success');
                 //$this->session->set_flashdata('msg', 'Persetujuan dokumen berhasil');
             }

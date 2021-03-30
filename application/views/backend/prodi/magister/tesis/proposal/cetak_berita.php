@@ -96,7 +96,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -122,7 +121,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -165,7 +163,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -191,7 +188,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -206,7 +202,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -234,7 +229,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -249,7 +243,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -260,7 +253,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -275,7 +267,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -303,7 +294,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -318,7 +308,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -329,7 +318,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -344,7 +332,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
