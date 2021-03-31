@@ -35,6 +35,21 @@ $(function () {
 		allowClear: true
 	});
 
+	$("#btn-submit-confirm-persetujuan").click(function (event) {
+		event.preventDefault();
+		var r = confirm("Apakah anda yakin melakukan ini!");
+		if (r == true) {
+			if($('#nilai').val()!=''&&$('#hasil').val()!=''){
+				$("form").submit();
+			}else{
+				swal("Gagal", "Mohon Periksa isian anda, nilai dan hasil wajib diisi", "error");
+			}
+
+		} else {
+			return false;
+		}
+	});
+
 	$("#btn-submit-confirm").click(function (event) {
 		event.preventDefault();
 		var r = confirm("Apakah anda yakin melakukan ini!");

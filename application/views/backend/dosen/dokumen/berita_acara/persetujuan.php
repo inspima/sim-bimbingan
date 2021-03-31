@@ -202,11 +202,11 @@
 						<?php echo formtext('hidden', 'jenis', $dokumen_persetujuan->jenis, 'required') ?>
 						<div class="form-group">
 							<label>Nilai</label>
-							<input type="text" name="nilai" class="form-control">
+							<input type="text" id="nilai" name="nilai" required="true" class="form-control">
 						</div>
 						<div class="form-group">
 							<label>Hasil</label>
-							<select name="hasil" class="form-control select2" style="width: 100%;" required data-placeholder="Pilih Hasil">
+							<select name="hasil" id="hasil" class="form-control select2" style="width: 100%;" required data-placeholder="Pilih Hasil">
 								<option></option>
 								<?php
 									foreach ($status_ujians as $status_ujian) {
@@ -226,7 +226,7 @@
 					</div>
 					<!-- /.box-body -->
 					<div class="box-footer">
-						<button type="submit" id="btn-submit-confirm" class="btn btn-sm btn-success">
+						<button type="submit" id="btn-submit-confirm-persetujuan" class="btn btn-sm btn-success">
 							<i class="fa fa-check"></i> Setujui
 						</button>
 					</div>
