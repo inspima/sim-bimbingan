@@ -16,7 +16,7 @@
         <div class="box-header with-border">
             <h3 class="box-title"><?php echo $subtitle?></h3>
             <div class="pull-right">
-                <a class="btn btn-xs btn-warning" href="<?= base_url()?>dashboardb/skripsi/skripsi_diterima"><i class="fa fa-arrow-left"></i> Kembali</a>
+                <a class="btn btn-xs btn-warning" href="<?= base_url()?>baa/sarjanah/skripsi/diterima"><i class="fa fa-arrow-left"></i> Kembali</a>
             </div>
         </div>
         <!-- /.box-header -->

@@ -442,6 +442,9 @@
 	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
 	$route['baa/utility/registrasi/verifikasi'] = 'backend/baa/utility/registrasi/verifikasi';
 	$route['baa/utility/pencarian'] = 'backend/baa/utility/pencarian';
+	$route['baa/utility/pembimbing/sarjana/(:num)'] = 'backend/baa/utility/pencarian/pembimbing_sarjana/$1';
+	$route['baa/utility/pembimbing/sarjana/save'] = 'backend/baa/utility/pencarian/pembimbing_save';
+	$route['baa/utility/pembimbing/sarjana/delete'] = 'backend/baa/utility/pencarian/pembimbing_delete';
 
 	$route['baa/report/skripsi'] = 'backend/baa/report/skripsi';
 	$route['baa/report/skripsi/bimbingan'] = 'backend/baa/report/skripsi/bimbingan';
