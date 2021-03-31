@@ -65,24 +65,29 @@
 				$datas = $this->skripsi->read_jadwal_all();
 				foreach ($datas as $data) {
 					$skripsi = $this->skripsi->detail_by_id($data['id_skripsi']);
-					$results[] = [
-						'id' => $data['id_ujian'],
-						'type' => JENJANG_S1,
-						'title' => $skripsi->nim . ' - ' . ($data['jenis_ujian'] == 1 ? "Proposal Skripsi" : "Skripsi") . ' - ' . $data['ruang'],
-						'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
-						'backgroundColor' => '#fc0303'
-					];
+					if (!empty($skripsi)) {
+						$results[] = [
+							'id' => $data['id_ujian'],
+							'type' => JENJANG_S1,
+							'title' => $skripsi->nim . ' - ' . ($data['jenis_ujian'] == 1 ? "Proposal Skripsi" : "Skripsi") . ' - ' . $data['ruang'],
+							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
+							'backgroundColor' => '#fc0303'
+						];
+					}
+
 				}
 				$datas = $this->tesis->read_jadwal_all();
 				foreach ($datas as $data) {
 					$skripsi = $this->tesis->detail($data['id_tesis']);
-					$results[] = [
-						'id' => $data['id_ujian'],
-						'type' => JENJANG_S2,
-						'title' => $skripsi->nim . ' - ' . ($data['jenis_ujian'] == 1 ? "Proposal Tesis" : "Tesis") . ' - ' . $data['ruang'],
-						'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
-						'backgroundColor' => '#1191ed'
-					];
+					if (!empty($skripsi)) {
+						$results[] = [
+							'id' => $data['id_ujian'],
+							'type' => JENJANG_S2,
+							'title' => $skripsi->nim . ' - ' . ($data['jenis_ujian'] == 1 ? "Proposal Tesis" : "Tesis") . ' - ' . $data['ruang'],
+							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
+							'backgroundColor' => '#1191ed'
+						];
+					}
 				}
 				return $this->responseDataOnly($results);
 			} catch (Exception $e) {
