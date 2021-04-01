@@ -373,6 +373,11 @@
 	$route['kadep/sarjana/kadep/proposal/pembimbing_save'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_save';
 	$route['kadep/sarjana/kadep/proposal/pembimbing_delete'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_delete';
 	$route['kadep/sarjana/kadep/proposal/pembimbing_konfirm'] = 'backend/dosen/skripsi/kadep_proposal/pembimbing_konfirm';
+	$route['dosen/sarjana/kadep/skripsi/plot_ulang/(:num)'] = 'backend/dosen/skripsi/kadep_skripsi/plot_ulang';
+	$route['dosen/sarjana/kadep/skripsi/ujian_ulang_save'] = 'backend/dosen/skripsi/kadep_skripsi/ujian_ulang_save';
+	$route['dosen/sarjana/kadep/skripsi/penguji_save'] = 'backend/dosen/skripsi/kadep_skripsi/penguji_save';
+	$route['dosen/sarjana/kadep/skripsi/penguji_delete'] = 'backend/dosen/skripsi/kadep_skripsi/penguji_delete';
+	$route['dosen/sarjana/kadep/skripsi/penguji_update_statustim'] = 'backend/dosen/skripsi/kadep_skripsi/penguji_update_statustim';
 
 	//Dosen
 	$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_proposal';

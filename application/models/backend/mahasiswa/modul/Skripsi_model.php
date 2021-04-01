@@ -279,13 +279,13 @@
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_SETUJUI_KADEP,
 						'text' => 'Disetujui Kadep',
-						'keterangan' => 'Disetujui oleh Kepala Departemen',
+						'keterangan' => 'Disetujui oleh Kepala Bagian',
 						'color' => 'bg-green'
 					],
 					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_DIJADWALKAN,
 						'text' => 'Dijadwalkan',
-						'keterangan' => 'Dijadwalkan, diajukan Penguji dan Pembimbing oleh Kepala Departemen',
+						'keterangan' => 'Dijadwalkan, diajukan Penguji dan Pembimbing oleh Kepala Bagian',
 						'color' => 'bg-navy'
 					],
 					[
@@ -295,16 +295,28 @@
 						'color' => 'bg-green'
 					],
 					[
+						'value' => STATUS_SKRIPSI_PROPOSAL_CETAK_DOKUMEN,
+						'text' => 'Cetak Dokumen',
+						'keterangan' => 'BAA Cetak semua berkas Ujian menunggu penilaian para dosen',
+						'color' => 'bg-orange'
+					],
+					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_UJIAN,
 						'text' => 'Ujian',
 						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
 						'color' => 'bg-purple'
 					],
 					[
+						'value' => STATUS_SKRIPSI_PROPOSAL_PEMBIMBING,
+						'text' => 'Konfirmasi Pembimbing',
+						'keterangan' => 'Ketua Bagian menentukan pembimbing',
+						'color' => 'bg-maroon-active'
+					],
+					[
 						'value' => STATUS_SKRIPSI_PROPOSAL_SELESAI,
 						'text' => 'Ujian Selesai',
-						'keterangan' => 'Selesai, hasil sudah ditentukan oleh Kepala Departemen',
-						'color' => 'bg-maroon-active'
+						'keterangan' => 'Selesai, hasil sudah ditentukan oleh ketua penguji',
+						'color' => 'bg-red'
 					],
 				];
 			} else if ($urutan == TAHAPAN_SKRIPSI_UJIAN) {
@@ -336,7 +348,7 @@
 					[
 						'value' => STATUS_SKRIPSI_UJIAN_DIJADWALKAN,
 						'text' => 'Dijadwalkan',
-						'keterangan' => 'Dijadwalkan oleh Kepala Departemen, pengajuan penguji',
+						'keterangan' => 'Dijadwalkan oleh Kepala Bagian, pengajuan penguji',
 						'color' => 'bg-green'
 					],
 					[

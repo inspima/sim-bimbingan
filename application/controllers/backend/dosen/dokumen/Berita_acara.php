@@ -179,14 +179,14 @@
 							];
 							$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
 						} else {
-							$ujian_aktif = $this->skripsi->read_ujian_aktif($dokumen->id_tugas_akhir, UJIAN_SKRIPSI_PROPOSAL);
+							$ujian_aktif = $this->skripsi->read_ujian_aktif($dokumen->id_tugas_akhir, UJIAN_SKRIPSI_UJIAN);
 							$data_ujian = [
 								'hasil_ujian' => HASIL_UJIAN_ULANG,
 								'hasil_keterangan' => $keterangan,
 							];
 							$this->skripsi->update_ujian($data_ujian, $ujian_aktif->id_ujian);
 							$data_skripsi = [
-								'status_ujian_skripsi' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_PROPOSAL),
+								'status_ujian_skripsi' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_UJIAN),
 							];
 							$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
 						}

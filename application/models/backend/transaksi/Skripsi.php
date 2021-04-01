@@ -233,7 +233,7 @@
 			$this->db->from('skripsi s');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
 			$this->db->where('s.nim', $username);
-			$this->db->where('s.jenis', 2);
+			$this->db->where('s.jenis', TAHAPAN_SKRIPSI_UJIAN);
 			$this->db->limit(1);
 			$this->db->order_by('s.id_skripsi', 'desc');
 
@@ -879,7 +879,8 @@
 					'id_ujian' => $id_ujian_baru,
 					'nip' => $penguji['nip'],
 					'status_tim' => $penguji['status_tim'],
-					'status' => $penguji['status']
+					'status' => $penguji['status'],
+					'usulan_dosbing' => $penguji['usulan_dosbing'],
 				);
 				$this->save_penguji($data);
 			}

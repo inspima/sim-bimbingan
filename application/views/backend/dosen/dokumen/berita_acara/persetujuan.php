@@ -143,26 +143,39 @@
 										if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR) {
 											$id_hasil = $this->skripsi->get_id_status_ujian_by_text($dokumen_persetujuan->hasil, UJIAN_SKRIPSI_UJIAN);
 										}
-										if ($id_hasil != HASIL_UJIAN_LANJUT) {
-											?>
-											<hr class="divider-line-thin"/>
-											<a class="btn btn-xs bg-navy pull-left" target="_blank" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_ulang/<?= $dokumen->id_tugas_akhir ?>">
-												<i class="fa fa-repeat"></i> Penjadwalan Ulang
-											</a>
-											<br/>
-											<?php
-										} else if ($id_hasil == HASIL_UJIAN_LANJUT) {
-											$pembimbing = $this->skripsi->read_pembimbing_row($dokumen->id_tugas_akhir);
-											if (empty($pembimbing)) {
+										if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR) {
+											if ($id_hasil != HASIL_UJIAN_LANJUT) {
 												?>
 												<hr class="divider-line-thin"/>
-												<a class="btn btn-xs bg-green-active pull-left" target="_blank" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_pembimbing/<?= $dokumen->id_tugas_akhir ?>">
-													<i class="fa fa-user-circle-o"></i> Usulkan Pembimbing
+												<a class="btn btn-xs bg-navy pull-left" target="_blank" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_ulang/<?= $dokumen->id_tugas_akhir ?>">
+													<i class="fa fa-repeat"></i> Penjadwalan Ulang
+												</a>
+												<br/>
+												<?php
+											} else if ($id_hasil == HASIL_UJIAN_LANJUT) {
+												$pembimbing = $this->skripsi->read_pembimbing_row($dokumen->id_tugas_akhir);
+												if (empty($pembimbing)) {
+													?>
+													<hr class="divider-line-thin"/>
+													<a class="btn btn-xs bg-green-active pull-left" target="_blank" href="<?= base_url() ?>dosen/sarjana/kadep/proposal/plot_pembimbing/<?= $dokumen->id_tugas_akhir ?>">
+														<i class="fa fa-user-circle-o"></i> Usulkan Pembimbing
+													</a>
+													<br/>
+													<?php
+												}
+
+											}
+										}
+										if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR) {
+											if ($id_hasil != HASIL_UJIAN_LANJUT) {
+												?>
+												<hr class="divider-line-thin"/>
+												<a class="btn btn-xs bg-navy pull-left" target="_blank" href="<?= base_url() ?>dosen/sarjana/kadep/skripsi/plot_ulang/<?= $dokumen->id_tugas_akhir ?>">
+													<i class="fa fa-repeat"></i> Penjadwalan Ulang
 												</a>
 												<br/>
 												<?php
 											}
-
 										}
 									}
 
