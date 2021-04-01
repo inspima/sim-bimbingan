@@ -194,7 +194,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])) {
 									if (!empty($penguji['ttd'])) {
 										?>
-										<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="40px"/>
+										<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="60px"/>
 										<?php
 									} else {
 										?>

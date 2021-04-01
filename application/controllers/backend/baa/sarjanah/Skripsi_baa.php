@@ -138,7 +138,7 @@
 				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
 				// DOKUMEN
 				$data_dokumen = [
-					'kode' => $this->dokumen->generate_kode(DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR, TAHAPAN_SKRIPSI_PROPOSAL_STR, $skripsi->nim, $tgl_sk),
+					'kode' => $this->dokumen->generate_kode(DOKUMEN_SURAT_TUGAS_SKRIPSI_PENGUJI_STR, TAHAPAN_SKRIPSI_UJIAN_STR, $skripsi->nim, $tgl_sk),
 					'tipe' => DOKUMEN_SURAT_TUGAS_SKRIPSI_PENGUJI_STR,
 					'jenis' => DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR,
 					'id_jenjang' => JENJANG_S1,
