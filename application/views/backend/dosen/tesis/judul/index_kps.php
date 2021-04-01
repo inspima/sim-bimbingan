@@ -44,7 +44,13 @@
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
                     <!-- <th>Departemen</th> -->
-                    <th>Minat</th>
+                    <?php
+                    if($prodi == S2_ILMU_HUKUM){
+                    ?>
+                        <th>Minat</th>
+                    <?php
+                    }
+                    ?>
                     <th>Tanggal Pengajuan</th>
                     <th>Status</th>
                     <th>Kontrol</th>
@@ -155,7 +161,13 @@
                             ?>
                         </td>
                         <!-- <td><?php //echo $list['departemen'] ?></td> -->
-                        <td><?= $list['nm_minat'] ?></td>
+                        <?php
+                        if($prodi == S2_ILMU_HUKUM){
+                        ?>
+                            <td><?= $list['nm_minat']?></td>
+                        <?php
+                        }
+                        ?>
                         <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
                             <?php

@@ -25,19 +25,25 @@
                         ?>
                     </select>
                 </div> -->
-                <div class="form-group">
-                    <label>Minat</label>
-                    <select name="minat" class="form-control select2" style="width: 100%;" required>
-                        <option value="">- Pilih -</option>
-                        <?php
-                        foreach ($minat as $list) {
-                            ?>
-                            <option value="<?php echo $list['id_minat'] ?>" ><?php echo $list['nm_minat'] ?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </div>
+                <?php
+                if($biodata->id_prodi == S2_ILMU_HUKUM){
+                ?>
+	                <div class="form-group">
+	                    <label>Minat</label>
+	                    <select name="minat" class="form-control select2" style="width: 100%;" required>
+	                        <option value="">- Pilih -</option>
+	                        <?php
+	                        foreach ($minat as $list) {
+	                            ?>
+	                            <option value="<?php echo $list['id_minat'] ?>" ><?php echo $list['nm_minat'] ?></option>
+	                            <?php
+	                        }
+	                        ?>
+	                    </select>
+	                </div>
+	            <?php
+	        	}
+	        	?>
                 <div class="form-group">
                     <label>Judul</label>
                     <textarea class="form-control" name="judul" required></textarea>

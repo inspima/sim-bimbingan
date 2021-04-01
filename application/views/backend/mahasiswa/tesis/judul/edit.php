@@ -33,26 +33,32 @@
                             ?>
                         </select>
                     </div> -->
-                    <div class="form-group">
-                        <label>Minat</label>
-                        <select name="minat" class="form-control select2" style="width: 100%;" required>
-                            <option value="">- Pilih -</option>
-                            <?php
-                            foreach ($minat as $list) {
-                                $selected = '';
-                                if($list['id_minat'] == $tesis->id_minat){
-                                    $selected = 'selected';
-                                }
-                                else {
-                                    $selected = '';
-                                }
-                                ?>
-                                <option value="<?php echo $list['id_minat'] ?>" <?php echo $selected;?> ><?php echo $list['nm_minat'] ?></option>
-                                <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
+                    <?php
+	                if($biodata->id_prodi == S2_ILMU_HUKUM){
+	                ?>
+	                    <div class="form-group">
+	                        <label>Minat</label>
+	                        <select name="minat" class="form-control select2" style="width: 100%;" required>
+	                            <option value="">- Pilih -</option>
+	                            <?php
+	                            foreach ($minat as $list) {
+	                                $selected = '';
+	                                if($list['id_minat'] == $tesis->id_minat){
+	                                    $selected = 'selected';
+	                                }
+	                                else {
+	                                    $selected = '';
+	                                }
+	                                ?>
+	                                <option value="<?php echo $list['id_minat'] ?>" <?php echo $selected;?> ><?php echo $list['nm_minat'] ?></option>
+	                                <?php
+	                            }
+	                            ?>
+	                        </select>
+	                    </div>
+	                <?php
+		        	}
+		        	?>
                     <div class="form-group">
                         <label>Judul</label>
                         <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);?>

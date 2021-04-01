@@ -22,7 +22,13 @@
                     <th>Judul</th>
                     <th>Pembimbing Utama</th>
                     <th>Pembimbing Kedua</th>
-                    <th>Minat</th>
+                    <?php
+                    if($biodata->id_prodi == S2_ILMU_HUKUM){
+                    ?>
+                        <th>Minat</th>
+                    <?php
+                    }
+                    ?>
                     <th>Berkas Tesis</th>
                     <th>Berkas Syarat</th>
                     <th>Tanggal Pengajuan</th>
@@ -132,7 +138,13 @@
                             }
                             ?>
                         </td>
-                        <td><?= $list['nm_minat']?></td>
+                        <?php
+                        if($biodata->id_prodi == S2_ILMU_HUKUM){
+                        ?>
+                            <td><?= $list['nm_minat']?></td>
+                        <?php
+                        }
+                        ?>
                         <td class="text-center">
                             <?php
                             if($list['berkas_tesis'] != '') {
