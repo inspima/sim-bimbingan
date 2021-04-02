@@ -37,6 +37,42 @@ class Registrasi extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
+	public function sarjana() {
+		$data = array(
+			// PAGE //
+			'title' => 'Modul Registrasi',
+			'subtitle' => 'Verifikasi Mahasiswa - S1',
+			'section' => 'backend/baa/utility/verifikasi',
+			// DATA //
+			'mahasiswas' => $this->user->read_mhs_verifikasi_by_jenjang(JENJANG_S1),
+		);
+		$this->load->view('backend/index_sidebar', $data);
+	}
+
+	public function master() {
+		$data = array(
+			// PAGE //
+			'title' => 'Modul Registrasi',
+			'subtitle' => 'Verifikasi Mahasiswa - S2',
+			'section' => 'backend/baa/utility/verifikasi',
+			// DATA //
+			'mahasiswas' => $this->user->read_mhs_verifikasi_by_jenjang(JENJANG_S2),
+		);
+		$this->load->view('backend/index_sidebar', $data);
+	}
+
+	public function doktor() {
+		$data = array(
+			// PAGE //
+			'title' => 'Modul Registrasi',
+			'subtitle' => 'Verifikasi Mahasiswa - S3',
+			'section' => 'backend/baa/utility/verifikasi',
+			// DATA //
+			'mahasiswas' => $this->user->read_mhs_verifikasi_by_jenjang(JENJANG_S3),
+		);
+		$this->load->view('backend/index_sidebar', $data);
+	}
+
     public function verifikasi() {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {

@@ -445,6 +445,9 @@
 	$route['baa/master/dosen/update'] = 'backend/baa/master/dosen/update';
 
 	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
+	$route['baa/utility/registrasi/sarjana'] = 'backend/baa/utility/registrasi/sarjana';
+	$route['baa/utility/registrasi/master'] = 'backend/baa/utility/registrasi/master';
+	$route['baa/utility/registrasi/doktor'] = 'backend/baa/utility/registrasi/doktor';
 	$route['baa/utility/registrasi/verifikasi'] = 'backend/baa/utility/registrasi/verifikasi';
 	$route['baa/utility/pencarian'] = 'backend/baa/utility/pencarian';
 	$route['baa/utility/pembimbing/sarjana/(:num)'] = 'backend/baa/utility/pencarian/pembimbing_sarjana/$1';

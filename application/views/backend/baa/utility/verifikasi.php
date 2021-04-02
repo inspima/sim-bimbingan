@@ -12,6 +12,9 @@
 
 	<!-- /.box-header -->
 	<div class="box-body table-responsive">
+
+		<?php $this->view('backend/widgets/common/tab_link_verifikasi_registrasi'); ?>
+		<hr/>
 		<table id="example1" class="table table-bordered table-striped">
 			<thead>
 			<tr>
@@ -35,7 +38,7 @@
 						<td><?= $no ?></td>
 						<td><?php echo $mahasiswa['nama'] ?></td>
 						<td><?php echo $mahasiswa['nim'] ?></td>
-						<td><?php echo $mahasiswa['jenjang'] ?><?php echo $mahasiswa['nm_prodi'] ?></td>
+						<td><?php echo $mahasiswa['jenjang'] ?> <?php echo $mahasiswa['nm_prodi'] ?></td>
 						<td><?php echo $mahasiswa['sks'] ?></td>
 						<td><?php echo $mahasiswa['alamat'] ?></td>
 						<td><?php echo $mahasiswa['email'] ?></td>
