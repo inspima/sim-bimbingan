@@ -61,6 +61,30 @@ class Registrasi extends CI_Controller {
 		$this->load->view('backend/index_sidebar', $data);
 	}
 
+	public function master_mih() {
+		$data = array(
+			// PAGE //
+			'title' => 'Modul Registrasi',
+			'subtitle' => 'Verifikasi Mahasiswa - S2 Ilmu Hukum',
+			'section' => 'backend/baa/utility/verifikasi',
+			// DATA //
+			'mahasiswas' => $this->user->read_mhs_verifikasi_by_prodi(S2_ILMU_HUKUM),
+		);
+		$this->load->view('backend/index_sidebar', $data);
+	}
+
+	public function master_mkn() {
+		$data = array(
+			// PAGE //
+			'title' => 'Modul Registrasi',
+			'subtitle' => 'Verifikasi Mahasiswa - S2 Kenotariatan',
+			'section' => 'backend/baa/utility/verifikasi',
+			// DATA //
+			'mahasiswas' => $this->user->read_mhs_verifikasi_by_prodi(S2_KENOTARIATAN),
+		);
+		$this->load->view('backend/index_sidebar', $data);
+	}
+
 	public function doktor() {
 		$data = array(
 			// PAGE //

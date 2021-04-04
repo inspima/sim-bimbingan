@@ -447,6 +447,8 @@
 	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
 	$route['baa/utility/registrasi/sarjana'] = 'backend/baa/utility/registrasi/sarjana';
 	$route['baa/utility/registrasi/master'] = 'backend/baa/utility/registrasi/master';
+	$route['baa/utility/registrasi/master_mih'] = 'backend/baa/utility/registrasi/master_mih';
+	$route['baa/utility/registrasi/master_mkn'] = 'backend/baa/utility/registrasi/master_mkn';
 	$route['baa/utility/registrasi/doktor'] = 'backend/baa/utility/registrasi/doktor';
 	$route['baa/utility/registrasi/verifikasi'] = 'backend/baa/utility/registrasi/verifikasi';
 	$route['baa/utility/pencarian'] = 'backend/baa/utility/pencarian';
