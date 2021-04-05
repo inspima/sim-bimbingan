@@ -129,19 +129,23 @@
 					break;
 				case DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS:
 					$page = 'frontend/document_tesis/berita_acara_proposal/';
-					$title = "Surat Pembimbing Tesis";
+					$title = "Berita Acara Proposal Tesis";
 					break;
 				case DOKUMEN_DAFTAR_HADIR_PROPOSAL_TESIS:
 					$page = 'frontend/document_tesis/daftar_hadir_proposal/';
-					$title = "Surat Pembimbing Tesis";
+					$title = "Daftar Hadir Proposal Tesis";
 					break;
 				case DOKUMEN_SK_PROPOSAL_TESIS:
 					$page = 'frontend/document_tesis/sk_proposal/';
-					$title = "Surat Pembimbing Tesis";
+					$title = "SK Proposal Tesis";
 					break;
 				case DOKUMEN_UNDANGAN_PROPOSAL_TESIS:
 					$page = 'frontend/document_tesis/undangan_proposal/';
-					$title = "Surat Pembimbing Tesis";
+					$title = "Undangan Proposal Tesis";
+					break;
+				case DOKUMEN_SP_PENGAMPU_MKPT_TESIS:
+					$page = 'frontend/document_tesis/sp_pengampu_mkpt/';
+					$title = "Surat Pengampu MKPT Tesis";
 					break;
 			}
 		}

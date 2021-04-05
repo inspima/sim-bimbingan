@@ -67,6 +67,7 @@
                                 <th style="width: 45%">Dosen</th>
                                 <th style="width: 45%">Status</th>
                                 <th style="width: 10%">Nilai</th>
+                                <th style="width: 10%">Status Ujian</th>
                             </tr>
                             <?php
                             $tesis_mkpts = $this->tesis->read_tesis_mkpt($tesis->id_tesis); 
@@ -78,13 +79,11 @@
                                     $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
                                     if(!empty($mkpt_pengampus)){
                                         foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
-                                            if($pengampu['status'] == '1' OR $pengampu['status'] == '2'){
+                                            if($pengampu['status'] == '1' ){
+                                                $status = '';
                                                 if($pengampu['status'] == '1'){
                                                 	$hitung_pengampu_setuju = $hitung_pengampu_setuju + 1;
                                                     $status = '<button type="button" class="btn btn-xs btn-success"> Disetujui</button>';
-                                                } 
-                                                else if($pengampu['status'] == '2'){
-                                                    $status = '<button type="button" class="btn btn-xs btn-danger"> Ditolak</button>';
                                                 }
 
                                                 foreach ($mdosen as $list) {
@@ -97,6 +96,9 @@
                                                 if($mkpt['nilai_publish'] != ''){
                                                 	$hitung_nilai_publish = $hitung_nilai_publish + 1;
                                                 }
+
+                                                $status_ujian = ['1' => 'Lulus', '2' => 'Tidak Lulus', '0' => '', NULL => ''];
+
                                                 echo '
                                                 <tr>
                                                     <td>'.$mkpt['mkpt'].'</td>
@@ -104,13 +106,20 @@
                                                     <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
                                                     <td>'.$status.'</td>
                                                     <td>'.$pengampu['nilai_angka'].'</td>
+                                                    <td>'.$status_ujian[$pengampu['status_ujian']].'</td>
                                                 </tr>
                                                 ';
                                             }
                                             else {
-                                                $status = '<button type="button" class="btn btn-xs btn-warning"> Menunggu Persetujuan</button>';
+                                                if($pengampu['status'] == '2'){
+                                                    $status = '<button type="button" class="btn btn-xs btn-danger"> Ditolak</button>';
+                                                }
+                                                else {
+                                                    $status = '<button type="button" class="btn btn-xs btn-warning"> Menunggu Persetujuan</button>';
+                                                }
                                                 echo '
                                                 <tr>
+                                                    <input name="id'.$mkpt['id_tesis_mkpt'].'" type="text" hidden="true" value="'.$pengampu['id_tesis_mkpt_pengampu'].'">
                                                     <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
                                                     <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
                                                     <td>
@@ -127,6 +136,8 @@
                                                         </select>
                                                     </td>
                                                     <td>'.$status.'</td>
+                                                    <td>'.$pengampu['nilai_angka'].'</td>
+                                                    <td>'.$status_ujian[$pengampu['status_ujian']].'</td>
                                                 </tr>
                                                 ';
                                             }
@@ -137,6 +148,7 @@
                                     else {
                                         echo '
                                         <tr>
+                                            <input name="id'.$mkpt['id_tesis_mkpt'].'" type="text" hidden="true" value="">
                                             <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
                                             <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
                                             <td>
@@ -154,6 +166,7 @@
                                             </td>
                                             <td>'.$status.'</td>
                                             <td></td>
+                                            <td></td>
                                         </tr>
                                         ';
                                     }
@@ -164,6 +177,7 @@
                             <?php
                                 for ($i = 1; $i <= 2; $i++) {
                                     ?>
+                                    <input name="id<?=$i?>" type="text" hidden="true" value="">
                                     <tr>
                                         <td>
                                             <textarea name="nama<?=$i?>" class="form-control" style="resize: none" ></textarea>
@@ -183,6 +197,7 @@
                                                 ?>
                                             </select>
                                         </td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>

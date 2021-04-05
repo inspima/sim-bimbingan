@@ -94,6 +94,7 @@
                             <th style="width: 25%">Dosen</th>
                             <th style="width: 10%">Status</th>
                             <th style="width: 10%">Nilai</th>
+                            <th style="width: 10%">Status Ujian</th>
                             <th style="width: 10%">Publish Nilai</th>
                         </tr>
                         <?php
@@ -119,6 +120,8 @@
                                             $hitung_nilai_publish = $hitung_nilai_publish + 1;
                                         }
 
+                                        $status_ujian = ['1' => 'Lulus', '2' => 'Tidak Lulus', '0' => '', NULL => ''];
+
                                         echo '
                                         <tr>
                                             <td>'.$mkpt['kode'].'</td>
@@ -127,6 +130,12 @@
                                             <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
                                             <td>'.$status.'</td>
                                             <td>'.(($mkpt['nilai_publish'] == NULL) ? '<input name="nilai_angka'.$mkpt['id_tesis_mkpt'].'" type="text" class="form-control" value="'.$pengampu['nilai_angka'].'">' : $pengampu['nilai_angka']).'</td>
+                                            <td>'.(($mkpt['nilai_publish'] == NULL) ? '
+                                                <select name="status_ujian'.$mkpt['id_tesis_mkpt'].'" class="form-control" style="width: 100%;">
+                                                    <option value="1" '.($pengampu['status_ujian'] == '1' ? 'selected' : '').'>Lulus</option>
+                                                    <option value="2" '.($pengampu['status_ujian'] == '2' ? 'selected' : '').'>Tidak Lulus</option>
+                                                </select>' : $status_ujian[$pengampu['status_ujian']]).'
+                                            </td>
                                             <td>'.(($mkpt['nilai_publish'] == NULL) ? '<a class="btn btn-xs btn-success" href="'.base_url().'dosen/tesis/mkpt/publish_nilai/'.$pengampu['id_tesis_mkpt_pengampu'].'/'.$mkpt['id_tesis'].'">
                                                 <i class="fa fa-edit"></i> Publish Nilai</a>' : '<a class="btn btn-xs btn-warning" href="'.base_url().'dosen/tesis/mkpt/batal_publish_nilai/'.$pengampu['id_tesis_mkpt_pengampu'].'/'.$mkpt['id_tesis'].'">
                                                 <i class="fa fa-edit"></i> Batal Publish Nilai</a>').'

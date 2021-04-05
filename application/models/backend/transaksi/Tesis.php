@@ -398,6 +398,52 @@
 			return $query->result_array();
 		}
 
+		public function read_ujian_belum_approve($username)
+		{
+			$this->db->select('s.*, pg1.nip nip_pemabimbing_satu,pg1.nama nama_pembimbing_satu,  
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama, mt.nm_minat');
+			$this->db->from('tesis s');
+			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
+			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
+			$this->db->join('judul_tesis jd', 'jd.id_tesis=s.id_tesis and jd.status=\'1\'');
+			$this->db->join('mahasiswa m', 'm.nim= s.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
+			$this->db->join('prodi ps', 'ps.id_prodi = m.id_prodi', 'left');
+			$this->db->join('pegawai pg3', 'pg3.id_prodi = ps.id_prodi', 'left');
+			$this->db->where('s.status_tesis >', 0);
+			$this->db->where('s.status_tesis =', STATUS_TESIS_UJIAN_PENGAJUAN);
+			$this->db->where('pg3.nip', $username);
+			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.jenis=4 and jd.status=\'1\')');
+			$this->db->order_by('s.tgl_pengajuan', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_ujian_sudah_approve($username)
+		{
+			$this->db->select('s.*, pg1.nip nip_pemabimbing_satu,pg1.nama nama_pembimbing_satu,  
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama, mt.nm_minat');
+			$this->db->from('tesis s');
+			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
+			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
+			$this->db->join('judul_tesis jd', 'jd.id_tesis=s.id_tesis and jd.status=\'1\'');
+			$this->db->join('mahasiswa m', 'm.nim= s.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
+			$this->db->join('prodi ps', 'ps.id_prodi = m.id_prodi', 'left');
+			$this->db->join('pegawai pg3', 'pg3.id_prodi = ps.id_prodi', 'left');
+			$this->db->where('s.status_tesis >', 0);
+			$this->db->where('s.status_tesis >=', STATUS_TESIS_UJIAN_SETUJUI_BAA);
+			$this->db->where('pg3.nip', $username);
+			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.jenis=4 and jd.status=\'1\')');
+			$this->db->order_by('s.tgl_pengajuan', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function read_ujian_prodi($id, $jenis)
 		{
 			$this->db->select('s.*, pg1.nip nip_pemabimbing_satu,pg1.nama nama_pembimbing_satu,  
@@ -1188,7 +1234,19 @@
 				'status_apv_kaprodi' => null
 			);
 			$this->db->where('id_tesis', $id_tesis);
+			$this->db->where('status', 1);
 			$this->db->update('ujian_tesis', $data);
+
+			$penguji = $this->read_penguji($id_ujian);
+
+           	if ($penguji) {
+           		$ujian = $this->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
+           		$data_penguji = array(
+					'status' => '1'
+				);
+				$this->db->where('id_ujian', $ujian->id_ujian);
+				$this->db->update('penguji_tesis', $data_penguji);	
+           	}
 
 			$data_tesis = array(
 				'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN
@@ -1455,7 +1513,7 @@
 			$this->db->join('penguji_tesis pt', 'pt.id_ujian = u.id_ujian and p.nip = pt.nip', 'left');
 			$this->db->where('p.id_tesis', $id_tesis);
 			$this->db->where('p.asal_pengusul', $asal_pengusul);
-			$this->db->where('pt.nip', null);
+			$this->db->where("(pt.nip is null or pt.status = 0)");
 			$this->db->where('u.jenis_ujian', $jenis_ujian);
 			if ($id_ujian != '') {
 				$this->db->where('u.id_ujian', $id_ujian);
@@ -1724,10 +1782,11 @@
 			$this->db->where('m.id_prodi', $id);
 			$this->db->where('s.jenis', $jenis);
 			$this->db->where('jd.jenis', $jenis);
+			$this->db->where('u.jenis_ujian', UJIAN_TESIS_PROPOSAL);
 			if ($status == STATUS_TESIS_PROPOSAL_DIJADWALKAN) {
 				$this->db->where('s.status_proposal >=', $status);
 				$this->db->where('s.status_proposal <', STATUS_TESIS_PROPOSAL_UJIAN_SELESAI);
-				$this->db->where('s.status_ujian_proposal =', 0);
+				$this->db->where('s.status_ujian_proposal =', NULL);
 			} else if ($status == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI) {
 				$this->db->where('s.status_proposal >=', $status);
 				$this->db->where('s.status_ujian_proposal !=', 0);
@@ -1738,6 +1797,44 @@
 				$this->db->where('u.id_ujian !=', null);
 				//$this->db->where('u.status_apv_kaprodi !=', 1);
 				$this->db->where('s.status_proposal', $status);
+			}
+			$this->db->order_by('s.tgl_pengajuan', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_penjadwalan_prodi_tesis_status($username, $id, $jenis, $status)
+		{
+			$this->db->select('s.*,jd.judul, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, 
+            d.departemen ,m.nama, mt.nm_minat');
+			$this->db->from('tesis s');
+			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
+			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
+			$this->db->join('judul_tesis jd', 'jd.id_tesis=s.id_tesis and jd.status=\'1\'');
+			$this->db->join('mahasiswa m', 'm.nim= s.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
+			$this->db->join('ujian_tesis u', 'u.id_tesis = s.id_tesis', 'left');
+			$this->db->where('m.id_prodi', $id);
+			$this->db->where('s.jenis', $jenis);
+			$this->db->where('jd.jenis', $jenis);
+			$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
+			if ($status == STATUS_TESIS_UJIAN_DIJADWALKAN) {
+				$this->db->where('s.status_tesis >=', $status);
+				$this->db->where('s.status_tesis <', STATUS_TESIS_UJIAN_SELESAI);
+				$this->db->where('s.status_ujian_tesis =', NULL);
+			} else if ($status == STATUS_TESIS_UJIAN_SELESAI) {
+				$this->db->where('s.status_tesis >=', $status);
+				$this->db->where('s.status_ujian_tesis !=', 0);
+			} else if ($status == 'anyar') {
+				$this->db->where('u.id_ujian =', null);
+				$this->db->where('s.status_tesis', STATUS_TESIS_UJIAN_PENGAJUAN);
+			} else {
+				$this->db->where('u.id_ujian !=', null);
+				//$this->db->where('u.status_apv_kaprodi !=', 1);
+				$this->db->where('s.status_tesis', $status);
 			}
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
@@ -1775,6 +1872,7 @@
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->where('u.id_tesis', $id_tesis);
 			$this->db->where('u.jenis_ujian', $jenis_ujian);
+			$this->db->where('u.status', 1);
 			$query = $this->db->get();
 			return $query->row();
 		}

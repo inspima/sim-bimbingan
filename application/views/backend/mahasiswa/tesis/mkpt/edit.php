@@ -67,6 +67,7 @@
                                 <th style="width: 45%">Dosen</th>
                                 <th style="width: 45%">Status</th>
                                 <th style="width: 10%">Nilai</th>
+                                <th style="width: 10%">Status Ujian</th>
                             </tr>
                             <?php
                             $tesis_mkpts = $this->tesis->read_tesis_mkpt($tesis->id_tesis); 
@@ -76,49 +77,69 @@
                                 $sudah_publish_semua=$this->tesis->cek_mkpt_sudah_publish($tesis->id_tesis);
                                 foreach ($tesis_mkpts as $index => $mkpt) {
                                     $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
-                                    foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
-                                        if($pengampu['status'] == '1' OR $pengampu['status'] == '2'){
-                                            if($pengampu['status'] == '1'){
-                                                $hitung_pengampu_setuju = $hitung_pengampu_setuju + 1;
-                                                $status = '<button type="button" class="btn btn-xs btn-success"> Disetujui</button>';
-                                            } 
-                                            else if($pengampu['status'] == '2'){
-                                                $status = '<button type="button" class="btn btn-xs btn-danger"> Ditolak</button>';
-                                            }
-
-                                            foreach ($mdosen as $list) {
-                                                $dosen_mkpt = '';
-                                                if($pengampu['nip'] == $list['nip']){
-                                                    $dosen_mkpt = $list['nama'];
+                                    if(!empty($mkpt_pengampus)){
+                                        foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                                            if($pengampu['status'] == '1' OR $pengampu['status'] == '2'){
+                                                if($pengampu['status'] == '1'){
+                                                    $hitung_pengampu_setuju = $hitung_pengampu_setuju + 1;
+                                                    $status = '<button type="button" class="btn btn-xs btn-success"> Disetujui</button>';
+                                                } 
+                                                else if($pengampu['status'] == '2'){
+                                                    $status = '<button type="button" class="btn btn-xs btn-danger"> Ditolak</button>';
                                                 }
-                                            }
 
-                                            if($mkpt['nilai_publish'] != ''){
-                                                $hitung_nilai_publish = $hitung_nilai_publish + 1;
+                                                foreach ($mdosen as $list) {
+                                                    $dosen_mkpt = '';
+                                                    if($pengampu['nip'] == $list['nip']){
+                                                        $dosen_mkpt = $list['nama'];
+                                                    }
+                                                }
+
+                                                if($mkpt['nilai_publish'] != ''){
+                                                    $hitung_nilai_publish = $hitung_nilai_publish + 1;
+                                                }
+
+                                                $status_ujian = ['1' => 'Lulus', '2' => 'Tidak Lulus', '0' => '', NULL => ''];
+
+                                                echo '
+                                                <tr>
+                                                    <td>'.$mkpt['mkpt'].'</td>
+                                                    <td>'.$mkpt['sks'].'</td>
+                                                    <td>'.($pengampu['nip'] ? ('<b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama']) : 'Belum Disetting').'</td>
+                                                    <td>'.$status.'</td>
+                                                    <td>'.$pengampu['nilai_angka'].'</td>
+                                                    <td>'.$status_ujian[$pengampu['status_ujian']].'</td>
+                                                </tr>
+                                                ';
                                             }
-                                            echo '
-                                            <tr>
-                                                <td>'.$mkpt['mkpt'].'</td>
-                                                <td>'.$mkpt['sks'].'</td>
-                                                <td>'.($pengampu['nip'] ? ('<b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama']) : 'Belum Disetting').'</td>
-                                                <td>'.$status.'</td>
-                                                <td>'.$pengampu['nilai_angka'].'</td>
-                                            </tr>
-                                            ';
+                                            else {
+                                                $status = '<button type="button" class="btn btn-xs btn-warning"> Menunggu Persetujuan</button>';
+                                                echo '
+                                                <tr>
+                                                    <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
+                                                    <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
+                                                    <td>'.($pengampu['nip'] ? ('<b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama']) : 'Belum Disetting').'</td>
+                                                    <td>'.$status.'</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                ';
+                                            }
+                                            ?>
+                                        <?php
                                         }
-                                        else {
-                                            $status = '<button type="button" class="btn btn-xs btn-warning"> Menunggu Persetujuan</button>';
-                                            echo '
-                                            <tr>
-                                                <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
-                                                <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
-                                                <td></td>
-                                                <td>'.$status.'</td>
-                                            </tr>
-                                            ';
-                                        }
-                                        ?>
-                                    <?php
+                                    } else {
+                                        $status = '';
+                                        echo '
+                                        <tr>
+                                            <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
+                                            <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
+                                            <td></td>
+                                            <td>'.$status.'</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        ';
                                     }
                                 }
                             }
@@ -146,6 +167,7 @@
                                                 ?>
                                             </select>
                                         </td>
+                                        <td></td>
                                     </tr>
                                     <?php
                                 }

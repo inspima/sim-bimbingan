@@ -48,8 +48,81 @@
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, TAHAPAN_TESIS_MKPT]); ?>
+
                                     <?php
                                     if ($list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
+                                        $data_dokumen = [
+                                            'tipe' => DOKUMEN_SP_PENGAMPU_MKPT_TESIS,
+                                            'jenis' => DOKUMEN_JENIS_TESIS_MKPT_STR,
+                                            'identitas' => $list['nim'],
+                                        ];
+                                        $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+
+                                        $no_surat = '';
+                                        $no_sk = '';
+                                        $tgl_sk = '';
+                                        $tgl_surat = '';
+
+                                        if(!empty($dokumen)){
+                                            $no_surat = $dokumen->no_doc;
+                                            $no_sk = $dokumen->no_ref_doc;
+                                            $tgl_sk = date('d/m/Y', strtotime($dokumen->date_doc));
+                                            $tgl_surat = date('d/m/Y', strtotime($dokumen->date));
+                                        }
+                                    ?>
+                                    <br><br>
+                                    <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModalSP<?= $list['id_tesis']?>">
+                                        <i class="fa fa-file"></i> Surat Tugas
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModalSP<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                
+                                                <?php $attributes = array('target' => '_blank'); ?>
+                                                <?php echo form_open('prodi/magister/tesis/mkpt/cetak_surat_tugas_pengampu', $attributes) ?>
+                                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">
+                                                            Surat Tugas Pengampu MKPT Tesis
+                                                            <br><?= $list['judul']?>
+                                                            <br><?= $list['nama'].' - '.$list['nim'];?> 
+                                                        </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                        <input type="text" name="no_surat" class="form-control" style="width: 100%" value="<?= $no_surat; ?>" required placeholder="Nomor Surat">
+                                                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                            <input type="text" name="tgl_surat" class="form-control" value="<?= $tgl_surat; ?>" required placeholder="Tanggal Surat">
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?php //echo $no_sk; ?>" required placeholder="Nomor SK"> -->
+                                                        <!-- <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                            <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal SK">
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
+                                                    </div>
+                                                </form>
+                                                <?php echo form_close() ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                    }
+                                    /*if ($list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
                                     ?>
                                         <hr style="margin: 5px"/>
                                         <!-- Surat Tugas -->
@@ -61,7 +134,7 @@
                                         <button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
                                         <?php echo form_close() ?>
                                     <?php
-                                    }
+                                    }*/
                                     ?>
                                 </td>
                             </tr>      

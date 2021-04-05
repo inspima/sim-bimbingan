@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label>Judul</label>
-                        <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);?>
+                        <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);?>
                         <textarea class="form-control" name="judul" required><?php echo $judul->judul?></textarea>
                     </div>
                     <?php

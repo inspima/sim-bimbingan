@@ -43,7 +43,25 @@ class Ujian extends CI_Controller {
             //'tesis' => $this->tesis->read_proposal(),
             'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
             //'tesis' => $this->tesis->read_ujian_prodi($id, TAHAPAN_TESIS_UJIAN),
-            'tesis' => $this->tesis->read_ujian($this->session_data['username']),
+            'tesis' => $this->tesis->read_ujian_belum_approve($this->session_data['username']),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            'struktural' => $this->struktural->read_struktural($this->session_data['username']),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function index_sudah_proses() {
+        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Ujian',
+            'subtitle' => 'Data',
+            'section' => 'backend/prodi/tesis/ujian/index_sudah_proses',
+            // DATA //
+            //'tesis' => $this->tesis->read_proposal(),
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            //'tesis' => $this->tesis->read_ujian_prodi($id, TAHAPAN_TESIS_UJIAN),
+            'tesis' => $this->tesis->read_ujian_sudah_approve($this->session_data['username']),
             'prodi' => $this->tesis->read_prodi_s2(),
             'struktural' => $this->struktural->read_struktural($this->session_data['username']),
         );

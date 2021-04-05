@@ -133,14 +133,14 @@
             <div class="box-footer">
                 <?php
                 if($ujian) {
-                    if ($ujian->status_apv_kaprodi == '1') {
+                    if ($ujian->status_apv_kaprodi == '1' && $tesis->status_tesis < STATUS_TESIS_UJIAN_SETUJUI_PENGUJI) {
                         ?>
                         <a class="btn btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_verifikasi_jadwal/<?= $tesis->id_tesis?>"><i class="fa fa-edit"></i> Batal</a>
                         <!--
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
                         -->
                         <?php
-                    } else {
+                    } else if ($ujian->status_apv_kaprodi == NULL) {
                         ?>
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Verifikasi Jadwal</button>
                         <?php
@@ -159,7 +159,9 @@
     </div>
     <!-- left column -->
 </div>
-
+<?php
+if($tesis->status_tesis >= STATUS_TESIS_UJIAN_DIJADWALKAN){
+?>
 <div class="row">
     <div class="col-md-6">
         <!-- general form elements -->
@@ -381,3 +383,6 @@
         <!-- /.box -->
     </div>
 </div>
+<?php
+}
+?>

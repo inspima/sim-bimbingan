@@ -174,26 +174,26 @@
                         </td>
                         <td class="text-center">
                             <?php 
-                            if ($list['status_tesis'] > STATUS_TESIS_UJIAN_DIJADWALKAN) {
+                            //if ($list['status_tesis'] > STATUS_TESIS_UJIAN_DIJADWALKAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
-                            }
-                            if ($list['status_pembimbing_satu'] == '' && $list['status_pembimbing_dua'] == '') {
+                            //}
+                            if ($list['status_tesis'] < STATUS_TESIS_UJIAN_SELESAI) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
                                 <?php
                             }
-                            if ($list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA && $biodata->id_prodi == S2_KENOTARIATAN) {
+                            if ($biodata->id_prodi == S2_KENOTARIATAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
                                 <?php
                             }
-                            if ($list['status_tesis'] == STATUS_TESIS_UJIAN_DIJADWALKAN) {
+                            /*if ($list['status_tesis'] == STATUS_TESIS_UJIAN_DIJADWALKAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal</a>
                                 <?php
-                            }
+                            }*/
                             ?>
                         </td>
                     </tr>      

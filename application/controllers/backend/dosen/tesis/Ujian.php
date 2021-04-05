@@ -162,8 +162,28 @@ class Ujian extends CI_Controller {
         redirect('dosen/tesis/ujian/penguji/'.$id_prodi);
     }
 
+    public function pengajuan_baru() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Penjadwalan Proposal',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/ujian/pengajuan_baru',
+            // DATA //
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'tesis' => $this->tesis->read_penjadwalan_prodi_tesis_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_UJIAN, 'anyar')
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
     public function penjadwalan() {
-        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
         $data = array(
             // PAGE //
             'title' => 'Tesis - Penjadwalan Ujian',
@@ -173,7 +193,44 @@ class Ujian extends CI_Controller {
             'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
             'prodi' => $this->tesis->read_prodi_s2(),
             //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
-            'tesis' => $this->tesis->read_penjadwalan_prodi($this->session_data['username'], $id, TAHAPAN_TESIS_UJIAN)
+            //'tesis' => $this->tesis->read_penjadwalan_prodi($this->session_data['username'], $id, TAHAPAN_TESIS_UJIAN)
+            'tesis' => $this->tesis->read_penjadwalan_prodi_tesis_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_UJIAN, STATUS_TESIS_UJIAN_PENGAJUAN)
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function penjadwalan_sudah() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Penjadwalan Ujian',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/ujian/penjadwalan_sudah',
+            // DATA //
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'tesis' => $this->tesis->read_penjadwalan_prodi_tesis_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_UJIAN, STATUS_TESIS_UJIAN_DIJADWALKAN)
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function penjadwalan_selesai_tesis() {
+        //$id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $struktural = $this->struktural->read_struktural($this->session_data['username']);
+        $id_prodi = $struktural->id_prodi;
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Penjadwalan Ujian',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/ujian/penjadwalan_selesai_tesis',
+            // DATA //
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+            //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
+            'tesis' => $this->tesis->read_penjadwalan_prodi_tesis_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_UJIAN, STATUS_TESIS_UJIAN_SELESAI)
         );
         $this->load->view('backend/index_sidebar', $data);
     }

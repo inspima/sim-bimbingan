@@ -39,7 +39,6 @@
                     ?>                    
                     <th>Tanggal Pengajuan</th>
                     <th>Berkas Proposal</th>
-                    <th>Berkas MKPT</th>
                     <th>Berkas Tesis</th>
                     <th>Berkas Syarat Tesis</th>
                     <th>Status</th>
@@ -208,15 +207,6 @@
                             if($list['berkas_proposal'] != '') {
                             ?>
                                 <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-                            <?php 
-                            }
-                            ?>
-                        </td>
-                        <td class="text-center">
-                            <?php
-                            if($list['berkas_mkpt'] != '') {
-                            ?>
-                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/mkpt/<?php echo $list['berkas_mkpt'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
                             <?php 
                             }
                             ?>

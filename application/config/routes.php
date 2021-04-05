@@ -700,7 +700,12 @@
 	$route['dosen/tesis/ujian/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/ujian/batal_pembimbing';
 
 	$route['dosen/tesis/ujian/penjadwalan'] = 'backend/dosen/tesis/ujian/penjadwalan';
-	$route['dosen/tesis/ujian/penjadwalan/(:num)'] = 'backend/dosen/tesis/ujian/penjadwalan';
+	//$route['dosen/tesis/ujian/penjadwalan/(:num)'] = 'backend/dosen/tesis/ujian/penjadwalan';
+
+	$route['dosen/tesis/ujian/pengajuan_baru'] = 'backend/dosen/tesis/ujian/pengajuan_baru';
+	$route['dosen/tesis/ujian/penjadwalan_sudah'] = 'backend/dosen/tesis/ujian/penjadwalan_sudah';
+	$route['dosen/tesis/ujian/penjadwalan_selesai_tesis'] = 'backend/dosen/tesis/ujian/penjadwalan_selesai_tesis';
+
 	$route['dosen/tesis/ujian/jadwal_pembimbing/(:num)'] = 'backend/dosen/tesis/ujian/jadwal_pembimbing';
 	$route['dosen/tesis/ujian/jadwal_pembimbing_save'] = 'backend/dosen/tesis/ujian/jadwal_pembimbing_save';
 	$route['dosen/tesis/ujian/setting/(:num)'] = 'backend/dosen/tesis/ujian/setting';

@@ -132,6 +132,8 @@
 	define('DOKUMEN_SK_PROPOSAL_TESIS', 'sk-proposal-tesis');
 	define('DOKUMEN_UNDANGAN_PROPOSAL_TESIS', 'undangan-ujian-proposal-tesis');
 
+	define('DOKUMEN_SP_PENGAMPU_MKPT_TESIS', 'surat-tugas-pengampu-mkpt-tesis');
+
 	// JENIS DOKUMEN
 	/// S1
 	define('DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR', 'skripsi_proposal');

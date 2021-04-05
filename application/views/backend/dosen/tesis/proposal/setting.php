@@ -154,7 +154,7 @@
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Ubah Ruang</button>
                         -->
                         <?php
-                    } else {
+                    } else if ($ujian->status_apv_kaprodi == NULL) {
                         ?>
                         <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Verifikasi Jadwal</button>
                         <?php
@@ -173,7 +173,9 @@
     </div>
     <!-- left column -->
 </div>
-
+<?php
+if ($tesis->status_proposal >= STATUS_TESIS_PROPOSAL_DIJADWALKAN) {
+?>
 <div class="row">
     <div class="col-md-6">
         <!-- general form elements -->
@@ -385,3 +387,6 @@
         <!-- /.box -->
     </div>
 </div>
+<?php
+}
+?>

@@ -86,6 +86,7 @@ class Mkpt extends CI_Controller {
                     $nama = $this->input->post('nama' . $mkpt['id_tesis_mkpt'], true);
                     $sks = $this->input->post('sks' . $mkpt['id_tesis_mkpt'], true);
                     $dosen = $this->input->post('pengampu' . $mkpt['id_tesis_mkpt'], true);
+                    $id = $this->input->post('id' . $mkpt['id_tesis_mkpt'], true);
                     $data_tesis_mkpt = [
                         'id_tesis' => $id_tesis,
                         //'kode' => $kode,
@@ -99,12 +100,22 @@ class Mkpt extends CI_Controller {
                         //foreach($dosens as $dosen){
                         if(!empty($mkpt_pengampus)){
                             foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
-                                $data_pengampu = [
-                                    'id_tesis' => $id_tesis,
-                                    'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
-                                    'nip' => $dosen,
-                                ];
-                                if($pengampu['nip'] == $dosen){
+                                if($pengampu['status'] == '2'){
+                                    $data_pengampu = [
+                                        'id_tesis' => $id_tesis,
+                                        'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                        'nip' => $dosen,
+                                        'status' => 0
+                                    ];
+                                }
+                                else {
+                                    $data_pengampu = [
+                                        'id_tesis' => $id_tesis,
+                                        'id_tesis_mkpt' => $tesis_mkpt->id_tesis_mkpt,
+                                        'nip' => $dosen,
+                                    ];
+                                }
+                                if($pengampu['id_tesis_mkpt_pengampu'] == $id){
                                     $this->tesis->update_tesis_mkpt_pengampu($data_pengampu, $pengampu['id_tesis_mkpt_pengampu']);
                                 }
                                 else {
@@ -210,6 +221,7 @@ class Mkpt extends CI_Controller {
                         if($pengampu['status'] == '1' && $pengampu['nip'] == $this->session_data['username']){
                             $id_tesis_mkpt_pengampu = $pengampu['id_tesis_mkpt_pengampu'];
                             $nilai_angka = str_replace(',', '.', $this->input->post('nilai_angka' . $mkpt['id_tesis_mkpt'], true));
+                            $status_ujian = str_replace(',', '.', $this->input->post('status_ujian' . $mkpt['id_tesis_mkpt'], true));
                             $data_tesis_mkpt = [
                                 'nilai_angka' => $nilai_angka,
                                 'nilai_publish' => $nilai_angka,
@@ -219,6 +231,7 @@ class Mkpt extends CI_Controller {
                                                 
                             $data_pengampu = [
                                 'nilai_angka' => $nilai_angka,
+                                'status_ujian' => $status_ujian,
                             ];
                             
                             $this->tesis->update_tesis_mkpt_pengampu($data_pengampu, $pengampu['id_tesis_mkpt_pengampu']);

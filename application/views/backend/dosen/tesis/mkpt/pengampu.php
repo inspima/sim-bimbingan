@@ -156,7 +156,7 @@
                             if ($list['status_mkpt'] > STATUS_TESIS_MKPT_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>
-                                <b>Hasil Ujian Proposal</b><br/>
+                                <b>Hasil Ujian MKPT</b><br/>
                                 <?php
                                 echo $this->tesis->get_status_ujian($list['status_ujian_mkpt'], UJIAN_TESIS_MKPT);
                             }
@@ -184,7 +184,8 @@
                                     <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/mkpt/batal_pengampu/<?= $list['id_tesis_mkpt_pengampu']?>/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Batal</a>
                                 <?php
-                                } else if($list['status_pengampu_mkpt'] != NULL && $list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
+                                } //else if($list['status_pengampu_mkpt'] == '1' && $list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
+                                else if($list['status_pengampu_mkpt'] == '1') {
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/mkpt/nilai/<?php echo $list['id_tesis_mkpt_pengampu']?>/<?php echo $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Nilai</a>

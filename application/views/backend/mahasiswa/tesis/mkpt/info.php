@@ -64,6 +64,7 @@
                             <th style="width: 45%">Dosen</th>
                             <th style="width: 45%">Status</th>
                             <th style="width: 10%">Nilai</th>
+                            <th style="width: 10%">Status Ujian</th>
                         </tr>
                         <?php
                         $tesis_mkpts = $this->tesis->read_tesis_mkpt($tesis->id_tesis); 
@@ -93,6 +94,9 @@
                                         if($mkpt['nilai_publish'] != ''){
                                         	$hitung_nilai_publish = $hitung_nilai_publish + 1;
                                         }
+
+                                        $status_ujian = ['1' => 'Lulus', '2' => 'Tidak Lulus', '0' => '', NULL => ''];
+
                                         echo '
                                         <tr>
                                             <td>'.$mkpt['mkpt'].'</td>
@@ -100,6 +104,7 @@
                                             <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
                                             <td>'.$status.'</td>
                                             <td>'.$pengampu['nilai_angka'].'</td>
+                                            <td>'.$status_ujian[$pengampu['status_ujian']].'</td>
                                         </tr>
                                         ';
                                     }
@@ -135,6 +140,7 @@
                                             ?>
                                         </select>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <?php
                             }
