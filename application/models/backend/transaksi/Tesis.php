@@ -1786,7 +1786,7 @@
 			if ($status == STATUS_TESIS_PROPOSAL_DIJADWALKAN) {
 				$this->db->where('s.status_proposal >=', $status);
 				$this->db->where('s.status_proposal <', STATUS_TESIS_PROPOSAL_UJIAN_SELESAI);
-				$this->db->where('s.status_ujian_proposal =', NULL);
+				$this->db->where('s.status_ujian_proposal =', 0);
 			} else if ($status == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI) {
 				$this->db->where('s.status_proposal >=', $status);
 				$this->db->where('s.status_ujian_proposal !=', 0);
