@@ -24,7 +24,7 @@
 				<th>Prodi</th>
 				<th>SKS</th>
 				<th>Alamat</th>
-				<th>Email</th>
+				<th>Email&NoHp</th>
 				<th>Berkas</th>
 				<th class="text-center">Opsi</th>
 			</tr>
@@ -41,7 +41,9 @@
 						<td><?php echo $mahasiswa['jenjang'] ?> <?php echo $mahasiswa['nm_prodi'] ?></td>
 						<td><?php echo $mahasiswa['sks'] ?></td>
 						<td><?php echo $mahasiswa['alamat'] ?></td>
-						<td><?php echo $mahasiswa['email'] ?></td>
+						<td><?php echo $mahasiswa['email'] ?><br/>
+							<?php echo $mahasiswa['no_hp'] ?>
+						</td>
 						<td>
 							<?php
 								if (!empty($mahasiswa['berkas_verifikasi'])) {
