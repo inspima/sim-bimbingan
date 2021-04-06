@@ -2064,6 +2064,41 @@
 		{
 			$this->db->where('id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
 			$this->db->update('tesis_mkpt_pengampu', $data);
+
+			$this->db->select('tesis_mkpt_pengampu.*');
+			$this->db->from('tesis_mkpt_pengampu');
+			$this->db->where('id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+
+			$query = $this->db->get();
+			$tesis_mkpt_pengampu = $query->row();
+
+			$this->db->select('tesis_mkpt.*, tesis_mkpt_pengampu.nip');
+			$this->db->from('tesis_mkpt_pengampu');
+			$this->db->join('tesis_mkpt', 'tesis_mkpt.id_tesis_mkpt = tesis_mkpt_pengampu.id_tesis_mkpt');
+			$this->db->where('tesis_mkpt_pengampu.id_tesis_mkpt', $tesis_mkpt_pengampu->id_tesis_mkpt);
+
+			$hitung_pengampu = $this->db->count_all_results();
+
+			$this->db->select('tesis_mkpt.*, tesis_mkpt_pengampu.nip');
+			$this->db->from('tesis_mkpt_pengampu');
+			$this->db->join('tesis_mkpt', 'tesis_mkpt.id_tesis_mkpt = tesis_mkpt_pengampu.id_tesis_mkpt');
+			$this->db->where('tesis_mkpt_pengampu.id_tesis_mkpt', $tesis_mkpt_pengampu->id_tesis_mkpt);
+			$this->db->where_in('tesis_mkpt_pengampu.status_ujian', array('1', '2'));
+
+			$hitung_status_ujian = $this->db->count_all_results();
+
+			if($hitung_pengampu == $hitung_status_ujian){
+				$data = array(
+                    'status_mkpt' => STATUS_TESIS_MKPT_UJIAN_SELESAI,
+                );
+                $this->tesis->update($data, $tesis_mkpt_pengampu->id_tesis);
+			}
+			else {
+				$data = array(
+                    'status_mkpt' => STATUS_TESIS_MKPT_UJIAN,
+                );
+                $this->tesis->update($data, $tesis_mkpt_pengampu->id_tesis);
+			}
 		}
 
 		public function delete_tesis_mkpt_pengampu($id_tesis)

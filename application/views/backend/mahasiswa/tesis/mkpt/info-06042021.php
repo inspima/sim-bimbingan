@@ -153,4 +153,35 @@
         </div>
         <!-- /.box -->
     </div>
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Status Ujian</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="form-group">
+                    <?php
+                    if($hitung_nilai_publish == '2'){
+                    ?>
+                        <label>Status Ujian</label>
+                        <?php 
+                        foreach ($status_ujians as $status_ujian) {
+                            if ($status_ujian['value'] == $tesis->status_ujian_mkpt) {
+                                echo '<br>'.$status_ujian['text'];
+                            }
+                        }
+                        ?>
+                        
+                    <?php
+                    }
+                    else {
+                        echo "<b>Nilai belum lengkap</b>";
+                    }
+                    ?>
+                </div>
+            </div>
+        <!-- /.box -->
+    </div>
 </div>

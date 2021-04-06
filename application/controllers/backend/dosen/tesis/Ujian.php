@@ -194,7 +194,7 @@ class Ujian extends CI_Controller {
             'prodi' => $this->tesis->read_prodi_s2(),
             //'tesis' => $this->tesis->read_penjadwalan($this->session_data['username'])
             //'tesis' => $this->tesis->read_penjadwalan_prodi($this->session_data['username'], $id, TAHAPAN_TESIS_UJIAN)
-            'tesis' => $this->tesis->read_penjadwalan_prodi_tesis_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_UJIAN, STATUS_TESIS_UJIAN_PENGAJUAN)
+            'tesis' => $this->tesis->read_penjadwalan_prodi_tesis_status($this->session_data['username'], $id_prodi, TAHAPAN_TESIS_UJIAN, STATUS_TESIS_UJIAN_SETUJUI_BAA)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
