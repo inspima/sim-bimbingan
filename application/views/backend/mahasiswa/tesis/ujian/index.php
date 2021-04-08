@@ -168,7 +168,7 @@
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); 
                             if ($list['status_tesis'] == STATUS_TESIS_UJIAN_DITOLAK){
                                 echo '<br>
-                                <b>Keterangan : </b><br>'.$list['keterangan_judul'];
+                                <b>Keterangan : </b><br>'.$list['keterangan_tesis'];
                             }
                             ?>
                         </td>
@@ -179,7 +179,7 @@
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
                             //}
-                            if ($list['status_tesis'] < STATUS_TESIS_UJIAN_SELESAI) {
+                            if ($list['status_tesis'] < STATUS_TESIS_UJIAN_SELESAI OR $list['status_tesis'] == STATUS_TESIS_UJIAN_DITOLAK) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
                                 <?php

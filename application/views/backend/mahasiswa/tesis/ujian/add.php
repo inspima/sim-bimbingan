@@ -47,7 +47,7 @@
                     3. Turnitin<br>
                     4. Jurnal<br>
                     5. Validasi Publikasi<br>
-                    6. MKPT (Optional, hanya wajib untuk Magister Ilmu Hukum)<br>
+                    6. Transkrip Nilai<br>
                     Dijadikan satu file<br>
                     (format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
                     <input type="file" name="berkas_syarat_tesis" class="form-control" required>

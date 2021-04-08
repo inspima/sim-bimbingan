@@ -25,6 +25,7 @@ class Tesis_mkpt extends CI_Controller {
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/utility/qr', 'qrcode');
+        $this->load->model('backend/dosen/master/Dosen_model', 'dosen');
         //END MODEL
         // LIBRARY
         $this->load->library('encryption');
@@ -38,6 +39,7 @@ class Tesis_mkpt extends CI_Controller {
             'section' => 'backend/prodi/magister/tesis/mkpt/index',
             // DATA //
             'tesis' => $this->tesis->read_mkpt($this->session_data['username']),
+            'mdosen' => $this->dosen->read_aktif_alldep(),
         );
 
         $this->load->view('backend/index_sidebar', $data);

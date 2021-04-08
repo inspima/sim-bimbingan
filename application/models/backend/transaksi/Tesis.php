@@ -934,6 +934,7 @@
 				'status' => '2'
 			);
 			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status !=', '0');
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
@@ -983,6 +984,7 @@
 				'keterangan' => $keterangan,
 			);
 			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status !=', '0');
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
@@ -1031,6 +1033,7 @@
 				'status' => '1'
 			);
 			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status !=', '0');
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
@@ -1087,6 +1090,7 @@
 				'status' => '2'
 			);
 			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status !=', '0');
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
@@ -1130,6 +1134,7 @@
 				'keterangan' => $keterangan,
 			);
 			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status !=', '0');
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
@@ -1172,6 +1177,7 @@
 				'status' => '1'
 			);
 			$this->db->where('id_ujian', $id_ujian);
+			$this->db->where('status !=', '0');
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 

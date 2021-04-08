@@ -916,7 +916,7 @@ class Ujian extends CI_Controller {
             
             $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
 
-            if($nip == $tesis->nip_pembimbing_satu){
+            /*if($nip == $tesis->nip_pembimbing_satu){
                 $data = array(
                     'id_ujian' => $id_ujian,
                     'nip' => $this->input->post('nip', TRUE),
@@ -931,7 +931,14 @@ class Ujian extends CI_Controller {
                     'status_tim' => 2,
                     'status' => 1
                 );
-            }
+            }*/
+
+            $data = array(
+                'id_ujian' => $id_ujian,
+                'nip' => $this->input->post('nip', TRUE),
+                'status_tim' => 2,
+                'status' => 1
+            );
 
             $cekpenguji = $this->tesis->cek_penguji($data);
             if ($cekpenguji) {

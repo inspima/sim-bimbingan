@@ -267,7 +267,8 @@
                                     </div>
                                 <?php
                                 }
-                                else if(($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') && (date('Y-m-d') < $ujian->tanggal)) {
+                                //else if(($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') && (date('Y-m-d') < $ujian->tanggal)) {
+                                else if($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') {
                                 ?>
                                     <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
                                         <i class="fa fa-ban"></i> Batal</a>
@@ -287,10 +288,12 @@
                             ?>
                             <?php
                             $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
-                            if($ujian->tanggal >= date('Y-m-d')){
-                            ?>
-                            <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/nilai/<?php echo $list['id_tesis']?>/<?php echo $list['id_penguji']?>"><i class="fa fa-edit"></i> Nilai</a>
-                            <?php
+                            if($ujian){
+                                if($ujian->tanggal >= date('Y-m-d')){
+                                ?>
+                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/nilai/<?php echo $list['id_tesis']?>/<?php echo $list['id_penguji']?>"><i class="fa fa-edit"></i> Nilai</a>
+                                <?php
+                                }
                             }
                             ?>
                         </td>

@@ -27,6 +27,7 @@
                             <th>No</th>
                             <th>Tesis</th>
                             <th>Tgl.Pengajuan</th>
+                            <th>Detail MKPT</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -46,11 +47,73 @@
                                     ?>
                                 </td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
+                                <td>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th style="width: 35%">Topik</th>
+                                            <th style="width: 10%">SKS</th>
+                                            <th style="width: 45%">Dosen</th>
+                                            <th style="width: 10%">Nilai</th>
+                                            <th style="width: 10%">Status Ujian</th>
+                                        </tr>
+                                        <?php
+                                        $tesis_mkpts = $this->tesis->read_tesis_mkpt($list['id_tesis']); 
+                                        $hitung_pengampu_setuju = 0;   
+                                        $hitung_nilai_publish = 0;
+                                        $no = 0;
+                                        if (!empty($tesis_mkpts)) {
+                                            $sudah_publish_semua=$this->tesis->cek_mkpt_sudah_publish($list['id_tesis']);
+                                            foreach ($tesis_mkpts as $index => $mkpt) {
+                                                $no++;
+                                                $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
+                                                if(!empty($mkpt_pengampus)){
+                                                    foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
+                                                        if($pengampu['status'] == '1' ){
+                                                            $status = '';
+                                                            if($pengampu['status'] == '1'){
+                                                                $hitung_pengampu_setuju = $hitung_pengampu_setuju + 1;
+                                                                $status = '<button type="button" class="btn btn-xs btn-success"> Disetujui</button>';
+                                                            }
+
+                                                            foreach ($mdosen as $list_dosen) {
+                                                                $dosen_mkpt = '';
+                                                                if($pengampu['nip'] == $list_dosen['nip']){
+                                                                    $dosen_mkpt = $list_dosen['nama'];
+                                                                }
+                                                            }
+
+                                                            if($mkpt['nilai_publish'] != ''){
+                                                                $hitung_nilai_publish = $hitung_nilai_publish + 1;
+                                                            }
+
+                                                            $status_ujian = ['1' => 'Lulus', '2' => 'Tidak Lulus', '0' => '', NULL => ''];
+
+                                                            echo '
+                                                            <tr>
+                                                                <td>'.$no.'</td>
+                                                                <td>'.$mkpt['mkpt'].'</td>
+                                                                <td>'.$mkpt['sks'].'</td>
+                                                                <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
+                                                                <td>'.$pengampu['nilai_angka'].'</td>
+                                                                <td>'.$status_ujian[$pengampu['status_ujian']].'</td>
+                                                            </tr>
+                                                            ';
+                                                        }
+                                                        ?>
+                                                    <?php
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </table>
+                                </td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, TAHAPAN_TESIS_MKPT]); ?>
 
                                     <?php
-                                    if ($list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
+                                    if ($list['status_mkpt'] >= STATUS_TESIS_MKPT_UJIAN) {
                                         $data_dokumen = [
                                             'tipe' => DOKUMEN_SP_PENGAMPU_MKPT_TESIS,
                                             'jenis' => DOKUMEN_JENIS_TESIS_MKPT_STR,
