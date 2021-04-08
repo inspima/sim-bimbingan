@@ -131,8 +131,8 @@
 		public function save_judul()
 		{
 			$hand = $this->input->post('hand', true);
+			$id_skripsi = $this->input->post('id_skripsi', true);
 			if ($hand == 'center19') {
-				$id_skripsi = $this->input->post('id_skripsi', true);
 
 				$dataj = array(
 					'id_skripsi' => $id_skripsi,
@@ -148,6 +148,59 @@
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
 				redirect('dashboardm/modul/skripsi/bimbingan/' . $id_skripsi);
+			}
+		}
+
+		public function edit($id_skripsi)
+		{
+			$username = $this->session_data['username'];
+
+			$data = array(
+				// PAGE //
+				'title' => 'Modul (Mahasiswa)',
+				'subtitle' => 'Pengajuan- Skripsi',
+				'section' => 'backend/mahasiswa/modul/skripsi_edit',
+				'use_back' => true,
+				'back_link' => 'dashboardm/modul/skripsi',
+				// DATA //
+				'skripsi' => $this->skripsi->detail($id_skripsi, $username)
+			);
+
+			if ($data['skripsi']) {
+				$this->load->view('backend/index_sidebar', $data);
+			} else {
+				$data['section'] = 'backend/notification/danger';
+				$data['msg'] = 'Tidak ditemukan';
+				$data['linkback'] = 'dashboardm/modul/proposal';
+				$this->load->view('backend/index_sidebar', $data);
+			}
+		}
+
+
+		public function update()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+				$id_judul = $this->input->post('id_judul', true);
+
+				$read_judul = $this->skripsi->read_judul($id_skripsi);
+				$judul = $this->input->post('judul', true);
+
+				if ($judul != $read_judul->judul) {
+					$dataj = array(
+						'judul' => $this->input->post('judul', true)
+					);
+					$this->skripsi->update_judul($dataj, $id_judul);
+				}
+
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil update');
+				redirect_back();
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
 			}
 		}
 
@@ -221,47 +274,6 @@
 			}
 		}
 
-		public function update()
-		{
-			$hand = $this->input->post('hand', true);
-			if ($hand == 'center19') {
-				$id_skripsi = $this->input->post('id_skripsi', true);
-
-				$read_judul = $this->proposal->read_judul($id_skripsi);
-				$judul = $this->input->post('judul', true);
-
-				if ($judul == $read_judul->judul) {
-					$data = array(
-						'id_departemen' => $this->input->post('id_departemen', true),
-					);
-					$this->proposal->update($data, $id_skripsi);
-
-					$this->session->set_flashdata('msg-title', 'alert-success');
-					$this->session->set_flashdata('msg', 'Berhasil update');
-					redirect('dashboardm/modul/proposal');
-				} else {
-					$data = array(
-						'id_departemen' => $this->input->post('id_departemen', true),
-					);
-					$this->proposal->update($data, $id_skripsi);
-
-					$dataj = array(
-						'id_skripsi' => $id_skripsi,
-						'judul' => $this->input->post('judul', true)
-					);
-
-					$this->proposal->save_judul($dataj);
-
-					$this->session->set_flashdata('msg-title', 'alert-success');
-					$this->session->set_flashdata('msg', 'Berhasil update');
-					redirect('dashboardm/modul/proposal');
-				}
-			} else {
-				$this->session->set_flashdata('msg-title', 'alert-danger');
-				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-				redirect('dashboardm/modul/proposal');
-			}
-		}
 
 		public function update_file()
 		{
@@ -271,7 +283,7 @@
 
 				$config['upload_path'] = './assets/upload/turnitin/';
 				$config['allowed_types'] = 'pdf';
-				$config['max_size'] = 20000;
+				$config['max_size'] = MAX_SIZE_FILE_UPLOAD;
 				$config['remove_spaces'] = true;
 				$config['file_ext_tolower'] = true;
 				$config['detect_mime'] = true;
@@ -295,13 +307,12 @@
 
 					$this->session->set_flashdata('msg-title', 'alert-success');
 					$this->session->set_flashdata('msg', 'Berhasil Upload.');
-					redirect('dashboardm/modul/skripsi');
+					redirect_back();
 				}
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-				redirect('dashboardm/modul/skripsi');
-				echo $hand;
+				redirect_back();
 			}
 		}
 

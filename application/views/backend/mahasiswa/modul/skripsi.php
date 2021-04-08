@@ -56,6 +56,16 @@
 									<hr class="divider-line-semi-bold"/>
 									<b>TOEFL</b><br/>
 									<?php echo $list['toefl'] ?>
+									<?php
+										if ($list['status_skripsi'] < STATUS_SKRIPSI_UJIAN_SELESAI) {
+											?>
+											<br/>
+											<a class="btn btn-xs bg-orange" style="margin: 5px 0px" href="<?= base_url() ?>dashboardm/modul/skripsi/edit/<?= $list['id_skripsi'] ?>">
+												<i class="fa fa-pencil-square"></i> Ubah Judul
+											</a>
+											<?php
+										}
+									?>
 								</td>
 								<td><?= $list['departemen'] ?></td>
 								<td>
@@ -120,13 +130,15 @@
 											}
 											if ($jumlah_bimbingan < 8) {
 												?>
-												<b class="text-danger" style="font-size: 0.8em">- Total bimbingan minimal 8x dan sudah disetujui pembimbing</b><br/>
+												<b class="text-danger" style="font-size: 0.8em">- Total bimbingan minimal 8x dan sudah disetujui pembimbing</b>
+												<br/>
 												<?php
 
 											}
 											if ($now < $batas_true) {
 												?>
-												<b class="text-danger" style="font-size: 0.8em">- Jangka waktu bimbingan awal dan pengajuan minimal 2 bulan</b><br/>
+												<b class="text-danger" style="font-size: 0.8em">- Jangka waktu bimbingan awal dan pengajuan minimal 2 bulan</b>
+												<br/>
 												<?php
 											}
 											?>

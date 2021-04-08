@@ -35,12 +35,13 @@
 
 		public function read_judul($id_skripsi)
 		{
-			$this->db->select('j.judul');
+			$this->db->select('j.*');
 			$this->db->from('judul j');
 			$this->db->join('skripsi s', 'j.id_skripsi = s.id_skripsi');
+			$this->db->where('j.status', 1);
+			$this->db->where('j.persetujuan', 1);
 			$this->db->where('j.id_skripsi', $id_skripsi);
 			$this->db->order_by('j.id_judul', 'desc');
-			$this->db->limit(1);
 			$query = $this->db->get();
 			return $query->row();
 		}
@@ -117,6 +118,12 @@
 		public function save_judul($dataj)
 		{
 			$this->db->insert('judul', $dataj);
+		}
+
+		public function update_judul($data, $id)
+		{
+			$this->db->where('id_judul', $id);
+			$this->db->update('judul', $data);
 		}
 
 		public function jumlah_bimbingan($id_skripsi)

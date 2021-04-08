@@ -253,6 +253,9 @@
 	$route['dashboardm/modul/skripsi/save_judul'] = 'backend/mahasiswa/modul/skripsi/save_judul';
 	$route['dashboardm/modul/skripsi/ujian/(:num)'] = 'backend/mahasiswa/modul/skripsi/ujian/$1';
 	$route['dashboardm/modul/skripsi/update_toefl'] = 'backend/mahasiswa/modul/skripsi/update_toefl';
+	$route['dashboardm/modul/skripsi/edit/(:num)'] = 'backend/mahasiswa/modul/skripsi/edit/$1';
+	$route['dashboardm/modul/skripsi/update'] = 'backend/mahasiswa/modul/skripsi/update';
+	$route['dashboardm/modul/skripsi/update_file'] = 'backend/mahasiswa/modul/skripsi/update_file';
 	$route['dashboardm/modul/skripsi/bimbingan/(:num)'] = 'backend/mahasiswa/modul/skripsi/bimbingan/$1';
 	$route['dashboardm/modul/skripsi/bimbingan_save'] = 'backend/mahasiswa/modul/skripsi/bimbingan_save';
 	$route['dashboardm/modul/skripsi/bimbingan_delete'] = 'backend/mahasiswa/modul/skripsi/bimbingan_delete';
