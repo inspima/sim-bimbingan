@@ -1361,7 +1361,7 @@
 		{
 			$this->db->select('s.*,pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
             pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, 
-            dn.departemen, m.nim, m.nama,jd.judul,pr.nm_prodi,jn.jenjang, mt.nm_minat');
+            dn.departemen, m.nim, m.nama,m.id_prodi,jd.judul,pr.nm_prodi,jn.jenjang, mt.nm_minat');
 			$this->db->from('tesis s');
 			$this->db->join('judul_tesis jd', 'jd.id_tesis=s.id_tesis and jd.status=\'1\'');
 			$this->db->join('departemen dn', 's.id_departemen = dn.id_departemen', 'left');

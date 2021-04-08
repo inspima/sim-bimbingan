@@ -1,6 +1,7 @@
 <?php
 	defined('BASEPATH') or exit('No direct script access allowed');
-// Tes Perubahan
+
+	// Tes Perubahan
 	class Api extends CI_Controller
 	{
 		public function __construct()
@@ -85,7 +86,7 @@
 							'type' => JENJANG_S2,
 							'title' => $skripsi->nim . ' - ' . ($data['jenis_ujian'] == 1 ? "Proposal Tesis" : "Tesis") . ' - ' . $data['ruang'],
 							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
-							'backgroundColor' => '#1191ed'
+							'backgroundColor' => $skripsi->id_prodi == S2_ILMU_HUKUM ? '#1191ed' : '#10408f'
 						];
 					}
 				}
