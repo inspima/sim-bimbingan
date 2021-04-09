@@ -48,10 +48,10 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="<?php echo base_url() ?>profile" class="btn btn-primary">Profile</a>
+                                <a href="<?php echo base_url() ?>profile" class="btn bg-blue">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="<?php echo base_url() ?>logout" class="btn btn-warning">Sign out</a>
+                                <a href="<?php echo base_url() ?>logout" class="btn bg-orange">Sign out</a>
                             </div>
                         </li>
                     </ul>
