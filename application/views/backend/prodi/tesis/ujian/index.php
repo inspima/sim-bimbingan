@@ -175,7 +175,13 @@
                             ?>
                         </td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); ?>
+                            <?php 
+                            $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); 
+                            if ($list['status_tesis'] == STATUS_TESIS_UJIAN_DITOLAK){
+                                echo '<br>
+                                <b>Keterangan : </b><br>'.$list['keterangan_tesis'];
+                            }
+                            ?>
                             <?php if ($list['status_tesis'] > STATUS_TESIS_UJIAN) {
                                 ?>
                                 <hr style="margin:5px"/>

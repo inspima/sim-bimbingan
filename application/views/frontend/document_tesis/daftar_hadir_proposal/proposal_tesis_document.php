@@ -44,6 +44,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
                 <td>
                     <table border="0" style="width:100%">
+                        <?php
+                        if($tesis->id_prodi == S2_ILMU_HUKUM){
+                        ?>
                         <tr>
                             <td>Hari, Tanggal</td>
                             <td>:</td>
@@ -74,6 +77,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td>:</td>
                             <td><?php echo $tesis->judul ?></td>
                         </tr>
+                        <?php
+                        }
+                        else if($tesis->id_prodi == S2_KENOTARIATAN){
+                        ?>
+                        <tr>
+                            <td>Hari/ Tanggal</td>
+                            <td>:</td>
+                            <td><?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?></td>
+                        </tr>
+                        <tr>
+                            <td>Pukul</td>
+                            <td>:</td>
+                            <td><?= substr($jadwal->jam, 0, 5); ?> - Selesai</td>
+                        </tr>
+                        <tr>
+                            <td>Tempat</td>
+                            <td>:</td>
+                            <td><?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>Acara</td>
+                            <td>:</td>
+                            <td>Ujian Proposal Tesis Program Magister <?php echo ucwords(strtolower($tesis->nm_prodi));?> a.n. <?php echo $tesis->nama ?> / NIM. <?php echo $tesis->nim ?> </td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
                     </table>
                 </td>
             </tr>
@@ -81,9 +111,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td>
                     <table border="1" cellspacing="0" cellpadding="5" style="width:100%">  
                         <tr>
-                            <td>NO.</td>
-                            <td>DOSEN PENGUJI</td>
-                            <td colspan="2">TTD</td>
+                            <td>
+                                <?php
+                                if($tesis->id_prodi == S2_ILMU_HUKUM){
+                                    echo 'NO.';
+                                }
+                                else if($tesis->id_prodi == S2_KENOTARIATAN){
+                                    echo '<b>No.</b>';
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                if($tesis->id_prodi == S2_ILMU_HUKUM){
+                                    echo 'DOSEN PENGUJI';
+                                }
+                                else if($tesis->id_prodi == S2_KENOTARIATAN){
+                                    echo '<b>Nama Penguji</b>';
+                                }
+                                ?>
+                            </td>
+                            <td colspan="2">
+                                <?php
+                                if($tesis->id_prodi == S2_ILMU_HUKUM){
+                                    echo 'TTD';
+                                }
+                                else if($tesis->id_prodi == S2_KENOTARIATAN){
+                                    echo '<b>Tanda Tangan</b>';
+                                }
+                                ?>
+                            </td>
                         </tr>
                         <?php
                         $no = 1;
@@ -120,16 +177,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td>
                     <table border="0" style="width:100%;margin-top: 30px">
                         <tr>
-                            <td align="center">
+                            <td style="width: 50%">
                                 <img src="<?= $qr_dokumen ?>" width="100px">
                             </td> 
-                            <!-- <td style="width: 50%">
-                                <p>
+                            <td style="width: 50%">
+                                <!-- <p>
                                     Ketua Panitia.<br/><br/><br/><br/><br/><br/>
                                     ..........................<br/>
                                     NIP. .............................
-                                </p>
-                            </td> -->
+                                </p> -->
+                            </td>
                         </tr>
                     </table>
                 </td>

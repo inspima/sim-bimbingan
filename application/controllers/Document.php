@@ -957,11 +957,12 @@
 						'jadwal' => $jadwal,
 						'pengujis' => $this->tesis->read_penguji($jadwal->id_ujian),
 						//'semester' => $this->semester->detail($smt),
-						'semester' => $this->semester->semester_pengajuan($tugas_akhir->tgl_pengajuan),
+						'semester' => $this->semester->semester_pengajuan($tugas_akhir->tgl_pengajuan) ? $this->semester->semester_pengajuan($tugas_akhir->tgl_pengajuan) : $this->semester->detail_berjalan(),
 						'no_sk' => $dokumen->no_ref_doc,
 						'tgl_sk' => $dokumen->date_doc,
 						'tgl_surat' => $dokumen->date,
-						'dekan' => $this->struktural->read_dekan()
+						'dekan' => $this->struktural->read_dekan(),
+						'wadek_satu' => $this->struktural->read_wadek1()
 					);
 					ob_end_clean();
 

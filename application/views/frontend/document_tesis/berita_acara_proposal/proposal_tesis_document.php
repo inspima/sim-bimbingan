@@ -41,7 +41,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <u><h2>BERITA ACARA UJIAN PROPOSAL TESIS</h2></u>
         </p>
         <p align="justify">
+            <?php
+            if($tesis->id_prodi == S2_ILMU_HUKUM){
+            ?>
             Pada hari <b><?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?></b> mulai pukul <b><?= substr($jadwal->jam, 0, 5); ?> - selesai</b> di Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> Fakultas Hukum Universitas Airlangga diselenggarakan ujian proposal tesis atas nama :
+            <?php
+            }
+            else if($tesis->id_prodi == S2_KENOTARIATAN){
+            ?>
+            Pada hari ini <?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?>  mulai pukul  <?= substr($jadwal->jam, 0, 5); ?> WIB sampai selesai di ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?> Universitas Airlangga diselenggarakan Ujian Proposal Tesis :
+            <?php
+            }
+            ?>
         </p>
         <table border="0" style="width:100%">
             <tr>
@@ -57,11 +68,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td>:</td>
                             <td><?php echo $tesis->nim ?></td>
                         </tr>
+                        <?php
+                        if($tesis->id_prodi == S2_ILMU_HUKUM){
+                        ?>
                         <tr>
                             <td>Minat</td>
                             <td>:</td>
                             <td><?php echo $tesis->nm_minat ?></td>
                         </tr>
+                        <?php
+                        }
+                        else if($tesis->id_prodi == S2_KENOTARIATAN){
+                        ?>
+                        <tr>
+                            <td>Program Studi</td>
+                            <td>:</td>
+                            <td>Magister <?php echo ucwords(strtolower($tesis->nm_prodi));?></td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
                         <tr>
                             <td>Judul</td>
                             <td>:</td>
@@ -96,7 +122,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -122,7 +147,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -165,7 +189,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -191,7 +214,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -206,7 +228,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -234,7 +255,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -249,7 +269,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -260,7 +279,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -275,7 +293,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -303,7 +320,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -318,7 +334,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -329,7 +344,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td style = "width: 20%;text-align: left;">
                                             <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
-                                                <?= $no ?>.
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
                                                     ?>
@@ -344,7 +358,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php
                                             else:
                                                 ?>
-                                                <?= $no ?>.
                                             <?php
                                             endif;
                                             ?>
@@ -373,18 +386,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 $keterangan = '';
                             }
                             if($tesis->status_ujian_proposal == '1'){
-                                $status_lanjut = 'Dapat';
-                                $keterangan = '';
+                                 $status_lanjut = 'Dapat';
+                                 $keterangan = '';
                             }
                             if($tesis->status_ujian_proposal == '3'){
-                                $status_lanjut = 'Tidak Dapat';
-                                $keterangan = '<br>Masih harus diuji kembali pada tanggal : '.$tgl_sk;
+                                 $status_lanjut = 'Tidak Dapat';
+                                 if($tesis->id_prodi == S2_ILMU_HUKUM){
+                                     $keterangan = '<br>Masih harus diuji kembali pada tanggal : '.$date_doc;
+                                 }
+                                 else if($tesis->id_prodi == S2_KENOTARIATAN){
+                                    $keterangan = '<br>2. Masih harus diuji kembali pada tanggal : '.$date_doc;
+                                 }
                             }
                         }
                         else {
                              $status_lanjut = 'Dapat / Tidak Dapat *)';
                              $keterangan = '';
                         }
+                        ?>
+                        <?php
+                        if($tesis->id_prodi == S2_ILMU_HUKUM){
                         ?>
                         <tr>
                             <td>
@@ -395,6 +416,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </p>
                             </td>
                         </tr>
+                        <?php
+                        }
+                        else if($tesis->id_prodi == S2_KENOTARIATAN){
+                        ?>
+                        <tr>
+                            <td>
+                                <p>
+                                    Memutuskan bahwa ujian proposal tesis bagi peserta tersebut :
+                                    <br>1. <?= $status_lanjut?> dilanjutkan sebagai materi penelitiannya 
+                                    <?= $keterangan?>
+                                </p>
+                            </td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
                     </table>
                 </td>
             </tr>
@@ -419,6 +456,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </table>
                 </td>
             </tr>
-        </table>  
+        </table> 
+        <?php
+        if($tesis->id_prodi == S2_KENOTARIATAN){
+        ?>
+        <table>
+            <tr>
+                <td colspan="3">
+                    <i>Catatan :</i>
+                    <br>Penelitian dibimbing oleh 
+                </td>
+            </tr>
+            <tr>
+                <td>Pembimbing Ketua</td>
+                <td>:</td>
+                <td><?php echo $tesis->nama_pembimbing_satu; ?></td>
+            </tr>
+            <tr>
+                <td>Pembimbing Kedua</td>
+                <td>:</td>
+                <td><?php echo $tesis->nama_pembimbing_dua; ?></td>
+            </tr>
+        </table>
+        <?php
+        }
+        ?> 
     </body>
 </html>

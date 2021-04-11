@@ -1224,7 +1224,7 @@
 			$this->db->update('tesis', $data);
 		}
 
-		function reject_tesis($id_tesis)
+		function reject_tesis($id_tesis, $keterangan)
 		{
 			$data = array(
 				'status_tesis' => STATUS_TESIS_UJIAN_DITOLAK,

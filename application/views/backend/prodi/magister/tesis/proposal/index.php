@@ -217,6 +217,12 @@
                                             $tgl_sk = date('d/m/Y', strtotime($dokumen_undangan->date_doc));
                                             $tgl_surat = date('d/m/Y', strtotime($dokumen_undangan->date));
                                         }
+
+                                        $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_PROPOSAL);
+
+                                        if(!empty($ujian)){
+                                            $link_zoom = $ujian->link_zoom ? $ujian->link_zoom : '';
+                                        }
                                         ?>
                                         <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModalUndangan<?= $list['id_tesis']?>">
                                             <i class="fa fa-file"></i> Undangan
@@ -278,6 +284,12 @@
                                             $no_sk = $dokumen_presensi->no_ref_doc;
                                             $tgl_sk = date('d/m/Y', strtotime($dokumen_presensi->date_doc));
                                             $tgl_surat = date('d/m/Y', strtotime($dokumen_presensi->date));
+                                        }
+
+                                        $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_PROPOSAL);
+
+                                        if(!empty($ujian)){
+                                            $link_zoom = $ujian->link_zoom ? $ujian->link_zoom : '';
                                         }
                                         ?>
                                         <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModalDaftarHadir<?= $list['id_tesis']?>">

@@ -18,7 +18,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open_multipart('mahasiswa/tesis/ujian/save'); ?>
+            <?php echo form_open_multipart('mahasiswa/tesis/ujian/save');?>
             <div class="box-body">
                 <div class="form-group">
                     <label>Pembimbing Utama</label>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label>Upload Berkas Ujian Tesis<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
-                    <input type="file" name="berkas_tesis" class="form-control" required>
+                    <input type="file" name="berkas_tesis" class="form-control" required >
                 </div>
                 <div class="form-group">
                     <label>Upload Syarat Ujian Tesis<br>
@@ -50,12 +50,14 @@
                     6. Transkrip Nilai<br>
                     Dijadikan satu file<br>
                     (format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
-                    <input type="file" name="berkas_syarat_tesis" class="form-control" required>
+                    <input type="file" name="berkas_syarat_tesis" class="form-control" required >
                 </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i> Ajukan</button>
+                <!-- <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-arrow-up"></i> Ajukan</button> -->
+                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
+                <a class="btn btn-sm btn-warning" href="<?= base_url()?>mahasiswa/tesis/ujian"><i class="fa fa-close"></i> Batal</a>
             </div>
             <?= form_close() ?>
         </div>

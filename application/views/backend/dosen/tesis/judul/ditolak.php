@@ -159,7 +159,13 @@
                         <td><?= $list['nm_minat'] ?></td>
                         <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?></td>
                         <td class="text-center">
-                            <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_JUDUL]); ?>
+                            <?php 
+                            $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_JUDUL]); 
+                            if ($list['status_judul'] == STATUS_TESIS_JUDUL_DITOLAK){
+                                echo '<br>
+                                <b>Keterangan : </b><br>'.$list['keterangan_judul'];
+                            }
+                            ?>
                         </td>
                         <td>
                             <?php

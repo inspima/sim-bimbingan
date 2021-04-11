@@ -162,6 +162,10 @@
                             <?php
                             if($list['jenis'] == TAHAPAN_TESIS_JUDUL){ 
                                 $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_JUDUL]); 
+                                if ($list['status_judul'] == STATUS_TESIS_JUDUL_DITOLAK){
+                                    echo '<br>
+                                    <b>Keterangan : </b><br>'.$list['keterangan_judul'];
+                                }
                             }
                             if($list['jenis'] == TAHAPAN_TESIS_PROPOSAL){ 
                                 $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); 

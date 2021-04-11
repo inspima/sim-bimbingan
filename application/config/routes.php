@@ -795,6 +795,9 @@
 
 	$route['prodi/tesis/ujian'] = 'backend/prodi/tesis/ujian';
 	$route['prodi/tesis/ujian/index/(:num)'] = 'backend/prodi/tesis/ujian/index';
+	$route['prodi/tesis/ujian/index_sudah_proses/(:num)'] = 'backend/prodi/tesis/ujian/index_sudah_proses';
+	$route['prodi/tesis/ujian/index'] = 'backend/prodi/tesis/ujian/index';
+	$route['prodi/tesis/ujian/index_sudah_proses'] = 'backend/prodi/tesis/ujian/index_sudah_proses';
 	$route['prodi/tesis/ujian/approve/(:num)'] = 'backend/prodi/tesis/ujian/approve';
 	$route['prodi/tesis/ujian/reject/(:num)'] = 'backend/prodi/tesis/ujian/reject';
 	$route['prodi/tesis/ujian/batal/(:num)'] = 'backend/prodi/tesis/ujian/batal';

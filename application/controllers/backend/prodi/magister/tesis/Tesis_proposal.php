@@ -66,7 +66,7 @@ class Tesis_proposal extends CI_Controller {
             $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_SK_PROPOSAL_TESIS . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
             $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_SK_PROPOSAL_TESIS . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
             // QR
-            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SP Pembimbing', 'Judul Tesis', $tesis->nim, $tgl_surat_ymd);
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SK Proposal', 'Proposal Tesis', $tesis->nim, $tgl_surat_ymd);
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
             $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
             // DOKUMEN
@@ -407,7 +407,8 @@ class Tesis_proposal extends CI_Controller {
                 'no_sk' => '',
                 'tgl_sk' => '',
                 'tgl_surat' => $tgl_surat_ymd,
-                'dekan' => $this->struktural->read_dekan()
+                'dekan' => $this->struktural->read_dekan(),
+                'wadek_satu' => $this->struktural->read_wadek1(),
             );
 
             /*$judul_notifikasi = 'Surat Tugas Pembimbing';
