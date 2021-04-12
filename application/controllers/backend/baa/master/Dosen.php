@@ -39,6 +39,7 @@
 				'section' => 'backend/baa/master/dosen',
 				// DATA //
 				'dosen' => $this->dosen->read(),
+				'jenjangs' => $this->prodi->read_jenjang(),
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}
@@ -113,6 +114,48 @@
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
 				redirect('dashboarda/master/dosen');
+			}
+		}
+
+		public function update_aktif()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$mode = $this->input->post('mode', true);
+				$nip = $this->input->post('nip', true);
+				$id_jenjang = $this->input->post('id_jenjang', true);
+				$status = $this->input->post('status', true);
+				$detail_aktif = $this->dosen->detailAktif($id_jenjang, $nip);
+				if (!empty($detail_aktif)) {
+					if ($mode == 'pembimbing') {
+						$data = array(
+							'pembimbing' => $status,
+						);
+						$this->dosen->updateAktif($data, $id_jenjang, $nip);
+					} else {
+						$data = array(
+							'penguji' => $status,
+						);
+						$this->dosen->updateAktif($data, $id_jenjang, $nip);
+					}
+				} else {
+					$data = array(
+						'id_jenjang'=>$id_jenjang,
+						'nip'=>$nip,
+						'pembimbing' => $status,
+						'penguji' => $status,
+					);
+					$this->dosen->saveAktif($data);
+				}
+
+
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil update');
+				redirect_back();
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
 			}
 		}
 

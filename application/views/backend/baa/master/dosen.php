@@ -24,8 +24,8 @@
 						<th>No</th>
 						<th>Biodata & Kepangkatan</th>
 						<th>Departemen/Bagian</th>
-						<th>Email</th>
-						<th>Status</th>
+						<th>Pembimbing</th>
+						<th>Penguji</th>
 						<th>Aksi</th>
 					</tr>
 					</thead>
@@ -42,50 +42,97 @@
 										if ($list['external'] == '1') {
 											if (!empty($list['external_pt'])) {
 												?>
-													Asal PT : <b><?=$list['external_pt']?></b><br/>
+												Asal PT : <b><?= $list['external_pt'] ?></b><br/>
 												<?php
 											}
 										}
 									?>
-									<b><?= $list['nip'] ?></b><br/>
+									NIP : <b><?= $list['nip'] ?></b><br/>
+									Email : <b><?= $list['email'] ?></b><br/>
 									<hr class="divider-line-semi-bold"/>
 									Jabatan : <b><?= !empty($list['jabatan']) ? $list['jabatan'] : '-'; ?></b><br/>
 									Pangkat : <b><?= !empty($list['pangkat']) ? $list['pangkat'] : '-'; ?></b><br/>
 									Golongan : <b><?= !empty($list['golongan']) ? $list['golongan'] : '-'; ?></b><br/>
 								</td>
 								<td><?= $list['departemen'] ?></td>
-								<td><?= $list['email'] ?></td>
 								<td class="text-center">
 									<?php
-										if ($list['status_berjalan'] == '0') {
+										foreach ($jenjangs as $jenjang) {
+											$aktif = $this->dosen->checkAktifPembimbing($jenjang['id_jenjang'], $list['nip']);
 											?>
+											<?= $jenjang['nm_jenjang'] ?>
 											<?php
-											echo form_open('dashboardb/master/dosen/update_berjalan');
-											echo formtext('hidden', 'hand', 'center19', 'required');
-											echo formtext('hidden', 'id_pegawai', $list['id_pegawai'], 'required');
-											echo formtext('hidden', 'status_berjalan', '1', 'required');
+											if ($aktif) {
+												echo form_open('baa/master/dosen/update_aktif');
+												echo formtext('hidden', 'hand', 'center19', 'required');
+												echo formtext('hidden', 'mode', 'pembimbing', 'required');
+												echo formtext('hidden', 'nip', $list['nip'], 'required');
+												echo formtext('hidden', 'id_jenjang', $jenjang['id_jenjang'], 'required');
+												echo formtext('hidden', 'status', '0', 'required');
+												?>
+												<button type="submit" class="btn btn-xs btn-success" style="margin:2px;">
+													<i class="fa fa-check"></i> Aktif
+												</button>
+												<?php
+												echo form_close();
+											} else {
+												echo form_open('baa/master/dosen/update_aktif');
+												echo formtext('hidden', 'hand', 'center19', 'required');
+												echo formtext('hidden', 'mode', 'pembimbing', 'required');
+												echo formtext('hidden', 'nip', $list['nip'], 'required');
+												echo formtext('hidden', 'id_jenjang', $jenjang['id_jenjang'], 'required');
+												echo formtext('hidden', 'status', '1', 'required');
+												?>
+												<button type="submit" class="btn btn-xs btn-danger" style="margin:2px;">
+													<i class="fa fa-remove"></i> Tidak
+												</button>
+												<?php
+												echo form_close();
+											}
 											?>
-											<button type="submit" class="btn btn-xs btn-danger pull-left" style="margin-right:3px;">
-												<i class="fa fa-close"></i> Tidak Aktif
-											</button>
+
+											<hr class="divider-line-semi-bold"/>
 											<?php
-											echo form_close();
+										}
+									?>
+								</td>
+								<td class="text-center">
+									<?php
+										foreach ($jenjangs as $jenjang) {
+											$aktif = $this->dosen->checkAktifPenguji($jenjang['id_jenjang'], $list['nip']);
 											?>
+											<?= $jenjang['nm_jenjang'] ?>
 											<?php
-										} else if ($list['status_berjalan'] == '1') {
+											if ($aktif) {
+												echo form_open('baa/master/dosen/update_aktif');
+												echo formtext('hidden', 'hand', 'center19', 'required');
+												echo formtext('hidden', 'mode', 'penguji', 'required');
+												echo formtext('hidden', 'nip', $list['nip'], 'required');
+												echo formtext('hidden', 'id_jenjang', $jenjang['id_jenjang'], 'required');
+												echo formtext('hidden', 'status', '0', 'required');
+												?>
+												<button type="submit" class="btn btn-xs btn-success" style="margin:2px;">
+													<i class="fa fa-check"></i> Aktif
+												</button>
+												<?php
+												echo form_close();
+											} else {
+												echo form_open('baa/master/dosen/update_aktif');
+												echo formtext('hidden', 'hand', 'center19', 'required');
+												echo formtext('hidden', 'mode', 'penguji', 'required');
+												echo formtext('hidden', 'nip', $list['nip'], 'required');
+												echo formtext('hidden', 'id_jenjang', $jenjang['id_jenjang'], 'required');
+												echo formtext('hidden', 'status', '1', 'required');
+												?>
+												<button type="submit" class="btn btn-xs btn-danger" style="margin:2px;">
+													<i class="fa fa-remove"></i> Tidak
+												</button>
+												<?php
+												echo form_close();
+											}
 											?>
-											<?php
-											echo form_open('dashboardb/master/dosen/update_berjalan');
-											echo formtext('hidden', 'hand', 'center19', 'required');
-											echo formtext('hidden', 'id_pegawai', $list['id_pegawai'], 'required');
-											echo formtext('hidden', 'status_berjalan', '0', 'required');
-											?>
-											<button type="submit" class="btn btn-xs btn-success pull-left" style="margin-right:3px;">
-												<i class="fa fa-check"></i> Aktif
-											</button>
-											<?php
-											echo form_close();
-											?>
+
+											<hr class="divider-line-semi-bold"/>
 											<?php
 										}
 									?>

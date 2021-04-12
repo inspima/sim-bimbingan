@@ -37,6 +37,62 @@
 			$this->db->update('pegawai', $data);
 		}
 
+		public function updateAktif($data, $id_jenjang, $nip)
+		{
+			$this->db->where('nip', $nip);
+			$this->db->where('id_jenjang', $id_jenjang);
+			$this->db->update('dosen_aktif', $data);
+		}
+
+		public function saveAktif($data)
+		{
+			$this->db->insert('dosen_aktif', $data);
+		}
+
+		public function detailAktif($id_jenjang, $nip)
+		{
+			$this->db->select('*');
+			$this->db->from('dosen_aktif');
+			$this->db->where('nip', $nip);
+			$this->db->where('id_jenjang', $id_jenjang);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function checkAktifPembimbing($id_jenjang, $nip)
+		{
+			$result = false;
+			$this->db->select('*');
+			$this->db->from('dosen_aktif');
+			$this->db->where('nip', $nip);
+			$this->db->where('id_jenjang', $id_jenjang);
+			$query = $this->db->get();
+			$data = $query->row();
+			if (!empty($data)) {
+				if ($data->pembimbing == 1) {
+					$result = true;
+				}
+			}
+			return $result;
+		}
+
+		public function checkAktifPenguji($id_jenjang, $nip)
+		{
+			$result = false;
+			$this->db->select('*');
+			$this->db->from('dosen_aktif');
+			$this->db->where('nip', $nip);
+			$this->db->where('id_jenjang', $id_jenjang);
+			$query = $this->db->get();
+			$data = $query->row();
+			if (!empty($data)) {
+				if ($data->penguji == 1) {
+					$result = true;
+				}
+			}
+			return $result;
+		}
+
 	}
 
 ?>

@@ -446,6 +446,7 @@
 	$route['baa/master/dosen'] = 'backend/baa/master/dosen/index';
 	$route['baa/master/dosen/edit/(:num)'] = 'backend/baa/master/dosen/edit';
 	$route['baa/master/dosen/update'] = 'backend/baa/master/dosen/update';
+	$route['baa/master/dosen/update_aktif'] = 'backend/baa/master/dosen/update_aktif';
 
 	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
 	$route['baa/utility/registrasi/sarjana'] = 'backend/baa/utility/registrasi/sarjana';
