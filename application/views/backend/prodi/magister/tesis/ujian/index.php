@@ -26,6 +26,7 @@
                         <tr>
                             <th>No</th>
                             <th>Tesis</th>
+                            <th>Telp</th>
                             <th>Tgl.Pengajuan</th>
                             <th class="text-center">Penguji</th>
                             <th class="text-center">Jadwal</th>
@@ -47,6 +48,7 @@
                                     echo $list['judul']
                                     ?>
                                 </td>
+                                <td><?php echo $list['telp'] ?></td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], 'jenis' => UJIAN_TESIS_UJIAN]); ?>

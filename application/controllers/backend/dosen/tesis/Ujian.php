@@ -244,7 +244,8 @@ class Ujian extends CI_Controller {
             'subtitle' => 'Setting',
             'section' => 'backend/dosen/tesis/ujian/setting',
             'use_back' => true,
-            'back_link' => 'dosen/tesis/ujian/penjadwalan/'.$id_prodi,
+            //'back_link' => 'dosen/tesis/ujian/penjadwalan/'.$id_prodi,
+            'back_link' => 'dosen/tesis/proposal/penjadwalan/',
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif_id_desc(),

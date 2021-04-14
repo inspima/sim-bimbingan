@@ -184,11 +184,11 @@
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
                                 <?php
                             }
-                            if ($biodata->id_prodi == S2_KENOTARIATAN) {
+                            /*if ($biodata->id_prodi == S2_KENOTARIATAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
                                 <?php
-                            }
+                            }*/
                             /*if ($list['status_tesis'] == STATUS_TESIS_UJIAN_DIJADWALKAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal</a>

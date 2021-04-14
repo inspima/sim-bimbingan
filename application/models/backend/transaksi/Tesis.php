@@ -78,7 +78,7 @@
 		public function read_proposal($username)
 		{
 			$this->db->select('s.*, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
-            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama');
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama, m.telp');
 			$this->db->from('tesis s');
 			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
 			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
@@ -99,7 +99,7 @@
 		public function read_judul_tesis($username)
 		{
 			$this->db->select('s.*, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
-            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama');
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama, m.telp');
 			$this->db->from('tesis s');
 			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
 			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
@@ -339,7 +339,7 @@
 		public function read_mkpt($username)
 		{
 			$this->db->select('s.*, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
-            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama');
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama, m.telp');
 			$this->db->from('tesis s');
 			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
 			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
@@ -378,7 +378,7 @@
 		public function read_ujian($username)
 		{
 			$this->db->select('s.*, pg1.nip nip_pemabimbing_satu,pg1.nama nama_pembimbing_satu,  
-            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama, mt.nm_minat');
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua, jd.judul, d.departemen ,m.nama, mt.nm_minat, m.telp');
 			$this->db->from('tesis s');
 			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
 			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
@@ -2345,8 +2345,8 @@
 					],*/
 					[
 						'value' => STATUS_TESIS_MKPT_UJIAN,
-						'text' => 'MKPT - Ujian',
-						'keterangan' => 'Sedang menunggu masa jadwal Ujian',
+						'text' => 'MKPT - Pembimbingan',
+						'keterangan' => 'Sedang menunggu penilain dari Dosen MKPT',
 						'color' => 'bg-green'
 					],
 					[

@@ -26,6 +26,7 @@
                         <tr>
                             <th>No</th>
                             <th>Tesis</th>
+                            <th>Telp</th>
                             <th>Tgl.Pengajuan</th>
                             <th>Opsi</th>
                         </tr>
@@ -45,6 +46,7 @@
                                     echo $list['judul']
                                     ?>
                                 </td>
+                                <td><?php echo $list['telp'] ?></td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, TAHAPAN_TESIS_JUDUL]); ?>

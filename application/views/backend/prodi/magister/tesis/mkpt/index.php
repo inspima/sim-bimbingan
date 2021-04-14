@@ -26,6 +26,7 @@
                         <tr>
                             <th>No</th>
                             <th>Tesis</th>
+                            <th>Telp</th>
                             <th>Tgl.Pengajuan</th>
                             <th>Detail MKPT</th>
                             <th>Opsi</th>
@@ -46,6 +47,7 @@
                                     echo $list['judul']
                                     ?>
                                 </td>
+                                <td><?php echo $list['telp'] ?></td>
                                 <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
                                 <td>
                                     <table class="table table-bordered">

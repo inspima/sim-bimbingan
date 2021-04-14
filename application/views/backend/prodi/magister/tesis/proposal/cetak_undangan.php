@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </p>
                         <p style="font-size:13px;margin: 0px 0px 0px 0px;">
                             Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
-                            Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
+                            Laman: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
                         </p>
                     </td>
                 </tr>
@@ -49,18 +49,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td><?= woday_toindo($tgl_surat); ?></td>
                         </tr>
                         <tr>
-                            <td>Lampiran</td>
+                            <td>Lamp.</td>
                             <td>:</td>
                             <td colspan="3">-</td>
                         </tr>
                         <tr>
-                            <td valign="top">Perihal</td>
+                            <td valign="top">Hal.</td>
                             <td valign="top">:</td>
+                        </tr>
+                    </table>
+                    <table border="0" style="width:100%">
+                        <tr>
                             <td colspan="3">
                                 Permohonan kesediaan untuk menjadi<br>
                                 Penguji Proposal Tesis
-                                <br><br>
-                                Kepada Yth
+                                <br><br> 
+                                Yth.
                                 <table border="0" style="width:100%">
                                     <?php
                                     $no = 0;
@@ -197,7 +201,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <tr>
                                         <td>Ruang</td>
                                         <td>:</td>
-                                        <td><?= $jadwal->ruang; ?></td>
+                                        <td><?= $jadwal->ruang;?> <?= $jadwal->link_zoom ? $jadwal->link_zoom : '';?></td>
                                     </tr>
                                 </table>
                                 <?php
@@ -221,7 +225,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <tr>
                                         <td>Ruang</td>
                                         <td>:</td>
-                                        <td><?= $jadwal->ruang; ?> <?= ' Gedung ' . $jadwal->gedung ?></td>
+                                        <td><?= $jadwal->ruang; ?> <?= ' Gedung ' . $jadwal->gedung ?> <?= $jadwal->link_zoom ? $jadwal->link_zoom : '';?></td>
                                     </tr>
                                 </table>
                                 <?php

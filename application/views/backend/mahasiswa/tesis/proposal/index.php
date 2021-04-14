@@ -197,11 +197,11 @@
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/proposal/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
                                 <?php
-                                if($biodata->id_prodi == S2_KENOTARIATAN){
+                                /*if($biodata->id_prodi == S2_KENOTARIATAN){
                                 ?>
                                     <a href="<?= base_url() ?>mahasiswa/tesis/proposal/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
                                 <?php
-                                }
+                                }*/
                             }
                             ?>
                         </td>

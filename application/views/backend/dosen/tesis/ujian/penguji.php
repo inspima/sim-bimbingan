@@ -279,12 +279,12 @@
                         </td>
                         <td>
                             <?php
-                            if($list['status_penguji'] == '2')
+                            /*if($list['status_penguji'] == '2')
                             {
                             ?>
                                 <a href = "<?= base_url() ?>dosen/tesis/proposal/status_ujian/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Status Ujian</a>
                             <?php
-                            }
+                            }*/
                             ?>
                             <?php
                             $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
