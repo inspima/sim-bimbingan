@@ -289,7 +289,7 @@
                             <?php
                             $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
                             if($ujian){
-                                if($ujian->tanggal >= date('Y-m-d')){
+                                if($ujian->tanggal <= date('Y-m-d')){
                                 ?>
                                 <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/nilai/<?php echo $list['id_tesis']?>/<?php echo $list['id_penguji']?>"><i class="fa fa-edit"></i> Nilai</a>
                                 <?php

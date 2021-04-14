@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             else if($tesis->id_prodi == S2_KENOTARIATAN){
             ?>
-            Pada hari ini <?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?>  mulai pukul  <?= substr($jadwal->jam, 0, 5); ?> WIB sampai selesai di ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?> Universitas Airlangga diselenggarakan Ujian Proposal Tesis :
+            Pada hari ini <?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?>  mulai pukul  <?= substr($jadwal->jam, 0, 5); ?> WIB sampai selesai di ruang Program Magister <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?> ( <?= $jadwal->link_zoom ? $jadwal->link_zoom : '';?> ) Fakultas Hukum Universitas Airlangga diselenggarakan Ujian Proposal Tesis :
             <?php
             }
             ?>

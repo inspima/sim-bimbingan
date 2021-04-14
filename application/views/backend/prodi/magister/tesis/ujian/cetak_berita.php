@@ -20,13 +20,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <table align="center" width="100%" border="0">
             <tbody>
                 <tr>
-                    <td width="10%"><img src="assets/backend/cetak/logo.png" width="100px"></td>
+                    <td width="10%"><img src="assets/backend/cetak/logo_unair.png" width="100px"></td>
                     <td width="90%" align="center">
-                        <strong><p style="font-size:17px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN REPUBLIK INDONESIA<br>
-                                UNIVERSITAS AIRLANGGA<br>
-                                FAKULTAS HUKUM<br></p>
-                        </strong><p style="font-size:14px;margin: 0px 0 0px 0;">Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
-                            Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id </p>
+                        <p style="font-size:20px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN
+                            <br>UNIVERSITAS AIRLANGGA
+                            <br><b>FAKULTAS HUKUM</b><br>
+                        </p>
+                        <p style="font-size:13px;margin: 0px 0px 0px 0px;">
+                            Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
+                            Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
+                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -35,195 +38,146 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tr>
             </tbody>
         </table>
+        <p align="center">
+            <u><h2>BERITA ACARA UJIAN TESIS</h2></u>
+        </p>
+        <p align="justify">
+            <?php
+            if($tesis->id_prodi == S2_ILMU_HUKUM){
+            ?>
+            Berdasarkan Surat Keputusan Dekan Fakultas Hukum Universitas tanggal, <?php echo woday_toindo($jadwal->tanggal) ?> Nomor  337/UN3.1.3/KD/2020 tentang Pembimbing dan Penguji Tesis Semester Gasal Tahun Akademik 2020/2021 Program Magister Ilmu Hukum, maka pada hari Selasa, tanggal 19 Januari 2021 pukul  08.00 -09.00 WIB, melalui Video Conference (Google Meeting) pada laman https://meet.google.com/tas-smtp-ent, telah dilaksanakan Ujian Tesis dengan Tim Penguji Tesis yang terdiri atas :
+            <?php
+            }
+            else if($tesis->id_prodi == S2_KENOTARIATAN){
+            ?>
+            Pada hari ini <?php echo hari($jadwal->tanggal) ?>, <?php echo woday_toindo($jadwal->tanggal) ?>  mulai pukul  <?= substr($jadwal->jam, 0, 5); ?> WIB sampai selesai di ruang Program Magister <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?> ( <?= $jadwal->link_zoom ? $jadwal->link_zoom : '';?> ) Fakultas Hukum Universitas Airlangga diselenggarakan Ujian Proposal Tesis :
+
+            Berdasarkan Surat Keputusan Dekan Fakultas Hukum Universitas tanggal Nomor  19/UN3.1.3/KD/2020 tanggal <?php echo woday_toindo($jadwal->tanggal) ?>  tentang Pembimbing dan Penguji Tesis Semester Genap Tahun Akademik 2019/2020 Program Magister Kenotariatan, maka pada hari Kamis,  tanggal 19 Maret 2020  pukul  09.00 WIB di ruang Program Magister (R. 108) Gedung B Fakultas Hukum Universitas Airlangga.
+            <?php
+            }
+            ?>
+        </p>
+        <table border="0" style="width:100%"> 
+            <?php
+            $no = 0;
+            foreach ($pengujis as $penguji):
+                $status_tim = '';
+                if($penguji['status_tim'] == '1'){
+                    $no++;
+                    $status_tim = 'Ketua';
+                    ?>
+                    <tr style="line-height: 2">
+                        <td rowspan="5" valign="top">Ketua</td>
+                        <td rowspan="5" valign="top">:</td>
+                        <td><?= $no ?>.</td>
+                        <td><?= $penguji['nama'] ?></td>
+                        <td><?= $status_tim ?></td>
+                    </tr>
+                <?php
+                }
+            endforeach;
+            foreach ($pengujis as $penguji):
+                if($penguji['nip'] == $tesis->nip_pembimbing_satu){
+                    $no++;
+                    $status_tim = 'Pembimbing Utama / Anggota';
+                    ?>
+                    <tr style="line-height: 2">
+                        <td><?= $no ?>.</td>
+                        <td><?= $penguji['nama'] ?></td>
+                        <td><?= $status_tim ?></td>
+                    </tr>
+                <?php
+                }
+            endforeach;
+            foreach ($pengujis as $penguji):
+                if($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                    $no++;
+                    $status_tim = 'Pembimbing Kedua / Anggota';
+                    ?>
+                    <tr style="line-height: 2">
+                        <td><?= $no ?>.</td>
+                        <td><?= $penguji['nama'] ?></td>
+                        <td><?= $status_tim ?></td>
+                    </tr>
+                <?php
+                }
+            endforeach;
+            foreach ($pengujis as $penguji):
+                if($penguji['status_tim'] == '2' && $penguji['nip'] != $tesis->nip_pembimbing_satu && $penguji['nip'] != $tesis->nip_pembimbing_dua){
+                    $no++;
+                    $status_tim = 'Anggota';
+                    ?>
+                    <tr style="line-height: 2">
+                        <td><?= $no ?>.</td>
+                        <td><?= $penguji['nama'] ?></td>
+                        <td><?= $status_tim ?></td>
+                    </tr>
+                <?php
+                }
+            endforeach;
+            ?>
+        </table> 
+        <br><br>
         <table border="0" style="width:100%">
             <tr>
-                <td>
-                    <table border="0" style="width:100%">
-                        <tr>
-                            <td align="center"><h3><b>BERITA ACARA UJIAN TESIS</b></h3></td>
-                        </tr>
-                    </table> 
-                </td>
+                <td>Nama Mahasiswa</td>
+                <td>:</td>
+                <td><?php echo $tesis->nama ?></td>
             </tr>
             <tr>
-                <td>
-                    <table border="0" style="width:100%">
-                        <tr>
-                            <td>
-                                <p style="line-height: 2;margin: 5px">Pada hari ini <b><?php echo hari($jadwal->tanggal) ?></b> Tanggal <b> <?php echo woday_toindo($jadwal->tanggal) ?></b> pukul <b><?= substr($jadwal->jam, 0, 5); ?> - Selesai</b> WIB di <b>Ruang <?= $jadwal->ruang . ' Gedung ' . $jadwal->gedung ?></b> Fakultas Hukum Universitas Airlangga, dilaksanakan Ujian Tesis :</p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+                <td>NIM</td>
+                <td>:</td>
+                <td><?php echo $tesis->nim ?></td>
             </tr>
             <tr>
-                <td>
-                    <table border="0" style="width:100%">
-                        <tr>
-                            <td style="width:3%">
-                            </td>
-                            <td style="width:10%">
-                                NAMA
-                            </td>
-                            <td style="width:2%">:</td>
-                            <td style="width:85%">
-                                <b><?php echo $tesis->nama ?></b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:3%">
-                            </td>
-                            <td style="width:10%">
-                                NIM
-                            </td>
-                            <td style="width:2%">:</td>
-                            <td style="width:85%">
-                                <b><?php echo $tesis->nim ?></b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:3%">
-                            </td>
-                            <td style="width:10%">
-                                JUDUL
-                            </td>
-                            <td style="width:2%">:</td>
-                            <td style="width:85%">
-                                <b><?php echo $tesis->judul ?></b>
-                            </td>
-                        </tr>
-                    </table> 
-                </td>
+                <td>Judul</td>
+                <td>:</td>
+                <td><?php echo $tesis->judul ?></td>
+            </tr>
+        </table>
+        <br><br>
+        <table border="1" cellspacing="0" cellpadding="5" style="width:100%"> 
+            <tr>
+                <td align="center"><b>KRITERIA PENILAIAN</b></td>
+                <td align="center"><b>TIM PENGUJI TESIS</b></td>
+                <td align="center"><b>SKOR</b></td>
+                <td align="center"><b>SKOR TERBOBOT</b></td>
             </tr>
             <tr>
-                <td>
-                    <table border="0" style="width:100%;margin-top: 10px">
-                        <tr>
-                            <td>
-                                <p style="line-height: 2">Panitia Penilai Ujian Tesis terdiri dari </p>
-                            </td>
-                        </tr>
-                    </table>
+                <td rowspan="6" align="center">
+                    Format Penulisan = 20 %
+                    Substansi = 30 %
+                    Argumentasi = 50 %
+                    Skor Total = 100 %
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td>
-                    <table border="0" style="width:80%;margin-left: 10px">
-                        <?php
-                        $no = 1;
-                        foreach ($pengujis as $penguji):
-                            ?>
-                            <tr style="line-height: 2">
-                                <td style="width: 3%"><b><?= $no ?></b>.</td>
-                                <td style="width: 58%"><?= $penguji['nama'] ?></td>
-                                <?php if ($no % 2 == 0):
-                                    ?>
-                                    <td style = "width: 20%"></td>
-                                    <td style = "width: 20%;text-align: left;">
-                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
-                                            ?>
-                                            <?= $no ?>.
-                                            <?php
-                                            if (!empty($penguji['ttd'])) {
-                                                ?>
-                                                <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-                                                <?php
-                                            }
-                                            ?>
-                                            <?php
-                                        else:
-                                            ?>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
-                                        <?php
-                                        endif;
-                                        ?>
-                                    </td>
-                                    <?php
-                                else:
-                                    ?>
-                                    <td style = "width: 20%;text-align: left;">
-                                        <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
-                                            ?>
-                                            <?= $no ?>.
-                                            <?php
-                                            if (!empty($penguji['ttd'])) {
-                                                ?>
-                                                <img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-                                                <?php
-                                            }
-                                            ?>
-                                            <?php
-                                        else:
-                                            ?>
-                                            <?= $no ?>.<img src="<?= $dokumen_persetujuan[$no - 1]['qr_image'] ?>" width="70px"/>
-                                        <?php
-                                        endif;
-                                        ?>
-                                    </td>
-                                    <td style = "width: 20%"></td>
-                                <?php
-                                endif;
-                                ?>
-                            </tr>
-                            <?php
-                            $no++;
-                        endforeach;
-                        ?>
-                    </table>
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td>
-                    <table border="0" style="width:100%;margin-top: 10px">
-                        <tr>
-                            <td>
-                                <p style="line-height: 2">Memutuskan bahwa Ujian Tesis bagi mahasiswa tersebut :  </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 10px;line-height: 1.5">
-                                a.LULUS dengan Nilai : ……………  
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 10px;line-height: 1.5">
-                                b.MENGULANG KEMBALI : ……………  
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left: 10px;line-height: 1.5">
-                                c.GAGAL STUDI karena TIDAK LULUS pada UJIAN KEDUA : ……………  
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
-                <td>
-                    <table border="0" style="width:100%;margin-top: 30px">
-                        <tr>
-                            <td style="width: 50%">
-                                <img src="<?= $qr_dokumen ?>" width="100px">
-                            </td> 
-                            <td style="width: 50%">
-                                <p>
-                                    Ketua Panitia.<br/><br/><br/><br/><br/><br/>
-                                    ..........................<br/>
-                                    NIP. .............................
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
-        </table>  
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><b>NILAI TESIS</b></td>
+                <td></td>
+            </tr>
+        </table>
     </body>
 </html>

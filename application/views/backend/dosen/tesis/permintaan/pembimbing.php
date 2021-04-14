@@ -98,4 +98,253 @@
                                             if($list['berkas_orisinalitas'] != '') {
                                                 echo '<b>Berkas Orisinalitas : </b><a href="'.base_url().'assets/upload/mahasiswa/tesis/judul/'.$list['berkas_orisinalitas'].'" target="_blank"><img src="'. base_url() .'assets/img/pdf.png" width="20px" height="auto"></a><br>';
                                             }
-                     
+                                            ?>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <?php
+                            if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
+                                echo '<b>Pembimbing Utama</b><br>';
+                                $dosbing_satu = '<i>belum ditentukan</i>';
+                                if($list['nip_pembimbing_satu'] != '' && $list['nip_pembimbing_satu'] != ''){
+                                    $dosbing_satu = '<b>'.$list['nama_pembimbing_satu'].'</b><br>'.$list['nip_pembimbing_satu'];
+                                }
+                                
+                                echo $dosbing_satu.'<br>';
+                                
+                                if($list['nip_pembimbing_satu'] == '' && $list['status_pembimbing_satu'] == NULL) {
+                                    echo '';
+                                } else if($list['nip_pembimbing_satu'] != '' && $list['status_pembimbing_satu'] == NULL) {
+                                    echo '<a class="btn btn-xs btn-warning pull-left" href="#">Menunggu Persetujuan</a>';
+                                } else if($list['status_pembimbing_satu'] == '1') {
+                                    echo '<a class="btn btn-xs btn-success pull-left" href="#">
+                                    <i class="fa fa-check"></i> Diterima</a>';
+                                } else if($list['status_pembimbing_satu'] == '2') {
+                                    echo '<a class="btn btn-xs btn-danger pull-left" href="#">
+                                    <i class="fa fa-close"></i> Ditolak</a>';
+                                }
+                                echo '<br><br>';
+                                echo '<b>Pembimbing Kedua</b><br>';
+                                $dosbing_dua = '<i>belum ditentukan</i>';
+                                if($list['nip_pembimbing_dua'] != '' && $list['nip_pembimbing_dua'] != ''){
+                                    $dosbing_dua = '<b>'.$list['nama_pembimbing_dua'].'</b><br>'.$list['nip_pembimbing_dua'];
+                                }
+                                                            
+                                echo $dosbing_dua.'<br>';
+
+                                if($list['nip_pembimbing_dua'] == '' && $list['status_pembimbing_dua'] == NULL) {
+                                    echo '';
+                                } else if($list['nip_pembimbing_dua'] != '' && $list['status_pembimbing_dua'] == NULL) {
+                                    echo '<a class="btn btn-xs btn-warning pull-left" href="#">Menunggu Persetujuan</a>';
+                                } else if($list['status_pembimbing_dua'] == '1') {
+                                    echo '<a class="btn btn-xs btn-success pull-left" href="#">
+                                    <i class="fa fa-check"></i> Diterima</a>';
+                                } else if($list['status_pembimbing_dua'] == '2') {
+                                    echo '<a class="btn btn-xs btn-danger pull-left" href="#">
+                                    <i class="fa fa-close"></i> Ditolak</a>';
+                                }
+                            }   
+                            if ($list['nip_pembimbing_dua'] == $this->session_data['username']){
+                                echo '<b>Pembimbing Utama</b><br>';
+                                $dosbing_satu = '<i>belum ditentukan</i>';
+                                if($list['nip_pembimbing_satu'] != '' && $list['nip_pembimbing_satu'] != ''){
+                                    $dosbing_satu = '<b>'.$list['nama_pembimbing_satu'].'</b><br>'.$list['nip_pembimbing_satu'];
+                                }
+                                
+                                echo $dosbing_satu.'<br>';
+                                
+                                if($list['nip_pembimbing_satu'] == '' && $list['status_pembimbing_satu'] == NULL) {
+                                    echo '';
+                                } else if($list['nip_pembimbing_satu'] != '' && $list['status_pembimbing_satu'] == NULL) {
+                                    echo '<a class="btn btn-xs btn-warning pull-left" href="#">Menunggu Persetujuan</a>';
+                                } else if($list['status_pembimbing_satu'] == '1') {
+                                    echo '<a class="btn btn-xs btn-success pull-left" href="#">
+                                    <i class="fa fa-check"></i> Diterima</a>';
+                                } else if($list['status_pembimbing_satu'] == '2') {
+                                    echo '<a class="btn btn-xs btn-danger pull-left" href="#">
+                                    <i class="fa fa-close"></i> Ditolak</a>';
+                                }
+                                echo '<br><br>';
+                                echo '<b>Pembimbing Kedua</b><br>';
+                                $dosbing_dua = '<i>belum ditentukan</i>';
+                                if($list['nip_pembimbing_dua'] != '' && $list['nip_pembimbing_dua'] != ''){
+                                    $dosbing_dua = '<b>'.$list['nama_pembimbing_dua'].'</b><br>'.$list['nip_pembimbing_dua'];
+                                }
+                                                            
+                                echo $dosbing_dua.'<br>';
+
+                                if($list['nip_pembimbing_dua'] == '' && $list['status_pembimbing_dua'] == NULL) {
+                                    echo '';
+                                } else if($list['nip_pembimbing_dua'] != '' && $list['status_pembimbing_dua'] == NULL) {
+                                    echo '<a class="btn btn-xs btn-warning pull-left" href="#">Menunggu Persetujuan</a>';
+                                } else if($list['status_pembimbing_dua'] == '1') {
+                                    echo '<a class="btn btn-xs btn-success pull-left" href="#">
+                                    <i class="fa fa-check"></i> Diterima</a>';
+                                } else if($list['status_pembimbing_dua'] == '2') {
+                                    echo '<a class="btn btn-xs btn-danger pull-left" href="#">
+                                    <i class="fa fa-close"></i> Ditolak</a>';
+                                }
+                            }
+                            ?>                            
+                        </td>
+                        <!-- <td><?php //echo $list['departemen'] ?></td> -->
+                        <?php
+                        if($id == S2_ILMU_HUKUM){
+                        ?>
+                            <td><?= $list['nm_minat']?></td>
+                        <?php
+                        }
+                        ?>
+                        <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?></td>
+                        <td class="text-center">
+                            <?php
+                            if($list['berkas_proposal'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php
+                            if($list['berkas_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php
+                            if($list['berkas_syarat_tesis'] != '') {
+                            ?>
+                                <a href="<?php echo base_url() ?>assets/upload/mahasiswa/tesis/ujian/<?php echo $list['berkas_syarat_tesis'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+                            <?php 
+                            }
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php
+                            if($list['jenis'] == TAHAPAN_TESIS_JUDUL){ 
+                                $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_JUDUL]); 
+                            }
+                            if($list['jenis'] == TAHAPAN_TESIS_PROPOSAL){ 
+                                $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); 
+                            }
+                            if($list['jenis'] == TAHAPAN_TESIS_MKPT){ 
+                                $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_MKPT]); 
+                            }
+                            if($list['jenis'] == TAHAPAN_TESIS_UJIAN){ 
+                                $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); 
+                            }
+                            if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian Proposal</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
+                            }
+                            if ($list['status_mkpt'] > STATUS_TESIS_MKPT_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian MKPT</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_mkpt'], UJIAN_TESIS_MKPT);
+                            }
+                            if ($list['status_tesis'] > STATUS_TESIS_UJIAN) {
+                                ?>
+                                <hr style="margin:5px"/>
+                                <b>Hasil Ujian Tesis</b><br/>
+                                <?php
+                                echo $this->tesis->get_status_ujian($list['status_ujian_tesis'], UJIAN_TESIS_UJIAN);
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                            //if($list['status_judul'] < STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING){
+                            if($list['nip_pembimbing_satu'] == $this->session_data['username']){
+                                if($list['status_pembimbing_satu'] == NULL) {
+                                ?>
+                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Approve</a>
+                                    <a class="btn btn-xs btn-danger" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Reject</a>
+                                <?php
+                                } //else if($list['status_pembimbing_satu'] != NULL && $list['nip_pembimbing_dua'] == NULL) {
+                                else if($list['status_proposal'] == NULL OR $list['status_proposal'] < STATUS_TESIS_PROPOSAL_PENGAJUAN) {
+                                ?>
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Batal</a>
+                                <?php
+                                } 
+                            } else if($list['nip_pembimbing_dua'] == $this->session_data['username']){
+                                if($list['status_pembimbing_dua'] == NULL) {
+                                ?>
+                                    <a class="btn btn-xs btn-success" href="<?= base_url()?>dosen/tesis/permintaan/approve_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Approve</a>
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/reject_pembimbing/<?php echo $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Reject</a>
+                                <?php
+                                } else if($list['status_proposal'] == NULL OR $list['status_proposal'] < STATUS_TESIS_PROPOSAL_PENGAJUAN) {
+                                ?>
+                                    <a class="btn btn-xs btn-warning" href="<?= base_url()?>dosen/tesis/permintaan/batal_pembimbing/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Batal</a>
+                                <?php
+                                }
+                            }
+                            //}
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
+                                if($list['status_pembimbing_satu'] == '1' && ($list['status_pembimbing_dua'] == NULL OR $list['status_pembimbing_dua'] == '2')){
+                                ?>
+                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/judul/setting_pembimbing_kedua/<?= $list['id_tesis']?>">
+                                    <i class="fa fa-edit"></i> Setting Pembimbing Kedua</a><br>
+                                <?php
+                                }
+                                if($list['jenis'] >= TAHAPAN_TESIS_PROPOSAL && $list['status_proposal'] >= STATUS_TESIS_PROPOSAL_PENGAJUAN){
+                                ?>
+                                    <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Proposal</a>
+                                <?php
+                                }
+                                if($list['jenis'] >= TAHAPAN_TESIS_MKPT && $id == S2_ILMU_HUKUM){
+                                ?>
+                                    <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> MKPT</a>
+                                <?php
+                                }
+                                if($list['jenis'] >= TAHAPAN_TESIS_UJIAN && $list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA){
+                                ?>
+                                    <a href="<?= base_url() ?>dosen/tesis/ujian/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Tesis</a>
+                                <?php
+                                }
+                                /*if($list['jenis'] == TAHAPAN_TESIS_MKPT && $list['status_mkpt'] == STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT){
+                                ?>
+                                    <a href="<?= base_url() ?>dosen/tesis/mkpt/setting/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Setting Ujian MKPT</a>
+                                <?php
+                                }*/
+                            }
+                            ?>              
+                        </td>
+                    </tr>      
+                    <?php
+                    $no++;
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>
+
+
+
+<!-- /.box -->

@@ -682,6 +682,31 @@ class Ujian extends CI_Controller {
 
             $jumlah_nilai = $this->tesis->read_kriteria_nilai();
 
+            foreach ($jumlah_nilai as $data) {
+                $nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
+
+                if(empty($nilai_penguji)){
+                    $data = array(
+                        'id_penguji' => $id_penguji,
+                        'id_kriteria_penilaian' => $data['id'],
+                        'nilai' => $this->input->post('nilai_'.$data['id'], TRUE),
+                        'status_aktif' => 1,
+                    );
+
+                    $this->tesis->save_penilaian($data);
+                }
+                else {
+                    $data = array(
+                        'id_penguji' => $id_penguji,
+                        'id_kriteria_penilaian' => $data['id'],
+                        'nilai' => $this->input->post('nilai_'.$data['id'], TRUE),
+                        'status_aktif' => 1,
+                    );
+
+                    $this->tesis->update_penilaian($data, $nilai_penguji->id);
+                }
+            }
+
             $penguji = $this->tesis->read_penguji($ujian->id_ujian);
             $total_seluruh_nilai_terbobot = 0;
             foreach ($penguji as $uji) {
@@ -692,15 +717,16 @@ class Ujian extends CI_Controller {
                 foreach ($jumlah_nilai as $data) {
                     $id_penguji = $uji['id_penguji'];
                     $nilai_penguji = $this->tesis->read_penilaian($uji['id_penguji'], $data['id']);
+                    //$nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
 
-                    $nilai_ujian = $this->input->post('nilai_'.$data['id'], TRUE);
+                    $nilai_ujian = $nilai_penguji->nilai;
                     $total_bobot = $total_bobot + $data['bobot'];
 
                     $total_nilai = $total_nilai + $nilai_ujian;
                     $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data['bobot']);
 
 
-                    if(empty($nilai_penguji)){
+                    /*if(empty($nilai_penguji)){
                         $data = array(
                             'id_penguji' => $id_penguji,
                             'id_kriteria_penilaian' => $data['id'],
@@ -719,14 +745,14 @@ class Ujian extends CI_Controller {
                         );
 
                         $this->tesis->update_penilaian($data, $nilai_penguji->id);
-                    }
+                    }*/
 
                 }
 
-                
+                $total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot);
             }
 
-            $total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot)*count($penguji);
+            //$total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot);
 
             $rata_nilai = number_format(($total_seluruh_nilai_terbobot/count($penguji)),1);
             $bobot_nilai_konversi = $ujian->bobot_nilai_konversi;

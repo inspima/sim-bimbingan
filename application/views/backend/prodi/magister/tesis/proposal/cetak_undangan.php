@@ -56,14 +56,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <td valign="top">Hal.</td>
                             <td valign="top">:</td>
+							<td colspan="3">
+                                Permohonan kesediaan untuk menjadi<br>
+                                Penguji Proposal Tesis
+                                <br><br>
                         </tr>
                     </table>
                     <table border="0" style="width:100%">
                         <tr>
                             <td colspan="3">
-                                Permohonan kesediaan untuk menjadi<br>
-                                Penguji Proposal Tesis
-                                <br><br> 
+                               
                                 Yth.
                                 <table border="0" style="width:100%">
                                     <?php
