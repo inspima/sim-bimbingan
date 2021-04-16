@@ -160,7 +160,7 @@
 					'ujian' => $this->skripsi->detail_ujian($id_ujian),
 					'mruang' => $this->ruang->read_aktif(),
 					'mjam' => $this->jam->read_aktif(),
-					'mdosen' => $this->dosen->read_aktif_alldep(),
+					'mdosen' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 				);
 
 				if ($data['skripsi'] && $data['nid_ujian']) {

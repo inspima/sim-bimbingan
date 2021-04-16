@@ -175,7 +175,8 @@
 						'proposal' => $this->skripsi->detail_proposal($id_skripsi),
 						'mruang' => $this->ruang->read_aktif(),
 						'mjam' => $this->jam->read_aktif(),
-						'mdosen' => $this->dosen->read_aktif_alldep(),
+						'mdosen_penguji' => $this->dosen->read_penguji_aktif(JENJANG_S1),
+						'mdosen_pembimbing' => $this->dosen->read_pembimbing_aktif(JENJANG_S1),
 						'ujian' => $this->skripsi->read_ujian_ulang($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
 						'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),
 					);
@@ -200,7 +201,8 @@
 						'proposal' => $this->skripsi->detail_proposal($id_skripsi),
 						'mruang' => $this->ruang->read_aktif(),
 						'mjam' => $this->jam->read_aktif(),
-						'mdosen' => $this->dosen->read_aktif_alldep(),
+						'mdosen_penguji' => $this->dosen->read_penguji_aktif(JENJANG_S1),
+						'mdosen_pembimbing' => $this->dosen->read_pembimbing_aktif(JENJANG_S1),
 						'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
 						'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),
 					);
@@ -241,7 +243,7 @@
 				'back_link' => 'dosen/sarjana/kadep/proposal/selesai',
 				// DATA //
 				'proposal' => $this->skripsi->detail_proposal($id_skripsi),
-				'mdosen' => $this->dosen->read_aktif_alldep(),
+				'mdosen' => $this->dosen->read_pembimbing_aktif(JENJANG_S1),
 				'is_kadep' => $is_kadep,
 				'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
 				'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),
@@ -271,7 +273,7 @@
 				'proposal' => $this->skripsi->detail_proposal($id_skripsi),
 				'mruang' => $this->ruang->read_aktif(),
 				'mjam' => $this->jam->read_aktif(),
-				'mdosen' => $this->dosen->read_aktif_alldep(),
+				'mdosen' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 				'riwayat_ujians' => $this->skripsi->read_jadwal_riwayat($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
 				'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
 				'pembimbing' => $this->skripsi->read_pembimbing($id_skripsi),

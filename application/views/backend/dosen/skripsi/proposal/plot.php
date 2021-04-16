@@ -160,7 +160,7 @@
 							<select name="nip" class="form-control select2" style="width: 100%;" required>
 								<option value="">- Pilih Penguji -</option>
 								<?php
-									foreach ($mdosen as $list) {
+									foreach ($mdosen_penguji as $list) {
 										?>
 										<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
 										<?php
@@ -305,7 +305,7 @@
 					<select name="nip" class="form-control select2" style="width: 100%;" required>
 						<option value="">- Pilih -</option>
 						<?php
-							foreach ($mdosen as $list) {
+							foreach ($mdosen_pembimbing as $list) {
 								?>
 								<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
 								<?php

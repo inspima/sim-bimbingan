@@ -85,7 +85,7 @@
 				// DATA //
 				'skripsi' => $this->pembimbing->detail_approve($username, $id_skripsi),
 				'bimbingan' => $this->pembimbing->bimbingan($id_skripsi),
-				'mdosen' => $this->dosen->read_aktif_alldep(),
+				'mdosen' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 				'penguji_temp' => $this->pembimbing->read_pengujitemp($id_skripsi)
 			);
 
