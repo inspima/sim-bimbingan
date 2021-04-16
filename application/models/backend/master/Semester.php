@@ -37,8 +37,8 @@
 		{
 			$this->db->select('*');
 			$this->db->from('semester');
-			$this->db->where('periode_awal >=', $tanggal);
-			$this->db->where('periode_akhir <=', $tanggal);
+			$this->db->where('periode_awal <=', $tanggal);
+			$this->db->where('periode_akhir >=', $tanggal);
 			$query = $this->db->get();
 			return $query->row();
 		}

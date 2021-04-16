@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </p>
                         <p style="font-size:13px;margin: 0px 0px 0px 0px;">
                             Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
-                            Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
+                            Laman: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
                         </p>
                     </td>
                 </tr>
@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <br>Nomor : <?php echo $no_surat; ?>
         </p>
         <p align="justify">
-            Menunjuk Surat Keputusan Dekan Fakultas Hukum Universitas Airlangga No. <?= $no_sk;?> tanggal <?= woday_toindo($tgl_sk); ?> tentang Pembimbing dan Penguji Tesis Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> <?= ($semester ? explode(' ', $semester->semester)[0] : '') ?> Tahun Akademik <?= ($semester ? explode(' ', $semester->semester)[1] : ''); ?>, dengan ini Dekan menugaskan Dosen yang namanya tersebut di bawah ini sebagai <b>Pembimbing Tesis</b> Mahasiswa Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> Fakultas Hukum Universitas Airlangga, yang mengajukan bimbingan Tesis :
+            Menunjuk Surat Keputusan Dekan Fakultas Hukum Universitas Airlangga No. <?= $no_sk;?> tanggal <?= woday_toindo($tgl_sk); ?> tentang Pembimbing dan Penguji Tesis Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> Semester <?= ($semester ? explode(' ', $semester->semester)[0] : '') ?> Tahun Akademik <?= ($semester ? explode(' ', $semester->semester)[1] : ''); ?>, dengan ini Dekan menugaskan Dosen yang namanya tersebut di bawah ini sebagai <b>Pembimbing Utama</b> dan  <b>Pembimbing Kedua</b> Mahasiswa Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> pada Semester <?= ($semester ? explode(' ', $semester->semester)[0] : '') ?> Tahun Akademik <?= ($semester ? explode(' ', $semester->semester)[1] : ''); ?> sebagai berikut  :
         </p>
 
         <table border="1" cellspacing="0" cellpadding="5" style="width:100%">   
