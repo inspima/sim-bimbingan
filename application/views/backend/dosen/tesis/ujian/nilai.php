@@ -139,6 +139,11 @@
             <?php echo form_open('dosen/tesis/ujian/penguji_nilai_save'); ?>
             <div class="box-body table-responsive">
                 <?php
+                $dosen_tim = '';
+                $penguji_dosen = $this->tesis->read_penguji_id($id_penguji);
+                foreach ($penguji_dosen as $pd) {
+                    $dosen_tim = $pd['status_tim'];
+                }
                 if ($ujian) {
                     if(date('Y-m-d') >= $ujian->tanggal) {
                         $penguji = $this->tesis->read_penguji($ujian->id_ujian);
@@ -174,14 +179,27 @@
                                 $total_bobot = $total_bobot + $data['bobot'];
                                 $total_nilai = $total_nilai + $nilai_ujian;
                                 $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data['bobot']);
-                                echo '
-                                <tr>
-                                    <td>'.$no.'</td>
-                                    <td>'.$data['nama_kriteria_penilaian'].'</td>
-                                    <td class="text-right">'.(number_format($data['bobot'],1)*100).'%</td>
-                                    <td class="text-right"><input type="text" class="text-right form-control" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai"></td>
-                                    <td class="text-right">'.number_format(($nilai_ujian*$data['bobot']),1).'</td>
-                                </tr>';
+
+                                if($dosen_tim == '1'){
+                                    echo '
+                                    <tr>
+                                        <td>'.$no.'</td>
+                                        <td>'.$data['nama_kriteria_penilaian'].'</td>
+                                        <td class="text-right">'.(number_format($data['bobot'],1)*100).'%</td>
+                                        <td class="text-right"><input type="text" class="text-right form-control" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai"></td>
+                                        <td class="text-right">'.number_format(($nilai_ujian*$data['bobot']),1).'</td>
+                                    </tr>';
+                                }
+                                else {
+                                    echo '
+                                    <tr>
+                                        <td>'.$no.'</td>
+                                        <td>'.$data['nama_kriteria_penilaian'].'</td>
+                                        <td class="text-right">'.(number_format($data['bobot'],1)*100).'%</td>
+                                        <td class="text-right"><input type="text" class="text-right form-control" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai" hidden="true">'.number_format($nilai_ujian,1).'</td>
+                                        <td class="text-right">'.number_format(($nilai_ujian*$data['bobot']),1).'</td>
+                                    </tr>';
+                                }
                             }
                             $total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot)*count($penguji);
                             echo '
@@ -201,12 +219,12 @@
                         ?>
                         <table class="table">
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td><b>RATA-RATA NILAI</b></td>
-                                    <td class="text-right"><?= $rata_nilai_ujian?></td>
-                                </tr>
+                                    <td class="text-right"><?php //echo $rata_nilai_ujian?></td>
+                                </tr> -->
                                 <tr>
-                                    <td><b>BOBOT NILAI KONVERSI</b></td>
+                                    <td><b>BOBOT NILAI KONVERSI PUBLIKASI</b></td>
                                     <td class="text-right"><?= $bobot_nilai_konversi?></td>
                                 </tr>
                                 <tr>
@@ -223,11 +241,15 @@
                         1. Nilai skor yang diberikan paling rendah 40 dan paling tinggi 100<br>
                         2. Skor Terbobot = bobot x nilai skor
                         <br><br>
+                        <?php
+                        if($dosen_tim == '1'){
+                        ?>
                         <div class="form-group">
                             <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan & Setujui Berita Acara</button>
                         </div>
-
-                        <?php echo form_close() ?>
+                        <?php
+                        } 
+                        echo form_close() ?>
                         <?php
                     }
                     else {
@@ -284,10 +306,15 @@
                     }
                     ?>
                 </div>
+                <div class="form-group">
+                    <label>Catatan Pelaksanaan Ujian</label>
+                    <textarea class="form-control" name="catatan_ujian" id="catatan_ujian" required <?= ($status_tim != '1') ? 'disabled' : ''; ?>><?= $ujian->catatan_ujian ? $ujian->catatan_ujian : ''; ?></textarea>
+                </div>
             </div>
             <div class="box-footer">
                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                 <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                <?php echo formtext('hidden', 'id_penguji', $id_penguji, 'required') ?>
                 <?php
                 if($ujian){
                     $penguji = $this->tesis->read_penguji($ujian->id_ujian);

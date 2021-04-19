@@ -617,17 +617,17 @@ class Ujian extends CI_Controller {
             $tesis = $this->tesis->detail($id_tesis);
             $pengujis = $this->tesis->read_penguji_id($id_penguji);
 
-            $link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . UJIAN_TESIS_UJIAN;
-            $link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . UJIAN_TESIS_UJIAN;
+            $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
+            $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             // QR
             $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Tesis', $tesis->nim, $jadwal->tanggal);
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
             $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
             // DOKUMEN
             $data_dokumen = [
-                'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, 'tesis', $tesis->nim, $jadwal->tanggal),
-                'tipe' => DOKUMEN_BERITA_ACARA_STR,
-                'jenis' => 'ujian_tesis',
+                'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_UJIAN_TESIS, 'tesis_ujian', $tesis->nim, $jadwal->tanggal),
+                'tipe' => DOKUMEN_BERITA_ACARA_UJIAN_TESIS,
+                'jenis' => DOKUMEN_JENIS_TESIS_UJIAN_STR,
                 'id_tugas_akhir' => $id_tesis,
                 'identitas' => $tesis->nim,
                 'nama' => 'Berita Acara Ujian Tesis - ' . $tesis->nama,
@@ -639,6 +639,9 @@ class Ujian extends CI_Controller {
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             if (empty($dokumen)) {
                 $this->dokumen->save($data_dokumen);
+            }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
             }
             $dokumen = $this->dokumen->detail_by_data($data_dokumen);
             // DOKUMEN PERSETUJUAN
@@ -682,7 +685,7 @@ class Ujian extends CI_Controller {
 
             $jumlah_nilai = $this->tesis->read_kriteria_nilai();
 
-            foreach ($jumlah_nilai as $data) {
+            /*foreach ($jumlah_nilai as $data) {
                 $nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
 
                 if(empty($nilai_penguji)){
@@ -705,7 +708,7 @@ class Ujian extends CI_Controller {
 
                     $this->tesis->update_penilaian($data, $nilai_penguji->id);
                 }
-            }
+            }*/
 
             $penguji = $this->tesis->read_penguji($ujian->id_ujian);
             $total_seluruh_nilai_terbobot = 0;
@@ -726,7 +729,7 @@ class Ujian extends CI_Controller {
                     $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data['bobot']);
 
 
-                    /*if(empty($nilai_penguji)){
+                    if(empty($nilai_penguji)){
                         $data = array(
                             'id_penguji' => $id_penguji,
                             'id_kriteria_penilaian' => $data['id'],
@@ -745,7 +748,7 @@ class Ujian extends CI_Controller {
                         );
 
                         $this->tesis->update_penilaian($data, $nilai_penguji->id);
-                    }*/
+                    }
 
                 }
 
@@ -1088,6 +1091,8 @@ class Ujian extends CI_Controller {
 
     public function update_status_ujian() {
         $id_tesis = $this->input->post('id_tesis', TRUE);
+        $id_penguji = $this->input->post('id_penguji', TRUE);
+        $catatan_ujian = $this->input->post('catatan_ujian', TRUE);
 
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
@@ -1113,18 +1118,34 @@ class Ujian extends CI_Controller {
                 );
                 $this->tesis->update($data, $id_tesis);
 
+                $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
+
+                $penguji = $this->tesis->read_penguji($ujian->id_ujian);
+                $status_tim = '';
+                foreach ($penguji as $listpenguji) {
+                    if($listpenguji['nip'] == $this->session_data['username']){
+                        $status_tim = $listpenguji['status_tim'];
+                    }
+                }
+
+                $data = array(
+                    'catatan_ujian' => $catatan_ujian,
+                );
+
+                $this->tesis->update_ujian($data, $ujianid_ujian);
+
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
-                redirect('dosen/tesis/ujian/setting/' . $id_tesis);
+                redirect('dosen/tesis/ujian/nilai/' . $id_tesis . '/' .$id_penguji);
             } else if ($status_ujian == '3') {
                 $this->session->set_flashdata('msg-title', 'alert-warning');
                 $this->session->set_flashdata('msg', 'Ujian ditolak');
-                redirect('dosen/tesis/ujian/nilai/' . $id_tesis);
+                redirect('dosen/tesis/ujian/nilai/' . $id_tesis . '/' .$id_penguji);
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/ujian/nilai/' . $id_tesis);
+            redirect('dosen/tesis/ujian/nilai/' . $id_tesis . '/' .$id_penguji);
         }
     }
 

@@ -2198,9 +2198,9 @@
 			} else if ($jenis == UJIAN_TESIS_UJIAN) {
 				return [
 					['value' => '0', 'text' => 'Belum Ujian'],
-					['value' => '1', 'text' => 'Layak'],
+					['value' => '1', 'text' => 'Lulus'],
 					//['value' => '2', 'text' => 'Layak dengan Catatan'],
-					['value' => '3', 'text' => 'Tidak Layak'],
+					['value' => '3', 'text' => 'Tidak Lulus / Mengulang'],
 				];
 			}
 		}

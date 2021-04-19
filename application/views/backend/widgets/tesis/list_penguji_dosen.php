@@ -33,13 +33,13 @@
                     $penguji = $this->tesis->read_penguji_temp($tesis->id_tesis, 1); 
 
                     if($listpenguji['nip'] == $tesis->nip_pembimbing_satu){
-                        echo 'Penguji (Pembimibing Utama)';
+                        echo 'Penguji (Pembimbing Utama)';
                     }
                     else if($listpenguji['nip'] == $tesis->nip_pembimbing_dua){
-                        echo 'Penguji (Pembimibing Kedua)';
+                        echo 'Penguji (Pembimbing Kedua)';
                     }
                     else if($listpenguji['nip'] == $penguji[0]['nip']){
-                        echo 'Penguji Usulan Pembimibing Utama';
+                        echo 'Penguji Usulan Pembimbing Utama';
                     }
                     else {
                         echo 'Penguji Usulan KPS';

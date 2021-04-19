@@ -19,8 +19,10 @@ class Tesis_ujian extends CI_Controller {
         }
         //END SESS
         //START MODEL
-        $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+       $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+        $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/transaksi/tesis', 'tesis');
+        $this->load->model('backend/dosen/master/dosen_model', 'dosen');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/utility/qr', 'qrcode');
@@ -82,8 +84,8 @@ class Tesis_ujian extends CI_Controller {
             //$no_surat = $this->input->post('no_surat', TRUE);
             $no_sk = $this->input->post('no_sk', TRUE);
 
-            //$tgl_surat = $this->input->post('tgl_surat', TRUE);
-            //$tgl_surat_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_surat)));
+            $tgl_surat = $this->input->post('tgl_surat', TRUE);
+            $tgl_surat_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_surat)));
 
             $tgl_sk = $this->input->post('tgl_sk', TRUE);
             $tgl_sk_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_sk)));

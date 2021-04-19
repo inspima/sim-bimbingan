@@ -373,6 +373,10 @@ if($tesis->status_tesis >= STATUS_TESIS_UJIAN_DIJADWALKAN){
                             <td><b>Nilai Ujian</b></td>
                             <td><?= $nilai_ujian?></td>
                         </tr>
+                        <tr>
+                            <td><b>Catatan Pelaksanaan Ujian</b></td>
+                            <td><?= $ujian->catatan_ujian ? $ujian->catatan_ujian : ''; ?></td>
+                        </tr>
                     </tbody>
                 </table>
                 <?php
