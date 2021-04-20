@@ -104,6 +104,16 @@
                         </p>
                     </div>
                     <?php
+                    if($ujian->link_zoom != ''){
+                        echo '
+                        <div class="form-group">
+                            <label>Link Zoom</label>
+                            <br>
+                            '.$ujian->link_zoom.'
+                        </div>';   
+                    }
+                    ?>
+                    <?php
                 } else {
                     ?>
                     <div class="form-group">
@@ -294,7 +304,7 @@
                             <?php
                             foreach ($status_ujians as $status_ujian) {
                                 ?>
-                                <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $tesis->status_ujian_proposal) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+                                <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $tesis->status_ujian_tesis) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
                                 <?php
                             }
                             ?>
@@ -332,6 +342,36 @@
             </div>
             <!-- /.box-body -->
             <?php echo form_close() ?>
+            <?php 
+            if($tesis->status_ujian_tesis != '' OR $tesis->status_ujian_tesis != '0'){
+                echo form_open('dosen/tesis/ujian/kirim_berita_acara'); ?>
+                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                <?php echo formtext('hidden', 'id_penguji', $id_penguji, 'required') ?>
+                <?php
+                if($tesis->status_ujian_tesis == '3'){
+                ?>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Tanggal Ujian Ulang (Hanya untuk keterangan di berita acara ujian tesis)</label>
+                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : date('d/m/Y'); ?>" class="form-control pull-right" id="datepicker">
+                        </div>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan dan Setujui Berita Acara</button>
+                </div>
+                <?php 
+                echo form_close(); 
+            }
+            ?>
         </div>
         <!-- /.box -->
     </div>

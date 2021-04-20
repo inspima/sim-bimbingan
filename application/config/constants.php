@@ -135,7 +135,9 @@
 	define('DOKUMEN_SP_PENGAMPU_MKPT_TESIS', 'surat-tugas-pengampu-mkpt-tesis');
 
 	define('DOKUMEN_BERITA_ACARA_UJIAN_TESIS', 'berita-acara-ujian-tesis');
+	define('DOKUMEN_DAFTAR_HADIR_UJIAN_TESIS', 'daftar-hadir-ujian-tesis');
 	define('DOKUMEN_SK_UJIAN_TESIS', 'sk-ujian-tesis');
+	define('DOKUMEN_UNDANGAN_UJIAN_TESIS', 'undangan-ujian-tesis');
 
 	// JENIS DOKUMEN
 	/// S1

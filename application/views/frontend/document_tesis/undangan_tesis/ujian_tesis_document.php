@@ -59,12 +59,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<td colspan="3">
                                 Permohonan kesediaan untuk menjadi<br>
                                 Penguji Tesis
-                                <br><br>
                         </tr>
                     </table>
                     <table border="0" style="width:100%">
                         <tr>
                             <td colspan="3">
+                               
                                
                                 Yth.
                                 <table border="0" style="width:100%">

@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </p>
                         <p style="font-size:13px;margin: 0px 0px 0px 0px;">
                             Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
-                            Laman: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
+                            Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
                         </p>
                     </td>
                 </tr>

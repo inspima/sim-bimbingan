@@ -1094,24 +1094,38 @@
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
-			$stts = array('2');
 			$this->db->from('penguji_tesis p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
-			$this->db->where_not_in('p.status', $stts);
+			$this->db->where_not_in('p.status', array('0'));
 			$this->db->where('p.id_ujian', $id_ujian);
 
-			$hitung = $this->db->count_all_results();
+			$hitung_penguji = $this->db->count_all_results();
 
-			if ($hitung == 0) {
+			$stts = '2';
+			$this->db->from('penguji_tesis p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.status', $stts);
+			$this->db->where('p.id_ujian', $id_ujian);
+
+			$hitung_approve = $this->db->count_all_results();
+
+			if ($hitung_penguji == $hitung_approve) {
 				$data = array(
 					'status_tesis' => STATUS_TESIS_UJIAN
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else if ($hitung > 0) {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve > 0)) {
 				$data = array(
 					'status_tesis' => STATUS_TESIS_UJIAN_SETUJUI_PENGUJI
+				);
+
+				$this->db->where('id_tesis', $id_tesis);
+				$this->db->update('tesis', $data);
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve == 0)) {
+				$data = array(
+					'status_tesis' => STATUS_TESIS_UJIAN_DIJADWALKAN
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
@@ -1138,24 +1152,38 @@
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
-			$stts = array('2');
 			$this->db->from('penguji_tesis p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
-			$this->db->where_not_in('p.status', $stts);
+			$this->db->where_not_in('p.status', array('0'));
 			$this->db->where('p.id_ujian', $id_ujian);
 
-			$hitung = $this->db->count_all_results();
+			$hitung_penguji = $this->db->count_all_results();
 
-			if ($hitung == 0) {
+			$stts = '2';
+			$this->db->from('penguji_tesis p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.status', $stts);
+			$this->db->where('p.id_ujian', $id_ujian);
+
+			$hitung_approve = $this->db->count_all_results();
+
+			if ($hitung_penguji == $hitung_approve) {
 				$data = array(
 					'status_tesis' => STATUS_TESIS_UJIAN
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else if ($hitung > 0) {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve > 0)) {
 				$data = array(
 					'status_tesis' => STATUS_TESIS_UJIAN_SETUJUI_PENGUJI
+				);
+
+				$this->db->where('id_tesis', $id_tesis);
+				$this->db->update('tesis', $data);
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve == 0)) {
+				$data = array(
+					'status_tesis' => STATUS_TESIS_UJIAN_DIJADWALKAN
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
@@ -1181,24 +1209,38 @@
 			$this->db->where('nip', $username);
 			$this->db->update('penguji_tesis', $data);
 
-			$stts = array('2');
 			$this->db->from('penguji_tesis p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
-			$this->db->where_not_in('p.status', $stts);
+			$this->db->where_not_in('p.status', array('0'));
 			$this->db->where('p.id_ujian', $id_ujian);
 
-			$hitung = $this->db->count_all_results();
+			$hitung_penguji = $this->db->count_all_results();
 
-			if ($hitung == 0) {
+			$stts = '2';
+			$this->db->from('penguji_tesis p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.status', $stts);
+			$this->db->where('p.id_ujian', $id_ujian);
+
+			$hitung_approve = $this->db->count_all_results();
+
+			if ($hitung_penguji == $hitung_approve) {
 				$data = array(
 					'status_tesis' => STATUS_TESIS_UJIAN
 				);
 
 				$this->db->where('id_tesis', $id_tesis);
 				$this->db->update('tesis', $data);
-			} else if ($hitung > 0) {
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve > 0)) {
 				$data = array(
 					'status_tesis' => STATUS_TESIS_UJIAN_SETUJUI_PENGUJI
+				);
+
+				$this->db->where('id_tesis', $id_tesis);
+				$this->db->update('tesis', $data);
+			} else if (($hitung_approve < $hitung_penguji) && ($hitung_approve == 0)) {
+				$data = array(
+					'status_tesis' => STATUS_TESIS_UJIAN_DIJADWALKAN
 				);
 
 				$this->db->where('id_tesis', $id_tesis);

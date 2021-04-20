@@ -147,6 +147,22 @@
 					$page = 'frontend/document_tesis/sp_pengampu_mkpt/';
 					$title = "Surat Pengampu MKPT Tesis";
 					break;
+				case DOKUMEN_BERITA_ACARA_UJIAN_TESIS:
+					$page = 'frontend/document_tesis/berita_acara_tesis/';
+					$title = "Berita Acara Ujian Tesis";
+					break;
+				case DOKUMEN_DAFTAR_HADIR_UJIAN_TESIS:
+					$page = 'frontend/document_tesis/daftar_hadir_tesis/';
+					$title = "Daftar Hadir Ujian Tesis";
+					break;
+				case DOKUMEN_SK_UJIAN_TESIS:
+					$page = 'frontend/document_tesis/sk_tesis/';
+					$title = "SK Ujian Tesis";
+					break;
+				case DOKUMEN_UNDANGAN_UJIAN_TESIS:
+					$page = 'frontend/document_tesis/undangan_tesis/';
+					$title = "Undangan Ujian Tesis";
+					break;
 			}
 		}
 

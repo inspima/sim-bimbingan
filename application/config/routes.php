@@ -736,6 +736,8 @@
 	$route['dosen/tesis/ujian/update_status_ujian'] = 'backend/dosen/tesis/ujian/update_status_ujian';
 	$route['dosen/tesis/ujian/update_status_ujian_ketua'] = 'backend/dosen/tesis/ujian/update_status_ujian_ketua';
 
+	$route['dosen/tesis/ujian/kirim_berita_acara'] = 'backend/dosen/tesis/ujian/kirim_berita_acara';
+
 	// DOKUMEN PERSETUJUAN
 	$route['dosen/dokumen/berita_acara'] = 'backend/dosen/dokumen/berita_acara';
 	$route['dosen/dokumen/berita_acara/riwayat'] = 'backend/dosen/dokumen/berita_acara/riwayat';
@@ -815,6 +817,8 @@
 	//$route['prodi/magister/tesis/ujian/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_undangan';
 	$route['prodi/magister/tesis/ujian/cetak_berita'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_berita';
 	$route['prodi/magister/tesis/ujian/cetak_sk_tesis'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_sk_tesis';
+	$route['prodi/magister/tesis/ujian/cetak_daftar_hadir'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_daftar_hadir';
+	$route['prodi/magister/tesis/ujian/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_undangan';
 	//$route['prodi/magister/tesis/ujian/cetak_penilaian'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_penilaian';
 	//$route['prodi/magister/tesis/ujian/cetak_absensi'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_absensi';
 	//$route['prodi/magister/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/prodi/magister/tesis/tesis_ujian/nilai_ujian';
