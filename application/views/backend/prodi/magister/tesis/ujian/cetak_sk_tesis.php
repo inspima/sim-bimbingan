@@ -150,7 +150,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </tr>
                                             </table>
                                             D e k a n,
-                                            <br/><br/><br/><br/><br/><br/>
+                                            <br/><br/><br/>
+                                            <img src="<?= str_replace(base_url(), "", ($dekan->ttd ? $dekan->ttd : $this->dosen->detail('19641211199002200')->ttd)); ?>" width="200px"/>
+                                            <br/>
                                             <?= $dekan ? $dekan->nama_dosen : 'Iman Prihandono, Ph.D.' ?><br/>
                                             NIP. <?= $dekan ? $dekan->nip : '197602042005011003' ?>
                                         </p>
@@ -189,19 +191,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <?php
                 $no = 0;
                 foreach ($pengujis as $uji) {
-                    $no++;
                     $str_status_tim = '';
                     if ($uji['status_tim'] == '1') {
+                        $no++;
                         $str_status_tim = 'Ketua';
-                    } else if ($uji['status_tim'] == '2') {
-                        $str_status_tim = 'Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
                     }
-                    echo '
-                    <tr>
-                        <td>'.$no.'</td>
-                        <td>'.$uji['nama'].'</td>
-                        <td>'.$str_status_tim.'</td>
-                    </tr>';
+                }
+                foreach ($pengujis as $uji) { 
+                    if($uji['nip'] == $tesis->nip_pembimbing_satu){
+                        $no++;
+                        $str_status_tim = 'Pembimbing Utama / Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
+                    }
+                }
+                foreach ($pengujis as $uji) { 
+                    if($uji['nip'] == $tesis->nip_pembimbing_dua){
+                        $no++;
+                        $str_status_tim = 'Pembimbing Kedua / Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
+                    }
+                }
+                foreach ($pengujis as $uji) {
+                    if($uji['status_tim'] == '2' && $uji['nip'] != $tesis->nip_pembimbing_satu && $uji['nip'] != $tesis->nip_pembimbing_dua){
+                        $no++;
+                        $str_status_tim = 'Anggota';
+                        echo '
+                        <tr>
+                            <td>'.$no.'</td>
+                            <td>'.$uji['nama'].'</td>
+                            <td>'.$str_status_tim.'</td>
+                        </tr>';
+                    }
                 }
                 ?>
             </table>
@@ -217,7 +253,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td style="width: 40%">
                                     <p>
                                         Dekan,
-                                        <br/><br/><br/><br/><br/><br/>
+                                        <br/><br/><br/>
+                                        <img src="<?= str_replace(base_url(), "", ($dekan->ttd ? $dekan->ttd : $this->dosen->detail('19641211199002200')->ttd)); ?>" width="200px"/>
+                                        <br/>
                                         <?= $dekan ? $dekan->nama_dosen : 'Iman Prihandono, Ph.D.' ?><br/>
                                         NIP. <?= $dekan ? $dekan->nip : '197602042005011003' ?>
                                     </p>

@@ -272,7 +272,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </tr>
                                             </table>
                                             D e k a n,
-                                            <br/><br/><br/><br/><br/><br/>
+                                            <br/><br/><br/>
+                                            <img src="<?= str_replace(base_url(), "", ($dekan->ttd ? $dekan->ttd : $this->dosen->detail('19641211199002200')->ttd)); ?>" width="200px"/>
+                                            <br/>
                                             <?php
                                             if($tesis->id_prodi == S2_ILMU_HUKUM){
                                             ?>
@@ -480,7 +482,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <td style="width: 45%">
                                     <p>
                                         Dekan,
-                                        <br/><br/><br/><br/><br/><br/>
+                                        <br/><br/><br/>
+                                        <img src="<?= str_replace(base_url(), "", ($dekan->ttd ? $dekan->ttd : $this->dosen->detail('19641211199002200')->ttd)); ?>" width="200px"/>
+                                        <br/>
                                         <?php
                                         if($tesis->id_prodi == S2_ILMU_HUKUM){
                                         ?>

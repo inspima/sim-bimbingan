@@ -45,13 +45,20 @@
                             <td>Tgl Akhir</td>
                             <td><input type="date" name="end-date"></td>
                         </tr>-->
+                        <?php 
+                            
+                        ?>
                         <tr>
                             <td>Departemen</td>
                             <td>
                                 <select name="id_departemen" class="form-control select2" style="width: 100%;" required>
                                     <option value="">Pilih</option>
                                     <?php 
+                                                                        
                                     foreach($departemen as $listdep){
+                                        
+                                        
+                                        
                                     ?>
                                     <option value="<?php echo $listdep['id_departemen']?>" <?php if($id_departemen == $listdep['id_departemen']) {echo " selected ";}?>><?php echo $listdep['departemen']?></option>
                                     <?php
@@ -73,6 +80,7 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>NIM</th>
+                            <th>Jenis</th>
                             <th>Judul</th>
                             <th>Tanggal Ujian</th>
                             <th>Nilai</th>
@@ -83,11 +91,27 @@
                         $no = 1;
                         //var_dump($data_ujian);
                         foreach ($data_ujian as $d_ujian) {
+                            
+                            if($d_ujian->jenis_ujian == '1') 
+                            {
+                                $jenis_ujian = 'Proposal';
+                            }
+                            elseif($d_ujian->jenis_ujian == '2')
+                            {
+                            $jenis_ujian = 'Skripsi';
+                            }
+                            else
+                            {
+                            $jenis_ujian = 'Belum Terdefinisi';
+                            }
+                            
                             ?>
+                            
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?php echo '<strong>' . $d_ujian->nama  ?></td>
                                 <td><?php echo '</strong><br>' . $d_ujian->nim ?></td>
+                                <td><?=$jenis_ujian?></td> 
                                 <td><?=$d_ujian->judul?></td>                            
                                 <td><?php echo $d_ujian->tanggal ?></td>
                                 <td><?php echo $d_ujian->nilai ?></td>

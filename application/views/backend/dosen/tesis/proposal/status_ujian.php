@@ -353,25 +353,28 @@
                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                 <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                 <?php
-                if($tesis->status_ujian_proposal == '3'){
-                ?>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label>Tanggal Ujian Ulang (Hanya untuk keterangan di berita acara ujian proposal)</label>
-                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
+                if($tesis->status_ujian_proposal != ''){
+                    if($tesis->status_ujian_proposal == '3'){
+                    ?>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Tanggal Ujian Ulang (Hanya untuk keterangan di berita acara ujian proposal)</label>
+                            <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : date('d/m/Y'); ?>" class="form-control pull-right" id="datepicker">
                             </div>
-                            <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : date('d/m/Y'); ?>" class="form-control pull-right" id="datepicker">
                         </div>
                     </div>
-                </div>
-                <?php
+                    <?php
+                    }
+                    echo '
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan & Setujui Berita Acara</button>
+                    </div>';
                 }
                 ?>
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan dan Setujui Berita Acara</button>
-                </div>
                 <?php 
                 echo form_close(); 
             }

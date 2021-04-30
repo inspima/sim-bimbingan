@@ -62,8 +62,10 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="<?php echo base_url() ?>backend/baa/report/skripsi"><i class="fa fa-circle-o"></i>Report Ujian S1</a></li>
-            <li><a href="<?php echo base_url() ?>backend/baa/report/skripsi/bimbingan"><i class="fa fa-circle-o"></i>Report Bimbingan</a></li>
+            <li><a href="<?php echo base_url() ?>backend/baa/report/ujian"><i class="fa fa-circle-o"></i>Report Ujian S1</a></li>
+            <li><a href="<?php echo base_url() ?>backend/baa/report/bimbingan"><i class="fa fa-circle-o"></i>Report Bimbingan S1</a></li>
+            <li><a href="<?php echo base_url() ?>backend/baa/report/ujian/master"><i class="fa fa-circle-o"></i>Report Ujian S2</a></li>
+            <li><a href="<?php echo base_url() ?>backend/baa/report/bimbingan/master"><i class="fa fa-circle-o"></i>Report Bimbingan S2</a></li>
         </ul>
     </li>
 </ul>

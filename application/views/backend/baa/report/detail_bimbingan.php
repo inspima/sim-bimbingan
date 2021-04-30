@@ -14,9 +14,15 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title"><?= $subtitle ?></h3>
-                <div class="pull-right">
+                <div class="pull-left">
+                 
                 </div>
+                 
             </div>
+            <div class="box-header">
+                <a class="btn btn-primary" href="<?php echo base_url().'backend/baa/report/bimbingan'?>" role="button">Back</a>
+            </div>
+            
             <!-- /.box-header -->
             <div class="box-body table-responsive">
                 

@@ -9,6 +9,7 @@
     </div>
 <?php endif; ?>
 
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -84,7 +85,7 @@
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?php echo '<strong>' . $d_b->nama  ?></td>
-                                <td><a href="detail_bimbingan/<?=$d_b->nip?>" target="_blank"><?php echo $d_b->jumlah ?></a></td>
+                                <td><a href="bimbingan/detail_bimbingan/<?=$d_b->nip?>" target="_blank"><?php echo $d_b->jumlah ?></a></td>
                                 
                             </tr>      
                             <?php

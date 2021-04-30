@@ -1140,7 +1140,7 @@ class Ujian extends CI_Controller {
                     'catatan_ujian' => $catatan_ujian,
                 );
 
-                $this->tesis->update_ujian($data, $ujianid_ujian);
+                $this->tesis->update_ujian($data, $ujian->id_ujian);
 
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');

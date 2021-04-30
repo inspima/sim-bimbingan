@@ -445,9 +445,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td style="width: 40%">
                                 <p>
                                     Ketua Penguji Proposal Tesis
-                                    <br/><br/>
-                                    <img src="<?= str_replace(base_url(), "", $this->tesis->read_penguji_id($ketua_penguji->id_penguji)[0]['ttd']) ?>" width="70px"/>
-                                    <br/><br/>
+                                    <br/><br/><br/>
+                                    <img src="<?= str_replace(base_url(), "", $this->tesis->read_penguji_id($ketua_penguji->id_penguji)[0]['ttd']) ?>" width="200px"/>
+                                    <br/>
                                     <?= $this->tesis->read_penguji_id($ketua_penguji->id_penguji)[0]['nama']; ?><br/>
                                     NIP. <?= $this->tesis->read_penguji_id($ketua_penguji->id_penguji)[0]['nip']; ?>
                                 </p>

@@ -206,7 +206,7 @@
                                         <td>'.$no.'</td>
                                         <td>'.$data['nama_kriteria_penilaian'].'</td>
                                         <td class="text-right">'.(number_format($data['bobot'],1)*100).'%</td>
-                                        <td class="text-right"><input type="text" class="text-right form-control" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai" hidden="true">'.number_format($nilai_ujian,1).'</td>
+                                        <td class="text-right"><input type="text" class="text-right" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai" hidden="true">'.number_format($nilai_ujian,1).'</td>
                                         <td class="text-right">'.number_format(($nilai_ujian*$data['bobot']),1).'</td>
                                     </tr>';
                                 }
@@ -349,25 +349,29 @@
                 <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
                 <?php echo formtext('hidden', 'id_penguji', $id_penguji, 'required') ?>
                 <?php
-                if($tesis->status_ujian_tesis == '3'){
-                ?>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label>Tanggal Ujian Ulang (Hanya untuk keterangan di berita acara ujian tesis)</label>
-                        <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
+                if($tesis->status_ujian_tesis != ''){
+                    if($tesis->status_ujian_tesis == '3'){
+                    ?>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Tanggal Ujian Ulang (Hanya untuk keterangan di berita acara ujian tesis)</label>
+                            <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : date('d/m/Y'); ?>" class="form-control pull-right" id="datepicker">
                             </div>
-                            <input type="text" name="tanggal_ujian_ulang" value="<?php echo $dokumen->date_doc ? date('d/m/Y', strtotime($dokumen->date_doc)) : date('d/m/Y'); ?>" class="form-control pull-right" id="datepicker">
                         </div>
                     </div>
-                </div>
-                <?php
+                    <?php
+                    }
+                    
+                    echo '
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan & Setujui Berita Acara</button>
+                    </div>';
                 }
                 ?>
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan dan Setujui Berita Acara</button>
-                </div>
                 <?php 
                 echo form_close(); 
             }
