@@ -106,7 +106,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tr>
                         <?php
                         $no = 0;
+                        $urut = 0;
+                        $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
+                            $urut++;
+                            if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
+                            }
                             $status_tim = '';
                             if($penguji['status_tim'] == '1'){
                                 $no++;
@@ -120,7 +126,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         ?>
                                         <td style = "width: 20%"></td>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
@@ -145,7 +153,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     else:
                                         ?>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
@@ -174,7 +184,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php
                             }
                         endforeach;
+                        $urut = 0;
+                        $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
+                            $urut++;
+                            if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
+                            }
                             if($penguji['nip'] == $tesis->nip_pembimbing_satu){
                                 $no++;
                                 $status_tim = 'Pembimbing Utama / Anggota';
@@ -187,7 +203,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         ?>
                                         <td style = "width: 20%"></td>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
@@ -212,7 +230,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     else:
                                         ?>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
@@ -240,7 +260,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php
                             }
                         endforeach;
+                        $urut = 0;
+                        $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
+                            $urut++;
+                            if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
+                            }
                             if($penguji['nip'] == $tesis->nip_pembimbing_dua){
                                 $no++;
                                 $status_tim = 'Pembimbing Kedua / Anggota';
@@ -253,7 +279,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         ?>
                                         <td style = "width: 20%"></td>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
@@ -277,7 +305,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     else:
                                         ?>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
@@ -305,7 +335,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <?php
                             }
                         endforeach;
+                        $urut = 0;
+                        $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
+                            $urut++;
+                            if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
+                            }
                             if($penguji['status_tim'] == '2' && $penguji['nip'] != $tesis->nip_pembimbing_satu && $penguji['nip'] != $tesis->nip_pembimbing_dua){
                                 $no++;
                                 $status_tim = 'Anggota';
@@ -318,7 +354,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         ?>
                                         <td style = "width: 20%"></td>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {
@@ -342,7 +380,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     else:
                                         ?>
                                         <td style = "width: 20%;text-align: left;">
-                                            <?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
+                                            <?php 
+                                            if ($ttd_waktu != ''):
+                                            //if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
                                                 ?>
                                                 <?php
                                                 if (!empty($penguji['ttd'])) {

@@ -1401,6 +1401,68 @@ class Proposal extends CI_Controller {
         }
     }
 
+    public function cetak_berita() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_PROPOSAL);
+            $jadwal = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
+            $tesis = $this->tesis->detail($id_tesis);
+            $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
+            $ketua_penguji = $this->tesis->read_penguji_ketua($ujian->id_ujian);
+
+            $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
+            $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
+            // QR
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Proposal', $tesis->nim, $jadwal->tanggal);
+            $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+            $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+            // DOKUMEN
+            $data_dokumen = [
+                'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS, 'tesis_proposal', $tesis->nim, $jadwal->tanggal),
+                'tipe' => DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS,
+                'jenis' => DOKUMEN_JENIS_TESIS_PROPOSAL_STR,
+                'id_tugas_akhir' => $id_tesis,
+                'identitas' => $tesis->nim,
+                'nama' => 'Berita Acara Ujian Proposal - ' . $tesis->nama,
+                'link' => $link_dokumen,
+                'link_cetak' => $link_dokumen_cetak,
+                'date' => $jadwal->tanggal,
+                'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+            ];
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            if (empty($dokumen)) {
+                $this->dokumen->save($data_dokumen);
+            }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
+            }
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            // DOKUMEN PERSETUJUAN
+            $this->dokumen->generate_persetujuan($pengujis, $dokumen->id_dokumen, JENJANG_S2, $id_tesis, 0);
+            $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
+            $data = array(
+                'jadwal' => $jadwal,
+                'pengujis' => $pengujis,
+                'ketua_penguji' => $ketua_penguji,
+                'tesis' => $tesis,
+                'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
+                'dokumen_persetujuan' => $dokumen_persetujuan,
+                'date_doc' => $dokumen->date_doc ? $dokumen->date_doc : '',
+            );
+            ob_end_clean();
+            $page = 'backend/dosen/tesis/proposal/cetak_berita';
+            $size = 'legal';
+            $this->pdf->setPaper($size, 'potrait');
+            $this->pdf->filename = 'berita_acara_proposal_' . $tesis->nim;
+            $this->pdf->load_view($page, $data);
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/tesis/tesis/proposal/');
+        }
+    }
+
     public function penguji_kirim_whatsapp()
     {
         $struktural = $this->struktural->read_struktural($this->session_data['username']);

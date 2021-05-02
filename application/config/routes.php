@@ -460,9 +460,10 @@
 	$route['baa/utility/pembimbing/sarjana/save'] = 'backend/baa/utility/pencarian/pembimbing_save';
 	$route['baa/utility/pembimbing/sarjana/delete'] = 'backend/baa/utility/pencarian/pembimbing_delete';
 
-	$route['baa/report/skripsi'] = 'backend/baa/report/skripsi';
-	$route['baa/report/skripsi/bimbingan'] = 'backend/baa/report/skripsi/bimbingan';
-	$route['baa/report/skripsi/detail_bimbingan'] = 'backend/baa/report/skripsi/detail_bimbingan';
+	$route['baa/report/ujian'] = 'backend/baa/report/ujian';
+	$route['baa/report/bimbingan'] = 'backend/baa/report/bimbingan';
+	$route['baa/report/bimbingan/detail_bimbingan/(:num)'] = 'backend/baa/report/bimbingan/detail_bimbingan';
+        $route['baa/report/ujian/master'] = 'backend/baa/report/ujian/master';
 
 	// KPS & SPS & PROMOTOR
 	$route['dosen/disertasi/kualifikasi'] = 'backend/dosen/disertasi/kualifikasi';
@@ -661,6 +662,7 @@
 	$route['dosen/tesis/proposal/update_status_ujian'] = 'backend/dosen/tesis/proposal/update_status_ujian';
 	$route['dosen/tesis/proposal/update_status_ujian_ketua'] = 'backend/dosen/tesis/proposal/update_status_ujian_ketua';
 	$route['dosen/tesis/proposal/kirim_berita_acara'] = 'backend/dosen/tesis/proposal/kirim_berita_acara';
+	$route['dosen/tesis/proposal/cetak_berita'] = 'backend/dosen/tesis/proposal/cetak_berita';
 
 	// TESIS - MKPT
 	$route['dosen/tesis/mkpt/pengampu'] = 'backend/dosen/tesis/mkpt/pengampu';
@@ -684,6 +686,7 @@
 	$route['dosen/tesis/ujian/approve/(:num)'] = 'backend/dosen/tesis/ujian/approve';
 	$route['dosen/tesis/ujian/reject/(:num)'] = 'backend/dosen/tesis/ujian/reject';
 	$route['dosen/tesis/ujian/batal/(:num)'] = 'backend/dosen/tesis/ujian/batal';
+	$route['dosen/tesis/ujian/cetak_berita'] = 'backend/dosen/tesis/ujian/cetak_berita';
 
 	//$route['dosen/tesis/ujian/approve/(:num)'] = 'backend/dosen/tesis/ujian/approve';
 

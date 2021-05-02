@@ -255,6 +255,86 @@
                             <?php
                             }
                             ?>
+
+                            <?php
+                            if($ujian){
+                                $data_dokumen_berita = [
+                                    'tipe' => DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS,
+                                    'jenis' => DOKUMEN_JENIS_TESIS_PROPOSAL_STR,
+                                    'identitas' => $list['nim'],
+                                ];
+                                $dokumen_berita = $this->dokumen->detail_by_data($data_dokumen_berita);
+
+                                if($dokumen_berita){
+                                    $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen_berita->id_dokumen);
+                                    $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
+
+                                    $urut = 0;
+                                    $ttd_waktu = '';
+                                    foreach ($pengujis as $penguji){
+                                        if($dokumen_persetujuan[$urut]['identitas'] == $penguji['nip'] && $penguji['nip'] == $this->session_data['username']){
+                                            $ttd_waktu = $dokumen_persetujuan[$urut]['waktu'];
+                                        }
+                                        $urut++;
+                                    }
+                                    if ($ttd_waktu != ''){
+                                        $no_surat = '';
+                                        $no_sk = '';
+                                        $tgl_sk = '';
+                                        $tgl_surat = '';
+                                        $link_zoom = '';
+
+                                        if(!empty($dokumen_berita)){
+                                            $no_surat = $dokumen_berita->no_doc;
+                                            $no_sk = $dokumen_berita->no_ref_doc;
+                                            $tgl_sk = date('d/m/Y', strtotime($dokumen_berita->date_doc));
+                                            $tgl_surat = date('d/m/Y', strtotime($dokumen_berita->date));
+                                        }
+
+                                        $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_PROPOSAL);
+
+                                        if(!empty($ujian)){
+                                            $link_zoom = $ujian->link_zoom ? $ujian->link_zoom : '';
+                                        }
+                                        ?>
+                                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModalBeritaAcara<?= $list['id_tesis']?>">
+                                            <i class="fa fa-file"></i> Berita Acara
+                                        </button>
+                                        <br><br>
+                                        <div class="modal fade" id="myModalBeritaAcara<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    
+                                                    <?php $attributes = array('target' => '_blank'); ?>
+                                                    <?php echo form_open('dosen/tesis/proposal/cetak_berita', $attributes) ?>
+                                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                    <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                Berita Acara Ujian Proposal
+                                                                <br><?= $list['judul']?>
+                                                                <br><?= $list['nama'].' - '.$list['nim'];?> 
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                            <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
+                                                        </div>
+                                                    </form>
+                                                    <?php echo form_close() ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                            <?php
+                                    }
+                                }
+                            }
+                            ?>
                         </td>
                         <td>
                             <?php

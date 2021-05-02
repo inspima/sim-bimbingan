@@ -20,6 +20,7 @@ class Ujian extends CI_Controller {
         //END SESS
         //START MODEL
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
+        $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
@@ -129,6 +130,79 @@ class Ujian extends CI_Controller {
             'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_UJIAN, $id)
         );
         $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function cetak_berita() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
+            $jadwal = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN);
+            $tesis = $this->tesis->detail($id_tesis);
+            $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
+            $ketua_penguji = $this->tesis->read_penguji_ketua($ujian->id_ujian);
+
+            $no_sk = $this->input->post('no_sk', TRUE);
+
+            $tgl_sk = $this->input->post('tgl_sk', TRUE);
+            $tgl_sk_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_sk)));
+
+            $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
+            $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
+            // QR
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Tesis', $tesis->nim, $jadwal->tanggal);
+            $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
+            $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+            // DOKUMEN
+            $data_dokumen = [
+                'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_UJIAN_TESIS, 'tesis_ujian', $tesis->nim, $jadwal->tanggal),
+                'tipe' => DOKUMEN_BERITA_ACARA_UJIAN_TESIS,
+                'jenis' => DOKUMEN_JENIS_TESIS_UJIAN_STR,
+                'no_doc' => '',
+                'no_ref_doc' => $no_sk,
+                'id_tugas_akhir' => $id_tesis,
+                'identitas' => $tesis->nim,
+                'nama' => 'Berita Acara Ujian Tesis - ' . $tesis->nama,
+                'link' => $link_dokumen,
+                'link_cetak' => $link_dokumen_cetak,
+                'date' => $jadwal->tanggal,
+                'date_doc' => $tgl_sk_ymd,
+                'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+            ];
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            if (empty($dokumen)) {
+                $this->dokumen->save($data_dokumen);
+            }
+            else {
+                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
+            }
+            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            // DOKUMEN PERSETUJUAN
+            $this->dokumen->generate_persetujuan($pengujis, $dokumen->id_dokumen, JENJANG_S2, $id_tesis, 0);
+            $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
+            $data = array(
+                'jadwal' => $jadwal,
+                'pengujis' => $pengujis,
+                'ketua_penguji' => $ketua_penguji,
+                'tesis' => $tesis,
+                'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
+                'dokumen_persetujuan' => $dokumen_persetujuan,
+                'date_doc' => $dokumen->date_doc ? $dokumen->date_doc : '',
+                'semester' => $this->semester->semester_pengajuan($tesis->tgl_pengajuan) ? $this->semester->semester_pengajuan($tesis->tgl_pengajuan) : $this->semester->detail_berjalan(),
+                'no_sk' => $no_sk,
+                'tgl_sk' => $tgl_sk_ymd,
+            );
+            ob_end_clean();
+            $page = 'backend/dosen/tesis/ujian/cetak_berita';
+            $size = 'legal';
+            $this->pdf->setPaper($size, 'potrait');
+            $this->pdf->filename = 'berita_acara_ujian_' . $tesis->nim;
+            $this->pdf->load_view($page, $data);
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('dosen/tesis/ujian/');
+        }
     }
 
     public function approve_penguji() {

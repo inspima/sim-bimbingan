@@ -19,7 +19,7 @@ class Tesis_ujian extends CI_Controller {
         }
         //END SESS
         //START MODEL
-       $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+        $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/transaksi/tesis', 'tesis');
         $this->load->model('backend/dosen/master/dosen_model', 'dosen');
