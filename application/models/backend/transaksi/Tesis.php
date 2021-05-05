@@ -350,7 +350,7 @@
 			$this->db->join('pegawai pg3', 'pg3.id_prodi = ps.id_prodi', 'left');
 			$this->db->where('s.status_mkpt >', 0);
 			$this->db->where('pg3.nip', $username);
-			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.jenis=3 and jd.status=\'1\')');
+			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jenis=3 and jd.status=\'1\')');
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
 			$query = $this->db->get();
