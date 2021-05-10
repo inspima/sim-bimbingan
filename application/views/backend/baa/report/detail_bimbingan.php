@@ -20,14 +20,14 @@
                  
             </div>
             <div class="box-header">
-                <a class="btn btn-primary" href="<?php echo base_url().'backend/baa/report/bimbingan'?>" role="button">Back</a>
+                <!--<a class="btn btn-primary" href="<?php echo base_url().'backend/baa/report/bimbingan'?>" role="button">Back</a>-->
             </div>
             
             <!-- /.box-header -->
             <div class="box-body table-responsive">
                 
                 <hr/>
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="datatable-export" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>

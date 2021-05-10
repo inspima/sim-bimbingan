@@ -268,7 +268,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <tr>
                                                     <td style="padding-left: 0px;">Pada tanggal</td>
                                                     <td>:</td> 
-                                                    <td><?= woday_toindo($tgl_sk)?></td>
+                                                    <td> <?= woday_toindo($tgl_sk)?></td>
                                                 </tr>
                                             </table>
                                             D e k a n,
@@ -305,7 +305,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if($tesis->id_prodi == S2_ILMU_HUKUM){
             ?>
             <p align="justify">
-                Lampiran 1: Keputusan Dekan tanggal, <?= woday_toindo(date('Y-m-d'))?>  Nomor : <?= $no_sk?> tentang Penguji Proposal Tesis Program Studi Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> untuk mahasiswa an. <b><?= $tesis->nama.' ('.$tesis->nim.')' ?></b> dengan judul : 
+                Lampiran 1: Keputusan Dekan tanggal, <?= woday_toindo($tgl_sk)?> Nomor : <?= $no_sk?> tentang Penguji Proposal Tesis Program Studi Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> untuk mahasiswa an. <b><?= $tesis->nama.' ('.$tesis->nim.')' ?></b> dengan judul : 
                 <?php
                 $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);
                 echo $judul->judul;
@@ -320,7 +320,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <td valign="top">Lampiran</td>
                         <td valign="top">:</td>
-                        <td>Keputusan Dekan Nomor <?= $no_sk?> tanggal <?= woday_toindo(date('Y-m-d'))?> Tentang Penguji Proposal Tesis Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> a.n. <?= $tesis->nama.' ('.$tesis->nim.')' ?>.</td>
+                        <td>Keputusan Dekan Nomor <?= $no_sk?> tanggal <?= woday_toindo($tgl_sk)?> Tentang Penguji Proposal Tesis Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> a.n. <?= $tesis->nama.' ('.$tesis->nim.')' ?>.</td>
                     </tr>
                 </table>
             </p>

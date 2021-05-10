@@ -464,6 +464,7 @@
 	$route['baa/report/bimbingan'] = 'backend/baa/report/bimbingan';
 	$route['baa/report/bimbingan/detail_bimbingan/(:num)'] = 'backend/baa/report/bimbingan/detail_bimbingan';
         $route['baa/report/ujian/master'] = 'backend/baa/report/ujian/master';
+        $route['baa/report/bimbingan/detail_bimbingan_master/(:num)'] = 'backend/baa/report/bimbingan/detail_bimbingan_master';
 
 	// KPS & SPS & PROMOTOR
 	$route['dosen/disertasi/kualifikasi'] = 'backend/dosen/disertasi/kualifikasi';

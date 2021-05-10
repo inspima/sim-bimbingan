@@ -57,6 +57,37 @@ class Bimbingan extends CI_Controller {
 
         $this->load->view('backend/index_sidebar', $data);
     }
+    
+     public function master() {
+        $data = array(
+            // PAGE //
+            'title' => 'Bimbingan Tesis',
+            'subtitle' => 'Data Bimbingan Tesis)',
+            'section' => 'backend/baa/report/bimbingan_master',
+            // DATA //
+            'departemen' => $this->departemen->read(),
+            'semester' => $this->semester->read(),
+            'data_bimbingan' => $this->report->bimbingan_master()
+        );
+        
+
+        $this->load->view('backend/index_sidebar', $data);
+    }
+    
+    public function detail_bimbingan_master() {
+        $nip = $this->uri->segment(6);
+        $data = array(
+            // PAGE //
+            'title' => 'Daftar Bimbingan',
+            'subtitle' => 'Data Bimbingan',
+            'section' => 'backend/baa/report/detail_bimbingan',
+            // DATA //
+            'data_bimbingan' => $this->report->detail_bimbingan_master($nip)
+        );
+        
+
+        $this->load->view('backend/index_sidebar', $data);
+    }
 
     
     

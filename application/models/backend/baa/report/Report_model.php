@@ -44,7 +44,7 @@ class Report_model extends CI_Model {
                 LEFT JOIN mahasiswa m ON s.nim = m.nim
                 GROUP BY m.nim) c ON c.id_skripsi = a.id_skripsi
                GROUP BY a.nip
-               ORDER BY b.nama";
+               ORDER BY jumlah DESC";
         
             return $this->db->query($sql)->result();
          }
@@ -58,6 +58,42 @@ class Report_model extends CI_Model {
                 LEFT JOIN judul d ON d.id_skripsi = b.id_skripsi
                 WHERE a.nip = '$nip'
                 GROUP BY b.nim";
+        
+            return $this->db->query($sql)->result();
+         }
+         
+         public function bimbingan_master()
+	{
+        $sql = "SELECT COUNT(*) as jumlah, pbb.nip, pgw.nama
+                FROM(
+                SELECT a.nim, a.nip_pembimbing_dua as nip
+                FROM tesis a
+                WHERE a.nip_pembimbing_dua <> ''
+                UNION ALL
+                SELECT b.nim, b.nip_pembimbing_satu as nip
+                FROM tesis b
+                WHERE b.nip_pembimbing_satu <> '')pbb
+                LEFT JOIN pegawai pgw ON pgw.nip = pbb.nip
+                GROUP BY pbb.nip ORDER BY jumlah DESC";
+        
+            return $this->db->query($sql)->result();
+         }
+         
+         public function detail_bimbingan_master($nip)
+	{
+        $sql = "SELECT mhs.nim, mhs.nama, jt.judul
+                FROM 
+                (SELECT a.nim, a.nip_pembimbing_dua as nip, a.id_tesis 
+                FROM tesis a
+                WHERE a.nip_pembimbing_dua <> ''
+                UNION ALL
+                SELECT b.nim, b.nip_pembimbing_satu as nip,  b.id_tesis 
+                FROM tesis b
+                WHERE b.nip_pembimbing_satu <> '') pbb
+                LEFT JOIN mahasiswa mhs ON pbb.nim = mhs.nim
+                LEFT JOIN judul_tesis jt ON pbb.id_tesis = jt.id_tesis
+                WHERE pbb.nip = '$nip'
+                AND jt.jenis = '1' AND jt.`status` = '1'";
         
             return $this->db->query($sql)->result();
          }
