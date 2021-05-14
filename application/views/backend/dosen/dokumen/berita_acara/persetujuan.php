@@ -213,10 +213,23 @@
 						<?php echo formtext('hidden', 'id_dokumen', $dokumen_persetujuan->id_dokumen, 'required') ?>
 						<?php echo formtext('hidden', 'id_persetujuan', $dokumen_persetujuan->id_dokumen_persetujuan, 'required') ?>
 						<?php echo formtext('hidden', 'jenis', $dokumen_persetujuan->jenis, 'required') ?>
-						<div class="form-group">
-							<label>Nilai</label>
-							<input type="text" id="nilai" name="nilai" required="true" class="form-control">
-						</div>
+						<?php
+							if ($dokumen->id_jenjang == JENJANG_S1 && $dokumen->tipe == 'berita-acara' && $dokumen->jenis == 'skripsi') {
+								?>
+								<div class="form-group">
+									<label>Nilai</label>
+									<input type="number" id="nilai" name="nilai" required="true" class="form-control">
+								</div>
+								<?php
+							} else {
+								?>
+								<div class="form-group">
+									<label>Nilai</label>
+									<input type="text" id="nilai" name="nilai" required="true" class="form-control">
+								</div>
+								<?php
+							}
+						?>
 						<div class="form-group">
 							<label>Hasil</label>
 							<select name="hasil" id="hasil" class="form-control select2" style="width: 100%;" required data-placeholder="Pilih Hasil">

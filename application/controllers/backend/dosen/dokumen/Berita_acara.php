@@ -171,11 +171,13 @@
 							$data_ujian = [
 								'hasil_ujian' => HASIL_UJIAN_LANJUT,
 								'hasil_keterangan' => $keterangan,
+								'hasil_nilai'=>$nilai,
 							];
 							$this->skripsi->update_ujian($data_ujian, $ujian_aktif->id_ujian);
 							$data_skripsi = [
 								'status_skripsi' => STATUS_SKRIPSI_UJIAN_SELESAI,
 								'status_ujian_skripsi' => $this->skripsi->get_id_status_ujian_by_text($hasil, UJIAN_SKRIPSI_UJIAN),
+								'nilai'=>$nilai,
 							];
 							$this->skripsi->update($data_skripsi, $dokumen->id_tugas_akhir);
 						} else {
