@@ -23,6 +23,8 @@
 			//START MODEL
 			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
 			$this->load->model('backend/baa/skripsi/skripsi_ujian_model', 'skripsi');
+			$this->load->model('backend/transaksi/skripsi', 'transaksi_skripsi');
+			$this->load->model('backend/master/setting', 'setting');
 			//END MODEL
 		}
 
@@ -168,9 +170,12 @@
 			if ($hand == 'center19') {
 				$id_skripsi = $this->input->post('id_skripsi', true);
 				$id_ujian = $this->input->post('id_ujian', true);
+				$ujian = $this->transaksi_skripsi->read_jadwal_by_id($id_ujian);
 
 				$data = array(
 					'skripsi' => $this->skripsi->detail($id_ujian),
+					'nilai_angka' => $ujian->hasil_nilai,
+					'nilai_huruf' => $this->transaksi_skripsi->get_nilai_huruf($ujian->hasil_nilai),
 					'gelombang' => $this->skripsi->read_gelombangaktif(),
 					'penguji_ketua' => $this->skripsi->read_pengujiketua($id_ujian),
 					'penguji_pembimbing' => $this->skripsi->read_pengujipembimbing($id_ujian),
@@ -179,7 +184,6 @@
 					'judul' => $this->skripsi->read_judul($id_skripsi)
 				);
 				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/baa/cetak/skripsi_rekapitulasi';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');

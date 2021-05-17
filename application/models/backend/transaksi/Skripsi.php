@@ -1099,6 +1099,51 @@
 			return $result;
 		}
 
+		// Penilaian
+
+		public function get_nilai_huruf($nilai_angka)
+		{
+			$nilai_huruf  ='-';
+			$range_nilais = [
+				[
+					'batas_bawah' => 40,
+					'batas_atas' => 55,
+					'nilai_huruf' => 'Tidak Lulus'
+				],
+				[
+					'batas_bawah' => 55,
+					'batas_atas' => 60,
+					'nilai_huruf' => 'C'
+				],
+				[
+					'batas_bawah' => 60,
+					'batas_atas' => 65,
+					'nilai_huruf' => 'BC'
+				],
+				[
+					'batas_bawah' => 65,
+					'batas_atas' => 70,
+					'nilai_huruf' => 'B'
+				],
+				[
+					'batas_bawah' => 70,
+					'batas_atas' => 75,
+					'nilai_huruf' => 'AB'
+				],
+				[
+					'batas_bawah' => 75,
+					'batas_atas' => 100,
+					'nilai_huruf' => 'A'
+				]
+			];
+			foreach ($range_nilais as $range_nilai) {
+				if ($nilai_angka >= $range_nilai['batas_bawah'] && $nilai_angka < $range_nilai['batas_atas']) {
+					$nilai_huruf = $range_nilai['nilai_huruf'];
+				}
+			}
+			return $nilai_huruf;
+		}
+
 	}
 
 ?>
