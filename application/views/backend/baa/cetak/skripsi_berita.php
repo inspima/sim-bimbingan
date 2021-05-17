@@ -144,10 +144,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					} else if ($jadwal->hasil_ujian == HASIL_UJIAN_LANJUT) {
 						?>
 						<tr>
-							<td style="width:2%" align="left">1.</td>
-							<td style="width:30%" align="left">Lulus dengan nilai</td>
-							<td style="width:1%" align="left">:</td>
-							<td style="width:67%" align="left"></td>
+							<td align="left">1.</td>
+							<td align="left">Lulus dengan nilai : <?=!empty($jadwal->hasil_nilai)?' '.$jadwal->hasil_nilai.' ':' - '?></td>
+							<td align="left"></td>
+							<td align="left"></td>
 						</tr>
 						<?php
 					} else if ($jadwal->hasil_ujian != HASIL_UJIAN_LANJUT && $jadwal->hasil_ujian > 0) {
