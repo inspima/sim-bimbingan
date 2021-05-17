@@ -181,7 +181,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<td style="width:85%" align="left"></td>
 				</tr>
 				<tr>
-					<td colspan="3" align="left">Tanda tangan Panitia Penguji :<br><br><br></td>
+					<td colspan="3" align="left">Tanda tangan Panitia Penguji :<br><br></td>
 				</tr>
 				<?php
 					foreach ($dokumen_persetujuan_ketua as $dpk) {
@@ -214,7 +214,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					}
 				?>
 				<tr>
-					<td align="left"><br><br><br></td>
+					<td align="left"><br><br></td>
 					<td align="left"></td>
 					<td align="left"></td>
 				</tr>
@@ -249,7 +249,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							</tr>
 
 							<tr>
-								<td align="left"><br><br><br></td>
+								<td align="left"><br><br></td>
 								<td align="left"></td>
 								<td align="left"></td>
 							</tr>
@@ -281,7 +281,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								</td>
 							</tr>
 							<tr>
-								<td align="left"><br><br><br></td>
+								<td align="left"><br></td>
 								<td align="left"></td>
 								<td align="left"></td>
 							</tr>
