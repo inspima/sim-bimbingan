@@ -281,7 +281,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								</td>
 							</tr>
 							<tr>
-								<td align="left"><br><br></td>
+								<td align="left"><br></td>
 								<td align="left"></td>
 								<td align="left"></td>
 							</tr>
