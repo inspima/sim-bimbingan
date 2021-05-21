@@ -310,6 +310,13 @@ if($tesis->status_tesis >= STATUS_TESIS_UJIAN_DIJADWALKAN){
                     </div>
                     <?php echo form_close() ?>
                     <?php $this->view('backend/widgets/tesis/list_penguji_dosen', ['tesis' => $tesis, 'ujian' => $ujian]); ?>
+                    <?php echo form_open('dosen/tesis/ujian/kirim_whatsapp'); ?>
+                    <div class="form-group">
+                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                        <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-comment"></i> Kirim Notifikasi Whatsapp</button>
+                    </div>
+                    <?php echo form_close() ?>
                     <?php
                 } else {
                     ?>

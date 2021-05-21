@@ -140,7 +140,7 @@
                         </td>
                         <!-- <td><?php //echo $list['departemen'] ?></td> -->
                         <td><?= $list['nm_minat'] ?></td>
-                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
+                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan_proposal'])) ?></td>
                         <td class="text-center">
                             <?php
                             if($list['berkas_proposal'] != '') {

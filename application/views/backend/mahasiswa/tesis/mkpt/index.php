@@ -20,6 +20,7 @@
                 <tr>
                     <th>No</th>
                     <th>Tesis</th>
+                    <th>Tanggal Pengajuan</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Info</th>
                 </tr>
@@ -82,6 +83,7 @@
                                 </div>
                             </div>
                         </td>
+                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan_mkpt'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_MKPT]); ?>
                             <?php if ($list['status_mkpt'] > STATUS_TESIS_MKPT_UJIAN) {

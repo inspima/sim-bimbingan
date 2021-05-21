@@ -106,6 +106,8 @@ class Proposal extends CI_Controller {
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
 
+            $tgl_sekarang = date('Y-m-d');
+
             if (!$this->upload->do_upload('berkas_proposal')) {
                 $this->session->set_flashdata('msg-title', 'alert-danger');
                 $this->session->set_flashdata('msg', $this->upload->display_errors());
@@ -113,6 +115,7 @@ class Proposal extends CI_Controller {
             } else {
                 $data = array(
                     'jenis' => TAHAPAN_TESIS_PROPOSAL,
+                    'tgl_pengajuan_proposal' => $tgl_sekarang,
                     'berkas_proposal' => $file_name,
                     'status_proposal' => STATUS_TESIS_PROPOSAL_PENGAJUAN,
                 );
@@ -196,6 +199,7 @@ class Proposal extends CI_Controller {
             $config['file_name'] = $file_name;
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
+
             $tgl_sekarang = date('Y-m-d');
 
             if ($judul == $read_judul->judul) {
@@ -203,6 +207,7 @@ class Proposal extends CI_Controller {
                     unlink('./assets/upload/mahasiswa/tesis/proposal/'.$file_name);
                     if ($this->upload->do_upload('berkas_proposal')) {
                         $data = array(
+                            'tgl_pengajuan_proposal' => $tgl_sekarang,
                             'berkas_proposal' => $file_name,
                         );
                         $this->tesis->update($data, $id_tesis);
@@ -220,6 +225,7 @@ class Proposal extends CI_Controller {
                     unlink('./assets/upload/mahasiswa/tesis/proposal/'.$file_name);
                     if ($this->upload->do_upload('berkas_proposal')) {
                         $data = array(
+                            'tgl_pengajuan_proposal' => $tgl_sekarang,
                             'berkas_proposal' => $file_name,
                         );
                         $this->tesis->update($data, $id_tesis);

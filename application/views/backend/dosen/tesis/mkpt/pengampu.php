@@ -28,6 +28,7 @@
                     <th>No</th>
                     <th>Mahasiswa</th>
                     <th>Tesis</th>
+                    <th>Tgl. Pengajuan</th>
                     <!-- <th>Departemen</th> -->
                     <th>Minat</th>                    
                     <th>MKPT</th>
@@ -132,6 +133,7 @@
                             }
                             ?>
                         </td>
+                        <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan_mkpt'])) ?></td>
                         <td class="text-center">
                             <?php
                             if($list['jenis'] == TAHAPAN_TESIS_JUDUL){ 

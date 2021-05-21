@@ -161,6 +161,7 @@ class Mkpt extends CI_Controller {
             
             $data = array(
                 'jenis' => TAHAPAN_TESIS_MKPT,
+                'tgl_pengajuan_mkpt' => $tgl_sekarang,
                 'berkas_mkpt' => $file_name,
                 'status_mkpt' => STATUS_TESIS_MKPT_PENGAJUAN,
             );
@@ -309,6 +310,7 @@ class Mkpt extends CI_Controller {
             
                 $data = array(
                     'jenis' => TAHAPAN_TESIS_MKPT,
+                    'tgl_pengajuan_mkpt' => $tgl_sekarang,
                     'berkas_mkpt' => $file_name,
                     'status_mkpt' => STATUS_TESIS_MKPT_PENGAJUAN,
                 );
@@ -383,6 +385,7 @@ class Mkpt extends CI_Controller {
 
                 $data = array(
                     'jenis' => TAHAPAN_TESIS_MKPT,
+                    'tgl_pengajuan_mkpt' => $tgl_sekarang,
                     'berkas_mkpt' => $file_name,
                     'status_mkpt' => STATUS_TESIS_MKPT_PENGAJUAN,
                 );

@@ -201,7 +201,18 @@
                         <?php
                         }
                         ?>
-                        <td><?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?></td>
+                        <td>
+                            Judul : <?= date('d-m-Y', strtotime($list['tgl_pengajuan'])) ?><br>
+                            Proposal : <?= date('d-m-Y', strtotime($list['tgl_pengajuan_proposal'])) ?><br>
+                            <?php
+                            if($id == S2_ILMU_HUKUM){
+                            ?>
+                                MKPT : <?= date('d-m-Y', strtotime($list['tgl_pengajuan_mkpt'])) ?><br>
+                            <?php
+                            }
+                            ?>
+                            Tesis : <?= date('d-m-Y', strtotime($list['tgl_pengajuan_tesis'])) ?>
+                        </td>
                         <td class="text-center">
                             <?php
                             if($list['berkas_proposal'] != '') {

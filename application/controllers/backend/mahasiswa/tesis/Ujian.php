@@ -253,7 +253,7 @@ class Ujian extends CI_Controller {
                             'berkas_tesis' => $file_name,
                             'berkas_syarat_tesis' => $file_name_syarat,
                             'nim' => $this->session_data['username'],
-                            'tgl_pengajuan' => $tgl_sekarang,
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
                             'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                         );
                         $this->tesis->update($data, $id_tesis);
@@ -268,7 +268,7 @@ class Ujian extends CI_Controller {
                             'jenis' => TAHAPAN_TESIS_UJIAN,
                             'berkas_tesis' => $file_name,
                             'nim' => $this->session_data['username'],
-                            'tgl_pengajuan' => $tgl_sekarang,
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
                             'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                         );
                         $this->tesis->update($data, $id_tesis);
@@ -283,7 +283,7 @@ class Ujian extends CI_Controller {
                             'jenis' => TAHAPAN_TESIS_UJIAN,
                             'berkas_syarat_tesis' => $file_name_syarat,
                             'nim' => $this->session_data['username'],
-                            'tgl_pengajuan' => $tgl_sekarang,
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
                             'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                         );
                         $this->tesis->update($data, $id_tesis);
@@ -295,7 +295,7 @@ class Ujian extends CI_Controller {
                         'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
                         'jenis' => TAHAPAN_TESIS_UJIAN,
                         'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
+                        'tgl_pengajuan_tesis' => $tgl_sekarang,
                         'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                     );
                     $this->tesis->update($data, $id_tesis);
@@ -316,7 +316,7 @@ class Ujian extends CI_Controller {
                             'berkas_tesis' => $file_name,
                             'berkas_syarat_tesis' => $file_name_syarat,
                             'nim' => $this->session_data['username'],
-                            'tgl_pengajuan' => $tgl_sekarang,
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
                             'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                         );
                         $this->tesis->update($data, $id_tesis);
@@ -331,7 +331,7 @@ class Ujian extends CI_Controller {
                             'jenis' => TAHAPAN_TESIS_UJIAN,
                             'berkas_tesis' => $file_name,
                             'nim' => $this->session_data['username'],
-                            'tgl_pengajuan' => $tgl_sekarang,
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
                             'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                         );
                         $this->tesis->update($data, $id_tesis);
@@ -346,7 +346,7 @@ class Ujian extends CI_Controller {
                             'jenis' => TAHAPAN_TESIS_UJIAN,
                             'berkas_syarat_tesis' => $file_name_syarat,
                             'nim' => $this->session_data['username'],
-                            'tgl_pengajuan' => $tgl_sekarang,
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
                             'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                         );
                         $this->tesis->update($data, $id_tesis);
@@ -358,7 +358,7 @@ class Ujian extends CI_Controller {
                         'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
                         'jenis' => TAHAPAN_TESIS_UJIAN,
                         'nim' => $this->session_data['username'],
-                        'tgl_pengajuan' => $tgl_sekarang,
+                        'tgl_pengajuan_tesis' => $tgl_sekarang,
                         'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                     );
                     $this->tesis->update($data, $id_tesis);

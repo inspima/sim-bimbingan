@@ -944,13 +944,8 @@
 				$jenis_str = $params[3];
 				$jenis = $params[4];
 				$jenis_ujian = 0;
-				if ($jenis == TAHAPAN_TESIS_JUDUL or $jenis == TAHAPAN_TESIS_PROPOSAL) {
-					$jenis_ujian = UJIAN_TESIS_PROPOSAL;
-				} else if ($jenis == TAHAPAN_TESIS_MKPT) {
-					$jenis_ujian = UJIAN_TESIS_MKPT;
-				} else if ($jenis == TAHAPAN_TESIS_UJIAN) {
-					$jenis_ujian = UJIAN_TESIS_UJIAN;
-				}
+				$tgl_pengajuan = '';
+
 				$jadwal = $this->tesis->read_jadwal($id_tugas_akhir, $jenis_ujian);
 				$tugas_akhir = $this->tesis->detail($id_tugas_akhir);
 				$page = '';
@@ -963,6 +958,21 @@
 					'identitas' => $tugas_akhir->nim,
 				];
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+
+				if ($jenis == TAHAPAN_TESIS_JUDUL){
+					$jenis_ujian = UJIAN_TESIS_PROPOSAL;
+					$tgl_pengajuan = $tugas_akhir->tgl_pengajuan;
+				} else if ($jenis == TAHAPAN_TESIS_PROPOSAL) {
+					$jenis_ujian = UJIAN_TESIS_PROPOSAL;
+					$tgl_pengajuan = $tugas_akhir->tgl_pengajuan_proposal;
+				} else if ($jenis == TAHAPAN_TESIS_MKPT) {
+					$jenis_ujian = UJIAN_TESIS_MKPT;
+					$tgl_pengajuan = $tugas_akhir->tgl_pengajuan_mkpt;
+				} else if ($jenis == TAHAPAN_TESIS_UJIAN) {
+					$jenis_ujian = UJIAN_TESIS_UJIAN;
+					$tgl_pengajuan = $tugas_akhir->tgl_pengajuan_tesis;
+				}
+
 				if (!empty($dokumen)) {
 					$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
 					// QR
@@ -973,7 +983,7 @@
 						'jadwal' => $jadwal,
 						'pengujis' => $this->tesis->read_penguji($jadwal->id_ujian),
 						//'semester' => $this->semester->detail($smt),
-						'semester' => $this->semester->semester_pengajuan($tugas_akhir->tgl_pengajuan) ? $this->semester->semester_pengajuan($tugas_akhir->tgl_pengajuan) : $this->semester->detail_berjalan(),
+						'semester' => $this->semester->semester_pengajuan($tgl_pengajuan) ? $this->semester->semester_pengajuan($tgl_pengajuan) : $this->semester->detail_berjalan(),
 						'no_sk' => $dokumen->no_ref_doc,
 						'tgl_sk' => $dokumen->date_doc,
 						'tgl_surat' => $dokumen->date,

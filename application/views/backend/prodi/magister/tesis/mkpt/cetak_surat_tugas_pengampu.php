@@ -93,7 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p>
                                     <?= woday_toindo($tgl_surat); ?><br>
                                     Dekan,
-                                    <br/><br/>
+                                    <br/><br/><br>
                                     <img src="<?= str_replace(base_url(), "", ($dekan->ttd ? $dekan->ttd : $this->dosen->detail('197602042005011003')->ttd)); ?>" width="200px"/>
                                     <br/>
                                     <?= $dekan ? $dekan->nama_dosen : 'Iman Prihandono, Ph.D.' ?><br/>

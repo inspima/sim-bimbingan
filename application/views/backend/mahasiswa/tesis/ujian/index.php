@@ -163,7 +163,7 @@
                             }
                             ?>
                         </td>
-                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan'])) ?></td>
+                        <td><?= date('Y-m-d', strtotime($list['tgl_pengajuan_tesis'])) ?></td>
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_UJIAN]); 
                             if ($list['status_tesis'] == STATUS_TESIS_UJIAN_DITOLAK){
