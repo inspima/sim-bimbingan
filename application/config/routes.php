@@ -688,6 +688,7 @@
 	$route['dosen/tesis/ujian/reject/(:num)'] = 'backend/dosen/tesis/ujian/reject';
 	$route['dosen/tesis/ujian/batal/(:num)'] = 'backend/dosen/tesis/ujian/batal';
 	$route['dosen/tesis/ujian/cetak_berita'] = 'backend/dosen/tesis/ujian/cetak_berita';
+	$route['dosen/tesis/ujian/kirim_whatsapp'] = 'backend/dosen/tesis/ujian/penguji_kirim_whatsapp';
 
 	//$route['dosen/tesis/ujian/approve/(:num)'] = 'backend/dosen/tesis/ujian/approve';
 

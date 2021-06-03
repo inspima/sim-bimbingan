@@ -137,7 +137,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </td> 
                                     <td style="width: 40%">
                                         <p>
-                                            <table>
+                                            <table style="width:100%;">
                                                 <tr>
                                                     <td style="padding-left: 0px;">Ditetapkan di</td>
                                                     <td>:</td> 

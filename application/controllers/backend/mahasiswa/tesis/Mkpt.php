@@ -94,6 +94,8 @@ class Mkpt extends CI_Controller {
             $read_judul = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_PROPOSAL);
             $tgl_sekarang = date('Y-m-d');
 
+            $read_judul_mkpt = $this->tesis->read_judul($id_tesis, TAHAPAN_TESIS_MKPT);
+
             $tesis_mkpts = $this->tesis->read_tesis_mkpt($id_tesis);
 
             if (!empty($tesis_mkpts)) {
@@ -168,20 +170,23 @@ class Mkpt extends CI_Controller {
 
             $this->tesis->update($data, $id_tesis);
 
-            $dataj = array(
-                'id_tesis' => $id_tesis,
-                'judul' => $read_judul->judul,
-                'latar_belakang' => $read_judul->latar_belakang,
-                'rumusan_masalah_pertama' => $read_judul->rumusan_masalah_pertama,
-                'rumusan_masalah_kedua' => $read_judul->rumusan_masalah_kedua,
-                'rumusan_masalah_lain' => $read_judul->rumusan_masalah_lain,
-                'penelusuran_artikel_internet' => $read_judul->penelusuran_artikel_internet,
-                'penelusuran_artikel_unair' => $read_judul->penelusuran_artikel_unair,
-                'uraian_topik' => $read_judul->uraian_topik,
-                'jenis' => TAHAPAN_TESIS_MKPT,
-            );
+            if(empty($read_judul_mkpt->judul))
+            {
+                $dataj = array(
+                    'id_tesis' => $id_tesis,
+                    'judul' => $read_judul->judul,
+                    'latar_belakang' => $read_judul->latar_belakang,
+                    'rumusan_masalah_pertama' => $read_judul->rumusan_masalah_pertama,
+                    'rumusan_masalah_kedua' => $read_judul->rumusan_masalah_kedua,
+                    'rumusan_masalah_lain' => $read_judul->rumusan_masalah_lain,
+                    'penelusuran_artikel_internet' => $read_judul->penelusuran_artikel_internet,
+                    'penelusuran_artikel_unair' => $read_judul->penelusuran_artikel_unair,
+                    'uraian_topik' => $read_judul->uraian_topik,
+                    'jenis' => TAHAPAN_TESIS_MKPT,
+                );
 
-            $this->tesis->save_judul($dataj);
+                $this->tesis->save_judul($dataj);
+            }
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPT..');
