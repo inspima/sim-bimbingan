@@ -800,23 +800,17 @@ class Ujian extends CI_Controller {
                 $total_bobot = 0;
                 $total_nilai = 0;
                 $total_nilai_terbobot = 0;
-                foreach ($jumlah_nilai as $data) {
+                foreach ($jumlah_nilai as $data_kriteria) {
                     $id_penguji = $uji['id_penguji'];
-                    $nilai_penguji = $this->tesis->read_penilaian($uji['id_penguji'], $data['id']);
+                    $nilai_penguji = $this->tesis->read_penilaian($uji['id_penguji'], $data_kriteria['id']);
                     //$nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
-
-                    $nilai_ujian = $nilai_penguji->nilai;
-                    $total_bobot = $total_bobot + $data['bobot'];
-
-                    $total_nilai = $total_nilai + $nilai_ujian;
-                    $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data['bobot']);
 
 
                     if(empty($nilai_penguji)){
                         $data = array(
                             'id_penguji' => $id_penguji,
-                            'id_kriteria_penilaian' => $data['id'],
-                            'nilai' => $this->input->post('nilai_'.$data['id'], TRUE),
+                            'id_kriteria_penilaian' => $data_kriteria['id'],
+                            'nilai' => $this->input->post('nilai_'.$data_kriteria['id'], TRUE),
                             'status_aktif' => 1,
                         );
 
@@ -825,13 +819,21 @@ class Ujian extends CI_Controller {
                     else {
                         $data = array(
                             'id_penguji' => $id_penguji,
-                            'id_kriteria_penilaian' => $data['id'],
-                            'nilai' => $this->input->post('nilai_'.$data['id'], TRUE),
+                            'id_kriteria_penilaian' => $data_kriteria['id'],
+                            'nilai' => $this->input->post('nilai_'.$data_kriteria['id'], TRUE),
                             'status_aktif' => 1,
                         );
 
                         $this->tesis->update_penilaian($data, $nilai_penguji->id);
                     }
+
+                    $nilai_penguji = $this->tesis->read_penilaian($uji['id_penguji'], $data_kriteria['id']);
+
+                    $nilai_ujian = $nilai_penguji->nilai;
+                    $total_bobot = $total_bobot + $data_kriteria['bobot'];
+
+                    $total_nilai = $total_nilai + $nilai_ujian;
+                    $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data_kriteria['bobot']);
 
                 }
 

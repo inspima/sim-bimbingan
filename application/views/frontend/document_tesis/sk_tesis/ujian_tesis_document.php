@@ -146,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <tr>
                                                     <td style="padding-left: 0px;">Pada tanggal</td>
                                                     <td>:</td> 
-                                                    <td><?= woday_toindo(date('Y-m-d'))?></td>
+                                                    <td><?= woday_toindo($tgl_sk)?></td>
                                                 </tr>
                                             </table>
                                             D e k a n,
