@@ -126,6 +126,7 @@
 				$no_sk = $this->input->post('no_sk', true);
 				$tgl_sk = $this->input->post('tgl_sk', true);
 				$skripsi = $this->skripsi->detail_proposal($id_skripsi);
+				$jadwal = $this->skripsi->read_ujian_skripsi($id_skripsi);
 				$gelombang = $this->skripsi->read_gelombangaktif();
 				$pengujis = $this->skripsi->read_penguji_ujian($id_ujian, UJIAN_SKRIPSI_UJIAN);
 				$wadek = $this->skripsi->read_wadek();
@@ -165,6 +166,7 @@
 					'dokumen' => $dokumen,
 					'proposal' => $skripsi,
 					'gelombang' => $gelombang,
+					'penguji_pembimbing' => $this->skripsi->read_pengujipembimbing($jadwal->id_ujian),
 					'penguji_ketua' => $this->skripsi->read_pengujiketua($id_ujian),
 					'penguji_anggota' => $this->skripsi->read_pengujianggota($id_ujian),
 					'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
@@ -172,7 +174,7 @@
 					'judul' => $this->skripsi->read_judul($id_skripsi)
 				);
 				//print_r($data['penguji_ketua']);die();
-				$page = 'backend/baa/cetak/proposal_surat_tugas';
+				$page = 'backend/baa/cetak/skripsi_surat_tugas';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
 				$this->pdf->filename = "proposal_surat_tugas.pdf";

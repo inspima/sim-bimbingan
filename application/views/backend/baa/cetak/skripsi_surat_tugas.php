@@ -52,10 +52,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<tr>
 		<td>
-			<table border="1" style="width:100%">
+			<table border="1" style="width:100%;border-collapse: collapse;">
 				<tr>
 					<td style="width:15%" align="left"><strong>No</strong></td>
-					<td style="width:40%" align="left"><strong>Nama Penguji Skripsi/Tesis </strong></td>
+					<td style="width:40%" align="left"><strong>Nama Penguji </strong></td>
 					<td style="width:40%" align="left"><strong>Keterangan</strong></td>
 				</tr>
 
@@ -75,13 +75,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<?php
 					$no = '3';
 					foreach ($penguji_anggota as $list) {
-						?>
-						<tr>
-							<td style="width:15%" align="left"><?= $no ?></td>
-							<td style="width:40%" align="left"><?= $list['nama'] ?></td>
-							<td style="width:40%" align="left">(Penguji)</td>
-						</tr>
-						<?php $no++;
+						if ($list['usulan_dosbing'] != '2') {
+							?>
+							<tr>
+								<td style="width:15%" align="left"><?= $no ?></td>
+								<td style="width:40%" align="left"><?= $list['nama'] ?></td>
+								<td style="width:40%" align="left">(Penguji)</td>
+							</tr>
+							<?php $no++;
+						}
 					} ?>
 			</table>
 			<br>
@@ -92,17 +94,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td>
 			<table border="0" style="width:100%">
 				<tr>
-					<td style="width:15%" align="left"><b>Nama</b></td>
+					<td align="left"><b>Nama</b></td>
 					<td style="width:1%" align="left"><b>:</b></td>
-					<td style="width:84%" align="left"><b><?= $skripsi->nama ?></b></td>
+					<td style="width:84%" align="left"><b><?= $proposal->nama ?></b></td>
 				</tr>
 				<tr>
 					<td align="left"><b>NIM</b></td>
 					<td align="left"><b>:</b></td>
-					<td align="left"><b><?= $skripsi->nim ?></b></td>
+					<td align="left"><b><?= $proposal->nim ?></b></td>
 				</tr>
 				<tr>
-					<td align="left"><b>Judul Skripsi</b></td>
+					<td align="left"><b>Judul Proposal</b></td>
 					<td align="left"><b>:</b></td>
 					<td align="left"><b><?= $judul->judul ?></b></td>
 				</tr>
