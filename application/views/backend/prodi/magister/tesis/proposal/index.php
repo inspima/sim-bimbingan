@@ -50,7 +50,32 @@
                                     ?>
                                 </td>
                                 <td><?php echo $list['telp'] ?></td>
-                                <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
+                                <td>
+                                    <?php
+                                    $data_dokumen_judul = [
+                                        'tipe' => DOKUMEN_SP_PEMBIMBING_TESIS,
+                                        'jenis' => DOKUMEN_JENIS_TESIS_JUDUL_STR,
+                                        'identitas' => $list['nim'],
+                                    ];
+                                    $dokumen_judul = $this->dokumen->detail_by_data($data_dokumen_judul);
+
+                                    $no_surat_judul = '';
+                                    $no_sk_judul = '';
+                                    $tgl_sk_judul = '';
+                                    $tgl_surat_judul = '';
+
+                                    if(!empty($dokumen_judul)){
+                                        $no_surat_judul = $dokumen_judul->no_doc;
+                                        $tgl_surat_judul = $dokumen_judul->date;
+                                    }
+                                    ?>
+                                    <b>Judul</b> <br/>
+                                    <?php echo toindo($list['tgl_pengajuan']) ?><br/><br/>
+                                    <b>SP Pembimbing</b> <br/>
+                                    <?php echo $tgl_surat_judul ? toindo($tgl_surat_judul) : ''; ?><br/><br/>
+                                    <b>Proposal</b> <br/>
+                                    <?php echo toindo($list['tgl_pengajuan_proposal']) ?>
+                                </td>
                                 <td class="text-center">
                                     <?php
                                     if($list['berkas_proposal'] != '') {

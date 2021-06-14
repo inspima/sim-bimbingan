@@ -19,6 +19,7 @@ class Tesis_mkpt extends CI_Controller {
         }
         //END SESS
         //START MODEL
+        $this->load->model('backend/master/setting', 'setting');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/transaksi/tesis', 'tesis');
@@ -120,7 +121,7 @@ class Tesis_mkpt extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/mkpt/cetak_surat_tugas_pengampu';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');

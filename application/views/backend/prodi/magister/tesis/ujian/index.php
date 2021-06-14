@@ -49,7 +49,38 @@
                                     ?>
                                 </td>
                                 <td><?php echo $list['telp'] ?></td>
-                                <td><?php echo toindo($list['tgl_pengajuan']) ?></td>
+                                <td>
+                                    <?php
+                                    $data_dokumen_judul = [
+                                        'tipe' => DOKUMEN_SP_PEMBIMBING_TESIS,
+                                        'jenis' => DOKUMEN_JENIS_TESIS_JUDUL_STR,
+                                        'identitas' => $list['nim'],
+                                    ];
+                                    $dokumen_judul = $this->dokumen->detail_by_data($data_dokumen_judul);
+
+                                    $no_surat_judul = '';
+                                    $no_sk_judul = '';
+                                    $tgl_sk_judul = '';
+                                    $tgl_surat_judul = '';
+
+                                    if(!empty($dokumen_judul)){
+                                        $no_surat_judul = $dokumen_judul->no_doc;
+                                        $tgl_surat_judul = $dokumen_judul->date;
+                                    }
+
+                                    $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_PROPOSAL);
+                                    ?>
+                                    <b>Judul</b> <br/>
+                                    <?php echo toindo($list['tgl_pengajuan']) ?><br/><br/>
+                                    <b>SP Pembimbing</b> <br/>
+                                    <?php echo $tgl_surat_judul ? toindo($tgl_surat_judul) : ''; ?><br/><br/>
+                                    <b>Ujian Proposal</b> <br/>
+                                    <?php echo $ujian ? $ujian->tanggal ? toindo($ujian->tanggal) : '' : ''; ?><br/><br/>
+                                    <b>MKPT</b> <br/>
+                                    <?php echo toindo($list['tgl_pengajuan_mkpt']) ?><br/><br/>
+                                    <b>Tesis</b> <br/>
+                                    <?php echo toindo($list['tgl_pengajuan_tesis']) ?>
+                                </td>
                                 <td class="text-center">
                                     <?php $this->view('backend/widgets/tesis/column_penguji', ['id_tesis' => $list['id_tesis'], 'jenis' => UJIAN_TESIS_UJIAN]); ?>
                                 </td>

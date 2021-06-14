@@ -990,7 +990,7 @@
 						'dekan' => $this->struktural->read_dekan(),
 						'wadek_satu' => $this->struktural->read_wadek1()
 					);
-					ob_end_clean();
+					//ob_end_clean();
 
 					$size = 'legal';
 					$this->pdf->setPaper($size, 'potrait');

@@ -19,6 +19,7 @@ class Tesis_ujian extends CI_Controller {
         }
         //END SESS
         //START MODEL
+        $this->load->model('backend/master/setting', 'setting');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/transaksi/tesis', 'tesis');
@@ -75,7 +76,7 @@ class Tesis_ujian extends CI_Controller {
     }*/
 
     public function cetak_sk_tesis() {
-        $hand = $this->input->post('hand', TRUE);
+        //$hand = $this->input->post('hand', TRUE);
         $hand = $this->input->post('hand', true);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', true);
@@ -154,7 +155,7 @@ class Tesis_ujian extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/ujian/cetak_sk_tesis';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
@@ -283,7 +284,7 @@ class Tesis_ujian extends CI_Controller {
                 'no_sk' => $no_sk,
                 'tgl_sk' => $tgl_sk_ymd,
             );
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/ujian/cetak_berita';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
@@ -384,7 +385,7 @@ class Tesis_ujian extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/ujian/cetak_daftar_hadir';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
@@ -486,7 +487,7 @@ class Tesis_ujian extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/ujian/cetak_undangan';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');

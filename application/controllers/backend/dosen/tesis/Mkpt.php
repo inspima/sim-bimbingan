@@ -225,6 +225,7 @@ class Mkpt extends CI_Controller {
                             $data_tesis_mkpt = [
                                 'nilai_angka' => $nilai_angka,
                                 'nilai_publish' => $nilai_angka,
+                                'waktu_update' => date('Y-m-d H:i:s'),
                             ];
 
                             $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);

@@ -90,7 +90,8 @@
 			$this->db->where('s.status_proposal >', 0);
 			$this->db->where('pg3.nip', $username);
 			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jenis=2 and status=\'1\')');
-			$this->db->order_by('s.tgl_pengajuan', 'desc');
+			//$this->db->order_by('s.tgl_pengajuan', 'desc');
+			$this->db->order_by('s.tgl_pengajuan_proposal', 'desc');
 
 			$query = $this->db->get();
 			return $query->result_array();
@@ -113,6 +114,7 @@
 			$this->db->where('pg3.nip', $username);
 			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jenis=1 and status=\'1\')');
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
+			//$this->db->order_by('s.id_tesis', 'desc');
 
 			$query = $this->db->get();
 			return $query->result_array();
@@ -351,7 +353,8 @@
 			$this->db->where('s.status_mkpt >', 0);
 			$this->db->where('pg3.nip', $username);
 			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jenis=3 and jd.status=\'1\')');
-			$this->db->order_by('s.tgl_pengajuan', 'desc');
+			//$this->db->order_by('s.tgl_pengajuan', 'desc');
+			$this->db->order_by('s.tgl_pengajuan_mkpt', 'desc');
 
 			$query = $this->db->get();
 			return $query->result_array();
@@ -392,7 +395,8 @@
 			$this->db->where('s.status_tesis !=', STATUS_TESIS_UJIAN_DITOLAK);
 			$this->db->where('pg3.nip', $username);
 			$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and jd.jenis=4 and jd.status=\'1\')');
-			$this->db->order_by('s.tgl_pengajuan', 'desc');
+			//$this->db->order_by('s.tgl_pengajuan', 'desc');
+			$this->db->order_by('s.tgl_pengajuan_tesis', 'desc');
 
 			$query = $this->db->get();
 			return $query->result_array();
@@ -813,6 +817,7 @@
 			if ($tesis->nip == $this->session_data['username']) {
 				$data = array(
 					'nilai_publish' => $tesis->nilai_angka,
+					'waktu_update' => date('Y-m-d H:i:s')
 				);
 				$this->db->from('tesis_mkpt');
 				$this->db->where('id_tesis_mkpt', $tesis->id_tesis_mkpt);

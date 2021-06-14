@@ -52,11 +52,11 @@ class Tesis_proposal extends CI_Controller {
             $id_tesis = $this->input->post('id_tesis', true);
             $jadwal = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
             $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_PROPOSAL);
-            //$no_surat = $this->input->post('no_surat', TRUE);
+            $no_surat = $this->input->post('no_surat', TRUE);
             $no_sk = $this->input->post('no_sk', TRUE);
 
-            //$tgl_surat = $this->input->post('tgl_surat', TRUE);
-            //$tgl_surat_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_surat)));
+            $tgl_surat = $this->input->post('tgl_surat', TRUE);
+            $tgl_surat_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_surat)));
 
             $tgl_sk = $this->input->post('tgl_sk', TRUE);
             $tgl_sk_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_sk)));
@@ -75,7 +75,7 @@ class Tesis_proposal extends CI_Controller {
                 'kode' => $this->dokumen->generate_kode(DOKUMEN_SK_PROPOSAL_TESIS, 'tesis_proposal', $tesis->nim, ''),
                 'tipe' => DOKUMEN_SK_PROPOSAL_TESIS,
                 'jenis' => DOKUMEN_JENIS_TESIS_PROPOSAL_STR,
-                'no_doc' => '',
+                'no_doc' => $no_surat,
                 'no_ref_doc' => $no_sk,
                 'id_tugas_akhir' => $id_tesis,
                 'id_semester' => $this->semester->semester_pengajuan($tesis->tgl_pengajuan_proposal)->id_semester ? $this->semester->semester_pengajuan($tesis->tgl_pengajuan_proposal)->id_semester : $this->semester->detail_berjalan()->id_semester,
@@ -125,7 +125,7 @@ class Tesis_proposal extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/proposal/cetak_sk_proposal';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
@@ -217,7 +217,7 @@ class Tesis_proposal extends CI_Controller {
                 'dokumen_persetujuan' => $dokumen_persetujuan,
                 'date_doc' => $dokumen->date_doc ? $dokumen->date_doc : '',
             );
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/proposal/cetak_berita';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
@@ -318,7 +318,7 @@ class Tesis_proposal extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/proposal/cetak_daftar_hadir';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
@@ -420,7 +420,7 @@ class Tesis_proposal extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/proposal/cetak_undangan';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');

@@ -122,7 +122,7 @@ class Tesis_judul extends CI_Controller {
                 . WA_LINE_BREAK . WA_LINE_BREAK . 'berhasil dicetak';
             $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $this->struktural->read_dekan()->nip ? $this->struktural->read_dekan()->nip : '197602042005011003');*/
 
-            ob_end_clean();
+            //ob_end_clean();
             $page = 'backend/prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing';
             $size = 'legal';
             $this->pdf->setPaper($size, 'potrait');
