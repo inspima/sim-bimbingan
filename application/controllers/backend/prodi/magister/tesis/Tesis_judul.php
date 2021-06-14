@@ -19,6 +19,7 @@ class Tesis_judul extends CI_Controller {
         }
         //END SESS
         //START MODEL
+        $this->load->model('backend/master/setting', 'setting');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/transaksi/tesis', 'tesis');

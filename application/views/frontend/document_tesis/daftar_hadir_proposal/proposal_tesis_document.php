@@ -21,13 +21,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tr>
                     <td width="10%"><img src="assets/backend/cetak/logo_unair.png" width="100px"></td>
                     <td width="90%" align="center">
-                        <p style="font-size:20px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN
+                        <p style="font-size:20px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI
                             <br>UNIVERSITAS AIRLANGGA
                             <br><b>FAKULTAS HUKUM</b><br>
                         </p>
                         <p style="font-size:13px;margin: 0px 0px 0px 0px;">
                             Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
-                            Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
+                            Laman: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
                         </p>
                     </td>
                 </tr>

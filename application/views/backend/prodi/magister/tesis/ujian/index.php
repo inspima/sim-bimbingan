@@ -112,13 +112,37 @@
                                                         <div class="modal-body">
                                                             <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                                                             <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                                            <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
-                                                            <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                                                <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal Penetapan">
-                                                                <div class="input-group-addon">
-                                                                    <span class="glyphicon glyphicon-th"></span>
+                                                            <?php
+                                                            if($list['id_prodi'] == S2_ILMU_HUKUM){
+                                                            ?>
+                                                                <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
+                                                                <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                                    <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal Penetapan">
+                                                                    <div class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-th"></span>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            <?php
+                                                            }
+                                                            else if($list['id_prodi'] == S2_KENOTARIATAN){
+                                                            ?>
+                                                                <input type="text" name="no_surat" class="form-control" style="width: 100%" value="<?= $no_surat; ?>" required placeholder="Nomor SK 1a">
+                                                                <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                                    <input type="text" name="tgl_surat" class="form-control" value="<?= $tgl_surat; ?>" required placeholder="Tanggal SK 1b">
+                                                                    <div class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-th"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK 2a">
+                                                                <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                                    <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal SK 2b">
+                                                                    <div class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-th"></span>
+                                                                    </div>
+                                                                </div>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

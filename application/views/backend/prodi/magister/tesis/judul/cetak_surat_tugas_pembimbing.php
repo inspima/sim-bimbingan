@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tr>
                     <td width="10%"><img src="assets/backend/cetak/logo_unair.png" width="100px"></td>
                     <td width="90%" align="center">
-                        <p style="font-size:20px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN
+                        <p style="font-size:20px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI
                             <br>UNIVERSITAS AIRLANGGA
                             <br><b>FAKULTAS HUKUM</b><br>
                         </p>

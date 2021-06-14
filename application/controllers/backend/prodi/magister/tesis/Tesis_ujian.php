@@ -81,7 +81,7 @@ class Tesis_ujian extends CI_Controller {
             $id_tesis = $this->input->post('id_tesis', true);
             $jadwal = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN);
             $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
-            //$no_surat = $this->input->post('no_surat', TRUE);
+            $no_surat = $this->input->post('no_surat', TRUE);
             $no_sk = $this->input->post('no_sk', TRUE);
 
             $tgl_surat = $this->input->post('tgl_surat', TRUE);
@@ -104,7 +104,7 @@ class Tesis_ujian extends CI_Controller {
                 'kode' => $this->dokumen->generate_kode(DOKUMEN_SK_UJIAN_TESIS, 'tesis_ujian', $tesis->nim, ''),
                 'tipe' => DOKUMEN_SK_UJIAN_TESIS,
                 'jenis' => DOKUMEN_JENIS_TESIS_UJIAN_STR,
-                'no_doc' => '',
+                'no_doc' => $no_surat,
                 'no_ref_doc' => $no_sk,
                 'id_tugas_akhir' => $id_tesis,
                 'id_semester' => $this->semester->semester_pengajuan($tesis->tgl_pengajuan_tesis)->id_semester ? $this->semester->semester_pengajuan($tesis->tgl_pengajuan_tesis)->id_semester : $this->semester->detail_berjalan()->id_semester,
