@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </style>
     </head>
     <body>
-        <table align="center" width="100%" border="0">
+        <!-- <table align="center" width="100%" border="0">
             <tbody>
                 <tr>
                     <td width="10%"><img src="assets/backend/cetak/logo_unair.png" width="100px"></td>
@@ -36,7 +36,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+
+        <?php $this->load->view('backend/widgets/common/header_document') ?>
+
         <p align="center">
             <u><h2>PRESENSI UJIAN TESIS</h2></u>
         </p>
