@@ -70,7 +70,7 @@
 									<td><?= $no ?></td>
 									<td><?php echo toindo($list['tanggal']) ?>
 									</td>
-									<td style="max-width: 200px;"><p style="width:200px;white-space: pre-wrap"><?php echo $list['hal'] ?></p></td>
+									<td style="max-width: 220px;"><p style="width:200px;white-space: pre-wrap"><?php echo $list['hal'] ?></p></td>
 									<td>
 										<?php
 											if ($list['status'] == '1') {
