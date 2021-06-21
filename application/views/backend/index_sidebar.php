@@ -12,16 +12,16 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<p>
-				<font style="font-size: 21px;font-weight: 600"><?php echo $title ?> </font><font style="font-size: 15px;"> > <?php echo $subtitle ?> </font>
+			<div class="row">
+				<div class="col-md-8 col-xs-12"><font style="font-size: 21px;font-weight: 600"><?php echo $title ?> </font><font style="font-size: 15px;"> > <?php echo $subtitle ?> </font></div>
 				<?php
 					if (!empty($use_back)) {
 						?>
-						<a class="btn bg-blue pull-right" href="<?php echo base_url() . $back_link ?>"><i class="fa fa-arrow-left"></i> Kembali</a>
+						<div class="col-md-4 col-xs-12"><a class="btn bg-blue pull-right" href="<?php echo base_url() . $back_link ?>"><i class="fa fa-arrow-left"></i> Kembali</a></div>
 						<?php
 					}
 				?>
-			</p>
+			</div>
 		</section>
 
 		<!-- Main content -->
