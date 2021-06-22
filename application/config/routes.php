@@ -151,6 +151,9 @@
 	$route['dashboarda/master/struktural'] = 'backend/administrator/master/struktural';
 	$route['dashboarda/master/struktural/detail/(:num)'] = 'backend/administrator/master/struktural/detail/$1';
 	$route['dashboarda/master/struktural/update'] = 'backend/administrator/master/struktural/update';
+	$route['dashboarda/utility/database/backup'] = 'backend/administrator/utility/database_backup';
+	$route['dashboarda/utility/database/backup/create'] = 'backend/administrator/utility/database_backup/create_backup';
+	$route['dashboarda/utility/database/backup/delete'] = 'backend/administrator/utility/database_backup/delete_backup';
 
 	//2. Dashboard BAA
 	$route['dashboardb'] = 'backend/baa/home';
