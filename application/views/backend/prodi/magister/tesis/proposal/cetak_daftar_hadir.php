@@ -181,7 +181,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <table border="0" style="width:100%;margin-top: 30px">
                         <tr>
                             <td style="width: 50%">
-                                <img src="<?= $qr_dokumen ?>" width="100px">
+                                <!-- <img src="<?php //echo $qr_dokumen ?>" width="100px"> -->
                             </td> 
                             <td style="width: 50%">
                                 <!-- <p>

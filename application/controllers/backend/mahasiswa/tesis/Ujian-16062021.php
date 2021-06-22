@@ -211,7 +211,7 @@ class Ujian extends CI_Controller {
             $judul = $this->input->post('judul', TRUE);
             $tgl_sekarang = date('Y-m-d');
 
-            /*if($_FILES['berkas_tesis']['size'] != 0){
+            if($_FILES['berkas_tesis']['size'] != 0){
                 $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
                 $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
                 $config['allowed_types'] = 'pdf';
@@ -237,124 +237,56 @@ class Ujian extends CI_Controller {
                 $config['file_name'] = $file_name_syarat;
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
-            }*/
+            }
 
             $tgl_sekarang = date('Y-m-d');
 
             if ($judul == $read_judul->judul) {
                 if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    if($_FILES['berkas_tesis']['size'] != 0){
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_tesis.pdf');
-                        $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_tesis' => $file_name,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
-                    }
-
-                    if($_FILES['berkas_syarat_tesis']['size'] != 0) {
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_syarat_tesis.pdf');
-                        $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name_syarat;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_syarat_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_syarat_tesis' => $file_name_syarat,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
+                    if ($this->upload->do_upload('berkas_tesis') && $this->upload->do_upload('berkas_syarat_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
-                    if($_FILES['berkas_tesis']['size'] != 0){
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_tesis.pdf');
-                        $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_tesis' => $file_name,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
+                    if ($this->upload->do_upload('berkas_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    if($_FILES['berkas_syarat_tesis']['size'] != 0) {
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_syarat_tesis.pdf');
-                        $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name_syarat;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_syarat_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_syarat_tesis' => $file_name_syarat,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
+                    if($this->upload->do_upload('berkas_syarat_tesis')){
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
                     }
                 }
                 else {
@@ -374,118 +306,50 @@ class Ujian extends CI_Controller {
                 redirect('mahasiswa/tesis/ujian');
             } else {
                 if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    if($_FILES['berkas_tesis']['size'] != 0){
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_tesis.pdf');
-                        $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_tesis' => $file_name,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
-                    }
-
-                    if($_FILES['berkas_syarat_tesis']['size'] != 0) {
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_syarat_tesis.pdf');
-                        $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name_syarat;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_syarat_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_syarat_tesis' => $file_name_syarat,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
+                    if ($this->upload->do_upload('berkas_tesis') && $this->upload->do_upload('berkas_syarat_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] != 0 && $_FILES['berkas_syarat_tesis']['size'] == 0){
-                    if($_FILES['berkas_tesis']['size'] != 0){
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_tesis.pdf');
-                        $file_name = $this->session_data['username'] . '_berkas_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_tesis' => $file_name,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name);
+                    if ($this->upload->do_upload('berkas_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_tesis' => $file_name,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
                     }
                 }
                 else if($_FILES['berkas_tesis']['size'] == 0 && $_FILES['berkas_syarat_tesis']['size'] != 0){
-                    if($_FILES['berkas_syarat_tesis']['size'] != 0) {
-                        unlink('./assets/upload/mahasiswa/tesis/ujian/'.$this->session_data['username'] . '_berkas_syarat_tesis.pdf');
-                        $file_name_syarat = $this->session_data['username'] . '_berkas_syarat_tesis.pdf';
-                        $config['upload_path'] = './assets/upload/mahasiswa/tesis/ujian';
-                        $config['allowed_types'] = 'pdf';
-                        $config['max_size'] = MAX_SIZE_FILE_UPLOAD;
-                        $config['remove_spaces'] = TRUE;
-                        $config['file_ext_tolower'] = TRUE;
-                        $config['detect_mime'] = TRUE;
-                        $config['mod_mime_fix'] = TRUE;
-                        $config['file_name'] = $file_name_syarat;
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
-
-                        if ($this->upload->do_upload('berkas_syarat_tesis')) {
-                            $data = array(
-                                'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
-                                'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
-                                'jenis' => TAHAPAN_TESIS_UJIAN,
-                                'berkas_syarat_tesis' => $file_name_syarat,
-                                'nim' => $this->session_data['username'],
-                                'tgl_pengajuan_tesis' => $tgl_sekarang,
-                                'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
-                            );
-                            $this->tesis->update($data, $id_tesis);
-                        }
+                    unlink('./assets/upload/mahasiswa/tesis/ujian/'.$file_name_syarat);
+                    if ($this->upload->do_upload('berkas_syarat_tesis')) {
+                        $data = array(
+                            'nip_pembimbing_satu' => $this->input->post('nip_pembimbing_satu', TRUE),
+                            'nip_pembimbing_dua' => $this->input->post('nip_pembimbing_dua', TRUE),
+                            'jenis' => TAHAPAN_TESIS_UJIAN,
+                            'berkas_syarat_tesis' => $file_name_syarat,
+                            'nim' => $this->session_data['username'],
+                            'tgl_pengajuan_tesis' => $tgl_sekarang,
+                            'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
+                        );
+                        $this->tesis->update($data, $id_tesis);
                     }
                 }
                 else {

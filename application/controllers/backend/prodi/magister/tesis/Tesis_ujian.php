@@ -345,7 +345,7 @@ class Tesis_ujian extends CI_Controller {
                 'link' => $link_dokumen,
                 'link_cetak' => $link_dokumen_cetak,
                 'date' => date('Y-m-d'),
-                'date_doc' => $tgl_sk_ymd,
+                'date_doc' => date('Y-m-d'),
                 'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
             ];
 

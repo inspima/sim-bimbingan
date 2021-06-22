@@ -161,6 +161,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </p>
             <?php
             }
+            if($tesis->id_prodi == S2_KENOTARIATAN){
+            ?>
+            <p align="center">
+                <b>MEMUTUSKAN</b>
+            </p>
+            <p align="justify">
+                <table align="center" width="100%" border="0">
+                    <tbody>
+                        <tr>
+                            <td valign="top">Menetapkan</td> 
+                            <td valign="top">:</td>
+                            <td align="justify"><b>KEPUTUSAN  DEKAN TENTANG PENGUJI TESIS MAGISTER KENOTARIATAN SEMESTER <?= strtoupper(explode(' ', $semester->semester)[0]) ?> TAHUN AKADEMIK <?= explode(' ', $semester->semester)[1] ?> a.n. <?= strtoupper($tesis->nama).' (NIM. '.$tesis->nim.')' ?></b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </p>
+            <?php
+            }
             ?>
         </div>
 
@@ -200,17 +218,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
             else if($tesis->id_prodi == S2_KENOTARIATAN){
             ?>
-            <p align="center">
-                <b>MEMUTUSKAN</b>
-            </p>
             <p align="justify">
                 <table align="center" width="100%" border="0">
                     <tbody>
-                        <tr>
-                            <td valign="top">Menetapkan</td> 
-                            <td valign="top">:</td>
-                            <td align="justify"><b>KEPUTUSAN  DEKAN TENTANG PENGUJI TESIS MAGISTER KENOTARIATAN SEMESTER <?= strtoupper(explode(' ', $semester->semester)[0]) ?> TAHUN AKADEMIK <?= explode(' ', $semester->semester)[1] ?> a.n. <?= strtoupper($tesis->nama).' (NIM. '.$tesis->nim.')' ?></b></td>
-                        </tr>
                         <tr>
                             <td valign="top">KESATU</td>
                             <td valign="top">:</td>
@@ -323,16 +333,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             else if($tesis->id_prodi == S2_KENOTARIATAN){
             ?>
             <p align="justify">
-                Lampiran 1: Keputusan Dekan tanggal, <?= woday_toindo($tgl_surat)?>  Nomor : <?= $no_sk?> tentang Penguji Tesis Program Studi Magister Ilmu Hukum Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> untuk mahasiswa an. <b><?= $tesis->nama.' ('.$tesis->nim.')' ?></b> dengan judul : 
-                <?php
-                $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_UJIAN);
-                echo $judul->judul;
-                ?>.
                 <table border="0" style="width:100%">
                     <tr>
-                        <td>Lampiran</td>
-                        <td>:</td>
-                        <td>Keputusan Dekan Nomor <?= $no_surat?> tanggal <?= woday_toindo($tgl_sk)?>  Tentang Penguji Tesis Magister Kenotariatan Semester Genap Tahun Akademik 2020/2021 a.n. Ketut Briliawati Permanasari, S.H. (NIM. 031824253019)</td>
+                        <td valign="top">Lampiran</td>
+                        <td valign="top">:</td>
+                        <td valign="top">Keputusan Dekan Nomor <?= $no_surat?> tanggal <?= woday_toindo($tgl_sk)?>  Tentang Penguji Tesis Magister Kenotariatan Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> a.n. <?= $tesis->nama.' ('.$tesis->nim.')' ?></td>
                     </tr>
                 </table>
             </p>
