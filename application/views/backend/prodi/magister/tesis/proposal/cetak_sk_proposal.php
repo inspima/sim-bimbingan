@@ -96,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td rowspan="3" valign="top">MENIMBANG</td>   
                             <td rowspan="3" valign="top">:</td>   
                             <td valign="top">a.</td> 
-                            <td align="justify">bahwa   untuk    menyelesaikan  penulisan  tesis  bagi  maha-siswa Program Studi   Magister Kenotariatan Fakultas Hukum Universitas Airlangga wajib menempuh ujian Proposal Tesis;</td>
+                            <td align="justify">bahwa   untuk    menyelesaikan  penulisan  tesis  bagi  mahasiswa Program Studi   Magister Kenotariatan Fakultas Hukum Universitas Airlangga wajib menempuh ujian Proposal Tesis;</td>
                         </tr>
                         <tr>
                             <td valign="top">b.</td> 

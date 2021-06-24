@@ -52,7 +52,7 @@ class Tesis_mkpt extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', true);
             $no_surat = $this->input->post('no_surat', TRUE);
-            $no_sk = $this->input->post('no_sk', TRUE);
+            //$no_sk = $this->input->post('no_sk', TRUE);
 
             $tgl_surat = $this->input->post('tgl_surat', TRUE);
             $tgl_surat_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_surat)));
@@ -107,8 +107,8 @@ class Tesis_mkpt extends CI_Controller {
                 'no_surat' => $no_surat,
                 //'semester' => $this->semester->detail($smt),
                 'semester' => $this->semester->semester_pengajuan($tesis->tgl_pengajuan_mkpt),
-                'no_sk' => $no_sk,
-                'tgl_sk' => $tgl_sk_ymd,
+                //'no_sk' => $no_sk,
+                //'tgl_sk' => $tgl_sk_ymd,
                 'tgl_surat' => $tgl_surat_ymd,
                 'dekan' => $this->struktural->read_dekan()
             );

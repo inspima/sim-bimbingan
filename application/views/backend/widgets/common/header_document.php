@@ -11,7 +11,7 @@
 				</p>
 			</strong>
 
-			<p style="font-size:14px;margin: 0px 0 0px 0;">
+			<p style="font-size:12px;margin: 0px 0 0px 0;">
 				<?= $this->setting->get_value('universitas_alamat_txt') ?><br>
 				<?= $this->setting->get_value('universitas_web_email_txt') ?>
 			</p>

@@ -337,7 +337,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <td valign="top">Lampiran</td>
                         <td valign="top">:</td>
-                        <td valign="top">Keputusan Dekan Nomor <?= $no_surat?> tanggal <?= woday_toindo($tgl_sk)?>  Tentang Penguji Tesis Magister Kenotariatan Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> a.n. <?= $tesis->nama.' ('.$tesis->nim.')' ?></td>
+                        <td valign="top">Keputusan Dekan Nomor <?= $no_surat?> tanggal <?= woday_toindo($tgl_surat)?>  Tentang Penguji Tesis Magister Kenotariatan Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> a.n. <?= $tesis->nama.' ('.$tesis->nim.')' ?></td>
                     </tr>
                 </table>
             </p>

@@ -142,6 +142,7 @@ class Ujian extends CI_Controller {
             $tgl_sekarang = date('Y-m-d');
             $data = array(
                 'jenis' => TAHAPAN_TESIS_UJIAN,
+                'tgl_pengajuan_tesis' => $tgl_sekarang,
                 'berkas_tesis' => $file_name,
                 'status_tesis' => STATUS_TESIS_UJIAN_PENGAJUAN,
                 'berkas_syarat_tesis' => $file_name_syarat,
