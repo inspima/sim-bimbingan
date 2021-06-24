@@ -669,7 +669,7 @@
 			$this->db->from('penguji p');
 			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
 			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
-			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1  and jud.persetujuan=1');
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
@@ -690,7 +690,7 @@
 			$this->db->from('penguji p');
 			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
 			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
-			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1  and jud.persetujuan=1');
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
