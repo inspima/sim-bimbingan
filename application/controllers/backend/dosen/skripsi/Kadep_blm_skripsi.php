@@ -166,34 +166,36 @@
 				if ($data['skripsi'] && $data['nid_ujian']) {
 					//ambil data pembimbing dan penguji jika baru
 					$pengujipembimbing = $this->skripsi->read_pengujipembimbing($id_ujian);
-					if ($pengujipembimbing) {
-
-					} else {
+					if (empty($pengujipembimbing)) {
 						$pembimbing = $this->skripsi->read_pembimbing($id_skripsi);
-						$datap = array(
-							'id_ujian' => $id_ujian,
-							'nip' => $pembimbing->nip,
-							'status_tim' => 2,
-							'usulan_dosbing' => 2,
-							'status' => 1
-						);
-						$this->skripsi->save_pengujip($datap);
+						if (!empty($pembimbing)) {
+							$datap = array(
+								'id_ujian' => $id_ujian,
+								'nip' => $pembimbing->nip,
+								'status_tim' => 2,
+								'usulan_dosbing' => 2,
+								'status' => 1
+							);
+							$this->skripsi->save_pengujip($datap);
+						}
+
 					}
 
 					//cek penguji pengajuan pembimbing
 					$pengujipengajuanpembimbing = $this->skripsi->read_pengujipengajuanpembimbing($id_ujian);
-					if ($pengujipengajuanpembimbing) {
-
-					} else {
+					if (empty($pengujipengajuanpembimbing)) {
 						$pengujitemp = $this->skripsi->read_pengujitemp($id_skripsi);
-						$datap = array(
-							'id_ujian' => $id_ujian,
-							'nip' => $pengujitemp->nip,
-							'status_tim' => 2,
-							'usulan_dosbing' => 1,
-							'status' => 1
-						);
-						$this->skripsi->save_pengujip($datap);
+						if (!empty($pengujitemp)) {
+							$datap = array(
+								'id_ujian' => $id_ujian,
+								'nip' => $pengujitemp->nip,
+								'status_tim' => 2,
+								'usulan_dosbing' => 1,
+								'status' => 1
+							);
+							$this->skripsi->save_pengujip($datap);
+						}
+
 					}
 
 					$this->load->view('backend/index_sidebar', $data);
@@ -220,8 +222,8 @@
 				if ($struktural->id_struktur == '5') {
 					$id_skripsi = $this->input->post('id_skripsi', true);
 					$id_ujian = $this->input->post('id_ujian', true);
-					$data_skripsi =[
-						'status_skripsi'=>STATUS_SKRIPSI_UJIAN_DIJADWALKAN
+					$data_skripsi = [
+						'status_skripsi' => STATUS_SKRIPSI_UJIAN_DIJADWALKAN
 					];
 					$data = array(
 						'id_ruang' => $this->input->post('id_ruang', true),
@@ -249,7 +251,7 @@
 								$this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
 								redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian_plot/' . $id_skripsi . '/' . $id_ujian);
 							} else {
-								$this->transaksi_skripsi->update($data_skripsi,$id_skripsi);
+								$this->transaksi_skripsi->update($data_skripsi, $id_skripsi);
 								$this->skripsi->update_ujian($data, $id_ujian);
 
 								$this->session->set_flashdata('msg-title', 'alert-success');
