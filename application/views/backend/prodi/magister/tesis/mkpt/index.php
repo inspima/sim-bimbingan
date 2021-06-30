@@ -21,7 +21,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="datatable-export" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -92,11 +92,11 @@
                                         $tesis_mkpts = $this->tesis->read_tesis_mkpt($list['id_tesis']); 
                                         $hitung_pengampu_setuju = 0;   
                                         $hitung_nilai_publish = 0;
-                                        $no = 0;
+                                        $no_mkpt = 0;
                                         if (!empty($tesis_mkpts)) {
                                             $sudah_publish_semua=$this->tesis->cek_mkpt_sudah_publish($list['id_tesis']);
                                             foreach ($tesis_mkpts as $index => $mkpt) {
-                                                $no++;
+                                                
                                                 $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
                                                 if(!empty($mkpt_pengampus)){
                                                     foreach ($mkpt_pengampus as $index_pengampu => $pengampu){
@@ -119,10 +119,10 @@
                                                             }
 
                                                             $status_ujian = ['1' => 'Lulus', '2' => 'Tidak Lulus', '0' => '', NULL => ''];
-
+                                                            $no_mkpt++;
                                                             echo '
                                                             <tr>
-                                                                <td>'.$no.'</td>
+                                                                <td>'.$no_mkpt.'</td>
                                                                 <td>'.$mkpt['mkpt'].'</td>
                                                                 <td>'.$mkpt['sks'].'</td>
                                                                 <td><b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama'].'</td>
@@ -207,6 +207,41 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn bg-light-blue-active"><i class="fa fa-print"></i> Surat Tugas</button>
+                                                    </div>
+                                                </form>
+                                                <?php echo form_close() ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary col-sm-12" data-toggle="modal" data-target="#myModalFormNilai<?= $list['id_tesis']?>">
+                                        <i class="fa fa-file"></i> Form Penilaian
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModalFormNilai<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                
+                                                <?php $attributes = array('target' => '_blank'); ?>
+                                                <?php echo form_open('prodi/magister/tesis/mkpt/cetak_form_penilaian', $attributes) ?>
+                                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">
+                                                            Form Penilaian MKPT Tesis
+                                                            <br><?= $list['judul']?>
+                                                            <br><?= $list['nama'].' - '.$list['nim'];?> 
+                                                        </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
                                                     </div>
                                                 </form>
                                                 <?php echo form_close() ?>

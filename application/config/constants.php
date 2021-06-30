@@ -133,6 +133,7 @@
 	define('DOKUMEN_UNDANGAN_PROPOSAL_TESIS', 'undangan-ujian-proposal-tesis');
 
 	define('DOKUMEN_SP_PENGAMPU_MKPT_TESIS', 'surat-tugas-pengampu-mkpt-tesis');
+	define('DOKUMEN_FORM_PENILAIAN_MKPT_TESIS', 'form-penilaian-mkpt-tesis');
 
 	define('DOKUMEN_BERITA_ACARA_UJIAN_TESIS', 'berita-acara-ujian-tesis');
 	define('DOKUMEN_DAFTAR_HADIR_UJIAN_TESIS', 'daftar-hadir-ujian-tesis');

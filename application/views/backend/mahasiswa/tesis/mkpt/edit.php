@@ -117,7 +117,7 @@
                                                 echo '
                                                 <tr>
                                                     <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
-                                                    <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
+                                                    <td>'.$mkpt['sks'].'<input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" hidden="true" value="'.$mkpt['sks'].'"></td>
                                                     <td>'.($pengampu['nip'] ? ('<b>'.$pengampu['nip'].'</b><br>'.$pengampu['nama']) : 'Belum Disetting').'</td>
                                                     <td>'.$status.'</td>
                                                     <td></td>
@@ -133,7 +133,7 @@
                                         echo '
                                         <tr>
                                             <td><input name="nama'.$mkpt['id_tesis_mkpt'].'" type="text"  class="form-control" value="'.$mkpt['mkpt'].'"></td>
-                                            <td><input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" class="form-control" value="'.$mkpt['sks'].'"></td>
+                                            <td>'.$mkpt['sks'].'<input name="sks'.$mkpt['id_tesis_mkpt'].'" type="number" hidden="true" value="'.$mkpt['sks'].'"></td>
                                             <td></td>
                                             <td>'.$status.'</td>
                                             <td></td>

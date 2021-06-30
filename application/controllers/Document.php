@@ -147,6 +147,10 @@
 					$page = 'frontend/document_tesis/sp_pengampu_mkpt/';
 					$title = "Surat Pengampu MKPT Tesis";
 					break;
+				case DOKUMEN_FORM_PENILAIAN_MKPT_TESIS:
+					$page = 'frontend/document_tesis/form_penilaian_mkpt/';
+					$title = "Form Penilaian MKPT Tesis";
+					break;
 				case DOKUMEN_BERITA_ACARA_UJIAN_TESIS:
 					$page = 'frontend/document_tesis/berita_acara_tesis/';
 					$title = "Berita Acara Ujian Tesis";

@@ -837,6 +837,7 @@
 
 	$route['prodi/magister/tesis/mkpt'] = 'backend/prodi/magister/tesis/tesis_mkpt';
 	$route['prodi/magister/tesis/mkpt/cetak_surat_tugas_pengampu'] = 'backend/prodi/magister/tesis/tesis_mkpt/cetak_surat_tugas_pengampu';
+	$route['prodi/magister/tesis/mkpt/cetak_form_penilaian'] = 'backend/prodi/magister/tesis/tesis_mkpt/cetak_form_penilaian';
 
 	// UP4i
 	$route['up4i/dashboard'] = 'backend/up4i/home/index';
