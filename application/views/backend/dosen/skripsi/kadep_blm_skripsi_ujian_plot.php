@@ -124,8 +124,8 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <?php
-                if ($skripsi->status_skripsi == '4') {
-                    echo 'Approve KPS';
+                if ($skripsi->status_skripsi > STATUS_SKRIPSI_UJIAN_SETUJUI_KPS) {
+                    echo 'Ujian sudah selesai';
                 } else {
                     if ($ujian) {
                         //print_r($skripsi);die();
