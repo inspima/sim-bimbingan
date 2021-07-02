@@ -166,7 +166,7 @@
 
 		public function read_wadek()
 		{
-			$this->db->select('pg.nip, pg.nama');
+			$this->db->select('pg.nip, pg.nama, pg.ttd');
 			$this->db->from('pegawai pg');
 			$this->db->join('struktural st', 'pg.nip = st.nip');
 			$this->db->where('st.id_struktur', 2);

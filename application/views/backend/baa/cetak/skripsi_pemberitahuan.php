@@ -155,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     	<table border="0" style="width:100%">
     	     <tr>
 		    	<td style="width:60%" align="left"></td>
-		    	<td style="width:40%" align="left">Surabaya, ...................................</td>
+		    	<td style="width:40%" align="left">Surabaya, <?php echo tanggal_format_indonesia(date('Y-m-d')) ?></td>
 		    </tr>
 		    <tr>
 		      <td style="width:60%" align="left"></td>
@@ -163,7 +163,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    </tr>
 		    <tr>
 		      <td style="width:60%" align="left"></td>
-		      <td style="width:40%" align="left">Wadek I<br><br><br><br><br></td>
+		      <td style="width:40%" align="left">Wadek I<br>
+				  <?php
+					  if (!empty($wadek->ttd)) {
+						  ?>
+						  <br/><br/>
+						  <img src="<?= str_replace(base_url(), "", $wadek->ttd) ?>" width="80px"/>
+						  <br/>
+						  <?php
+					  } else {
+						  ?>
+						  <br/><br/><br/>
+						  <font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+						  <br/><br/>
+						  <?php
+					  }
+				  ?>
+			  </td>
 		    </tr>
 		    <tr>
 		      <td style="width:60%" align="left"></td>
