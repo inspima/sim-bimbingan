@@ -205,7 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    <tr>
 		      <td style="width:20%" align="left"><b>2. Ketua</b></td>
 		      <td style="width:1%" align="left">:</td>
-		      <td style="width:79%" align="left"><?=$penguji_ketua->nama?></td>
+		      <td style="width:79%" align="left"><?=!empty($penguji_ketua)?$penguji_ketua->nama:'-'?></td>
 		    </tr>
 		    <tr style="vertical-align: top;">
 		      <td style="width:20%" align="left" style="vertical-align: top;"><b>&nbsp;&nbsp;&nbsp;&nbsp;Anggota</b></td>
