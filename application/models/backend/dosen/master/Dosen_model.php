@@ -77,6 +77,23 @@
 			return $query->result_array();
 		}
 
+		public function get_kadep($id_departemen)
+		{
+			$this->db->select('p.id_pegawai, p.id_departemen, p.nip, p.nama, p.email, p.status_berjalan, d.departemen');
+			$this->db->from('struktural s');
+			$this->db->join('pegawai p', 'p.nip = s.nip');
+			$this->db->join('departemen d', 'd.id_departemen = p.id_departemen');
+			$this->db->where('s.id_struktur', STRUKTUR_KETUA_BAGIAN);
+			$this->db->where('p.status', 1);
+			$this->db->where('p.status_berjalan', 1);
+			$this->db->where('p.jenis_pegawai', 1);
+			$this->db->where('p.id_departemen', $id_departemen);
+			$this->db->order_by('p.nama', 'asc');
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function read_pembimbing_aktif($jenjang)
 		{
 			$this->db->select('p.id_pegawai, p.id_departemen, p.nip, p.nama, p.email, p.status_berjalan, d.departemen');

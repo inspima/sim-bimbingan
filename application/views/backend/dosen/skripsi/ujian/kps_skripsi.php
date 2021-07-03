@@ -28,14 +28,16 @@
 								$tahuns = [date('Y'), date('Y') - 1, date('Y') - 2, date('Y') - 3, date('Y') - 4];
 								foreach ($tahuns as $tahun) {
 									?>
-									<option <?php if($post_year==$tahun) echo "selected"; ?> value="<?= $tahun ?>"><?= $tahun ?></option>
+									<option <?php if ($post_year == $tahun) {
+										echo "selected";
+									} ?> value="<?= $tahun ?>"><?= $tahun ?></option>
 									<?php
 								}
 							?>
 						</select>
 						<div class="divider10"></div>
 						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-search"></i> Tampilkan</button>
-						<?php echo form_close()?>
+						<?php echo form_close() ?>
 					</div>
 				</div>
 			</div>
@@ -103,7 +105,7 @@
 										}
 									?>
 								</td>
-								<td>
+								<td class="text-center">
 									<?php
 										if ($list['status_skripsi'] == STATUS_SKRIPSI_UJIAN_SETUJUI_PENGUJI) {
 											?>
@@ -112,11 +114,24 @@
 											<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
 											<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
 											<?php echo formtext('hidden', 'status_skripsi', '4', 'required') ?>
-											<button type="submit" class="btn btn-xs btn-primary"> Approve</button>
+											<button type="submit" class="btn btn-xs btn-success"> Setujui</button>
 											<?php echo form_close() ?>
 											<?php
-										} else if ($list['status_skripsi'] >= STATUS_SKRIPSI_UJIAN_SETUJUI_KPS) {
-											echo 'sudah approve';
+										} else if ($list['status_skripsi'] > STATUS_SKRIPSI_UJIAN_SETUJUI_KPS && $list['status_skripsi'] < STATUS_SKRIPSI_UJIAN_SELESAI) {
+											?>
+											<b><?= 'Proses Ujian' ?></b>
+											<?php echo form_open('dashboardd/skripsi/kps_skripsi/unapprove', ['id' => 'form-kps-unapprove-'.$list['id_skripsi']]) ?>
+											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+											<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
+											<?php echo formtext('hidden', 'status_skripsi', '4', 'required') ?>
+											<button type="button" onclick="confirm_unapprove(<?=$list['id_skripsi']?>)" class="btn btn-xs btn-warning"> Batalkan</button>
+											<?php echo form_close() ?>
+											<?php
+										} else if ($list['status_skripsi'] >= STATUS_SKRIPSI_UJIAN_SELESAI) {
+											?>
+											<b><?= 'Selesai Ujian' ?></b>
+											<?php
 										}
 									?>
 								</td>
@@ -136,3 +151,14 @@
 	</div>
 	<!-- /.col -->
 </div>
+<script>
+	function confirm_unapprove(id) {
+		var r = confirm("Data jadwal dan penguji akan di hapus oleh sistem, apakah anda ingin membatalkan?");
+		if (r == true) {
+			document.getElementById("form-kps-unapprove-"+id).submit();
+		} else {
+			return false;
+		}
+
+	}
+</script>

@@ -133,6 +133,17 @@
 			$this->db->update('skripsi', $data);
 		}
 
+		public function unapprove($id_skripsi,$id_ujian){
+			// Delete Dokumen , Dokumen Tujuan & Persetujuan
+			$this->db->query("delete from dokumen_tujuan where id_dokumen IN(select id_dokumen from dokumen where id_jadwal='{$id_ujian}')");
+			$this->db->query("delete from dokumen_persetujuan where id_dokumen IN(select id_dokumen from dokumen where id_jadwal='{$id_ujian}')");
+			$this->db->query("delete from dokumen where id_jadwal='{$id_ujian}'");
+			// Delete penguji dan jadwal
+			$this->db->query("delete from penguji where id_ujian='{$id_ujian}'");
+			$this->db->query("delete from ujian where id_ujian='{$id_ujian}'");
+
+		}
+
 	}
 
 ?>

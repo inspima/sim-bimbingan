@@ -338,6 +338,7 @@
 
 	//$route['dashboardd/skripsi/kps_skripsi/kps_skripsi_data'] = 'backend/dosen/skripsi/kps_skripsi/kps_skripsi_data';
 	$route['dashboardd/skripsi/kps_skripsi/approve'] = 'backend/dosen/skripsi/kps_skripsi/approve';
+	$route['dashboardd/skripsi/kps_skripsi/unapprove'] = 'backend/dosen/skripsi/kps_skripsi/unapprove';
 	$route['dashboardd/skripsi/kps_skripsi/filter_tahun'] = 'backend/dosen/skripsi/kps_skripsi/filter_tahun';
 	$route['dashboardd/skripsi/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_pengajuan';
 	$route['dashboardd/skripsi/penguji_pengajuan/update_penguji'] = 'backend/dosen/skripsi/penguji_pengajuan/update_penguji';
