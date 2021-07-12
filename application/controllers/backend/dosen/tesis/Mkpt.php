@@ -95,7 +95,8 @@ class Mkpt extends CI_Controller {
                     ];
                     if (!empty($nama)) {
                         $this->tesis->update_tesis_mkpt($data_tesis_mkpt, $mkpt['id_tesis_mkpt']);
-                        $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                        //$tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                        $tesis_mkpt = $this->tesis->detail_tesis_mkpt($mkpt['id_tesis_mkpt']);
                         $mkpt_pengampus = $this->tesis->read_tesis_mkpt_pengampu($mkpt['id_tesis_mkpt']);
                         //foreach($dosens as $dosen){
                         if(!empty($mkpt_pengampus)){

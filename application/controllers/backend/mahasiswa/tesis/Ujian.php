@@ -101,12 +101,12 @@ class Ujian extends CI_Controller {
                 $config['file_name'] = $file_name;
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
-            }
-
-            if (!$this->upload->do_upload('berkas_tesis')) {
-                $this->session->set_flashdata('msg-title', 'alert-danger');
-                $this->session->set_flashdata('msg', $this->upload->display_errors());
-                redirect_back();
+                
+                if (!$this->upload->do_upload('berkas_tesis')) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', $this->upload->display_errors());
+                    redirect_back();
+                }
             }
 
             if($_FILES['berkas_syarat_tesis']['size'] != 0){
@@ -121,12 +121,12 @@ class Ujian extends CI_Controller {
                 $config_syarat['file_name'] = $file_name_syarat;
                 $this->load->library('upload', $config_syarat);
                 $this->upload->initialize($config_syarat);
-            }
-
-            if (!$this->upload->do_upload('berkas_syarat_tesis')) {
-                $this->session->set_flashdata('msg-title', 'alert-danger');
-                $this->session->set_flashdata('msg', $this->upload->display_errors());
-                redirect_back();
+                
+                if (!$this->upload->do_upload('berkas_syarat_tesis')) {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', $this->upload->display_errors());
+                    redirect_back();
+                }
             }
 
             $id_tesis = $this->input->post('id_tesis', TRUE);
