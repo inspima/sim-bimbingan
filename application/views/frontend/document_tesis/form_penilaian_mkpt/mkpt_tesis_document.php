@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     Surabaya, <?= woday_toindo(date('Y-m-d'));?><br>
                                                     Dosen MKPT <?= $no; ?>
                                                     <br/><br/><br>
-                                                    <img src="<?= $this->dosen->detail($pengampu['nip'])->ttd; ?>" width="200px"/>
+                                                    <img src="<?= str_replace(base_url(), "", ($this->dosen->detail($pengampu['nip'])->ttd)); ?>" width="200px"/>
                                                     <br/>
                                                     <?= $pengampu['nama'] ?><br/>
                                                     NIP. <?= $pengampu['nip'] ?>
