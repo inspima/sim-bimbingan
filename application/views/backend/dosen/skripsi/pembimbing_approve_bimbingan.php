@@ -89,7 +89,7 @@
 												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
 												<?php echo formtext('hidden', 'id_bimbingan', $list['id_bimbingan'], 'required') ?>
 												<?php echo formtext('hidden', 'status', '2', 'required') ?>
-												<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-trash"></i> Approve</button>
+												<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-circle"></i> Approve</button>
 												<?php echo form_close() ?>
 												<?php echo form_open('dashboardd/skripsi/pembimbing_approve/bimbingan_update') ?>
 												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>

@@ -48,4 +48,45 @@
 									<?php
 										if ($list['status_tim'] == '1') {
 											echo 'Ketua';
-										} else if ($list['status_ti
+										} else if ($list['status_tim'] == '2') {
+											echo 'Anggota';
+										}
+									?>
+								</td>
+								<td><?php echo toindo($list['tanggal']) ?></td>
+								<td><?= $list['jam'] ?></td>
+								<td><?= $list['ruang'] . ' ' . $list['gedung'] ?></td>
+								<td>
+									<?php echo form_open('dashboardd/skripsi/penguji_pengajuan/update_penguji'); ?>
+									<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+									<?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
+									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
+									<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+									<?php echo formtext('hidden', 'status', '2', 'required') ?>
+									<button type="submit" class="btn btn-xs btn-success"> Approve</button>
+									<?php echo form_close(); ?>
+
+									<?php echo form_open('dashboardd/skripsi/penguji_pengajuan/update_penguji'); ?>
+									<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+									<?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
+									<?php echo formtext('hidden', 'id_penguji', $list['id_penguji'], 'required') ?>
+									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
+									<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
+									<?php echo formtext('hidden', 'status', '3', 'required') ?>
+									<button type="submit" class="btn btn-xs btn-danger"> Tolak</button>
+									<?php echo form_close(); ?>
+								</td>
+							</tr>
+							<?php
+							$no++;
+						}
+					?>
+					</tfoot>
+				</table>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- /.col -->
+</div>

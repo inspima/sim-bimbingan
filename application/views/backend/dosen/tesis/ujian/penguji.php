@@ -230,154 +230,161 @@
                         </td>
                         <td>
                             <?php
-                            if($list['status_tesis'] < STATUS_TESIS_UJIAN){
-                                if($list['status_penguji'] == '1')
-                                {
-                                ?>
-                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
-                                    <i class="fa fa-edit"></i> Approve</a>
-                                    <!-- <a class="btn btn-xs btn-danger pull-left" href="<?php //echo base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php //echo $list['id_tesis']?>">
-                                    <i class="fa fa-close"></i> Reject</a> -->
-                                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModalTolak<?= $list['id_tesis']?>">
-                                        <i class="fa fa-close"></i> Reject
-                                    </button>
+                            //if($list['status_tesis'] < STATUS_TESIS_UJIAN){
+                            if($list['status_penguji'] == '1')
+                            {
+                            ?>
+                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/approve_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
+                                <i class="fa fa-edit"></i> Approve</a>
+                                <!-- <a class="btn btn-xs btn-danger pull-left" href="<?php //echo base_url()?>dosen/tesis/ujian/penguji_setting_penguji/<?php //echo $list['id_tesis']?>">
+                                <i class="fa fa-close"></i> Reject</a> -->
+                                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModalTolak<?= $list['id_tesis']?>">
+                                    <i class="fa fa-close"></i> Reject
+                                </button>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="myModalTolak<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <form action="<?= base_url()?>dosen/tesis/ujian/reject_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>" method="post">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="myModalLabel">Keterangan Tolak</h4>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModalTolak<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form action="<?= base_url()?>dosen/tesis/ujian/reject_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>" method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Keterangan Tolak</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="text" name="id_tesis" value="<?= $list['id_tesis']?>" hidden="true">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" name="keterangan" style="margin: 0px; width: 570px; height: 180px;"></textarea>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <input type="text" name="id_tesis" value="<?= $list['id_tesis']?>" hidden="true">
-                                                        <div class="form-group">
-                                                            <textarea class="form-control" name="keterangan" style="margin: 0px; width: 570px; height: 180px;"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-danger">Tolak</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Tolak</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                <?php
-                                }
-                                //else if(($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') && (date('Y-m-d') < $ujian->tanggal)) {
-                                else if($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') {
-                                ?>
-                                    <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
-                                        <i class="fa fa-ban"></i> Batal</a>
-                                <?php
-                                }
+                                </div>
+                            <?php
                             }
+                            //else if(($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') && (date('Y-m-d') < $ujian->tanggal)) {
+                            else if($list['status_penguji'] == '2' OR $list['status_penguji'] == '3') {
+                            ?>
+                                <a class="btn btn-xs btn-warning pull-left" href="<?= base_url()?>dosen/tesis/ujian/batal_penguji/<?= $list['id_tesis']?>/<?= $list['id_ujian']?>">
+                                    <i class="fa fa-ban"></i> Batal</a>
+                            <?php
+                            }
+                            //}
                             ?>
                         </td>
                         <td>
                             <?php
-                            /*if($list['status_penguji'] == '2')
+                            if($list['status_penguji'] == '2')
                             {
                             ?>
-                                <a href = "<?= base_url() ?>dosen/tesis/proposal/status_ujian/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Status Ujian</a>
+                                <a href = "<?= base_url() ?>dosen/tesis/ujian/status_ujian/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-edit"></i> Detail</a>
                             <?php
-                            }*/
+                            }
 
                             ?>
                             <?php
-                            $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
-                            if($ujian){
-                                if($ujian->tanggal <= date('Y-m-d')){
-                                ?>
-                                <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/nilai/<?php echo $list['id_tesis']?>/<?php echo $list['id_penguji']?>"><i class="fa fa-edit"></i> Nilai</a>
-                                <?php
-                                }
-                                $data_dokumen = [
-                                    'tipe' => DOKUMEN_BERITA_ACARA_UJIAN_TESIS,
-                                    'jenis' => DOKUMEN_JENIS_TESIS_UJIAN_STR,
-                                    'identitas' => $list['nim'],
-                                ];
-                                $dokumen = $this->dokumen->detail_by_data($data_dokumen);
-
-                                if($dokumen){
-                                    $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
-                                    $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
-
-                                    $urut = 0;
-                                    $ttd_waktu = '';
-                                    foreach ($pengujis as $penguji){
-                                        if($dokumen_persetujuan[$urut]['identitas'] == $penguji['nip'] && $penguji['nip'] == $this->session_data['username']){
-                                            $ttd_waktu = $dokumen_persetujuan[$urut]['waktu'];
-                                        }
-                                        $urut++;
-                                    }
-                                    if ($ttd_waktu != ''){
+                            if($list['status_penguji'] == '2')
+                            {
+                                $ujian = $this->tesis->read_jadwal($list['id_tesis'], UJIAN_TESIS_UJIAN);
+                                if($ujian){
+                                    if($ujian->tanggal <= date('Y-m-d')){
                                     ?>
-                                        <?php
-                                        
-                                        $no_surat = '';
-                                        $no_sk = '';
-                                        $tgl_sk = '';
-                                        $tgl_surat = '';
-                                        $link_zoom = '';
+                                    <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/ujian/nilai/<?php echo $list['id_tesis']?>/<?php echo $list['id_penguji']?>"><i class="fa fa-edit"></i> Nilai</a>
+                                    <?php
+                                    }
+                                    $data_dokumen = [
+                                        'tipe' => DOKUMEN_BERITA_ACARA_UJIAN_TESIS,
+                                        'jenis' => DOKUMEN_JENIS_TESIS_UJIAN_STR,
+                                        'identitas' => $list['nim'],
+                                    ];
+                                    $dokumen = $this->dokumen->detail_by_data($data_dokumen);
 
-                                        if(!empty($dokumen)){
-                                            $no_surat = $dokumen->no_doc;
-                                            $no_sk = $dokumen->no_ref_doc;
-                                            $tgl_sk = date('d/m/Y', strtotime($dokumen->date_doc));
-                                            $tgl_surat = date('d/m/Y', strtotime($dokumen->date));
+                                    if($dokumen){
+                                        $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
+                                        $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
+
+                                        $urut = 0;
+                                        $ttd_waktu = '';
+                                        foreach ($pengujis as $penguji){
+                                            if($dokumen_persetujuan){
+                                                if(!empty($dokumen_persetujuan[$urut])){
+                                                    if($dokumen_persetujuan[$urut]['identitas'] == $penguji['nip'] && $penguji['nip'] == $this->session_data['username']){
+                                                        $ttd_waktu = $dokumen_persetujuan[$urut]['waktu'];
+                                                    }
+                                                }
+                                            }
+                                            $urut++;
                                         }
-
-                                        $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_UJIAN);
-
-                                        if(!empty($ujian)){
-                                            $link_zoom = $ujian->link_zoom ? $ujian->link_zoom : '';
-                                        }
+                                        if ($ttd_waktu != ''){
                                         ?>
-                                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModalBeritaAcara<?= $list['id_tesis']?>">
-                                            <i class="fa fa-file"></i> Berita Acara
-                                        </button>
-                                        <br><br>
-                                        <div class="modal fade" id="myModalBeritaAcara<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    
-                                                    <?php $attributes = array('target' => '_blank'); ?>
-                                                    <?php echo form_open('dosen/tesis/ujian/cetak_berita', $attributes) ?>
-                                                    <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                                    <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title" id="myModalLabel">
-                                                                Berita Acara Ujian Tesis
-                                                                <br><?= $list['judul']?>
-                                                                <br><?= $list['nama'].' - '.$list['nim'];?> 
-                                                            </h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-                                                            <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
-                                                            <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
-                                                            <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
-                                                                <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal Penetapan">
-                                                                <div class="input-group-addon">
-                                                                    <span class="glyphicon glyphicon-th"></span>
+                                            <?php
+                                            
+                                            $no_surat = '';
+                                            $no_sk = '';
+                                            $tgl_sk = '';
+                                            $tgl_surat = '';
+                                            $link_zoom = '';
+
+                                            if(!empty($dokumen)){
+                                                $no_surat = $dokumen->no_doc;
+                                                $no_sk = $dokumen->no_ref_doc;
+                                                $tgl_sk = date('d/m/Y', strtotime($dokumen->date_doc));
+                                                $tgl_surat = date('d/m/Y', strtotime($dokumen->date));
+                                            }
+
+                                            $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_UJIAN);
+
+                                            if(!empty($ujian)){
+                                                $link_zoom = $ujian->link_zoom ? $ujian->link_zoom : '';
+                                            }
+                                            ?>
+                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModalBeritaAcara<?= $list['id_tesis']?>">
+                                                <i class="fa fa-file"></i> Berita Acara
+                                            </button>
+                                            <br><br>
+                                            <div class="modal fade" id="myModalBeritaAcara<?= $list['id_tesis']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        
+                                                        <?php $attributes = array('target' => '_blank'); ?>
+                                                        <?php echo form_open('dosen/tesis/ujian/cetak_berita', $attributes) ?>
+                                                        <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                        <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title" id="myModalLabel">
+                                                                    Berita Acara Ujian Tesis
+                                                                    <br><?= $list['judul']?>
+                                                                    <br><?= $list['nama'].' - '.$list['nim'];?> 
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                                                                <?php echo formtext('hidden', 'id_tesis', $list['id_tesis'], 'required') ?>
+                                                                <input type="text" name="no_sk" class="form-control" style="width: 100%" value="<?= $no_sk; ?>" required placeholder="Nomor SK">
+                                                                <div class="input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy"  style="width: 100%" >
+                                                                    <input type="text" name="tgl_sk" class="form-control" value="<?= $tgl_sk; ?>" required placeholder="Tanggal Penetapan">
+                                                                    <div class="input-group-addon">
+                                                                        <span class="glyphicon glyphicon-th"></span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
-                                                        </div>
-                                                    </form>
-                                                    <?php echo form_close() ?>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
+                                                            </div>
+                                                        </form>
+                                                        <?php echo form_close() ?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php
+                                        <?php
+                                        }
                                     }
                                 }
                             }

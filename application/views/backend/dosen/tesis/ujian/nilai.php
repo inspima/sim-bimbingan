@@ -376,6 +376,22 @@
                 echo form_close(); 
             }
             ?>
+            <?php 
+            if($tesis->status_ujian_tesis != '' AND $tesis->status_ujian_tesis = '3'){
+                echo form_open('dosen/tesis/ujian/setting_ujian_ulang'); ?>
+                <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+                <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
+                <?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
+                <?php                    
+                    echo '
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-cog"></i> Setting Ujian Ulang</button>
+                    </div>';
+                ?>
+                <?php 
+                echo form_close(); 
+            }
+            ?>
         </div>
         <!-- /.box -->
     </div>

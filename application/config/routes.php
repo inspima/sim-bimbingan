@@ -669,6 +669,9 @@
 	$route['dosen/tesis/proposal/kirim_berita_acara'] = 'backend/dosen/tesis/proposal/kirim_berita_acara';
 	$route['dosen/tesis/proposal/cetak_berita'] = 'backend/dosen/tesis/proposal/cetak_berita';
 
+	$route['dosen/tesis/proposal/setting_ujian_ulang'] = 'backend/dosen/tesis/proposal/setting_ujian_ulang';
+	$route['dosen/tesis/proposal/jadwal_ulang_save'] = 'backend/dosen/tesis/proposal/jadwal_ulang_save';
+
 	// TESIS - MKPT
 	$route['dosen/tesis/mkpt/pengampu'] = 'backend/dosen/tesis/mkpt/pengampu';
 	$route['dosen/tesis/mkpt/pengampu/(:num)'] = 'backend/dosen/tesis/mkpt/pengampu';
@@ -746,6 +749,9 @@
 	$route['dosen/tesis/ujian/update_status_ujian_ketua'] = 'backend/dosen/tesis/ujian/update_status_ujian_ketua';
 
 	$route['dosen/tesis/ujian/kirim_berita_acara'] = 'backend/dosen/tesis/ujian/kirim_berita_acara';
+
+	$route['dosen/tesis/ujian/setting_ujian_ulang'] = 'backend/dosen/tesis/ujian/setting_ujian_ulang';
+	$route['dosen/tesis/ujian/jadwal_ulang_save'] = 'backend/dosen/tesis/ujian/jadwal_ulang_save';
 
 	// DOKUMEN PERSETUJUAN
 	$route['dosen/dokumen/berita_acara'] = 'backend/dosen/dokumen/berita_acara';

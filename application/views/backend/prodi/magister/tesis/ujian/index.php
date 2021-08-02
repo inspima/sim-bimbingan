@@ -201,8 +201,9 @@
                                         if(!empty($dokumen_berita)){
                                             $no_surat = $dokumen_berita->no_doc;
                                             $no_sk = $dokumen_berita->no_ref_doc;
-                                            $tgl_sk = date('d/m/Y', strtotime($dokumen_berita->date_doc));
-                                            $tgl_surat = date('d/m/Y', strtotime($dokumen_berita->date));
+                                            $tgl_sk = $dokumen_berita->date_doc ? date('d/m/Y', strtotime($dokumen_berita->date_doc)) : '';
+                                            $tgl_surat = $dokumen_berita->date ? date('d/m/Y', strtotime($dokumen_berita->date)) : '';
+                                            echo $dokumen_berita->date_doc;
                                         }
 
                                         $ujian = $this->tesis->detail_ujian_by_tesis($list['id_tesis'], UJIAN_TESIS_UJIAN);

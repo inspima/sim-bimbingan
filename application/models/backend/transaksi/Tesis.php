@@ -1943,6 +1943,22 @@
 			$this->db->where('u.id_tesis', $id_tesis);
 			$this->db->where('u.jenis_ujian', $jenis_ujian);
 			$this->db->where('u.status', 1);
+			$this->db->where('u.status_ujian', 1);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function read_jadwal_ujian_ulang($id_tesis, $jenis_ujian)
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian_tesis u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.id_tesis', $id_tesis);
+			$this->db->where('u.jenis_ujian', $jenis_ujian);
+			$this->db->where('u.status', 1);
+			$this->db->where('u.status_ujian', 2);
+			$this->db->where('u.hasil_ujian', 0);// Belum Ujian
 			$query = $this->db->get();
 			return $query->row();
 		}

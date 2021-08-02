@@ -137,5 +137,34 @@
             </div>
         </div>
         <!-- /.box -->
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Nilai Ujian</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="form-group">
+                    <p>
+                        <?php
+                        if ($jadwal) {
+                            $nilai_ujian = $jadwal->nilai_ujian ? number_format($jadwal->nilai_ujian,1) : 0;
+                            ?>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Nilai Ujian</b></td>
+                                        <td><?= $nilai_ujian?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <?php
+                        }
+                        ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
     </div>
 </div>

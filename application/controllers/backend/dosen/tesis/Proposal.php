@@ -1265,10 +1265,21 @@ class Proposal extends CI_Controller {
                 );
                 $this->tesis->update($data, $id_tesis);
 
+                $data = array(
+                    'hasil_ujian' => $status_ujian,
+                );
+
+                $this->tesis->update_ujian($data, $ujian->id_ujian);
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
                 redirect('dosen/tesis/proposal/setting/' . $id_tesis);
             } else if ($status_ujian == '3') {
+                $data = array(
+                    'hasil_ujian' => $status_ujian,
+                );
+
+                $this->tesis->update_ujian($data, $ujian->id_ujian);
+
                 $this->session->set_flashdata('msg-title', 'alert-warning');
                 $this->session->set_flashdata('msg', 'Ujian ditolak');
                 redirect('dosen/tesis/proposal/setting/' . $id_tesis);
@@ -1307,10 +1318,20 @@ class Proposal extends CI_Controller {
                 );
                 $this->tesis->update($data, $id_tesis);
 
+                $data = array(
+                    'hasil_ujian' => $status_ujian,
+                );
+
+                $this->tesis->update_ujian($data, $ujian->id_ujian);
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
                 redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
             } else if ($status_ujian == '3') {
+                $data = array(
+                    'hasil_ujian' => $status_ujian,
+                );
+
+                $this->tesis->update_ujian($data, $ujian->id_ujian);
                 $this->session->set_flashdata('msg-title', 'alert-warning');
                 $this->session->set_flashdata('msg', 'Ujian ditolak');
                 redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
@@ -1474,9 +1495,11 @@ class Proposal extends CI_Controller {
             $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
             $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
             foreach ($pengujis as $penguji) {
-                $judul_notifikasi = 'Permintaan Penguji Proposal';
-                $isi_notifikasi = 'Mohon kesediaanya untuk menjadi penguji proposal tesis mahasiswa dengan NIM ' . $tesis->nim . ' pada sistem IURIS';
-                $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $penguji['nip']);
+                if($penguji['status'] == '1'){
+                    $judul_notifikasi = 'Permintaan Penguji Proposal';
+                    $isi_notifikasi = 'Mohon kesediaanya untuk menjadi penguji proposal tesis mahasiswa dengan NIM ' . $tesis->nim . ' pada sistem IURIS';
+                    $this->notifikasi->send($judul_notifikasi, $isi_notifikasi, 1, $penguji['nip']);
+                }
             }
 
             $this->session->set_flashdata('msg-title', 'alert-success');
