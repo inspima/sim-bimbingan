@@ -64,7 +64,7 @@
 
 				$data = array(
 					// PAGE //
-					'title' => 'Skripsi (Modul Ketua Departemen)',
+					'title' => 'Skripsi (Modul Kepala Bagian)',
 					'subtitle' => 'Data Skripsi',
 					'section' => 'backend/dosen/skripsi/kadep_blm_skripsi_ujian',
 					'use_back' => true,
@@ -149,7 +149,7 @@
 
 				$data = array(
 					// PAGE //
-					'title' => 'Skripsi (Modul Ketua Departemen)',
+					'title' => 'Skripsi (Modul Kepala Bagian)',
 					'subtitle' => 'Data Skripsi',
 					'section' => 'backend/dosen/skripsi/kadep_blm_skripsi_ujian_plot',
 					'use_back' => true,

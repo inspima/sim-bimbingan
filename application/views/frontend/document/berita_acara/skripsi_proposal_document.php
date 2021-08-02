@@ -163,7 +163,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">(Mohon Ketua Departemen memberi lingkaran pada Pembimbing Skripsi yang dipilih dan diberi paraf.)</td>
+					<td align="left">(Mohon Kepala Bagian memberi lingkaran pada Pembimbing Skripsi yang dipilih dan diberi paraf.)</td>
 				</tr>
 			</table>
 			<br>
@@ -342,7 +342,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</tr>
 				<tr>
 					<td align="left"></td>
-					<td align="left">- Ketua Departemen</td>
+					<td align="left">- Kepala Bagian</td>
 				</tr>
 				<tr>
 					<td align="left"></td>

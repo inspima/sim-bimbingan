@@ -38,7 +38,7 @@ class Kadep_ditolak extends CI_Controller {
 
             $data=array(
                 // PAGE //
-                'title'	=> 'Pengajuan Proposal (Modul Ketua Departemen)',
+                'title'	=> 'Pengajuan Proposal (Modul Kepala Bagian)',
                 'subtitle'	=> 'Data Pengajuan Proposal (Ditolak)',
                 'section'	=> 'backend/dosen/proposal/kadep_ditolak',
                 // DATA //
@@ -64,7 +64,7 @@ class Kadep_ditolak extends CI_Controller {
             
             $data=array(
                 // PAGE //
-                'title'	=> 'Pengajuan Proposal (Modul Ketua Departemen)',
+                'title'	=> 'Pengajuan Proposal (Modul Kepala Bagian)',
                 'subtitle'	=> 'Data Pengajuan Proposal (Ditolak)',
                 'section'	=> 'backend/dosen/proposal/kadep_ditolak_detail',
                 // DATA //

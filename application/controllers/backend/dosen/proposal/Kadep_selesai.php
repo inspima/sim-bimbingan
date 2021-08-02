@@ -38,7 +38,7 @@ class Kadep_selesai extends CI_Controller {
 
             $data=array(
                 // PAGE //
-                'title'	=> 'Pengajuan Proposal (Modul Ketua Departemen)',
+                'title'	=> 'Pengajuan Proposal (Modul Kepala Bagian)',
                 'subtitle'	=> 'Data Pengajuan Proposal (Selesai)',
                 'section'	=> 'backend/dosen/proposal/kadep_selesai',
                 // DATA //
@@ -64,7 +64,7 @@ class Kadep_selesai extends CI_Controller {
             
             $data=array(
                 // PAGE //
-                'title'	=> 'Pengajuan Proposal (Modul Ketua Departemen)',
+                'title'	=> 'Pengajuan Proposal (Modul Kepala Bagian)',
                 'subtitle'	=> 'Data Pengajuan Proposal (Selesai)',
                 'section'	=> 'backend/dosen/proposal/kadep_selesai_detail',
                 // DATA //

@@ -41,7 +41,7 @@
 
 				$data = array(
 					// PAGE //
-					'title' => 'Pengajuan Proposal (Modul Ketua Departemen)',
+					'title' => 'Pengajuan Proposal (Modul Kepala Bagian)',
 					'subtitle' => 'Data Pengajuan Proposal (Diterima)',
 					'section' => 'backend/dosen/proposal/kadep_diterima',
 					// DATA //
@@ -64,7 +64,7 @@
 
 				$data = array(
 					// PAGE //
-					'title' => 'Pengajuan Proposal (Modul Ketua Departemen)',
+					'title' => 'Pengajuan Proposal (Modul Kepala Bagian)',
 					'subtitle' => 'Data Pengajuan Proposal (Diterima)',
 					'section' => 'backend/dosen/proposal/kadep_diterima_detail',
 					// DATA //
@@ -118,7 +118,7 @@
 
 				$data = array(
 					// PAGE //
-					'title' => 'Pengajuan Proposal (Modul Ketua Departemen)',
+					'title' => 'Pengajuan Proposal (Modul Kepala Bagian)',
 					'subtitle' => 'Setting Ujian',
 					'section' => 'backend/dosen/proposal/kadep_diterima_plot',
 					// DATA //

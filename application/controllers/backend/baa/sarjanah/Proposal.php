@@ -113,7 +113,7 @@
 
 				$data = array(
 					// PAGE //
-					'title' => 'Pengajuan Proposal (Modul Ketua Departemen)',
+					'title' => 'Pengajuan Proposal (Modul Kepala Bagian)',
 					'subtitle' => 'Data Pengajuan Proposal',
 					'section' => 'backend/dosen/proposal/kadep_pengajuan_detail',
 					// DATA //
