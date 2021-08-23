@@ -50,7 +50,7 @@
                         <td><?= $no ?></td>
                         <td><?= '<b>' . $list['nama'] . '</b><br>' . $list['nim'].'<br>';?></td>
                         <td><?php
-                            $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_JUDUL);
+                            $judul = $this->tesis->read_judul($list['id_tesis'], TAHAPAN_TESIS_UJIAN);
                             echo '<b>Judul : </b>'.$judul->judul.'<br>';
                             /*echo '<b>Latar Belakang : </b>'.$judul->latar_belakang.'<br>';
                             echo '<b>Rumusan Masalah Pertama : </b>'.$judul->rumusan_masalah_pertama.'<br>';
