@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         FORM PENILAIAN MKPT <?= $no; ?>
                     </p>
                     <p align="justify" style="font-size: 12pt;">
-                        Pada hari ini <?= hari(date('Y-m-d', strtotime($mkpt['waktu_update']))); ?>, <?= woday_toindo(date('Y-m-d'));?> mulai pukul <?= str_replace(':', '.', substr(date('H:i:s', strtotime($mkpt['waktu_update'])), 0, 5)); ?> WIB sampai selesai di Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> Fakultas Hukum Universitas Airlangga diselenggarakan ujian mata kuliah penunjang tesis atas :
+                        Pada hari ini <?= hari(date('Y-m-d', strtotime($mkpt['waktu_update']))); ?>, <?= woday_toindo(date('Y-m-d', strtotime($mkpt['waktu_update'])));?> mulai pukul <?= str_replace(':', '.', substr(date('H:i:s', strtotime($mkpt['waktu_update'])), 0, 5)); ?> WIB sampai selesai di Program Studi Magister <?= ucwords(strtolower($tesis->nm_prodi));?> Fakultas Hukum Universitas Airlangga diselenggarakan ujian mata kuliah penunjang tesis atas :
 
                         <table>
                             <tr>
@@ -107,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </td> 
                                             <td style="width: 45%">
                                                 <p>
-                                                    Surabaya, <?= woday_toindo(date('Y-m-d'));?><br>
+                                                    Surabaya, <?= woday_toindo(date('Y-m-d', strtotime($mkpt['waktu_update'])));?><br>
                                                     Dosen MKPT <?= $no; ?>
                                                     <br/><br/><br>
                                                     <img src="<?= str_replace(base_url(), "", ($this->dosen->detail($pengampu['nip'])->ttd)); ?>" width="200px"/>

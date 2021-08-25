@@ -284,6 +284,19 @@ class Mkpt extends CI_Controller {
                             }*/
                         }
                     }
+                    if(count($tesis_mkpts) == '1'){
+                        $nama_belum = $this->input->post('nama_belum' . $i, true);
+                        $sks_belum = '2';
+                        $data_tesis_mkpt = [
+                            'id_tesis' => $id_tesis,
+                            'mkpt' => $nama_belum,
+                            'sks' => $sks_belum,
+                        ];
+                        if (!empty($nama)) {
+                            $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
+                            $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
+                        }
+                    }
                 }
                 else {
                     for ($i = 1; $i <= 3; $i++) {
@@ -358,6 +371,19 @@ class Mkpt extends CI_Controller {
                                     }
                                 }
                             }*/
+                        }
+                    }
+                    if(count($tesis_mkpts) == '1'){
+                        $nama_belum = $this->input->post('nama_belum' . $i, true);
+                        $sks_belum = '2';
+                        $data_tesis_mkpt = [
+                            'id_tesis' => $id_tesis,
+                            'mkpt' => $nama_belum,
+                            'sks' => $sks_belum,
+                        ];
+                        if (!empty($nama)) {
+                            $this->tesis->save_tesis_mkpt($data_tesis_mkpt);
+                            $tesis_mkpt = $this->tesis->detail_tesis_mkpt_by_data($data_tesis_mkpt);
                         }
                     }
                 }

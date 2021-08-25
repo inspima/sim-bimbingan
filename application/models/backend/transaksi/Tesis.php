@@ -1890,12 +1890,13 @@
 			$this->db->where('m.id_prodi', $id);
 			$this->db->where('s.jenis', $jenis);
 			$this->db->where('jd.jenis', $jenis);
-			$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 			if ($status == STATUS_TESIS_UJIAN_DIJADWALKAN) {
+				$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 				$this->db->where('s.status_tesis >=', $status);
 				$this->db->where('s.status_tesis <', STATUS_TESIS_UJIAN_SELESAI);
 				$this->db->where('s.status_ujian_tesis =', NULL);
 			} else if ($status == STATUS_TESIS_UJIAN_SELESAI) {
+				$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 				$this->db->where('s.status_tesis >=', $status);
 				$this->db->where('s.status_ujian_tesis !=', 0);
 			} else if ($status == 'anyar') {

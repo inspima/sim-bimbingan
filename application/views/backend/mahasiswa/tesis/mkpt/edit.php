@@ -142,6 +142,19 @@
                                         ';
                                     }
                                 }
+                                if(count($tesis_mkpts) == '1'){
+                                    echo '
+                                    <tr>
+                                        <td>
+                                            <textarea name="nama_belum" class="form-control" style="resize: none" ></textarea>
+                                        </td>
+                                        <td>2</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>';
+                                }
                             }
                             else {
                             ?>
