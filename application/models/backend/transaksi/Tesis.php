@@ -1861,7 +1861,7 @@
 				$this->db->where('s.status_proposal >=', $status);
 				$this->db->where('s.status_ujian_proposal !=', 0);
 			} else if ($status == 'anyar') {
-				$this->db->where('u.id_ujian =', null);
+				//$this->db->where('u.id_ujian =', null);
 				$this->db->where('s.status_proposal', STATUS_TESIS_PROPOSAL_PENGAJUAN);
 			} else {
 				$this->db->where('u.id_ujian !=', null);
@@ -1890,6 +1890,7 @@
 			$this->db->where('m.id_prodi', $id);
 			$this->db->where('s.jenis', $jenis);
 			$this->db->where('jd.jenis', $jenis);
+			//$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 			if ($status == STATUS_TESIS_UJIAN_DIJADWALKAN) {
 				$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 				$this->db->where('s.status_tesis >=', $status);
@@ -1900,7 +1901,7 @@
 				$this->db->where('s.status_tesis >=', $status);
 				$this->db->where('s.status_ujian_tesis !=', 0);
 			} else if ($status == 'anyar') {
-				$this->db->where('u.id_ujian =', null);
+				//$this->db->where('u.id_ujian =', null);
 				$this->db->where('s.status_tesis', STATUS_TESIS_UJIAN_PENGAJUAN);
 			} else {
 				$this->db->where('u.id_ujian !=', null);
