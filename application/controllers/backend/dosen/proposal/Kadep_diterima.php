@@ -124,7 +124,7 @@
 					// DATA //
 					'proposal' => $this->skripsi->detail_proposal($id_skripsi),
 					'mruang' => $this->ruang->read_aktif(),
-					'mjam' => $this->jam->read_aktif(),
+					'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 					'mdosen' => $this->dosen->read_aktif_alldep(),
 					'ujian' => $this->proposal->read_ujian($id_skripsi),
 					'pembimbing' => $this->proposal->read_pembimbing($id_skripsi),

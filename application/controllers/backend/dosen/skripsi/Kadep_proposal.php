@@ -174,7 +174,7 @@
 						// DATA //
 						'proposal' => $this->skripsi->detail_proposal($id_skripsi),
 						'mruang' => $this->ruang->read_aktif(),
-						'mjam' => $this->jam->read_aktif(),
+						'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 						'mdosen_penguji' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 						'mdosen_pembimbing' => $this->dosen->read_pembimbing_aktif(JENJANG_S1),
 						'ujian' => $this->skripsi->read_ujian_ulang($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
@@ -200,7 +200,7 @@
 						// DATA //
 						'proposal' => $this->skripsi->detail_proposal($id_skripsi),
 						'mruang' => $this->ruang->read_aktif(),
-						'mjam' => $this->jam->read_aktif(),
+						'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 						'mdosen_penguji' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 						'mdosen_pembimbing' => $this->dosen->read_pembimbing_aktif(JENJANG_S1),
 						'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
@@ -272,7 +272,7 @@
 				// DATA //
 				'proposal' => $this->skripsi->detail_proposal($id_skripsi),
 				'mruang' => $this->ruang->read_aktif(),
-				'mjam' => $this->jam->read_aktif(),
+				'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 				'mdosen' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 				'riwayat_ujians' => $this->skripsi->read_jadwal_riwayat($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),
 				'ujian' => $this->skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_PROPOSAL),

@@ -21,6 +21,19 @@ class Jam_model extends CI_Model {
 
 		return $query->result_array();
 	}
+
+	public function read_aktif_by_jenjang($jenjang)
+	{
+		$this->db->select('j.id_jam, j.jam');
+		$this->db->from('jam j');
+		$this->db->join('jam_jenjang jj', 'jj.id_jam = j.id_jam');
+		$this->db->where('j.status',1);
+		$this->db->where('jj.id_jenjang',$jenjang);
+		$this->db->order_by('j.jam','asc');
+
+		$query = $this -> db -> get();
+		return $query->result_array();
+	}
 	
 	
 }

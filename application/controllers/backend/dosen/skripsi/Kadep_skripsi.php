@@ -162,7 +162,7 @@
 					'nid_ujian' => $this->skripsi->cek_id_ujian($id_ujian, $id_skripsi),
 					'ujian' => $this->skripsi->detail_ujian($id_ujian),
 					'mruang' => $this->ruang->read_aktif(),
-					'mjam' => $this->jam->read_aktif(),
+					'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 					'mdosen' => $this->dosen->read_aktif_alldep(),
 				);
 
@@ -293,7 +293,7 @@
 				// DATA //
 				'skripsi' => $this->transaksi_skripsi->detail_by_id($id_skripsi),
 				'mruang' => $this->ruang->read_aktif(),
-				'mjam' => $this->jam->read_aktif(),
+				'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 				'mdosen' => $this->dosen->read_aktif_alldep(),
 				'riwayat_ujians' => $this->transaksi_skripsi->read_jadwal_riwayat($id_skripsi, UJIAN_SKRIPSI_UJIAN),
 				'ujian' => $this->transaksi_skripsi->read_jadwal($id_skripsi, UJIAN_SKRIPSI_UJIAN),

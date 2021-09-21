@@ -330,7 +330,7 @@ class Ujian extends CI_Controller {
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mjam' => $this->jam->read_aktif(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -359,7 +359,7 @@ class Ujian extends CI_Controller {
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mjam' => $this->jam->read_aktif(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
@@ -380,7 +380,7 @@ class Ujian extends CI_Controller {
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mjam' => $this->jam->read_aktif(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -410,7 +410,7 @@ class Ujian extends CI_Controller {
             'id_penguji' => $id_penguji,
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mjam' => $this->jam->read_aktif(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -432,7 +432,7 @@ class Ujian extends CI_Controller {
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mjam' => $this->jam->read_aktif(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -483,7 +483,7 @@ class Ujian extends CI_Controller {
             // DATA //
             'disertasi' => $this->disertasi->detail($id_disertasi),
             'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mjam' => $this->jam->read_aktif(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
             'status_ujians' => $this->disertasi->read_status_ujian(UJIAN_DISERTASI_KUALIFIKASI),
@@ -519,7 +519,7 @@ class Ujian extends CI_Controller {
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
             'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mjam' => $this->jam->read_aktif(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -1403,7 +1403,7 @@ class Ujian extends CI_Controller {
                 // DATA //
                 'tesis' => $this->tesis->detail($id_tesis),
                 'mruang' => $this->ruang->read_aktif_id_desc(),
-                'mjam' => $this->jam->read_aktif(),
+                'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
                 'mdosen' => $this->dosen->read_aktif_alldep(),
                 'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
                 'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),

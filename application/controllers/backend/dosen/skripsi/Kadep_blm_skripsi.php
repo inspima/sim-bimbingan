@@ -159,7 +159,7 @@
 					'nid_ujian' => $this->skripsi->cek_id_ujian($id_ujian, $id_skripsi),
 					'ujian' => $this->skripsi->detail_ujian($id_ujian),
 					'mruang' => $this->ruang->read_aktif(),
-					'mjam' => $this->jam->read_aktif(),
+					'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 					'mdosen' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 				);
 
