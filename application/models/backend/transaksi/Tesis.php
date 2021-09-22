@@ -1895,15 +1895,19 @@
 				$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 				$this->db->where('s.status_tesis >=', $status);
 				$this->db->where('s.status_tesis <', STATUS_TESIS_UJIAN_SELESAI);
+				$this->db->where('s.status_tesis >=', STATUS_TESIS_UJIAN_DIJADWALKAN);
 				$this->db->where('s.status_ujian_tesis =', NULL);
 			} else if ($status == STATUS_TESIS_UJIAN_SELESAI) {
 				$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 				$this->db->where('s.status_tesis >=', $status);
 				$this->db->where('s.status_ujian_tesis !=', 0);
 			} else if ($status == 'anyar') {
-				//$this->db->where('u.id_ujian =', null);
-				$this->db->where('s.status_tesis', STATUS_TESIS_UJIAN_PENGAJUAN);
+				$this->db->where('u.id_ujian =', null);
+				//$this->db->where('s.status_tesis', STATUS_TESIS_UJIAN_PENGAJUAN);
+				$this->db->where('s.status_tesis <=',STATUS_TESIS_UJIAN_PENGAJUAN);
+				$this->db->where('s.id_tesis NOT IN (SELECT id_tesis FROM ujian_tesis WHERE jenis_ujian = '.UJIAN_TESIS_UJIAN.')');
 			} else {
+				$this->db->where('u.jenis_ujian', UJIAN_TESIS_UJIAN);
 				$this->db->where('u.id_ujian !=', null);
 				//$this->db->where('u.status_apv_kaprodi !=', 1);
 				$this->db->where('s.status_tesis', $status);
