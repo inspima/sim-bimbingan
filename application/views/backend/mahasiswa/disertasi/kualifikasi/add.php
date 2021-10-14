@@ -18,7 +18,7 @@
                     <textarea class="form-control" name="judul" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Berkas - Transrkip dan SK Yudisium<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
+                    <label>Berkas - Upload Berkas Ujian<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
                     <input type="file" name="berkas_kualifikasi" class="form-control" required>
                 </div>
             </div>

@@ -180,6 +180,8 @@
 					'identitas' => $disertasi->nim,
 					'nama' => 'Berita Acara Ujian Kualifikasi - ' . $disertasi->nama,
 					'deskripsi' => $disertasi->judul,
+					'id_jenjang'=>JENJANG_S3,
+					'id_jadwal'=>$jadwal->id_ujian,
 					'link' => $link_dokumen,
 					'link_cetak' => $link_dokumen_cetak,
 					'date' => $jadwal->tanggal,

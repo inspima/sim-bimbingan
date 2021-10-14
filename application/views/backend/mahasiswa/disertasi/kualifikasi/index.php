@@ -47,18 +47,23 @@
 							<?php $this->view('backend/widgets/disertasi/column_penasehat', ['disertasi' => $list]); ?>
 						</td>
 						<td class="text-center">
-							<?php $attributes = array('target' => '_blank'); ?>
-							<?php echo form_open('mahasiswa/disertasi/kualifikasi/cetak-pengajuan', $attributes) ?>
-							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-							<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-							<button type="submit" class="btn btn-xs bg-red-active"><i class="fa fa-print"></i> Form Pengajuan</button>
-							<?php echo form_close() ?>
+							<?php if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI) {
+								?>
+								<?php $attributes = array('target' => '_blank'); ?>
+								<?php echo form_open('mahasiswa/disertasi/kualifikasi/cetak-pengajuan', $attributes) ?>
+								<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+								<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+								<button type="submit" class="btn btn-xs bg-red-active"><i class="fa fa-print"></i> Form Pengajuan</button>
+								<?php echo form_close() ?>
+								<?php
+							}
+							?>
 							<?php echo generateNewLineHTML(2) ?>
 							<a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/kualifikasi/<?php echo $list['berkas_kualifikasi'] ?>" target="_blank" class="btn btn-xs bg-red-active">
 								<i class="fa fa-print"></i> Berkas Syarat
 							</a>
 						</td>
-						<td><?= woday_toindo($list['waktu_pengajuan_proposal']) ?></td>
+						<td><?= woday_toindo($list['waktu_pengajuan_kualifikasi']) ?></td>
 						<td class="text-center">
 							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
 

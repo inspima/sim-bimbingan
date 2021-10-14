@@ -83,6 +83,23 @@
 		public function setting()
 		{
 			$id_disertasi = $this->uri->segment('5');
+
+			// Auto insert penguji penasehat sebagai ketua penguji
+			$penguji_ketua = $this->disertasi->cek_penguji_ketua_by_disertasi($id_disertasi);
+			if(empty($penguji_ketua)){
+				$ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi,UJIAN_DISERTASI_KUALIFIKASI);
+				if(!empty($ujian)){
+					$disertasi = $this->disertasi->detail($id_disertasi);
+					$insert_data = array(
+						'id_ujian' => $ujian->id_ujian,
+						'nip' => $disertasi->nip_penasehat,
+						'status_tim' => 1,
+						'status' => 2
+					);
+					$this->disertasi->save_penguji($insert_data);
+				}
+
+			}
 			$data = array(
 				// PAGE //
 				'title' => 'Disertasi - Kualifikasi',

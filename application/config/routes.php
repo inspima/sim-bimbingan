@@ -761,6 +761,11 @@
 	$route['dosen/dokumen/undangan'] = 'backend/dosen/dokumen/undangan';
 	$route['dosen/dokumen/undangan/riwayat'] = 'backend/dosen/dokumen/undangan/riwayat';
 
+	// LAPORAN
+	$route['dosen/laporan/penguji/sarjana'] = 'backend/dosen/laporan_dosen/penguji_sarjana';
+	$route['dosen/laporan/penguji/magister'] = 'backend/dosen/laporan_dosen/penguji_magister';
+	$route['dosen/laporan/penguji/doktor'] = 'backend/dosen/laporan_dosen/penguji_doktor';
+
 	// ADMIN PRODI
 	$route['prodi/dashboard'] = 'backend/prodi/prodi_page/dashboard';
 	$route['prodi/doktoral/disertasi/cetak_sk'] = 'backend/prodi/prodi_doktoral/cetak_sk';

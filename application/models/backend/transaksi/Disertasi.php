@@ -363,6 +363,19 @@
 			return $query->row();
 		}
 
+		public function cek_penguji_ketua_by_disertasi($id_disertasi)
+		{
+			$stts = array('1','2');
+			$this->db->select('p.id_penguji');
+			$this->db->from('penguji_disertasi p');
+			$this->db->join('ujian_disertasi u', 'p.id_ujian = u.id_ujian');
+			$this->db->where('u.id_disertasi', $id_disertasi);
+			$this->db->where('p.status_tim', 1);
+			$this->db->where_in('p.status', $stts);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function cek_penguji_promotor($id_disertasi, $id_ujian)
 		{
 			$sudah_ada = 0;

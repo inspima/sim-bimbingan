@@ -168,7 +168,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tr>
                         <tr>
                             <td valign="top">6.</td> 
-                            <td align="justify">Keputusan Dekan Nomor 13/UN3.1.3/KD/2020 tanggal 22 Januari 2021 tentang Pembimbing dan Penguji Tesis Semester Genap Tahun Akademik 2020/2021 Program Studi Magister Kenotariatan Fakultas Hukum Universitas Airlangga.</td>
+                            <td align="justify">Keputusan Dekan Nomor <?= $no_surat?> tanggal <?= woday_toindo($tgl_surat)?> tentang Pembimbing dan Penguji Tesis Semester Genap Tahun Akademik 2020/2021 Program Studi Magister Kenotariatan Fakultas Hukum Universitas Airlangga.</td>
                         </tr>
                         <?php
                         }
