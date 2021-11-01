@@ -346,7 +346,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ?>
             <p align="center">
                 Daftar Penguji<br>
-                Program Studi Magister Ilmu Hukum<br>
+                Program Studi Magister <?= $tesis->nm_prodi;?><br>
                 Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?><br>
             </p>
 
