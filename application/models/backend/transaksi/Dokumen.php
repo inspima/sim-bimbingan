@@ -248,6 +248,7 @@
 			$this->db->select('*');
 			$this->db->from('dokumen_persetujuan');
 			$this->db->where('id_dokumen', $id_dokumen);
+			$this->db->order_by('jenis', 'desc');
 			$this->db->order_by('id_dokumen_persetujuan', 'asc');
 
 			$query = $this->db->get();
