@@ -234,17 +234,39 @@
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
 				$id_skripsi = $this->input->post('id_skripsi', true);
-				$data = array(
-					'id_skripsi' => $id_skripsi,
-					'tanggal' => todb($this->input->post('tanggal', true)),
-					'hal' => $this->input->post('hal', true)
-				);
+				$config['upload_path'] = './assets/upload/mahasiswa/skripsi/bimbingan';
+				$config['allowed_types'] = 'pdf|jpg|png';
+				$config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+				$config['remove_spaces'] = true;
+				$config['file_ext_tolower'] = true;
+				$config['detect_mime'] = true;
+				$config['mod_mime_fix'] = true;
+				$config['encrypt_name'] = TRUE;
 
-				$this->skripsi->save_bimbingan($data);
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
 
-				$this->session->set_flashdata('msg-title', 'alert-success');
-				$this->session->set_flashdata('msg', 'Berhasil simpan.');
-				redirect('dashboardm/modul/skripsi/bimbingan/' . $id_skripsi);
+				if (!$this->upload->do_upload('file')) {
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', $this->upload->display_errors());
+					redirect_back();
+				} else {
+					$upload_data = $this->upload->data();
+
+					$data = array(
+						'id_skripsi' => $id_skripsi,
+						'tanggal' => todb($this->input->post('tanggal', true)),
+						'hal' => $this->input->post('hal', true),
+						'file'=>$upload_data['file_name'],
+					);
+
+					$this->skripsi->save_bimbingan($data);
+
+					$this->session->set_flashdata('msg-title', 'alert-success');
+					$this->session->set_flashdata('msg', 'Berhasil simpan.');
+					redirect_back();
+				}
+
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
 				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');

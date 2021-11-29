@@ -61,7 +61,7 @@
 		public function read_bimbingan($id)
 		{
 			$stts = array('1', '2');
-			$this->db->select('b.id_bimbingan, b.id_skripsi, b.tanggal, b.hal, b.status');
+			$this->db->select('b.id_bimbingan, b.id_skripsi, b.tanggal, b.hal, b.status,b.file');
 			$this->db->from('bimbingan b');
 			$this->db->join('skripsi s', 'b.id_skripsi = s.id_skripsi');
 			$this->db->where('s.id_skripsi', $id);

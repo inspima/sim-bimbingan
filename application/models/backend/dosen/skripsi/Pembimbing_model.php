@@ -93,7 +93,7 @@
 		public function bimbingan($id_skripsi)
 		{
 			$stts = array('1', '2');
-			$this->db->select('b.id_bimbingan, b.id_skripsi, b.tanggal, b.hal, b.status');
+			$this->db->select('b.id_bimbingan, b.id_skripsi, b.tanggal, b.hal, b.status,b.file');
 			$this->db->from('bimbingan b');
 			$this->db->where('b.id_skripsi', $id_skripsi);
 			$this->db->where_in('b.status', $stts);

@@ -144,7 +144,7 @@
 											?>
 											<hr class="divider-line-semi-bold"/>
 
-											<a class="btn btn-xs btn-primary pull-left" style="margin: 5px 0px" href="<?= base_url() ?>dashboardm/modul/skripsi/syarat/<?= $list['id_skripsi'] ?>">
+											<a class="btn btn-xs btn-primary pull-left" style="margin: 5px" href="<?= base_url() ?>dashboardm/modul/skripsi/syarat/<?= $list['id_skripsi'] ?>">
 												<i class="fa fa-folder-open-o"></i> Upload Persyaratan
 											</a>
 											<?php
@@ -154,7 +154,7 @@
 									<?php
 										if ($pembimbing) {
 											?>
-											<a class="btn btn-xs btn-primary pull-left" href="<?= base_url() ?>dashboardm/modul/skripsi/bimbingan/<?= $list['id_skripsi'] ?>">
+											<a class="btn btn-xs btn-primary pull-left" style="margin: 5px" href="<?= base_url() ?>dashboardm/modul/skripsi/bimbingan/<?= $list['id_skripsi'] ?>">
 												<i class="fa fa-calendar"></i> Bimbingan
 											</a><br/><br/>
 											<?php

@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="row">
 	<!-- left column -->
-	<div class="col-md-6">
+	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -41,7 +41,7 @@
 	</div>
 
 	<!-- left column -->
-	<div class="col-md-6">
+	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -70,7 +70,16 @@
 									<td><?= $no ?></td>
 									<td><?php echo toindo($list['tanggal']) ?>
 									</td>
-									<td style="max-width: 220px;"><p style="width:200px;white-space: pre-wrap"><?php echo $list['hal'] ?></p></td>
+									<td style="max-width: 220px;">
+										<?php echo $list['hal'] ?>
+										<?php
+											if(!empty($list['file'])){
+												?>
+												<a class="btn btn-default btn-xs" href="<?php echo base_url() ?>assets/upload/mahasiswa/skripsi/bimbingan/<?php echo $list['file'] ?>" target="_blank"><i class="fa fa-file-text"></i> Bukti Revisi</a>
+												<?php
+											}
+										?>
+									</td>
 									<td>
 										<?php
 											if ($list['status'] == '1') {
@@ -89,7 +98,7 @@
 												<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
 												<?php echo formtext('hidden', 'id_bimbingan', $list['id_bimbingan'], 'required') ?>
 												<?php echo formtext('hidden', 'status', '2', 'required') ?>
-												<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-circle"></i> Approve</button>
+												<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-circle"></i> Setujui</button>
 												<?php echo form_close() ?>
 												<?php echo form_open('dashboardd/skripsi/pembimbing_approve/bimbingan_update') ?>
 												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
