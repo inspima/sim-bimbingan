@@ -13,6 +13,7 @@
 						<th>Aktor</th>
 						<th>Keterangan</th>
 						<th>Waktu</th>
+						<th>IP & Perangkat</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -23,13 +24,18 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td>
-									<?= $list['actor'] ?>
+									NIP/NIK : <br/><b><?= $list['actor'] ?></b><br/>
+									NAMA : <br/><b><?= $list['nama'] ?></b>
 								</td>
 								<td>
 									<?= $list['description'] ?>
 								</td>
 								<td>
-									<?= waktu_format_indonesia(date('Y-m-d H:i:s', strtotime($list['time']))) ?>
+									<b><?= waktu_format_indonesia(date('Y-m-d H:i:s', strtotime($list['time']))) ?></b>
+								</td>
+								<td>
+									IP : <span class="text-danger"><?= $list['ip_address'] ?></span><br/>
+									<span class="text-muted"><?= $list['device'] ?></span>
 								</td>
 							</tr>
 							<?php
