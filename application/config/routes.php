@@ -154,6 +154,7 @@
 	$route['dashboarda/utility/database/backup'] = 'backend/administrator/utility/database_backup';
 	$route['dashboarda/utility/database/backup/create'] = 'backend/administrator/utility/database_backup/create_backup';
 	$route['dashboarda/utility/database/backup/delete'] = 'backend/administrator/utility/database_backup/delete_backup';
+	$route['administrator/utility/action_log'] = 'backend/administrator/utility/action_log/index';
 
 	//2. Dashboard BAA
 	$route['dashboardb'] = 'backend/baa/home';

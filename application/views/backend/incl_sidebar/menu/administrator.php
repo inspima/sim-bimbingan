@@ -21,6 +21,7 @@
 		</a>
 		<ul class="treeview-menu">
 			<li><a href="<?php echo base_url()?>dashboarda/utility/database/backup"><i class="fa fa-circle-o"></i> Database Backup</a></li>
+			<li><a href="<?php echo base_url()?>administrator/utility/action_log"><i class="fa fa-circle-o"></i> Log Perubahan</a></li>
 		</ul>
 	</li>
 </ul>

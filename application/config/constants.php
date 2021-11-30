@@ -380,3 +380,13 @@
 	define('STATUS_DISERTASI_TERBUKA_CETAK_DOKUMEN', 8);
 	define('STATUS_DISERTASI_TERBUKA_UJIAN', 9);
 	define('STATUS_DISERTASI_TERBUKA_SELESAI', 10);
+
+	// ACTION LOG
+	define('ACTION_OBJECT_PROPOSAL_SKRIPSI', 'Proposal Skripsi');
+	define('ACTION_OBJECT_SKRIPSI', 'Skripsi');
+	define('ACTION_OBJECT_PROPOSAL_TESIS', 'Proposal Tesis');
+	define('ACTION_OBJECT_TESIS', 'Tesis');
+
+	define('ACTION_VERB_PENGUJI', 'Penguji');
+	define('ACTION_VERB_PEMBIMBING', 'Pembimbing');
+	define('ACTION_VERB_PENASEHAT', 'Penasehat Akademik');

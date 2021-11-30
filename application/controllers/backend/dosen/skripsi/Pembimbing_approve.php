@@ -24,6 +24,7 @@
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/dosen/skripsi/Pembimbing_model', 'pembimbing');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
+			$this->load->model('backend/utility/ActionLog', 'action_log');
 			//END MODEL
 		}
 
@@ -47,6 +48,7 @@
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
 				$id_pembimbing = $this->input->post('id_pembimbing', true);
+				$pembimbing=$this->pembimbing->pembimbingDetail($id_pembimbing);
 
 				$cektotal = $this->pembimbing->hitung_bimbingan_aktif($username);
 				if ($cektotal < 10) {
@@ -55,6 +57,8 @@
 						'status_bimbingan' => 2,
 					);
 					$this->pembimbing->update_pembimbing($data, $id_pembimbing);
+					// Save Log
+					$this->action_log->saveActionLogByIdSkripsi($pembimbing->id_skripsi, $this->session_data['username'], ACTION_VERB_PEMBIMBING, ACTION_OBJECT_SKRIPSI, true);
 
 					$this->session->set_flashdata('msg-title', 'alert-success');
 					$this->session->set_flashdata('msg', 'Berhasil update.');

@@ -90,6 +90,15 @@
 			return $query->row();
 		}
 
+		public function pembimbingDetail($id_pembimbing)
+		{
+			$this->db->select('*');
+			$this->db->from('pembimbing b');
+			$this->db->where('id_pembimbing', $id_pembimbing);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function bimbingan($id_skripsi)
 		{
 			$stts = array('1', '2');

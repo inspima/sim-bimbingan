@@ -24,6 +24,7 @@
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/dosen/proposal/Penguji_model', 'penguji');
 			$this->load->model('backend/transaksi/Skripsi', 'skripsi');
+			$this->load->model('backend/utility/ActionLog', 'action_log');
 			//END MODEL
 		}
 
@@ -48,11 +49,14 @@
 				$id_penguji = $this->input->post('id_penguji', true);
 				$id_ujian = $this->input->post('id_ujian', true);
 				$id_skripsi = $this->input->post('id_skripsi', true);
+				$status = $this->input->post('status', true);
 
 				$data = array(
-					'status' => $this->input->post('status', true),
+					'status' => $status,
 				);
 				$this->penguji->update_penguji($data, $id_penguji);
+				// Save Log
+				$this->action_log->saveActionLogByIdSkripsi($id_skripsi, $this->session_data['username'], ACTION_VERB_PENGUJI, ACTION_OBJECT_PROPOSAL_SKRIPSI, $status == 2);
 				// Cek semua Penguji Approve
 				$semua_approve = $this->skripsi->semua_penguji_setuju($id_ujian);
 				if ($semua_approve) {

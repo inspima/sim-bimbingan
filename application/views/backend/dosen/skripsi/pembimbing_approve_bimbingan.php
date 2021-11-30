@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="row">
 	<!-- left column -->
-	<div class="col-sm-6">
+	<div class="col-sm-12">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -38,10 +38,6 @@
 			<!-- /.box-body -->
 		</div>
 		<!-- /.box -->
-	</div>
-
-	<!-- left column -->
-	<div class="col-sm-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -73,7 +69,7 @@
 									<td style="max-width: 220px;">
 										<?php echo $list['hal'] ?>
 										<?php
-											if(!empty($list['file'])){
+											if (!empty($list['file'])) {
 												?>
 												<a class="btn btn-default btn-xs" href="<?php echo base_url() ?>assets/upload/mahasiswa/skripsi/bimbingan/<?php echo $list['file'] ?>" target="_blank"><i class="fa fa-file-text"></i> Bukti Revisi</a>
 												<?php
@@ -134,12 +130,7 @@
 
 <div class="row">
 	<!-- left column -->
-	<div class="col-md-6">
-		&nbsp;
-	</div>
-
-	<!-- left column -->
-	<div class="col-md-6">
+	<div class="col-sm-12">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -193,17 +184,6 @@
 
 		</div>
 		<!-- /.box -->
-	</div>
-</div>
-
-<div class="row">
-	<!-- left column -->
-	<div class="col-md-6">
-		&nbsp;
-	</div>
-
-	<!-- left column -->
-	<div class="col-md-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
