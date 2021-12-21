@@ -68,7 +68,6 @@ class Promotor extends CI_Controller {
             $struktural = $this->struktural->read_struktural($this->session_data['username']);
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
-
                 $data = array(
                     'status_promotor' => STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS,
                 );

@@ -647,6 +647,7 @@
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->join('disertasi u', 'p.id_disertasi = u.id_disertasi');
 			$this->db->where_in('p.status', $stts);
+			$this->db->where('u.id_disertasi', $id_disertasi);
 			$jumlah_setuju = $this->db->count_all_results();
 			if ($jumlah_promotor == $jumlah_setuju) {
 				return true;
