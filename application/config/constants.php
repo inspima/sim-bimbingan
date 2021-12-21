@@ -163,7 +163,7 @@
 	define('DOKUMEN_TUJUAN_PEGAWAI', '3');
 
 	// PROCESS VARIABLE
-	define('MAX_PENGUJI_S3', 6);
+	define('MAX_PENGUJI_S3', 7);
 
 	// PRODI & JENJANG
 	define('JENJANG_S1', 1);
