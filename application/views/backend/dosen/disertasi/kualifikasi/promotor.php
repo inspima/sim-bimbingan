@@ -33,7 +33,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Promotor & Ko-Promotor</h3>
             </div>
-            <?php echo form_open('dosen/disertasi/kualifikasi/promotor_save'); ?>
+            <?php echo form_open('dosen/disertasi/promotor/save'); ?>
             <div class="box-body table-responsive">
                 <?php
                 if ($disertasi->status_kualifikasi >= STATUS_DISERTASI_KUALIFIKASI_SELESAI) {

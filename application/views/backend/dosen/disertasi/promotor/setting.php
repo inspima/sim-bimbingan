@@ -33,7 +33,7 @@
 			<div class="box-header with-border">
 				<h3 class="box-title">Promotor & Ko-Promotor</h3>
 			</div>
-			<?php echo form_open('dosen/disertasi/kualifikasi/promotor_save'); ?>
+			<?php echo form_open('dosen/disertasi/promotor/save'); ?>
 			<div class="box-body table-responsive">
 				<div class="callout callout-info">Pengajuan oleh mahasiswa, data dapat dirubah oleh KPS</div>
 				<?php
