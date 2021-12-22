@@ -247,6 +247,7 @@
 	$route['dashboardm/modul/proposal/add'] = 'backend/mahasiswa/modul/proposal/add';
 	$route['dashboardm/modul/proposal/save'] = 'backend/mahasiswa/modul/proposal/save';
 	$route['dashboardm/modul/proposal/edit/(:num)'] = 'backend/mahasiswa/modul/proposal/edit/$1';
+	$route['dashboardm/modul/proposal/revisi/(:num)'] = 'backend/mahasiswa/modul/proposal/revisi/$1';
 	$route['dashboardm/modul/proposal/update'] = 'backend/mahasiswa/modul/proposal/update';
 	$route['dashboardm/modul/proposal/update_file'] = 'backend/mahasiswa/modul/proposal/update_file';
 	$route['dashboardm/modul/proposal/ujian/(:num)'] = 'backend/mahasiswa/modul/proposal/ujian/$1';
@@ -610,6 +611,7 @@
 
 	$route['dosen/tesis/permintaan/pembimbing'] = 'backend/dosen/tesis/permintaan/pembimbing';
 	$route['dosen/tesis/permintaan/pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/pembimbing';
+	$route['dosen/tesis/permintaan/riwayat/(:num)'] = 'backend/dosen/tesis/permintaan/riwayat';
 
 	$route['dosen/tesis/permintaan/approve_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/approve_pembimbing';
 	$route['dosen/tesis/permintaan/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/reject_pembimbing';
@@ -661,6 +663,7 @@
 
 	$route['dosen/tesis/proposal/penguji'] = 'backend/dosen/tesis/proposal/penguji';
 	$route['dosen/tesis/proposal/penguji/(:num)'] = 'backend/dosen/tesis/proposal/penguji';
+	$route['dosen/tesis/proposal/riwayat/(:num)'] = 'backend/dosen/tesis/proposal/riwayat';
 	$route['dosen/tesis/proposal/approve_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/approve_penguji';
 	$route['dosen/tesis/proposal/reject_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/reject_penguji';
 
@@ -741,6 +744,7 @@
 	$route['dosen/tesis/ujian/status_ujian/(:num)'] = 'backend/dosen/tesis/ujian/status_ujian';
 	$route['dosen/tesis/ujian/penguji'] = 'backend/dosen/tesis/ujian/penguji';
 	$route['dosen/tesis/ujian/penguji/(:num)'] = 'backend/dosen/tesis/ujian/penguji';
+	$route['dosen/tesis/ujian/riwayat/(:num)'] = 'backend/dosen/tesis/ujian/riwayat';
 	$route['dosen/tesis/ujian/approve_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/ujian/approve_penguji';
 	$route['dosen/tesis/ujian/reject_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/ujian/reject_penguji';
 
@@ -775,6 +779,7 @@
 	$route['prodi/doktoral/disertasi/kualifikasi/setting/(:num)'] = 'backend/prodi/doktoral/disertasi_kualifikasi/setting';
 	$route['prodi/doktoral/disertasi/kualifikasi/penasehat_update'] = 'backend/prodi/doktoral/disertasi_kualifikasi/penasehat_update';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_sk_penasehat'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_sk_penasehat';
+	$route['prodi/doktoral/disertasi/kualifikasi/cetak_sk_ujian'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_sk_ujian';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_undangan';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_berita';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_penilaian';

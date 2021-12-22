@@ -140,6 +140,8 @@
 	define('DOKUMEN_SK_UJIAN_TESIS', 'sk-ujian-tesis');
 	define('DOKUMEN_UNDANGAN_UJIAN_TESIS', 'undangan-ujian-tesis');
 
+	define('DOKUMEN_SK_UJIAN_DISERTASI', 'sk-ujian-disertasi');
+
 	// JENIS DOKUMEN
 	/// S1
 	define('DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR', 'skripsi_proposal');

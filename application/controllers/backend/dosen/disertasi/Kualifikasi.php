@@ -155,6 +155,7 @@
 						'id_ruang' => $this->input->post('id_ruang', true),
 						'id_jam' => $this->input->post('id_jam', true),
 						'tanggal' => todb($this->input->post('tanggal', true)),
+						'link_meeting' => $this->input->post('link_meeting', true),
 						'status' => 1,
 						'jenis_ujian' => UJIAN_DISERTASI_KUALIFIKASI,
 						'status_ujian' => 1
@@ -211,6 +212,7 @@
 						'id_ruang' => $this->input->post('id_ruang', true),
 						'id_jam' => $this->input->post('id_jam', true),
 						'tanggal' => todb($this->input->post('tanggal', true)),
+						'link_meeting' => $this->input->post('link_meeting', true),
 						'jenis_ujian' => UJIAN_DISERTASI_KUALIFIKASI,
 						'status' => 1,
 						'status_ujian' => 1

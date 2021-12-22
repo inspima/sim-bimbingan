@@ -55,17 +55,20 @@
 								<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 								<button type="submit" class="btn btn-xs bg-red-active"><i class="fa fa-print"></i> Form Pengajuan</button>
 								<?php echo form_close() ?>
+								<?php echo generateNewLineHTML(2) ?>
 								<?php
 							}
 							?>
-							<?php echo generateNewLineHTML(2) ?>
 							<a href="<?php echo base_url() ?>assets/upload/mahasiswa/disertasi/kualifikasi/<?php echo $list['berkas_kualifikasi'] ?>" target="_blank" class="btn btn-xs bg-red-active">
 								<i class="fa fa-print"></i> Berkas Syarat
 							</a>
 						</td>
 						<td><?= woday_toindo($list['waktu_pengajuan_kualifikasi']) ?></td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => 1]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', [
+									'disertasi' => $list,
+									'jenis' => 1
+							]); ?>
 
 							<?php if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SELESAI) {
 								?>

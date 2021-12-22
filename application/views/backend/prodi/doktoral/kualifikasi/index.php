@@ -41,7 +41,10 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td>
-									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
+									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', [
+											'disertasi' => $list,
+											'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI
+									]); ?>
 								</td>
 								<td><?php echo woday_toindo($list['waktu_pengajuan_kualifikasi']) ?></td>
 								<td>
@@ -70,29 +73,49 @@
 									?>
 								</td>
 								<td class="text-center">
-									<?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], UJIAN_DISERTASI_KUALIFIKASI]); ?>
+									<?php $this->view('backend/widgets/disertasi/column_penguji', [
+											'id_disertasi' => $list['id_disertasi'],
+											UJIAN_DISERTASI_KUALIFIKASI
+									]); ?>
 								</td>
 								<td class="text-center">
-									<?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], UJIAN_DISERTASI_KUALIFIKASI]); ?>
+									<?php $this->view('backend/widgets/disertasi/column_jadwal', [
+											'id_disertasi' => $list['id_disertasi'],
+											UJIAN_DISERTASI_KUALIFIKASI
+									]); ?>
 								</td>
-								<td class="text-center">
+								<td>
 									<p class="text-center">
 										Status <br/>
-										<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis'=>TAHAPAN_DISERTASI_KUALIFIKASI]); ?>
+										<?php $this->view('backend/widgets/disertasi/column_status', [
+												'disertasi' => $list,
+												'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI
+										]); ?>
 									</p>
 									<hr class="divider-line-semi-bold"/>
 									<?php
 										if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS) {
 											?>
 											<hr style="margin: 5px"/>
-											<!-- Undangan -->
+											<!-- SK UJIAN -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_undangan', $attributes) ?>
+											<?php
+											$data_dokumen= [
+													'tipe' => DOKUMEN_SK_UJIAN_DISERTASI,
+													'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
+													'identitas' => $list['nim'],
+											];
+											$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+											?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_sk_ujian', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
+											<input type="text" name="no_sk" style="margin-bottom: 10px" class="form-control" placeholder="NO SK" value="<?= !empty($dokumen) ? $dokumen->no_doc : '' ?>" required/>
+											<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control" placeholder="TGL SK" value="<?= !empty($dokumen) ? date('d-m-Y', strtotime($dokumen->date_doc)) : '' ?>" required/>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> SK Ujian</button>
 											<?php echo form_close() ?>
 											<hr style="margin: 2px"/>
+											
 											<!-- Berita Acara -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_berita', $attributes) ?>

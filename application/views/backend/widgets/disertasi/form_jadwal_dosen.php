@@ -15,12 +15,14 @@
 				$ruang = $ujian->ruang . ' - ' . $ujian->gedung;
 				$id_jam = $ujian->id_jam;
 				$jam = $ujian->jam;
+				$link_meeting = $ujian->link_meeting;
 			} else {
 				$tanggal = date('d/m/Y');
 				$id_ruang = '';
 				$ruang = '-Pilih Ruang-';
 				$id_jam = '';
 				$jam = '-Pilih Jam-';
+				$link_meeting = '';
 			}
 		?>
 		<input type="text" name="tanggal" value="<?php echo $tanggal ?>" class="form-control pull-right" id="datepicker" required readonly>
@@ -39,6 +41,11 @@
 			}
 		?>
 	</select>
+</div>
+
+<div class="form-group">
+	<label>Link Meeting Online</label>
+	<textarea class="form-control" style="resize: none;" rows="2" name="link_meeting" placeholder="Link zoom/google meet hanya untuk ujian online"><?=$link_meeting?></textarea>
 </div>
 
 <div class="form-group">
