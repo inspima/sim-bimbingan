@@ -56,7 +56,6 @@
 											<a class="btn btn-primary btn-xs" href="<?= base_url() ?>prodi/doktoral/disertasi/kualifikasi/setting/<?= $list['id_disertasi'] ?>"><i class="fa fa-pencil-square"></i> Ubah</a>
 											<?php
 										}
-										/*
 										if (!empty($list['nip_penasehat'])) {
 											?>
 											<hr class="divider-line-semi-bold"/>
@@ -71,7 +70,6 @@
 											<?php echo form_close() ?>
 											<?php
 										}
-										*/
 									?>
 								</td>
 								<td class="text-center">
