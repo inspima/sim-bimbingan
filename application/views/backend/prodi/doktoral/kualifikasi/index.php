@@ -56,10 +56,11 @@
 											<a class="btn btn-primary btn-xs" href="<?= base_url() ?>prodi/doktoral/disertasi/kualifikasi/setting/<?= $list['id_disertasi'] ?>"><i class="fa fa-pencil-square"></i> Ubah</a>
 											<?php
 										}
+										/*
 										if (!empty($list['nip_penasehat'])) {
 											?>
 											<hr class="divider-line-semi-bold"/>
-											<!-- Undangan -->
+											<!-- SK Penasehat -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_sk_penasehat', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
@@ -70,6 +71,7 @@
 											<?php echo form_close() ?>
 											<?php
 										}
+										*/
 									?>
 								</td>
 								<td class="text-center">
@@ -115,7 +117,7 @@
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> SK Ujian</button>
 											<?php echo form_close() ?>
 											<hr style="margin: 2px"/>
-											
+
 											<!-- Berita Acara -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_berita', $attributes) ?>
