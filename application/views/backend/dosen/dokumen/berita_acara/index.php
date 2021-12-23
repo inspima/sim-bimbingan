@@ -12,6 +12,45 @@
 	<a class="<?= ($this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara"><i class="fa fa-check-circle-o"></i> Permintaan</a>
 	<a class="<?= ($this->uri->segment(4) == 'riwayat') ? 'btn btn-default' : 'btn bg-yellow'; ?>" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/riwayat"><i class="fa fa-history"></i> Riwayat</a>
 </div>
+<!-- Split button -->
+<div class="btn-group pull-right">
+	<button type="button" class="btn bg-gray dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<?php
+			if ($this->input->get('jenjang') != '') {
+				if($this->input->get('jenjang')==1){
+					?>
+					Sarjana
+					<?php
+				}else if($this->input->get('jenjang')==2){
+					?>
+					Magister
+					<?php
+				}else if($this->input->get('jenjang')==3){
+					?>
+					Doktor
+					<?php
+				}
+			} else {
+				?>
+					Semua Jenjang
+				<?php
+			}
+		?>
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu">
+		<?php
+			if ($this->input->get('jenjang') != '') {
+				?>
+				<li><a href="<?=current_url()?>">Semua Jenjang</a></li>
+				<?php
+			}
+		?>
+		<li><a href="<?=current_url()?>?jenjang=1">Sarjana</a></li>
+		<li><a href="<?=current_url()?>?jenjang=2">Magister</a></li>
+		<li><a href="<?=current_url()?>?jenjang=3">Doktor</a></li>
+	</ul>
+</div>
 <div class="divider10"></div>
 <div class="box">
 

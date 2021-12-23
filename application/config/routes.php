@@ -783,6 +783,7 @@
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_undangan';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_berita'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_berita';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_penilaian';
+	$route['prodi/doktoral/disertasi/kualifikasi/cetak_nilai_akhir'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_nilai_akhir';
 	$route['prodi/doktoral/disertasi/kualifikasi/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_kualifikasi/cetak_absensi';
 
 	$route['prodi/doktoral/disertasi/promotor'] = 'backend/prodi/doktoral/disertasi_promotor';

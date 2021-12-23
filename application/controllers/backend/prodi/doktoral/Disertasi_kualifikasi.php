@@ -95,7 +95,7 @@
 			if ($hand == 'center19') {
 				$id_disertasi = $this->input->post('id_disertasi', true);
 				$no_sk = $this->input->post('no_sk', true);
-				$disertasi =$this->disertasi->detail($id_disertasi);
+				$disertasi = $this->disertasi->detail($id_disertasi);
 				// Jika Status belum cetak SK
 				if ($disertasi->status_kualifikasi < STATUS_DISERTASI_KUALIFIKASI_CETAK_SK_PENASEHAT) {
 					$data = array(
@@ -118,7 +118,7 @@
 				$page = 'backend/prodi/doktoral/kualifikasi/cetak_sk_penasehat';
 				$size = 'a4';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = "SURAT KEPUTUSAN - PENASEHAT AKADEMIK - ".$disertasi->nim.'.pdf';
+				$this->pdf->filename = "SURAT KEPUTUSAN - PENASEHAT AKADEMIK - " . $disertasi->nim . '.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
@@ -184,8 +184,8 @@
 					'deskripsi' => $disertasi->judul,
 					'no_doc' => $no_sk,
 					'date_doc' => date('Y-m-d', strtotime($tgl_sk)),
-					'id_jenjang'=>JENJANG_S3,
-					'id_jadwal'=>$jadwal->id_ujian,
+					'id_jenjang' => JENJANG_S3,
+					'id_jadwal' => $jadwal->id_ujian,
 					'link' => $link_dokumen,
 					'link_cetak' => $link_dokumen_cetak,
 					'date' => $jadwal->tanggal,
@@ -199,7 +199,7 @@
 				$dokumen = $this->dokumen->check_by_data($data_dokumen);
 
 				$data = array(
-					'dokumen'=>$dokumen,
+					'dokumen' => $dokumen,
 					'jadwal' => $jadwal,
 					'pengujis' => $pengujis,
 					'ketua_penguji' => $ketua_penguji,
@@ -211,7 +211,7 @@
 				$page = 'backend/prodi/doktoral/kualifikasi/cetak_sk_ujian';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = "SURAT KEPUTUSAN - UJIAN KUALIFIKASI - ".$disertasi->nim.'.pdf';
+				$this->pdf->filename = "SURAT KEPUTUSAN - UJIAN KUALIFIKASI - " . $disertasi->nim . '.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
@@ -245,8 +245,8 @@
 					'identitas' => $disertasi->nim,
 					'nama' => 'Berita Acara Ujian Kualifikasi - ' . $disertasi->nama,
 					'deskripsi' => $disertasi->judul,
-					'id_jenjang'=>JENJANG_S3,
-					'id_jadwal'=>$jadwal->id_ujian,
+					'id_jenjang' => JENJANG_S3,
+					'id_jadwal' => $jadwal->id_ujian,
 					'link' => $link_dokumen,
 					'link_cetak' => $link_dokumen_cetak,
 					'date' => $jadwal->tanggal,
@@ -280,7 +280,7 @@
 				$page = 'backend/prodi/doktoral/kualifikasi/cetak_berita';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
-				$this->pdf->filename = "BERITA ACARA DISERTASI - UJIAN KUALIFIKASI - ".$disertasi->nim.'.pdf';
+				$this->pdf->filename = "BERITA ACARA DISERTASI - UJIAN KUALIFIKASI - " . $disertasi->nim . '.pdf';
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
@@ -304,6 +304,47 @@
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
 				$this->pdf->filename = "disertasi_penilaian.pdf";
+				$this->pdf->load_view($page, $data);
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('baa/doktoral/disertasi/kualifikasi/');
+			}
+		}
+
+		public function cetak_nilai_akhir()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_disertasi = $this->input->post('id_disertasi', true);
+				$disertasi = $this->disertasi->detail($id_disertasi);
+				$ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
+				$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+				$ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
+				$data_dokumen = [
+					'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_STR, 'kualifikasi', $disertasi->nim, $ujian->tanggal),
+					'tipe' => DOKUMEN_BERITA_ACARA_STR,
+					'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
+					'id_tugas_akhir' => $id_disertasi,
+					'identitas' => $disertasi->nim,
+					'deskripsi' => $disertasi->judul,
+					'id_jenjang' => JENJANG_S3,
+					'id_jadwal' => $ujian->id_ujian,
+					'date' => $ujian->tanggal,
+				];
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				$data = array(
+					'jadwal' => $ujian,
+					'dokumen'=>$dokumen,
+					'disertasi' => $this->disertasi->detail($id_disertasi),
+					'pengujis' => $pengujis,
+					'ketua_penguji' => $ketua_penguji,
+				);
+				//print_r($data['penguji_ketua']);die();
+				$page = 'backend/prodi/doktoral/kualifikasi/cetak_nilai_akhir';
+				$size = 'legal';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "disertasi_nilai_akhir.pdf";
 				$this->pdf->load_view($page, $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');

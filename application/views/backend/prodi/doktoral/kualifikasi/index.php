@@ -124,12 +124,20 @@
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
 											<?php echo form_close() ?>
 											<hr style="margin: 2px"/>
-											<!-- Penilaian -->
+											<!-- Form Penilaian -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_penilaian', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
+											<?php echo form_close() ?>
+											<hr style="margin: 2px"/>
+											<!-- Nilai Akhir Penilaian -->
+											<?php $attributes = array('target' => '_blank'); ?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_nilai_akhir', $attributes) ?>
+											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Nilai Akhir</button>
 											<?php echo form_close() ?>
 											<hr style="margin: 2px"/>
 											<!-- Daftar Hadir -->

@@ -69,7 +69,7 @@
 				'subtitle' => 'Data',
 				'section' => 'backend/dosen/dokumen/berita_acara/index',
 				// DATA //
-				'dokumens' => $this->dokumen->read_persetujuan_dosen($this->session_data['username'], 'berita-acara'),
+				'dokumens' => $this->dokumen->read_persetujuan_dosen_filter($this->session_data['username'], 'berita-acara',$this->input->get()),
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}
@@ -82,7 +82,7 @@
 				'subtitle' => 'Data',
 				'section' => 'backend/dosen/dokumen/berita_acara/index',
 				// DATA //
-				'dokumens' => $this->dokumen->read_persetujuan_dosen_riwayat($this->session_data['username'], 'berita-acara'),
+				'dokumens' => $this->dokumen->read_persetujuan_dosen_riwayat_filter($this->session_data['username'], 'berita-acara',$this->input->get()),
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}
