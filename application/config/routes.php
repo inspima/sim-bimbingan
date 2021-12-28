@@ -789,6 +789,16 @@
 	$route['prodi/dashboard'] = 'backend/prodi/prodi_page/dashboard';
 	$route['prodi/doktoral/disertasi/cetak_sk'] = 'backend/prodi/prodi_doktoral/cetak_sk';
 
+	$route['prodi/doktoral/master/mkpkk'] = 'backend/prodi/doktoral/master_mkpkk/index';
+	$route['prodi/doktoral/master/mkpkk/add'] = 'backend/prodi/doktoral/master_mkpkk/add';
+	$route['prodi/doktoral/master/mkpkk/save'] = 'backend/prodi/doktoral/master_mkpkk/save';
+	$route['prodi/doktoral/master/mkpkk/edit/(:num)'] = 'backend/prodi/doktoral/master_mkpkk/edit';
+	$route['prodi/doktoral/master/mkpkk/update'] = 'backend/prodi/doktoral/master_mkpkk/update';
+	$route['prodi/doktoral/master/mkpkk/save_pengampu'] = 'backend/prodi/doktoral/master_mkpkk/save_pengampu';
+	$route['prodi/doktoral/master/mkpkk/update_pjmk'] = 'backend/prodi/doktoral/master_mkpkk/update_pengampu_pjmk';
+	$route['prodi/doktoral/master/mkpkk/update_status'] = 'backend/prodi/doktoral/master_mkpkk/update_pengampu_status';
+	$route['prodi/doktoral/master/mkpkk/delete_pengampu'] = 'backend/prodi/doktoral/master_mkpkk/delete_pengampu';
+
 	$route['prodi/doktoral/disertasi/kualifikasi'] = 'backend/prodi/doktoral/disertasi_kualifikasi';
 	$route['prodi/doktoral/disertasi/kualifikasi/setting/(:num)'] = 'backend/prodi/doktoral/disertasi_kualifikasi/setting';
 	$route['prodi/doktoral/disertasi/kualifikasi/penasehat_update'] = 'backend/prodi/doktoral/disertasi_kualifikasi/penasehat_update';
