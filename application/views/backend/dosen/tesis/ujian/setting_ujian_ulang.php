@@ -136,7 +136,7 @@
                         <?php
                         foreach ($mruang as $list) {
                             ?>
-                            <option value="<?php echo $list['id_ruang'] ?>" <?php echo ($list['id_ruang'] == $ruang) ? 'selected' : ''; ?>><?php echo $list['ruang'] . ' - ' . $list['gedung'] ?></option>
+                            <option value="<?php echo $list['id_ruang'] ?>" <?php echo ($list['id_ruang'] == $id_ruang) ? 'selected' : ''; ?>><?php echo $list['ruang'] . ' - ' . $list['gedung'] ?></option>
                             <?php
                         }
                         ?>
