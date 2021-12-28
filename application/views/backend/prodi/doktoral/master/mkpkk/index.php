@@ -62,7 +62,7 @@
 											<div class="form-group">
 												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 												<?php echo formtext('hidden', 'id_mkpkk', $list['id_mkpkk'], 'required') ?>
-												<?php echo formtext('hidden', 'status', 0, 'required') ?>
+												<?php echo formtext('hidden', 'status', 1, 'required') ?>
 												<button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Tidak</button>
 											</div>
 											<?php echo form_close() ?>
