@@ -123,6 +123,28 @@
 			}
 		}
 
+		public function update_aktif()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id = $this->input->post('id_mkpkk', true);
+
+				$data = array(
+					'status' => $this->input->post('status', true),
+				);
+
+				$this->mkpkk->update($data, $id);
+
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil update');
+				redirect('prodi/doktoral/master/mkpkk');
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('prodi/doktoral/master/mkpkk');
+			}
+		}
+
 		public function save_pengampu()
 		{
 			$hand = $this->input->post('hand', true);

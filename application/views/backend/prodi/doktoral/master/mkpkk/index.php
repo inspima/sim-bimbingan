@@ -28,6 +28,7 @@
 						<th class="text-center">Kode</th>
 						<th class="text-center">Nama</th>
 						<th class="text-center">SKS</th>
+						<th class="text-center">Aktif</th>
 						<th class="text-center">Aksi</th>
 					</tr>
 					</thead>
@@ -42,6 +43,33 @@
 								<td><?= $list['kode'] ?></td>
 								<td><?= $list['nama'] ?></td>
 								<td><?= $list['sks'] ?></td>
+								<td class="text-center">
+									<?php
+										if ($list['status'] == '1') {
+											?>
+											<?php echo form_open('prodi/doktoral/master/mkpkk/update_aktif'); ?>
+											<div class="form-group">
+												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+												<?php echo formtext('hidden', 'id_mkpkk', $list['id_mkpkk'], 'required') ?>
+												<?php echo formtext('hidden', 'status', 0, 'required') ?>
+												<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Aktif</button>
+											</div>
+											<?php echo form_close() ?>
+											<?php
+										} else {
+											?>
+											<?php echo form_open('prodi/doktoral/master/mkpkk/update_aktif'); ?>
+											<div class="form-group">
+												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+												<?php echo formtext('hidden', 'id_mkpkk', $list['id_mkpkk'], 'required') ?>
+												<?php echo formtext('hidden', 'status', 0, 'required') ?>
+												<button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Tidak</button>
+											</div>
+											<?php echo form_close() ?>
+											<?php
+										}
+									?>
+								</td>
 								<td class="text-center">
 									<a class="btn btn-xs btn-warning" href="<?= base_url() ?>prodi/doktoral/master/mkpkk/edit/<?= $list['id_mkpkk'] ?>">
 										<i class="fa fa-edit"></i> Edit</a>
