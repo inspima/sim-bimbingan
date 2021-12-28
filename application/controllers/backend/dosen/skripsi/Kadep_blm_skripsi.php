@@ -25,8 +25,8 @@
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
 			$this->load->model('backend/dosen/skripsi/Kadep_blm_skripsi_model', 'skripsi');
 			$this->load->model('backend/transaksi/Skripsi', 'transaksi_skripsi');
-			$this->load->model('backend/administrator/master/ruang_model', 'ruang');
-			$this->load->model('backend/administrator/master/jam_model', 'jam');
+			$this->load->model('backend/master/ruang_model', 'ruang');
+			$this->load->model('backend/master/jam_model', 'jam');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
 			//END MODEL
 		}
@@ -158,8 +158,8 @@
 					'skripsi' => $this->skripsi->detail($id_departemen, $id_skripsi),
 					'nid_ujian' => $this->skripsi->cek_id_ujian($id_ujian, $id_skripsi),
 					'ujian' => $this->skripsi->detail_ujian($id_ujian),
-					'mruang' => $this->ruang->read_aktif(),
-					'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
+					'mruang' => $this->ruang->read_aktif_by_prodi(S1_ILMU_HUKUM),
+					'mjam' => $this->jam->read_aktif_by_prodi(S1_ILMU_HUKUM),
 					'mdosen' => $this->dosen->read_penguji_aktif(JENJANG_S1),
 				);
 

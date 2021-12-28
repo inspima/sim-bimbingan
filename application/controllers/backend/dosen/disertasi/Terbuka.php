@@ -23,8 +23,8 @@
 			//START MODEL
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
-			$this->load->model('backend/administrator/master/ruang_model', 'ruang');
-			$this->load->model('backend/administrator/master/jam_model', 'jam');
+			$this->load->model('backend/master/ruang_model', 'ruang');
+			$this->load->model('backend/master/jam_model', 'jam');
 			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
 			$this->load->model('backend/transaksi/disertasi', 'disertasi');
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
@@ -92,8 +92,8 @@
 				'back_link' => 'backend/dosen/disertasi/permintaan/promotor',
 				// DATA //
 				'disertasi' => $this->disertasi->detail($id_disertasi),
-				'mruang' => $this->ruang->read_aktif(),
-				'mjam' => $this->jam->read_aktif(),
+				'mruang' => $this->ruang->read_aktif_by_prodi(S3_ILMU_HUKUM),
+				'mjam' => $this->jam->read_aktif_by_prodi(S3_ILMU_HUKUM),
 				'mdosen' => $this->dosen->read_aktif_alldep(),
 				'promotors' => $this->disertasi->read_promotor_kopromotor($id_disertasi),
 				'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_TERBUKA),

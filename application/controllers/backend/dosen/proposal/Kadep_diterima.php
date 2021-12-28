@@ -23,7 +23,7 @@
 			//START MODEL
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
-			$this->load->model('backend/administrator/master/ruang_model', 'ruang');
+			$this->load->model('backend/master/ruang_model', 'ruang');
 			$this->load->model('backend/administrator/master/jam_model', 'jam');
 			$this->load->model('backend/dosen/proposal/Kadep_diterima_model', 'proposal');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
@@ -123,7 +123,7 @@
 					'section' => 'backend/dosen/proposal/kadep_diterima_plot',
 					// DATA //
 					'proposal' => $this->skripsi->detail_proposal($id_skripsi),
-					'mruang' => $this->ruang->read_aktif(),
+					'mruang' => $this->ruang->read_aktif_by_prodi(S1_ILMU_HUKUM),
 					'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S1),
 					'mdosen' => $this->dosen->read_aktif_alldep(),
 					'ujian' => $this->proposal->read_ujian($id_skripsi),
