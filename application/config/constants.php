@@ -172,8 +172,10 @@
 	define('JENJANG_S2', 2);
 	define('JENJANG_S3', 3);
 
+	define('S1_ILMU_HUKUM', 1);
 	define('S2_ILMU_HUKUM', 2);
 	define('S2_KENOTARIATAN', 3);
+	define('S3_ILMU_HUKUM', 4);
 
 	// USER
 	define('ROLE_MAHASISWA_S2', 5);

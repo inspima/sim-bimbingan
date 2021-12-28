@@ -454,6 +454,20 @@
 	$route['baa/master/dosen/update'] = 'backend/baa/master/dosen/update';
 	$route['baa/master/dosen/update_aktif'] = 'backend/baa/master/dosen/update_aktif';
 
+	$route['baa/master/ruang'] = 'backend/baa/master/ruang/index';
+	$route['baa/master/ruang/add'] = 'backend/baa/master/ruang/add';
+	$route['baa/master/ruang/save'] = 'backend/baa/master/ruang/save';
+	$route['baa/master/ruang/edit/(:num)'] = 'backend/baa/master/ruang/edit';
+	$route['baa/master/ruang/update'] = 'backend/baa/master/ruang/update';
+	$route['baa/master/ruang/update_aktif'] = 'backend/baa/master/ruang/update_aktif';
+
+	$route['baa/master/jam'] = 'backend/baa/master/jam/index';
+	$route['baa/master/jam/add'] = 'backend/baa/master/jam/add';
+	$route['baa/master/jam/save'] = 'backend/baa/master/jam/save';
+	$route['baa/master/jam/edit/(:num)'] = 'backend/baa/master/jam/edit';
+	$route['baa/master/jam/update'] = 'backend/baa/master/jam/update';
+	$route['baa/master/jam/update_aktif'] = 'backend/baa/master/jam/update_aktif';
+
 	$route['baa/utility/registrasi'] = 'backend/baa/utility/registrasi';
 	$route['baa/utility/registrasi/sarjana'] = 'backend/baa/utility/registrasi/sarjana';
 	$route['baa/utility/registrasi/master'] = 'backend/baa/utility/registrasi/master';
@@ -924,6 +938,9 @@
 	$route['mahasiswa/tesis/proposal/info/(:num)'] = 'backend/mahasiswa/tesis/proposal/info';
 	$route['mahasiswa/tesis/proposal/jadwal/(:num)'] = 'backend/mahasiswa/tesis/proposal/jadwal';
 	$route['mahasiswa/tesis/proposal/jadwal_save'] = 'backend/mahasiswa/tesis/proposal/jadwal_save';
+	$route['mahasiswa/tesis/proposal/bimbingan/(:num)'] = 'backend/mahasiswa/tesis/proposal/bimbingan';
+	$route['mahasiswa/tesis/proposal/bimbingan_save'] = 'backend/mahasiswa/tesis/proposal/bimbingan_save';
+	$route['mahasiswa/tesis/proposal/delete_bimbingan/(:num)/(:num)'] = 'backend/mahasiswa/tesis/proposal/delete_bimbingan';
 
 	$route['mahasiswa/tesis/mkpt'] = 'backend/mahasiswa/tesis/mkpt';
 	$route['mahasiswa/tesis/mkpt/add/(:num)'] = 'backend/mahasiswa/tesis/mkpt/add';
@@ -933,6 +950,9 @@
 	$route['mahasiswa/tesis/mkpt/info/(:num)'] = 'backend/mahasiswa/tesis/mkpt/info';
 	$route['mahasiswa/tesis/mkpt/jadwal/(:num)'] = 'backend/mahasiswa/tesis/mkpt/jadwal';
 	$route['mahasiswa/tesis/mkpt/jadwal_save'] = 'backend/mahasiswa/tesis/mkpt/jadwal_save';
+	$route['mahasiswa/tesis/mkpt/bimbingan/(:num)'] = 'backend/mahasiswa/tesis/mkpt/bimbingan';
+	$route['mahasiswa/tesis/mkpt/bimbingan_save'] = 'backend/mahasiswa/tesis/mkpt/bimbingan_save';
+	$route['mahasiswa/tesis/mkpt/delete_bimbingan/(:num)/(:num)'] = 'backend/mahasiswa/tesis/mkpt/delete_bimbingan';
 
 
 	$route['mahasiswa/tesis/ujian'] = 'backend/mahasiswa/tesis/ujian';
@@ -943,6 +963,9 @@
 	$route['mahasiswa/tesis/ujian/info/(:num)'] = 'backend/mahasiswa/tesis/ujian/info';
 	$route['mahasiswa/tesis/ujian/jadwal/(:num)'] = 'backend/mahasiswa/tesis/ujian/jadwal';
 	$route['mahasiswa/tesis/ujian/jadwal_save'] = 'backend/mahasiswa/tesis/ujian/jadwal_save';
+	$route['mahasiswa/tesis/ujian/bimbingan/(:num)'] = 'backend/mahasiswa/tesis/ujian/bimbingan';
+	$route['mahasiswa/tesis/ujian/bimbingan_save'] = 'backend/mahasiswa/tesis/ujian/bimbingan_save';
+	$route['mahasiswa/tesis/ujian/delete_bimbingan/(:num)/(:num)'] = 'backend/mahasiswa/tesis/ujian/delete_bimbingan';
 
 	/*
 
