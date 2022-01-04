@@ -302,78 +302,24 @@
                     if($ujian){
                         $penguji = $this->tesis->read_penguji($ujian->id_ujian);
                         $status_tim = '';
-                        $urut = 0;
-                        ?>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Nama</th>
-                                <th>Tim</th>
-                                <th>Hasil</th>
-                            </tr>
+                        foreach ($penguji as $listpenguji) {
+                            if($listpenguji['nip'] == $this->session_data['username']){
+                                $status_tim = $listpenguji['status_tim'];
+                            }
+                        }
+                        if(date('Y-m-d') >= $ujian->tanggal) {
+                    ?>
+                        <label>Status Ujian</label>
+                        <select name="status_ujian" class="form-control select2" style="width: 100%;" required <?= ($status_tim != '1') ? 'disabled' : ''; ?> >
                             <?php
-                            $urut = 0;
-                            $jumlah_isi = 1;
-                            foreach ($penguji as $listpenguji) {
-                                $urut++;
-                                $btn = '';
-                                $btn_ketua = '';
-                                $btn_anggota = '';
-                                if ($listpenguji['status_tim'] == '1') {
-                                    $str_status_tim = 'Ketua';
-                                    $btn = 'bg-red-gradient';
-                                    $btn_ketua = 'bg-blue-active';
-                                    $btn_anggota = 'bg-blue';
-                                } else if ($listpenguji['status_tim'] == '2') {
-                                    $str_status_tim = 'Anggota';
-                                    $btn = 'bg-blue-gradient';
-                                    $btn_ketua = 'bg-blue';
-                                    $btn_anggota = 'bg-blue-active';
-                                }
+                            foreach ($status_ujians as $status_ujian) {
                                 ?>
-                                <tr>
-                                    <td><?= $urut ?>. <?php echo $listpenguji['nama'] ?><br/><b><?php echo $listpenguji['nip'] ?></b></td>
-                                    <td>
-                                        <button type="button" class="btn btn-xs <?= $btn;?>" style="color:white">
-                                            <?php echo $str_status_tim ?>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        if(!empty($dokumen_persetujuan)){
-                                            if($dokumen_persetujuan[$urut-1]['identitas'] == $listpenguji['nip']){
-                                                if($dokumen_persetujuan[$urut-1]['hasil'] != ''){
-                                                    $jumlah_isi++;
-                                                }
-                                                $status_ujian = ['0' => 'Belum Ujian', '1' => 'Layak', '2' => 'Layak dengan Catatan', '3' => 'Tidak Layak', NULL => NULL];
-                                                echo $status_ujian[$dokumen_persetujuan[$urut-1]['hasil']];
-                                            }
-                                        }
-                                        ?>
-                                    </td>
-                                </tr>
-                            <?php
+                                <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $tesis->status_ujian_proposal) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
+                                <?php
                             }
                             ?>
-                        </table>
-                        <?php
-                        if(date('Y-m-d') >= $ujian->tanggal) {
-                            foreach ($penguji as $listpenguji) {
-                                if($listpenguji['nip'] == $this->session_data['username']){
-                                    $status_tim = $listpenguji['status_tim'];
-                                }
-                            }
-                        ?>
-                                <label>Status Ujian</label>
-                                <select name="status_ujian" class="form-control select2" style="width: 100%;" required <?= ($jumlah_isi < count($penguji) && $status_tim == '1') ? 'disabled' : ''; ?> >
-                                    <?php
-                                    foreach ($status_ujians as $status_ujian) {
-                                        ?>
-                                        <option value="<?php echo $status_ujian['value'] ?>" <?php if ($status_ujian['value'] == $tesis->status_ujian_proposal) echo 'selected' ?>><?php echo $status_ujian['text'] ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            <?php
+                        </select>
+                    <?php
                         } else {
                             echo "<b>Ujian belum dilaksanakan</b>";
                         }
@@ -393,13 +339,8 @@
                             $status_tim = $listpenguji['status_tim'];
                         }
                     }
-                    if(date('Y-m-d') >= $ujian->tanggal ) {
-                        if($status_tim == '1' && $jumlah_isi < count($penguji)){
-                            echo '';
-                        }
-                        else {
-                            echo '<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>';
-                        }
+                    if(date('Y-m-d') >= $ujian->tanggal && $status_tim == '1') {
+                        echo '<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Status Ujian</button>';
                     }
                 }
                 ?>
@@ -428,20 +369,10 @@
                     </div>
                     <?php
                     }
-                    foreach ($penguji as $listpenguji) {
-                        if($listpenguji['nip'] == $this->session_data['username']){
-                            $status_tim = $listpenguji['status_tim'];
-                        }
-                    }
-                    if($status_tim == '1' && $jumlah_isi < count($penguji)){
-                        echo '';
-                    }
-                    else {
-                        echo '
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan & Setujui Berita Acara</button>
-                        </div>';
-                    }
+                    echo '
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan & Setujui Berita Acara</button>
+                    </div>';
                 }
                 ?>
                 <?php 

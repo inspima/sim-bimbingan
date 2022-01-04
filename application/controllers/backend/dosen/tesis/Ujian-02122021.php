@@ -23,10 +23,8 @@ class Ujian extends CI_Controller {
         $this->load->model('backend/master/semester', 'semester');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
-        //$this->load->model('backend/administrator/master/ruang_model', 'ruang');
-        //$this->load->model('backend/administrator/master/jam_model', 'jam');
-        $this->load->model('backend/master/ruang_model', 'ruang');
-        $this->load->model('backend/master/jam_model', 'jam');
+        $this->load->model('backend/administrator/master/ruang_model', 'ruang');
+        $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/tesis', 'tesis');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
@@ -130,23 +128,7 @@ class Ujian extends CI_Controller {
             'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
             'prodi' => $this->tesis->read_prodi_s2(),
             //'tesis' => $this->tesis->read_permintaan_penguji($this->session_data['username'], UJIAN_TESIS_UJIAN)
-            'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_UJIAN, $id, 'pengajuan')
-        );
-        $this->load->view('backend/index_sidebar', $data);
-    }
-
-    public function riwayat() {
-        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Penguji Tesis',
-            'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/ujian/riwayat',
-            // DATA //
-            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'prodi' => $this->tesis->read_prodi_s2(),
-            //'tesis' => $this->tesis->read_permintaan_penguji($this->session_data['username'], UJIAN_TESIS_UJIAN)
-            'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_UJIAN, $id, 'riwayat')
+            'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_UJIAN, $id)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -347,10 +329,8 @@ class Ujian extends CI_Controller {
             //'back_link' => 'dosen/tesis/proposal/penjadwalan/',
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -378,10 +358,8 @@ class Ujian extends CI_Controller {
             'back_link' => 'dosen/tesis/ujian/penguji/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
@@ -392,7 +370,6 @@ class Ujian extends CI_Controller {
 
     public function setting_penguji() {
         $id_tesis = $this->uri->segment('5');
-        $id_prodi = $this->tesis->cek_prodi($id_tesis);
         $data = array(
             // PAGE //
             'title' => 'Tesis - Ujian',
@@ -402,10 +379,8 @@ class Ujian extends CI_Controller {
             'back_link' => 'backend/dosen/tesis/ujian/pembimbing',
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -434,10 +409,8 @@ class Ujian extends CI_Controller {
             // DATA //
             'id_penguji' => $id_penguji,
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -458,10 +431,8 @@ class Ujian extends CI_Controller {
             'back_link' => 'dosen/tesis/ujian/penguji/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -547,10 +518,8 @@ class Ujian extends CI_Controller {
             'back_link' => 'dosen/tesis/ujian/pembimbing/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),
@@ -862,49 +831,50 @@ class Ujian extends CI_Controller {
 
             $penguji = $this->tesis->read_penguji($ujian->id_ujian);
             $total_seluruh_nilai_terbobot = 0;
+            foreach ($penguji as $uji) {
+                $nilai_ujian = 0;
+                $total_bobot = 0;
+                $total_nilai = 0;
+                $total_nilai_terbobot = 0;
+                foreach ($jumlah_nilai as $data_kriteria) {
+                    $id_penguji = $uji['id_penguji'];
+                    $nilai_penguji = $this->tesis->read_penilaian($uji['id_penguji'], $data_kriteria['id']);
+                    //$nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
 
-            $nilai_ujian = 0;
-            $total_bobot = 0;
-            $total_nilai = 0;
-            $total_nilai_terbobot = 0;
-            foreach ($jumlah_nilai as $data_kriteria) {
-                $id_penguji = $id_penguji;
-                $nilai_penguji = $this->tesis->read_penilaian(id_penguji, $data_kriteria['id']);
-                //$nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
 
+                    if(empty($nilai_penguji)){
+                        $data = array(
+                            'id_penguji' => $id_penguji,
+                            'id_kriteria_penilaian' => $data_kriteria['id'],
+                            'nilai' => $this->input->post('nilai_'.$data_kriteria['id'], TRUE),
+                            'status_aktif' => 1,
+                        );
 
-                if(empty($nilai_penguji)){
-                    $data = array(
-                        'id_penguji' => $id_penguji,
-                        'id_kriteria_penilaian' => $data_kriteria['id'],
-                        'nilai' => $this->input->post('nilai_'.$data_kriteria['id'], TRUE),
-                        'status_aktif' => 1,
-                    );
+                        $this->tesis->save_penilaian($data);
+                    }
+                    else {
+                        $data = array(
+                            'id_penguji' => $id_penguji,
+                            'id_kriteria_penilaian' => $data_kriteria['id'],
+                            'nilai' => $this->input->post('nilai_'.$data_kriteria['id'], TRUE),
+                            'status_aktif' => 1,
+                        );
 
-                    $this->tesis->save_penilaian($data);
+                        $this->tesis->update_penilaian($data, $nilai_penguji->id);
+                    }
+
+                    $nilai_penguji = $this->tesis->read_penilaian($uji['id_penguji'], $data_kriteria['id']);
+
+                    $nilai_ujian = $nilai_penguji->nilai;
+                    $total_bobot = $total_bobot + $data_kriteria['bobot'];
+
+                    $total_nilai = $total_nilai + $nilai_ujian;
+                    $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data_kriteria['bobot']);
+
                 }
-                else {
-                    $data = array(
-                        'id_penguji' => $id_penguji,
-                        'id_kriteria_penilaian' => $data_kriteria['id'],
-                        'nilai' => $this->input->post('nilai_'.$data_kriteria['id'], TRUE),
-                        'status_aktif' => 1,
-                    );
 
-                    $this->tesis->update_penilaian($data, $nilai_penguji->id);
-                }
-
-                $nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data_kriteria['id']);
-
-                $nilai_ujian = $nilai_penguji->nilai;
-                $total_bobot = $total_bobot + $data_kriteria['bobot'];
-
-                $total_nilai = $total_nilai + $nilai_ujian;
-                $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data_kriteria['bobot']);
-
+                $total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot);
             }
-
-            $total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot);
 
             //$total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot);
 
@@ -1432,10 +1402,8 @@ class Ujian extends CI_Controller {
                 'back_link' => 'dosen/tesis/proposal/penjadwalan/',
                 // DATA //
                 'tesis' => $this->tesis->detail($id_tesis),
-                //'mruang' => $this->ruang->read_aktif_id_desc(),
-                'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-                //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-                'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+                'mruang' => $this->ruang->read_aktif_id_desc(),
+                'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
                 'mdosen' => $this->dosen->read_aktif_alldep(),
                 'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_UJIAN),
                 'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_UJIAN),

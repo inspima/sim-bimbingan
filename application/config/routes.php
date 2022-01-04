@@ -626,10 +626,17 @@
 	$route['dosen/tesis/permintaan/pembimbing'] = 'backend/dosen/tesis/permintaan/pembimbing';
 	$route['dosen/tesis/permintaan/pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/pembimbing';
 	$route['dosen/tesis/permintaan/riwayat/(:num)'] = 'backend/dosen/tesis/permintaan/riwayat';
+	$route['dosen/tesis/permintaan/bimbingan_proposal/(:num)'] = 'backend/dosen/tesis/permintaan/bimbingan_proposal';
+	$route['dosen/tesis/permintaan/bimbingan_mkpt/(:num)'] = 'backend/dosen/tesis/permintaan/bimbingan_mkpt';
+	$route['dosen/tesis/permintaan/bimbingan_tesis/(:num)'] = 'backend/dosen/tesis/permintaan/bimbingan_tesis';
 
 	$route['dosen/tesis/permintaan/approve_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/approve_pembimbing';
 	$route['dosen/tesis/permintaan/reject_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/reject_pembimbing';
 	$route['dosen/tesis/permintaan/batal_pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/batal_pembimbing';
+
+	$route['dosen/tesis/permintaan/approve_bimbingan/(:num)/(:num)/(:num)/(:num)'] = 'backend/dosen/tesis/permintaan/approve_bimbingan';
+	$route['dosen/tesis/permintaan/reject_bimbingan/(:num)/(:num)/(:num)/(:num)'] = 'backend/dosen/tesis/permintaan/reject_bimbingan';
+	$route['dosen/tesis/permintaan/batal_bimbingan/(:num)/(:num)/(:num)/(:num)'] = 'backend/dosen/tesis/permintaan/batal_bimbingan';
 
 	// TESIS - PROPOSAL
 	$route['dosen/tesis/proposal'] = 'backend/dosen/tesis/proposal';

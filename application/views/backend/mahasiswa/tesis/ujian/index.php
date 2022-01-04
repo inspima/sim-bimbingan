@@ -177,11 +177,12 @@
                             //if ($list['status_tesis'] > STATUS_TESIS_UJIAN_DIJADWALKAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
+                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan</a>
                                 <?php
                             //}
                             if ($list['status_tesis'] < STATUS_TESIS_UJIAN_SELESAI OR $list['status_tesis'] == STATUS_TESIS_UJIAN_DITOLAK) {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Edit</a>
                                 <?php
                             }
                             /*if ($biodata->id_prodi == S2_KENOTARIATAN) {

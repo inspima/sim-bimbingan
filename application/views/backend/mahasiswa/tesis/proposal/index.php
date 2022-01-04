@@ -189,13 +189,14 @@
                         <td class="text-center">
                             <?php 
                             //if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_DIJADWALKAN) {
-                                ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/proposal/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
-                                <?php
+                            ?>
+                            <a href="<?= base_url() ?>mahasiswa/tesis/proposal/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
+                            <a href="<?= base_url() ?>mahasiswa/tesis/proposal/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan</a>
+                            <?php
                             //}
                             if ($list['status_proposal'] < STATUS_TESIS_PROPOSAL_UJIAN_SELESAI) {
                                 ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/proposal/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="<?= base_url() ?>mahasiswa/tesis/proposal/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Edit</a>
                                 <?php
                                 /*if($biodata->id_prodi == S2_KENOTARIATAN){
                                 ?>

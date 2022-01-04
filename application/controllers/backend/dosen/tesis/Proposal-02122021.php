@@ -22,10 +22,8 @@ class Proposal extends CI_Controller {
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/administrator/master/departemen_model', 'departemen');
         $this->load->model('backend/administrator/master/minat_tesis_model', 'minat_tesis');
-        //$this->load->model('backend/administrator/master/ruang_model', 'ruang');
-        //$this->load->model('backend/administrator/master/jam_model', 'jam');
-        $this->load->model('backend/master/ruang_model', 'ruang');
-        $this->load->model('backend/master/jam_model', 'jam');
+        $this->load->model('backend/administrator/master/ruang_model', 'ruang');
+        $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
         $this->load->model('backend/transaksi/tesis', 'tesis');
         $this->load->model('backend/transaksi/dokumen', 'dokumen');
@@ -384,23 +382,7 @@ class Proposal extends CI_Controller {
             'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
             'prodi' => $this->tesis->read_prodi_s2(),
             //'tesis' => $this->tesis->read_permintaan_penguji($this->session_data['username'], UJIAN_TESIS_PROPOSAL)
-            'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_PROPOSAL, $id, 'pengajuan')
-        );
-        $this->load->view('backend/index_sidebar', $data);
-    }
-
-    public function riwayat() {
-        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
-        $data = array(
-            // PAGE //
-            'title' => 'Tesis - Penguji Proposal',
-            'subtitle' => 'Data',
-            'section' => 'backend/dosen/tesis/proposal/riwayat',
-            // DATA //
-            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
-            'prodi' => $this->tesis->read_prodi_s2(),
-            //'tesis' => $this->tesis->read_permintaan_penguji($this->session_data['username'], UJIAN_TESIS_PROPOSAL)
-            'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_PROPOSAL, $id, 'riwayat')
+            'tesis' => $this->tesis->read_permintaan_penguji_prodi($this->session_data['username'], UJIAN_TESIS_PROPOSAL, $id)
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -521,10 +503,8 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/penjadwalan/',
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
@@ -543,10 +523,6 @@ class Proposal extends CI_Controller {
             'identitas' => $tesis->nim,
         ];
         $dokumen = $this->dokumen->detail_by_data($data_dokumen);
-        $dokumen_persetujuan = array();
-        if(!empty($dokumen)){
-            $dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
-        }
         $data = array(
             // PAGE //
             'title' => 'Tesis - Proposal',
@@ -556,15 +532,12 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/penguji/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
             'dokumen' => $dokumen,
-            'dokumen_persetujuan' => $dokumen_persetujuan,
         );
         $this->load->view('backend/index_sidebar', $data);
     }
@@ -581,10 +554,8 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/pembimbing/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
@@ -604,10 +575,8 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/proposal/penguji/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
@@ -693,10 +662,8 @@ class Proposal extends CI_Controller {
             'back_link' => 'dosen/tesis/permintaan/pembimbing/'.$id_prodi,
             // DATA //
             'tesis' => $this->tesis->detail($id_tesis),
-            //'mruang' => $this->ruang->read_aktif_id_desc(),
-            'mruang' => $this->ruang->read_aktif_by_prodi($id_prodi),
-            //'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
-            'mjam' => $this->jam->read_aktif_by_prodi($id_prodi),
+            'mruang' => $this->ruang->read_aktif_id_desc(),
+            'mjam' => $this->jam->read_aktif_by_jenjang(JENJANG_S2),
             'mdosen' => $this->dosen->read_aktif_alldep(),
             'ujian' => $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL),
             'status_ujians' => $this->tesis->read_status_ujian(UJIAN_TESIS_PROPOSAL),
@@ -1273,7 +1240,7 @@ class Proposal extends CI_Controller {
 
     public function update_status_ujian() {
         $id_tesis = $this->input->post('id_tesis', TRUE);
-        $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_PROPOSAL);
+
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
 
@@ -1326,118 +1293,47 @@ class Proposal extends CI_Controller {
 
     public function update_status_ujian_ketua() {
         $id_tesis = $this->input->post('id_tesis', TRUE);
-        $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_PROPOSAL);
-        $jadwal = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
-        $tesis = $this->tesis->detail($id_tesis);
-        $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
-        $ketua_penguji = $this->tesis->read_penguji_ketua($ujian->id_ujian);
-        //$tgl_sk_ymd = date('Y-m-d', strtotime(str_replace('/', '-', $tgl_sk)));
+
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
 
             //CK INI
             $status_ujian = $this->input->post('status_ujian', TRUE);
 
-            $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
-            $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS . '$' . TAHAPAN_TESIS_PROPOSAL_STR . '$' . TAHAPAN_TESIS_PROPOSAL;
-            // QR
-            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Berita Acara', 'Proposal', $tesis->nim, $jadwal->tanggal);
-            $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
-            $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
-            // DOKUMEN
-            $data_dokumen = [
-                'kode' => $this->dokumen->generate_kode(DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS, 'tesis_proposal', $tesis->nim, $jadwal->tanggal),
-                'tipe' => DOKUMEN_BERITA_ACARA_PROPOSAL_TESIS,
-                'jenis' => DOKUMEN_JENIS_TESIS_PROPOSAL_STR,
-                'id_tugas_akhir' => $id_tesis,
-                'identitas' => $tesis->nim,
-                'nama' => 'Berita Acara Ujian Proposal - ' . $tesis->nama,
-                'link' => $link_dokumen,
-                'link_cetak' => $link_dokumen_cetak,
-                'date' => $jadwal->tanggal,
-                //'date_doc' => $tgl_sk_ymd,
-                'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
-            ];
-            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
-            if (empty($dokumen)) {
-                $this->dokumen->save($data_dokumen);
-            }
-            else {
-                $this->dokumen->update($data_dokumen, $dokumen->id_dokumen);    
-            }
-            $dokumen = $this->dokumen->detail_by_data($data_dokumen);
+            $data = array(
+                'status_ujian_proposal' => $status_ujian,
+            );
+            $this->tesis->update($data, $id_tesis);
 
-            // DOKUMEN PERSETUJUAN
-            $this->dokumen->generate_persetujuan($pengujis, $dokumen->id_dokumen, JENJANG_S2, $id_tesis, 0);
-            //$dokumen_persetujuan = $this->dokumen->read_persetujuan($dokumen->id_dokumen);
-            $status_tim = "";
-            foreach ($pengujis as $penguji){
-                $identitas = '';
-                $identitas = $penguji['nip'];
-
-                if($identitas == $this->session_data['username']){
-                    $status_tim = $penguji['status_tim'];
-                    $data_dokumen_persetujuan = [
-                        'id_dokumen' => $dokumen->id_dokumen,
-                        'identitas' => $identitas,
-                        'jenis' => 0,
-                    ];
-
-                    $dokumen_persetujuan = $this->dokumen->detail_persetujuan_by_data($data_dokumen_persetujuan);
-
-                    $id_dokumen_persetujuan = $dokumen_persetujuan->id_dokumen_persetujuan;
-
-                    $data_persetujuan = [
-                        'waktu' => date('Y-m-d H:i:s'),
-                        'hasil' => $status_ujian,
-                    ];
-                    $this->dokumen->update_persetujuan($data_persetujuan, $id_dokumen_persetujuan);
-                }
-                //$this->session->set_flashdata('msg-title', 'alert-success');
-                //$this->session->set_flashdata('msg', 'Persetujuan dokumen berhasil');
-            }
-
-            if($status_tim == '1'){
+            //trigger
+            if ($status_ujian == '0') { //belum ujian
+                $this->session->set_flashdata('msg-title', 'alert-success');
+                $this->session->set_flashdata('msg', 'Berhasil update proses');
+                redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+            } else if (in_array($status_ujian, [1, 2])) { //layak
+                //update proposal selesai
                 $data = array(
+                    'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN_SELESAI,
                     'status_ujian_proposal' => $status_ujian,
                 );
                 $this->tesis->update($data, $id_tesis);
 
-                //trigger
-                if ($status_ujian == '0') { //belum ujian
-                    $this->session->set_flashdata('msg-title', 'alert-success');
-                    $this->session->set_flashdata('msg', 'Berhasil update proses');
-                    redirect('dosen/tesis/proposal/setting/' . $id_tesis);
-                } else if (in_array($status_ujian, [1, 2])) { //layak
-                    //update proposal selesai
-                    $data = array(
-                        'status_proposal' => STATUS_TESIS_PROPOSAL_UJIAN_SELESAI,
-                        'status_ujian_proposal' => $status_ujian,
-                    );
-                    $this->tesis->update($data, $id_tesis);
+                $data = array(
+                    'hasil_ujian' => $status_ujian,
+                );
 
-                    $data = array(
-                        'hasil_ujian' => $status_ujian,
-                    );
-
-                    $this->tesis->update_ujian($data, $ujian->id_ujian);
-                    $this->session->set_flashdata('msg-title', 'alert-success');
-                    $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
-                    redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
-                } else if ($status_ujian == '3') {
-                    $data = array(
-                        'hasil_ujian' => $status_ujian,
-                    );
-
-                    $this->tesis->update_ujian($data, $ujian->id_ujian);
-                    $this->session->set_flashdata('msg-title', 'alert-warning');
-                    $this->session->set_flashdata('msg', 'Ujian ditolak');
-                    redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
-                }
-            }
-            else {
+                $this->tesis->update_ujian($data, $ujian->id_ujian);
                 $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Persetujuan dokumen berhasil ');
+                $this->session->set_flashdata('msg', 'Berhasil update proses. Data akan diteruskan ke Proses Selanjutnya.');
+                redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
+            } else if ($status_ujian == '3') {
+                $data = array(
+                    'hasil_ujian' => $status_ujian,
+                );
+
+                $this->tesis->update_ujian($data, $ujian->id_ujian);
+                $this->session->set_flashdata('msg-title', 'alert-warning');
+                $this->session->set_flashdata('msg', 'Ujian ditolak');
                 redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
             }
         } else {

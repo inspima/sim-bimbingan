@@ -96,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td rowspan="3" valign="top">MENIMBANG</td>   
                             <td rowspan="3" valign="top">:</td>   
                             <td valign="top">a.</td> 
-                            <td align="justify">bahwa   untuk    menyelesaikan  penulisan  tesis  bagi  maha-siswa Program Studi   Magister Kenotariatan Fakultas Hukum Universitas Airlangga wajib menempuh ujian Proposal Tesis;</td>
+                            <td align="justify">bahwa   untuk    menyelesaikan  penulisan  tesis  bagi  mahasiswa Program Studi   Magister Kenotariatan Fakultas Hukum Universitas Airlangga wajib menempuh ujian Proposal Tesis;</td>
                         </tr>
                         <tr>
                             <td valign="top">b.</td> 
@@ -271,7 +271,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <tr>
                                                     <td style="padding-left: 0px;">Pada tanggal</td>
                                                     <td>:</td> 
-                                                    <td><?= woday_toindo($tgl_sk)?></td>
+                                                    <td> <?= woday_toindo($tgl_sk)?></td>
                                                 </tr>
                                             </table>
                                             D e k a n,
@@ -308,7 +308,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if($tesis->id_prodi == S2_ILMU_HUKUM){
             ?>
             <p align="justify">
-                Lampiran 1: Keputusan Dekan tanggal, <?= woday_toindo(date('Y-m-d'))?>  Nomor : <?= $no_sk?> tentang Penguji Proposal Tesis Program Studi Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> untuk mahasiswa an. <b><?= $tesis->nama.' ('.$tesis->nim.')' ?></b> dengan judul : 
+                Lampiran 1: Keputusan Dekan tanggal, <?= woday_toindo($tgl_sk)?> Nomor : <?= $no_sk?> tentang Penguji Proposal Tesis Program Studi Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> untuk mahasiswa an. <b><?= $tesis->nama.' ('.$tesis->nim.')' ?></b> dengan judul : 
                 <?php
                 $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);
                 echo $judul->judul;
@@ -323,7 +323,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <tr>
                         <td valign="top">Lampiran</td>
                         <td valign="top">:</td>
-                        <td>Keputusan Dekan Nomor <?= $no_sk?> tanggal <?= woday_toindo(date('Y-m-d'))?> Tentang Penguji Proposal Tesis Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> a.n. <?= $tesis->nama.' ('.$tesis->nim.')' ?>.</td>
+                        <td>Keputusan Dekan Nomor <?= $no_sk?> tanggal <?= woday_toindo($tgl_sk)?> Tentang Penguji Proposal Tesis Magister <?= $tesis->nm_prodi;?> Semester <?= explode(' ', $semester->semester)[0] ?> Tahun Akademik <?= explode(' ', $semester->semester)[1] ?> a.n. <?= $tesis->nama.' ('.$tesis->nim.')' ?>.</td>
                     </tr>
                 </table>
             </p>
@@ -352,12 +352,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <td>Keterangan</td>
                 </tr>
                 <?php
+                /*$no = 0;
+                foreach ($pengujis as $penguji){
+                    $no++;
+                    $status_tim = '';
+                    if($penguji['nip'] == $tesis->nip_pembimbing_satu){
+                        $status_tim .= 'Pembimbing Utama';
+                    }
+                    else if($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                        $status_tim .= 'Pembimbing Kedua';
+                    }
+                    if($penguji['status_tim'] == '1'){
+                        if($penguji['nip'] == $tesis->nip_pembimbing_satu || $penguji['nip'] == $tesis->nip_pembimbing_dua){
+                            $status_tim .= ' / Ketua';
+                        }
+                        else {
+                            $status_tim .= 'Ketua';
+                        }
+                    }
+                    else {
+                        if($penguji['nip'] == $tesis->nip_pembimbing_satu || $penguji['nip'] == $tesis->nip_pembimbing_dua){
+                            $status_tim .= ' / Anggota';
+                        }
+                        else {
+                            $status_tim = 'Anggota';
+                        }
+                    }
+                    echo ' 
+                    <tr>
+                        <td>'.$no.'</td>
+                        <td>'.$penguji['nama'].'</td>
+                        <td>'.$status_tim.'</td>
+                    </tr>';
+                }*/
+                ?>
+                <?php
                 $no = 0;
                 foreach ($pengujis as $uji) {
                     $str_status_tim = '';
                     if ($uji['status_tim'] == '1') {
                         $no++;
-                        $str_status_tim = 'Ketua';
+                        if($uji['nip'] == $tesis->nip_pembimbing_satu ){
+                            $str_status_tim = 'Pembimbing Utama / Ketua';
+                        }
+                        else if ($uji['nip'] == $tesis->nip_pembimbing_dua){
+                            $str_status_tim = 'Pembimbing Kedua / Ketua';
+                        }
+                        else {
+                            $str_status_tim = 'Ketua';
+                        }
                         echo '
                         <tr>
                             <td>'.$no.'</td>
@@ -367,7 +410,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 }
                 foreach ($pengujis as $uji) { 
-                    if($uji['nip'] == $tesis->nip_pembimbing_satu){
+                    if($uji['nip'] == $tesis->nip_pembimbing_satu && $uji['status_tim'] != '1'){
                         $no++;
                         $str_status_tim = 'Pembimbing Utama / Anggota';
                         echo '
@@ -379,7 +422,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 }
                 foreach ($pengujis as $uji) { 
-                    if($uji['nip'] == $tesis->nip_pembimbing_dua){
+                    if($uji['nip'] == $tesis->nip_pembimbing_dua && $uji['status_tim'] != '1'){
                         $no++;
                         $str_status_tim = 'Pembimbing Kedua / Anggota';
                         echo '
@@ -422,7 +465,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $str_status_tim = '';
                     if ($uji['status_tim'] == '1') {
                         $no++;
-                        $str_status_tim = 'Ketua';
+                        if($uji['nip'] == $tesis->nip_pembimbing_satu ){
+                            $str_status_tim = 'Pembimbing Utama / Ketua';
+                        }
+                        else if ($uji['nip'] == $tesis->nip_pembimbing_dua){
+                            $str_status_tim = 'Pembimbing Kedua / Ketua';
+                        }
+                        else {
+                            $str_status_tim = 'Ketua';
+                        }
                         echo '
                         <tr>
                             <td>'.$no.'</td>
@@ -433,7 +484,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 }
                 foreach ($pengujis as $uji) { 
-                    if($uji['nip'] == $tesis->nip_pembimbing_satu){
+                    if($uji['nip'] == $tesis->nip_pembimbing_satu 
+                ){
                         $no++;
                         $str_status_tim = 'Pembimbing Utama / Anggota';
                         echo '
@@ -445,7 +497,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 }
                 foreach ($pengujis as $uji) { 
-                    if($uji['nip'] == $tesis->nip_pembimbing_dua){
+                    if($uji['nip'] == $tesis->nip_pembimbing_dua && $uji['status_tim'] != '1'){
                         $no++;
                         $str_status_tim = 'Pembimbing Kedua / Anggota';
                         echo '

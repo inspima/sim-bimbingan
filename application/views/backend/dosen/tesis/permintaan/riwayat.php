@@ -20,7 +20,7 @@
 </div>
 <hr>
 <div class="btn-group">
-    <a class="<?= ($this->uri->segment(4) == 'pembimbing' OR $this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/permintaan/pembimbing/<?= $id; ?>">Pengajuan</a>
+    <a class="<?= ($this->uri->segment(4) == 'pembimbing' OR $this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/permintaan/pembimbing/<?= $id; ?>">Pengajuan Baru</a>
     <a class="<?= ($this->uri->segment(4) == 'riwayat' OR $this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/permintaan/riwayat/<?= $id; ?>">Riwayat</a> 
 </div>
 <div class="divider10"></div>
@@ -329,16 +329,19 @@
                                 }
                                 if($list['jenis'] >= TAHAPAN_TESIS_PROPOSAL && $list['status_proposal'] >= STATUS_TESIS_PROPOSAL_PENGAJUAN){
                                 ?>
-                                    <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Proposal</a>
+                                    <a href="<?= base_url() ?>dosen/tesis/permintaan/bimbingan_proposal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan Proposal</a><br>
+                                    <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Proposal</a><br><br>
                                 <?php
                                 }
                                 if($list['jenis'] >= TAHAPAN_TESIS_MKPT && $id == S2_ILMU_HUKUM){
                                 ?>
-                                    <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> MKPT</a>
+                                    <a href="<?= base_url() ?>dosen/tesis/permintaan/bimbingan_mkpt/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan MKPT</a><br>
+                                    <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> MKPT</a><br><br>
                                 <?php
                                 }
-                                if($list['jenis'] >= TAHAPAN_TESIS_UJIAN && $list['status_tesis'] == STATUS_TESIS_UJIAN_SETUJUI_BAA){
+                                if($list['jenis'] >= TAHAPAN_TESIS_UJIAN && $list['status_tesis'] >= STATUS_TESIS_UJIAN_SETUJUI_BAA){
                                 ?>
+                                    <a href="<?= base_url() ?>dosen/tesis/permintaan/bimbingan_tesis/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan Tesis</a><br>
                                     <a href="<?= base_url() ?>dosen/tesis/ujian/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Tesis</a>
                                 <?php
                                 }

@@ -69,7 +69,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $status_tim = '';
                 if($penguji['status_tim'] == '1'){
                     $no++;
-                    $status_tim = 'Ketua';
+                    //$status_tim = 'Ketua';
+                    if($penguji['nip'] == $tesis->nip_pembimbing_satu ){
+                        $status_tim = 'Pembimbing Utama / Ketua';
+                    }
+                    else if ($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                        $status_tim = 'Pembimbing Kedua / Ketua';
+                    }
+                    else {
+                        $status_tim = 'Ketua';
+                    }
                     ?>
                     <tr style="line-height: 2">
                         <td rowspan="5" valign="top">Ketua</td>
@@ -82,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             endforeach;
             foreach ($pengujis as $penguji):
-                if($penguji['nip'] == $tesis->nip_pembimbing_satu){
+                if($penguji['nip'] == $tesis->nip_pembimbing_satu && $penguji['status_tim'] != '1'){
                     $no++;
                     $status_tim = 'Pembimbing Utama / Anggota';
                     ?>
@@ -95,7 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             endforeach;
             foreach ($pengujis as $penguji):
-                if($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                if($penguji['nip'] == $tesis->nip_pembimbing_dua && $penguji['status_tim'] != '1'){
                     $no++;
                     $status_tim = 'Pembimbing Kedua / Anggota';
                     ?>
@@ -221,7 +230,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $status_tim = '';
                     if($penguji['status_tim'] == '1'){
                         $no++;
-                        $status_tim = 'Ketua';
+                        //$status_tim = 'Ketua';
+                        if($penguji['nip'] == $tesis->nip_pembimbing_satu ){
+                            $status_tim = 'Pembimbing Utama / Ketua';
+                        }
+                        else if ($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                            $status_tim = 'Pembimbing Kedua / Ketua';
+                        }
+                        else {
+                            $status_tim = 'Ketua';
+                        }
                         ?>
                         <tr style="line-height: 2">
                             <td><?= $status_tim ?></td>
@@ -296,7 +314,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                         $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
                     }
-                    if($penguji['nip'] == $tesis->nip_pembimbing_satu){
+                    if($penguji['nip'] == $tesis->nip_pembimbing_satu && $penguji['status_tim'] != '1'){
                         $no++;
                         $status_tim = 'Anggota';
                         ?>
@@ -374,7 +392,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                         $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
                     }
-                    if($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                    if($penguji['nip'] == $tesis->nip_pembimbing_dua && $penguji['status_tim'] != '1'){
                         $no++;
                         ?>
                         <tr style="line-height: 2">

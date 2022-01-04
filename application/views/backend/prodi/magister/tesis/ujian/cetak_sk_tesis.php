@@ -363,7 +363,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $str_status_tim = '';
                     if ($uji['status_tim'] == '1') {
                         $no++;
-                        $str_status_tim = 'Ketua';
+                        if($uji['nip'] == $tesis->nip_pembimbing_satu ){
+                            $str_status_tim = 'Pembimbing Utama / Ketua';
+                        }
+                        else if ($uji['nip'] == $tesis->nip_pembimbing_dua){
+                            $str_status_tim = 'Pembimbing Kedua / Ketua';
+                        }
+                        else {
+                            $str_status_tim = 'Ketua';
+                        }
                         echo '
                         <tr>
                             <td>'.$no.'</td>
@@ -373,7 +381,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 }
                 foreach ($pengujis as $uji) { 
-                    if($uji['nip'] == $tesis->nip_pembimbing_satu){
+                    if($uji['nip'] == $tesis->nip_pembimbing_satu && $uji['status_tim'] != '1'){
                         $no++;
                         $str_status_tim = 'Pembimbing Utama / Anggota';
                         echo '
@@ -385,7 +393,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 }
                 foreach ($pengujis as $uji) { 
-                    if($uji['nip'] == $tesis->nip_pembimbing_dua){
+                    if($uji['nip'] == $tesis->nip_pembimbing_dua && $uji['status_tim'] != '1'){
                         $no++;
                         $str_status_tim = 'Pembimbing Kedua / Anggota';
                         echo '

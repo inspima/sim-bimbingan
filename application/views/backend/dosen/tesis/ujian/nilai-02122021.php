@@ -190,14 +190,26 @@
                                 $total_nilai = $total_nilai + $nilai_ujian;
                                 $total_nilai_terbobot = $total_nilai_terbobot + ($nilai_ujian*$data['bobot']);
 
-                                echo '
-                                <tr>
-                                    <td>'.$no.'</td>
-                                    <td>'.$data['nama_kriteria_penilaian'].'</td>
-                                    <td class="text-right">'.(number_format($data['bobot'],1)*100).'%</td>
-                                    <td class="text-right"><input type="text" class="text-right form-control" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai"></td>
-                                    <td class="text-right">'.number_format(($nilai_ujian*$data['bobot']),1).'</td>
-                                </tr>';
+                                if($dosen_tim == '1'){
+                                    echo '
+                                    <tr>
+                                        <td>'.$no.'</td>
+                                        <td>'.$data['nama_kriteria_penilaian'].'</td>
+                                        <td class="text-right">'.(number_format($data['bobot'],1)*100).'%</td>
+                                        <td class="text-right"><input type="text" class="text-right form-control" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai"></td>
+                                        <td class="text-right">'.number_format(($nilai_ujian*$data['bobot']),1).'</td>
+                                    </tr>';
+                                }
+                                else {
+                                    echo '
+                                    <tr>
+                                        <td>'.$no.'</td>
+                                        <td>'.$data['nama_kriteria_penilaian'].'</td>
+                                        <td class="text-right">'.(number_format($data['bobot'],1)*100).'%</td>
+                                        <td class="text-right"><input type="text" class="text-right" size="10" name="nilai_'.$data['id'].'" value="'.number_format($nilai_ujian,1).'" id="nilai" hidden="true">'.number_format($nilai_ujian,1).'</td>
+                                        <td class="text-right">'.number_format(($nilai_ujian*$data['bobot']),1).'</td>
+                                    </tr>';
+                                }
                             }
                             $total_seluruh_nilai_terbobot = ($total_seluruh_nilai_terbobot + $total_nilai_terbobot)*count($penguji);
                             echo '
@@ -239,10 +251,14 @@
                         1. Nilai skor yang diberikan paling rendah 40 dan paling tinggi 100<br>
                         2. Skor Terbobot = bobot x nilai skor
                         <br><br>
+                        <?php
+                        if($dosen_tim == '1'){
+                        ?>
                         <div class="form-group">
                             <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan & Setujui Berita Acara</button>
                         </div>
                         <?php
+                        } 
                         echo form_close() ?>
                         <?php
                     }
@@ -361,7 +377,7 @@
             }
             ?>
             <?php 
-            if($tesis->status_ujian_tesis != '' AND $tesis->status_ujian_tesis == '3'){
+            if($tesis->status_ujian_tesis != '' AND $tesis->status_ujian_tesis = '3'){
                 echo form_open('dosen/tesis/ujian/setting_ujian_ulang'); ?>
                 <?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
                 <?php echo formtext('hidden', 'id_tesis', $tesis->id_tesis, 'required') ?>
