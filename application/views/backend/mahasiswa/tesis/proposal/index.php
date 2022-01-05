@@ -191,7 +191,7 @@
                             //if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_DIJADWALKAN) {
                             ?>
                             <a href="<?= base_url() ?>mahasiswa/tesis/proposal/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
-                            <a href="<?= base_url() ?>mahasiswa/tesis/proposal/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan</a>
+                            
                             <?php
                             //}
                             if ($list['status_proposal'] < STATUS_TESIS_PROPOSAL_UJIAN_SELESAI) {

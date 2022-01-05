@@ -109,9 +109,7 @@
                                 <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
                                 <?php
                             }
-                            ?>
-                            <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan</a>
-                            <?php
+                          
                             if ($list['status_mkpt'] <= STATUS_TESIS_MKPT_UJIAN_SELESAI && $list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Edit</a>
