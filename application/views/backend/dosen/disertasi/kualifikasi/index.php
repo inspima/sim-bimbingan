@@ -50,7 +50,7 @@
                         <td class="text-center">
                             <?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => UJIAN_DISERTASI_KUALIFIKASI]); ?>
                             <?php
-                            if ($list['status_kualifikasi'] == STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI && $struktural->id_struktur == STRUKTUR_SPS) {
+                            if ($list['status_kualifikasi'] == STATUS_DISERTASI_KUALIFIKASI_DIJADWALKAN && $struktural->id_struktur == STRUKTUR_SPS) {
                                 ?>
                                 <br/><br/>
                                 <?php echo form_open('dosen/disertasi/kualifikasi/terima') ?>

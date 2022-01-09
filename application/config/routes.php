@@ -317,6 +317,7 @@
 	$route['dashboardd/skripsi/pembimbing_pengajuan'] = 'backend/dosen/skripsi/pembimbing_pengajuan';
 	$route['dashboardd/skripsi/pembimbing_pengajuan/update_pembimbing'] = 'backend/dosen/skripsi/pembimbing_pengajuan/update_pembimbing';
 	$route['dashboardd/skripsi/pembimbing_approve'] = 'backend/dosen/skripsi/pembimbing_approve';
+	$route['dashboardd/skripsi/pembimbing_approve/history'] = 'backend/dosen/skripsi/pembimbing_approve/index_history';
 	$route['dashboardd/skripsi/pembimbing_approve/bimbingan/(:num)'] = 'backend/dosen/skripsi/pembimbing_approve/bimbingan/$1';
 	$route['dashboardd/skripsi/pembimbing_approve/bimbingan_update'] = 'backend/dosen/skripsi/pembimbing_approve/bimbingan_update';
 	$route['dashboardd/skripsi/pembimbing_approve/save_penguji'] = 'backend/dosen/skripsi/pembimbing_approve/save_penguji';

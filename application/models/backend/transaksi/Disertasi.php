@@ -432,14 +432,15 @@
 		public function read_penguji_anggota($id_ujian)
 		{
 			$stts = array('1', '2');
-			$this->db->select('id_penguji');
-			$this->db->from('penguji_disertasi');
-			$this->db->where('id_ujian', $id_ujian);
+			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
+			$this->db->from('penguji_disertasi p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.id_ujian', $id_ujian);
+			$this->db->where_in('p.status', $stts);
 			$this->db->where('status_tim', 2);
-			$this->db->where_in('status', $stts);
 
 			$query = $this->db->get();
-			return $query->row();
+			return $query->result_array();
 		}
 
 		public function read_pengujibentrok($tanggal, $id_jam, $nip)
@@ -1265,12 +1266,6 @@
 						'color' => 'bg-navy'
 					],
 					[
-						'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI,
-						'text' => 'Disetujui Penguji',
-						'keterangan' => 'Disetujui  oleh semua penguji',
-						'color' => 'bg-green'
-					],
-					[
 						'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_SPS,
 						'text' => 'Disetujui SPS',
 						'keterangan' => 'Disetujui Sekertaris Prodi',
@@ -1280,6 +1275,12 @@
 						'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS,
 						'text' => 'Disetujui KPS',
 						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI,
+						'text' => 'Disetujui Penguji',
+						'keterangan' => 'Disetujui  oleh semua penguji',
 						'color' => 'bg-green'
 					],
 					[
@@ -1316,15 +1317,15 @@
 						'color' => 'bg-blue'
 					],
 					[
-						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
-						'text' => 'Disetujui Promotor&Ko-promotor',
-						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
-						'color' => 'bg-green'
-					],
-					[
 						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS,
 						'text' => 'Disetujui KPS',
 						'keterangan' => 'Disetujui Ketua Prodi',
+						'color' => 'bg-green'
+					],
+					[
+						'value' => STATUS_DISERTASI_PROMOTOR_SETUJUI,
+						'text' => 'Disetujui Promotor&Ko-promotor',
+						'keterangan' => 'Disetujui Oleh Promotor/Ko-promotor dan mengisi form Mata Kuliah',
 						'color' => 'bg-green'
 					],
 					[

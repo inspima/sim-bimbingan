@@ -29,7 +29,7 @@
 
 			$data = array(
 				// PAGE //
-				'title' => 'Laporan Penguji Sarjana',
+				'title' => 'Laporan Penguji',
 				'subtitle' => 'Sarjana',
 				'section' => 'backend/dosen/laporan/penguji',
 				// DATA //
@@ -46,7 +46,7 @@
 
 			$data = array(
 				// PAGE //
-				'title' => 'Laporan Penguji Sarjana',
+				'title' => 'Laporan Penguji',
 				'subtitle' => 'Magister',
 				'section' => 'backend/dosen/laporan/penguji',
 				// DATA //
@@ -63,7 +63,7 @@
 
 			$data = array(
 				// PAGE //
-				'title' => 'Laporan Penguji Sarjana',
+				'title' => 'Laporan Penguji',
 				'subtitle' => 'Doktor',
 				'section' => 'backend/dosen/laporan/penguji',
 				// DATA //

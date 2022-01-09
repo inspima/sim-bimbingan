@@ -141,8 +141,6 @@
 					'disertasi' => $this->disertasi->detail($id_disertasi),
 					'wadek1' => $this->struktural->read_wadek1()
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/admin/doktoral/kualifikasi/cetak_undangan';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
@@ -163,7 +161,7 @@
 				$ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
 				$jadwal = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
 				$disertasi = $this->disertasi->detail($id_disertasi);
-				$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+				$pengujis = $this->disertasi->read_penguji_anggota($ujian->id_ujian);
 				$ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
 				$no_sk = $this->input->post('no_sk', true);
 				$tgl_sk = $this->input->post('tgl_sk', true);
@@ -366,8 +364,6 @@
 					'jadwal' => $jadwal,
 					'disertasi' => $this->disertasi->detail($id_disertasi)
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/prodi/doktoral/kualifikasi/cetak_absensi';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');

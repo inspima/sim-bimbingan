@@ -94,7 +94,7 @@
 									</p>
 									<hr class="divider-line-semi-bold"/>
 									<?php
-										if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS) {
+										if ($list['status_kualifikasi'] >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_PENGUJI) {
 											?>
 											<hr style="margin: 5px"/>
 											<!-- SK UJIAN -->
@@ -129,7 +129,7 @@
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_penilaian', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
+<!--											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>-->
 											<?php echo form_close() ?>
 											<hr style="margin: 2px"/>
 											<!-- Nilai Akhir Penilaian -->

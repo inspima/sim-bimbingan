@@ -11,13 +11,13 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title"><?=$subtitle?></h3>
-                <div class="pull-right">
-                </div>
-            </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
+				<div class="btn-group">
+					<a class="<?= ($this->uri->segment(4) == '') ? 'btn btn-default' : 'btn btn-info'; ?>" href="<?php echo base_url() ?>dashboardd/skripsi/pembimbing_approve">Aktif</a>
+					<a class="<?= ($this->uri->segment(4) == 'history') ? 'btn btn-default' : 'btn btn-primary'; ?>" href="<?php echo base_url() ?>dashboardd/skripsi/pembimbing_approve/history">Riwayat</a>
+				</div>
+				<hr class="divider-line-thin"/>
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>

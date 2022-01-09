@@ -81,7 +81,7 @@
 								if ($list['status_promotor'] < STATUS_DISERTASI_PROMOTOR_PENGAJUAN) {
 									?>
 									<hr style="margin: 10px;border-width:2px;"/>
-									<a href="<?= base_url() ?>mahasiswa/disertasi/promotor/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Promotor / Ko-Promotor</a>
+									<a href="<?= base_url() ?>mahasiswa/disertasi/promotor/info/<?= $list['id_disertasi'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-arrow-circle-right"></i> Ajukan Promotor / Ko-Promotor</a>
 									<?php
 								}
 							}

@@ -71,7 +71,7 @@
 					'no_sk' => $no_sk,
 					'semester' => $this->semester->detail_berjalan(),
 					'disertasi' => $disertasi,
-					'wadek' => $this->struktural->read_wadek1(),
+					'dekan' => $this->struktural->read_dekan(),
 					'kps_s3' => $this->struktural->read_kps_s3(),
 				);
 				//print_r($data['penguji_ketua']);die();

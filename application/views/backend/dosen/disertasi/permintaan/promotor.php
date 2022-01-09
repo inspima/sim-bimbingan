@@ -41,10 +41,20 @@
 							<hr style="margin: 10px 0px;border-width:2px;border-color: grey"/>
 
 							<h4>Promotor & Ko-Promotor : </h4>
+							<?php
+								if ($list['status_promotor'] < STATUS_DISERTASI_PROMOTOR_SETUJUI_KPS) {
+									?>
+									<span class="label label-warning">Persetujuan Promotor/Co-Promotor menunggu dari persetujuan oleh KPS</span>
+									<?php
+								}
+							?>
 							<?php $this->view('backend/widgets/disertasi/column_promotor', ['id_disertasi' => $list['id_disertasi']]); ?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MPKK]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', [
+									'disertasi' => $list,
+									'jenis' => TAHAPAN_DISERTASI_MPKK
+							]); ?>
 							<br/>
 							<div class="divider5"></div>
 							<?php
@@ -65,7 +75,10 @@
 							?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', [
+									'disertasi' => $list,
+									'jenis' => TAHAPAN_DISERTASI_PROPOSAL
+							]); ?>
 							<div class="divider5"></div>
 							<?php
 								if ($list['status_proposal'] > 0):
@@ -96,7 +109,10 @@
 							?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_MKPD]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', [
+									'disertasi' => $list,
+									'jenis' => TAHAPAN_DISERTASI_MKPD
+							]); ?>
 							<div class="divider5"></div>
 							<?php
 								if ($list['status_mkpd'] > 0):
@@ -116,7 +132,10 @@
 							?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_KELAYAKAN]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', [
+									'disertasi' => $list,
+									'jenis' => TAHAPAN_DISERTASI_KELAYAKAN
+							]); ?>
 							<div class="divider5"></div>
 							<?php
 								if ($list['status_kelayakan'] > 0):
@@ -146,7 +165,10 @@
 							?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_TERTUTUP]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', [
+									'disertasi' => $list,
+									'jenis' => TAHAPAN_DISERTASI_TERTUTUP
+							]); ?>
 							<div class="divider5"></div>
 							<?php
 								if ($list['status_tertutup'] > 0):
@@ -176,7 +198,10 @@
 							?>
 						</td>
 						<td class="text-center">
-							<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_TERBUKA]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_status', [
+									'disertasi' => $list,
+									'jenis' => TAHAPAN_DISERTASI_TERBUKA
+							]); ?>
 							<div class="divider5"></div>
 							<?php
 								if ($list['status_terbuka'] > 0):

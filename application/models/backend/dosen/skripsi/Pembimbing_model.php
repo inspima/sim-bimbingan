@@ -68,6 +68,21 @@
 			$this->db->where('p.status', 2);
 			$this->db->where('p.status_bimbingan', 2);
 			$this->db->where('s.status_proposal >=', STATUS_SKRIPSI_PROPOSAL_SELESAI);
+			$this->db->where('s.status_skripsi <', STATUS_SKRIPSI_UJIAN_SELESAI);
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_history($username)
+		{
+			$this->db->select('p.id_pembimbing, p.id_skripsi, p.nip, m.nim, m.nama, d.departemen');
+			$this->db->from('pembimbing p');
+			$this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+			$this->db->where('p.nip', $username);
+			$this->db->where('s.status_skripsi >=', STATUS_SKRIPSI_UJIAN_SELESAI);
 
 			$query = $this->db->get();
 			return $query->result_array();

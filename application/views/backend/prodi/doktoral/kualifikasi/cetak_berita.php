@@ -130,12 +130,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						?>
 						<tr style="line-height: 2">
 							<td style="width: 3%"><b><?= $no ?></b>.</td>
-							<td style="width: 48%"><?= $penguji['nama'] ?></td>
-							<td style="width: 20%">(<?= $penguji['status_tim']==1?'Ketua':'Anggota' ?>)</td>
+							<td style="width: 57%"><?= $penguji['nama'] ?></td>
+							<td style="width: 15%">(<?= $penguji['status_tim']==1?'Ketua':'Anggota' ?>)</td>
 							<?php if ($no % 2 == 0):
 								?>
-								<td style="width: 15%"></td>
-								<td style="width: 15%;text-align: left;">
+								<td style="width: 13%"></td>
+								<td style="width: 13%;text-align: left;">
 									<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
 										?>
 										<?= $no ?>.

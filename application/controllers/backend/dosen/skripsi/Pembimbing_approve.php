@@ -24,6 +24,7 @@
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
 			$this->load->model('backend/dosen/skripsi/Pembimbing_model', 'pembimbing');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
+			$this->load->model('backend/transaksi/skripsi', 'transaksi_skripsi');
 			$this->load->model('backend/utility/ActionLog', 'action_log');
 			//END MODEL
 		}
@@ -33,11 +34,25 @@
 			$username = $this->session_data['username'];
 			$data = array(
 				// PAGE //
-				'title' => 'Skripsi (Pembimbing)',
+				'title' => 'Sarjanah',
 				'subtitle' => 'Skripsi(Pembimbing)',
 				'section' => 'backend/dosen/skripsi/pembimbing_approve',
 				// DATA //
 				'pembimbing' => $this->pembimbing->read_approve($username)
+			);
+			$this->load->view('backend/index_sidebar', $data);
+		}
+
+		public function index_history()
+		{
+			$username = $this->session_data['username'];
+			$data = array(
+				// PAGE //
+				'title' => 'Sarjanah',
+				'subtitle' => 'Skripsi(Pembimbing)',
+				'section' => 'backend/dosen/skripsi/pembimbing_history',
+				// DATA //
+				'pembimbing' => $this->pembimbing->read_history($username)
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}
@@ -81,8 +96,8 @@
 			$username = $this->session_data['username'];
 			$data = array(
 				// PAGE //
-				'title' => 'Bimbingan Skripsi',
-				'subtitle' => 'Bimbingan Skripsi',
+				'title' => 'Sarjanah',
+				'subtitle' => 'Bimbingan Skripsi (Pembimbing)',
 				'section' => 'backend/dosen/skripsi/pembimbing_approve_bimbingan',
 				'use_back' => true,
 				'back_link' => 'dashboardd/skripsi/pembimbing_approve',

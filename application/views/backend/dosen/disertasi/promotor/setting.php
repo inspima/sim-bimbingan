@@ -67,7 +67,7 @@
 						<?php echo form_close() ?>
 						<?php $this->view('backend/widgets/disertasi/list_promotor_kopromotor', ['disertasi' => $disertasi]); ?>
 						<?php
-						if ($disertasi->status_promotor == STATUS_DISERTASI_PROMOTOR_SETUJUI):
+						if ($disertasi->status_promotor == STATUS_DISERTASI_PROMOTOR_PENGAJUAN):
 							?>
 							<?php echo form_open('dosen/disertasi/promotor/setujui'); ?>
 							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>

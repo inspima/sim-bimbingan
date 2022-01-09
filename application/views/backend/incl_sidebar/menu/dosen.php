@@ -9,7 +9,6 @@
             </span>
 		</a>
 		<ul class="treeview-menu">
-			<li><a href=""><i class="fa fa-circle-o"></i>Bimbingan</a></li>
 			<li><a href="<?php echo base_url() ?>dosen/laporan/penguji/sarjana"><i class="fa fa-circle-o"></i>Penguji</a></li>
 		</ul>
 	</li>

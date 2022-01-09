@@ -199,6 +199,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <table border="0" style="width:100%;margin-top: 100px">
 	<tr>
 		<td style="width: 35%">
+
+		</td>
+		<td style="width: 20%"></td>
+		<td style="width: 35%">
+			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
+			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
+			Dekan,
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<?= $dekan->nama_dosen ?><br/>
+			NIP:<?= $dekan->nip ?><
+		</td>
+	</tr>
+</table>
+
+
+<table border="0" style="width:100%;">
+	<tr>
+		<td style="width: 40%">
+			Salinan disampaikan kepada Yth. :<br/>
+			1. Yang bersangkutan<br/>
+			2. Kasubbag Keu. dan SDM
+		</td>
+	</tr>
+</table>
+
+<table border="0" style="width:100%;">
+	<tr>
+		<td style="width: 30%">
+		<td style="width: 40%">
 			Salinan sesuai dengan Aslinya<br/>
 			Koordinator Program,<br/>
 			<br/>
@@ -206,31 +239,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<br/>
 			<br/>
 			<br/>
-			<?= $kps_s3->nama_dosen ?><br/>
-			NIP:<?= $kps_s3->nip ?><
+			<?=$kps_s3->nama_dosen?><br/>
+			NIP:<?=$kps_s3->nip?><
 		</td>
-		<td style="width: 20%"></td>
-		<td style="width: 35%">
-			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
-			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<?= $wadek->nama_dosen ?><br/>
-			NIP:<?= $wadek->nip ?><
-		</td>
-	</tr>
-</table>
-
-<table border="0" style="width:100%;">
-	<tr>
-		<td style="width: 40%">
-			Salinan disampaikan kepada Yth. :<br/>
-			1. Kasubbag. Keuangan dan Sumber Daya Manusia<br/>
-			2. Yang bersangkutan
-		</td>
+		<td style="width: 30%">
 	</tr>
 </table>
 
@@ -321,15 +333,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <table border="0" style="width:100%;margin-top: 100px">
 	<tr>
 		<td style="width: 35%">
-			Salinan sesuai dengan Aslinya<br/>
-			Koordinator Program,<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<?= $kps_s3->nama_dosen ?><br/>
-			NIP:<?= $kps_s3->nip ?><
+			
 		</td>
 		<td style="width: 20%"></td>
 		<td style="width: 35%">
@@ -340,9 +344,37 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<br/>
 			<br/>
 			<br/>
-			<?= $wadek->nama_dosen ?><br/>
-			NIP:<?= $wadek->nip ?><
+			<?= $dekan->nama_dosen ?><br/>
+			NIP:<?= $dekan->nip ?><
 		</td>
+	</tr>
+</table>
+
+<table border="0" style="width:100%;">
+	<tr>
+		<td style="width: 40%">
+			Salinan disampaikan kepada Yth. :<br/>
+			1. Yang bersangkutan<br/>
+			2. Kasubbag Keu. dan SDM
+		</td>
+	</tr>
+</table>
+
+<table border="0" style="width:100%;">
+	<tr>
+		<td style="width: 30%">
+		<td style="width: 40%">
+			Salinan sesuai dengan Aslinya<br/>
+			Koordinator Program,<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<?=$kps_s3->nama_dosen?><br/>
+			NIP:<?=$kps_s3->nip?><
+		</td>
+		<td style="width: 30%">
 	</tr>
 </table>
 

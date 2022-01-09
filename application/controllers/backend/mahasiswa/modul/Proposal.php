@@ -318,6 +318,39 @@
 			}
 		}
 
+		public function revisi($id)
+		{
+			$username = $this->session_data['username'];
+
+			$data = array(
+				// PAGE //
+				'title' => 'Modul (Mahasiswa)',
+				'subtitle' => 'Revisi - Ujian Proposal Skripsi',
+				'section' => 'backend/mahasiswa/modul/proposal_revisi',
+				'use_back' => true,
+				'back_link' => 'dashboardm/modul/proposal',
+				// DATA //
+				'proposal' => $this->proposal->detail($id, $username),
+				'ujian' => $this->proposal->ujian($id, $username)
+			);
+			if ($data['ujian']) {
+				$data['penguji'] = $this->proposal->read_penguji($data['ujian']->id_ujian);
+				$this->load->view('backend/index_sidebar', $data);
+			} else {
+				$data = array(
+					'title' => 'Modul (Mahasiswa)',
+					'subtitle' => 'Pengajuan Proposal Skripsi (Jadwal Ujian)',
+					'section' => 'backend/notification/error',
+					'use_back' => true,
+					'back_link' => 'dashboardm/modul/proposal',
+					// DATA //
+					'message_title' => 'Data Tidak ditemukan',
+					'message' => ' Ujian belum disetting Kadep / Penguji belum melakukan persetujuan',
+				);
+				$this->load->view('backend/index_sidebar', $data);
+			}
+		}
+
 	}
 
 ?>

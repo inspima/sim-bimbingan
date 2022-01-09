@@ -144,7 +144,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<tr>
 					<td align="center">
 						<h3 style="margin: 5px;font-weight: bold">
-							MENETAPKAN
+							MEMUTUSKAN
 						</h3>
 					</td>
 				</tr>
@@ -155,7 +155,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <table border="0" style="width:100%">
 	<tr>
 		<td style="width: 23%">Menetapkan</td>
-		<td style="width: 2%">:</td>
+		<td style="width: 2%"></td>
 		<td style="width: 75%">
 		</td>
 	</tr>
@@ -193,15 +193,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <table border="0" style="width:100%;margin-top: 100px">
 	<tr>
 		<td style="width: 35%">
-			Salinan sesuai dengan Aslinya<br/>
-			Koordinator Program,<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<?=$kps_s3->nama_dosen?><br/>
-			NIP:<?=$kps_s3->nip?><
+
 		</td>
 		<td style="width: 20%"></td>
 		<td style="width: 35%">
@@ -217,16 +209,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</td>
 	</tr>
 </table>
-
 <table border="0" style="width:100%;">
 	<tr>
 		<td style="width: 40%">
 			Salinan disampaikan kepada Yth. :<br/>
-			1. Kasubbag. Keuangan dan Sumber Daya Manusia<br/>
-			2. Yang bersangkutan
+			1. Yang bersangkutan<br/>
+			2. Kasubbag Keu. dan SDM
 		</td>
 	</tr>
 </table>
+
+<table border="0" style="width:100%;">
+	<tr>
+		<td style="width: 30%">
+		<td style="width: 40%">
+			Salinan sesuai dengan Aslinya<br/>
+			Koordinator Program,<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<?=$kps_s3->nama_dosen?><br/>
+			NIP:<?=$kps_s3->nip?><
+		</td>
+		<td style="width: 30%">
+	</tr>
+</table>
+
 
 
 <div class="page_break"></div>
@@ -256,7 +266,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </table>
 <table border="0" style="width:100%">
 	<tr>
-		<td colspan="3">Keputusan Dekan Fakultas Hukum Universitas Airlangga</td>
+		<td colspan="3">Lampiran Keputusan Dekan Fakultas Hukum Universitas Airlangga</td>
 		</td>
 	</tr>
 	<tr>
@@ -276,31 +286,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </table>
 <table class="bordered padded" border="1" style="width:100%;margin-top: 20px">
 	<tr>
-		<th>No</th>
-		<th>NIM</th>
-		<th>Nama</th>
-		<th>Penasehat Akademik</th>
+		<th style="width: 15%">No</th>
+		<th style="width: 15%">NIM</th>
+		<th style="width: 20%">Nama</th>
+		<th style="width: 20%">Penasehat Akademik</th>
+		<th style="width: 30%">Judul</th>
 	</tr>
 	<tr>
 		<td>1</td>
 		<td><?=$disertasi->nim?></td>
 		<td><?=$disertasi->nama?></td>
 		<td><?=$disertasi->nama_penasehat?></td>
+		<td><?=$disertasi->judul?></td>
 	</tr>
 </table>
 
 <table border="0" style="width:100%;margin-top: 100px">
 	<tr>
 		<td style="width: 35%">
-			Salinan sesuai dengan Aslinya<br/>
-			Koordinator Program,<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<?=$kps_s3->nama_dosen?><br/>
-			NIP:<?=$kps_s3->nip?><
+
 		</td>
 		<td style="width: 20%"></td>
 		<td style="width: 35%">
@@ -317,5 +321,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</tr>
 </table>
 
+<table border="0" style="width:100%;">
+	<tr>
+		<td style="width: 40%">
+			Salinan disampaikan kepada Yth. :<br/>
+			1. Yang bersangkutan<br/>
+			2. Kasubbag Keu. dan SDM
+		</td>
+	</tr>
+</table>
+
+<table border="0" style="width:100%;">
+	<tr>
+		<td style="width: 30%">
+		<td style="width: 40%">
+			Salinan sesuai dengan Aslinya<br/>
+			Koordinator Program,<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<?=$kps_s3->nama_dosen?><br/>
+			NIP:<?=$kps_s3->nip?><
+		</td>
+		<td style="width: 30%">
+	</tr>
+</table>
 </body>
 </html>
