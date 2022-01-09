@@ -222,28 +222,29 @@
 				if ($struktural->id_struktur == '5') {
 					$id_skripsi = $this->input->post('id_skripsi', true);
 					$id_ujian = $this->input->post('id_ujian', true);
+					$id_ruang=$this->input->post('id_ruang', true);
+					$id_jam=$this->input->post('id_jam', true);
+					$tgl=todb($this->input->post('tanggal', true));
 					$data_skripsi = [
 						'status_skripsi' => STATUS_SKRIPSI_UJIAN_DIJADWALKAN
 					];
 					$data = array(
-						'id_ruang' => $this->input->post('id_ruang', true),
-						'id_jam' => $this->input->post('id_jam', true),
-						'tanggal' => todb($this->input->post('tanggal', true)),
+						'id_ruang' => $id_ruang,
+						'id_jam' => $id_jam,
+						'tanggal' => $tgl,
 					);
-
+					$ruang = $this->ruang->detail($id_ruang);
 					$cek_jadwal = $this->skripsi->cek_ruang_terpakai($data);
 
-					if ($cek_jadwal) {
+					if ($cek_jadwal&&$ruang->ruang!='ON') {
 						$this->session->set_flashdata('msg-title', 'alert-danger');
 						$this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
 						redirect('dashboardd/skripsi/kadep_blm_skripsi/ujian_plot/' . $id_skripsi . '/' . $id_ujian);
 					} else {
 						$penguji = $this->skripsi->read_penguji_tanpatolak($id_ujian);
-
 						if ($penguji) {
 							foreach ($penguji as $list) {
 								$bentrok = $this->skripsi->read_pengujibentrok($data['tanggal'], $data['id_jam'], $list['nip']);
-								break;
 							}
 
 							if ($bentrok) {
