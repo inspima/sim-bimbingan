@@ -869,7 +869,7 @@ class Ujian extends CI_Controller {
             $total_nilai_terbobot = 0;
             foreach ($jumlah_nilai as $data_kriteria) {
                 $id_penguji = $id_penguji;
-                $nilai_penguji = $this->tesis->read_penilaian(id_penguji, $data_kriteria['id']);
+                $nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data_kriteria['id']);
                 //$nilai_penguji = $this->tesis->read_penilaian($id_penguji, $data['id']);
 
 
