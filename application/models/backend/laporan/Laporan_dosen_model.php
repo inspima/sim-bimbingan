@@ -37,7 +37,7 @@
 			$this->db->from('penguji_tesis p');
 			$this->db->join('ujian_tesis u', 'p.id_ujian = u.id_ujian');
 			$this->db->join('tesis s', 'u.id_tesis = s.id_tesis');
-			$this->db->join('judul_tesis jud', 'jud.id_tesis = s.id_tesis and jud.status=1 ');
+			$this->db->join('judul_tesis jud', 'jud.id_tesis = s.id_tesis and jud.status=1 and jud.jenis=1 ');
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
