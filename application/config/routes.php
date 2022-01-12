@@ -140,11 +140,13 @@
 	$route['dashboarda/master/user/add_pegawai'] = 'backend/administrator/master/admin_user/add_pegawai';
 	$route['dashboarda/master/user/add_dosen'] = 'backend/administrator/master/admin_user/add_dosen';
 	$route['dashboarda/master/user/edit_pegawai/(:num)/(:num)'] = 'backend/administrator/master/admin_user/edit_pegawai/$1/$2';
+	$route['dashboarda/master/user/edit_nip/(:num)/(:num)'] = 'backend/administrator/master/admin_user/edit_nip/$1/$2';
+	$route['dashboarda/master/user/detail/(:num)'] = 'backend/administrator/master/admin_user/detail/$1';
 	$route['dashboarda/master/user/save_pegawai'] = 'backend/administrator/master/admin_user/save_pegawai';
 	$route['dashboarda/master/user/save_dosen'] = 'backend/administrator/master/admin_user/save_dosen';
 	$route['dashboarda/master/user/update_pegawai'] = 'backend/administrator/master/admin_user/update_pegawai';
-	$route['dashboarda/master/user/detail/(:num)'] = 'backend/administrator/master/admin_user/detail/$1';
 	$route['dashboarda/master/user/update_password'] = 'backend/administrator/master/admin_user/update_password';
+	$route['dashboarda/master/user/update_nip'] = 'backend/administrator/master/admin_user/update_nip';
 	$route['dashboarda/master/user/direct_login'] = 'backend/administrator/master/admin_user/direct_login';
 	$route['dashboarda/master/user/reset_verifikasi'] = 'backend/administrator/master/admin_user/reset_verifikasi';
 

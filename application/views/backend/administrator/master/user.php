@@ -153,6 +153,17 @@
 											<?php
 										}
 									?>
+									<?php
+										if ($list['sebagai'] == '2'||$list['sebagai'] == '1') { // pegawai
+											?>
+											<div class="divider5"></div>
+											<a class="btn btn-xs btn-danger" href="<?= base_url() ?>dashboarda/master/user/edit_nip/<?= $list['id_user'] ?>/<?= $list['id_pegawai'] ?>">
+												<i class="fa fa-user"></i> Edit NIP/NIK
+											</a>
+											<?php
+										}
+									?>
+
 								</td>
 							</tr>
 							<?php

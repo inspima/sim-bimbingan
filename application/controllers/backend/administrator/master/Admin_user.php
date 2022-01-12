@@ -94,6 +94,23 @@
 			$this->load->view('backend/index_sidebar', $data);
 		}
 
+		public function edit_nip($id_user, $id_pegawai)
+		{
+			$data = array(
+				// PAGE //
+				'title' => 'Master User - Edit Pegawai',
+				'subtitle' => 'Administrator',
+				'section' => 'backend/administrator/master/user_edit_nip',
+				'use_back' => true,
+				'back_link' => 'dashboarda/master/user',
+				'id_user' => $id_user,
+				'id_pegawai' => $id_pegawai,
+				'pegawai' => $this->user->detail_pegawai($id_pegawai),
+				// DATA //
+			);
+			$this->load->view('backend/index_sidebar', $data);
+		}
+
 		public function save_pegawai()
 		{
 			$hand = $this->input->post('hand', true);
@@ -243,6 +260,107 @@
 			}
 		}
 
+		public function update_nip()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_pegawai = $this->input->post('id_pegawai', true);
+				$pegawai = $this->user->detail_pegawai($id_pegawai);
+				$nip_lama = $pegawai->nip;
+				$nip_baru = $this->input->post('nip', true);
+				if ($nip_lama != $nip_baru) {
+					$this->db->trans_begin();
+					if ($pegawai->sebagai == '1') {
+						// Update Dosen
+						//Query Update User
+						$query_update_user = "update user set username='{$nip_baru}' where username='{$nip_lama}'";
+						// echo $query_update_user.'<br/>';
+						$this->db->query($query_update_user);
+						// Update Pegawai
+						$query_update_pegawai = "update pegawai set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_pegawai.'<br/>';
+						$this->db->query($query_update_pegawai);
+						// Update Pembimbing
+						$query_update_pembimbing = "update pembimbing set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_pembimbing.'<br/>';
+						$this->db->query($query_update_pembimbing);
+						// Update Promotor
+						$query_update_promotor = "update promotor set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_promotor.'<br/>';
+						$this->db->query($query_update_promotor);
+						// Update Tesis Pembimbing 1
+						$query_update_pembimbing_tesis1 = "update tesis set nip_pembimbing_satu='{$nip_baru}' where nip_pembimbing_satu='{$nip_lama}'";
+						// echo $query_update_pembimbing_tesis1.'<br/>';
+						$this->db->query($query_update_pembimbing_tesis1);
+						// Update Tesis Pembimbing 2
+						$query_update_pembimbing_tesis2 = "update tesis set nip_pembimbing_dua='{$nip_baru}' where nip_pembimbing_dua='{$nip_lama}'";
+						// echo $query_update_pembimbing_tesis2.'<br/>';
+						$this->db->query($query_update_pembimbing_tesis2);
+						// Update Penasehat
+						$query_update_penasehat = "update disertasi set nip_penasehat='{$nip_baru}' where nip_penasehat='{$nip_lama}'";
+						// echo $query_update_penasehat.'<br/>';
+						$this->db->query($query_update_penasehat);
+						// Update Penguji S1
+						$query_update_penguji = "update penguji set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_penguji.'<br/>';
+						$this->db->query($query_update_penguji);
+						// Update Penguji S2
+						$query_update_penguji2 = "update penguji_tesis set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_penguji2.'<br/>';
+						$this->db->query($query_update_penguji2);
+						// Update Penguji S3
+						$query_update_penguji3 = "update penguji_disertasi set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_penguji3.'<br/>';
+						$this->db->query($query_update_penguji3);
+						// Update MKPT TESIS
+						$query_update_tesis_mkpt = "update tesis_mkpt_pengampu set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_tesis_mkpt.'<br/>';
+						$this->db->query($query_update_tesis_mkpt);
+						// Update MKPKK
+						$query_update_mkpkk = "update mkpkk_pengampu set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						// echo $query_update_mkpkk.'<br/>';
+						$this->db->query($query_update_mkpkk);
+						// Update Dokumen Persetujuan
+						$query_update_dokumen_persetujuan = "update dokumen_persetujuan set identitas='{$nip_baru}' where identitas='{$nip_lama}'";
+						//echo $query_update_dokumen_persetujuan.'<br/>';
+						$this->db->query($query_update_dokumen_persetujuan);
+					} else if ($pegawai->sebagai == '2') {
+						// Update Tendik
+						//Query Update User
+						$query_update_user = "update user set username='{$nip_baru}' where username='{$nip_lama}'";
+						//echo $query_update_user.'<br/>';
+						$this->db->query($query_update_user);
+						// Update Pegawai
+						$query_update_pegawai = "update pegawai set nip='{$nip_baru}' where nip='{$nip_lama}'";
+						//echo $query_update_pegawai.'<br/>';
+						$this->db->query($query_update_pegawai);
+					}
+
+					if ($this->db->trans_status() === false) {
+						$this->db->trans_rollback();
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', 'Query gagal');
+						redirect_back();
+					} else {
+						$this->db->trans_commit();
+						$this->session->set_flashdata('msg-title', 'alert-success');
+						$this->session->set_flashdata('msg', 'Berhasil update');
+						redirect_back();
+					}
+				} else {
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', 'Tidak ada perubahan data');
+					redirect_back();
+				}
+
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect('dashboarda/master/dosen');
+			}
+		}
+
+
 		public function update_password()
 		{
 			$hand = $this->input->post('hand', true);
@@ -326,7 +444,7 @@
 						'role' => $result->role,
 						'sebagai' => $result->sebagai,
 						'email' => $result->email,
-						'verifikasi'=>$result->verifikasi
+						'verifikasi' => $result->verifikasi
 					);
 				} else {
 					$data = array(
