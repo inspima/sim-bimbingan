@@ -112,10 +112,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $urut = 0;
                         $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
-                            $urut++;
+                            /*$urut++;
                             if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                                 $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                            }
+                            }*/
                             $status_tim = '';
                             if($penguji['status_tim'] == '1'){
                                 $no++;
@@ -129,6 +129,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 else {
                                     $status_tim = 'Ketua';
                                 }
+                                foreach($dokumen_persetujuan as $dp){
+                                    if($dp['identitas'] == $penguji['nip']){
+                                        $ttd_waktu = $dp['waktu'];
+                                    }
+                                }
                                 ?>
                                 <tr style="line-height: 2">
                                     <td style="width: 4%"><?= $no ?>.</td>
@@ -199,13 +204,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $urut = 0;
                         $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
-                            $urut++;
+                            /*$urut++;
                             if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                                 $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                            }
+                            }*/
                             if($penguji['nip'] == $tesis->nip_pembimbing_satu && $penguji['status_tim'] != '1'){
                                 $no++;
                                 $status_tim = 'Pembimbing Utama / Anggota';
+                                foreach($dokumen_persetujuan as $dp){
+                                    if($dp['identitas'] == $penguji['nip']){
+                                        $ttd_waktu = $dp['waktu'];
+                                    }
+                                }
                                 ?>
                                 <tr style="line-height: 2">
                                     <td style="width: 4%"><?= $no ?>.</td>
@@ -275,13 +285,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $urut = 0;
                         $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
-                            $urut++;
+                            /*$urut++;
                             if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                                 $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                            }
+                            }*/
                             if($penguji['nip'] == $tesis->nip_pembimbing_dua && $penguji['status_tim'] != '1'){
                                 $no++;
                                 $status_tim = 'Pembimbing Kedua / Anggota';
+                                foreach($dokumen_persetujuan as $dp){
+                                    if($dp['identitas'] == $penguji['nip']){
+                                        $ttd_waktu = $dp['waktu'];
+                                    }
+                                }
                                 ?>
                                 <tr style="line-height: 2">
                                     <td style="width: 4%"><?= $no ?>.</td>
@@ -350,13 +365,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $urut = 0;
                         $ttd_waktu = '';
                         foreach ($pengujis as $penguji):
-                            $urut++;
+                            /*$urut++;
                             if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                                 $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                            }
+                            }*/
                             if($penguji['status_tim'] == '2' && $penguji['nip'] != $tesis->nip_pembimbing_satu && $penguji['nip'] != $tesis->nip_pembimbing_dua){
                                 $no++;
                                 $status_tim = 'Anggota';
+                                foreach($dokumen_persetujuan as $dp){
+                                    if($dp['identitas'] == $penguji['nip']){
+                                        $ttd_waktu = $dp['waktu'];
+                                    }
+                                }
                                 ?>
                                 <tr style="line-height: 2">
                                     <td style="width: 4%"><?= $no ?>.</td>
