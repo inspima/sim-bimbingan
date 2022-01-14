@@ -504,6 +504,80 @@ class Judul extends CI_Controller {
         }
     }
 
+    public function bimbingan() {
+        $id_tesis = $this->uri->segment('5');
+
+        $username = $this->session_data['username'];
+
+        $data = array(
+            'title' => 'Modul (Mahasiswa)',
+            'subtitle' => 'Bimbingan :: Tesis - Proposal',
+            'section' => 'backend/mahasiswa/tesis/judul/bimbingan',
+            'use_back' => true,
+            'back_link' => 'mahasiswa/tesis/judul',
+            // DATA //            
+            'bimbingan' => $this->tesis->read_bimbingan_tesis($id_tesis, UJIAN_TESIS_PROPOSAL),
+            'tesis' => $this->tesis->detail($id_tesis),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
+    public function bimbingan_save() {
+        $hand = $this->input->post('hand', TRUE);
+        if ($hand == 'center19') {
+            $id_tesis = $this->input->post('id_tesis', TRUE);
+
+            $hal = $this->input->post('hal', TRUE);
+            $tgl = todb($this->input->post('tgl_bimbingan', TRUE));
+
+            $file_name = $this->session_data['username'] . '_bimbingan_proposal_'.$tgl.'.pdf';
+            $config['upload_path'] = './assets/upload/mahasiswa/tesis/proposal/bimbingan';
+            $config['allowed_types'] = 'pdf';
+            $config['max_size'] = 2048;
+            $config['remove_spaces'] = TRUE;
+            $config['file_ext_tolower'] = TRUE;
+            $config['detect_mime'] = TRUE;
+            $config['mod_mime_fix'] = TRUE;
+            $config['file_name'] = $file_name;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if($_FILES['berkas_bimbingan_proposal']['size'] != 0){
+                if ($this->upload->do_upload('berkas_bimbingan_proposal')) {
+                    $data = array(
+                        'id_tesis' => $id_tesis,
+                        'jenis' => UJIAN_TESIS_PROPOSAL,
+                        'status' => 1,
+                        'tanggal' => $tgl,
+                        'hal' => $hal,
+                        'file' => $file_name,
+                    );
+                    $this->tesis->save_bimbingan($data);
+                }
+                else {
+                    echo "Error Upload"; die;
+                }
+            }
+
+            $this->session->set_flashdata('msg-title', 'alert-success');
+            $this->session->set_flashdata('msg', 'Berhasil disimpan');
+            redirect('mahasiswa/tesis/judul/bimbingan/'.$id_tesis);
+        } else {
+            $this->session->set_flashdata('msg-title', 'alert-danger');
+            $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+            redirect('mahasiswa/tesis/judul/bimbingan/'.$id_tesis);
+        }
+    }
+
+    public function delete_bimbingan() {
+        $id_tesis = $this->uri->segment(5);
+        $id_bimbingan = $this->uri->segment(6);
+        $this->tesis->delete_bimbingan($id_bimbingan);
+        $this->session->set_flashdata('msg-title', 'alert-danger');
+        $this->session->set_flashdata('msg', 'Bimbingan dihapus');
+        redirect('mahasiswa/tesis/judul/bimbingan/'.$id_tesis);
+    }
+
 }
 
 ?>

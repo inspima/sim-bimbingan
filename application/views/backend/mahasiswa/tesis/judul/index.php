@@ -167,11 +167,16 @@
                                 <a href="<?= base_url() ?>mahasiswa/tesis/judul/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Edit</a>
                             <?php
                             }
-                            if ($list['status_proposal'] < STATUS_TESIS_JUDUL_PENGAJUAN && $list['status_judul'] == STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING)
+                            if ($list['status_judul'] == STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING)
                             {
                             ?>
-                                <a href = "<?= base_url() ?>mahasiswa/tesis/proposal/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
-                            <?php
+                                <a href="<?= base_url() ?>mahasiswa/tesis/judul/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a>
+                                <?php
+                                if ($list['status_proposal'] < STATUS_TESIS_JUDUL_PENGAJUAN && count($this->tesis->read_bimbingan_tesis_approved($list['id_tesis'], UJIAN_TESIS_PROPOSAL)) >= 3 ){
+                                ?>
+                                    <a href = "<?= base_url() ?>mahasiswa/tesis/proposal/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
+                                <?php
+                                }
                             }
                             ?>
                         </td>

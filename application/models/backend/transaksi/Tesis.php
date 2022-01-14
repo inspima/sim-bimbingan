@@ -2370,6 +2370,29 @@
 			return $query->result_array();
 		}
 
+		public function read_bimbingan_tesis_approved($id_tesis, $jenis_ujian)
+		{
+			$this->db->select('s.*, bt.*, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
+            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua,
+            d.departemen, mt.nm_minat');
+			$this->db->from('bimbingan_tesis bt');
+			$this->db->join('tesis s', 's.id_tesis = bt.id_tesis', 'left');
+			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
+			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
+			$this->db->where('bt.id_tesis', $id_tesis);
+			$this->db->where('bt.jenis', $jenis_ujian);
+			$this->db->where('bt.status !=', 3);
+			$this->db->where('bt.status_apv_pembimbing_satu =', 1);
+			$this->db->where('bt.status_apv_pembimbing_dua =', 2);
+			//$this->db->order_by('s.tgl_pengajuan', 'desc');
+			$this->db->order_by('bt.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function save_bimbingan($data)
 		{
 			$this->db->insert('bimbingan_tesis', $data);

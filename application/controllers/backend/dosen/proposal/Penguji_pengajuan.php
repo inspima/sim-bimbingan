@@ -56,7 +56,7 @@
 				);
 				$this->penguji->update_penguji($data, $id_penguji);
 				// Save Log
-				$this->action_log->saveActionLogByIdSkripsi($id_skripsi, $this->session_data['username'], ACTION_VERB_PENGUJI, ACTION_OBJECT_PROPOSAL_SKRIPSI, true);
+				$this->action_log->saveActionLogByIdSkripsi($id_skripsi, $this->session_data['username'], ACTION_VERB_PENGUJI, ACTION_OBJECT_PROPOSAL_SKRIPSI, $status == 2);
 				// Cek semua Penguji Approve
 				$semua_approve = $this->skripsi->semua_penguji_setuju($id_ujian);
 				if ($semua_approve) {
