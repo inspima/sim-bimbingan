@@ -161,16 +161,30 @@
 								<option value="">- Pilih -</option>
 								<?php
 									foreach ($mdosen as $list) {
-										?>
-										<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
-										<?php
+										if ($this->session_data['username'] != $list['nip']) {
+											?>
+											<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+											<?php
+										}
 									}
 								?>
 							</select>
 						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
-						</div>
+						<?php
+							if ($penguji_temp) {
+								?>
+								<div class="form-group">
+									<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-check"></i> Ubah</button>
+								</div>
+								<?php
+							}else{
+								?>
+								<div class="form-group">
+									<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
+								</div>
+								<?php
+							}
+						?>
 						<?php echo form_close() ?>
 						<div class="form-group">
 							<table class="table table-bordered">
@@ -180,16 +194,19 @@
 								</tr>
 								</thead>
 								<tbody>
-								<tr>
-									<td><?php
-											if ($penguji_temp) {
-												echo $penguji_temp->nama . '<br/>' . $penguji_temp->nip;
-											} else {
-
-											}
+								<?php
+									if ($penguji_temp) {
 										?>
-									</td>
-								</tr>
+										<tr>
+											<td>
+												<?php echo $penguji_temp->nama . '<br/>' . $penguji_temp->nip; ?>
+											</td>
+										</tr>
+										<?php
+
+									}
+								?>
+
 								</tfoot>
 							</table>
 						</div>
