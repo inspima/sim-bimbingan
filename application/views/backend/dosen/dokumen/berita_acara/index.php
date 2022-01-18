@@ -65,7 +65,7 @@
 				<th class="text-center">Tanggal</th>
 				<th class="text-center">Mahasiswa</th>
 				<th class="text-center">Berkas</th>
-				<th class="text-center">Opsi</th>
+				<th class="text-center">Aksi</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -75,7 +75,22 @@
 					?>
 					<tr>
 						<td><?= $no ?></td>
-						<td><?php echo $dokumen['nama'] ?></td>
+						<td>
+							<?php echo $dokumen['nama'] ?><br/>
+							<?php
+								$setujui_semua = $this->dokumen->cek_dokumen_setujui_semua($dokumen['id_dokumen']);
+								if ($setujui_semua) {
+									?>
+									<label class="label label-success">Sudah disetujui semua</label>
+									<?php
+								} else {
+									?>
+
+									<label class="label label-danger">Belum disetujui semua</label>
+									<?php
+								}
+							?>
+						</td>
 						<td><?php echo $dokumen['deskripsi'] ?></td>
 						<td class="text-center"><?php echo wday_toindo($dokumen['date']) ?></td>
 						<td>
@@ -85,17 +100,19 @@
 						<td class="text-center">
 							<a class="btn btn-xs bg-red-active" href="<?php echo $dokumen['link_cetak'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Lihat</a>
 						</td>
+
 						<td class="text-center">
 							<?php
-								$setujui_semua = $this->dokumen->cek_dokumen_setujui_semua($dokumen['id_dokumen']);
-								if ($setujui_semua) {
+								$persetujuan = $this->dokumen->cek_dokumen_persetujuan_by_id($dokumen['id_dokumen'],$this->session_data['username']);
+								if (!empty($persetujuan->waktu)) {
 									?>
-									<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Selesai</button>
-									<a class="btn btn-xs btn-primary" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/persetujuan/<?php echo $dokumen['id_dokumen'] ?>"><i class="fa fa-info"></i> Detail</a>
+									<label class="label label-success" >Sudah</label>
+									<a class="btn btn-xs btn-primary"  style="margin: 8px 0px" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/persetujuan/<?php echo $dokumen['id_dokumen'] ?>"><i class="fa fa-info"></i> Lihat</a>
 									<?php
 								} else {
 									?>
-									<a class="btn btn-xs btn-primary" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/persetujuan/<?php echo $dokumen['id_dokumen'] ?>"><i class="fa fa-check-circle"></i> Persetujuan</a>
+									<label class="label label-danger" >Belum</label><br/>
+									<a class="btn btn-xs btn-primary"  style="margin: 8px 0px" href="<?php echo base_url() ?>dosen/dokumen/berita_acara/persetujuan/<?php echo $dokumen['id_dokumen'] ?>"><i class="fa fa-check-circle"></i> Setujui</a>
 									<?php
 								}
 							?>

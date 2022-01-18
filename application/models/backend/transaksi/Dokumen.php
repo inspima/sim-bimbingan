@@ -359,6 +359,17 @@
 			}
 		}
 
+		public function cek_dokumen_persetujuan_by_id($id_dokumen,$identitas)
+		{
+			$this->db->select('*');
+			$this->db->from('dokumen_persetujuan');
+			$this->db->where('id_dokumen', $id_dokumen);
+			$this->db->where('identitas', $identitas);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function detail_persetujuan_by_data($data)
 		{
 			$this->db->select('*');
