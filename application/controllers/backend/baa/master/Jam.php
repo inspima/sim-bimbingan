@@ -118,7 +118,7 @@
 				$id = $this->input->post('id_jam', true);
 
 				$data = array(
-					'status' => '0',
+					'status' => $this->input->post('status', true),
 				);
 				$this->jam->update($data,$id);
 

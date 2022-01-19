@@ -74,9 +74,15 @@
 											<?php
 										} else if ($list['status'] == '1') {
 											?>
-											<a class="btn btn-xs btn-success" href="#">
-												<i class="fa fa-check"></i> Aktif</a>
 											<?php
+											echo form_open('baa/master/jam/update_aktif');
+											echo formtext('hidden', 'hand', 'center19', 'required');
+											echo formtext('hidden', 'id_jam', $list['id_jam'], 'required');
+											echo formtext('hidden', 'status', '0', 'required');
+											?>
+											<button type="submit" class="btn btn-xs btn-success" style="margin-right:3px;"><i class="fa fa-check"></i> Aktif</a></button>
+											<?php
+											echo form_close();
 										}
 									?>
 								</td>
