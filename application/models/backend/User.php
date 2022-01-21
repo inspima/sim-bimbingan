@@ -200,6 +200,17 @@
 			return $query->row();
 		}
 
+		public function detail_pegawai_by_username($username)
+		{
+			$this->db->select('u.username,u.sebagai,u.role,u.no_hp,peg.*');
+			$this->db->from('user u');
+			$this->db->join('pegawai peg', 'peg.nip = u.username');
+			$this->db->where('peg.nip', $username);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		function create($data)
 		{
 			$this->db->insert('user', $data);

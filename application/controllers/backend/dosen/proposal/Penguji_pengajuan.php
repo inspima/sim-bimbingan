@@ -33,8 +33,8 @@
 			$username = $this->session_data['username'];
 			$data = array(
 				// PAGE //
-				'title' => 'Proposal Skripsi (Pengajuan Penguji)',
-				'subtitle' => 'Data Proposal Skripsi(Pengajuan Penguji)',
+				'title' => 'Proposal Skripsi ',
+				'subtitle' => 'Permintaan Penguji ',
 				'section' => 'backend/dosen/skripsi/proposal/penguji_pengajuan',
 				// DATA //
 				'penguji' => $this->skripsi->read_penguji_pengajuan_proposal($username)

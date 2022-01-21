@@ -42,5 +42,7 @@
 		<?php
 	}
 ?>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="<?php echo base_url() ?>assets/template/backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Custom JS -->
 <script src="<?php echo base_url() ?>assets/js/custom.js"></script>

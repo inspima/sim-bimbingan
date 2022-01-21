@@ -65,31 +65,22 @@ and open the template in the editor.
 }
 
 .divider-line-thin {
-	margin: 0px;
-	margin-top: 8px;
-	padding-bottom: 8px;
-	padding-right: 10px;
+	margin: 15px auto;
 	border-width: 1px;
 	border-color: #dedede;
-	width: 90%;
+	width: 100%;
 }
 
 .divider-line-semi-bold {
-	margin: 0px;
-	margin-top: 8px;
-	padding-bottom: 8px;
-	padding-right: 10px;
+	margin: 15px auto;
 	border-width: 2px;
 	border-color: #bbbbbb;
-	width: 90%;
+	width: 100%;
 }
 
 .divider-line-bold {
-	margin: 0px;
-	margin-top: 8px;
-	padding-bottom: 8px;
-	padding-right: 10px;
+	margin: 8px auto;
 	border-width: 3px;
 	border-color: #797979;
-	width: 90%;
+	width: 100%;
 }

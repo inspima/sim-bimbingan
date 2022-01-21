@@ -39,11 +39,11 @@
 				$year = date("Y");
 				$data = array(
 					// PAGE //
-					'title' => 'Skripsi',
+					'title' => 'KPS - Skripsi',
 					'subtitle' => 'Data Skripsi',
 					'section' => 'backend/dosen/skripsi/ujian/kps_skripsi',
 					// DATA //
-					'skripsi' => $this->skripsi->read($year),
+					'skripsi' => $this->skripsi->read_by_status($this->input->get('status')),
 					'post_year' => $year,
 				);
 				//print_r($data['proposal']);die();

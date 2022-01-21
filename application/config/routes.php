@@ -250,6 +250,8 @@
 	$route['dashboardm/modul/proposal/save'] = 'backend/mahasiswa/modul/proposal/save';
 	$route['dashboardm/modul/proposal/edit/(:num)'] = 'backend/mahasiswa/modul/proposal/edit/$1';
 	$route['dashboardm/modul/proposal/revisi/(:num)'] = 'backend/mahasiswa/modul/proposal/revisi/$1';
+	$route['dashboardm/modul/proposal/revisi/save'] = 'backend/mahasiswa/modul/proposal/saveRevisi';
+	$route['dashboardm/modul/proposal/revisi/delete'] = 'backend/mahasiswa/modul/proposal/deleteRevisi';
 	$route['dashboardm/modul/proposal/update'] = 'backend/mahasiswa/modul/proposal/update';
 	$route['dashboardm/modul/proposal/update_file'] = 'backend/mahasiswa/modul/proposal/update_file';
 	$route['dashboardm/modul/proposal/ujian/(:num)'] = 'backend/mahasiswa/modul/proposal/ujian/$1';
@@ -394,6 +396,10 @@
 	//Dosen
 	$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_proposal';
 	$route['dosen/sarjana/proposal/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_proposal';
+	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/(:num)/(:num)'] = 'backend/dosen/skripsi/penguji_skripsi/revisi_proposal/$1/$2';
+	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/update_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/update_riwayat_revisi';
+	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/update'] = 'backend/dosen/skripsi/penguji_skripsi/update_revisi';
+	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/setujui'] = 'backend/dosen/skripsi/penguji_skripsi/setujui_revisi';
 	$route['dosen/sarjana/skripsi/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_skripsi';
 	$route['dosen/sarjana/skripsi/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_skripsi';
 	$route['dosen/sarjana/skripsi/penguji_riwayat/update_nilai'] = 'backend/dosen/skripsi/penguji_skripsi/update_nilai';

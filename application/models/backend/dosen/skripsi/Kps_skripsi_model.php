@@ -48,6 +48,34 @@
 			return $query->result_array();
 		}
 
+		public function read_by_status($status)
+		{
+			$this->db->select('s.*,u.id_ujian, u.id_skripsi, u.status_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nim, m.nama, s.status_skripsi, g.gelombang, sr.semester, d.departemen');
+			$this->db->from('ujian u');
+			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('gelombang_skripsi g', 's.id_gelombang = g.id_gelombang');
+			$this->db->join('semester sr', 'g.id_semester = sr.id_semester');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+			$this->db->where('u.jenis_ujian', 2);
+			$this->db->where('u.status', 1);
+			$this->db->where('s.jenis', 2);
+			if($status=='persetujuan'||empty($status)){
+				$this->db->where('s.status_skripsi =', STATUS_SKRIPSI_UJIAN_SETUJUI_PENGUJI);
+			}else if($status=='ujian'){
+				$this->db->where('s.status_skripsi >', STATUS_SKRIPSI_UJIAN_SETUJUI_PENGUJI);
+				$this->db->where('s.status_skripsi <', STATUS_SKRIPSI_UJIAN_SELESAI);
+			}else if($status=='selesai'){
+				$this->db->where('s.status_skripsi >=', STATUS_SKRIPSI_UJIAN_SELESAI);
+			}
+			$this->db->order_by('u.id_ujian', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function read_data()
 		{
 			$stts = array('3', '4');

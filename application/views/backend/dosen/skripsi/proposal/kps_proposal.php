@@ -18,42 +18,19 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive">
-				<div class="col-md-12">
-					<div class="form-group">
-						<label>Gelombang</label><br/>
-						<?php echo form_open('dashboardd/proposal/kps_proposal/gelombang') ?>
-						<select name="id_gelombang" class="form-control select2" style="width: 200px;" required>
-							<option value="<?php echo $gelombang_berjalan->id_gelombang ?>"><?php echo $gelombang_berjalan->gelombang . ' ' . $gelombang_berjalan->semester ?></option>
-							<?php
-								foreach ($gelombang as $list) {
-									?>
-									<option value="<?php echo $list['id_gelombang'] ?>"><?php echo $list['gelombang'] . ' ' . $list['semester'] ?></option>
-									<?php
-								}
-							?>
-						</select>
-						<div class="divider10"></div>
-						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-search"></i> Tampilkan</button>
-						<?php echo form_close() ?>
-
-					</div>
+				<div class="btn-group">
+					<a href="?status=baru" class="btn <?= $this->input->get('status') == 'baru' || $this->input->get('status') == '' ? 'btn-default' : 'btn-info' ?> ">Baru</a>
+					<a href="?status=ujian" class="btn <?= $this->input->get('status') == 'ujian' ? 'btn-default' : 'btn-primary' ?> ">Proses Ujian</a>
+					<a href="?status=selesai" class="btn <?= $this->input->get('status') == 'selesai' ? 'btn-default' : 'btn-danger' ?>">Selesai</a>
 				</div>
-			</div>
-			<!-- /.box-body -->
-			<!-- /.box-header -->
-			<div class="box-body table-responsive">
-
+				<hr class="divider-line-thin"/>
 				<table id="example1" class="table table-bordered table-striped">
 					<thead>
 					<tr>
 						<th>No</th>
 						<th>Nama</th>
 						<th>Judul</th>
-						<th>Berkas Proposal</th>
-						<th>Departemen</th>
-						<th>Gelombang</th>
-						<th>Jadwal</th>
-						<th>Penguji</th>
+						<th class="text-center">Status & Ujian</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -64,46 +41,73 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td><?= $list['nama'] ?><br><strong><?= $list['nim'] ?></strong></td>
-								<td><?php
+								<td>
+									<?php
 										$judul = $this->proposal->read_judul($list['id_skripsi']);
 										echo $judul->judul;
-									?></td>
-								<td>
-									<a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
-								</td>
-								<td><?php echo $list['departemen'] ?></td>
-								<td><?= $list['gelombang'] . ' (' . $list['semester'] . ')' ?></td>
-								<td>
-									<?php
-										$ujian = $this->proposal->read_ujian($list['id_skripsi']);
-										if ($ujian) {
-											echo '<strong>Tanggal</strong> :<br>' . toindo($ujian->tanggal) . '<br>';
-											echo '<strong>Ruang</strong>  :<br>' . $ujian->ruang . ' ' . $ujian->gedung . '<br>';
-											echo '<strong>Jam</strong>     :<br>' . $ujian->jam;
-										} else {
-											echo '';
-										}
 									?>
+									<br/>
+									<a class="btn btn-xs btn-danger" href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+									<hr class="divider-line-thin"/>
+									<b class="text-primary">Departemen</b><br/>
+									<?php echo $list['departemen'] ?>
+									<hr class="divider-line-thin"/>
+									<b class="text-primary">Gelombang</b><br/>
+									<?= $list['gelombang'] . ' (' . $list['semester'] . ')' ?>
 								</td>
 								<td>
-									<?php
-										$penguji = $this->proposal->read_penguji($list['id_skripsi']);
-										$num = 1;
-										foreach ($penguji as $show) {
-											if ($show['status'] == '1') {
-												?>
-												<p style="color:red">
-													<?php
-														echo $num . '. ' . $show['nama'] . '<br>';
-													?>
-												</p>
+									<p class="text-center">
+										<?php $this->view('backend/widgets/skripsi/column_status', [
+												'skripsi' => $list,
+												'jenis' => TAHAPAN_SKRIPSI_PROPOSAL
+										]);
+										?>
+										<br/>
+									</p>
+									<table class="table">
+										<tr>
+											<td>
 												<?php
-											} else {
-												echo $num . '. ' . $show['nama'] . '<br>';
-											}
-											$num++;
-										}
-									?>
+													$ujian = $this->proposal->read_ujian($list['id_skripsi']);
+													if ($ujian) {
+														?>
+														<b class="text-primary">Jadwal</b><br/>
+														<?php
+														echo '<strong>Tanggal</strong> :<br>' . toindo($ujian->tanggal) . '<br>';
+														echo '<strong>Ruang</strong>  :<br>' . $ujian->ruang . ' ' . $ujian->gedung . '<br>';
+														echo '<strong>Jam</strong>     :<br>' . $ujian->jam;
+													} else {
+														echo '';
+													}
+												?>
+											</td>
+											<td>
+												<?php
+													$penguji = $this->proposal->read_penguji($list['id_skripsi']);
+													$num = 1;
+													if(!empty($penguji)){
+														?>
+														<b class="text-primary">Penguji</b><br/>
+														<?php
+													}
+													foreach ($penguji as $show) {
+														if ($show['status'] == '1') {
+															?>
+															<p style="color:red">
+																<?php
+																	echo $num . '. ' . $show['nama'] . '<br>';
+																?>
+															</p>
+															<?php
+														} else {
+															echo $num . '. ' . $show['nama'] . '<br>';
+														}
+														$num++;
+													}
+												?>
+											</td>
+										</tr>
+									</table>
 								</td>
 							</tr>
 							<?php
@@ -112,6 +116,7 @@
 					?>
 					</tfoot>
 				</table>
+
 			</div>
 			<!-- /.box-body -->
 		</div>

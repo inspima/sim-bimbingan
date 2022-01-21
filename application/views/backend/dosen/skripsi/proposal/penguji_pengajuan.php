@@ -20,7 +20,7 @@
 			<div class="box-body table-responsive">
 				<div class="btn-group">
 					<a class="<?= ($this->uri->segment(4) == 'penguji_pengajuan') ? 'btn btn-default' : 'btn btn-info'; ?>" href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_pengajuan">Pengajuan</a>
-					<a class="<?= ($this->uri->segment(4) == 'penguji_riwayat') ? 'btn btn-default' : 'btn btn-primary'; ?>" href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_riwayat">Riwayat</a>
+					<a class="<?= ($this->uri->segment(4) == 'penguji_riwayat') ? 'btn btn-default' : 'btn btn-primary'; ?>" href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_riwayat">Proses Pengujian</a>
 				</div>
 				<hr class="divider-line-thin"/>
 				<table id="example1" class="table table-bordered table-striped">
@@ -29,11 +29,8 @@
 						<th>No</th>
 						<th>Nama</th>
 						<th>Judul</th>
-						<th>Berkas Proposal</th>
 						<th>Status Tim</th>
-						<th>Tanggal</th>
-						<th>Jam</th>
-						<th>Ruang</th>
+						<th>Jadwal</th>
 						<th>Opsi</th>
 					</tr>
 					</thead>
@@ -49,9 +46,9 @@
 									<?php
 										echo $list['judul']
 									?>
-								</td>
-								<td>
-									<a href="<?php echo base_url()?>assets/upload/proposal/<?php echo $list['berkas_proposal']?>" target="_blank"><img src="<?php echo base_url()?>assets/img/pdf.png" width="20px" height="auto"></a>
+
+									<br/>
+									<a href="<?php echo base_url() ?>assets/upload/proposal/<?php echo $list['berkas_proposal'] ?>" target="_blank" class="btn btn-xs btn-danger"><i class="fa fa-file-pdf-o"></i> Berkas</a>
 								</td>
 								<td>
 									<?php
@@ -66,9 +63,15 @@
 											}
 									?>
 								</td>
-								<td><?php echo toindo($list['tanggal'])?></td>
-								<td><?=$list['jam']?></td>
-								<td><?=$list['ruang'].' '.$list['gedung']?></td>
+								<td>
+									<span class="text-primary text-bold">
+										<?php echo wday_toindo($list['tanggal']) ?>
+									</span><br/>
+									<span  class="text-navy text-bold">
+										<?= $list['jam'] ?>
+									</span><br/>
+									<?= $list['ruang'] . ' ' . $list['gedung'] ?>
+								</td>
 								<td>
 									<?php echo form_open('dashboardd/proposal/penguji_pengajuan/update_penguji');?>
 									<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>

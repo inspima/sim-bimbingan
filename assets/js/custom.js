@@ -64,6 +64,19 @@ $(function () {
 			$(':submit').attr('disabled', true);
 		}
 	});
+	$('.text-editor-bootstrap').wysihtml5({
+		toolbar: {
+			"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+			"emphasis": true, //Italics, bold, etc. Default true
+			"link": false, //Button to insert a link. Default true
+			"lists": {
+				"outdent":false,
+				"indent":false
+			}, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+			"image": false, //Button to insert an image. Default true,
+			"color": false
+		}//Button to change color of font
+	});
 });
 
 

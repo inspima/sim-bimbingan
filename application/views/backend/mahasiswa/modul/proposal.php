@@ -82,9 +82,19 @@
 										}
 									?>
 
-									<a class="btn btn-xs btn-primary" href="<?= base_url() ?>dashboardm/modul/proposal/ujian/<?= $list['id_skripsi'] ?>">
+									<a class="btn btn-xs btn-social btn-primary" href="<?= base_url() ?>dashboardm/modul/proposal/ujian/<?= $list['id_skripsi'] ?>">
 										<i class="fa fa-calendar"></i> Detail Ujian
 									</a>
+<!--									--><?php
+//										if ($list['status_proposal'] == STATUS_SKRIPSI_PROPOSAL_SELESAI) {
+//											?>
+<!--											<br/><br/>-->
+<!--											<a class="btn btn-xs btn-social btn-vk" href="--><?//= base_url() ?><!--dashboardm/modul/proposal/revisi/--><?//= $list['id_skripsi'] ?><!--">-->
+<!--												<i class="fa fa-edit"></i> Bimbingan Revisi-->
+<!--											</a><br/>-->
+<!--											--><?php
+//										}
+//									?>
 								</td>
 
 							</tr>

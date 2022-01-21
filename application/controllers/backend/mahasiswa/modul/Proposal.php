@@ -24,6 +24,7 @@
 			$this->load->model('backend/user', 'user');
 			$this->load->model('backend/master/pekan_model', 'pekan');
 			$this->load->model('backend/transaksi/skripsi', 'skripsi');
+			$this->load->model('backend/transaksi/revisi_skripsi', 'revisi_skripsi');
 			$this->load->model('backend/baa/master/mahasiswa_model', 'mahasiswa');
 			$this->load->model('backend/mahasiswa/modul/proposal_model', 'proposal');
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
@@ -318,10 +319,13 @@
 			}
 		}
 
-		public function revisi($id)
+		public function revisi($id_skripsi)
 		{
 			$username = $this->session_data['username'];
-
+			$skripsi=$this->skripsi->detail_by_id($id_skripsi);
+			$ujian=$this->proposal->ujian($id_skripsi, $username);
+			$pengujis=$this->skripsi->read_penguji_by_ujian($ujian->id_ujian);
+			$riwayat_revisis=$this->revisi_skripsi->readRiwayatRevisi($ujian->id_ujian);
 			$data = array(
 				// PAGE //
 				'title' => 'Modul (Mahasiswa)',
@@ -330,24 +334,79 @@
 				'use_back' => true,
 				'back_link' => 'dashboardm/modul/proposal',
 				// DATA //
-				'proposal' => $this->proposal->detail($id, $username),
-				'ujian' => $this->proposal->ujian($id, $username)
+				'proposal' => $skripsi,
+				'pengujis'=>$pengujis,
+				'ujian' => $ujian,
+				'riwayat_revisis' => $riwayat_revisis,
 			);
-			if ($data['ujian']) {
-				$data['penguji'] = $this->proposal->read_penguji($data['ujian']->id_ujian);
-				$this->load->view('backend/index_sidebar', $data);
+			$this->load->view('backend/index_sidebar', $data);
+
+		}
+
+		public function saveRevisi(){
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_skripsi = $this->input->post('id_skripsi', true);
+				$config['upload_path'] = './assets/upload/mahasiswa/skripsi/revisi';
+				$config['allowed_types'] = 'pdf|jpg|png';
+				$config['max_size'] = MAX_SIZE_FILE_UPLOAD;
+				$config['remove_spaces'] = true;
+				$config['file_ext_tolower'] = true;
+				$config['detect_mime'] = true;
+				$config['mod_mime_fix'] = true;
+				$config['encrypt_name'] = TRUE;
+
+				if ( !is_dir( $config['upload_path'] ) ) {
+					mkdir( $config['upload_path'] );
+				}
+
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+
+				if (!$this->upload->do_upload('bukti_revisi')) {
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', $this->upload->display_errors());
+					redirect_back();
+				} else {
+					$upload_data = $this->upload->data();
+					$data = array(
+						'id_ujian' => $this->input->post('id_ujian', true),
+						'id_mhs' => $this->input->post('id_mhs', true),
+						'id_dosen' => $this->input->post('id_dosen', true),
+						'revisi' => $this->input->post('revisi', true),
+						'tgl' => date('Y-m-d'),
+						'tipe_ujian' => 'proposal',
+						'file'=>$upload_data['file_name'],
+					);
+
+					$this->revisi_skripsi->saveRevisi($data);
+
+					$this->session->set_flashdata('msg-title', 'alert-success');
+					$this->session->set_flashdata('msg', 'Berhasil simpan.');
+					redirect_back();
+				}
+
 			} else {
-				$data = array(
-					'title' => 'Modul (Mahasiswa)',
-					'subtitle' => 'Pengajuan Proposal Skripsi (Jadwal Ujian)',
-					'section' => 'backend/notification/error',
-					'use_back' => true,
-					'back_link' => 'dashboardm/modul/proposal',
-					// DATA //
-					'message_title' => 'Data Tidak ditemukan',
-					'message' => ' Ujian belum disetting Kadep / Penguji belum melakukan persetujuan',
-				);
-				$this->load->view('backend/index_sidebar', $data);
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
+		}
+
+		public function deleteRevisi(){
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_revisi = $this->input->post('id_revisi', true);
+				$this->revisi_skripsi->deleteRevisi($id_revisi);
+
+				$this->session->set_flashdata('msg-title', 'alert-success');
+				$this->session->set_flashdata('msg', 'Berhasil simpan.');
+				redirect_back();
+
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
 			}
 		}
 

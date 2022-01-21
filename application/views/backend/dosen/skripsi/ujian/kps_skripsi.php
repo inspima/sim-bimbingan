@@ -19,40 +19,19 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive">
-				<div class="col-md-12">
-					<div class="form-group">
-						<?php echo form_open('dashboardd/skripsi/kps_skripsi/filter_tahun'); ?>
-						<label>Tahun</label><br/>
-						<select name="tahun" class="form-control" style="width: 200px;">
-							<?php
-								$tahuns = [date('Y'), date('Y') - 1, date('Y') - 2, date('Y') - 3, date('Y') - 4];
-								foreach ($tahuns as $tahun) {
-									?>
-									<option <?php if ($post_year == $tahun) {
-										echo "selected";
-									} ?> value="<?= $tahun ?>"><?= $tahun ?></option>
-									<?php
-								}
-							?>
-						</select>
-						<div class="divider10"></div>
-						<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-search"></i> Tampilkan</button>
-						<?php echo form_close() ?>
-					</div>
+
+				<div class="btn-group">
+					<a href="?status=persetujuan" class="btn <?= $this->input->get('status') == 'persetujuan' || $this->input->get('status') == '' ? 'btn-default' : 'btn-success' ?>">Persetujuan</a>
+					<a href="?status=ujian" class="btn <?= $this->input->get('status') == 'ujian' ? 'btn-default' : 'btn-primary' ?>">Proses Ujian</a>
+					<a href="?status=selesai" class="btn <?= $this->input->get('status') == 'selesai' ? 'btn-default' : 'btn-danger' ?>">Selesai</a>
 				</div>
-			</div>
-			<!-- /.box-body -->
-			<!-- /.box-header -->
-			<div class="box-body table-responsive">
+				<hr class="divider-line-thin"/>
 				<table id="example1" class="table table-bordered table-striped">
 					<thead>
 					<tr>
 						<th>No</th>
 						<th>Nama</th>
 						<th>Judul</th>
-						<th>Pembimbing</th>
-						<th>Departemen</th>
-						<th>Gelombang / Semester</th>
 						<th>Jadwal</th>
 						<th>Penguji</th>
 						<th>Opsi</th>
@@ -66,16 +45,26 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td><?= $list['nama'] . '<br>' . $list['nim'] ?></td>
-								<td><?php
+								<td>
+									<?php
 										$judul = $this->skripsi->read_judul($list['id_skripsi']);
 										echo $judul->judul;
-									?></td>
-								<td><?php
+									?>
+									<br/>
+									<a class="btn btn-xs btn-danger" href="<?php echo base_url() ?>assets/upload/skripsi/<?php echo $list['berkas_skripsi'] ?>" target="_blank"><i class="fa fa-file-pdf-o"></i> Berkas</a>
+									<hr class="divider-line-thin"/>
+									<b class="text-primary">Departemen</b><br/>
+									<?php echo $list['departemen'] ?>
+									<hr class="divider-line-thin"/>
+									<b class="text-primary">Gelombang</b><br/>
+									<?= $list['gelombang'] . ' (' . $list['semester'] . ')' ?>
+									<hr class="divider-line-thin"/>
+									<b class="text-primary">Pembimbing</b><br/>
+									<?php
 										$pembimbing = $this->skripsi->read_pembimbing($list['id_skripsi']);
 										echo $pembimbing->nama;
-									?></td>
-								<td><?php echo $list['departemen'] ?></td>
-								<td><?= $list['gelombang'] . ' / ' . $list['semester'] ?></td>
+									?>
+								</td>
 								<td>
 									<?php
 										echo '<strong>Tanggal : </strong>' . toindo($list['tanggal']) . '<br>';

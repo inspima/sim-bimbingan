@@ -111,7 +111,7 @@
 		public function read_penguji($id_ujian)
 		{
 			$stts = array('1', '2');
-			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama');
+			$this->db->select('pg.id_pegawai,p.id_penguji, p.nip, p.status_tim, p.status, pg.nama');
 			$this->db->from('penguji p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->where('p.id_ujian', $id_ujian);

@@ -25,6 +25,7 @@
 			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
 			$this->load->model('backend/dosen/proposal/Kps_proposal_model', 'proposal');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
+			$this->load->model('backend/transaksi/Skripsi', 'skripsi');
 
 			//END MODEL
 		}
@@ -36,7 +37,7 @@
 
 				$data = array(
 					// PAGE //
-					'title' => 'Proposal Skripsi (Modul KPS)',
+					'title' => 'KPS - Skripsi Proposal',
 					'subtitle' => 'Data Proposal Skripsi',
 					'section' => 'backend/dosen/skripsi/proposal/kps_proposal',
 					// DATA //
@@ -44,7 +45,7 @@
 					'gelombang_berjalan' => $this->gelombang->read_berjalan(),
 				);
 
-				$data['proposal'] = $this->proposal->read($data['gelombang_berjalan']->id_gelombang);
+				$data['proposal'] = $this->proposal->read_by_status($this->input->get('status'));
 				$this->load->view('backend/index_sidebar', $data);
 			} else {
 				$this->session->set_flashdata('msg-title', 'alert-danger');
