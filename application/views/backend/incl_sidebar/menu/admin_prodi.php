@@ -21,6 +21,17 @@
 			?>
 			<li class="treeview">
 				<a href="#">
+					<i class="fa fa-users"></i> <span>Mahasiswa</span>
+					<span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="<?php echo base_url() ?>baa/utility/registrasi/master_mkn"><i class="fa fa-circle-o"></i> Verifikasi Registrasi</a></li>
+				</ul>
+			</li>
+			<li class="treeview">
+				<a href="#">
 					<i class="fa fa-file-text-o"></i> <span>Magister</span>
 					<span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -35,6 +46,17 @@
 			<?php
 		} else if ($id_jenjang == JENJANG_S3) {
 			?>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-users"></i> <span>Mahasiswa</span>
+					<span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="<?php echo base_url() ?>baa/utility/registrasi/doktor"><i class="fa fa-circle-o"></i> Verifikasi Registrasi</a></li>
+				</ul>
+			</li>
 			<li class="treeview">
 				<a href="#">
 					<i class="fa fa-book"></i> <span>Doktoral</span>
