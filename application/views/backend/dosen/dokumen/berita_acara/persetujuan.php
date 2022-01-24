@@ -32,7 +32,7 @@
 					<?php echo $dokumen->nama_mhs ?>
 				</div>
 				<div class="form-group">
-					<label>Judul Disertasi</label>
+					<label>Judul</label>
 					<hr class="divider-line-thin"/>
 					<?php echo $dokumen->deskripsi ?>
 				</div>
