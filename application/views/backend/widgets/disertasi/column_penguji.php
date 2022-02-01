@@ -4,55 +4,55 @@
 	if (!empty($jadwal)) {
 		$pengujis = $this->disertasi->read_penguji($jadwal->id_ujian);
 		$num = 1;
-		foreach ($pengujis as $penguji) {
-			if ($penguji['status'] == '1') {
-				echo($penguji['status_tim'] == '1' ? 'Ketua' : 'Anggota');
-				?>
-				<p style="color:red;font-weight: bold">
-					<?php
-						echo $num . ' ' . $penguji['nama'] . '<br><i style="color:black">' . $penguji['nip'] . '</i><br>';
-					?>
-				</p>
+		if (count($pengujis) > 0) {
+			?>
+			<button class="btn btn-xs bg-blue-active" onclick="$('#list-penguji-<?= $id_disertasi ?>').toggle()"><i class="fa fa-eye"></i> Tampilkan Penguji</button>
+			<hr class="divider-line-semi-bold"/>
+			<div id="list-penguji-<?= $id_disertasi ?>" style="display: none">
 				<?php
-			} else {
-				echo($penguji['status_tim'] == '1' ? 'Ketua' : 'Anggota');
-				?>
-				<p style="color:green;font-weight: bold">
-					<?php
-						echo $num . ' ' . $penguji['nama'] . '<br><i style="color:black">' . $penguji['nip'] . '</i><br>';
-					?>
-				</p>
-				<?php
-			}
-
-			if ($this->session_data['username'] == $penguji['nip']) {
-				if ($penguji['status'] == '1') {
-					if ($jenis == UJIAN_DISERTASI_KUALIFIKASI) {
-						if ($disertasi->status_kualifikasi >= STATUS_DISERTASI_KUALIFIKASI_SETUJUI_KPS) {
+					echo '';
+					foreach ($pengujis as $penguji) {
+						if ($penguji['status'] == '1') {
+							echo($penguji['status_tim'] == '1' ? 'Ketua' : 'Anggota');
 							?>
-							<?php echo form_open('dosen/disertasi/permintaan/penguji/setujui') ?>
-							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-							<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button><br/>
-							<?php echo formtext('hidden', 'id_penguji', $penguji['id_penguji'], 'required') ?>
-							<?php echo formtext('hidden', 'id_disertasi', $id_disertasi, 'required') ?>
-							<?php echo formtext('hidden', 'id_ujian', $jadwal->id_ujian, 'required') ?>
+							<p style="color:red;font-weight: bold">
+								<?php
+									echo $num . ' ' . $penguji['nama'] . '<br><i style="color:black">' . $penguji['nip'] . '</i><br>';
+								?>
+							</p>
+							<?php
+						} else {
+							echo($penguji['status_tim'] == '1' ? 'Ketua' : 'Anggota');
+							?>
+							<p style="color:green;font-weight: bold">
+								<?php
+									echo $num . ' ' . $penguji['nama'] . '<br><i style="color:black">' . $penguji['nip'] . '</i><br>';
+								?>
+							</p>
 							<?php
 						}
-					} else {
-						?>
-						<?php echo form_open('dosen/disertasi/permintaan/penguji/setujui') ?>
-						<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-						<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button><br/>
-						<?php echo formtext('hidden', 'id_penguji', $penguji['id_penguji'], 'required') ?>
-						<?php echo formtext('hidden', 'id_disertasi', $id_disertasi, 'required') ?>
-						<?php echo formtext('hidden', 'id_ujian', $jadwal->id_ujian, 'required') ?>
-						<?php
-					}
 
-				}
+						if ($this->session_data['username'] == $penguji['nip']) {
+
+						}
+						$num++;
+					}
+				?>
+			</div>
+			<?php
+			$penguji_row = $this->disertasi->read_penguji_row($jadwal->id_ujian, $this->session_data['username']);
+			if (!empty($penguji)) {
+				$this->view('backend/widgets/disertasi/form_persetujuan_penguji', [
+						'id_disertasi'=>$id_disertasi,
+						'disertasi' => $disertasi,
+						'jadwal' => $jadwal,
+						'penguji' => $penguji_row,
+				]);
 			}
-			$num++;
+			?>
+			<?php
 		}
+
 	} else {
 		?>
 		<span class="label bg-red">Kosong</span>

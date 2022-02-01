@@ -328,7 +328,8 @@
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
 			$this->db->join('ujian_disertasi uj', 'uj.id_disertasi = s.id_disertasi');
 			$this->db->where('uj.jenis_ujian', $jenis);
-			$this->db->where('`uj`.`id_ujian` IN (SELECT `id_ujian` from `penguji_disertasi` where `status` in (1) and `nip`=\'' . $username . '\')', null, false);
+			$this->db->where('uj.tanggal >=', date('Y-m-d'));
+			$this->db->where('`uj`.`id_ujian` IN (SELECT `id_ujian` from `penguji_disertasi` where `status` in (1,2) and `nip`=\'' . $username . '\')', null, false);
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
 			$query = $this->db->get();
@@ -347,6 +348,21 @@
 			$this->db->order_by('pg.nama', 'asc');
 			$query = $this->db->get();
 			return $query->result_array();
+		}
+
+		public function read_penguji_row($id_ujian,$nip)
+		{
+			$stts = array('1', '2');
+			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
+			$this->db->from('penguji_disertasi p');
+			$this->db->join('pegawai pg', 'p.nip = pg.nip');
+			$this->db->where('p.id_ujian', $id_ujian);
+			$this->db->where('p.nip', $nip);
+			$this->db->where_in('p.status', $stts);
+			$this->db->order_by('p.status_tim', 'asc');
+			$this->db->order_by('pg.nama', 'asc');
+			$query = $this->db->get();
+			return $query->row();
 		}
 
 		public function cek_penguji($data)

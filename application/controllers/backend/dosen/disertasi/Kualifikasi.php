@@ -83,7 +83,7 @@
 		public function setting()
 		{
 			$id_disertasi = $this->uri->segment('5');
-
+			$back_link='backend/dosen/disertasi/permintaan/penasehat';
 			// Auto insert penguji penasehat sebagai ketua penguji
 			$penguji_ketua = $this->disertasi->cek_penguji_ketua_by_disertasi($id_disertasi);
 			if(empty($penguji_ketua)){
@@ -100,13 +100,19 @@
 				}
 
 			}
+			$struktural=$this->struktural->read_struktural($this->session_data['username']);
+			if(!empty($struktural)){
+				if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
+					$back_link='backend/dosen/disertasi/kualifikasi';
+				}
+			}
 			$data = array(
 				// PAGE //
 				'title' => 'Disertasi - Kualifikasi',
 				'subtitle' => 'Setting',
 				'section' => 'backend/dosen/disertasi/kualifikasi/setting',
 				'use_back' => true,
-				'back_link' => 'backend/dosen/disertasi/permintaan/penasehat',
+				'back_link' => $back_link,
 				// DATA //
 				'disertasi' => $this->disertasi->detail($id_disertasi),
 				'mruang' => $this->ruang->read_aktif_by_prodi(S3_ILMU_HUKUM),
@@ -114,6 +120,7 @@
 				'mdosen' => $this->dosen->read_aktif_alldep_s3(),
 				'ujian' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI),
 				'status_ujians' => $this->disertasi->read_status_ujian(UJIAN_DISERTASI_KUALIFIKASI),
+				'struktural' => $this->struktural->read_struktural($this->session_data['username']),
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}
