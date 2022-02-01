@@ -60,6 +60,7 @@
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
 			$this->db->join('mahasiswa m', 's.nim = m.nim');
 			$this->db->where('p.nip', $username);
+			$this->db->where('u.status', 1);
 			$this->db->where('p.status', 2);
 			$this->db->order_by('u.tanggal', 'desc');
 
