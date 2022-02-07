@@ -64,7 +64,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
 			<ol style="list-style: lower-alpha;margin: 0px;">
-				<li>bahwa sehubungan dengan disertasi Saudara <?= $disertasi->nama ?> M.H./NIM.<?= $disertasi->nim ?> Program <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?> telah selesai ditulis, maka perlu dibentuk Penguji Disertasi tersebut;</li>
+				<li>bahwa sehubungan dengan disertasi Saudara <?= $disertasi->nama ?>/NIM.<?= $disertasi->nim ?> Program <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?> telah selesai ditulis, maka perlu dibentuk Penguji Disertasi tersebut;</li>
 				<li>bahwa berdasarkan pertimbangan sebagaimana dimaksud pada huruf a, perlu menetapkan Keputusan Dekan tentang Penguji Ujian Kualifikasi Program <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?></li>
 			</ol>
 		</td>
