@@ -128,13 +128,26 @@
 									<?php echo form_close(); ?>
 									<hr class="divider-line-semi-bold"/>
 									<!-- Pemberitahuan -->
-									<?php $attributes = array('target' => '_blank'); ?>
-									<?php echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_pemberitahuan', $attributes) ?>
+									<?php
+										$data_dokumen_surat_tugas = [
+												'tipe' => DOKUMEN_SURAT_PEMBERITAHUAN_SKRIPSI_STR,
+												'jenis' => DOKUMEN_JENIS_SKRIPSI_UJIAN_SKRIPSI_STR,
+												'identitas' => $list['nim'],
+										];
+										$dokumen_pemberitahuan = $this->dokumen->detail_by_data($data_dokumen_surat_tugas);
+									?>
+									<h4>Surat Pemberitahuan</h4>
+									<?php
+										$attributes = array('target' => '_blank', 'autocomplete' => 'off');
+										echo form_open('dashboardb/skripsi/skripsi_ujian/cetak_pemberitahuan', $attributes)
+									?>
+									<input type="text" name="no_sk" style="margin-bottom: 10px" class="form-control" placeholder="NO SK" value="<?= !empty($dokumen_pemberitahuan) ? $dokumen_pemberitahuan->no_doc : '' ?>" required/>
+									<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control" placeholder="TGL SK" value="<?= !empty($dokumen_pemberitahuan) ? date('d-m-Y', strtotime($dokumen_pemberitahuan->date_doc)) : '' ?>" required/>
 									<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 									<?php echo formtext('hidden', 'id_skripsi', $list['id_skripsi'], 'required') ?>
-									<?php echo formtext('hidden', 'id_ujian', $list['id_ujian'], 'required') ?>
-									<button type="submit" class="btn btn-xs btn-primary">Cetak Pemberitahuan</button>
-									<?php echo form_close() ?>
+									<?php echo formtext('hidden', 'id_ujian', $ujian->id_ujian, 'required') ?>
+									<button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-print"></i> Cetak Pemberitahuan</button>
+									<?php echo form_close(); ?>
 									<hr class="divider-line-semi-bold"/>
 									<!-- Penilaian -->
 									<?php $attributes = array('target' => '_blank'); ?>

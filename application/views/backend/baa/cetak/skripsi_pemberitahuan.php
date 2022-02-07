@@ -29,11 +29,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    <tr>
 		      <td style="width:10%" align="left">Nomor</td>
 		      <td style="width:1%" align="left">:</td>
-		      <td style="width:40%" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/UN3.1.3/PPd/<?=date('Y')?></td>
+		      <td style="width:40%" align="left"><?=$dokumen->no_doc?></td>
 		      <?php
 		      $tanggal = date("Y-m-d");
 		      ?>
-		      <td style="width:49%" align="right"><?php echo woday_toindo($tanggal)?></td>
+		      <td style="width:49%" align="right"><?php echo woday_toindo($dokumen->date_doc)?></td>
 		    </tr>
 		    <tr>
 		      <td align="left">Lampiran</td>

@@ -122,6 +122,7 @@
 	define('DOKUMEN_BERITA_ACARA_STR', 'berita-acara');
 	define('DOKUMEN_SURAT_TUGAS_PROPOSAL_PENGUJI_STR', 'surat-tugas-skripsi-proposal');
 	define('DOKUMEN_SURAT_TUGAS_SKRIPSI_PENGUJI_STR', 'surat-tugas-skripsi');
+	define('DOKUMEN_SURAT_PEMBERITAHUAN_SKRIPSI_STR', 'surat-pemberitahuan-skripsi');
 	define('DOKUMEN_SURAT_UNDANGAN_PROPOSAL_STR', 'surat-undangan-skripsi-proposal');
 	define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
