@@ -77,7 +77,7 @@ class Promotor extends CI_Controller {
                 $this->session->set_flashdata('msg', 'Gagal simpan. Promotor/Co-Promotor sudah terdaftar.');
                 redirect_back();
             } else {
-                $jumlah_promotor = $this->disertasi->count_penguji($id_disertasi);
+                $jumlah_promotor = $this->disertasi->count_promotor($id_disertasi);
                 if ($jumlah_promotor < 3) {
                     if ($status_tim == '1') {
                         $cek_promotor_ada = $this->disertasi->cek_promotor_ada($id_disertasi);
