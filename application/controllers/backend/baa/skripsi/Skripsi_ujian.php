@@ -119,7 +119,6 @@
 					'judul' => $this->skripsi->read_judul($id_skripsi)
 				);
 				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/baa/cetak/skripsi_pemberitahuan';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');

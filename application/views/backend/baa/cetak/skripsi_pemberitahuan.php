@@ -20,25 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 
-<table align="center" width="100%" border="0">
-    <tbody>
-      <tr>
-        <td width="10%"><img src="assets/backend/cetak/logo.png" width="100px"></td>
-        <td width="90%" align="center">
-          <strong><p style="font-size:17px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN REPUBLIK INDONESIA<br>
-          UNIVERSITAS AIRLANGGA<br>
-          FAKULTAS HUKUM<br></p>
-         </strong><p style="font-size:14px;margin: 0px 0 0px 0;">Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
-          Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id </p>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="line">&nbsp;
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+<?php $this->load->view('backend/widgets/common/header_document') ?>
 <table border="0" style="width:100%">
 
     <tr>
@@ -47,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    <tr>
 		      <td style="width:10%" align="left">Nomor</td>
 		      <td style="width:1%" align="left">:</td>
-		      <td style="width:40%" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/UN3.1.3/PPd/2018</td>
+		      <td style="width:40%" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/UN3.1.3/PPd/<?=date('Y')?></td>
 		      <?php
 		      $tanggal = date("Y-m-d");
 		      ?>
