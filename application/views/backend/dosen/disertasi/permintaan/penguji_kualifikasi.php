@@ -40,7 +40,7 @@
 					<tr>
 						<td><?= $no ?></td>
 						<td>
-							<?php $this->view('backend/widgets/disertasi/column_info_disertasi', ['disertasi' => $list]); ?>
+							<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list]); ?>
 						</td>
 						<td class="text-center">
 
