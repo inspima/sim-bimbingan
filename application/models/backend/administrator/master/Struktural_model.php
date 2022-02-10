@@ -94,7 +94,7 @@
 
 		function read_kps_s3()
 		{
-			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen');
+			$this->db->select('l.id_struktural, l.id_struktur, l.nama, l.nip, s.nama_struktur, p.nama as nama_dosen,p.ttd');
 			$this->db->from('struktural l');
 			$this->db->join('struktur s', 'l.id_struktur = s.id_struktur');
 			$this->db->join('pegawai p', 'l.nip = p.nip');

@@ -66,6 +66,18 @@
 			return $query->row();
 		}
 
+		public function detail_by_encrypt_code($code)
+		{
+			$this->db->select('*');
+			$this->db->from('dokumen');
+			$this->db->where('md5(kode)', $code);
+			$this->db->order_by('id_dokumen', 'desc');
+			$this->db->where('status', 1);
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
 		public function check_by_data($data)
 		{
 			$this->db->select('*');

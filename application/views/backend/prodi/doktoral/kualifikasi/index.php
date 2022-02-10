@@ -26,7 +26,6 @@
 					<tr>
 						<th>No</th>
 						<th>Disertasi</th>
-						<th>Tgl.Pengajuan</th>
 						<th>Penasehat Akademik</th>
 						<th class="text-center">Penguji</th>
 						<th class="text-center">Jadwal</th>
@@ -46,7 +45,6 @@
 											'jenis' => TAHAPAN_DISERTASI_KUALIFIKASI
 									]); ?>
 								</td>
-								<td><?php echo woday_toindo($list['waktu_pengajuan_kualifikasi']) ?></td>
 								<td>
 									<?php $this->view('backend/widgets/disertasi/column_penasehat', ['disertasi' => $list]); ?>
 									<?php
@@ -61,11 +59,19 @@
 											<hr class="divider-line-semi-bold"/>
 											<!-- SK Penasehat -->
 											<?php $attributes = array('target' => '_blank'); ?>
+											<?php
+											$data_dokumen_sk_penasehat = [
+													'tipe' => DOKUMEN_SURAT_KEPUTUSAN,
+													'jenis' => DOKUMEN_JENIS_DISERTASI_SK_PENASEHAT_STR,
+													'identitas' => $list['nim'],
+											];
+											$data_dokumen_sk_penasehat = $this->dokumen->detail_by_data($data_dokumen_sk_penasehat);
+											?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_sk_penasehat', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-											<input type="text" name="no_sk" class="form-control" required placeholder="NOMOR SK">
-											<br/><br/>
+											<input type="text" name="no_sk" style="margin-bottom: 10px" class="form-control" placeholder="NO SK" value="<?= !empty($data_dokumen_sk_penasehat) ? $data_dokumen_sk_penasehat->no_doc : '' ?>" required/>
+											<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control" placeholder="TGL SK" value="<?= !empty($data_dokumen_sk_penasehat) ? date('d-m-Y', strtotime($data_dokumen_sk_penasehat->date_doc)) : '' ?>" required/>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> SK Penasehat</button>
 											<?php echo form_close() ?>
 											<?php
@@ -100,7 +106,7 @@
 											<!-- SK UJIAN -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php
-											$data_dokumen= [
+											$data_dokumen = [
 													'tipe' => DOKUMEN_SK_UJIAN_DISERTASI,
 													'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
 													'identitas' => $list['nim'],
@@ -114,24 +120,28 @@
 											<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control" placeholder="TGL SK" value="<?= !empty($dokumen) ? date('d-m-Y', strtotime($dokumen->date_doc)) : '' ?>" required/>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> SK Ujian</button>
 											<?php echo form_close() ?>
-											<hr style="margin: 2px"/>
+											<hr class="divider-line-semi-bold"/>
 
 											<!-- Berita Acara -->
 											<?php $attributes = array('target' => '_blank'); ?>
+											<?php
+											$ujian = $this->disertasi->read_jadwal($list['id_disertasi'], UJIAN_DISERTASI_KUALIFIKASI);
+											?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_berita', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<textarea style="resize: none;height: 60px;margin-bottom: 10px" class="form-control" name="link_meeting" placeholder="Link Meeting" required><?= !empty($ujian->link_meeting) ? $ujian->link_meeting : '' ?></textarea>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
 											<?php echo form_close() ?>
-											<hr style="margin: 2px"/>
+											<hr class="divider-line-semi-bold"/>
 											<!-- Form Penilaian -->
-											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_penilaian', $attributes) ?>
-											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-<!--											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>-->
-											<?php echo form_close() ?>
-											<hr style="margin: 2px"/>
+											<!--											--><?php //$attributes = array('target' => '_blank'); ?>
+											<!--											--><?php //echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_penilaian', $attributes) ?>
+											<!--											--><?php //echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<!--											--><?php //echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<!--<!--											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>-->
+											<!--											--><?php //echo form_close() ?>
+											<!--											<hr class="divider-line-bold"/>-->
 											<!-- Nilai Akhir Penilaian -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_nilai_akhir', $attributes) ?>
@@ -139,7 +149,7 @@
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Nilai Akhir</button>
 											<?php echo form_close() ?>
-											<hr style="margin: 2px"/>
+											<hr class="divider-line-semi-bold"/>
 											<!-- Daftar Hadir -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_absensi', $attributes) ?>

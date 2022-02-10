@@ -1004,10 +1004,12 @@
 	$route['document/persetujuan'] = 'document/persetujuan';
 	$route['document/persetujuan/save'] = 'document/persetujuan_save';
 	$route['document/cetak'] = 'document/cetak';
+	$route['document/cetak_dokumen'] = 'document/cetak_dokumen';
 
 	$route['document/lihat_skripsi'] = 'document/lihat_skripsi';
 	$route['document/cetak_skripsi'] = 'document/cetak_skripsi';
 	$route['document/lihat_skripsi_ujian'] = 'document/lihat_skripsi_ujian';
+	$route['document/lihat_dokumen'] = 'document/lihat_dokumen';
 	$route['document/cetak_skripsi_ujian'] = 'document/cetak_skripsi_ujian';
 	$route['document/persetujuan/skripsi'] = 'document/persetujuan_skripsi';
 	$route['document/persetujuan/skripsi/save'] = 'document/persetujuan_skripsi_save';

@@ -41,7 +41,7 @@
 			</div>
 			<?php
 			$penguji_row = $this->disertasi->read_penguji_row($jadwal->id_ujian, $this->session_data['username']);
-			if (!empty($penguji)) {
+			if (!empty($penguji_row)) {
 				$this->view('backend/widgets/disertasi/form_persetujuan_penguji', [
 						'id_disertasi'=>$id_disertasi,
 						'disertasi' => $disertasi,

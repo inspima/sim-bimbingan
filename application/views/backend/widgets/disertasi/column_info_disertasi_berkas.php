@@ -6,6 +6,10 @@
 echo $disertasi['judul'];
 ?>
 <div class="divider5"></div>
+<b>Tanggal Pengajuan</b>
+<div class="divider3"></div>
+<?php echo woday_toindo($disertasi['waktu_pengajuan_kualifikasi']) ?>
+<div class="divider5"></div>
 <b>Berkas</b>
 <div class="divider3"></div>
 <?php

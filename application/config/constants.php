@@ -124,6 +124,7 @@
 	define('DOKUMEN_SURAT_TUGAS_SKRIPSI_PENGUJI_STR', 'surat-tugas-skripsi');
 	define('DOKUMEN_SURAT_PEMBERITAHUAN_SKRIPSI_STR', 'surat-pemberitahuan-skripsi');
 	define('DOKUMEN_SURAT_UNDANGAN_PROPOSAL_STR', 'surat-undangan-skripsi-proposal');
+	define('DOKUMEN_SURAT_KEPUTUSAN', 'surat-keputusan');
 	define('DOKUMEN_UNDANGAN_STR', 'undangan');
 
 	define('DOKUMEN_SP_PEMBIMBING_TESIS', 'surat-tugas-pembimbing-tesis');
@@ -153,6 +154,7 @@
 	define('DOKUMEN_JENIS_TESIS_MKPT_STR', 'mkpt_tesis');
 	define('DOKUMEN_JENIS_TESIS_UJIAN_STR', 'ujian_tesis');
 	// S3
+	define('DOKUMEN_JENIS_DISERTASI_SK_PENASEHAT_STR', 'sk-penasehat');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR', 'kualifikasi');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR', 'disertasi_proposal');
 	define('DOKUMEN_JENIS_DISERTASI_UJIAN_KELAYAKAN_STR', 'kelayakan');

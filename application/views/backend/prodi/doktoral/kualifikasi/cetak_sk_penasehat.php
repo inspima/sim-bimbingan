@@ -30,30 +30,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<title>SURAT KEPUTUSAN - PENASEHAT AKADEMIK - <?=$disertasi->nim?></title>
 </head>
 <body>
+<?php $this->load->view('backend/widgets/common/header_document') ?>
 
-<table align="center" width="100%" border="0">
-	<tr>
-		<td style="width:5%;vertical-align: middle"><img src="assets/backend/cetak/logo.png" width="70px" style=""></td>
-		<td style="width:95%" align="center">
-			<strong>
-				<p style="font-size:17px;margin-bottom: 0px;">
-					<?= strtoupper($this->setting->get_value('kementrian_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_fakultas_txt')) ?><br>
-				</p>
-			</strong>
-
-			<p style="font-size:14px;margin: 0px 0 0px 0;">
-				<?= $this->setting->get_value('universitas_alamat_txt') ?><br>
-				<?= $this->setting->get_value('universitas_web_email_txt') ?>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="line">&nbsp;
-		</td>
-	</tr>
-</table>
 <table border="0" style="width:100%">
 
 	<tr>
@@ -63,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<td align="center">
 						<h3 style="margin: 5px;font-weight: normal">
 							KEPUTUSAN DEKAN<br/>
-							NOMOR : <?=strtoupper($no_sk)?><br/>
+							NOMOR : <?=strtoupper($dokumen->no_doc)?><br/>
 							TENTANG <br/>
 							PENASEHAT AKADEMIK<br/>
 							BAGI MAHASISWA <?= strtoupper($this->setting->get_value('universitas_prodi_s3_txt')) ?><br/>
@@ -112,29 +90,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="page_break"></div>
 
-<table align="center" width="100%" border="0">
-	<tr>
-		<td style="width:5%;vertical-align: middle"><img src="assets/backend/cetak/logo.png" width="70px" style=""></td>
-		<td style="width:95%" align="center">
-			<strong>
-				<p style="font-size:17px;margin-bottom: 0px;">
-					<?= strtoupper($this->setting->get_value('kementrian_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_fakultas_txt')) ?><br>
-				</p>
-			</strong>
 
-			<p style="font-size:14px;margin: 0px 0 0px 0;">
-				<?= $this->setting->get_value('universitas_alamat_txt') ?><br>
-				<?= $this->setting->get_value('universitas_web_email_txt') ?>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="line">&nbsp;
-		</td>
-	</tr>
-</table>
+<?php $this->load->view('backend/widgets/common/header_document') ?>
 
 <table border="0" style="width:100%">
 
@@ -198,11 +155,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<td style="width: 20%"></td>
 		<td style="width: 35%">
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
-			Pada tanggal <?=strtoupper(woday_toindo(date('Y-m-d')))?><br/>
+			Pada tanggal <?=strtoupper(woday_toindo($dokumen->date_doc))?><br/>
+
 			<br/>
 			<br/>
-			<br/>
-			<br/>
+			<?php
+				if (!empty($wadek->ttd)) {
+					?>
+					<img src="<?= str_replace(base_url(), "", $wadek->ttd) ?>" width="70px"/>
+					<?php
+				} else {
+					?>
+					<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+					<?php
+				}
+			?>
 			<br/>
 			<?=$wadek->nama_dosen?><br/>
 			NIP:<?=$wadek->nip?><
@@ -225,10 +192,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<td style="width: 40%">
 			Salinan sesuai dengan Aslinya<br/>
 			Koordinator Program,<br/>
+
 			<br/>
 			<br/>
-			<br/>
-			<br/>
+			<?php
+				if (!empty($kps_s3->ttd)) {
+					?>
+					<img src="<?= str_replace(base_url(), "", $kps_s3->ttd) ?>" width="70px"/>
+					<?php
+				} else {
+					?>
+					<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+					<?php
+				}
+			?>
 			<br/>
 			<?=$kps_s3->nama_dosen?><br/>
 			NIP:<?=$kps_s3->nip?><
@@ -241,29 +218,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="page_break"></div>
 
-<table align="center" width="100%" border="0">
-	<tr>
-		<td style="width:5%;vertical-align: middle"><img src="assets/backend/cetak/logo.png" width="70px" style=""></td>
-		<td style="width:95%" align="center">
-			<strong>
-				<p style="font-size:17px;margin-bottom: 0px;">
-					<?= strtoupper($this->setting->get_value('kementrian_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_fakultas_txt')) ?><br>
-				</p>
-			</strong>
+<?php $this->load->view('backend/widgets/common/header_document') ?>
 
-			<p style="font-size:14px;margin: 0px 0 0px 0;">
-				<?= $this->setting->get_value('universitas_alamat_txt') ?><br>
-				<?= $this->setting->get_value('universitas_web_email_txt') ?>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="line">&nbsp;
-		</td>
-	</tr>
-</table>
 <table border="0" style="width:100%">
 	<tr>
 		<td colspan="3">Lampiran Keputusan Dekan Fakultas Hukum Universitas Airlangga</td>
@@ -273,7 +229,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<td style="width: 23%">Nomor</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			<?=$no_sk?>
+			<?=$dokumen->no_doc?>
 		</td>
 	</tr>
 	<tr>
@@ -312,8 +268,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			Pada tanggal <?=strtoupper(woday_toindo(date('Y-m-d')))?><br/>
 			<br/>
 			<br/>
-			<br/>
-			<br/>
+			<?php
+				if (!empty($wadek->ttd)) {
+					?>
+					<img src="<?= str_replace(base_url(), "", $wadek->ttd) ?>" width="70px"/>
+					<?php
+				} else {
+					?>
+					<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+					<?php
+				}
+			?>
 			<br/>
 			<?=$wadek->nama_dosen?><br/>
 			NIP:<?=$wadek->nip?><
@@ -339,8 +304,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			Koordinator Program,<br/>
 			<br/>
 			<br/>
-			<br/>
-			<br/>
+			<?php
+				if (!empty($kps_s3->ttd)) {
+					?>
+					<img src="<?= str_replace(base_url(), "", $kps_s3->ttd) ?>" width="70px"/>
+					<?php
+				} else {
+					?>
+					<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+					<?php
+				}
+			?>
 			<br/>
 			<?=$kps_s3->nama_dosen?><br/>
 			NIP:<?=$kps_s3->nip?><

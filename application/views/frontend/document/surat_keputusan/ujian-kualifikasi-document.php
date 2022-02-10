@@ -145,7 +145,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<?php
 								foreach ($pengujis as $penguji) {
 									?>
-										<li><?=$penguji['nama']?></li>
+									<li><?=$penguji['nama']?></li>
 									<?php
 								}
 							?>

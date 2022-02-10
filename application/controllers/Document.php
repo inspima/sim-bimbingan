@@ -53,13 +53,17 @@
 					$page = 'frontend/document/undangan/';
 					$title = "Undangan";
 					break;
+				case DOKUMEN_SURAT_KEPUTUSAN:
+					$page = 'frontend/document/surat_keputusan/';
+					$title = "Surat Keputusan";
+					break;
 			}
 		}
 
 		private function get_jenis_dokumen($jenis, &$page, &$title)
 		{
 			switch ($jenis) {
-				case UJIAN_SKRIPSI_PROPOSAL:
+				case UJIAN_DISERTASI_KUALIFIKASI:
 					$page .= DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR;
 					$title .= ' - Ujian Kualifikasi';
 					break;
@@ -77,6 +81,10 @@
 					break;
 				case UJIAN_DISERTASI_TERBUKA:
 					$page .= DOKUMEN_JENIS_DISERTASI_UJIAN_TERBUKA_STR;
+					$title .= ' - Ujian Terbuka';
+					break;
+				case DOKUMEN_JENIS_DISERTASI_SK_PENASEHAT_STR:
+					$page .= DOKUMEN_JENIS_DISERTASI_SK_PENASEHAT_STR;
 					$title .= ' - Ujian Terbuka';
 					break;
 			}
@@ -190,6 +198,18 @@
 					$title .= ' - Ujian Tesis';
 					break;
 			}
+		}
+
+		private function get_page_cetak($tipe, $jenis)
+		{
+			$page = '';
+			if ($tipe == DOKUMEN_SURAT_KEPUTUSAN) {
+				$page .= 'frontend/document/surat_keputusan/';
+				if ($jenis == DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR) {
+					$page .= 'ujian-kualifikasi-document';
+				}
+			}
+			return $page;
 		}
 
 
@@ -548,6 +568,36 @@
 			}
 		}
 
+		public function lihat_dokumen()
+		{
+			$dok = $this->input->get('doc', true);
+			$kode_dokumen = base64_decode($dok);
+			if (!empty($dok)) {
+				$dokumen = $this->dokumen->detail_by_encrypt_code($kode_dokumen);
+				if (!empty($dokumen)) {
+
+					$data = array(
+						// PAGE //
+						'title' => "Lihat - Dokumen Online",
+						'subtitle' => '',
+						'section' => 'frontend/document/lihat',
+						// DATA //
+						'dokumen' => $dokumen,
+					);
+
+					$this->load->view('frontend/index', $data);
+				} else {
+					$data["heading"] = "Invalid Page";
+					$data["message"] = "The page you requested was not found ";
+					$this->load->view(VIEW_ERROR_404, $data);
+				}
+			} else {
+				$data["heading"] = "Invalid Page";
+				$data["message"] = "The page you requested was not found ";
+				$this->load->view(VIEW_ERROR_404, $data);
+			}
+		}
+
 		public function persetujuan()
 		{
 			$doc = $this->input->get('doc', true);
@@ -660,6 +710,55 @@
 					$this->pdf->setPaper($size, 'potrait');
 					$this->pdf->filename = $this->generate_slug($section_title) . '_' . $tugas_akhir->nim;
 					$this->pdf->load_view($page . '_document', $data);
+				} else {
+					$data["heading"] = "Invalid Page";
+					$data["message"] = "The page you requested was not found ";
+					$this->load->view(VIEW_ERROR_404, $data);
+				}
+			} else {
+				$data["heading"] = "Invalid Page";
+				$data["message"] = "The page you requested was not found ";
+				$this->load->view(VIEW_ERROR_404, $data);
+			}
+		}
+
+		public function cetak_dokumen()
+		{
+			$dok = $this->input->get('doc', true);
+			$kode_dokumen = base64_decode($dok);
+			if (!empty($dok)) {
+				$dokumen = $this->dokumen->detail_by_encrypt_code($kode_dokumen);
+				if (!empty($dokumen)) {
+					$id_tugas_akhir = $dokumen->id_tugas_akhir;
+					$page = $this->get_page_cetak($dokumen->tipe, $dokumen->jenis);
+					if (!empty($page)) {
+						$data = [];
+						if ($dokumen->tipe == DOKUMEN_SURAT_KEPUTUSAN && $dokumen->jenis == DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR) {
+							$ujian = $this->disertasi->detail_ujian_by_disertasi($id_tugas_akhir, UJIAN_DISERTASI_KUALIFIKASI);
+							$jadwal = $this->disertasi->read_jadwal($id_tugas_akhir, UJIAN_DISERTASI_KUALIFIKASI);
+							$disertasi = $this->disertasi->detail($id_tugas_akhir);
+							$pengujis = $this->disertasi->read_penguji_anggota($ujian->id_ujian);
+							$ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
+							$data = [
+								'dokumen' => $dokumen,
+								'jadwal' => $jadwal,
+								'pengujis' => $pengujis,
+								'ketua_penguji' => $ketua_penguji,
+								'disertasi' => $disertasi,
+								'qr_dokumen' => $dokumen->qr_image,
+								'dekan' => $this->struktural->read_dekan(),
+								'kps_s3' => $this->struktural->read_kps_s3(),
+							];
+						}
+						$size = 'legal';
+						$this->pdf->setPaper($size, 'potrait');
+						$this->pdf->filename = $this->generate_slug($dokumen->nama).'.pdf';
+						$this->pdf->load_view($page, $data);
+					} else {
+						$data["heading"] = "Invalid Page";
+						$data["message"] = "The page you requested was not found ";
+						$this->load->view(VIEW_ERROR_404, $data);
+					}
 				} else {
 					$data["heading"] = "Invalid Page";
 					$data["message"] = "The page you requested was not found ";
@@ -963,7 +1062,7 @@
 				];
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
 
-				if ($jenis == TAHAPAN_TESIS_JUDUL){
+				if ($jenis == TAHAPAN_TESIS_JUDUL) {
 					$jenis_ujian = UJIAN_TESIS_PROPOSAL;
 					$tgl_pengajuan = $tugas_akhir->tgl_pengajuan;
 				} else if ($jenis == TAHAPAN_TESIS_PROPOSAL) {

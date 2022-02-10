@@ -89,7 +89,7 @@
 			}
 		}
 
-		public function cetak_sk_penasehat()
+		public function cetak_sk_penasehat_old()
 		{
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
@@ -117,6 +117,64 @@
 				$header = 'backend/widgets/common/pdf_header';
 				$page = 'backend/prodi/doktoral/kualifikasi/cetak_sk_penasehat';
 				$size = 'a4';
+				$this->pdf->setPaper($size, 'potrait');
+				$this->pdf->filename = "SURAT KEPUTUSAN - PENASEHAT AKADEMIK - " . $disertasi->nim . '.pdf';
+				$this->pdf->load_view($page, $data);
+			} else {
+				$this->session->set_flashdata('msg-title', 'alert-danger');
+				$this->session->set_flashdata('msg', 'Terjadi Kesalahan');
+				redirect_back();
+			}
+		}
+
+		public function cetak_sk_penasehat()
+		{
+			$hand = $this->input->post('hand', true);
+			if ($hand == 'center19') {
+				$id_disertasi = $this->input->post('id_disertasi', true);
+				$disertasi = $this->disertasi->detail($id_disertasi);
+				$no_sk = $this->input->post('no_sk', true);
+				$tgl_sk = $this->input->post('tgl_sk', true);
+				$link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_SURAT_KEPUTUSAN . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
+				$link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_SURAT_KEPUTUSAN . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
+				// QR
+				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SK Ujian', 'Kualifikasi', $disertasi->nim, date('Y-m-d', strtotime($tgl_sk)));
+				$qr_content = $link_dokumen; //data yang akan di jadikan QR CODE
+				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
+				// DOKUMEN
+				$data_dokumen = [
+					'kode' => $this->dokumen->generate_kode(DOKUMEN_SURAT_KEPUTUSAN, 'kualifikasi', $disertasi->nim, date('Y-m-d', strtotime($tgl_sk))),
+					'tipe' => DOKUMEN_SURAT_KEPUTUSAN,
+					'jenis' => DOKUMEN_JENIS_DISERTASI_SK_PENASEHAT_STR,
+					'id_tugas_akhir' => $id_disertasi,
+					'identitas' => $disertasi->nim,
+					'nama' => 'SK Penasehat - ' . $disertasi->nama,
+					'deskripsi' => $disertasi->judul,
+					'no_doc' => $no_sk,
+					'date_doc' => date('Y-m-d', strtotime($tgl_sk)),
+					'id_jenjang' => JENJANG_S3,
+					'link' => $link_dokumen,
+					'link_cetak' => $link_dokumen_cetak,
+					'date' => date('Y-m-d', strtotime($tgl_sk)),
+					'qr_image' => PATH_FILE_QR . $qr_image_dokumen_name,
+				];
+				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+				if (!empty($dokumen)) {
+					$this->dokumen->delete($dokumen->id_dokumen);
+				}
+				$this->dokumen->save($data_dokumen);
+				$dokumen = $this->dokumen->check_by_data($data_dokumen);
+
+				$data = array(
+					'dokumen' => $dokumen,
+					'semester' => $this->semester->detail_berjalan(),
+					'disertasi' => $disertasi,
+					'qr_dokumen' => PATH_FILE_QR . $qr_image_dokumen_name,
+					'wadek' => $this->struktural->read_wadek1(),
+					'kps_s3' => $this->struktural->read_kps_s3(),
+				);
+				$page = 'backend/prodi/doktoral/kualifikasi/cetak_sk_penasehat';
+				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
 				$this->pdf->filename = "SURAT KEPUTUSAN - PENASEHAT AKADEMIK - " . $disertasi->nim . '.pdf';
 				$this->pdf->load_view($page, $data);
@@ -165,16 +223,17 @@
 				$ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
 				$no_sk = $this->input->post('no_sk', true);
 				$tgl_sk = $this->input->post('tgl_sk', true);
-				$link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
-				$link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
+				$kode_dokumen=$this->dokumen->generate_kode(DOKUMEN_SK_UJIAN_DISERTASI, DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR, $disertasi->nim, $jadwal->tanggal);
+				$link_dokumen = base_url() . 'document/lihat_dokumen?doc=' .base64_encode(md5($kode_dokumen));
+				$link_dokumen_cetak = base_url() . 'document/cetak_dokumen?doc=' . base64_encode(md5($kode_dokumen));
 				// QR
 				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SK Ujian', 'Kualifikasi', $disertasi->nim, $jadwal->tanggal);
 				$qr_content = $link_dokumen; //data yang akan di jadikan QR CODE
 				$this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
 				// DOKUMEN
 				$data_dokumen = [
-					'kode' => $this->dokumen->generate_kode(DOKUMEN_SK_UJIAN_DISERTASI, 'kualifikasi', $disertasi->nim, $jadwal->tanggal),
-					'tipe' => DOKUMEN_SK_UJIAN_DISERTASI,
+					'kode' => $kode_dokumen,
+					'tipe' => DOKUMEN_SURAT_KEPUTUSAN,
 					'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
 					'id_tugas_akhir' => $id_disertasi,
 					'identitas' => $disertasi->nim,
@@ -223,11 +282,19 @@
 			$hand = $this->input->post('hand', true);
 			if ($hand == 'center19') {
 				$id_disertasi = $this->input->post('id_disertasi', true);
+				$link_meeting = $this->input->post('link_meeting', true);
 				$ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
 				$jadwal = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
 				$disertasi = $this->disertasi->detail($id_disertasi);
 				$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
 				$ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
+				// Update Link Meeting
+				if (!empty($link_meeting)) {
+					$data_ujian = [
+						'link_meeting' => $link_meeting
+					];
+					$this->disertasi->update_ujian($data_ujian, $ujian->id_ujian);
+				}
 				$link_dokumen = base_url() . 'document/lihat?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
 				$link_dokumen_cetak = base_url() . 'document/cetak?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_disertasi . '$' . DOKUMEN_BERITA_ACARA_STR . '$' . TAHAPAN_DISERTASI_KUALIFIKASI_STR . '$' . UJIAN_DISERTASI_KUALIFIKASI;
 				// QR
@@ -333,7 +400,7 @@
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
 				$data = array(
 					'jadwal' => $ujian,
-					'dokumen'=>$dokumen,
+					'dokumen' => $dokumen,
 					'disertasi' => $this->disertasi->detail($id_disertasi),
 					'pengujis' => $pengujis,
 					'ketua_penguji' => $ketua_penguji,

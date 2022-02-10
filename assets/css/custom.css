@@ -65,14 +65,14 @@ and open the template in the editor.
 }
 
 .divider-line-thin {
-	margin: 15px auto;
+	margin: 10px auto;
 	border-width: 1px;
 	border-color: #dedede;
 	width: 100%;
 }
 
 .divider-line-semi-bold {
-	margin: 15px auto;
+	margin: 10px auto;
 	border-width: 2px;
 	border-color: #bbbbbb;
 	width: 100%;

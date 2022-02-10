@@ -81,7 +81,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<tr>
 							<td style="text-align: center"><?= $no ?>.</td>
 							<td><?= $penguji['nama'] ?></td>
-							<td><?= $no++ ?>.</td>
+							<td><?= $no++ ?>.
+								<?php
+									if (!empty($penguji['ttd'])) {
+										?>
+										<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
+										<?php
+									} else {
+										?>
+										<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
+										<?php
+									}
+								?>
+							</td>
 						</tr>
 					<?php
 					endforeach;
@@ -92,7 +104,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<tr>
 							<td style="text-align: center"><?= $i ?>.</td>
 							<td></td>
-							<td><?= $i ?>.</td>
+							<td>
+								<?= $i ?>.
+							</td>
 						</tr>
 					<?php
 					endfor;
