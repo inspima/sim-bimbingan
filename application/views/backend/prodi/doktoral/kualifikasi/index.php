@@ -130,7 +130,7 @@
 											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_berita', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-											<textarea style="resize: none;height: 60px;margin-bottom: 10px" class="form-control" name="link_meeting" placeholder="Link Meeting" required><?= !empty($ujian->link_meeting) ? $ujian->link_meeting : '' ?></textarea>
+											<textarea style="resize: none;height: 60px;margin-bottom: 10px" class="form-control" name="link_meeting" placeholder="Link Meeting" ><?= !empty($ujian->link_meeting) ? $ujian->link_meeting : '' ?></textarea>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
 											<?php echo form_close() ?>
 											<hr class="divider-line-semi-bold"/>

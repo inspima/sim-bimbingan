@@ -115,7 +115,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<table border="0" style="width:100%;margin-top: 10px">
 				<tr>
 					<td>
-						<p style="line-height: 2">Yang dihadiri Tim Penguji Ujian Kualifikasi terdiri dari : </p>
+						Yang dihadiri Tim Penguji Ujian Kualifikasi terdiri dari :
 					</td>
 				</tr>
 			</table>
@@ -131,25 +131,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<tr style="line-height: 2">
 							<td style="width: 3%"><b><?= $no ?></b>.</td>
 							<td style="width: 57%"><?= $penguji['nama'] ?></td>
-							<td style="width: 15%">(<?= $penguji['status_tim']==1?'Ketua':'Anggota' ?>)</td>
+							<td style="width: 15%">(<?= $penguji['status_tim'] == 1 ? 'Ketua' : 'Anggota' ?>)</td>
 							<?php if ($no % 2 == 0):
 								?>
 								<td style="width: 13%"></td>
-								<td style="width: 13%;text-align: left;">
+								<td style="width: 13%;text-align: left;vertical-align: center">
 									<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
 										?>
 										<?= $no ?>.
-										<?php
-										if (!empty($penguji['ttd'])) {
-											?>
-											<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
-											<?php
-										} else {
-											?>
-											<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-											<?php
-										}
-										?>
+										<?php $this->load->view('backend/widgets/common/element_ttd_small', ['ttd' => $penguji['ttd']]) ?>
 									<?php
 									else:
 										?>
@@ -161,21 +151,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<?php
 							else:
 								?>
-								<td style="width: 15%;text-align: left;">
+								<td style="width: 15%;text-align: left;vertical-align: center">
 									<?php if (!empty($dokumen_persetujuan[$no - 1]['waktu'])):
 										?>
 										<?= $no ?>.
-										<?php
-										if (!empty($penguji['ttd'])) {
-											?>
-											<img src="<?= str_replace(base_url(), "", $penguji['ttd']) ?>" width="70px"/>
-											<?php
-										} else {
-											?>
-											<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-											<?php
-										}
-										?>
+										<?php $this->load->view('backend/widgets/common/element_ttd_small', ['ttd' => $penguji['ttd']]) ?>
 									<?php
 									else:
 										?>
@@ -201,33 +181,64 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<tr>
 		<td>
-			<table border="0" style="width:100%;margin-top: 10px">
+			<table border="0" style="width:100%;margin-top: 5px">
 				<tr>
 					<td>
-						<p style="line-height: 2">Memutuskan bahwa Ujian Kualifikasi bagi mahasiswa tersebut : </p>
+						Memutuskan bahwa Ujian Kualifikasi bagi mahasiswa tersebut :
 					</td>
 				</tr>
-				<tr>
-					<td style="padding-left: 10px;line-height: 1.5">
-						a.LULUS dengan Nilai : ……………
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-left: 10px;line-height: 1.5">
-						b.MENGULANG KEMBALI : ……………
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-left: 10px;line-height: 1.5">
-						c.GAGAL STUDI karena TIDAK LULUS pada UJIAN KEDUA : ……………
-					</td>
-				</tr>
+
+				<?php
+					if ($jadwal->hasil_ujian == 0) {
+						?>
+						<tr>
+							<td style="padding-left: 10px;line-height: 1.5">
+								a.LULUS dengan Nilai : ……………
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-left: 10px;line-height: 1.5">
+								b.MENGULANG KEMBALI : ……………
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-left: 10px;line-height: 1.5">
+								c.GAGAL STUDI karena TIDAK LULUS pada UJIAN KEDUA : ……………
+							</td>
+						</tr>
+						<?php
+					} else if ($jadwal->hasil_ujian == HASIL_UJIAN_LANJUT) {
+						?>
+						<td style="padding-left: 10px;line-height: 1.5">
+							a.LULUS dengan Nilai : <?= !empty($jadwal->hasil_nilai) ? ' ' . $jadwal->hasil_nilai . ' ' : ' - ' ?>
+						</td>
+
+						<?php
+					} else if ($jadwal->hasil_ujian != HASIL_UJIAN_LANJUT && $jadwal->hasil_ujian > 0) {
+						?>
+						<tr>
+							<td style="padding-left: 10px;line-height: 1.5">
+								b.MENGULANG KEMBALI : ……………
+							</td>
+						</tr>
+						<?php
+					}else {
+						?>
+
+						<tr>
+							<td style="padding-left: 10px;line-height: 1.5">
+								c.GAGAL STUDI karena TIDAK LULUS pada UJIAN KEDUA : ……………
+							</td>
+						</tr>
+						<?php
+					}
+				?>
 			</table>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<table border="0" style="width:100%;margin-top: 30px">
+			<table border="0" style="width:100%;margin-top: 10px">
 				<tr>
 					<td style="width: 50%">
 						<img src="<?= $qr_dokumen ?>" width="100px">
@@ -237,19 +248,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							Ketua Penguji.
 							<?php
 								if ($setujui_semua):
-									if (!empty($ketua_penguji->ttd)) {
-										?>
-										<br/><br/>
-										<img src="<?= str_replace(base_url(), "", $ketua_penguji->ttd) ?>" width="100px"/>
-										<br/>
-										<?php
-									} else {
-										?>
-										<br/><br/><br/>
-										<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-										<br/><br/>
-										<?php
-									}
+									$this->load->view('backend/widgets/common/element_ttd', ['ttd' => $ketua_penguji->ttd]);
 								else:
 									?>
 									<br/><br/><br/><br/><br/><br/>
