@@ -32,16 +32,14 @@
 		<?php
 		if ($jadwal->ruang == 'ON'&&!empty($jadwal->link_meeting)) {
 			?>
-			<div class="form-group">
-				<label>Link Ujian Online</label>
-				<hr class="divider-line-thin"/>
-				<p>
-					<i class="fa fa-link"></i>&nbsp;&nbsp;
-					<a href="<?=$jadwal->link_meeting?>">Klik disini</a><br/>
-					<span class="text-muted">atau copy text dibawah </span><br/>
-					<textarea class="form-control" style="resize: none" rows="2" readonly><?=$jadwal->link_meeting?></textarea>
-				</p>
-			</div>
+			<hr class="divider-line-thin"/>
+			<label>Ujian Online</label>
+			<hr class="divider-line-thin"/>
+			<p>
+				<a href="<?= $jadwal->link_meeting ?>"><b><i class="fa fa-link"></i> Klik Link</b></a><br/>
+				<span class="text-muted">atau copy text dibawah </span><br/>
+				<code style="color: black"><?= $jadwal->link_meeting ?></code>
+			</p>
 			<?php
 		}
 		?>
