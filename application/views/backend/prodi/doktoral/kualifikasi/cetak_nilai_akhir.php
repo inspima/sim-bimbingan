@@ -172,17 +172,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</tr>
 				<tr>
 					<td align="left">
-						<?php
-							if (!empty($ketua_penguji->ttd)) {
-								?>
-								<img src="<?= str_replace(base_url(), "", $ketua_penguji->ttd) ?>" width="70px"/>
-								<?php
-							} else {
-								?>
-								<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-								<?php
-							}
-						?>
+						<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$ketua_penguji->ttd]) ?>
 					</td>
 				</tr>
 				<tr>

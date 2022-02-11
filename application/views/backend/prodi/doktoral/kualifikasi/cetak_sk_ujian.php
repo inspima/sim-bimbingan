@@ -181,20 +181,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 35%">
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
 			Pada tanggal <?= woday_toindo($dokumen->date_doc) ?><br/>
-			<br/>
-			<br/>
-			<?php
-				if (!empty($dekan->ttd)) {
-					?>
-					<img src="<?= str_replace(base_url(), "", $dekan->ttd) ?>" width="70px"/>
-					<?php
-				} else {
-					?>
-					<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-					<?php
-				}
-			?>
-			<br/>
+			<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$dekan->ttd]) ?>
 			<?=$dekan->nama_dosen?><br/>
 			NIP:<?=$dekan->nip?><
 		</td>
@@ -218,22 +205,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 35%">
 			Salinan sesuai dengan Aslinya<br/>
 			Koordinator Program,<br/>
-			<br/>
-			<br/>
-			<?php
-				if (!empty($kps_s3->ttd)) {
-					?>
-					<img src="<?= str_replace(base_url(), "", $kps_s3->ttd) ?>" width="70px"/>
-					<?php
-				} else {
-					?>
-					<font style="color: red;font-size: 9pt">TTD KOSONG</font><br/>
-					<?php
-				}
-			?>
-			<br/>
+			<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$kps_s3->ttd]) ?>
 			<?=$kps_s3->nama_dosen?><br/>
-			NIP:<?=$kps_s3->nip?><
+			NIP:<?=$kps_s3->nip?>
 		</td>
 		<td style="width: 20%"></td>
 	</tr>
