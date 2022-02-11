@@ -168,7 +168,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<td align="left">Surabaya, <?php echo woday_toindo(date('Y-m-d')) ?></td>
 				</tr>
 				<tr>
-					<td align="left">Ketua Tim Penguji Skripsi,</td>
+					<td align="left">Ketua Tim Penguji,</td>
 				</tr>
 				<tr>
 					<td align="left">
