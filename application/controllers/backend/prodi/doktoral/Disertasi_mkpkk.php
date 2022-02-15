@@ -77,9 +77,7 @@
 					'kps_s3' => $this->struktural->read_kps_s3(),
 					'disertasi_mkpkks' => $disertasi_mkpkks,
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
-				$header = 'backend/widgets/common/pdf_header';
+
 				$page = 'backend/prodi/doktoral/mkpkk/cetak-sk';
 				$size = 'a4';
 				$this->pdf->setPaper($size, 'potrait');
@@ -102,8 +100,6 @@
 				$mkpkk = $this->disertasi->detail_mkpkk($id_mkpkk);
 				$disertasi_mkpkk = $this->disertasi->detail_disertasi_mkpkk($id_disertasi, $id_mkpkk);
 				$pjmk_mkpkk = $this->disertasi->detail_mkpkk_pengampu_pjmk($id_mkpkk);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$data = [
 					'disertasi' => $disertasi,
 					'mkpkk' => $mkpkk,

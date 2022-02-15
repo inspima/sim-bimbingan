@@ -51,6 +51,7 @@
 		public function mkpkk_input()
 		{
 			$id_disertasi = $this->uri->segment('6');
+			$this->disertasi->regenerate_disertasi_mkpkk_pengampu($id_disertasi);
 			$data = array(
 				// PAGE //
 				'title' => 'Disertasi - Penilaian - MKPKK',

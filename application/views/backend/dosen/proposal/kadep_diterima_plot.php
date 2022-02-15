@@ -239,11 +239,11 @@
 														<?php
 													} else if ($listpenguji['status'] == '2') {
 														?>
-														<button type="submit" class="btn btn-xs btn-success"> Approved</button>
+														<button type="submit" class="btn btn-xs btn-success"> Disetujui</button>
 														<?php
 													} else if ($listpenguji['status'] == '3') {
 														?>
-														<button type="submit" class="btn btn-xs btn-danger"> Rejected</button>
+														<button type="submit" class="btn btn-xs btn-danger"> Ditolak</button>
 														<?php
 													}
 												?>

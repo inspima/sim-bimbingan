@@ -19,29 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 
-<table align="center" width="100%" border="0">
-	<tr>
-		<td style="width:5%;vertical-align: middle"><img src="assets/backend/cetak/logo.png" width="70px" style=""></td>
-		<td style="width:95%" align="center">
-			<strong>
-				<p style="font-size:17px;margin-bottom: 0px;">
-					<?= strtoupper($this->setting->get_value('kementrian_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_fakultas_txt')) ?><br>
-				</p>
-			</strong>
-
-			<p style="font-size:14px;margin: 0px 0 0px 0;">
-				<?= $this->setting->get_value('universitas_alamat_txt') ?><br>
-				<?= $this->setting->get_value('universitas_web_email_txt') ?>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="line">&nbsp;
-		</td>
-	</tr>
-</table>
+<?php $this->load->view('backend/widgets/common/header_document') ?>
 
 <table border="0" style="width:100%">
 	<tr>
@@ -52,9 +30,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<b style="font-weight: bold;font-size: 1.5em">DAFTAR NILAI</b><br/>
 						<b style="font-weight: bold;font-size: 1.2em">MATA KULIAH PENGEMBANGAN KEILMUAN DAN KEAHLIAN <br/>(MKPKK)</b>
 					</td>
-				</tr>
-				<tr>
-					<td colspan="3" class="line">&nbsp;</td>
 				</tr>
 				<tr>
 					<td style="width: 35%"><b style="margin-left: 100px">NAMA</b></td>
@@ -97,8 +72,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<td style="width: 50%">
 						<p>
 							Surabaya, <?php echo toindo(date('Y-m-d')) ?><br/>
-							Penanggung Jawab Mata Kuliah,
-							<br/><br/><br/><br/><br/><br/>
+							Penanggung Jawab Mata Kuliah,<br/>
+							<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$pjma_mkpkk->ttd]) ?>
 							<?= $pjma_mkpkk->nama ?><br/>
 							NIP. <?= $pjma_mkpkk->nip ?>
 						</p>
@@ -112,7 +87,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<table border="0" style="width:100%;margin-top: 30px">
 				<tr style="width: 30%">
 					<td style="width: 60%">
-						Mahasiswa angkatan 2014 dan selanjutnya<br/>
 						Mengikuti grade nilai sebagai berikut :<br/><br/>
 						<table border="1" style="border-collapse: collapse;font-size: 0.9em">
 							<tr>

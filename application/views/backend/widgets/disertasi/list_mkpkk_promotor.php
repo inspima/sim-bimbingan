@@ -20,7 +20,7 @@
 							<hr class="divider-line-semi-bold"/>
 							<b class="text-info">Dosen Pengampu</b><br/>
 							<?php
-								$mkpkk_pengampus = $this->disertasi->read_disertasi_mkpkk_pengampu($mkpkk['id_mkpkk']);
+								$mkpkk_pengampus = $this->disertasi->read_disertasi_mkpkk_pengampu($mkpkk['id_mkpkk'],$disertasi->id_disertasi);
 								foreach ($mkpkk_pengampus as $index_pengampu => $pengampu):
 									?>
 									<?= $index_pengampu + 1 ?>. <b><?php echo $pengampu['nama'] ?></b>

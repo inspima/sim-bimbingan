@@ -257,7 +257,10 @@
 
 		function read_aktif($username)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('s.id_disertasi, s.id_departemen, s.tgl_pengajuan,s.status_kualifikasi, s.berkas_proposal, s.status_proposal, d.departemen ');
 			$this->db->from('disertasi s');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
@@ -339,7 +342,10 @@
 
 		public function read_penguji($id_ujian)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
 			$this->db->from('penguji_disertasi p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
@@ -351,9 +357,12 @@
 			return $query->result_array();
 		}
 
-		public function read_penguji_row($id_ujian,$nip)
+		public function read_penguji_row($id_ujian, $nip)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
 			$this->db->from('penguji_disertasi p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
@@ -368,7 +377,10 @@
 
 		public function cek_penguji($data)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_penguji');
 			$this->db->from('penguji_disertasi p');
 			$this->db->join('ujian_disertasi u', 'p.id_ujian = u.id_ujian');
@@ -382,7 +394,10 @@
 
 		public function cek_penguji_ketua_by_disertasi($id_disertasi)
 		{
-			$stts = array('1','2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_penguji');
 			$this->db->from('penguji_disertasi p');
 			$this->db->join('ujian_disertasi u', 'p.id_ujian = u.id_ujian');
@@ -434,7 +449,10 @@
 
 		public function read_penguji_ketua($id_ujian)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
 			$this->db->from('penguji_disertasi p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
@@ -448,7 +466,10 @@
 
 		public function read_penguji_anggota($id_ujian)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_penguji, p.nip, p.status_tim, p.status, pg.nama, pg.ttd');
 			$this->db->from('penguji_disertasi p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
@@ -462,7 +483,10 @@
 
 		public function read_pengujibentrok($tanggal, $id_jam, $nip)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('u.id_ujian');
 			$this->db->from('ujian u');
 			$this->db->join('penguji p', 'u.id_ujian = p.id_ujian');
@@ -494,7 +518,10 @@
 
 		public function count_penguji($id_ujian)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->from('penguji_disertasi p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->join('ujian_disertasi u', 'p.id_ujian = u.id_ujian');
@@ -583,7 +610,10 @@
 
 		public function read_promotor_kopromotor($id_disertasi)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_promotor, p.nip, p.status_tim, p.status, pg.nama');
 			$this->db->from('promotor p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
@@ -596,7 +626,10 @@
 
 		public function get_status_promotor($id_disertasi, $nip)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.*');
 			$this->db->from('promotor p');
 			$this->db->join('disertasi d', 'd.id_disertasi = p.id_disertasi');
@@ -609,7 +642,10 @@
 
 		public function cek_promotor_ada($id_disertasi)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_promotor');
 			$this->db->from('promotor p');
 			$this->db->join('disertasi d', 'd.id_disertasi = p.id_disertasi');
@@ -622,7 +658,10 @@
 
 		public function cek_promotor_kopromotor($data)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->select('p.id_promotor');
 			$this->db->from('promotor p');
 			$this->db->join('disertasi d', 'd.id_disertasi = p.id_disertasi');
@@ -635,7 +674,10 @@
 
 		public function count_promotor($id_disertasi)
 		{
-			$stts = array('1', '2');
+			$stts = array(
+				'1',
+				'2'
+			);
 			$this->db->from('promotor p');
 			$this->db->join('pegawai pg', 'p.nip = pg.nip');
 			$this->db->join('disertasi d', 'p.id_disertasi = d.id_disertasi');
@@ -887,7 +929,7 @@
 
 		public function detail_mkpkk_pengampu_pjmk($id_mkpkk)
 		{
-			$this->db->select('m.*,p.nama');
+			$this->db->select('m.*,p.nama,p.ttd');
 			$this->db->from('mkpkk_pengampu m');
 			$this->db->join('pegawai p', 'p.nip = m.nip');
 			$this->db->where('m.id_mkpkk', $id_mkpkk);
@@ -932,12 +974,39 @@
 			}
 		}
 
-		public function read_disertasi_mkpkk_pengampu($id_mkpkk)
+		public function regenerate_disertasi_mkpkk_pengampu($id_disertasi)
+		{
+			$mkpkks = $this->read_disertasi_mkpkk($id_disertasi);
+			foreach ($mkpkks as $mkpkk) {
+				$mkpkk_pengampus=$this->read_mkpkk_pengampu($mkpkk['id_mkpkk']);
+				foreach ($mkpkk_pengampus as $mkpkk_pengampu){
+					$dis_pengampu = $this->cek_disertasi_mkpkk_pengampu($mkpkk['id_mkpkk'], $mkpkk_pengampu['nip'],$id_disertasi);
+					if(empty($dis_pengampu)){
+						$data_dis_pengampu=[
+							'id_disertasi'=>$id_disertasi,
+							'id_mkpkk'=>$mkpkk['id_mkpkk'],
+							'nip'=>$mkpkk_pengampu['nip'],
+						];
+						$this->save_disertasi_mkpkk_pengampu($data_dis_pengampu);
+					}
+				}
+				$disertasi_pengampus = $this->read_disertasi_mkpkk_pengampu($mkpkk['id_mkpkk'],$id_disertasi);
+				foreach ($disertasi_pengampus as $disertasi_pengampu) {
+					$m_pengampu = $this->cek_mkpkk_pengampu($mkpkk['id_mkpkk'], $disertasi_pengampu['nip']);
+					if (empty($m_pengampu)) {
+						$this->delete_disertasi_mkpkk_pengampu_by_id($disertasi_pengampu['id_disertasi_mkpkk_pengampu']);
+					}
+				}
+			}
+		}
+
+		public function read_disertasi_mkpkk_pengampu($id_mkpkk,$id_disertasi)
 		{
 			$this->db->select('m.*,p.nama');
 			$this->db->from('disertasi_mkpkk_pengampu m');
 			$this->db->join('pegawai p', 'p.nip = m.nip');
 			$this->db->where('m.id_mkpkk', $id_mkpkk);
+			$this->db->where('m.id_disertasi', $id_disertasi);
 			$query = $this->db->get();
 			return $query->result_array();
 		}
@@ -948,6 +1017,27 @@
 			$this->db->from('disertasi_mkpkk_pengampu m');
 			$this->db->join('pegawai p', 'p.nip = m.nip');
 			$this->db->where('m.id_disertasi_mkpkk_pengampu', $id);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function cek_disertasi_mkpkk_pengampu($id_mkpkk, $nip,$id_disertasi)
+		{
+			$this->db->select('m.*');
+			$this->db->from('disertasi_mkpkk_pengampu m');
+			$this->db->where('m.nip', $nip);
+			$this->db->where('m.id_mkpkk', $id_mkpkk);
+			$this->db->where('m.id_disertasi', $id_disertasi);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function cek_mkpkk_pengampu($id_mkpkk, $nip)
+		{
+			$this->db->select('m.*');
+			$this->db->from('mkpkk_pengampu m');
+			$this->db->where('m.nip', $nip);
+			$this->db->where('m.id_mkpkk', $id_mkpkk);
 			$query = $this->db->get();
 			return $query->row();
 		}
@@ -966,6 +1056,12 @@
 		public function delete_disertasi_mkpkk_pengampu($id_disertasi)
 		{
 			$this->db->where('id_disertasi', $id_disertasi);
+			$this->db->delete('disertasi_mkpkk_pengampu');
+		}
+
+		public function delete_disertasi_mkpkk_pengampu_by_id($id)
+		{
+			$this->db->where('id_disertasi_mkpkk_pengampu', $id);
 			$this->db->delete('disertasi_mkpkk_pengampu');
 		}
 
@@ -1189,39 +1285,90 @@
 		{
 			if ($jenis == UJIAN_DISERTASI_KUALIFIKASI) {
 				return [
-					['value' => '0', 'text' => 'Belum Ujian'],
-					['value' => '1', 'text' => 'Lulus'],
-					['value' => 'u', 'text' => 'Mengulang Kembali'],
-					['value' => 'g', 'text' => 'Gagal Studi'],
+					[
+						'value' => '0',
+						'text' => 'Belum Ujian'
+					],
+					[
+						'value' => '1',
+						'text' => 'Lulus'
+					],
+					[
+						'value' => 'u',
+						'text' => 'Mengulang Kembali'
+					],
+					[
+						'value' => 'g',
+						'text' => 'Gagal Studi'
+					],
 				];
 			} else {
 				if ($jenis == UJIAN_DISERTASI_PROPOSAL) {
 					return [
-						['value' => '0', 'text' => 'Belum Ujian'],
-						['value' => '1', 'text' => 'Dilanjutkan'],
-						['value' => 'u', 'text' => 'Mengulang Kembali'],
-						['value' => 't', 'text' => 'Ditolak'],
-						['value' => 'g', 'text' => 'Gagal Studi'],
+						[
+							'value' => '0',
+							'text' => 'Belum Ujian'
+						],
+						[
+							'value' => '1',
+							'text' => 'Dilanjutkan'
+						],
+						[
+							'value' => 'u',
+							'text' => 'Mengulang Kembali'
+						],
+						[
+							'value' => 't',
+							'text' => 'Ditolak'
+						],
+						[
+							'value' => 'g',
+							'text' => 'Gagal Studi'
+						],
 					];
 				} else {
 					if ($jenis == UJIAN_DISERTASI_KELAYAKAN) {
 						return [
-							['value' => '0', 'text' => 'Belum Ujian'],
-							['value' => '1', 'text' => 'Dilanjutkan'],
-							['value' => 'u', 'text' => 'Mengulang Kembali'],
+							[
+								'value' => '0',
+								'text' => 'Belum Ujian'
+							],
+							[
+								'value' => '1',
+								'text' => 'Dilanjutkan'
+							],
+							[
+								'value' => 'u',
+								'text' => 'Mengulang Kembali'
+							],
 						];
 					} else {
 						if ($jenis == UJIAN_DISERTASI_TERTUTUP) {
 							return [
-								['value' => '0', 'text' => 'Belum Ujian'],
-								['value' => '1', 'text' => 'Dilanjutkan'],
-								['value' => 'u', 'text' => 'Mengulang Kembali'],
+								[
+									'value' => '0',
+									'text' => 'Belum Ujian'
+								],
+								[
+									'value' => '1',
+									'text' => 'Dilanjutkan'
+								],
+								[
+									'value' => 'u',
+									'text' => 'Mengulang Kembali'
+								],
 							];
 						} else {
 							if ($jenis == UJIAN_DISERTASI_TERBUKA) {
 								return [
-									['value' => '0', 'text' => 'Belum Ujian'],
-									['value' => '1', 'text' => 'Lulus'],
+									[
+										'value' => '0',
+										'text' => 'Belum Ujian'
+									],
+									[
+										'value' => '1',
+										'text' => 'Lulus'
+									],
 								];
 							}
 						}
