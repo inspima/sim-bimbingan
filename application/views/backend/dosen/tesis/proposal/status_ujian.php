@@ -340,6 +340,14 @@
                                     <td>
                                         <?php
                                         if(!empty($dokumen_persetujuan)){
+                                            foreach($dokumen_persetujuan as $dp){
+                                                if($dp['identitas'] == $listpenguji['nip']){
+                                                    $status_ujian = ['0' => 'Belum Ujian', '1' => 'Layak', '2' => 'Layak dengan Catatan', '3' => 'Tidak Layak', NULL => NULL];
+                                                    echo $status_ujian[$dokumen_persetujuan[$urut-1]['hasil']];
+                                                }
+                                            }
+                                        }
+                                        /*if(!empty($dokumen_persetujuan)){
                                             if($dokumen_persetujuan[$urut-1]['identitas'] == $listpenguji['nip']){
                                                 if($dokumen_persetujuan[$urut-1]['hasil'] != ''){
                                                     $jumlah_isi++;
@@ -347,7 +355,7 @@
                                                 $status_ujian = ['0' => 'Belum Ujian', '1' => 'Layak', '2' => 'Layak dengan Catatan', '3' => 'Tidak Layak', NULL => NULL];
                                                 echo $status_ujian[$dokumen_persetujuan[$urut-1]['hasil']];
                                             }
-                                        }
+                                        }*/
                                         ?>
                                     </td>
                                 </tr>

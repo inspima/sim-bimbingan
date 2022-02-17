@@ -1251,23 +1251,23 @@ class Proposal extends CI_Controller {
                 if (!empty($promotor)) {
                     $this->session->set_flashdata('msg-title', 'alert-danger');
                     $this->session->set_flashdata('msg', 'Gagal update tim penguji. Ketua sudah ada.');
-                    redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                    redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
                 } else {
                     $this->tesis->update_penguji($data, $id_penguji);
                     $this->session->set_flashdata('msg-title', 'alert-success');
                     $this->session->set_flashdata('msg', 'Berhasil update penguji.');
-                    redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                    redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
                 }
             } else {
                 $this->tesis->update_penguji($data, $id_penguji);
                 $this->session->set_flashdata('msg-title', 'alert-success');
                 $this->session->set_flashdata('msg', 'Berhasil update tim penguji.');
-                redirect('dosen/tesis/proposal/setting/' . $id_tesis);
+                redirect('dosen/tesis/proposal/status_ujian/' . $id_tesis);
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');
-            redirect('dosen/tesis/proposal/setting');
+            redirect('dosen/tesis/proposal/status_ujian');
         }
     }
 
