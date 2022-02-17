@@ -30,6 +30,13 @@ $(function () {
 		autoclose: true
 	})
 
+
+	//Timepicker
+	$('.timepicker').timepicker({
+		showMeridian: false,
+		defaultTime:false
+	})
+
 	//Initialize Select2 Elements
 	$('.select2').select2({
 		allowClear: true

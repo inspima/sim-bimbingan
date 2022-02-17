@@ -11,34 +11,56 @@
 		{
 			$status = true;
 			$message = 'Sukses';
-			$query_s1_str = "SELECT * FROM ujian WHERE AND id_ruang = ? and tgl = ? and id_jam = ?";
-			$query_s1 = $this->db->query($query_s1_str, [
-				$ruang,
-				$tgl,
-				$jam
-			]);
-			$result_s1 = $query_s1->num_rows();
+			$data_ruang = $this->getRuang($ruang);
+			$data_jam = $this->getJam($jam);
+			if ($data_ruang->ruang != 'ON') {
+				$query_s1_str = "
+					SELECT u.* FROM ujian u 
+					JOIN jam j on j.id_jam=u.id_jam
+					WHERE u.id_ruang = ? 
+					AND u.tanggal = ?
+					AND CAST(? as time) between j.mulai and j.selesai
+					";
+				$query_s1 = $this->db->query($query_s1_str, [
+					$ruang,
+					$tgl,
+					$data_jam->selesai,
+				]);
+				$result_s1 = $query_s1->num_rows();
 
-			$query_s2_str = "SELECT * FROM ujian_tesis WHERE AND id_ruang = ? and tgl = ? and id_jam = ?";
-			$query_s2 = $this->db->query($query_s2_str, [
-				$ruang,
-				$tgl,
-				$jam
-			]);
-			$result_s2 = $query_s2->num_rows();
+				$query_s2_str = "
+					SELECT u.* FROM ujian_tesis u 
+					JOIN jam j on j.id_jam=u.id_jam
+					WHERE u.id_ruang = ? 
+					AND u.tanggal = ?
+					AND CAST(? as time) between j.mulai and j.selesai";
+				$query_s2 = $this->db->query($query_s2_str, [
+					$ruang,
+					$tgl,
+					$data_jam->selesai,
+				]);
+				$result_s2 = $query_s2->num_rows();
 
-			$query_s3_str = "SELECT * FROM ujian_disertasi WHERE AND id_ruang = ? and tgl = ? and id_jam = ?";
-			$query_s3 = $this->db->query($query_s3_str, [
-				$ruang,
-				$tgl,
-				$jam
-			]);
-			$result_s3 = $query_s3->num_rows();
+				$query_s3_str = "
+					SELECT u.* FROM ujian_disertasi u 
+					JOIN jam j on j.id_jam=u.id_jam
+					WHERE u.id_ruang = ? 
+					AND u.tanggal = ?
+					AND CAST(? as time) between j.mulai and j.selesai
+					AND u.status='1'";
+				$query_s3 = $this->db->query($query_s3_str, [
+					$ruang,
+					$tgl,
+					$data_jam->selesai,
+				]);
+				$result_s3 = $query_s3->num_rows();
 
-			if ($result_s1 > 0 || $result_s2 > 0 || $result_s3 > 0) {
-				$status = false;
-				$message = 'Sudah ada jadwal lain pada tanggal/ruang/jam yang sama';
+				if ($result_s1 > 0 || $result_s2 > 0 || $result_s3 > 0) {
+					$status = false;
+					$message = 'Gagal. Sudah ada jadwal lain pada tanggal/ruang/jam yang sama';
+				}
 			}
+
 
 			return [
 				'status' => $status,
@@ -46,38 +68,77 @@
 			];
 		}
 
+		public function cekBentrokPengujis($pengujis, $tgl, $jam)
+		{
+			$status = true;
+			$message = '';
+			$data_jam = $this->getJam($jam);
+			foreach ($pengujis as $penguji) {
+				$cek_penguji_bentrok = $this->cekBentrokPenguji($penguji['nip'], $tgl, $jam);
+				if (!$cek_penguji_bentrok['status']) {
+					$status = false;
+					$message .= 'Penguji ' . $penguji['nama'] . ' memiliki jadwal pada '.tanggal_hari_format_indonesia($tgl).' dan jam '.$data_jam->jam.'<br/>';
+				}
+			}
+			return [
+				'status' => $status,
+				'message' => $status ? 'Sukses' : 'Gagal. Terdapat penguji bentrok <br/>'.$message
+			];
+		}
 
-		public function cekBentrokPenguji($nip, $ruang, $tgl, $jam)
+
+		public function cekBentrokPenguji($nip, $tgl, $jam)
 		{
 			$status = true;
 			$message = 'Sukses';
-			$query_s1_str = "SELECT * FROM ujian WHERE AND id_ruang = ? and tgl = ? and id_jam = ?";
+			$data_jam = $this->getJam($jam);
+			$query_s1_str = "
+					SELECT u.* FROM ujian u 
+					JOIN penguji p on p.id_ujian=u.id_ujian
+					JOIN jam j on j.id_jam=u.id_jam
+					WHERE p.nip= ?
+					AND u.tanggal = ?
+					AND CAST( ? as time) between j.mulai and j.selesai
+					";
 			$query_s1 = $this->db->query($query_s1_str, [
-				$ruang,
+				$nip,
 				$tgl,
-				$jam
+				$data_jam->selesai,
 			]);
 			$result_s1 = $query_s1->num_rows();
 
-			$query_s2_str = "SELECT * FROM ujian_tesis WHERE AND id_ruang = ? and tgl = ? and id_jam = ?";
+			$query_s2_str = "
+					SELECT u.* FROM ujian_tesis u 
+					JOIN penguji_tesis p on p.id_ujian=u.id_ujian
+					JOIN jam j on j.id_jam=u.id_jam
+					WHERE p.nip= ?
+					AND u.tanggal = ?
+					AND CAST( ? as time) between j.mulai and j.selesai";
 			$query_s2 = $this->db->query($query_s2_str, [
-				$ruang,
+				$nip,
 				$tgl,
-				$jam
+				$data_jam->selesai,
 			]);
 			$result_s2 = $query_s2->num_rows();
 
-			$query_s3_str = "SELECT * FROM ujian_disertasi WHERE AND id_ruang = ? and tgl = ? and id_jam = ?";
+			$query_s3_str = "
+					SELECT u.* FROM ujian_disertasi u 
+					JOIN penguji_disertasi p on p.id_ujian=u.id_ujian
+					JOIN jam j on j.id_jam=u.id_jam
+					WHERE p.nip= ?
+					AND u.tanggal = ?
+					AND CAST( ? as time) between j.mulai and j.selesai
+					AND u.status='1'";
 			$query_s3 = $this->db->query($query_s3_str, [
-				$ruang,
+				$nip,
 				$tgl,
-				$jam
+				$data_jam->selesai,
 			]);
 			$result_s3 = $query_s3->num_rows();
 
 			if ($result_s1 > 0 || $result_s2 > 0 || $result_s3 > 0) {
 				$status = false;
-				$message = 'Sudah ada jadwal lain pada tanggal/ruang/jam yang sama';
+				$message = 'Penguji '.$nip.' memiliki jadwal lain pada tanggal/jam yang sama';
 			}
 
 			return [
@@ -86,29 +147,20 @@
 			];
 		}
 
-		public function read_judul($id_skripsi)
+		public function getJam($id)
 		{
-			$this->db->select('j.judul');
-			$this->db->from('judul j');
-			$this->db->join('skripsi s', 'j.id_skripsi = s.id_skripsi');
-			$this->db->where('j.id_skripsi', $id_skripsi);
-			$this->db->order_by('j.id_judul', 'desc');
-			$this->db->limit(1);
+			$this->db->select('*');
+			$this->db->from('jam j');
+			$this->db->where('j.id_jam', $id);
 			$query = $this->db->get();
 			return $query->row();
 		}
 
-		function detail($id, $username)
+		public function getRuang($id)
 		{
-			$this->db->select('s.id_skripsi, s.id_departemen, s.tgl_pengajuan,  s.berkas_proposal, s.status_proposal, s.turnitin, s.toefl, d.departemen ');
-			$this->db->from('skripsi s');
-			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
-			$this->db->where('s.nim', $username);
-			$this->db->where('s.jenis', 2);
-			$this->db->where('s.id_skripsi', $id);
-			$this->db->limit(1);
-			$this->db->order_by('s.id_skripsi', 'desc');
-
+			$this->db->select('*');
+			$this->db->from('ruang');
+			$this->db->where('id_ruang', $id);
 			$query = $this->db->get();
 			return $query->row();
 		}

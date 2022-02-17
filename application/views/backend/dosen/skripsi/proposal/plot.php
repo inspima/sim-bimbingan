@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="row">
 	<!-- left column -->
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -46,7 +46,7 @@
 	</div>
 
 	<!-- left column -->
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -138,7 +138,11 @@
 	</div>
 
 	<!-- left column -->
-	<div class="col-md-8">
+
+
+</div>
+<div class="row">
+	<div class="col-md-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">
@@ -282,13 +286,7 @@
 		</div>
 		<!-- /.box -->
 	</div>
-
-</div>
-<div class="row">
-	<div class="col-md-4">
-
-	</div>
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<!-- general form elements -->
 		<div class="box box-primary">
 			<div class="box-header with-border">

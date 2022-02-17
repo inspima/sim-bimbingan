@@ -56,6 +56,8 @@
 			if ($hand == 'center19') {
 				$data = array(
 					'jam' => $this->input->post('jam', true),
+					'mulai' => $this->input->post('mulai', true),
+					'selesai' => $this->input->post('selesai', true),
 				);
 
 				$this->jam->save($data);
@@ -96,6 +98,8 @@
 
 				$data = array(
 					'jam' => $this->input->post('jam', true),
+					'mulai' => $this->input->post('mulai', true),
+					'selesai' => $this->input->post('selesai', true),
 				);
 
 				$this->jam->update($data, $id);

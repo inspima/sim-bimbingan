@@ -113,48 +113,34 @@ class Kelayakan extends CI_Controller {
             $id_disertasi = $this->input->post('id_disertasi', TRUE);
             $ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KELAYAKAN);
 
-            if (!empty($ujian)) { // JIKA SUDAH ADA
-                //echo 'jadwal sudah ada. tambah script update';  die();
-                $id_ujian = $this->input->post('id_ujian');
+			if (!empty($ujian)) { // JIKA SUDAH ADA
+				$id_ujian = $this->input->post('id_ujian');
 
 				$data_update = array(
 					'status' => 0,
 					'status_ujian' => 1
 				);
 
-                $data = array(
-                    'id_disertasi' => $id_disertasi,
-                    'id_ruang' => $this->input->post('id_ruang', TRUE),
-                    'id_jam' => $this->input->post('id_jam', TRUE),
-                    'tanggal' => todb($this->input->post('tanggal', TRUE)),
-                    'status' => 1,
+				$data = array(
+					'id_disertasi' => $id_disertasi,
+					'id_ruang' => $this->input->post('id_ruang', true),
+					'id_jam' => $this->input->post('id_jam', true),
+					'tanggal' => todb($this->input->post('tanggal', true)),
+					'link_meeting' => $this->input->post('link_meeting', true),
+					'status' => 1,
 					'jenis_ujian' => UJIAN_DISERTASI_KELAYAKAN,
-                    'status_ujian' => 1
-                );
+					'status_ujian' => 1
+				);
 
-                $cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+				$cek_jadwal_bentrok = $this->penjadwalan->cekBentrokJadwal($data['id_ruang'], $data['tanggal'], $data['id_jam']);
 
-                if ($cek_jadwal) {
-                    $this->session->set_flashdata('msg-title', 'alert-danger');
-                    $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-                    redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
-                } else {
-                    $penguji = $this->disertasi->read_penguji($id_ujian);
-
-                    if ($penguji) {
-                        foreach ($penguji as $list) {
-                            $bentrok = $this->disertasi->read_pengujibentrok($data['tanggal'], $data['id_jam'], $list['nip']);
-                            break;
-                        }
-
-                        if ($bentrok) {
-
-                            $this->session->set_flashdata('msg-title', 'alert-danger');
-                            $this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
-                            redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
-                        } else {
+				if ($cek_jadwal_bentrok['status']) {
+					$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+					if (!empty($pengujis)) {
+						$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPengujis($pengujis, $data['tanggal'], $data['id_jam']);
+						if ($cek_penguji_bentrok['status']) {
 							// set ujian non aktif
-							$this->disertasi->update_ujian($data_update, $id_ujian);
+							$this->disertasi->update_ujian($data_update, $ujian->id_ujian);
 							// masukkan ujian baru
 							$this->disertasi->save_ujian($data);
 							$ujian_baru = $this->disertasi->detail_ujian_by_data($id_disertasi, $data);
@@ -166,19 +152,28 @@ class Kelayakan extends CI_Controller {
 							$this->session->set_flashdata('msg-title', 'alert-success');
 							$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
 							redirect_back();
-                        }
-                    } else { //langsung update
+						} else {
+							$this->session->set_flashdata('msg-title', 'alert-danger');
+							$this->session->set_flashdata('msg', $cek_penguji_bentrok['message']);
+							redirect_back();
+						}
+					} else { //langsung update
 						// set ujian non aktif
-						$this->disertasi->update_ujian($data_update, $id_ujian);
+						$this->disertasi->update_ujian($data_update, $ujian->id_ujian);
 						// masukkan ujian baru
 						$this->disertasi->save_ujian($data);
 
 						$this->session->set_flashdata('msg-title', 'alert-success');
 						$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
 						redirect_back();
-                    }
-                }
-            } else { //JIKA BELUM ADA SAVE BARU
+					}
+				} else {
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', $cek_jadwal_bentrok['message']);
+					redirect_back();
+
+				}
+			} else { //JIKA BELUM ADA SAVE BARU
                 $data = array(
                     'id_disertasi' => $id_disertasi,
                     'id_ruang' => $this->input->post('id_ruang', TRUE),
@@ -189,21 +184,22 @@ class Kelayakan extends CI_Controller {
                     'status_ujian' => 1
                 );
 
-                $cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+				$cek_jadwal_bentrok = $this->penjadwalan->cekBentrokJadwal($data['id_ruang'], $data['tanggal'], $data['id_jam']);
 
-                if ($cek_jadwal) {
-                    $this->session->set_flashdata('msg-title', 'alert-danger');
-                    $this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-                    redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
+				if ($cek_jadwal_bentrok['status']) {
+
+					$this->disertasi->save_ujian($data);
+					$update_kelayakan = array(
+						'status_kelayakan' => STATUS_DISERTASI_KELAYAKAN_DIJADWALKAN,
+					);
+					$this->disertasi->update($update_kelayakan, $id_disertasi);
+					$this->session->set_flashdata('msg-title', 'alert-success');
+					$this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
+					redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
                 } else {
-                    $this->disertasi->save_ujian($data);
-                    $update_kelayakan = array(
-                        'status_kelayakan' => STATUS_DISERTASI_KELAYAKAN_DIJADWALKAN,
-                    );
-                    $this->disertasi->update($update_kelayakan, $id_disertasi);
-                    $this->session->set_flashdata('msg-title', 'alert-success');
-                    $this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
-                    redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
+					redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
                 }
             }
         } else {
@@ -233,29 +229,26 @@ class Kelayakan extends CI_Controller {
                 $this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar.');
                 redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
             } else {
-                $ujian = $this->disertasi->read_jadwal($id_disertasi, 1);
-                $tanggal = $ujian->tanggal;
-                $id_jam = $ujian->id_jam;
-                $pengujibentrok = $this->disertasi->read_pengujibentrok($tanggal, $id_jam, $nip);
-
-                if ($pengujibentrok) {
-                    $this->session->set_flashdata('msg-title', 'alert-danger');
-                    $this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar di hari dan jam yang sama.');
-                    redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
+                $ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KELAYAKAN);
+				$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPenguji($nip, $ujian->tanggal, $ujian->id_jam);
+				if ($cek_penguji_bentrok['status']) {
+					$jumlah_penguji = $this->disertasi->count_penguji($id_ujian);
+					if ($jumlah_penguji < '7') {
+						$this->disertasi->save_penguji($data);
+						$this->session->set_flashdata('msg-title', 'alert-success');
+						$this->session->set_flashdata('msg', 'Berhasil disimpan');
+						redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
+					} else
+						if ($jumlah_penguji >= '7') {
+							$this->session->set_flashdata('msg-title', 'alert-danger');
+							$this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah 7');
+							redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
+						}
                 } else {
-                    $jumlah_penguji = $this->disertasi->count_penguji($id_ujian);
-                    if ($jumlah_penguji < '7') {
 
-                        $this->disertasi->save_penguji($data);
-                        $this->session->set_flashdata('msg-title', 'alert-success');
-                        $this->session->set_flashdata('msg', $mesg);
-                        redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
-                    } else
-                    if ($jumlah_penguji >= '7') {
-                        $this->session->set_flashdata('msg-title', 'alert-danger');
-                        $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah 7');
-                        redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
-                    }
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar di hari dan jam yang sama.');
+					redirect('dosen/disertasi/kelayakan/setting/' . $id_disertasi);
                 }
             }
         } else {

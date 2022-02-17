@@ -25,6 +25,7 @@
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
 			$this->load->model('backend/master/ruang_model', 'ruang');
 			$this->load->model('backend/master/jam_model', 'jam');
+			$this->load->model('backend/transaksi/penjadwalan', 'penjadwalan');
 			$this->load->model('backend/baa/master/gelombang_model', 'gelombang');
 			$this->load->model('backend/transaksi/disertasi', 'disertasi');
 			$this->load->model('backend/administrator/master/struktural_model', 'struktural');
@@ -83,12 +84,12 @@
 		public function setting()
 		{
 			$id_disertasi = $this->uri->segment('5');
-			$back_link='backend/dosen/disertasi/permintaan/penasehat';
+			$back_link = 'backend/dosen/disertasi/permintaan/penasehat';
 			// Auto insert penguji penasehat sebagai ketua penguji
 			$penguji_ketua = $this->disertasi->cek_penguji_ketua_by_disertasi($id_disertasi);
-			if(empty($penguji_ketua)){
-				$ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi,UJIAN_DISERTASI_KUALIFIKASI);
-				if(!empty($ujian)){
+			if (empty($penguji_ketua)) {
+				$ujian = $this->disertasi->detail_ujian_by_disertasi($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
+				if (!empty($ujian)) {
 					$disertasi = $this->disertasi->detail($id_disertasi);
 					$insert_data = array(
 						'id_ujian' => $ujian->id_ujian,
@@ -100,10 +101,10 @@
 				}
 
 			}
-			$struktural=$this->struktural->read_struktural($this->session_data['username']);
-			if(!empty($struktural)){
+			$struktural = $this->struktural->read_struktural($this->session_data['username']);
+			if (!empty($struktural)) {
 				if ($struktural->id_struktur == STRUKTUR_KPS_S3) {
-					$back_link='backend/dosen/disertasi/kualifikasi';
+					$back_link = 'backend/dosen/disertasi/kualifikasi';
 				}
 			}
 			$data = array(
@@ -168,28 +169,15 @@
 						'status_ujian' => 1
 					);
 
-					$cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+					$cek_jadwal_bentrok = $this->penjadwalan->cekBentrokJadwal($data['id_ruang'], $data['tanggal'], $data['id_jam']);
 
-					if ($cek_jadwal) {
-						$this->session->set_flashdata('msg-title', 'alert-danger');
-						$this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-						redirect_back();
-					} else {
-						$penguji = $this->disertasi->read_penguji($id_ujian);
-						if ($penguji) {
-							foreach ($penguji as $list) {
-								$bentrok = $this->disertasi->read_pengujibentrok($data['tanggal'], $data['id_jam'], $list['nip']);
-								break;
-							}
-
-							if ($bentrok) {
-
-								$this->session->set_flashdata('msg-title', 'alert-danger');
-								$this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
-								redirect_back();
-							} else {
+					if ($cek_jadwal_bentrok['status']) {
+						$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+						if (!empty($pengujis)) {
+							$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPengujis($pengujis, $data['tanggal'], $data['id_jam']);
+							if ($cek_penguji_bentrok['status']) {
 								// set ujian non aktif
-								$this->disertasi->update_ujian($data_update, $id_ujian);
+								$this->disertasi->update_ujian($data_update, $ujian->id_ujian);
 								// masukkan ujian baru
 								$this->disertasi->save_ujian($data);
 								$ujian_baru = $this->disertasi->detail_ujian_by_data($id_disertasi, $data);
@@ -201,10 +189,14 @@
 								$this->session->set_flashdata('msg-title', 'alert-success');
 								$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
 								redirect_back();
+							} else {
+								$this->session->set_flashdata('msg-title', 'alert-danger');
+								$this->session->set_flashdata('msg', $cek_penguji_bentrok['message']);
+								redirect_back();
 							}
 						} else { //langsung update
 							// set ujian non aktif
-							$this->disertasi->update_ujian($data_update, $id_ujian);
+							$this->disertasi->update_ujian($data_update, $ujian->id_ujian);
 							// masukkan ujian baru
 							$this->disertasi->save_ujian($data);
 
@@ -212,6 +204,11 @@
 							$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
 							redirect_back();
 						}
+					} else {
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', $cek_jadwal_bentrok['message']);
+						redirect_back();
+
 					}
 				} else { //JIKA BELUM ADA SAVE BARU
 					$data = array(
@@ -225,13 +222,9 @@
 						'status_ujian' => 1
 					);
 
-					$cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+					$cek_jadwal_bentrok = $this->penjadwalan->cekBentrokJadwal($data['id_ruang'], $data['tanggal'], $data['id_jam']);
 
-					if ($cek_jadwal) {
-						$this->session->set_flashdata('msg-title', 'alert-danger');
-						$this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-						redirect_back();
-					} else {
+					if ($cek_jadwal_bentrok['status']) {
 						$update_kualifikasi = array(
 							'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_DIJADWALKAN,
 						);
@@ -239,6 +232,10 @@
 						$this->disertasi->update($update_kualifikasi, $id_disertasi);
 						$this->session->set_flashdata('msg-title', 'alert-success');
 						$this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
+						redirect_back();
+					} else {
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', $cek_jadwal_bentrok['message']);
 						redirect_back();
 					}
 				}
@@ -256,6 +253,7 @@
 				$id_disertasi = $this->input->post('id_disertasi', true);
 				$id_ujian = $this->input->post('id_ujian', true);
 				$nip = $this->input->post('nip', true);
+				$ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_KUALIFIKASI);
 
 				$data = array(
 					'id_ujian' => $id_ujian,
@@ -268,32 +266,27 @@
 				if ($cekpenguji) {
 					$this->session->set_flashdata('msg-title', 'alert-danger');
 					$this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar.');
-					redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+					redirect_back();
 				} else {
-					$ujian = $this->disertasi->read_jadwal($id_disertasi, 1);
-					$tanggal = $ujian->tanggal;
-					$id_jam = $ujian->id_jam;
-					$pengujibentrok = $this->disertasi->read_pengujibentrok($tanggal, $id_jam, $nip);
-
-					if ($pengujibentrok) {
-						$this->session->set_flashdata('msg-title', 'alert-danger');
-						$this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar di hari dan jam yang sama.');
-						redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
-					} else {
+					$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPenguji($nip, $ujian->tanggal, $ujian->id_jam);
+					if ($cek_penguji_bentrok['status']) {
 						$jumlah_penguji = $this->disertasi->count_penguji($id_ujian);
 						if ($jumlah_penguji < MAX_PENGUJI_S3) {
-
 							$this->disertasi->save_penguji($data);
 							$this->session->set_flashdata('msg-title', 'alert-success');
 							$this->session->set_flashdata('msg', "Berhasil simpan data");
-							redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+							redirect_back();
 						} else {
 							if ($jumlah_penguji >= MAX_PENGUJI_S3) {
 								$this->session->set_flashdata('msg-title', 'alert-danger');
 								$this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah melebihi jumlah maksimal');
-								redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
+								redirect_back();
 							}
 						}
+					} else {
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', $cek_penguji_bentrok['message']);
+						redirect_back();
 					}
 				}
 			} else {
@@ -413,7 +406,10 @@
 					$this->session->set_flashdata('msg', 'Berhasil update proses');
 					redirect('dosen/disertasi/kualifikasi/setting/' . $id_disertasi);
 				} else {
-					if (in_array($status_ujian, [1, 2])) { //layak
+					if (in_array($status_ujian, [
+						1,
+						2
+					])) { //layak
 						//update proposal selesai
 						$data = array(
 							'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_SELESAI,

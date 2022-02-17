@@ -1,4 +1,10 @@
-<div id='loading'>loading...</div>
+<div id='loading'>
+	<p style="text-align: center;">
+		<img src="<?php echo base_url() ?>assets/img/loading.gif"><br/>
+		<b>Loading data</b><br/>
+		<span class="text-muted">Please wait</span>
+	</p>
+</div>
 <div class="row">
 	<div class="col-xs-12">
 		<div id="script-error" class="callout callout-danger">
@@ -40,10 +46,11 @@
 	}
 
 	#loading {
-		display: none;
 		position: absolute;
-		top: 10px;
-		right: 10px;
+		width: 100%;
+		height: 100px;
+		top: 350px;
+		z-index: 999999;
 	}
 </style>
 <!-- fullCalendar -->
@@ -97,8 +104,7 @@
 				})
 			},
 			loading: function (bool) {
-				document.getElementById('loading').style.display =
-						bool ? 'block' : 'none';
+				document.getElementById('loading').style.display =bool ? 'block' : 'none';
 			},
 			editable: true,
 			droppable: false,

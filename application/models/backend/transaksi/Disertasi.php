@@ -718,6 +718,17 @@
 
 		// JADWAL
 
+		public function read_jadwal_all()
+		{
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->from('ujian_disertasi u');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->where('u.status', '1');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function read_jadwal_sebelum($id_disertasi, $jenis_ujian)
 		{
 			$this->db->select('u.*, r.ruang, r.gedung, j.jam');

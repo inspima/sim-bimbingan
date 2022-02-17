@@ -116,7 +116,6 @@
 				$ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_TERTUTUP);
 
 				if (!empty($ujian)) { // JIKA SUDAH ADA
-					//echo 'jadwal sudah ada. tambah script update';  die();
 					$id_ujian = $this->input->post('id_ujian');
 
 					$data_update = array(
@@ -129,34 +128,21 @@
 						'id_ruang' => $this->input->post('id_ruang', true),
 						'id_jam' => $this->input->post('id_jam', true),
 						'tanggal' => todb($this->input->post('tanggal', true)),
+						'link_meeting' => $this->input->post('link_meeting', true),
 						'status' => 1,
 						'jenis_ujian' => UJIAN_DISERTASI_TERTUTUP,
 						'status_ujian' => 1
 					);
 
-					$cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+					$cek_jadwal_bentrok = $this->penjadwalan->cekBentrokJadwal($data['id_ruang'], $data['tanggal'], $data['id_jam']);
 
-					if ($cek_jadwal) {
-						$this->session->set_flashdata('msg-title', 'alert-danger');
-						$this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-						redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
-					} else {
-						$penguji = $this->disertasi->read_penguji($id_ujian);
-
-						if ($penguji) {
-							foreach ($penguji as $list) {
-								$bentrok = $this->disertasi->read_pengujibentrok($data['tanggal'], $data['id_jam'], $list['nip']);
-								break;
-							}
-
-							if ($bentrok) {
-
-								$this->session->set_flashdata('msg-title', 'alert-danger');
-								$this->session->set_flashdata('msg', 'Gagal Ubah Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
-								redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
-							} else {
+					if ($cek_jadwal_bentrok['status']) {
+						$pengujis = $this->disertasi->read_penguji($ujian->id_ujian);
+						if (!empty($pengujis)) {
+							$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPengujis($pengujis, $data['tanggal'], $data['id_jam']);
+							if ($cek_penguji_bentrok['status']) {
 								// set ujian non aktif
-								$this->disertasi->update_ujian($data_update, $id_ujian);
+								$this->disertasi->update_ujian($data_update, $ujian->id_ujian);
 								// masukkan ujian baru
 								$this->disertasi->save_ujian($data);
 								$ujian_baru = $this->disertasi->detail_ujian_by_data($id_disertasi, $data);
@@ -168,10 +154,14 @@
 								$this->session->set_flashdata('msg-title', 'alert-success');
 								$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
 								redirect_back();
+							} else {
+								$this->session->set_flashdata('msg-title', 'alert-danger');
+								$this->session->set_flashdata('msg', $cek_penguji_bentrok['message']);
+								redirect_back();
 							}
 						} else { //langsung update
 							// set ujian non aktif
-							$this->disertasi->update_ujian($data_update, $id_ujian);
+							$this->disertasi->update_ujian($data_update, $ujian->id_ujian);
 							// masukkan ujian baru
 							$this->disertasi->save_ujian($data);
 
@@ -179,6 +169,11 @@
 							$this->session->set_flashdata('msg', 'Berhasil Ubah Jadwal.');
 							redirect_back();
 						}
+					} else {
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', $cek_jadwal_bentrok['message']);
+						redirect_back();
+
 					}
 				} else { //JIKA BELUM ADA SAVE BARU
 					$data = array(
@@ -191,13 +186,10 @@
 						'status_ujian' => 1
 					);
 
-					$cek_jadwal = $this->disertasi->cek_ruang_terpakai($data);
+					$cek_jadwal_bentrok = $this->penjadwalan->cekBentrokJadwal($data['id_ruang'], $data['tanggal'], $data['id_jam']);
 
-					if ($cek_jadwal) {
-						$this->session->set_flashdata('msg-title', 'alert-danger');
-						$this->session->set_flashdata('msg', 'Tanggal, Ruang dan Jam yang dipilih terpakai.');
-						redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
-					} else {
+					if ($cek_jadwal_bentrok['status']) {
+
 						$this->disertasi->save_ujian($data);
 						$update_tertutup = array(
 							'status_tertutup' => STATUS_DISERTASI_TERTUTUP_DIJADWALKAN,
@@ -205,6 +197,10 @@
 						$this->disertasi->update($update_tertutup, $id_disertasi);
 						$this->session->set_flashdata('msg-title', 'alert-success');
 						$this->session->set_flashdata('msg', 'Berhasil Setting Jadwal.');
+						redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
+					} else {
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', $cek_jadwal_bentrok['message']);
 						redirect('dosen/disertasi/tertutup/setting/' . $id_disertasi);
 					}
 				}

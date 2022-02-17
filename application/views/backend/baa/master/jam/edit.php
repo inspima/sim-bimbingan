@@ -14,7 +14,7 @@
 
 			<div class="box-body">
 				<div class="form-group">
-					<label>Jam</label>
+					<label>Nama Jam</label>
 					<?php echo formtext('text', 'jam', $jam->jam, 'required') ?>
 				</div>
 				<div class="form-group">
@@ -32,6 +32,29 @@
 						}
 					?>
 
+				</div>
+			</div>
+
+			<div class="box-body">
+				<div class="form-group">
+					<label>Mulai</label>
+					<div class="input-group">
+						<input type="text" name="mulai" value="<?=$jam->mulai?>" class="form-control timepicker" autocomplete="false" required readonly>
+						<div class="input-group-addon">
+							<i class="fa fa-clock-o"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="form-group">
+					<label>Selesai</label>
+					<div class="input-group">
+						<input type="text" name="selesai" value="<?=$jam->selesai?>" class="form-control timepicker" autocomplete="false" required readonly>
+						<div class="input-group-addon">
+							<i class="fa fa-clock-o"></i>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- /.box-body -->

@@ -28,6 +28,7 @@
 
 <!-- bootstrap datepicker -->
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="<?php echo base_url() ?>assets/template/backend/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url() ?>assets/template/backend/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- Sweet Alert -->

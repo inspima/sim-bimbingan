@@ -16,6 +16,29 @@
 					<?php echo formtext('text', 'jam', '', 'required') ?>
 				</div>
 			</div>
+
+			<div class="box-body">
+				<div class="form-group">
+					<label>Mulai</label>
+					<div class="input-group">
+						<input type="text" name="mulai" class="form-control timepicker" autocomplete="false" required readonly>
+						<div class="input-group-addon">
+							<i class="fa fa-clock-o"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="form-group">
+					<label>Selesai</label>
+					<div class="input-group">
+						<input type="text" name="selesai"  class="form-control timepicker" autocomplete="false" required readonly>
+						<div class="input-group-addon">
+							<i class="fa fa-clock-o"></i>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /.box-body -->
 			<div class="box-footer">
 				<button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Simpan</button>
