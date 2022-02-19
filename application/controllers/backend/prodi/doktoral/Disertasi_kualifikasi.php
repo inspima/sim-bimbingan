@@ -233,7 +233,7 @@
 				// DOKUMEN
 				$data_dokumen = [
 					'kode' => $kode_dokumen,
-					'tipe' => DOKUMEN_SURAT_KEPUTUSAN,
+					'tipe' => DOKUMEN_SK_UJIAN_DISERTASI,
 					'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR,
 					'id_tugas_akhir' => $id_disertasi,
 					'identitas' => $disertasi->nim,
