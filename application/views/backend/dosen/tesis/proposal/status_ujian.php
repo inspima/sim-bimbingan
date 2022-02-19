@@ -312,7 +312,7 @@
                             </tr>
                             <?php
                             $urut = 0;
-                            $jumlah_isi = 1;
+                            $jumlah_isi = 0;
                             foreach ($penguji as $listpenguji) {
                                 $urut++;
                                 $btn = '';
@@ -342,8 +342,11 @@
                                         if(!empty($dokumen_persetujuan)){
                                             foreach($dokumen_persetujuan as $dp){
                                                 if($dp['identitas'] == $listpenguji['nip']){
+                                                    if($dp['hasil'] != ''){
+                                                        $jumlah_isi++;
+                                                    }
                                                     $status_ujian = ['0' => 'Belum Ujian', '1' => 'Layak', '2' => 'Layak dengan Catatan', '3' => 'Tidak Layak', NULL => NULL];
-                                                    echo $status_ujian[$dokumen_persetujuan[$urut-1]['hasil']];
+                                                    echo $status_ujian[$dp['hasil']];
                                                 }
                                             }
                                         }
@@ -371,7 +374,7 @@
                                 }
                             }
                         ?>
-                                <label>Status Ujian</label>
+                                <label>Status Ujian </label>
                                 <select name="status_ujian" class="form-control select2" style="width: 100%;" required <?= ($jumlah_isi < count($penguji) && $status_tim == '1') ? 'disabled' : ''; ?> >
                                     <?php
                                     foreach ($status_ujians as $status_ujian) {
