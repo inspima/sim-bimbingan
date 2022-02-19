@@ -223,8 +223,8 @@
 				$ketua_penguji = $this->disertasi->read_penguji_ketua($ujian->id_ujian);
 				$no_sk = $this->input->post('no_sk', true);
 				$tgl_sk = $this->input->post('tgl_sk', true);
-				$kode_dokumen=$this->dokumen->generate_kode(DOKUMEN_SK_UJIAN_DISERTASI, DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR, $disertasi->nim, $jadwal->tanggal);
-				$link_dokumen = base_url() . 'document/lihat_dokumen?doc=' .base64_encode(md5($kode_dokumen));
+				$kode_dokumen = $this->dokumen->generate_kode(DOKUMEN_SK_UJIAN_DISERTASI, DOKUMEN_JENIS_DISERTASI_UJIAN_KUALIFIKASI_STR, $disertasi->nim, $jadwal->tanggal);
+				$link_dokumen = base_url() . 'document/lihat_dokumen?doc=' . base64_encode(md5($kode_dokumen));
 				$link_dokumen_cetak = base_url() . 'document/cetak_dokumen?doc=' . base64_encode(md5($kode_dokumen));
 				// QR
 				$qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SK Ujian', 'Kualifikasi', $disertasi->nim, $jadwal->tanggal);
@@ -320,7 +320,8 @@
 				$dokumen = $this->dokumen->detail_by_data($data_dokumen);
 				if (empty($dokumen)) {
 					$this->dokumen->save($data_dokumen);
-					// Update Disertasi
+				}
+				if ($disertasi->status_kualifikasi < STATUS_DISERTASI_KUALIFIKASI_UJIAN) {
 					$update_disertasi = [
 						'status_kualifikasi' => STATUS_DISERTASI_KUALIFIKASI_CETAK_DOKUMEN
 					];
