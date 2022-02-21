@@ -167,6 +167,8 @@
 		{
 			$dokumen = $this->detail($id_dokumen);
 			if ($id_jenjang == JENJANG_S3) {
+				// Delete persetujuan jika belum disetujui
+				$this->delete_persetujuan($id_dokumen);
 				foreach ($datas as $data):
 					$link_dokumen = base_url() . 'document/persetujuan?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tugas_akhir . '$' . $id_dokumen . '$' . $data['nip'];
 					// QR
@@ -187,6 +189,8 @@
 					}
 				endforeach;
 			} else if ($id_jenjang == JENJANG_S1) {
+				// Delete persetujuan jika belum disetujui
+				$this->delete_persetujuan($id_dokumen);
 				foreach ($datas as $data):
 					$link_dokumen = base_url() . 'document/persetujuan?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tugas_akhir . '$' . $id_dokumen . '$' . $data['nip'];
 					// QR
@@ -412,6 +416,13 @@
 		{
 			$this->db->where('id_dokumen_persetujuan', $id);
 			$this->db->update('dokumen_persetujuan', $data);
+		}
+
+		public function delete_persetujuan($id)
+		{
+			$this->db->where('waktu is NULL', null, false);
+			$this->db->where('id_dokumen', $id);
+			$this->db->delete('dokumen_persetujuan');
 		}
 
 		// Dokumen Tujuan
