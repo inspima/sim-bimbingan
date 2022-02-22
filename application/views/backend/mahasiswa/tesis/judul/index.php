@@ -170,17 +170,46 @@
                             if ($list['status_judul'] == STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING)
                             {
                             ?>
-                                <!-- <a href="<?php //echo base_url() ?>mahasiswa/tesis/judul/bimbingan/<?php //echo $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a> -->
                                 <?php
-                                /*if ($list['status_proposal'] < STATUS_TESIS_JUDUL_PENGAJUAN && count($this->tesis->read_bimbingan_tesis_approved($list['id_tesis'], UJIAN_TESIS_PROPOSAL)) >= 3 ){
+                                $minApprovedByPembimbing1 = 0;
+                                $minApprovedByPembimbing2 = 0;
+                                $isReadyToPropose = false;
+                                if($biodata->id_prodi == S2_ILMU_HUKUM)
+                                {
+                                    $minApprovedByPembimbing1 = 5;
+                                    $minApprovedByPembimbing2 = 5;
+                                }
+                                else if($biodata->id_prodi == S2_KENOTARIATAN)
+                                {
+                                    $minApprovedByPembimbing1 = 3;
+                                    $minApprovedByPembimbing2 = 2;
+                                }
+
+                                if ($this->tesis->get_total_bimbingan_tesis_approved1($list['id_tesis'], UJIAN_TESIS_PROPOSAL) >= $minApprovedByPembimbing1 &&
+                                    $this->tesis->get_total_bimbingan_tesis_approved2($list['id_tesis'], UJIAN_TESIS_PROPOSAL) >= $minApprovedByPembimbing2)
+                                {
+                                    $isReadyToPropose = true;
+                                }
+
                                 ?>
-                                    <a href = "<?= base_url() ?>mahasiswa/tesis/proposal/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
-                                <?php
-                                }*/
-                                if ($list['status_proposal'] < STATUS_TESIS_JUDUL_PENGAJUAN){
-                                ?>
-                                    <a href = "<?= base_url() ?>mahasiswa/tesis/proposal/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
-                                <?php
+                                
+                               <?php
+                                if ($list['status_proposal'] < STATUS_TESIS_JUDUL_PENGAJUAN ){
+                                    if($isReadyToPropose)
+                                    {
+                                ?>        
+                                        <a href = "<?= base_url() ?>mahasiswa/tesis/proposal/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Proposal</a>
+                                <?php   
+                                
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <a class="btn btn-xs btn-primary pull-left" style="margin: 5px" href="<?= base_url() ?>mahasiswa/tesis/judul/bimbingan/<?= $list['id_tesis'] ?>">
+                                            <i class="fa fa-calendar"></i> Bimbingan
+                                        </a>
+                            <?php 
+                                    }
                                 }
                             }
                             ?>

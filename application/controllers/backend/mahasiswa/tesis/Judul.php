@@ -524,9 +524,9 @@ class Judul extends CI_Controller {
 
     public function bimbingan_save() {
         $hand = $this->input->post('hand', TRUE);
+        $id_tesis = $this->input->post('id_tesis', TRUE);
         if ($hand == 'center19') {
-            $id_tesis = $this->input->post('id_tesis', TRUE);
-
+            
             $hal = $this->input->post('hal', TRUE);
             $tgl = todb($this->input->post('tgl_bimbingan', TRUE));
 
