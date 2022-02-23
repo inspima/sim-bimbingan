@@ -484,8 +484,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     }
                 }
                 foreach ($pengujis as $uji) { 
-                    if($uji['nip'] == $tesis->nip_pembimbing_satu 
-                ){
+                    if($uji['nip'] == $tesis->nip_pembimbing_satu && $uji['status_tim'] != '1'){
                         $no++;
                         $str_status_tim = 'Pembimbing Utama / Anggota';
                         echo '
