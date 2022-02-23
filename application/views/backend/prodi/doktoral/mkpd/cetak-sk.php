@@ -36,30 +36,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<title>SURAT KEPUTUSAN - PENGAJAR MKPKK - <?= $disertasi->nim ?></title>
 </head>
 <body>
-
-<table align="center" width="100%" border="0">
-	<tr>
-		<td style="width:5%;vertical-align: middle"><img src="assets/backend/cetak/logo.png" width="70px" style=""></td>
-		<td style="width:95%" align="center">
-			<strong>
-				<p style="font-size:17px;margin-bottom: 0px;">
-					<?= strtoupper($this->setting->get_value('kementrian_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_txt')) ?><br>
-					<?= strtoupper($this->setting->get_value('universitas_fakultas_txt')) ?><br>
-				</p>
-			</strong>
-
-			<p style="font-size:14px;margin: 0px 0 0px 0;">
-				<?= $this->setting->get_value('universitas_alamat_txt') ?><br>
-				<?= $this->setting->get_value('universitas_web_email_txt') ?>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" class="line">&nbsp;
-		</td>
-	</tr>
-</table>
+<?php $this->load->view('backend/widgets/common/header_document') ?>
 <table border="0" style="width:100%">
 
 	<tr>
@@ -146,11 +123,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 35%">
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
 			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
+			<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$wadek->ttd]) ?>
+
 			<?= $wadek->nama_dosen ?><br/>
 			NIP:<?= $wadek->nip ?><
 		</td>

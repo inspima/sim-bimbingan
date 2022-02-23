@@ -59,8 +59,6 @@
 					'disertasi' => $this->disertasi->detail($id_disertasi),
 					'wadek1' => $this->struktural->read_wadek1()
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/prodi/doktoral/tertutup/cetak_undangan';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
@@ -130,8 +128,6 @@
 					'promotors' => $promotors,
 					'setujui_semua' => $this->dokumen->cek_dokumen_setujui_semua($dokumen->id_dokumen)
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/prodi/doktoral/tertutup/cetak_berita';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
@@ -153,8 +149,6 @@
 					'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_TERTUTUP),
 					'disertasi' => $this->disertasi->detail($id_disertasi)
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/prodi/doktoral/tertutup/cetak_penilaian';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');
@@ -177,8 +171,6 @@
 					'jadwal' => $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_TERTUTUP),
 					'disertasi' => $this->disertasi->detail($id_disertasi)
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$page = 'backend/prodi/doktoral/tertutup/cetak_absensi';
 				$size = 'legal';
 				$this->pdf->setPaper($size, 'potrait');

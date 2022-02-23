@@ -955,9 +955,7 @@
 	$route['mahasiswa/tesis/judul/edit/(:num)'] = 'backend/mahasiswa/tesis/judul/edit';
 	$route['mahasiswa/tesis/judul/save'] = 'backend/mahasiswa/tesis/judul/save';
 	$route['mahasiswa/tesis/judul/update'] = 'backend/mahasiswa/tesis/judul/update';
-	$route['mahasiswa/tesis/judul/bimbingan/(:num)'] = 'backend/mahasiswa/tesis/judul/bimbingan';
-	$route['mahasiswa/tesis/judul/bimbingan_save'] = 'backend/mahasiswa/tesis/judul/bimbingan_save';
-	
+
 	$route['mahasiswa/tesis/proposal'] = 'backend/mahasiswa/tesis/proposal';
 	//$route['mahasiswa/tesis/proposal/add'] = 'backend/mahasiswa/tesis/proposal/add';
 	$route['mahasiswa/tesis/proposal/add/(:num)'] = 'backend/mahasiswa/tesis/proposal/add';

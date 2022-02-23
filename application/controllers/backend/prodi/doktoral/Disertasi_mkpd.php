@@ -58,8 +58,6 @@
 				$disertasi = $this->disertasi->detail($id_disertasi);
 				$disertasi_mkpd = $this->disertasi->detail_disertasi_mkpd($id_disertasi_mkpd);
 				$pjmk_mkpd = $this->disertasi->detail_mkpd_pengampu_pjmk($id_disertasi_mkpd);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
 				$data = [
 					'disertasi' => $disertasi,
 					'disertasi_mkpd' => $disertasi_mkpd,
@@ -104,9 +102,6 @@
 					'kps_s3' => $this->struktural->read_kps_s3(),
 					'disertasi_mkpds' => $disertasi_mkpds,
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
-				$header = 'backend/widgets/common/pdf_header';
 				$page = 'backend/prodi/doktoral/mkpd/cetak-sk';
 				$size = 'a4';
 				$this->pdf->setPaper($size, 'potrait');
