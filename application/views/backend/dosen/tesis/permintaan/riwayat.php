@@ -320,14 +320,14 @@
                         </td>
                         <td>
                             <?php
-                            if ($list['nip_pembimbing_satu'] == $this->session_data['username']){
+                            if ($list['nip_pembimbing_satu'] == $this->session_data['username'] || $list['nip_pembimbing_dua'] == $this->session_data['username']){
                                 if($list['status_pembimbing_satu'] == '1' && ($list['status_pembimbing_dua'] == NULL OR $list['status_pembimbing_dua'] == '2')){
                                 ?>
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/judul/setting_pembimbing_kedua/<?= $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Setting Pembimbing Kedua</a><br>
                                 <?php
                                 }
-                                if($list['jenis'] >= TAHAPAN_TESIS_PROPOSAL && $list['status_proposal'] >= STATUS_TESIS_PROPOSAL_PENGAJUAN){
+                                if($list['jenis'] >= TAHAPAN_TESIS_JUDUL && $list['status_judul'] >= STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING){
                                 ?>
                                     <a href="<?= base_url() ?>dosen/tesis/permintaan/bimbingan_proposal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan Proposal</a><br>
                                     <a href="<?= base_url() ?>dosen/tesis/proposal/jadwal_pembimbing/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Lihat Jadwal & Penguji Proposal</a><br><br>

@@ -205,9 +205,11 @@
                                     else
                                     {
                                         ?>
-                                        <a class="btn btn-xs btn-primary pull-left" style="margin: 5px" href="<?= base_url() ?>mahasiswa/tesis/judul/bimbingan/<?= $list['id_tesis'] ?>">
+                                        <a class="btn btn-xs btn-primary pull-left" style="margin: 5px" href="<?= base_url() ?>mahasiswa/tesis/proposal/bimbingan/<?= $list['id_tesis'] ?>">
                                             <i class="fa fa-calendar"></i> Bimbingan
-                                        </a>
+                                        </a><br><br>
+                                        <span>Untuk mengajukan proposal, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
+                                         dan di setujui pembimbing 2 (<?= $minApprovedByPembimbing2 ?>)</span>
                             <?php 
                                     }
                                 }

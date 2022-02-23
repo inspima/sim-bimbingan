@@ -33,7 +33,7 @@
                             <td><label>Tesis</label></td>
                             <td>
                             <?php 
-                                $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);
+                                $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);
                                 echo '<b>Judul : </b>'.$judul->judul.'<br>';
                                 
                                 if($tesis->berkas_orisinalitas != '') {

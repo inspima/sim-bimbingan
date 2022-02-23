@@ -20,7 +20,7 @@
             <!-- form start -->
             <div class="box-body">
                 <?php 
-                    $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);
+                    $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);
                     echo '<b>Judul : </b>'.$judul->judul.'<br>';
                     
                     if($tesis->berkas_orisinalitas != '') {
@@ -112,7 +112,7 @@
                     </div>
                     <div class="form-group">
                         <label>Materi Bimbingan</label>
-                        <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_PROPOSAL);?>
+                        <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_JUDUL);?>
                         <textarea class="form-control" name="hal" required></textarea>
                     </div>
                     <div class="form-group">
