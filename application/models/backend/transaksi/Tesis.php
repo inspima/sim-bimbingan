@@ -1798,14 +1798,15 @@
 			$this->db->where('(s.id_tesis IN (SELECT id_tesis from tesis where nip_pembimbing_satu=\'' . $username . '\') OR s.id_tesis IN (SELECT `id_tesis` from `tesis` where nip_pembimbing_dua=\'' . $username . '\'))', null, false);
 			$this->db->where('jd.id_judul = (SELECT MAX(id_judul) from judul_tesis WHERE id_tesis=s.id_tesis and status=\'1\')');
 			if($flag == 'pengajuan'){
-				$this->db->where('s.status_judul =', STATUS_TESIS_JUDUL_SETUJUI_SPS);
+				$this->db->where('s.status_judul IN ('.STATUS_TESIS_JUDUL_SETUJUI_SPS.','.STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING.') OR s.status_proposal IN ('.STATUS_TESIS_PROPOSAL_PENGAJUAN.')');
+				//$this->db->where('s.status_judul =', STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING);
 			}
 			else if($flag == 'riwayat'){
 				$this->db->where('s.status_judul >', STATUS_TESIS_JUDUL_SETUJUI_SPS);
 				$this->db->where('s.status_judul !=', STATUS_TESIS_JUDUL_DITOLAK);
 			}
 			//$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and status=\'1\')');
-			//$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
+			//$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama''s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
 			$query = $this->db->get();
@@ -2370,7 +2371,7 @@
 			return $query->result_array();
 		}
 
-		public function get_total_bimbingan_tesis_approved1($id_tesis, $jenis_ujian)
+		public function read_bimbingan_tesis_approved($id_tesis, $jenis_ujian)
 		{
 			$this->db->select('s.*, bt.*, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
             pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua,
@@ -2385,43 +2386,12 @@
 			$this->db->where('bt.jenis', $jenis_ujian);
 			$this->db->where('bt.status !=', 3);
 			$this->db->where('bt.status_apv_pembimbing_satu =', 1);
+			$this->db->where('bt.status_apv_pembimbing_dua =', 2);
+			//$this->db->order_by('s.tgl_pengajuan', 'desc');
 			$this->db->order_by('bt.tanggal', 'desc');
 
 			$query = $this->db->get();
-			return $query->num_rows();;
-		}
-
-		public function get_total_bimbingan_tesis_approved2($id_tesis, $jenis_ujian)
-		{
-			$this->db->select('s.*, bt.*, pg1.nip nip_pembimbing_satu,pg1.nama nama_pembimbing_satu,  
-            pg2.nip nip_pembimbing_dua,pg2.nama nama_pembimbing_dua,
-            d.departemen, mt.nm_minat');
-			$this->db->from('bimbingan_tesis bt');
-			$this->db->join('tesis s', 's.id_tesis = bt.id_tesis', 'left');
-			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
-			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
-			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
-			$this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
-			$this->db->where('bt.id_tesis', $id_tesis);
-			$this->db->where('bt.jenis', $jenis_ujian);
-			$this->db->where('bt.status !=', 3);
-			$this->db->where('bt.status_apv_pembimbing_satu =', 2);
-			$this->db->order_by('bt.tanggal', 'desc');
-
-			$query = $this->db->get();
-			return $query->num_rows();;
-		}
-
-		public function jumlah_bimbingan_tesis_approved($id_tesis)
-		{
-			$stts = array('2');
-			$this->db->where_in('b.status', $stts);
-			$this->db->where('b.id_tesis', $id_tesis);
-			$this->db->where('s.jenis', 2);
-			$this->db->join('tesis s', 'b.id_tesis = s.id_tesis');
-			$this->db->from('bimbingan_tesis b');
-			$query = $this->db->count_all_results();
-			return $query;
+			return $query->result_array();
 		}
 
 		public function save_bimbingan($data)

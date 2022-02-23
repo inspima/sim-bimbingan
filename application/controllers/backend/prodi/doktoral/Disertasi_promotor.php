@@ -74,9 +74,6 @@
 					'dekan' => $this->struktural->read_dekan(),
 					'kps_s3' => $this->struktural->read_kps_s3(),
 				);
-				//print_r($data['penguji_ketua']);die();
-				ob_end_clean();
-				$header = 'backend/widgets/common/pdf_header';
 				$page = 'backend/prodi/doktoral/promotor/cetak_sk_promotor';
 				$size = 'a4';
 				$this->pdf->setPaper($size, 'potrait');

@@ -31,12 +31,12 @@ if ($jadwal) {
                         } else
                         if ($listpenguji['status'] == '2') {
                             ?>
-                            <a class="btn btn-xs btn-success"> Approved</a>
+                            <a class="btn btn-xs btn-success"> Disetujui</a>
                             <?php
                         } else
                         if ($listpenguji['status'] == '3') {
                             ?>
-                            <a class="btn btn-xs btn-danger"> Rejected</a>
+                            <a class="btn btn-xs btn-danger"> Ditolak</a>
                             <?php
                         }
                         ?>
