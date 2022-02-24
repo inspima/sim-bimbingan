@@ -2429,7 +2429,7 @@
 			$this->db->where('bt.id_tesis', $id_tesis);
 			$this->db->where('bt.jenis', $jenis_ujian);
 			$this->db->where('bt.status !=', 3);
-			$this->db->where('bt.status_apv_pembimbing_satu =', 2);
+			$this->db->where('bt.status_apv_pembimbing_dua =', 1);
 			$this->db->order_by('bt.tanggal', 'desc');
 
 			$query = $this->db->get();
