@@ -176,12 +176,12 @@
                                 $isReadyToPropose = false;
                                 if($biodata->id_prodi == S2_ILMU_HUKUM)
                                 {
-                                    $minApprovedByPembimbing1 = 5;
-                                    $minApprovedByPembimbing2 = 5;
+                                    $minApprovedByPembimbing1 = 2;
+                                    $minApprovedByPembimbing2 = 2;
                                 }
                                 else if($biodata->id_prodi == S2_KENOTARIATAN)
                                 {
-                                    $minApprovedByPembimbing1 = 3;
+                                    $minApprovedByPembimbing1 = 2;
                                     $minApprovedByPembimbing2 = 2;
                                 }
 

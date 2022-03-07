@@ -177,7 +177,7 @@
                             //if ($list['status_tesis'] > STATUS_TESIS_UJIAN_DIJADWALKAN) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/ujian/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/ujian/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a>
+                                
                                 <?php
                             //}
                             if ($list['status_tesis'] < STATUS_TESIS_UJIAN_SELESAI OR $list['status_tesis'] == STATUS_TESIS_UJIAN_DITOLAK) {

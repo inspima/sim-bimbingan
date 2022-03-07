@@ -160,6 +160,7 @@
                         <td class="text-center">
                             <?php $this->view('backend/widgets/tesis/column_status', ['tesis' => $list, 'jenis' => TAHAPAN_TESIS_PROPOSAL]); ?>
                             <?php if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
+                                
                                 ?>
                                 <hr style="margin:5px"/>
                                 <b>Hasil Ujian</b><br/>
@@ -167,22 +168,7 @@
                                 echo $this->tesis->get_status_ujian($list['status_ujian_proposal'], UJIAN_TESIS_PROPOSAL);
                                 ?>
                                 <?php 
-                                if($biodata->id_prodi == S2_ILMU_HUKUM){
-                                    if ($list['status_mkpt'] < STATUS_TESIS_MKPT_PENGAJUAN && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI):
-                                        ?>
-                                        <hr style = "margin:5px"/>
-                                        <a href = "<?= base_url() ?>mahasiswa/tesis/mkpt/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPT</a>
-                                        <?php
-                                    endif;
-                                }
-                                else if($biodata->id_prodi == S2_KENOTARIATAN){
-                                    if ($list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI):
-                                        ?>
-                                        <hr style = "margin:5px"/>
-                                        <a href = "<?= base_url() ?>mahasiswa/tesis/ujian/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Tesis</a>
-                                        <?php
-                                    endif;
-                                }
+                                
                             }
                             ?>
                         </td>
@@ -191,7 +177,6 @@
                             //if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_DIJADWALKAN) {
                             ?>
                             <a href="<?= base_url() ?>mahasiswa/tesis/proposal/info/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-info-circle"></i> Detail</a>
-                            <a href="<?= base_url() ?>mahasiswa/tesis/proposal/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a>
                             <?php
                             //}
                             if ($list['status_proposal'] < STATUS_TESIS_PROPOSAL_UJIAN_SELESAI) {
@@ -203,6 +188,82 @@
                                     <a href="<?= base_url() ?>mahasiswa/tesis/proposal/jadwal/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ajukan Jadwal</a>
                                 <?php
                                 }*/
+                            }
+
+                            if ($list['status_proposal'] > STATUS_TESIS_PROPOSAL_UJIAN) {
+                                $minApprovedByPembimbing1 = 0;
+                                $minApprovedByPembimbing2 = 0;
+                                $isReadyToPropose = false;
+                                if($biodata->id_prodi == S2_ILMU_HUKUM)
+                                {
+                                    $minApprovedByPembimbing1 = 5;
+                                    $minApprovedByPembimbing2 = 5;
+
+                                    if ($this->tesis->get_total_bimbingan_tesis_approved1($list['id_tesis'], UJIAN_TESIS_MKPT) >= $minApprovedByPembimbing1 &&
+                                    $this->tesis->get_total_bimbingan_tesis_approved2($list['id_tesis'], UJIAN_TESIS_MKPT) >= $minApprovedByPembimbing2)
+                                    {
+                                        $isReadyToPropose = true;
+                                    }
+                                }
+                                else if($biodata->id_prodi == S2_KENOTARIATAN)
+                                {
+                                    $minApprovedByPembimbing1 = 4;
+                                    $minApprovedByPembimbing2 = 4;
+
+                                    if ($this->tesis->get_total_bimbingan_tesis_approved1($list['id_tesis'], UJIAN_TESIS_UJIAN) >= $minApprovedByPembimbing1 &&
+                                    $this->tesis->get_total_bimbingan_tesis_approved2($list['id_tesis'], UJIAN_TESIS_UJIAN) >= $minApprovedByPembimbing2)
+                                    {
+                                        $isReadyToPropose = true;
+                                    }
+                                }
+
+                                if($biodata->id_prodi == S2_ILMU_HUKUM){
+                                    if ($list['status_mkpt'] < STATUS_TESIS_MKPT_PENGAJUAN && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI)
+                                    {
+                                        /*
+                                        if($isReadyToPropose)
+                                        {
+                                        ?>
+                                        <hr style = "margin:5px"/>
+                                        <a href = "<?= base_url() ?>mahasiswa/tesis/mkpt/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPT</a>
+                                        <?php
+                                        }
+                                        else
+                                        {
+                                        ?>
+                                        <a href="<?= base_url() ?>mahasiswa/tesis/ujian/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a>
+                                        <?php    
+                                        }
+                                        */
+                                        ?>
+                                        <hr style = "margin:5px"/>
+                                        <a href = "<?= base_url() ?>mahasiswa/tesis/mkpt/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPT</a>
+                                        <br><br>
+                                        <span>Untuk mengajukan proposal, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
+                                         dan di setujui pembimbing 2 (<?= $minApprovedByPembimbing2 ?>)</span><?php
+                                    }
+                                }
+                                else if($biodata->id_prodi == S2_KENOTARIATAN)
+                                {
+                                    if ($list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI)
+                                    {
+                                        if($isReadyToPropose)
+                                        {
+                                        ?>
+                                        <hr style = "margin:5px"/>
+                                        <a href = "<?= base_url() ?>mahasiswa/tesis/ujian/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan Tesis</a>
+                                        <?php
+                                        }
+                                        else
+                                        {
+                                        ?>
+                                        <a href="<?= base_url() ?>mahasiswa/tesis/ujian/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-calendar"></i> Bimbingan</a>
+                                        <br><br>
+                                        <span>Untuk mengajukan proposal, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
+                                         dan di setujui pembimbing 2 (<?= $minApprovedByPembimbing2 ?>)</span><?php    
+                                        }
+                                    }
+                                }
                             }
                             ?>
                         </td>

@@ -375,7 +375,7 @@
                             }
                         ?>
                                 <label>Status Ujian </label>
-                                <select name="status_ujian" class="form-control select2" style="width: 100%;" required <?= ($jumlah_isi < count($penguji) && $status_tim == '1') ? 'disabled' : ''; ?> >
+                                <select name="status_ujian" class="form-control select2" style="width: 100%;" required <?= ($jumlah_isi < (count($penguji)-1) && $status_tim == '1') ? 'disabled' : ''; ?> >
                                     <?php
                                     foreach ($status_ujians as $status_ujian) {
                                         ?>
@@ -405,7 +405,7 @@
                         }
                     }
                     if(date('Y-m-d') >= $ujian->tanggal ) {
-                        if($status_tim == '1' && $jumlah_isi < count($penguji)){
+                        if($status_tim == '1' && $jumlah_isi < (count($penguji)-1)){
                             echo '';
                         }
                         else {
@@ -444,7 +444,7 @@
                             $status_tim = $listpenguji['status_tim'];
                         }
                     }
-                    if($status_tim == '1' && $jumlah_isi < count($penguji)){
+                    if($status_tim == '1' && $jumlah_isi < (count($penguji)-1)){
                         echo '';
                     }
                     else {
