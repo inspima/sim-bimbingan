@@ -184,11 +184,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
 			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
 			Dekan,
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
+
+			<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$dekan->ttd]) ?>
 			<?= $dekan->nama_dosen ?><br/>
 			NIP:<?= $dekan->nip ?><
 		</td>
@@ -212,11 +209,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 40%">
 			Salinan sesuai dengan Aslinya<br/>
 			Koordinator Program,<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
+
+			<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$kps_s3->ttd]) ?>
 			<?=$kps_s3->nama_dosen?><br/>
 			NIP:<?=$kps_s3->nip?><
 		</td>
@@ -317,11 +311,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 35%">
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
 			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
+			<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$dekan->ttd]) ?>
 			<?= $dekan->nama_dosen ?><br/>
 			NIP:<?= $dekan->nip ?><
 		</td>
