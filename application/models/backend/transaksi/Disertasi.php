@@ -332,7 +332,6 @@
 			$this->db->join('ujian_disertasi uj', 'uj.id_disertasi = s.id_disertasi');
 			$this->db->where('uj.jenis_ujian', $jenis);
 			$this->db->where('uj.status', 1);
-			$this->db->where('uj.tanggal >=', date('Y-m-d'));
 			$this->db->where('`uj`.`id_ujian` IN (SELECT `id_ujian` from `penguji_disertasi` where `status` in (1,2) and `nip`=\'' . $username . '\')', null, false);
 			$this->db->order_by('s.tgl_pengajuan', 'desc');
 
