@@ -103,30 +103,37 @@ class Mpkk extends CI_Controller {
                 $id_disertasi = $this->input->post('id_disertasi', TRUE);
                 $id_mkpkks = $this->input->post('id_mkpkk', TRUE);
                 $tgl_sekarang = date('Y-m-d');
-                foreach ($id_mkpkks as $id_mkpkk) {
-                    $mkpkk = $this->disertasi->detail_mkpkk($id_mkpkk);
-                    $data = array(
-                        'id_disertasi' => $id_disertasi,
-                        'id_mkpkk' => $id_mkpkk,
-                        'mkpkk' => $mkpkk->nama,
-                    );
+				if(count($id_mkpkks)==2){
+					foreach ($id_mkpkks as $id_mkpkk) {
+						$mkpkk = $this->disertasi->detail_mkpkk($id_mkpkk);
+						$data = array(
+							'id_disertasi' => $id_disertasi,
+							'id_mkpkk' => $id_mkpkk,
+							'mkpkk' => $mkpkk->nama,
+						);
 
-                    $this->disertasi->save_disertasi_mkpkk($data);
-                }
+						$this->disertasi->save_disertasi_mkpkk($data);
+					}
 
-				$this->disertasi->generate_disertasi_mkpkk_pengampu($id_disertasi);
+					$this->disertasi->generate_disertasi_mkpkk_pengampu($id_disertasi);
 
-                $data = array(
-                    'jenis' => TAHAPAN_DISERTASI_MPKK,
-                    'berkas_mpkk' => $file_name,
-                    'status_mpkk' => STATUS_DISERTASI_MPKK_PENGAJUAN,
-                );
+					$data = array(
+						'jenis' => TAHAPAN_DISERTASI_MPKK,
+						'berkas_mpkk' => $file_name,
+						'status_mpkk' => STATUS_DISERTASI_MPKK_PENGAJUAN,
+					);
 
-                $this->disertasi->update($data, $id_disertasi);
+					$this->disertasi->update($data, $id_disertasi);
 
-                $this->session->set_flashdata('msg-title', 'alert-success');
-                $this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPKK..');
-                redirect('mahasiswa/disertasi/mpkk');
+					$this->session->set_flashdata('msg-title', 'alert-success');
+					$this->session->set_flashdata('msg', 'Anda telah melakukan pengajuan MKPKK..');
+					redirect('mahasiswa/disertasi/mpkk');
+				}else{
+					$this->session->set_flashdata('msg-title', 'alert-danger');
+					$this->session->set_flashdata('msg', 'Jumlah Mata kuliah yang dipilih harus 2');
+					redirect_back();
+				}
+
             }
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');

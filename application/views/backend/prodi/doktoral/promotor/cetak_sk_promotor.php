@@ -144,7 +144,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 23%">PERTAMA</td>
+		<td style="width: 23%">KESATU</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
 			Mengangkat Promotor dan Ko-Promotor bagi Mahasiswa <?= ucfirst($this->setting->get_value('universitas_prodi_s3_txt')) ?>, dengan susunan nama-nama sebagaimana tercantum dalam lampiran keputusan ini;
@@ -183,7 +183,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 35%">
 			Ditetapkan di <?= ucfirst($this->setting->get_value('universitas_alamat_kota_txt')) ?><br/>
 			Pada tanggal <?= strtoupper(woday_toindo(date('Y-m-d'))) ?><br/>
-			Dekan,
+			Dekan,<br/>
 
 			<?php $this->load->view('backend/widgets/common/element_ttd',['ttd'=>$dekan->ttd]) ?>
 			<?= $dekan->nama_dosen ?><br/>
