@@ -62,6 +62,22 @@ class Permintaan extends CI_Controller {
         $this->load->view('backend/index_sidebar', $data);
     }
 
+    public function proses_bimbingan() {
+        $id = $this->uri->segment(5) ? $this->uri->segment(5) : $this->tesis->read_max_prodi_s2();
+        $data = array(
+            // PAGE //
+            'title' => 'Tesis - Pembimbing',
+            'subtitle' => 'Data',
+            'section' => 'backend/dosen/tesis/permintaan/proses_bimbingan',
+            // DATA //
+            'max_id_prodi' => $this->tesis->read_max_prodi_s2(),
+            'prodi' => $this->tesis->read_prodi_s2(),
+
+            'tesis' => $this->tesis->read_permintaan_pembimbing_prodi($this->session_data['username'], $id, 'proses_bimbingan'),
+        );
+        $this->load->view('backend/index_sidebar', $data);
+    }
+
     public function approve_pembimbing() {
         $id = $this->uri->segment(5);
         $id_prodi = $this->tesis->cek_prodi($id);

@@ -635,6 +635,7 @@
 	$route['dosen/tesis/permintaan/pembimbing'] = 'backend/dosen/tesis/permintaan/pembimbing';
 	$route['dosen/tesis/permintaan/pembimbing/(:num)'] = 'backend/dosen/tesis/permintaan/pembimbing';
 	$route['dosen/tesis/permintaan/riwayat/(:num)'] = 'backend/dosen/tesis/permintaan/riwayat';
+	$route['dosen/tesis/permintaan/proses_bimbingan/(:num)'] = 'backend/dosen/tesis/permintaan/proses_bimbingan';
 	$route['dosen/tesis/permintaan/bimbingan_proposal/(:num)'] = 'backend/dosen/tesis/permintaan/bimbingan_proposal';
 	$route['dosen/tesis/permintaan/bimbingan_mkpt/(:num)'] = 'backend/dosen/tesis/permintaan/bimbingan_mkpt';
 	$route['dosen/tesis/permintaan/bimbingan_tesis/(:num)'] = 'backend/dosen/tesis/permintaan/bimbingan_tesis';

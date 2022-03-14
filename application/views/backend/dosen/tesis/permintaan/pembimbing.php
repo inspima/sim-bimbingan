@@ -21,6 +21,7 @@
 <hr>
 <div class="btn-group">
     <a class="<?= ($this->uri->segment(4) == 'pembimbing' OR $this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/permintaan/pembimbing/<?= $id; ?>">Pengajuan</a>
+    <a class="<?= ($this->uri->segment(4) == 'proses_bimbingan' OR $this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/permintaan/proses_bimbingan/<?= $id; ?>">Bimbingan</a>
     <a class="<?= ($this->uri->segment(4) == 'riwayat' OR $this->uri->segment(4) == '') ? 'btn btn-default' : 'btn bg-blue'; ?>" href="<?php echo base_url() ?>dosen/tesis/permintaan/riwayat/<?= $id; ?>">Riwayat</a> 
 </div>
 <div class="divider10"></div>
