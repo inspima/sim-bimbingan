@@ -1802,12 +1802,11 @@
 				//$this->db->where('s.status_judul =', STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING);
 			}
 			else if($flag == 'riwayat'){
-				$this->db->where('s.status_judul >', STATUS_TESIS_JUDUL_SETUJUI_SPS);
-				$this->db->where('s.status_judul !=', STATUS_TESIS_JUDUL_DITOLAK);
+				$this->db->where('(s.status_judul >= '.STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING.' AND s.jenis ='.TAHAPAN_TESIS_JUDUL.') OR (s.status_mkpt >= '.STATUS_TESIS_MKPT_UJIAN_SELESAI.' AND s.jenis ='.TAHAPAN_TESIS_MKPT.') OR (s.status_proposal >= '.STATUS_TESIS_PROPOSAL_UJIAN_SELESAI.' AND s.jenis ='.TAHAPAN_TESIS_PROPOSAL.')');
 			}
 			else if($flag == 'proses_bimbingan'){
-				$this->db->where('(s.status_judul = '.STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING.' AND s.jenis ='.TAHAPAN_TESIS_JUDUL.') OR (s.status_proposal = '.STATUS_TESIS_PROPOSAL_UJIAN_SELESAI.' AND s.jenis ='.TAHAPAN_TESIS_PROPOSAL.')');
-				$this->db->where('s.jenis =', TAHAPAN_TESIS_JUDUL);
+				$this->db->where('s.status_judul >', STATUS_TESIS_JUDUL_SETUJUI_SPS);
+				$this->db->where('s.status_judul !=', STATUS_TESIS_JUDUL_DITOLAK);
 			}
 			//$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and status=\'1\')');
 			//$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama''s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
