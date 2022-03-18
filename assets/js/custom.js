@@ -1,5 +1,19 @@
 $(function () {
-	$('#example1').DataTable()
+	$('.datatable').each(function(_){
+		$(this).DataTable();
+	});
+	$('.datatable-report').each(function(_){
+		$(this).DataTable({
+			'paging': true,
+			'lengthChange': true,
+			"lengthMenu": [[50, 100, -1], [ 50,100, "All"]],
+			'searching': true,
+			'ordering': true,
+			'info': true,
+			'autoWidth': true,
+		});
+	});
+	$('#example1').DataTable();
 	$('#example2').DataTable({
 		'paging': true,
 		'lengthChange': false,

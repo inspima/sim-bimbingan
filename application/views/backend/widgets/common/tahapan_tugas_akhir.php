@@ -55,6 +55,9 @@
 			if ($tugas_akhir->status_kualifikasi > 0) {
 				$status = 'Ujian Kualifikasi';
 			}
+			if ($tugas_akhir->status_promotor > 0) {
+				$status = 'Promotor';
+			}
 			if ($tugas_akhir->status_mpkk > 0) {
 				$status = 'MKPKK';
 			}

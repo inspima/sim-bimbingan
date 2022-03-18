@@ -798,6 +798,17 @@
 	$route['dosen/dokumen/undangan/riwayat'] = 'backend/dosen/dokumen/undangan/riwayat';
 
 	// LAPORAN
+	$route['laporan/dosen/skripsi'] = 'backend/laporan/laporan_dosen/index_skripsi';
+	$route['laporan/dosen/skripsi/detail/(:num)'] = 'backend/laporan/laporan_dosen/detail_skripsi/$1';
+	$route['laporan/dosen/tesis'] = 'backend/laporan/laporan_dosen/index_tesis';
+	$route['laporan/dosen/tesis/detail/(:num)'] = 'backend/laporan/laporan_dosen/detail_tesis/$1';
+	$route['laporan/dosen/disertasi'] = 'backend/laporan/laporan_dosen/index_disertasi';
+	$route['laporan/dosen/disertasi/detail/(:num)'] = 'backend/laporan/laporan_dosen/detail_disertasi/$1';
+
+	$route['laporan/mahasiswa/skripsi'] = 'backend/laporan/laporan_mahasiswa/index_skripsi';
+	$route['laporan/mahasiswa/tesis'] = 'backend/laporan/laporan_mahasiswa/index_tesis';
+	$route['laporan/mahasiswa/disertasi'] = 'backend/laporan/laporan_mahasiswa/index_disertasi';
+
 	$route['dosen/laporan/penguji/sarjana'] = 'backend/dosen/laporan_dosen/penguji_sarjana';
 	$route['dosen/laporan/penguji/magister'] = 'backend/dosen/laporan_dosen/penguji_magister';
 	$route['dosen/laporan/penguji/doktor'] = 'backend/dosen/laporan_dosen/penguji_doktor';

@@ -1,17 +1,6 @@
 <!-- sidebar menu: : style can be found in sidebar.less -->
 <ul class="sidebar-menu" data-widget="tree">
     <li><a href="<?php echo base_url() ?>dashboardd"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-	<li class="treeview">
-		<a href="#">
-			<i class="fa fa-bar-chart"></i> <span>Laporan</span>
-			<span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-            </span>
-		</a>
-		<ul class="treeview-menu">
-			<li><a href="<?php echo base_url() ?>dosen/laporan/penguji/sarjana"><i class="fa fa-chevron-circle-right"></i>Penguji</a></li>
-		</ul>
-	</li>
     <?php
     $struktural = $this->struktural->read_struktural($this->session_data['username']);
     if ($struktural) {
@@ -133,6 +122,19 @@
         } else if ($struktural->id_struktur == '6') {//KPS S1
             ?>
             <li class="header">FITUR KPS S1</li>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-line-chart"></i> <span>Laporan</span>
+					<span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="<?php echo base_url() ?>laporan/dosen/skripsi"><i class="fa fa-chevron-circle-right"></i>Dosen</a></li>
+					<li><a href="<?php echo base_url() ?>laporan/mahasiswa/skripsi"><i class="fa fa-chevron-circle-right"></i>Mahasiswa</a></li>
+
+				</ul>
+			</li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file"></i> <span>Skripsi</span>
@@ -149,6 +151,19 @@
         } else if ($struktural->id_struktur == STRUKTUR_KPS_S2) {//KPS S2
             ?>
             <li class="header">FITUR KPS S2</li>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-line-chart"></i> <span>Laporan</span>
+					<span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="<?php echo base_url() ?>laporan/dosen/tesis"><i class="fa fa-chevron-circle-right"></i>Dosen</a></li>
+					<li><a href="<?php echo base_url() ?>laporan/mahasiswa/tesis"><i class="fa fa-chevron-circle-right"></i>Mahasiswa</a></li>
+
+				</ul>
+			</li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-o"></i> <span>Tesis</span>
@@ -169,6 +184,19 @@
         } else if ($struktural->id_struktur == STRUKTUR_KPS_S3) {//KPS S3
             ?>
             <li class="header">FITUR KPS S3</li>
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-line-chart"></i> <span>Laporan</span>
+					<span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="<?php echo base_url() ?>laporan/dosen/disertasi"><i class="fa fa-chevron-circle-right"></i>Dosen</a></li>
+					<li><a href="<?php echo base_url() ?>laporan/mahasiswa/disertasi"><i class="fa fa-chevron-circle-right"></i>Mahasiswa</a></li>
+
+				</ul>
+			</li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i> <span>Disertasi</span>

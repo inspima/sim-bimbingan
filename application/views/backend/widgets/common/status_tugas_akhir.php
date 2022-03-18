@@ -54,8 +54,13 @@
 		$tugas_akhir = $this->tugas_akhir->detail_disertasi($mahasiswa['nim']);
 		if (!empty($tugas_akhir)):
 			$jenis = $tugas_akhir->jenis;
-			if ($jenis == TAHAPAN_DISERTASI_KUALIFIKASI): // KUALIFIKASI
+			if ($jenis == TAHAPAN_DISERTASI_KUALIFIKASI&&$tugas_akhir->status_promotor<1): // KUALIFIKASI
 				$status = $this->disertasi->get_status_tahapan($tugas_akhir->status_kualifikasi, TAHAPAN_DISERTASI_KUALIFIKASI);
+				?>
+				<span class="btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>
+			<?php
+			elseif ($jenis == TAHAPAN_DISERTASI_KUALIFIKASI&&$tugas_akhir->status_promotor>0) :// PROMTOR
+				$status = $this->disertasi->get_status_tahapan($tugas_akhir->status_promotor, TAHAPAN_DISERTASI_PROMOTOR);
 				?>
 				<span class="btn btn-xs <?php echo $status['color'] ?>"><?php echo $status['text'] ?></span>
 			<?php
