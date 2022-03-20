@@ -49,13 +49,6 @@
                                 <?php echo $tesis->nama_pembimbing_satu ?>
                             </td>            
                         </tr>
-                        <tr>
-                            <td><label>Pembimbing Kedua</label></td>
-                            <td>
-                                <b><?php echo $tesis->nip_pembimbing_dua ?></b><br>
-                                <?php echo $tesis->nama_pembimbing_dua ?>
-                            </td>            
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -81,7 +74,7 @@
                                 <th>Tanggal</th>
                                 <th>Materi Bimbingan</th>
                                 <th>File</th>
-                                <th>Status Approval Pembimbing</th>
+                                <th>Status Approval Pengampu</th>
                                 <th></th>
                             </tr>
                             <?php
@@ -101,57 +94,32 @@
                                     </td>
                                     <td>
                                         <?php
-                                        if ($bt['status_apv_pembimbing_satu'] == '1') {
+                                        if ($bt['status_apv_pengampu'] == '1') {
                                             ?>
-                                            <a class="btn btn-xs btn-success"> Disetujui Pembimbing Utama</a>
-                                            <?php
-                                        }
-                                        if ($bt['status_apv_pembimbing_dua'] == '1') {
-                                            ?>
-                                            <a class="btn btn-xs btn-success"> Disetujui Pembimbing Kedua</a>
+                                            <a class="btn btn-xs btn-success"> Disetujui</a>
                                             <?php
                                         }
                                         ?>
                                     </td>
                                     <td>
                                         <?php
-                                        if($tesis->nip_pembimbing_satu == $this->session_data['username']){
-                                            if ($bt['status_apv_pembimbing_satu'] == '1') {
+                                        if($bt['nip_pengampu'] == $this->session_data['username']){
+                                            if ($bt['status_apv_pengampu'] == '1') {
                                             ?>
-                                                <a class="btn btn-xs btn-success"> Disetujui Pembimbing Utama</a>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/batal_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/1/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Batal</a>
+                                                <a class="btn btn-xs btn-success"> Disetujui</a>
+                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/batal_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/<?= $bt['id_tesis_mkpt_pengampu'] ?>/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Batal</a>
                                             <?php
                                             }
-                                            else if ($bt['status_apv_pembimbing_satu'] == '2') {
+                                            else if ($bt['status_apv_pengampu'] == '2') {
                                             ?>
-                                                <a class="btn btn-xs btn-danger"> Ditolak Pembimbing Utama</a>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/batal_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/1/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Batal</a>
-                                            <?php
-                                            }
-                                            else {
-                                            ?>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/approve_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/1/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-success"> Terima</a>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/tolak_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/1/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Tolak</a>
-                                            <?php
-                                            }
-                                        }
-                                        if($tesis->nip_pembimbing_dua == $this->session_data['username']){
-                                            if ($bt['status_apv_pembimbing_dua'] == '1') {
-                                            ?>
-                                                <a class="btn btn-xs btn-success"> Disetujui Pembimbing Kedua</a><br><br>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/batal_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/2/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Batal</a>
-                                            <?php
-                                            }
-                                            else if ($bt['status_apv_pembimbing_dua'] == '2') {
-                                            ?>
-                                                <a class="btn btn-xs btn-danger"> Ditolak Pembimbing Kedua</a><br><br>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/batal_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/2/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Batal</a>
+                                                <a class="btn btn-xs btn-danger"> Ditolak</a>
+                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/batal_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/<?= $bt['id_tesis_mkpt_pengampu'] ?>/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Batal</a>
                                             <?php
                                             }
                                             else {
                                             ?>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/approve_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/2/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-success"> Terima</a>
-                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/tolak_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/2/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Tolak</a>
+                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/approve_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/<?= $bt['id_tesis_mkpt_pengampu'] ?>/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-success"> Terima</a>
+                                                <a href="<?= base_url() ?>dosen/tesis/permintaan/tolak_bimbingan/<?= $bt['id_tesis'] ?>/<?= $bt['id_bimbingan_tesis'] ?>/<?= $bt['id_tesis_mkpt_pengampu'] ?>/<?= UJIAN_TESIS_MKPT ?>" onclick="return confirm('Apakah anda yakin ?')" class="btn btn-xs btn-danger"> Tolak</a>
                                             <?php
                                             }
                                         }

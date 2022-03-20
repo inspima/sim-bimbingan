@@ -340,7 +340,6 @@
                                 }
                                 if($list['jenis'] >= TAHAPAN_TESIS_MKPT && $id == S2_ILMU_HUKUM){
                                 ?>
-                                    <a href="<?= base_url() ?>dosen/tesis/permintaan/bimbingan_mkpt/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan MKPT</a><br>
                                     <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> MKPT</a><br><br>
                                 <?php
                                 }

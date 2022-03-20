@@ -181,7 +181,8 @@
                                 <th>Tanggal</th>
                                 <th>Materi Bimbingan</th>
                                 <th>File</th>
-                                <th>Status Approval Pembimbing</th>
+                                <th>Nama Pengampu</th>
+                                <th>Status Approval Pengampu</th>
                                 <th></th>
                             </tr>
                             <?php
@@ -199,16 +200,12 @@
                                         }
                                         ?>
                                     </td>
+                                    <td><?php echo $bt['nama_pengampu'] ?></td>
                                     <td>
                                         <?php
-                                        if ($bt['status_apv_pembimbing_satu'] == '1') {
+                                        if ($bt['status_apv_pengampu'] == '1') {
                                             ?>
-                                            <a class="btn btn-xs btn-success"> Disetujui Pembimbing Utama</a>
-                                            <?php
-                                        }
-                                        if ($bt['status_apv_pembimbing_dua'] == '1') {
-                                            ?>
-                                            <a class="btn btn-xs btn-success"> Disetujui Pembimbing Kedua</a>
+                                            <a class="btn btn-xs btn-success"> Disetujui Pengampu</a>
                                             <?php
                                         }
                                         ?>

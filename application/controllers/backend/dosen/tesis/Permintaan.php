@@ -125,6 +125,7 @@ class Permintaan extends CI_Controller {
 
     public function bimbingan_mkpt() {
         $id_tesis = $this->uri->segment('5');
+        $id_tesis_mkpt_pengampu = $this->uri->segment('6');
 
         $username = $this->session_data['username'];
 
@@ -135,7 +136,7 @@ class Permintaan extends CI_Controller {
             'use_back' => true,
             'back_link' => 'mahasiswa/tesis/ujian',
             // DATA //            
-            'bimbingan' => $this->tesis->read_bimbingan_tesis($id_tesis, UJIAN_TESIS_MKPT),
+            'bimbingan' => $this->tesis->read_bimbingan_mkpt_by_pengampu($id_tesis, $id_tesis_mkpt_pengampu, UJIAN_TESIS_MKPT),
             'tesis' => $this->tesis->detail($id_tesis),
         );
         $this->load->view('backend/index_sidebar', $data);
@@ -164,14 +165,22 @@ class Permintaan extends CI_Controller {
         $id_bimbingan = $this->uri->segment(6);
         $pembimbing = $this->uri->segment(7);
         $jenis_ujian = $this->uri->segment(8);
-        $this->tesis->approval_bimbingan($id_bimbingan, $pembimbing);
+
+        if($jenis_ujian == UJIAN_TESIS_MKPT){
+            $this->tesis->approval_bimbingan_mkpt($id_bimbingan);
+        }
+        else
+        {
+            $this->tesis->approval_bimbingan($id_bimbingan, $pembimbing);
+        }
+
         $this->session->set_flashdata('msg-title', 'alert-success');
         $this->session->set_flashdata('msg', 'Status Bimbingan disetujui');
         if($jenis_ujian == UJIAN_TESIS_PROPOSAL){
             redirect('dosen/tesis/permintaan/bimbingan_proposal/'.$id_tesis);
         }
         else if($jenis_ujian == UJIAN_TESIS_MKPT){
-            redirect('dosen/tesis/permintaan/bimbingan_mkpt/'.$id_tesis);
+            redirect('dosen/tesis/permintaan/bimbingan_mkpt/'.$id_tesis.'/'.$pembimbing);
         }
         else if($jenis_ujian == UJIAN_TESIS_UJIAN){
             redirect('dosen/tesis/permintaan/bimbingan_tesis/'.$id_tesis);
@@ -183,14 +192,22 @@ class Permintaan extends CI_Controller {
         $id_bimbingan = $this->uri->segment(6);
         $pembimbing = $this->uri->segment(7);
         $jenis_ujian = $this->uri->segment(8);
-        $this->tesis->reject_bimbingan($id_bimbingan, $pembimbing);
+
+        if($jenis_ujian == UJIAN_TESIS_MKPT){
+            $this->tesis->reject_bimbingan_mkpt($id_bimbingan);
+        }
+        else
+        {
+            $this->tesis->reject_bimbingan($id_bimbingan, $pembimbing);
+        }
+
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Status Bimbingan ditolak');
         if($jenis_ujian == UJIAN_TESIS_PROPOSAL){
             redirect('dosen/tesis/permintaan/bimbingan_proposal/'.$id_tesis);
         }
         else if($jenis_ujian == UJIAN_TESIS_MKPT){
-            redirect('dosen/tesis/permintaan/bimbingan_mkpt/'.$id_tesis);
+            redirect('dosen/tesis/permintaan/bimbingan_mkpt/'.$id_tesis.'/'.$pembimbing);
         }
         else if($jenis_ujian == UJIAN_TESIS_UJIAN){
             redirect('dosen/tesis/permintaan/bimbingan_tesis/'.$id_tesis);
@@ -202,6 +219,15 @@ class Permintaan extends CI_Controller {
         $id_bimbingan = $this->uri->segment(6);
         $pembimbing = $this->uri->segment(7);
         $jenis_ujian = $this->uri->segment(8);
+        
+        if($jenis_ujian == UJIAN_TESIS_MKPT){
+            $this->tesis->batal_bimbingan_mkpt($id_bimbingan);
+        }
+        else
+        {
+            $this->tesis->batal_bimbingan($id_bimbingan, $pembimbing);
+        }
+
         $this->tesis->batal_bimbingan($id_bimbingan, $pembimbing);
         $this->session->set_flashdata('msg-title', 'alert-danger');
         $this->session->set_flashdata('msg', 'Status Bimbingan dibatalkan');
@@ -209,7 +235,7 @@ class Permintaan extends CI_Controller {
             redirect('dosen/tesis/permintaan/bimbingan_proposal/'.$id_tesis);
         }
         else if($jenis_ujian == UJIAN_TESIS_MKPT){
-            redirect('dosen/tesis/permintaan/bimbingan_mkpt/'.$id_tesis);
+            redirect('dosen/tesis/permintaan/bimbingan_mkpt/'.$id_tesis.'/'.$pembimbing);
         }
         else if($jenis_ujian == UJIAN_TESIS_UJIAN){
             redirect('dosen/tesis/permintaan/bimbingan_tesis/'.$id_tesis);

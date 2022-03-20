@@ -189,6 +189,9 @@
                                 } //else if($list['status_pengampu_mkpt'] == '1' && $list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
                                 else if($list['status_pengampu_mkpt'] == '1') {
                                 ?>
+                                    <a href="<?= base_url() ?>dosen/tesis/permintaan/bimbingan_mkpt/<?= $list['id_tesis'] ?>/<?= $list['id_tesis_mkpt_pengampu'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan MKPT</a><br>
+                                    
+                                    
                                     <a class="btn btn-xs btn-success pull-left" href="<?= base_url()?>dosen/tesis/mkpt/nilai/<?php echo $list['id_tesis_mkpt_pengampu']?>/<?php echo $list['id_tesis']?>">
                                     <i class="fa fa-edit"></i> Nilai</a>
                                 <?php

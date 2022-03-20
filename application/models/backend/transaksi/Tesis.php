@@ -1798,15 +1798,14 @@
 			$this->db->where('(s.id_tesis IN (SELECT id_tesis from tesis where nip_pembimbing_satu=\'' . $username . '\') OR s.id_tesis IN (SELECT `id_tesis` from `tesis` where nip_pembimbing_dua=\'' . $username . '\'))', null, false);
 			$this->db->where('jd.id_judul = (SELECT MAX(id_judul) from judul_tesis WHERE id_tesis=s.id_tesis and status=\'1\')');
 			if($flag == 'pengajuan'){
-				$this->db->where('s.status_judul IN ('.STATUS_TESIS_JUDUL_SETUJUI_SPS.','.STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING.') OR s.status_proposal IN ('.STATUS_TESIS_PROPOSAL_PENGAJUAN.')');
-				//$this->db->where('s.status_judul =', STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING);
+				$this->db->where('s.status_judul =', STATUS_TESIS_JUDUL_SETUJUI_SPS);
 			}
 			else if($flag == 'riwayat'){
-				$this->db->where('(s.status_judul >= '.STATUS_TESIS_JUDUL_SETUJUI_PEMBIMBING.' AND s.jenis ='.TAHAPAN_TESIS_JUDUL.') OR (s.status_mkpt >= '.STATUS_TESIS_MKPT_UJIAN_SELESAI.' AND s.jenis ='.TAHAPAN_TESIS_MKPT.') OR (s.status_proposal >= '.STATUS_TESIS_PROPOSAL_UJIAN_SELESAI.' AND s.jenis ='.TAHAPAN_TESIS_PROPOSAL.')');
+				$this->db->where('s.status_tesis =', STATUS_TESIS_UJIAN_SELESAI);
 			}
 			else if($flag == 'proses_bimbingan'){
-				$this->db->where('s.status_judul >', STATUS_TESIS_JUDUL_SETUJUI_SPS);
-				$this->db->where('s.status_judul !=', STATUS_TESIS_JUDUL_DITOLAK);
+				$this->db->where('s.status_judul !=', STATUS_TESIS_JUDUL_SETUJUI_SPS);
+				$this->db->where('s.status_tesis !=', STATUS_TESIS_UJIAN_SELESAI);
 			}
 			//$this->db->where('jd.jenis = (SELECT MAX(jenis) from judul_tesis WHERE id_tesis=s.id_tesis and status=\'1\')');
 			//$this->db->group_by('s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama''s.id_tesis,jd.judul, pg1.nip,pg1.nama, pg2.nip,pg2.nama');
@@ -2451,6 +2450,49 @@
 			return $query->num_rows();;
 		}
 
+		public function read_bimbingan_mkpt($id_tesis, $jenis_ujian)
+		{
+			$this->db->select('s.*, bt.*,tm.*,tmp.*, pg1.nip nip_pengampu, pg1.nama nama_pengampu,
+            d.departemen, mt.nm_minat');
+			$this->db->from('bimbingan_tesis bt');
+			$this->db->join('tesis s', 's.id_tesis = bt.id_tesis');
+			$this->db->join('tesis_mkpt tm', 'bt.id_tesis_mkpt = tm.id_tesis_mkpt');
+			$this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt');
+			$this->db->join('pegawai pg1', 'pg1.nip = tmp.nip');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
+			$this->db->where('bt.id_tesis', $id_tesis);
+			$this->db->where('bt.jenis', $jenis_ujian);
+			$this->db->where('bt.status !=', 3);
+			//$this->db->order_by('s.tgl_pengajuan', 'desc');
+			$this->db->order_by('bt.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_bimbingan_mkpt_by_pengampu($id_tesis, $id_tesis_mkpt_pengampu, $jenis_ujian)
+		{
+			$this->db->select('s.*, bt.*,tm.*,tmp.*, pg1.nip nip_pengampu, pg1.nama nama_pengampu,
+            d.departemen, mt.nm_minat');
+			$this->db->from('bimbingan_tesis bt');
+			$this->db->join('tesis s', 's.id_tesis = bt.id_tesis');
+			$this->db->join('tesis_mkpt tm', 'bt.id_tesis_mkpt = tm.id_tesis_mkpt');
+			$this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt');
+			$this->db->join('pegawai pg1', 'pg1.nip = tmp.nip');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
+			$this->db->join('minat_tesis mt', 's.id_minat = mt.id_minat', 'left');
+			$this->db->where('bt.id_tesis', $id_tesis);
+			$this->db->where('tmp.id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+			$this->db->where('bt.jenis', $jenis_ujian);
+			$this->db->where('bt.status !=', 3);
+			//$this->db->order_by('s.tgl_pengajuan', 'desc');
+			$this->db->order_by('bt.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function jumlah_bimbingan_tesis_approved($id_tesis)
 		{
 			$stts = array('2');
@@ -2518,6 +2560,30 @@
 					'status_apv_pembimbing_dua' => '0'
 				);
 			}
+			$this->db->where('id_bimbingan_tesis', $id_bimbingan);
+			$this->db->update('bimbingan_tesis', $data);		
+		}
+
+		public function approval_bimbingan_mkpt($id_bimbingan){
+			$data = array(
+				'status_apv_pengampu' => '1'
+			);
+			$this->db->where('id_bimbingan_tesis', $id_bimbingan);
+			$this->db->update('bimbingan_tesis', $data);		
+		}
+
+		public function reject_bimbingan_mkpt($id_bimbingan){
+			$data = array(
+				'status_apv_pengampu' => '2'
+			);
+			$this->db->where('id_bimbingan_tesis', $id_bimbingan);
+			$this->db->update('bimbingan_tesis', $data);		
+		}
+
+		public function batal_bimbingan_mkpt($id_bimbingan){
+			$data = array(
+				'status_apv_pengampu' => '0'
+			);
 			$this->db->where('id_bimbingan_tesis', $id_bimbingan);
 			$this->db->update('bimbingan_tesis', $data);		
 		}

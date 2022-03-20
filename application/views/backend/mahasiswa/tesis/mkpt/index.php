@@ -113,29 +113,9 @@
                             }
 
                             if ($list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN) {
-                                $isReadyToPropose = false;
-                                $minApprovedByPembimbing1 = 5;
-                                $minApprovedByPembimbing2 = 5;
-
-                                if ($this->tesis->get_total_bimbingan_tesis_approved1($list['id_tesis'], UJIAN_TESIS_UJIAN) >= $minApprovedByPembimbing1 &&
-                                $this->tesis->get_total_bimbingan_tesis_approved2($list['id_tesis'], UJIAN_TESIS_UJIAN) >= $minApprovedByPembimbing2)
-                                {
-                                    $isReadyToPropose = true;
-                                }
-                                
-                                if($isReadyToPropose)
-                                {
                                 ?>
-                                <hr style = "margin:5px"/>
-                                <a href = "<?= base_url() ?>mahasiswa/tesis/mkpt/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPT</a>
+                                 <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a>
                                 <?php
-                                }
-                                else
-                                {
-                                ?>
-                                <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a>
-                                <?php    
-                                }
                             }
 
                             if ($list['status_mkpt'] >= STATUS_TESIS_MKPT_UJIAN_SELESAI) {

@@ -553,7 +553,7 @@ class Mkpt extends CI_Controller {
             'use_back' => true,
             'back_link' => 'mahasiswa/tesis/mkpt',
             // DATA //            
-            'bimbingan' => $this->tesis->read_bimbingan_tesis($id_tesis, UJIAN_TESIS_MKPT),
+            'bimbingan' => $this->tesis->read_bimbingan_mkpt($id_tesis, UJIAN_TESIS_MKPT),
             'tesis' => $this->tesis->detail($id_tesis),
         );
         $this->load->view('backend/index_sidebar', $data);
