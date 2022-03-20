@@ -21,6 +21,9 @@
             <div class="box-body">
                 <?php 
                     $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_MKPT);
+
+                    $mkpt_data = $this->tesis->get_tesis_mkpt_dan_pengampu_by_id_tesis($tesis->id_tesis);
+                    
                     echo '<b>Judul : </b>'.$judul->judul.'<br>';
                     
                     if($tesis->berkas_orisinalitas != '') {
@@ -84,6 +87,26 @@
                         </td>
                     </tr>
                 </table>
+
+                <hr>
+                <b>Dosen Pengampu MKPT</b><br><br>
+                <table class="table table-condensed ">
+                    <tr class="bg-gray-light">
+                        <th>Nama</th>
+                        <th>MKPT</th>
+                        <th>SKS</th>
+                    </tr>
+                    <?php
+                    foreach ($mkpt_data as $item_mkpt_data) {
+                    ?>
+                    <tr>
+                        <td><?php echo $item_mkpt_data['nama'] ?><br/><b><?php echo $item_mkpt_data['nip'] ?></b></td>
+                        <td><?php echo $item_mkpt_data['mkpt'] ?></td>
+                        <td><?php echo $item_mkpt_data['sks'] ?></td>
+                    </tr>
+                    <?php }
+                    ?>
+                </table>
             </div>
             <!-- /.box-body -->
         </div>
@@ -114,6 +137,17 @@
                         <label>Materi Bimbingan</label>
                         <?php $judul = $this->tesis->read_judul($tesis->id_tesis, TAHAPAN_TESIS_MKPT);?>
                         <textarea class="form-control" name="hal" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>MKPT Pengampu</label>
+                        <select name="tesis_mkpt" class="form-control">
+                    <?php
+                    foreach ($mkpt_data as $item_mkpt_data) {
+                    ?>
+                        <option value="<?= $item_mkpt_data['id_tesis_mkpt'] ?>" ><?= $item_mkpt_data['nama'] ?></option>
+                    <?php }
+                    ?>
+                    </select>
                     </div>
                     <div class="form-group">
                         <label>File Bimbingan MKPT Tesis<br/>(format file .pdf maks 2MB)</label>

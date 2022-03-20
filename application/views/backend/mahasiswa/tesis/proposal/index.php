@@ -220,27 +220,10 @@
                                 if($biodata->id_prodi == S2_ILMU_HUKUM){
                                     if ($list['status_mkpt'] < STATUS_TESIS_MKPT_PENGAJUAN && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI)
                                     {
-                                        /*
-                                        if($isReadyToPropose)
-                                        {
                                         ?>
                                         <hr style = "margin:5px"/>
                                         <a href = "<?= base_url() ?>mahasiswa/tesis/mkpt/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPT</a>
-                                        <?php
-                                        }
-                                        else
-                                        {
-                                        ?>
-                                        <a href="<?= base_url() ?>mahasiswa/tesis/ujian/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-info-circle"></i> Bimbingan</a>
-                                        <?php    
-                                        }
-                                        */
-                                        ?>
-                                        <hr style = "margin:5px"/>
-                                        <a href = "<?= base_url() ?>mahasiswa/tesis/mkpt/add/<?= $list['id_tesis'] ?>" class = "btn btn-xs bg-blue"><i class = "fa fa-mail-forward"></i> Ajukan MKPT</a>
-                                        <br><br>
-                                        <span>Untuk mengajukan proposal, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
-                                         dan di setujui pembimbing 2 (<?= $minApprovedByPembimbing2 ?>)</span><?php
+                                        <br><br><?php
                                     }
                                 }
                                 else if($biodata->id_prodi == S2_KENOTARIATAN)

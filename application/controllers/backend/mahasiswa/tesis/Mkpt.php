@@ -565,6 +565,7 @@ class Mkpt extends CI_Controller {
             $id_tesis = $this->input->post('id_tesis', TRUE);
 
             $hal = $this->input->post('hal', TRUE);
+            $id_tesis_mkpt = $this->input->post('tesis_mkpt', TRUE);
             $tgl = todb($this->input->post('tgl_bimbingan', TRUE));
 
             $file_name = $this->session_data['username'] . '_bimbingan_mkpt_'.$tgl.'.pdf';
@@ -588,6 +589,7 @@ class Mkpt extends CI_Controller {
                         'tanggal' => $tgl,
                         'hal' => $hal,
                         'file' => $file_name,
+                        'id_tesis_mkpt' => $id_tesis_mkpt,
                     );
                     $this->tesis->save_bimbingan($data);
                 }

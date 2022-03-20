@@ -2257,6 +2257,18 @@
 			}
 		}
 
+		public function get_tesis_mkpt_dan_pengampu_by_id_tesis($id_tesis)
+		{
+			$this->db->select('tm.id_tesis_mkpt, tm.mkpt, tm.sks, p.nip, p.nama');
+			$this->db->from('tesis s');
+			$this->db->join('tesis_mkpt tm', 'tm.id_tesis = s.id_tesis');
+			$this->db->join('tesis_mkpt_pengampu tmp', 'tm.id_tesis_mkpt = tmp.id_tesis_mkpt');
+			$this->db->join('pegawai p', 'p.nip = tmp.nip');
+			$this->db->where('s.id_tesis', $id_tesis);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		// UJIAN
 
 		public function detail_ujian_by_tesis($id_tesis, $jenis)
