@@ -2493,6 +2493,24 @@
 			return $query->result_array();
 		}
 
+		public function get_total_bimbingan_mpkt_approved($id_tesis, $id_tesis_mkpt_pengampu, $jenis_ujian)
+		{
+			$this->db->select('bt.*');
+			$this->db->from('bimbingan_tesis bt');
+			$this->db->join('tesis s', 's.id_tesis = bt.id_tesis');
+			$this->db->join('tesis_mkpt tm', 'tm.id_tesis_mkpt = bt.id_tesis_mkpt');
+			$this->db->join('tesis_mkpt_pengampu tmp', 'tmp.id_tesis_mkpt = tm.id_tesis_mkpt');
+			$this->db->where('bt.id_tesis', $id_tesis);
+			$this->db->where('tmp.id_tesis_mkpt_pengampu', $id_tesis_mkpt_pengampu);
+			$this->db->where('bt.jenis', $jenis_ujian);
+			$this->db->where('bt.status !=', 3);
+			$this->db->where('bt.status_apv_pengampu =', 1);
+			$this->db->order_by('bt.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->num_rows();;
+		}
+
 		public function jumlah_bimbingan_tesis_approved($id_tesis)
 		{
 			$stts = array('2');
