@@ -193,13 +193,13 @@
 							<?php echo waktu_format_indonesia($dokumen_persetujuan->waktu) ?>
 						</div>
 						<?php
-							if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR) {
-								?>
-								<a target="_blank" class="btn btn-xs btn-social btn-vk" href="<?= base_url() ?>dosen/sarjana/proposal/penguji_riwayat/revisi/<?= $dokumen->id_tugas_akhir ?>/<?= $dokumen->id_jadwal ?>">
-									<i class="fa fa-edit"></i> Bimbingan Revisi
-								</a>
-								<?php
-							}
+//							if ($dokumen->jenis == DOKUMEN_JENIS_SKRIPSI_UJIAN_PROPOSAL_STR) {
+//								?>
+<!--								<a target="_blank" class="btn btn-xs btn-social btn-vk" href="--><?//= base_url() ?><!--dosen/sarjana/proposal/penguji_riwayat/revisi/--><?//= $dokumen->id_tugas_akhir ?><!--/--><?//= $dokumen->id_jadwal ?><!--">-->
+<!--									<i class="fa fa-edit"></i> Bimbingan Revisi-->
+<!--								</a>-->
+<!--								--><?php
+//							}
 						?>
 					</div>
 					<?php
