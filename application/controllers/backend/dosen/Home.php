@@ -33,9 +33,9 @@
 			$username = $this->session_data['username'];
 			$penguji_get = $this->input->get('penguji');
 			if ($penguji_get == 'magister') {
-				$pengujis = $this->laporan->read_penguji_disertasi($username);
-			} else if ($penguji_get == 'doktor') {
 				$pengujis = $this->laporan->read_penguji_tesis($username);
+			} else if ($penguji_get == 'doktor') {
+				$pengujis = $this->laporan->read_penguji_disertasi($username);
 			} else {
 				$pengujis = $this->laporan->read_penguji_skripsi($username);
 			}
