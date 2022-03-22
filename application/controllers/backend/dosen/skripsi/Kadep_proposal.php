@@ -21,6 +21,7 @@
 			$this->load->model('backend/administrator/master/departemen_model', 'departemen');
 			$this->load->model('backend/master/ruang_model', 'ruang');
 			$this->load->model('backend/master/jam_model', 'jam');
+			$this->load->model('backend/transaksi/penjadwalan', 'penjadwalan');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
 			$this->load->model('backend/dosen/proposal/Kadep_pengajuan_model', 'proposal');
 			$this->load->model('backend/transaksi/skripsi', 'skripsi');
