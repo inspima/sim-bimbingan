@@ -317,11 +317,11 @@
 		public function hitung_bimbingan_aktif($nip)
 		{
 			$stts = array('2');
+			$this->db->from('pembimbing p');
+			$this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
 			$this->db->where_in('p.status_bimbingan', $stts);
 			$this->db->where('p.nip', $nip);
-			$this->db->where('s.jenis', 2);
-			$this->db->join('skripsi s', 'p.id_skripsi = s.id_skripsi');
-			$this->db->from('pembimbing p');
+			$this->db->where('s.status_skripsi <', STATUS_SKRIPSI_UJIAN_SELESAI);
 			$query = $this->db->count_all_results();
 			return $query;
 		}

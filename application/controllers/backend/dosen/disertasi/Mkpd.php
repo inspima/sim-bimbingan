@@ -24,6 +24,7 @@ class Mkpd extends CI_Controller {
         $this->load->model('backend/administrator/master/ruang_model', 'ruang');
         $this->load->model('backend/administrator/master/jam_model', 'jam');
         $this->load->model('backend/baa/master/gelombang_model', 'gelombang');
+		$this->load->model('backend/transaksi/penjadwalan', 'penjadwalan');
         $this->load->model('backend/transaksi/disertasi', 'disertasi');
         $this->load->model('backend/administrator/master/struktural_model', 'struktural');
         $this->load->model('backend/dosen/master/Dosen_model', 'dosen');

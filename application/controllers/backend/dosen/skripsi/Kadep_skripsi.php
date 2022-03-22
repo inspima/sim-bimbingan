@@ -26,6 +26,7 @@
 			$this->load->model('backend/dosen/skripsi/Kadep_skripsi_model', 'skripsi');
 			$this->load->model('backend/administrator/master/ruang_model', 'ruang');
 			$this->load->model('backend/administrator/master/jam_model', 'jam');
+			$this->load->model('backend/transaksi/penjadwalan', 'penjadwalan');
 			$this->load->model('backend/transaksi/skripsi', 'transaksi_skripsi');
 			$this->load->model('backend/dosen/master/Dosen_model', 'dosen');
 			//END MODEL
