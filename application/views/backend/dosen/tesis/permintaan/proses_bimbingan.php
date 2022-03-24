@@ -343,7 +343,8 @@
                                     <a href="<?= base_url() ?>dosen/tesis/mkpt/setting_pengampu/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> MKPT</a><br><br>
                                 <?php
                                 }
-                                if($list['jenis'] == TAHAPAN_TESIS_PROPOSAL && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI){
+                                if(($list['jenis'] == TAHAPAN_TESIS_PROPOSAL && $list['status_proposal'] == STATUS_TESIS_PROPOSAL_UJIAN_SELESAI && $id == S2_KENOTARIATAN) 
+                                || ($list['jenis'] == TAHAPAN_TESIS_MKPT && $list['status_mkpt'] == STATUS_TESIS_MKPT_UJIAN_SELESAI && $id == S2_ILMU_HUKUM)){
                                 ?>
                                     <a href="<?= base_url() ?>dosen/tesis/permintaan/bimbingan_tesis/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-file"></i> Bimbingan Tesis</a><br>
                                 <?php
