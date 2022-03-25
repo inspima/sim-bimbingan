@@ -2,6 +2,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>IURIS | FH - UNAIR</title>
+	<link rel="icon" href="https://iuris.inspima.com/assets/img/icon-system.png" type="image/png" sizes="16x16">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->

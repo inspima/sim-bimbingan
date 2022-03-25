@@ -68,11 +68,12 @@
 				foreach ($datas as $data) {
 					$tugas_akhir = $this->skripsi->detail_by_id($data['id_skripsi']);
 					if (!empty($tugas_akhir)) {
+						$jam_format=date( 'H:i', strtotime($data['mulai']) ).' - '.date( 'h:i', strtotime($data['selesai']) );
 						$results[] = [
 							'id' => $data['id_ujian'],
 							'type' => JENJANG_S1,
 							'title' => $tugas_akhir->nim . ' - ' . ($data['jenis_ujian'] == 1 ? "Proposal Skripsi" : "Skripsi") . ' - ' . $data['ruang'],
-							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
+							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $jam_format),
 							'backgroundColor' => '#fc0303'
 						];
 					}
@@ -82,11 +83,12 @@
 				foreach ($datas as $data) {
 					$tugas_akhir = $this->tesis->detail($data['id_tesis']);
 					if (!empty($tugas_akhir)) {
+						$jam_format=date( 'H:i', strtotime($data['mulai']) ).' - '.date( 'h:i', strtotime($data['selesai']) );
 						$results[] = [
 							'id' => $data['id_ujian'],
 							'type' => JENJANG_S2,
 							'title' => $tugas_akhir->nim . ' - ' . ($data['jenis_ujian'] == 1 ? "Proposal Tesis" : "Tesis") . ' - ' . $data['ruang'],
-							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
+							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $jam_format),
 							'backgroundColor' => $tugas_akhir->id_prodi == S2_ILMU_HUKUM ? '#1191ed' : '#10408f'
 						];
 					}
@@ -107,11 +109,12 @@
 						}else if($data['jenis_ujian']==UJIAN_DISERTASI_TERBUKA){
 							$jenis_ujian='Ujian Terbuka';
 						}
+						$jam_format=date( 'H:i', strtotime($data['mulai']) ).' - '.date( 'h:i', strtotime($data['selesai']) );
 						$results[] = [
 							'id' => $data['id_ujian'],
 							'type' => JENJANG_S3,
 							'title' => $tugas_akhir->nim . ' - ' . $jenis_ujian . ' - ' . $data['ruang'],
-							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $data['jam']),
+							'start' => date('Y-m-d', strtotime($data['tanggal'])) . 'T' . preg_replace('/\s+/', '', $jam_format),
 							'backgroundColor' => '#f0a637'
 						];
 					}

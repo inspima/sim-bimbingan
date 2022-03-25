@@ -1948,7 +1948,7 @@
 		// JADWAL
 		public function read_jadwal_all()
 		{
-			$this->db->select('u.*, r.ruang, r.gedung, j.jam');
+			$this->db->select('u.*, r.ruang, r.gedung, j.jam,j.mulai,j.selesai');
 			$this->db->from('ujian_tesis u');
 			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
 			$this->db->join('jam j', 'u.id_jam = j.id_jam');
