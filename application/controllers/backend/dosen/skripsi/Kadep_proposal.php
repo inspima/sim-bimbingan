@@ -532,7 +532,7 @@
 					$ujian = $this->skripsi->read_ujian_proposal($id_skripsi);
 					$tanggal = $ujian->tanggal;
 					$id_jam = $ujian->id_jam;
-					$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPenguji($nip, $ujian->tanggal, $ujian->id_jam);
+					$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPenguji($nip, $tanggal, $id_jam);
 					if ($cek_penguji_bentrok['status']) {
 
 						$jumlah_penguji = $this->skripsi->count_penguji($id_ujian);
@@ -540,7 +540,7 @@
 
 							$this->skripsi->save_penguji($data);
 							$this->session->set_flashdata('msg-title', 'alert-success');
-							$this->session->set_flashdata('msg', "Penguji belum sesuai");
+							$this->session->set_flashdata('msg', "Berhasil disimpan");
 							redirect_back();
 						} else if ($jumlah_penguji >= '3') {
 							$this->session->set_flashdata('msg-title', 'alert-danger');

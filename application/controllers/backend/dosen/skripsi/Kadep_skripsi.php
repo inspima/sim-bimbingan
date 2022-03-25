@@ -412,25 +412,26 @@
 					$ujian = $this->skripsi->read_ujian_proposal($id_skripsi);
 					$tanggal = $ujian->tanggal;
 					$id_jam = $ujian->id_jam;
-					$pengujibentrok = $this->skripsi->read_pengujibentrok($tanggal, $id_jam, $nip);
+					$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPenguji($nip, $tanggal, $id_jam);
+					if ($cek_penguji_bentrok['status']) {
 
-					if ($pengujibentrok) {
-						$this->session->set_flashdata('msg-title', 'alert-danger');
-						$this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar di hari dan jam yang sama.');
-						redirect_back();
-					} else {
 						$jumlah_penguji = $this->skripsi->count_penguji($id_ujian);
-						if ($jumlah_penguji < '3') {
+						if ($jumlah_penguji < 3) {
 
 							$this->skripsi->save_penguji($data);
 							$this->session->set_flashdata('msg-title', 'alert-success');
-							$this->session->set_flashdata('msg', "Penguji belum sesuai");
+							$this->session->set_flashdata('msg', "Berhasil disimpan");
 							redirect_back();
-						} else if ($jumlah_penguji >= '3') {
+						} else if ($jumlah_penguji >= 3) {
 							$this->session->set_flashdata('msg-title', 'alert-danger');
 							$this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji 3');
 							redirect_back();
 						}
+					} else {
+
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', $cek_penguji_bentrok['message']);
+						redirect_back();
 					}
 				}
 			} else {
