@@ -818,7 +818,7 @@ class Proposal extends CI_Controller {
 
                             else {
                                 $this->session->set_flashdata('msg-title', 'alert-danger');
-                                $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
+                                $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Utama Sudah ada jadwal di tanggal dan jam sama');
                                 redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
                             }
                         }
@@ -848,7 +848,7 @@ class Proposal extends CI_Controller {
 
                         else {
                             $this->session->set_flashdata('msg-title', 'alert-danger');
-                            $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
+                            $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Utama ada jadwal di tanggal dan jam sama');
                             redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
                         }
                     }
@@ -890,7 +890,7 @@ class Proposal extends CI_Controller {
 
                 if ($cek_jadwal_bentrok['status']) {
                     $update_proposal = array(
-                        'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                        'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
                     );
                     $this->tesis->save_ujian($data);
                     $this->tesis->update($update_proposal, $id_tesis);
@@ -924,6 +924,7 @@ class Proposal extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
             $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
+            $tesis = $this->tesis->detail($id_tesis);
 
             if (!empty($ujian)) { // JIKA SUDAH ADA
                 //echo 'jadwal sudah ada. tambah script update';  die();
@@ -963,7 +964,7 @@ class Proposal extends CI_Controller {
                             $this->tesis->update_ujian($data, $id_ujian);
 
                             $update_proposal = array(
-                                'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                                'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
                             );
                             $this->tesis->update($update_proposal, $id_tesis);
 
@@ -975,7 +976,7 @@ class Proposal extends CI_Controller {
                         $this->tesis->update_ujian($data, $id_ujian);
 
                         $update_proposal = array(
-                            'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                            'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
                         );
                         $this->tesis->update($update_proposal, $id_tesis);
 
@@ -997,6 +998,11 @@ class Proposal extends CI_Controller {
                                 if ($bentrok_pembimbing_dua['status']) {
                                     $this->tesis->update_ujian($data, $id_ujian);
 
+                                    $update_proposal = array(
+                                        'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
+                                    );
+                                    $this->tesis->update($update_proposal, $id_tesis);
+
                                     $this->session->set_flashdata('msg-title', 'alert-success');
                                     $this->session->set_flashdata('msg', 'Berhasil Ubah Usulan Jadwal.');
                                     redirect('dosen/tesis/proposal/setting/' . $id_tesis);
@@ -1010,7 +1016,7 @@ class Proposal extends CI_Controller {
 
                             else {
                                 $this->session->set_flashdata('msg-title', 'alert-danger');
-                                $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
+                                $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Utama Sudah ada jadwal di tanggal dan jam sama');
                                 redirect('dosen/tesis/proposal/setting/' . $id_tesis);
                             }
                         }
@@ -1027,6 +1033,11 @@ class Proposal extends CI_Controller {
                             if ($bentrok_pembimbing_dua['status']) {
                                 $this->tesis->update_ujian($data, $id_ujian);
 
+                                $update_proposal = array(
+                                    'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
+                                );
+                                $this->tesis->update($update_proposal, $id_tesis);
+
                                 $this->session->set_flashdata('msg-title', 'alert-success');
                                 $this->session->set_flashdata('msg', 'Berhasil Ubah Usulan Jadwal.');
                                 redirect('dosen/tesis/proposal/setting/' . $id_tesis);
@@ -1040,7 +1051,7 @@ class Proposal extends CI_Controller {
 
                         else {
                             $this->session->set_flashdata('msg-title', 'alert-danger');
-                            $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Penguji Sudah ada jadwal di tanggal dan jam sama');
+                            $this->session->set_flashdata('msg', 'Gagal Ubah Usulan Jadwal. Pembimbing Utama Sudah ada jadwal di tanggal dan jam sama');
                             redirect('dosen/tesis/proposal/setting/' . $id_tesis);
                         }
                     }
@@ -1071,7 +1082,7 @@ class Proposal extends CI_Controller {
                     redirect('dosen/tesis/proposal/setting/' . $id_tesis);
                 } else {
                     $update_proposal = array(
-                        'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                        'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
                     );
                     $this->tesis->save_ujian($data);
                     $this->tesis->update($update_proposal, $id_tesis);
@@ -1084,7 +1095,7 @@ class Proposal extends CI_Controller {
 
                 if ($cek_jadwal_bentrok['status']) {
                     $update_proposal = array(
-                        'status_proposal' => STATUS_TESIS_UJIAN_DIJADWALKAN,
+                        'status_proposal' => STATUS_TESIS_PROPOSAL_DIJADWALKAN,
                     );
                     $this->tesis->save_ujian($data);
                     $this->tesis->update($update_proposal, $id_tesis);

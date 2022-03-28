@@ -1880,6 +1880,7 @@
 			$this->db->where('s.jenis', $jenis);
 			$this->db->where('jd.jenis', $jenis);
 			$this->db->where('u.jenis_ujian', UJIAN_TESIS_PROPOSAL);
+			$this->db->where('u.status_ujian =', '1'); // Ujian Utama
 			if ($status == STATUS_TESIS_PROPOSAL_DIJADWALKAN) {
 				$this->db->where('s.status_proposal >=', $status);
 				$this->db->where('s.status_proposal <', STATUS_TESIS_PROPOSAL_UJIAN_SELESAI);

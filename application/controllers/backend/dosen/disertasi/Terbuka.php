@@ -254,7 +254,7 @@
 					} else {
 						$this->session->set_flashdata('msg-title', 'alert-danger');
 						$this->session->set_flashdata('msg', $cek_penguji_bentrok['message']);
-						redirect('dosen/disertasi/terbuka/setting/' . $id_disertasi);
+						redirect_back();
 					}
 				}
 			} else {
@@ -373,13 +373,8 @@
 					$ujian = $this->disertasi->read_jadwal($id_disertasi, UJIAN_DISERTASI_TERBUKA);
 					$tanggal = $ujian->tanggal;
 					$id_jam = $ujian->id_jam;
-					$pengujibentrok = $this->disertasi->read_pengujibentrok($tanggal, $id_jam, $nip);
-
-					if ($pengujibentrok) {
-						$this->session->set_flashdata('msg-title', 'alert-danger');
-						$this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar di hari dan jam yang sama.');
-						redirect_back();
-					} else {
+					$cek_penguji_bentrok = $this->penjadwalan->cekBentrokPenguji($nip, $ujian->tanggal, $ujian->id_jam);
+					if ($cek_penguji_bentrok['status']) {
 						$jumlah_penguji = $this->disertasi->count_penguji($id_ujian);
 						if ($jumlah_penguji < '7') {
 
@@ -392,6 +387,10 @@
 							$this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah 7');
 							redirect_back();
 						}
+					} else {
+						$this->session->set_flashdata('msg-title', 'alert-danger');
+						$this->session->set_flashdata('msg', $cek_penguji_bentrok['message']);
+						redirect_back();
 					}
 				}
 			} else {
