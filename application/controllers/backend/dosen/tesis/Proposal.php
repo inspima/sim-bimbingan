@@ -1120,6 +1120,7 @@ class Proposal extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
             $nip = $this->input->post('nip', TRUE);
+            $id_ujian = $this->input->post('id_ujian', TRUE);
 
             $jumlah_penguji = $this->tesis->count_penguji_temp($id_tesis, 1);
 
@@ -1138,9 +1139,9 @@ class Proposal extends CI_Controller {
                     'status' => 1
                 );
 
-                $cekpenguji = $this->tesis->cek_penguji($data_cek_bentrok);
+                //$cekpenguji = $this->tesis->cek_penguji($data_cek_bentrok);
 
-                if ($cekpenguji) {
+                /*if ($cekpenguji) {
                     $this->session->set_flashdata('msg-title', 'alert-danger');
                     $this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar.');
                     redirect('dosen/tesis/proposal/setting/' . $id_tesis);
@@ -1162,6 +1163,33 @@ class Proposal extends CI_Controller {
                         $this->session->set_flashdata('msg', $mesg);
                         redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
                     }
+                }*/
+
+                $ujian = $this->tesis->read_jadwal($id_tesis, UJIAN_TESIS_PROPOSAL);
+                $tanggal = $ujian->tanggal;
+                $id_jam = $ujian->id_jam;
+
+                $cek_penguji_bentrok = $this->penjadwalan->cekBentrokPenguji($nip, $tanggal, $id_jam);
+                if ($cek_penguji_bentrok['status']) {
+                    $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
+                    if ($jumlah_penguji < '4') {
+
+                        $this->tesis->save_penguji_temp($data);
+                        $jumlah_penguji = $this->tesis->count_penguji($id_ujian);
+                        $this->session->set_flashdata('msg-title', 'alert-success');
+                        //$this->session->set_flashdata('msg', $mesg);
+                        $this->session->set_flashdata('msg', "Berhasil simpan, Jumlah penguji kurang ".(4-$jumlah_penguji));
+                        redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                    } else if ($jumlah_penguji >= '4') {
+                        $this->session->set_flashdata('msg-title', 'alert-danger');
+                        $this->session->set_flashdata('msg', 'Gagal simpan. Jumlah penguji sudah 4');
+                        redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
+                    }
+                }
+                else {
+                    $this->session->set_flashdata('msg-title', 'alert-danger');
+                    $this->session->set_flashdata('msg', 'Gagal simpan. Penguji sudah terdaftar di hari dan jam yang sama.');
+                    redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
                 }
             }
             else {
@@ -1456,7 +1484,7 @@ class Proposal extends CI_Controller {
 
             $this->session->set_flashdata('msg-title', 'alert-success');
             $this->session->set_flashdata('msg', 'Berhasil hapus penguji.');
-            redirect('dosen/tesis/proposal/setting_penguji/' . $id_tesis);
+            redirect('dosen/tesis/proposal/jadwal_pembimbing/' . $id_tesis);
         } else {
             $this->session->set_flashdata('msg-title', 'alert-danger');
             $this->session->set_flashdata('msg', 'Terjadi Kesalahan');

@@ -122,11 +122,11 @@
                 <div class="form-group">
                     <label>Jam</label>
                     <select name="id_jam" class="form-control select2" style="width: 100%;" <?php echo ($status_apv_kaprodi == '1') ? 'disabled' : ''; ?> required>
-                        <option value="<?php echo $id_jam ?>"><?php echo $jam ?></option>
+                        <!-- <option value="<?php //echo $id_jam ?>"><?php //echo $jam ?></option> -->
                         <?php
                         foreach ($mjam as $list) {
                             ?>
-                            <option value="<?php echo $list['id_jam'] ?>"><?php echo $list['jam'] ?></option>
+                            <option value="<?php echo $list['id_jam'] ?>" <?= ($id_jam == $list['id_jam']) ? 'selected' : ''?>><?php echo $list['jam'] ?></option>
                             <?php
                         }
                         ?>
