@@ -619,6 +619,7 @@
 			$this->db->where('p.id_disertasi', $id_disertasi);
 			$this->db->where_in('p.status', $stts);
 			$this->db->order_by('p.status_tim', 'asc');
+			$this->db->order_by('p.id_promotor', 'asc');
 			$query = $this->db->get();
 			return $query->result_array();
 		}
