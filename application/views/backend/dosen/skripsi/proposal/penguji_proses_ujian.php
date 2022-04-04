@@ -32,7 +32,6 @@
 						<th>Judul</th>
 						<th>Status Tim</th>
 						<th>Jadwal</th>
-						<th>Aksi</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -63,30 +62,10 @@
 									<span class="text-primary text-bold">
 										<?php echo wday_toindo($list['tanggal']) ?>
 									</span><br/>
-									<span class="text-navy text-bold">
+									<span  class="text-navy text-bold">
 										<?= $list['jam'] ?>
 									</span><br/>
 									<?= $list['ruang'] . ' ' . $list['gedung'] ?>
-								</td>
-								<td class="text-center">
-									<?php
-										if ($list['status_revisi'] == '1') {
-											?>
-											<label class="label label-success">Revisi Selesai</label><br/><br/>
-
-											<a class="btn btn-xs btn-social btn-github" href="<?= base_url() ?>dosen/sarjana/proposal/penguji_riwayat/revisi/<?= $list['id_skripsi'] ?>/<?= $list['id_ujian'] ?>">
-												<i class="fa fa-search"></i> Detail Revisi
-											</a>
-											<?php
-										} else {
-											?>
-
-											<a class="btn btn-xs btn-social btn-vk" href="<?= base_url() ?>dosen/sarjana/proposal/penguji_riwayat/revisi/<?= $list['id_skripsi'] ?>/<?= $list['id_ujian'] ?>">
-												<i class="fa fa-edit"></i> Bimbingan Revisi
-											</a>
-											<?php
-										}
-									?>
 								</td>
 							</tr>
 							<?php

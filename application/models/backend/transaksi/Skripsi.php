@@ -643,7 +643,7 @@
 			return $query->result_array();
 		}
 
-		public function read_penguji_proposal($username)
+		public function read_penguji_ujian_proposal($username)
 		{
 			$this->db->select('p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, s.id_skripsi, s.berkas_proposal, d.departemen,jud.judul');
 			$this->db->from('penguji p');
@@ -665,6 +665,29 @@
 			return $query->result_array();
 		}
 
+		public function read_penguji_riwayat_proposal($username)
+		{
+			$this->db->select('p.id_penguji, p.status_tim,p.status_revisi,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, s.id_skripsi, s.berkas_proposal, d.departemen,jud.judul');
+			$this->db->from('penguji p');
+			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1 and jud.persetujuan=1');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+			$this->db->where('p.nip', $username);
+			$this->db->where('p.status', 2);
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_PROPOSAL);
+			$this->db->where('u.status', 1);
+			$this->db->where('s.status_proposal>=', STATUS_SKRIPSI_PROPOSAL_SELESAI);
+			$this->db->where('s.status_skripsi<',STATUS_SKRIPSI_UJIAN_PENGAJUAN);
+			$this->db->order_by('u.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function read_penguji_pengajuan_skripsi($username)
 		{
 			$this->db->select('s.*,p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, d.departemen,jud.judul');
@@ -678,7 +701,7 @@
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
 			$this->db->where('p.nip', $username);
 			$this->db->where('p.status', 1);
-			$this->db->where('u.jenis_ujian', 2);
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_UJIAN);
 			$this->db->where('u.status', 1);
 			$this->db->order_by('u.tanggal', 'desc');
 
@@ -686,7 +709,7 @@
 			return $query->result_array();
 		}
 
-		public function read_penguji_skripsi($username)
+		public function read_penguji_ujian_skripsi($username)
 		{
 			$this->db->select('s.*,p.id_penguji, p.status_tim,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, d.departemen,jud.judul');
 			$this->db->from('penguji p');
@@ -699,9 +722,31 @@
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
 			$this->db->where('p.nip', $username);
 			$this->db->where('p.status', 2);
-			$this->db->where('u.jenis_ujian', 2);
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_UJIAN);
 			$this->db->where('u.status', 1);
 			$this->db->where('s.status_skripsi<', STATUS_SKRIPSI_UJIAN_SELESAI);
+			$this->db->order_by('u.tanggal', 'desc');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function read_penguji_riwayat_skripsi($username)
+		{
+			$this->db->select('s.*,p.id_penguji, p.status_tim,p.status_revisi,u.id_ujian, u.tanggal, r.ruang, r.gedung, j.jam, m.nama,m.nim, d.departemen,jud.judul');
+			$this->db->from('penguji p');
+			$this->db->join('ujian u', 'p.id_ujian = u.id_ujian');
+			$this->db->join('skripsi s', 'u.id_skripsi = s.id_skripsi');
+			$this->db->join('judul jud', 'jud.id_skripsi = s.id_skripsi and jud.status=1  and jud.persetujuan=1');
+			$this->db->join('ruang r', 'u.id_ruang = r.id_ruang');
+			$this->db->join('jam j', 'u.id_jam = j.id_jam');
+			$this->db->join('mahasiswa m', 's.nim = m.nim');
+			$this->db->join('departemen d', 's.id_departemen = d.id_departemen');
+			$this->db->where('p.nip', $username);
+			$this->db->where('p.status', 2);
+			$this->db->where('u.jenis_ujian', UJIAN_SKRIPSI_UJIAN);
+			$this->db->where('u.status', 1);
+			$this->db->where('s.status_skripsi>=', STATUS_SKRIPSI_UJIAN_SELESAI);
 			$this->db->order_by('u.tanggal', 'desc');
 
 			$query = $this->db->get();

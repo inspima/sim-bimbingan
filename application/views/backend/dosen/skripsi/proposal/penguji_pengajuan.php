@@ -20,7 +20,8 @@
 			<div class="box-body table-responsive">
 				<div class="btn-group">
 					<a class="<?= ($this->uri->segment(4) == 'penguji_pengajuan') ? 'btn btn-default' : 'btn btn-info'; ?>" href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_pengajuan">Pengajuan</a>
-					<a class="<?= ($this->uri->segment(4) == 'penguji_riwayat') ? 'btn btn-default' : 'btn btn-primary'; ?>" href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_riwayat">Proses Pengujian</a>
+					<a class="<?= ($this->uri->segment(4) == 'penguji_proses_ujian') ? 'btn btn-default' : 'btn bg-navy'; ?>" href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_proses_ujian">Proses Pengujian</a>
+					<a class="<?= ($this->uri->segment(4) == 'penguji_riwayat') ? 'btn btn-default' : 'btn btn-primary'; ?>" href="<?php echo base_url() ?>dosen/sarjana/proposal/penguji_riwayat">Selesai Ujian</a>
 				</div>
 				<hr class="divider-line-thin"/>
 				<table id="example1" class="table table-bordered table-striped">

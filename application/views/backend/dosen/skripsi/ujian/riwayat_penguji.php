@@ -20,7 +20,8 @@
 			<div class="box-body table-responsive">
 				<div class="btn-group">
 					<a class="<?= ($this->uri->segment(4) == 'penguji_pengajuan') ? 'btn btn-default' : 'btn btn-info'; ?>" href="<?php echo base_url() ?>dosen/sarjana/skripsi/penguji_pengajuan">Pengajuan</a>
-					<a class="<?= ($this->uri->segment(4) == 'penguji_riwayat') ? 'btn btn-default' : 'btn btn-primary'; ?>" href="<?php echo base_url() ?>dosen/sarjana/skripsi/penguji_riwayat">Proses Pengujian</a>
+					<a class="<?= ($this->uri->segment(4) == 'penguji_proses_ujian') ? 'btn btn-default' : 'btn bg-navy'; ?>" href="<?php echo base_url() ?>dosen/sarjana/skripsi/penguji_proses_ujian">Proses Pengujian</a>
+					<a class="<?= ($this->uri->segment(4) == 'penguji_riwayat') ? 'btn btn-default' : 'btn btn-primary'; ?>" href="<?php echo base_url() ?>dosen/sarjana/skripsi/penguji_riwayat">Selesai Ujian</a>
 				</div>
 				<hr class="divider-line-thin"/>
 				<table id="example1" class="table table-bordered table-striped">
@@ -31,6 +32,7 @@
 						<th>Judul</th>
 						<th>Status Tim</th>
 						<th>Jadwal</th>
+						<th>Aksi</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -66,6 +68,27 @@
 										<?= $list['jam'] ?>
 									</span><br/>
 									<?= $list['ruang'] . ' ' . $list['gedung'] ?>
+								</td>
+
+								<td class="text-center">
+									<?php
+										if ($list['status_revisi'] == '1') {
+											?>
+											<label class="label label-success">Revisi Selesai</label><br/><br/>
+
+											<a class="btn btn-xs btn-social btn-github" href="<?= base_url() ?>dosen/sarjana/proposal/penguji_riwayat/revisi/<?= $list['id_skripsi'] ?>/<?= $list['id_ujian'] ?>">
+												<i class="fa fa-search"></i> Detail Revisi
+											</a>
+											<?php
+										} else {
+											?>
+
+											<a class="btn btn-xs btn-social btn-vk" href="<?= base_url() ?>dosen/sarjana/proposal/penguji_riwayat/revisi/<?= $list['id_skripsi'] ?>/<?= $list['id_ujian'] ?>">
+												<i class="fa fa-edit"></i> Bimbingan Revisi
+											</a>
+											<?php
+										}
+									?>
 								</td>
 							</tr>
 							<?php

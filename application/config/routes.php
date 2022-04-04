@@ -395,12 +395,14 @@
 
 	//Dosen
 	$route['dosen/sarjana/proposal/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_proposal';
+	$route['dosen/sarjana/proposal/penguji_proses_ujian'] = 'backend/dosen/skripsi/penguji_skripsi/proses_ujian_proposal';
 	$route['dosen/sarjana/proposal/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_proposal';
 	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/(:num)/(:num)'] = 'backend/dosen/skripsi/penguji_skripsi/revisi_proposal/$1/$2';
 	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/update_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/update_riwayat_revisi';
 	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/update'] = 'backend/dosen/skripsi/penguji_skripsi/update_revisi';
 	$route['dosen/sarjana/proposal/penguji_riwayat/revisi/setujui'] = 'backend/dosen/skripsi/penguji_skripsi/setujui_revisi';
 	$route['dosen/sarjana/skripsi/penguji_pengajuan'] = 'backend/dosen/skripsi/penguji_skripsi/index_skripsi';
+	$route['dosen/sarjana/skripsi/penguji_proses_ujian'] = 'backend/dosen/skripsi/penguji_skripsi/proses_ujian_skripsi';
 	$route['dosen/sarjana/skripsi/penguji_riwayat'] = 'backend/dosen/skripsi/penguji_skripsi/riwayat_skripsi';
 	$route['dosen/sarjana/skripsi/penguji_riwayat/update_nilai'] = 'backend/dosen/skripsi/penguji_skripsi/update_nilai';
 

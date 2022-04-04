@@ -42,16 +42,30 @@
 			$this->load->view('backend/index_sidebar', $data);
 		}
 
-		public function riwayat_proposal()
+		public function proses_ujian_proposal()
 		{
 			$username = $this->session_data['username'];
 			$data = array(
 				// PAGE //
 				'title' => 'Skripsi - Proposal',
 				'subtitle' => 'Proses Pengujian',
+				'section' => 'backend/dosen/skripsi/proposal/penguji_proses_ujian',
+				// DATA //
+				'penguji' => $this->skripsi->read_penguji_ujian_proposal($username)
+			);
+			$this->load->view('backend/index_sidebar', $data);
+		}
+
+		public function riwayat_proposal()
+		{
+			$username = $this->session_data['username'];
+			$data = array(
+				// PAGE //
+				'title' => 'Skripsi - Proposal',
+				'subtitle' => 'Ujian Selesai',
 				'section' => 'backend/dosen/skripsi/proposal/penguji_riwayat',
 				// DATA //
-				'penguji' => $this->skripsi->read_penguji_proposal($username)
+				'penguji' => $this->skripsi->read_penguji_riwayat_proposal($username)
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}
@@ -95,16 +109,30 @@
 			$this->load->view('backend/index_sidebar', $data);
 		}
 
-		public function riwayat_skripsi()
+		public function proses_ujian_skripsi()
 		{
 			$username = $this->session_data['username'];
 			$data = array(
 				// PAGE //
 				'title' => 'Skripsi Ujian',
 				'subtitle' => 'Proses Pengujian',
+				'section' => 'backend/dosen/skripsi/ujian/proses_ujian_penguji',
+				// DATA //
+				'penguji' => $this->skripsi->read_penguji_ujian_skripsi($username)
+			);
+			$this->load->view('backend/index_sidebar', $data);
+		}
+
+		public function riwayat_skripsi()
+		{
+			$username = $this->session_data['username'];
+			$data = array(
+				// PAGE //
+				'title' => 'Skripsi Ujian',
+				'subtitle' => 'Ujian Selesai',
 				'section' => 'backend/dosen/skripsi/ujian/riwayat_penguji',
 				// DATA //
-				'penguji' => $this->skripsi->read_penguji_skripsi($username)
+				'penguji' => $this->skripsi->read_penguji_riwayat_skripsi($username)
 			);
 			$this->load->view('backend/index_sidebar', $data);
 		}

@@ -127,9 +127,11 @@
 							<select name="id_dosen" class="form-control select2" style="width: 100%;" required>
 								<?php
 									foreach ($pengujis as $penguji) {
-										?>
-										<option value="<?php echo $penguji['id_pegawai'] ?>"><?php echo $penguji['nama'] ?></option>
-										<?php
+										if ($penguji['status_revisi'] != '1') {
+											?>
+											<option value="<?php echo $penguji['id_pegawai'] ?>"><?php echo $penguji['nama'] ?></option>
+											<?php
+										}
 									}
 								?>
 							</select>
@@ -174,7 +176,7 @@
 													?>
 													<label class="label label-success">Selesai</label>
 													<?php
-												}else{
+												} else {
 													?>
 													<label class="label label-danger">Belum</label>
 													<?php
@@ -184,7 +186,7 @@
 									</tr>
 									<tr id="revisi-<?= $penguji['id_penguji'] ?>" style="display: none">
 										<td colspan="4">
-											<?= !empty($penguji['revisi'])?$penguji['revisi']:'<label class="label label-danger">Kosong</label>' ?>
+											<?= !empty($penguji['revisi']) ? $penguji['revisi'] : '<label class="label label-danger">Kosong</label>' ?>
 										</td>
 									</tr>
 
