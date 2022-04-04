@@ -31,7 +31,7 @@
 			if ($this->input->post('_token')) {
 				$email = $this->input->post('email');
 				$nama = $this->input->post('nama');
-				$nim = $this->input->post('nim');
+				$nim = trim($this->input->post('nim'));
 				$id_prodi = $this->input->post('prodi');
 				$sks = $this->input->post('sks');
 				$no_hp = $this->input->post('no_hp');

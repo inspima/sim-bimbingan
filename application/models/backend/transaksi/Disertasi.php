@@ -257,16 +257,12 @@
 
 		function read_aktif($username)
 		{
-			$stts = array(
-				'1',
-				'2'
-			);
 			$this->db->select('s.id_disertasi, s.id_departemen, s.tgl_pengajuan,s.status_kualifikasi, s.berkas_proposal, s.status_proposal, d.departemen ');
 			$this->db->from('disertasi s');
 			$this->db->join('departemen d', 's.id_departemen = d.id_departemen', 'left');
 			$this->db->where('s.nim', $username);
 			$this->db->where('s.jenis', 1);
-			$this->db->where_in('s.status_kualifikasi', $stts);
+			$this->db->where('s.status_kualifikasi>', STATUS_DISERTASI_KUALIFIKASI_PENGAJUAN);
 			$this->db->limit(1);
 			$this->db->order_by('s.id_disertasi', 'desc');
 
