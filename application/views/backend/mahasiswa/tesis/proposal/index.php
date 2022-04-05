@@ -242,7 +242,7 @@
                                         ?>
                                         <a href="<?= base_url() ?>mahasiswa/tesis/ujian/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-calendar"></i> Bimbingan</a>
                                         <br><br>
-                                        <span>Untuk mengajukan proposal, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
+                                        <span>Untuk mengajukan tesis, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
                                          dan di setujui pembimbing 2 (<?= $minApprovedByPembimbing2 ?>)</span><?php    
                                         }
                                     }
