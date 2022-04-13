@@ -19,7 +19,7 @@
 					JOIN jam j on j.id_jam=u.id_jam
 					WHERE u.id_ruang = ? 
 					AND u.tanggal = ?
-					AND CAST(? as time) between j.mulai and j.selesai
+					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
 					";
 				$query_s1 = $this->db->query($query_s1_str, [
 					$ruang,
@@ -33,7 +33,8 @@
 					JOIN jam j on j.id_jam=u.id_jam
 					WHERE u.id_ruang = ? 
 					AND u.tanggal = ?
-					AND CAST(? as time) between j.mulai and j.selesai";
+					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
+					";
 				$query_s2 = $this->db->query($query_s2_str, [
 					$ruang,
 					$tgl,
@@ -46,7 +47,7 @@
 					JOIN jam j on j.id_jam=u.id_jam
 					WHERE u.id_ruang = ? 
 					AND u.tanggal = ?
-					AND CAST(? as time) between j.mulai and j.selesai
+					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
 					AND u.status='1'";
 				$query_s3 = $this->db->query($query_s3_str, [
 					$ruang,
@@ -98,7 +99,7 @@
 					JOIN jam j on j.id_jam=u.id_jam
 					WHERE p.nip= ?
 					AND u.tanggal = ?
-					AND CAST( ? as time) between j.mulai and j.selesai
+					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
 					";
 			$query_s1 = $this->db->query($query_s1_str, [
 				$nip,
@@ -113,7 +114,8 @@
 					JOIN jam j on j.id_jam=u.id_jam
 					WHERE p.nip= ?
 					AND u.tanggal = ?
-					AND CAST( ? as time) between j.mulai and j.selesai";
+					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
+					";
 			$query_s2 = $this->db->query($query_s2_str, [
 				$nip,
 				$tgl,
@@ -127,7 +129,7 @@
 					JOIN jam j on j.id_jam=u.id_jam
 					WHERE p.nip= ?
 					AND u.tanggal = ?
-					AND CAST( ? as time) between j.mulai and j.selesai
+					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
 					AND u.status='1'";
 			$query_s3 = $this->db->query($query_s3_str, [
 				$nip,
