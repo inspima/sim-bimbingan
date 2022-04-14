@@ -97,7 +97,7 @@
 					SELECT u.* FROM ujian u 
 					JOIN penguji p on p.id_ujian=u.id_ujian
 					JOIN jam j on j.id_jam=u.id_jam
-					WHERE p.nip= ?
+					WHERE p.nip= ?  and p.status!='0'
 					AND u.tanggal = ?
 					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
 					";
@@ -112,7 +112,7 @@
 					SELECT u.* FROM ujian_tesis u 
 					JOIN penguji_tesis p on p.id_ujian=u.id_ujian
 					JOIN jam j on j.id_jam=u.id_jam
-					WHERE p.nip= ?
+					WHERE p.nip= ?  and p.status!='0'
 					AND u.tanggal = ?
 					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
 					";
@@ -127,7 +127,7 @@
 					SELECT u.* FROM ujian_disertasi u 
 					JOIN penguji_disertasi p on p.id_ujian=u.id_ujian
 					JOIN jam j on j.id_jam=u.id_jam
-					WHERE p.nip= ?
+					WHERE p.nip= ?  and p.status!='0'
 					AND u.tanggal = ?
 					AND CAST( ? as time) BETWEEN CAST( j.mulai  AS time ) AND CAST( j.selesai  AS time )
 					AND u.status='1'";
