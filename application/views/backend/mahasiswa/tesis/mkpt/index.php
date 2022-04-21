@@ -106,7 +106,7 @@
                                 <?php
                             }
                           
-                            if ($list['status_mkpt'] <= STATUS_TESIS_MKPT_UJIAN_SELESAI && $list['status_tesis'] < STATUS_TESIS_UJIAN_PENGAJUAN) {
+                            if ($list['status_mkpt'] < STATUS_TESIS_MKPT_DISETUJUI_DOSEN_MKPT) {
                                 ?>
                                 <a href="<?= base_url() ?>mahasiswa/tesis/mkpt/edit/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-green"><i class="fa fa-edit"></i> Edit</a>
                                 <?php
@@ -143,7 +143,7 @@
                                     ?>
                                     <a href="<?= base_url() ?>mahasiswa/tesis/ujian/bimbingan/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-red"><i class="fa fa-calendar"></i> Bimbingan</a>
                                     <br><br>
-                                        <span>Untuk mengajukan tesis, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
+                                        <span>Untuk mengajukan proposal, minimal bimbingan di setujui pembimbing 1 (<?= $minApprovedByPembimbing1 ?>) 
                                          dan di setujui pembimbing 2 (<?= $minApprovedByPembimbing2 ?>)</span><?php    
                                     }
                                 }
