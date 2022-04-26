@@ -57,27 +57,20 @@ class Mpkk extends CI_Controller {
 
     public function add() {
         $id_disertasi = $this->uri->segment('5');
-        $read_aktif = $this->disertasi->read_aktif($this->session_data['username']);
 
-        if ($read_aktif) {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/disertasi/mpkk');
-        } else {
-            $data = array(
-                // PAGE //
-                'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan MKPKK',
-                'section' => 'backend/mahasiswa/disertasi/mpkk/add',
-                'use_back' => true,
-                'back_link' => 'mahasiswa/disertasi/mpkk',
-                // DATA //
-                'departemen' => $this->departemen->read(),
-                'disertasi' => $this->disertasi->detail($id_disertasi),
-                'mkpkks' => $this->disertasi->read_mkpkk(),
-            );
-            $this->load->view('backend/index_sidebar', $data);
-        }
+		$data = array(
+			// PAGE //
+			'title' => 'Modul (Mahasiswa)',
+			'subtitle' => 'Pengajuan MKPKK',
+			'section' => 'backend/mahasiswa/disertasi/mpkk/add',
+			'use_back' => true,
+			'back_link' => 'mahasiswa/disertasi/mpkk',
+			// DATA //
+			'departemen' => $this->departemen->read(),
+			'disertasi' => $this->disertasi->detail($id_disertasi),
+			'mkpkks' => $this->disertasi->read_mkpkk(),
+		);
+		$this->load->view('backend/index_sidebar', $data);
     }
 
     public function save() {

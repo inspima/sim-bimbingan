@@ -61,28 +61,21 @@ class Proposal extends CI_Controller {
 
     public function add() {
         $id_disertasi = $this->uri->segment('5');
-        $read_aktif = $this->disertasi->read_aktif($this->session_data['username']);
 
-        if ($read_aktif) {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/disertasi/proposal');
-        } else {
-            $data = array(
-                // PAGE //
-                'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan Proposal',
-                'section' => 'backend/mahasiswa/disertasi/proposal/add',
-                'use_back' => true,
-                'back_link' => 'mahasiswa/disertasi/proposal',
-                'mdosen' => $this->dosen->read_aktif_alldep_s3(),
-                // DATA //
-                'departemen' => $this->departemen->read(),
-                'gelombang' => $this->gelombang->read_berjalan(),
-                'disertasi' => $this->disertasi->detail($id_disertasi),
-            );
-            $this->load->view('backend/index_sidebar', $data);
-        }
+		$data = array(
+			// PAGE //
+			'title' => 'Modul (Mahasiswa)',
+			'subtitle' => 'Pengajuan Proposal',
+			'section' => 'backend/mahasiswa/disertasi/proposal/add',
+			'use_back' => true,
+			'back_link' => 'mahasiswa/disertasi/proposal',
+			'mdosen' => $this->dosen->read_aktif_alldep_s3(),
+			// DATA //
+			'departemen' => $this->departemen->read(),
+			'gelombang' => $this->gelombang->read_berjalan(),
+			'disertasi' => $this->disertasi->detail($id_disertasi),
+		);
+		$this->load->view('backend/index_sidebar', $data);
     }
 
     public function save() {

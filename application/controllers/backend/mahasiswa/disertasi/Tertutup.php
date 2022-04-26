@@ -59,28 +59,21 @@ class Tertutup extends CI_Controller {
 
     public function add() {
         $id_disertasi = $this->uri->segment('5');
-        $read_aktif = $this->disertasi->read_aktif($this->session_data['username']);
 
-        if ($read_aktif) {
-            $this->session->set_flashdata('msg-title', 'alert-danger');
-            $this->session->set_flashdata('msg', 'Masih ada judul aktif');
-            redirect('mahasiswa/disertasi/tertutup');
-        } else {
-            $data = array(
-                // PAGE //
-                'title' => 'Modul (Mahasiswa)',
-                'subtitle' => 'Pengajuan Ujian Tertutup',
-                'section' => 'backend/mahasiswa/disertasi/tertutup/add',
-                'use_back' => true,
-                'back_link' => 'mahasiswa/disertasi/tertutup',
-                'mdosen' => $this->dosen->read_aktif_alldep(),
-                // DATA //
-                'departemen' => $this->departemen->read(),
-                'gelombang' => $this->gelombang->read_berjalan(),
-                'disertasi' => $this->disertasi->detail($id_disertasi),
-            );
-            $this->load->view('backend/index_sidebar', $data);
-        }
+		$data = array(
+			// PAGE //
+			'title' => 'Modul (Mahasiswa)',
+			'subtitle' => 'Pengajuan Ujian Tertutup',
+			'section' => 'backend/mahasiswa/disertasi/tertutup/add',
+			'use_back' => true,
+			'back_link' => 'mahasiswa/disertasi/tertutup',
+			'mdosen' => $this->dosen->read_aktif_alldep(),
+			// DATA //
+			'departemen' => $this->departemen->read(),
+			'gelombang' => $this->gelombang->read_berjalan(),
+			'disertasi' => $this->disertasi->detail($id_disertasi),
+		);
+		$this->load->view('backend/index_sidebar', $data);
     }
 
     public function save() {

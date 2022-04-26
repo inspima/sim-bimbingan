@@ -17,18 +17,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </style>
     </head>
     <body>
-        <table align="center" width="100%" border="0">
+        <!-- <table align="center" width="100%" border="0">
             <tbody>
                 <tr>
                     <td width="10%"><img src="assets/backend/cetak/logo_unair.png" width="100px"></td>
                     <td width="90%" align="center">
-                        <p style="font-size:20px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN
+                        <p style="font-size:20px;margin-bottom: 0px;">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI
                             <br>UNIVERSITAS AIRLANGGA
                             <br><b>FAKULTAS HUKUM</b><br>
                         </p>
                         <p style="font-size:13px;margin: 0px 0px 0px 0px;">
                             Kampus B, Jl. Dharmawangsa Dalam Selatan Surabaya 60286 Telp. (031) 5023151, 5023152 Fax. (031) 5020454<br>
-                            Website: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
+                            Laman: http://fh.unair.ac.id - Email: humas@fh.unair.ac.id 
                         </p>
                     </td>
                 </tr>
@@ -37,7 +37,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+
+        <?php $this->load->view('backend/widgets/common/header_document') ?>
+
         <p align="center">
             <u><h2>BERITA ACARA UJIAN TESIS</h2></u>
         </p>
@@ -66,7 +69,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $status_tim = '';
                 if($penguji['status_tim'] == '1'){
                     $no++;
-                    $status_tim = 'Ketua';
+                    //$status_tim = 'Ketua';
+                    if($penguji['nip'] == $tesis->nip_pembimbing_satu ){
+                        $status_tim = 'Pembimbing Utama / Ketua';
+                    }
+                    else if ($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                        $status_tim = 'Pembimbing Kedua / Ketua';
+                    }
+                    else {
+                        $status_tim = 'Ketua';
+                    }
                     ?>
                     <tr style="line-height: 2">
                         <td rowspan="5" valign="top">Ketua</td>
@@ -79,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             endforeach;
             foreach ($pengujis as $penguji):
-                if($penguji['nip'] == $tesis->nip_pembimbing_satu){
+                if($penguji['nip'] == $tesis->nip_pembimbing_satu && $penguji['status_tim'] != '1'){
                     $no++;
                     $status_tim = 'Pembimbing Utama / Anggota';
                     ?>
@@ -92,7 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
             endforeach;
             foreach ($pengujis as $penguji):
-                if($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                if($penguji['nip'] == $tesis->nip_pembimbing_dua && $penguji['status_tim'] != '1'){
                     $no++;
                     $status_tim = 'Pembimbing Kedua / Anggota';
                     ?>
@@ -211,14 +223,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $urut = 0;
                 $ttd_waktu = '';
                 foreach ($pengujis as $penguji):
-                    $urut++;
+                    /*$urut++;
                     if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                         $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                    }
+                    }*/
                     $status_tim = '';
                     if($penguji['status_tim'] == '1'){
                         $no++;
-                        $status_tim = 'Ketua';
+                        //$status_tim = 'Ketua';
+                        if($penguji['nip'] == $tesis->nip_pembimbing_satu ){
+                            $status_tim = 'Pembimbing Utama / Ketua';
+                        }
+                        else if ($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                            $status_tim = 'Pembimbing Kedua / Ketua';
+                        }
+                        else {
+                            $status_tim = 'Ketua';
+                        }
+                        foreach($dokumen_persetujuan as $dp){
+                            if($dp['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dp['waktu'];
+                            }
+                        }
                         ?>
                         <tr style="line-height: 2">
                             <td><?= $status_tim ?></td>
@@ -289,13 +315,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $urut = 0;
                 $ttd_waktu = '';
                 foreach ($pengujis as $penguji):
-                    $urut++;
+                    /*$urut++;
                     if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                         $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                    }
-                    if($penguji['nip'] == $tesis->nip_pembimbing_satu){
+                    }*/
+                    if($penguji['nip'] == $tesis->nip_pembimbing_satu && $penguji['status_tim'] != '1'){
                         $no++;
                         $status_tim = 'Anggota';
+                        foreach($dokumen_persetujuan as $dp){
+                            if($dp['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dp['waktu'];
+                            }
+                        }
                         ?>
                         <tr style="line-height: 2">
                             <td><?= $status_tim ?></td>
@@ -367,12 +398,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $urut = 0;
                 $ttd_waktu = '';
                 foreach ($pengujis as $penguji):
-                    $urut++;
+                    /*$urut++;
                     if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                         $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                    }
-                    if($penguji['nip'] == $tesis->nip_pembimbing_dua){
+                    }*/
+                    if($penguji['nip'] == $tesis->nip_pembimbing_dua && $penguji['status_tim'] != '1'){
                         $no++;
+                        foreach($dokumen_persetujuan as $dp){
+                            if($dp['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dp['waktu'];
+                            }
+                        }
                         ?>
                         <tr style="line-height: 2">
                             <td></td>
@@ -443,12 +479,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $urut = 0;
                 $ttd_waktu = '';
                 foreach ($pengujis as $penguji):
-                    $urut++;
+                    /*$urut++;
                     if($dokumen_persetujuan[$urut-1]['identitas'] == $penguji['nip']){
                         $ttd_waktu = $dokumen_persetujuan[$urut-1]['waktu'];
-                    }
+                    }*/
                     if($penguji['status_tim'] == '2' && $penguji['nip'] != $tesis->nip_pembimbing_satu && $penguji['nip'] != $tesis->nip_pembimbing_dua){
                         $no++;
+                        foreach($dokumen_persetujuan as $dp){
+                            if($dp['identitas'] == $penguji['nip']){
+                                $ttd_waktu = $dp['waktu'];
+                            }
+                        }
                         ?>
                         <tr style="line-height: 2">
                             <td></td>

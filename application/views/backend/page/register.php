@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <label>NIM</label>
-                    <input type="text" name="nim" placeholder="NIM" class="form-control" required>
+                    <input type="text" name="nim" maxlength="13" placeholder="NIM" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label>Program Studi</label>
