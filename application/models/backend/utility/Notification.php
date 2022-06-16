@@ -14,17 +14,21 @@
 		{
 			// Call the Model constructor
 			parent::__construct();
+			//START MODEL
+			$this->load->model('backend/master/setting', 'setting');
+			$this->load->model('backend/user', 'user');
+			//END MODEL
 			// Init Config
-			$this->config_whatsapp['api_key'] = '6tFAtU5SHUxbJ0KAgke5oqahfQP4szKB';
-			$this->config_whatsapp['api_url'] = 'https://api.wanotif.id/v1/send';
+			$this->setConfig();
+		}
 
+		private function setConfig(){
+			$this->config_whatsapp['api_key'] = $this->setting->get_value('wa_api_key');
+			$this->config_whatsapp['api_url'] = $this->setting->get_value('wa_api_url');
 			$this->element_whatsapp['new_line'] = WA_LINE_BREAK;
 			$this->element_whatsapp['bold'] = '*';
 			$this->element_whatsapp['underline'] = '_';
 			$this->element_whatsapp['italic'] = '_';
-			//START MODEL
-			$this->load->model('backend/user', 'user');
-			//END MODEL
 		}
 
 		private function whatsapp_new_line($count)
