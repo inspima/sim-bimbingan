@@ -64,7 +64,7 @@
 								<td class="text-center">
 									<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
 									<?php
-										if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_UJIAN) {
+										if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_SETUJUI_KPS) {
 											?>
 											<hr style="margin: 5px"/>
 											<!-- Undangan -->
