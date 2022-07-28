@@ -90,7 +90,7 @@
 											UJIAN_DISERTASI_KUALIFIKASI
 									]); ?>
 								</td>
-								<td>
+								<td class="text-center">
 									<p class="text-center">
 										Status <br/>
 										<?php $this->view('backend/widgets/disertasi/column_status', [

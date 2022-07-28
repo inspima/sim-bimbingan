@@ -40,57 +40,114 @@
 							<tr>
 								<td><?= $no ?></td>
 								<td>
-									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
+									<?php $this->view('backend/widgets/disertasi/column_info_disertasi_berkas', [
+											'disertasi' => $list,
+											'jenis' => TAHAPAN_DISERTASI_PROPOSAL
+									]); ?>
 								</td>
 								<td><?php echo woday_toindo($list['waktu_pengajuan_proposal']) ?>
 									<?php
 										if ($list['status_proposal'] == STATUS_DISERTASI_PROPOSAL_PENGAJUAN):
 											?>
-											<hr style="margin: 10px;border-width:2px;" />
+											<hr style="margin: 10px;border-width:2px;"/>
 											<?php echo form_open('prodi/doktoral/disertasi/proposal/terima') ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-											<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses  Setujui</button><br/>
+											<button class="btn btn-xs btn-success"><i class="fa fa-check"></i> Proses Setujui</button><br/>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 										<?php
 										endif;
 									?>
 								</td>
 								<td class="text-center">
-									<?php $this->view('backend/widgets/disertasi/column_penguji', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>
+									<?php $this->view('backend/widgets/disertasi/column_penguji', [
+											'id_disertasi' => $list['id_disertasi'],
+											'jenis' => UJIAN_DISERTASI_PROPOSAL
+									]); ?>
 								</td>
 								<td class="text-center">
-									<?php $this->view('backend/widgets/disertasi/column_jadwal', ['id_disertasi' => $list['id_disertasi'], 'jenis' => UJIAN_DISERTASI_PROPOSAL]); ?>
+									<?php $this->view('backend/widgets/disertasi/column_jadwal', [
+											'id_disertasi' => $list['id_disertasi'],
+											'jenis' => UJIAN_DISERTASI_PROPOSAL
+									]); ?>
 								</td>
 								<td class="text-center">
-									<?php $this->view('backend/widgets/disertasi/column_status', ['disertasi' => $list, 'jenis' => TAHAPAN_DISERTASI_PROPOSAL]); ?>
+									<?php $this->view('backend/widgets/disertasi/column_status', [
+											'disertasi' => $list,
+											'jenis' => TAHAPAN_DISERTASI_PROPOSAL
+									]); ?>
 									<?php
 										if ($list['status_proposal'] >= STATUS_DISERTASI_PROPOSAL_SETUJUI_KPS) {
 											?>
 											<hr style="margin: 5px"/>
-											<!-- Undangan -->
+
+
+											<hr style="margin: 5px"/>
+											<!-- SK UJIAN -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_undangan', $attributes) ?>
+											<?php
+											$data_dokumen = [
+													'tipe' => DOKUMEN_SK_UJIAN_DISERTASI,
+													'jenis' => DOKUMEN_JENIS_DISERTASI_UJIAN_PROPOSAL_STR,
+													'identitas' => $list['nim'],
+											];
+											$dokumen = $this->dokumen->detail_by_data($data_dokumen);
+											?>
+											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_sk_ujian', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>
+											<input type="text" name="no_sk" style="margin-bottom: 10px" class="form-control" placeholder="NO SK" value="<?= !empty($dokumen) ? $dokumen->no_doc : '' ?>" required/>
+											<input type="text" name="tgl_sk" style="margin-bottom: 10px" class="datepicker form-control" placeholder="TGL SK" value="<?= !empty($dokumen) ? date('d-m-Y', strtotime($dokumen->date_doc)) : '' ?>" required/>
+											<br/>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> SK Ujian</button>
 											<?php echo form_close() ?>
-											<hr style="margin: 2px"/>
+											<hr class="divider-line-semi-bold"/>
+
+											<!-- Berita Acara -->
+											<!--											--><?php //$attributes = array('target' => '_blank'); ?>
+											<!--											--><?php //echo form_open('prodi/doktoral/disertasi/proposal/cetak_berita', $attributes) ?>
+											<!--											--><?php //echo formtext('hidden', 'hand', 'center19', 'required') ?>
+											<!--											--><?php //echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<!--											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>-->
+											<!--											--><?php //echo form_close() ?>
+											<!--											<hr style="margin: 2px"/>-->
 											<!-- Berita Acara -->
 											<?php $attributes = array('target' => '_blank'); ?>
+											<?php
+											$ujian = $this->disertasi->read_jadwal($list['id_disertasi'], UJIAN_DISERTASI_PROPOSAL);
+											?>
 											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_berita', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+											<textarea style="resize: none;height: 60px;margin-bottom: 10px" class="form-control" name="link_meeting" placeholder="Link Meeting"><?= !empty($ujian->link_meeting) ? $ujian->link_meeting : '' ?></textarea>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Berita Acara</button>
 											<?php echo form_close() ?>
-											<hr style="margin: 2px"/>
+											<hr class="divider-line-semi-bold"/>
+
+											<!-- Undangan -->
+<!--											--><?php //$attributes = array('target' => '_blank'); ?>
+<!--											--><?php //echo form_open('prodi/doktoral/disertasi/proposal/cetak_undangan', $attributes) ?>
+<!--											--><?php //echo formtext('hidden', 'hand', 'center19', 'required') ?>
+<!--											--><?php //echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+<!--											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Undangan</button>-->
+<!--											--><?php //echo form_close() ?>
+<!--											<hr style="margin: 2px"/>-->
+
 											<!-- Penilaian -->
+<!--											--><?php //$attributes = array('target' => '_blank'); ?>
+<!--											--><?php //echo form_open('prodi/doktoral/disertasi/proposal/cetak_penilaian', $attributes) ?>
+<!--											--><?php //echo formtext('hidden', 'hand', 'center19', 'required') ?>
+<!--											--><?php //echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
+<!--											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>-->
+<!--											--><?php //echo form_close() ?>
+											<!-- Nilai Akhir Penilaian -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_penilaian', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_nilai_akhir', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
-											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Form Penilaian</button>
+											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Nilai Akhir</button>
 											<?php echo form_close() ?>
-											<hr style="margin: 2px"/>
+											<hr class="divider-line-semi-bold"/>
+
 											<!-- Daftar Hadir -->
 											<?php $attributes = array('target' => '_blank'); ?>
 											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_absensi', $attributes) ?>
