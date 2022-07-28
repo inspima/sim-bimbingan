@@ -32,7 +32,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td>
 			<table border="0" style="width:100%">
 				<tr>
-					<td align="center"><h3 style="margin: 5px"><b>PENILAIAN UJIAN PROPOSAL</b></h3></td>
+					<td align="center"><h3 style="margin: 5px"><b>PENILAIAN UJIAN TERTUTUP</b></h3></td>
 				</tr>
 			</table>
 		</td>

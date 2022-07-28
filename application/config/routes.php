@@ -860,18 +860,21 @@
 	$route['prodi/doktoral/disertasi/mkpd/cetak-sk'] = 'backend/prodi/doktoral/disertasi_mkpd/cetak_sk';
 
 	$route['prodi/doktoral/disertasi/kelayakan'] = 'backend/prodi/doktoral/disertasi_kelayakan';
+	$route['prodi/doktoral/disertasi/kelayakan/cetak_sk_ujian'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_sk_ujian';
 	$route['prodi/doktoral/disertasi/kelayakan/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_undangan';
 	$route['prodi/doktoral/disertasi/kelayakan/cetak_berita'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_berita';
 	$route['prodi/doktoral/disertasi/kelayakan/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_penilaian';
 	$route['prodi/doktoral/disertasi/kelayakan/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_kelayakan/cetak_absensi';
 
 	$route['prodi/doktoral/disertasi/tertutup'] = 'backend/prodi/doktoral/disertasi_tertutup';
+	$route['prodi/doktoral/disertasi/tertutup/cetak_sk_ujian'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_sk_ujian';
 	$route['prodi/doktoral/disertasi/tertutup/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_undangan';
 	$route['prodi/doktoral/disertasi/tertutup/cetak_berita'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_berita';
 	$route['prodi/doktoral/disertasi/tertutup/cetak_penilaian'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_penilaian';
 	$route['prodi/doktoral/disertasi/tertutup/cetak_absensi'] = 'backend/prodi/doktoral/disertasi_tertutup/cetak_absensi';
 
 	$route['prodi/doktoral/disertasi/terbuka'] = 'backend/prodi/doktoral/disertasi_terbuka';
+	$route['prodi/doktoral/disertasi/terbuka/cetak_sk_ujian'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_sk_ujian';
 	$route['prodi/doktoral/disertasi/terbuka/terima'] = 'backend/prodi/doktoral/disertasi_terbuka/terima';
 	$route['prodi/doktoral/disertasi/terbuka/cetak_undangan'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_undangan';
 	$route['prodi/doktoral/disertasi/terbuka/cetak_berita'] = 'backend/prodi/doktoral/disertasi_terbuka/cetak_berita';

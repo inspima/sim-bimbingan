@@ -141,7 +141,7 @@
 <!--											--><?php //echo form_close() ?>
 											<!-- Nilai Akhir Penilaian -->
 											<?php $attributes = array('target' => '_blank'); ?>
-											<?php echo form_open('prodi/doktoral/disertasi/kualifikasi/cetak_nilai_akhir', $attributes) ?>
+											<?php echo form_open('prodi/doktoral/disertasi/proposal/cetak_nilai_akhir', $attributes) ?>
 											<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 											<?php echo formtext('hidden', 'id_disertasi', $list['id_disertasi'], 'required') ?>
 											<button type="submit" class="btn btn-xs bg-light-blue-active"><i class="fa fa-print"></i> Nilai Akhir</button>

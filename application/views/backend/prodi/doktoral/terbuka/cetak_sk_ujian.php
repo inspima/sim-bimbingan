@@ -49,7 +49,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							KEPUTUSAN DEKAN<br/>
 							NOMOR : <?= strtoupper($dokumen->no_doc) ?><br/>
 							TENTANG <br/>
-							PENGUJI UJIAN PROPOSAL<br/>
+							PENGUJI UJIAN TERBUKA<br/>
 							<?= strtoupper($this->setting->get_value('universitas_prodi_s3_txt')) ?><br/>
 						</h3>
 					</td>
@@ -122,7 +122,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<td style="width: 23%">Menetapkan</td>
 		<td style="width: 2%">:</td>
 		<td style="width: 75%">
-			<b>KEPUTUSAN DEKAN TENTANG PENGUJI UJIAN PROPOSAL PROGRAM <?= strtoupper($this->setting->get_value('universitas_prodi_s3_txt')) ?> </b>
+			<b>KEPUTUSAN DEKAN TENTANG PENGUJI UJIAN TERBUKA PROGRAM <?= strtoupper($this->setting->get_value('universitas_prodi_s3_txt')) ?> </b>
 		</td>
 	</tr>
 	<tr>
