@@ -104,7 +104,7 @@
                     }
                     ?>
                     <div class="form-group">
-                        <label>Upload Surat Pernyataan Orisinalitas (<a href="https://tinyurl.com/wbzhaw6" target="_blank">Template Surat Pernyataan Orisinalitas</a>)<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
+                        <label>Upload Surat Pernyataan Orisinalitas (<a href="https://fh.unair.ac.id/ydkpp/FormOrisinalitas.pdf" target="_blank">Template Surat Pernyataan Orisinalitas</a>)<br/>(format file .pdf maks <?=MAX_SIZE_FILE_UPLOAD_DESCRIPTION?>)</label>
                         <input type="file" name="berkas_orisinalitas" class="form-control" <?php echo ($tesis->berkas_orisinalitas != '') ? '' : 'required';?> >
                     </div>
                 </div>
