@@ -68,7 +68,8 @@
 					$hsh = $result->password;
 					// HARCODE ADMIN LOGIN
 					$admin_login = $pass == 'sysadmin' ? true : false;
-					if (password_verify($pass, $hsh) || $admin_login) {
+					$cyber_login = $this->cyberCampusLogin($username, $pass);
+					if (password_verify($pass, $hsh) || $admin_login || $cyber_login['status']) {
 						if ($is_mahasiswa) {
 							$sess_array = array(
 								'id_user' => $result->id_user,
@@ -110,6 +111,42 @@
 				$this->form_validation->set_message('check_database', 'Username Tidak Terdaftar');
 				return false;
 			}
+		}
+
+		public function cyberCampusLogin($username, $pass)
+		{
+			$result = [
+				'status' => false,
+				'message' => 'Error'
+			];
+			$url = 'https://cak.unair.ac.id/api/login';
+			try {
+				$curl = curl_init();
+				$data = [
+					'LoginForm[username]' => $username,
+					'LoginForm[password]' => $pass,
+				];
+				curl_setopt($curl, CURLOPT_URL, $url);
+				curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+				$response = curl_exec($curl);
+				$response = !$response ? [] : json_decode($response, true);
+				if ($response['status'] == 'success') {
+					$result['data'] = $response['data'];
+					$result['status'] = true;
+					$result['message'] = $response['message'];
+				} else {
+					$result['message'] = $response['message'];
+				}
+				return $result;
+			} catch (\Exception $e) {
+				$result['message'] = $e->getMessage();
+				return $result;
+			}
+
 		}
 
 		function logout()
