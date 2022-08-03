@@ -9,7 +9,9 @@
             </div>
             <?php echo form_open('login/auth') ?>
             <div class="box-body">
-                <?php echo validation_errors() ?>
+				<p class="label label-info" style="font-size: 13px;width:100%;">Anda bisa menggunakan login cybercampus.</p>
+				<hr class="divider-line-thin"/>
+				<?php echo validation_errors() ?>
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="username" placeholder="Username" class="form-control" required>
