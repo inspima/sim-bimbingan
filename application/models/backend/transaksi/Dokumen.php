@@ -285,11 +285,12 @@
 
 		public function read_persetujuan_anggota($id_dokumen)
 		{
-			$this->db->select('*');
-			$this->db->from('dokumen_persetujuan');
-			$this->db->where('id_dokumen', $id_dokumen);
-			$this->db->where('jenis', 0);
-			$this->db->order_by('id_dokumen_persetujuan', 'asc');
+			$this->db->select('d.*,p.ttd');
+			$this->db->from('dokumen_persetujuan d');
+			$this->db->join('pegawai p', 'p.nip= d.identitas');
+			$this->db->where('d.id_dokumen', $id_dokumen);
+			$this->db->where('d.jenis', 0);
+			$this->db->order_by('d.id_dokumen_persetujuan', 'asc');
 
 			$query = $this->db->get();
 			return $query->result_array();

@@ -229,9 +229,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<td align="left">:</td>
 								<td align="left"><?= $no ?>.
 									<?php if (!empty($dpa['waktu'])) {
-										if (!empty($penguji_anggota[$no - 1]['ttd'])) {
+										if (!empty($dpa['ttd'])) {
 											?>
-											<img style="margin-left: 20px" src="<?= str_replace(base_url(), "", $penguji_anggota[$no - 1]['ttd']) ?>" width="60px"/>
+											<img style="margin-left: 20px" src="<?= str_replace(base_url(), "", $dpa['ttd']) ?>" width="60px"/>
 											<br/>
 											<?= $dpa['nama'] ?>
 											<?php
@@ -262,9 +262,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<td align="left">:</td>
 								<td align="left"><?= $no ?>.
 									<?php if (!empty($dpa['waktu'])) {
-										if (!empty($penguji_anggota[$no - 1]['ttd'])) {
+										if (!empty($dpa['ttd'])) {
 											?>
-											<img style="margin-left: 20px" src="<?= str_replace(base_url(), "", $penguji_anggota[$no - 1]['ttd']) ?>" width="60px"/>
+											<img style="margin-left: 20px" src="<?= str_replace(base_url(), "", $dpa['ttd']) ?>" width="60px"/>
 											<br/>
 											<?= $dpa['nama'] ?>
 											<?php
