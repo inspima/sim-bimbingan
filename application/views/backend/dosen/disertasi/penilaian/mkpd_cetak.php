@@ -1,8 +1,9 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<style type="text/css">
 		body {
@@ -10,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			font-family: "Times New Roman", Times, serif;
 			font-size: 12pt;
 		}
+
 		.line {
 			background-image: url("assets/backend/cetak/line.png");
 			background-repeat: repeat-x;
@@ -82,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<td style="width: 35%"><b style="margin-left: 100px">NILAI ANGKA</b></td>
 					<td style="width: 3%">:</td>
 					<td style="width: 62%">
-						<?php echo number_format($disertasi_mkpd->nilai_angka,2) ?>
+						<?php echo number_format($disertasi_mkpd->nilai_angka, 2) ?>
 					</td>
 				</tr>
 			</table>
@@ -99,7 +101,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<p>
 							Surabaya, <?php echo woday_toindo(date('Y-m-d')) ?><br/>
 							Penanggung Jawab Mata Kuliah,
-							<br/><br/><br/><br/><br/><br/>
+							<br/>
+							<?php
+								if (!empty($pjma_mkpd->ttd)) {
+									?>
+									<img style="margin-left: 20px" src="<?= str_replace(base_url(), "", $pjma_mkpd->ttd) ?>" width="60px"/>
+									<br/>
+									<?php
+								} else {
+									?>
+									<br/><br/><font style="color: red;font-size: 9pt">TTD KOSONG</font><br/><br/>
+									<?php
+								}
+							?>
+							<br/>
 							<?= $pjma_mkpd->nama ?><br/>
 							NIP. <?= $pjma_mkpd->nip ?>
 						</p>

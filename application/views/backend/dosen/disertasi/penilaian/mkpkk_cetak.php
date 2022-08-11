@@ -92,7 +92,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<p>
 							Surabaya, <?php echo toindo(date('Y-m-d')) ?><br/>
 							Penanggung Jawab Mata Kuliah,
-							<br/><br/><br/><br/><br/><br/>
+							<br/>
+							<?php
+								if (!empty($pjma_mkpd->ttd)) {
+									?>
+									<img style="margin-left: 20px" src="<?= str_replace(base_url(), "", $pjma_mkpd->ttd) ?>" width="60px"/>
+									<br/>
+									<?php
+								} else {
+									?>
+									<br/><br/><font style="color: red;font-size: 9pt">TTD KOSONG</font><br/><br/>
+									<?php
+								}
+							?>
+							<br/>
 							<?= $pjma_mkpkk->nama ?><br/>
 							NIP. <?= $pjma_mkpkk->nip ?>
 						</p>
