@@ -695,6 +695,7 @@
 	$route['dosen/tesis/proposal/penguji'] = 'backend/dosen/tesis/proposal/penguji';
 	$route['dosen/tesis/proposal/penguji/(:num)'] = 'backend/dosen/tesis/proposal/penguji';
 	$route['dosen/tesis/proposal/riwayat/(:num)'] = 'backend/dosen/tesis/proposal/riwayat';
+	$route['dosen/tesis/proposal/riwayat_ulang/(:num)'] = 'backend/dosen/tesis/proposal/riwayat_ulang';
 	$route['dosen/tesis/proposal/approve_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/approve_penguji';
 	$route['dosen/tesis/proposal/reject_penguji/(:num)/(:num)'] = 'backend/dosen/tesis/proposal/reject_penguji';
 
@@ -897,6 +898,10 @@
 	$route['prodi/magister/tesis/proposal/cetak_berita'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_berita';
 	$route['prodi/magister/tesis/proposal/cetak_daftar_hadir'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_daftar_hadir';
 	$route['prodi/magister/tesis/proposal/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_undangan';
+	$route['prodi/magister/tesis/proposal/cetak_berita_ulang'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_berita_ulang';
+	$route['prodi/magister/tesis/proposal/cetak_sk_tesis_ulang'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_sk_tesis_ulang';
+	$route['prodi/magister/tesis/proposal/cetak_daftar_hadir_ulang'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_daftar_hadir_ulang';
+	$route['prodi/magister/tesis/proposal/cetak_undangan_ulang'] = 'backend/prodi/magister/tesis/tesis_proposal/cetak_undangan_ulang';
 
 	$route['prodi/magister/tesis/ujian'] = 'backend/prodi/magister/tesis/tesis_ujian';
 	//$route['prodi/magister/tesis/ujian/cetak_undangan'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_undangan';
@@ -908,6 +913,11 @@
 	//$route['prodi/magister/tesis/ujian/cetak_absensi'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_absensi';
 	//$route['prodi/magister/tesis/ujian/nilai_ujian/(:num)/(:num)'] = 'backend/prodi/magister/tesis/tesis_ujian/nilai_ujian';
 	//$route['prodi/magister/tesis/ujian/nilai_ujian_save'] = 'backend/prodi/magister/tesis/tesis_ujian/nilai_ujian_save';
+
+	$route['prodi/magister/tesis/ujian/cetak_berita_ulang'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_berita_ulang';
+	$route['prodi/magister/tesis/ujian/cetak_sk_tesis_ulang'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_sk_tesis_ulang';
+	$route['prodi/magister/tesis/ujian/cetak_daftar_hadir_ulang'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_daftar_hadir_ulang';
+	$route['prodi/magister/tesis/ujian/cetak_undangan_ulang'] = 'backend/prodi/magister/tesis/tesis_ujian/cetak_undangan_ulang';
 
 	$route['prodi/magister/tesis/judul'] = 'backend/prodi/magister/tesis/tesis_judul';
 	$route['prodi/magister/tesis/judul/cetak_surat_tugas_pembimbing'] = 'backend/prodi/magister/tesis/tesis_judul/cetak_surat_tugas_pembimbing';

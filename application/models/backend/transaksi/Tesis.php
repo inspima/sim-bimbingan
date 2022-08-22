@@ -1520,7 +1520,7 @@
 			$this->db->join('pegawai pg1', 'pg1.nip = s.nip_pembimbing_satu', 'left');
 			$this->db->join('pegawai pg2', 'pg2.nip = s.nip_pembimbing_dua', 'left');
 			$this->db->where('m.id_prodi', $id);
-			$this->db->where('uj.status_ujian', '2');
+			$this->db->where('uj.status_ujian', '1');
 			$this->db->where('uj.jenis_ujian', $jenis);
 			$this->db->where('pt.status !=', 0);
 			$this->db->where('pt.nip=\'' . $username . '\'', null, false);
