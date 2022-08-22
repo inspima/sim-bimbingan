@@ -180,13 +180,24 @@
                                 echo $this->tesis->get_status_ujian($list['status_ujian_tesis'], UJIAN_TESIS_UJIAN);
                             }
                             ?>
+                            <?php 
+                            if($list['status_ujian'] == '1'){
+                                echo '<br><b>Ujian</b>';
+                            }
+                            else {
+                                echo '<br><b>Ujian Ulang</b>';
+                            }
+                            //echo $list['status_ujian']; 
+                            ?>
                         </td>
                         <td>
                             <?php 
                             if ($list['status_tesis'] >= STATUS_TESIS_UJIAN_SETUJUI_BAA) {
-                            ?>
-                        	   <a href="<?= base_url() ?>dosen/tesis/ujian/setting/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penguji</a>
-                            <?php
+                                if($list['status_ujian'] == '1'){
+                                ?>
+                            	   <a href="<?= base_url() ?>dosen/tesis/ujian/setting/<?= $list['id_tesis'] ?>" class="btn btn-xs bg-blue"><i class="fa fa-edit"></i> Ujian & Penguji</a>
+                                <?php
+                                }
                             }
                             ?>
                         </td>
