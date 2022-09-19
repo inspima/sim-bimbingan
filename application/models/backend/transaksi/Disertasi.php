@@ -1095,6 +1095,7 @@
 			$this->db->select('*');
 			$this->db->from('disertasi_mkpd m');
 			$this->db->where('m.id_disertasi', $id_disertasi);
+			$this->db->order_by('m.id_disertasi_mkpd', 'asc');
 			$query = $this->db->get();
 			return $query->result_array();
 		}

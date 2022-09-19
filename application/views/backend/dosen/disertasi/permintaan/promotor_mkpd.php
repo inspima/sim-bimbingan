@@ -62,24 +62,47 @@
 								</tr>
 								<?php
 									$mkpds = $this->disertasi->read_disertasi_mkpd($disertasi->id_disertasi);
-									foreach ($mkpds as $i => $mkpd) {
+								?>
+								<tr>
+									<td rowspan="3">
+										<input name="kode1" type="text" class="form-control" value="<?= $mkpds[0]['kode'] ?>">
+									</td>
+									<td>
+										<textarea name="nama1" class="form-control" style="resize: none"><?= $mkpds[0]['mkpd'] ?></textarea>
+									</td>
+									<td rowspan="3">
+										<input name="sks1" type="number" class="form-control" value="<?= $mkpds[0]['sks'] ?>" readonly>
+									</td>
+									<td>
+										<?php
+											$mkpd_pengampus = $this->disertasi->read_disertasi_mkpd_pengampu($mkpds[0]['id_disertasi_mkpd']);
+											$arr_mkpd_pengampu = array_pluck($mkpd_pengampus, 'nip');
+										?>
+										<select name="pengampu1[]" class="form-control select2" style="width: 100%;" data-placeholder="Pilih Pengampu">
+											<option></option>
+											<?php
+												foreach ($mdosen as $list) {
+													?>
+													<option value="<?php echo $list['nip'] ?>" <?php echo in_array($list['nip'], $arr_mkpd_pengampu) ? 'selected' : '' ?>><?php echo $list['nama'] ?></option>
+													<?php
+												}
+											?>
+										</select>
+									</td>
+								</tr>
+								<?php
+									for ($i = 1; $i < 3; $i++) {
 										?>
 										<tr>
 											<td>
-												<input name="kode<?= $i+1 ?>" type="text" class="form-control" value="<?= $mkpd['kode'] ?>">
-											</td>
-											<td>
-												<textarea name="nama<?= $i+1 ?>" class="form-control" style="resize: none"><?= $mkpd['mkpd'] ?></textarea>
-											</td>
-											<td>
-												<input name="sks<?= $i+1 ?>" type="number" class="form-control" value="<?= $mkpd['sks'] ?>">
+												<textarea name="nama<?= $i + 1 ?>" class="form-control" style="resize: none"><?= $mkpds[$i]['mkpd'] ?></textarea>
 											</td>
 											<td>
 												<?php
-													$mkpd_pengampus = $this->disertasi->read_disertasi_mkpd_pengampu($mkpd['id_disertasi_mkpd']);
-													$arr_mkpd_pengampu=array_pluck($mkpd_pengampus,'nip');
+													$mkpd_pengampus = $this->disertasi->read_disertasi_mkpd_pengampu( $mkpds[$i]['id_disertasi_mkpd']);
+													$arr_mkpd_pengampu = array_pluck($mkpd_pengampus, 'nip');
 												?>
-												<select name="pengampu<?= $i+1 ?>[]" class="form-control select2" style="width: 100%;" data-placeholder="Pilih Pengampu">
+												<select name="pengampu<?= $i + 1 ?>[]" class="form-control select2" style="width: 100%;" data-placeholder="Pilih Pengampu">
 													<option></option>
 													<?php
 														foreach ($mdosen as $list) {

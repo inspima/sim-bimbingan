@@ -62,6 +62,7 @@
 		public function add()
 		{
 			$id_disertasi = $this->uri->segment('5');
+			$promotor_kopromotor=$this->disertasi->read_promotor_kopromotor($id_disertasi);
 			$read_aktif = $this->disertasi->read_aktif($this->session_data['username']);
 
 			if ($read_aktif) {
@@ -80,6 +81,7 @@
 					// DATA //
 					'departemen' => $this->departemen->read(),
 					'disertasi' => $this->disertasi->detail($id_disertasi),
+					'promotor_kopromotors'=>$promotor_kopromotor,
 				);
 				$this->load->view('backend/index_sidebar', $data);
 			}
@@ -92,20 +94,27 @@
 				$id_disertasi = $this->input->post('id_disertasi', true);
 				$tgl_sekarang = date('Y-m-d');
 				$total_sks = 0;
-				// CEK TOTAL SKS
+				$kode = $this->input->post('kode1' , true);
+				$sks = $this->input->post('sks1' , true);
+				$check_nama_ada =[];
+				$check_dosen_ada =[];
+				// CEK TOPIK/MK DIMASUKKAN
 				for ($i = 1; $i <= 3; $i++) {
-					$kode = $this->input->post('kode' . $i, true);
 					$nama = $this->input->post('nama' . $i, true);
-					$sks = $this->input->post('sks' . $i, true);
-					if (!empty($kode) && !empty($nama)) {
-						$total_sks += $sks;
+					$dosens = $this->input->post('pengampu' . $i, true);
+					if (!empty($nama)) {
+						$check_nama_ada[]= $nama;
+					}
+					if (!empty($dosens)) {
+						if($dosens[0]){
+							$check_dosen_ada[]= $dosens[0];
+						}
+
 					}
 				}
-				if ($total_sks == 6) {
+				if (count($check_nama_ada) >= 2&&count($check_dosen_ada) >= 2) {
 					for ($i = 1; $i <= 3; $i++) {
-						$kode = $this->input->post('kode' . $i, true);
 						$nama = $this->input->post('nama' . $i, true);
-						$sks = $this->input->post('sks' . $i, true);
 						$dosens = $this->input->post('pengampu' . $i, true);
 						$data_disertasi_mkpd = [
 							'id_disertasi' => $id_disertasi,
@@ -117,12 +126,15 @@
 							$this->disertasi->save_disertasi_mkpd($data_disertasi_mkpd);
 							$disertasi_mkpd = $this->disertasi->detail_disertasi_mkpd_by_data($data_disertasi_mkpd);
 							foreach ($dosens as $dosen) {
-								$data_pengampu = [
-									'id_disertasi' => $id_disertasi,
-									'id_disertasi_mkpd' => $disertasi_mkpd->id_disertasi_mkpd,
-									'nip' => $dosen,
-								];
-								$this->disertasi->save_disertasi_mkpd_pengampu($data_pengampu);
+								if(!empty($dosen)){
+									$data_pengampu = [
+										'id_disertasi' => $id_disertasi,
+										'id_disertasi_mkpd' => $disertasi_mkpd->id_disertasi_mkpd,
+										'nip' => $dosen,
+									];
+									$this->disertasi->save_disertasi_mkpd_pengampu($data_pengampu);
+								}
+
 							}
 						}
 
@@ -140,7 +152,7 @@
 					redirect('mahasiswa/disertasi/mkpd');
 				} else {
 					$this->session->set_flashdata('msg-title', 'alert-danger');
-					$this->session->set_flashdata('msg', 'Total SKS tidak sesuai harus 6 SKS untuk semua mata kuliah');
+					$this->session->set_flashdata('msg', 'Minimal masukkan 2 Topik Mata Kuliah / dosen pengampu belum sesuai dengan topik yang dipilih');
 					redirect_back();
 				}
 

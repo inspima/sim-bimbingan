@@ -67,7 +67,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<th>NO</th>
 		<th>DOSEN</th>
 		<th>KODE MK</th>
-		<th>NAMA MKPD</th>
+		<th>NAMA TOPIK MKPD</th>
 		<th>SKS</th>
 		<th>NIM</th>
 		<th>NAMA</th>
@@ -88,9 +88,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							}
 						?>
 				</td>
-				<td><?= $disertasi_mkpd['kode'] ?></td>
+				<?php
+					if ($index == 0) {
+						?>
+						<td rowspan="<?= count($disertasi_mkpds) ?>"><?= $disertasi_mkpd['kode'] ?></td>
+						<?php
+					}
+				?>
 				<td><?= $disertasi_mkpd['mkpd'] ?></td>
-				<td><?= $disertasi_mkpd['sks'] ?></td>
+				<?php
+					if ($index == 0) {
+						?>
+						<td rowspan="<?= count($disertasi_mkpds) ?>"><?= $disertasi_mkpd['sks'] ?></td>
+						<?php
+					}
+				?>
 				<?php
 					if ($index == 0) {
 						?>

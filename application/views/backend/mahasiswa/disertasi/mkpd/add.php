@@ -22,11 +22,19 @@
 			<?php echo formtext('hidden', 'id_disertasi', $disertasi->id_disertasi, 'required') ?>
 			<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
 			<div class="box-body">
-				<div class="form-group">
-					<label>Penasehat Akademik</label>
-					<hr class="divider-line-thin"/>
-					<p><?php echo $disertasi->nama_penasehat ?> <br/> <b><?php echo $disertasi->nip_penasehat ?></b></p>
-				</div>
+				<?php
+					foreach ($promotor_kopromotors as $promotor_kopromotor) {
+						?>
+
+						<div class="form-group">
+							<label><?=$promotor_kopromotor['status_tim']=='1'?'Promotor':'Ko-Promotor'?></label>
+							<p><?php echo $promotor_kopromotor['nama'] ?> <br/> <b><?php echo $promotor_kopromotor['nip'] ?></b></p>
+						</div>
+						<?php
+					}
+				?>
+				<hr class="divider-line-thin"/>
+
 				<div class="form-group">
 					<label>Judul</label>
 					<hr class="divider-line-thin"/>
@@ -39,25 +47,42 @@
 					<table class="table table-bordered">
 						<tr>
 							<th style="width: 10%">Kode MK</th>
-							<th style="width: 35%">Nama MK</th>
+							<th style="width: 35%">Nama/Topik MK</th>
 							<th style="width: 10%">SKS</th>
 							<th style="width: 45%">Dosen</th>
 						</tr>
+						<tr>
+							<td rowspan="3">
+								<input name="kode1" type="text" class="form-control" value="PDH807">
+							</td>
+							<td>
+								<textarea name="nama1" class="form-control" style="resize: none"></textarea>
+							</td>
+							<td rowspan="3">
+								<input name="sks1" type="number" class="form-control sks-mkpd" value="6" readonly>
+							</td>
+							<td>
+								<select name="pengampu1[]" class="form-control select2" style="width: 100%;">
+									<option value="">- Pilih -</option>
+									<?php
+										foreach ($mdosen as $list) {
+											?>
+											<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+											<?php
+										}
+									?>
+								</select>
+							</td>
+						</tr>
 						<?php
-							for ($i = 1; $i <= 3; $i++) {
+							for ($i = 2; $i <= 3; $i++) {
 								?>
 								<tr>
 									<td>
-										<input name="kode<?=$i?>" type="text" class="form-control" value="PDH807">
+										<textarea name="nama<?= $i ?>" class="form-control" style="resize: none"></textarea>
 									</td>
 									<td>
-										<textarea name="nama<?=$i?>" class="form-control" style="resize: none" ></textarea>
-									</td>
-									<td>
-										<input name="sks<?=$i?>" type="number" class="form-control sks-mkpd" value="2" >
-									</td>
-									<td>
-										<select name="pengampu<?=$i?>[]" class="form-control select2" style="width: 100%;" >
+										<select name="pengampu<?= $i ?>[]" class="form-control select2" style="width: 100%;">
 											<option value="">- Pilih -</option>
 											<?php
 												foreach ($mdosen as $list) {
