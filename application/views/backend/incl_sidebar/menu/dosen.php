@@ -52,7 +52,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url() ?>dashboardd/monitoring/jadwal"><i class="fa fa-user"></i>Jadwal</a></li>
+                    <li><a target="_blank" href="<?php echo base_url() ?>dashboard/jadwal_kalender"><i class="fa fa-user"></i>Jadwal</a></li>
                     <li><a href="<?php echo base_url() ?>dashboardd/monitoring/pembimbing"><i class="fa fa-user"></i>Pembimbing</a></li>
 
                 </ul>

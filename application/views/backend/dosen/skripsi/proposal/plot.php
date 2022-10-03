@@ -295,75 +295,89 @@
 			<!-- /.box-header -->
 			<!-- form start -->
 			<div class="box-body table-responsive">
-				<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_save'); ?>
-				<div class="form-group">
-					<label>Pengajuan Pembimbing</label>
-					<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-					<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-					<select name="nip" class="form-control select2" style="width: 100%;" required>
-						<option value="">- Pilih -</option>
-						<?php
-							foreach ($mdosen_pembimbing as $list) {
-								?>
-								<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
-								<?php
-							}
+				<?php
+					if ($proposal->status_proposal >= STATUS_SKRIPSI_PROPOSAL_UJIAN) {
 						?>
-					</select>
-				</div>
-
-				<!-- /.box-body -->
-				<div class="box-footer">
-					<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Simpan</button>
-				</div>
-				<?php echo form_close() ?>
-				<div class="form-group">
-					<table class="table table-bordered">
-						<tr>
-							<th>Nama</th>
-							<th>Opsi</th>
-						</tr>
-						<?php
-							$pembimbing = $this->skripsi->read_pembimbing($proposal->id_skripsi);
-							foreach ($pembimbing as $listpembimbing) {
-								?>
-								<tr>
-									<td>
-										<?= $listpembimbing['status'] == '1' ? '<b class="text-primary">Usulan</b><br/>' : '' ?>
-										<?php echo $listpembimbing['nama'] ?>
-										<br/>
-										<?= $listpembimbing['nip'] ?>
-									</td>
-									<td class="text-center">
-
-										<?php
-											if ($listpembimbing['status'] == '1') {
-												?>
-												<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_delete') ?>
-												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-												<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-												<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
-												<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
-												<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
-												<?php echo form_close() ?>
-												<br/>
-												<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_konfirm') ?>
-												<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
-												<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
-												<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
-												<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
-												<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-square-o"></i> Konfirmasi</button>
-												<?php echo form_close() ?>
-												<?php
-											}
+						<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_save'); ?>
+						<div class="form-group">
+							<label>Pengajuan Pembimbing</label>
+							<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+							<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+							<select name="nip" class="form-control select2" style="width: 100%;" required>
+								<option value="">- Pilih -</option>
+								<?php
+									foreach ($mdosen_pembimbing as $list) {
 										?>
-									</td>
+										<option value="<?php echo $list['nip'] ?>"><?php echo $list['nama'] ?></option>
+										<?php
+									}
+								?>
+							</select>
+						</div>
+
+						<!-- /.box-body -->
+						<div class="box-footer">
+							<button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-saved"></i> Simpan</button>
+						</div>
+						<?php echo form_close() ?>
+						<div class="form-group">
+							<table class="table table-bordered">
+								<tr>
+									<th>Nama</th>
+									<th>Opsi</th>
 								</tr>
 								<?php
-							}
+									$pembimbing = $this->skripsi->read_pembimbing($proposal->id_skripsi);
+									foreach ($pembimbing as $listpembimbing) {
+										?>
+										<tr>
+											<td>
+												<?= $listpembimbing['status'] == '1' ? '<b class="text-primary">Usulan</b><br/>' : '' ?>
+												<?php echo $listpembimbing['nama'] ?>
+												<br/>
+												<?= $listpembimbing['nip'] ?>
+											</td>
+											<td class="text-center">
+
+												<?php
+													if ($listpembimbing['status'] == '1') {
+														?>
+														<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_delete') ?>
+														<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+														<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+														<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+														<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
+														<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+														<?php echo form_close() ?>
+														<br/>
+														<?php echo form_open('kadep/sarjana/kadep/proposal/pembimbing_konfirm') ?>
+														<?php echo formtext('hidden', 'hand', 'center19', 'required') ?>
+														<?php echo formtext('hidden', 'id_skripsi', $proposal->id_skripsi, 'required') ?>
+														<?php echo formtext('hidden', 'id_ujian', $id_ujian, 'required') ?>
+														<?php echo formtext('hidden', 'id_pembimbing', $listpembimbing['id_pembimbing'], 'required') ?>
+														<button type="submit" class="btn btn-xs btn-success"><i class="fa fa-check-square-o"></i> Konfirmasi</button>
+														<?php echo form_close() ?>
+														<?php
+													}
+												?>
+											</td>
+										</tr>
+										<?php
+									}
+								?>
+							</table>
+						</div>
+
+						<?php
+					} else {
 						?>
-					</table>
-				</div>
+						<div class="callout callout-info">
+							<h4>Info !</h4>
+							<p>Proses pemilihan pembimbing dilakukan setelah ujian</p>
+						</div>
+						<?php
+					}
+				?>
 			</div>
 		</div>
 		<!-- /.box -->
