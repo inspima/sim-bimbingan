@@ -174,7 +174,7 @@ class Tesis_ujian extends CI_Controller {
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', true);
             $jadwal = $this->tesis->read_jadwal_ujian_ulang($id_tesis, UJIAN_TESIS_UJIAN);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
+            $ujian = $this->tesis->detail_ujian_by_tesis_ulang($id_tesis, UJIAN_TESIS_UJIAN);
             $no_surat = $this->input->post('no_surat', TRUE);
             $no_sk = $this->input->post('no_sk', TRUE);
 
@@ -348,6 +348,8 @@ class Tesis_ujian extends CI_Controller {
                 'id_tugas_akhir' => $id_tesis,
                 'identitas' => $tesis->nim,
                 'nama' => 'Berita Acara Ujian Tesis - ' . $tesis->nama,
+                'semester' => $this->semester->semester_pengajuan($tesis->tgl_pengajuan_tesis) ? $this->semester->semester_pengajuan($tesis->tgl_pengajuan_tesis) : $this->semester->detail_berjalan(),
+                'id_jenjang' => '2',
                 'link' => $link_dokumen,
                 'link_cetak' => $link_dokumen_cetak,
                 'date' => $jadwal->tanggal,
@@ -394,7 +396,7 @@ class Tesis_ujian extends CI_Controller {
         $hand = $this->input->post('hand', TRUE);
         if ($hand == 'center19') {
             $id_tesis = $this->input->post('id_tesis', TRUE);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
+            $ujian = $this->tesis->detail_ujian_by_tesis_ulang($id_tesis, UJIAN_TESIS_UJIAN);
             $jadwal = $this->tesis->read_jadwal_ujian_ulang($id_tesis, UJIAN_TESIS_UJIAN);
             $tesis = $this->tesis->detail($id_tesis);
             $pengujis = $this->tesis->read_penguji($ujian->id_ujian);
@@ -421,6 +423,8 @@ class Tesis_ujian extends CI_Controller {
                 'id_tugas_akhir' => $id_tesis,
                 'identitas' => $tesis->nim,
                 'nama' => 'Berita Acara Ujian Tesis - ' . $tesis->nama,
+                'semester' => $this->semester->semester_pengajuan($tesis->tgl_pengajuan_tesis) ? $this->semester->semester_pengajuan($tesis->tgl_pengajuan_tesis) : $this->semester->detail_berjalan(),
+                'id_jenjang' => '2',
                 'link' => $link_dokumen,
                 'link_cetak' => $link_dokumen_cetak,
                 'date' => $jadwal->tanggal,
@@ -492,7 +496,7 @@ class Tesis_ujian extends CI_Controller {
             $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_DAFTAR_HADIR_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_DAFTAR_HADIR_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             // QR
-            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SP Pembimbing', 'Judul Tesis', $tesis->nim, '');
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Daftar Hadir Pembimbing', 'Judul Tesis', $tesis->nim, '');
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
             $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
             // DOKUMEN
@@ -571,7 +575,7 @@ class Tesis_ujian extends CI_Controller {
             $id_tesis = $this->input->post('id_tesis', true);
             $link_zoom = $this->input->post('link_zoom', true);
             $jadwal = $this->tesis->read_jadwal_ujian_ulang($id_tesis, UJIAN_TESIS_UJIAN);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
+            $ujian = $this->tesis->detail_ujian_by_tesis_ulang($id_tesis, UJIAN_TESIS_UJIAN);
 
             $data = array(
                 'link_zoom' => $link_zoom,
@@ -593,7 +597,7 @@ class Tesis_ujian extends CI_Controller {
             $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_DAFTAR_HADIR_UJIAN_TESIS_ULANG . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_DAFTAR_HADIR_UJIAN_TESIS_ULANG . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             // QR
-            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SP Pembimbing', 'Judul Tesis', $tesis->nim, '');
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Daftar Hadir Pembimbing', 'Judul Tesis', $tesis->nim, '');
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
             $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
             // DOKUMEN
@@ -695,7 +699,7 @@ class Tesis_ujian extends CI_Controller {
             $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_UNDANGAN_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_UNDANGAN_UJIAN_TESIS . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             // QR
-            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SP Pembimbing', 'Judul Tesis', $tesis->nim, $tgl_surat_ymd);
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Undangan Pembimbing', 'Judul Tesis', $tesis->nim, $tgl_surat_ymd);
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
             $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
             // DOKUMEN
@@ -774,7 +778,7 @@ class Tesis_ujian extends CI_Controller {
             $id_tesis = $this->input->post('id_tesis', true);
             $link_zoom = $this->input->post('link_zoom', true);
             $jadwal = $this->tesis->read_jadwal_ujian_ulang($id_tesis, UJIAN_TESIS_UJIAN);
-            $ujian = $this->tesis->detail_ujian_by_tesis($id_tesis, UJIAN_TESIS_UJIAN);
+            $ujian = $this->tesis->detail_ujian_by_tesis_ulang($id_tesis, UJIAN_TESIS_UJIAN);
 
             $data = array(
                 'link_zoom' => $link_zoom,
@@ -797,7 +801,7 @@ class Tesis_ujian extends CI_Controller {
             $link_dokumen = base_url() . 'document/lihat_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_UNDANGAN_UJIAN_TESIS_ULANG . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             $link_dokumen_cetak = base_url() . 'document/cetak_tesis?doc=' . bin2hex($this->encryption->create_key(32)) . '$' . $id_tesis . '$' . DOKUMEN_UNDANGAN_UJIAN_TESIS_ULANG . '$' . TAHAPAN_TESIS_UJIAN_STR . '$' . TAHAPAN_TESIS_UJIAN;
             // QR
-            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen SP Pembimbing', 'Judul Tesis', $tesis->nim, $tgl_surat_ymd);
+            $qr_image_dokumen_name = $this->qrcode->generateQrImageName('Dokumen Undangan Pembimbing', 'Judul Tesis', $tesis->nim, $tgl_surat_ymd);
             $qr_content = 'Buka dokumen ' . $link_dokumen; //data yang akan di jadikan QR CODE
             $this->qrcode->generateQr($qr_image_dokumen_name, $qr_content);
             // DOKUMEN
