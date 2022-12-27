@@ -73,6 +73,7 @@
 									?>
 								</td>
 								<td>
+									<ul style="padding-left: 15px">
 									<?php
 										$penguji = $this->skripsi->read_penguji($list['id_ujian']);
 										foreach ($penguji as $show) {
@@ -90,9 +91,18 @@
 												$up = '- pembimbing';
 											}
 
-											echo '- ' . $show['nama'] . '(' . $ka . $up . ')<br>';
+											if ($show['status'] == '3') {
+												$apv = '<br/><b class="text-red">Ditolak</b>';
+												$tdc = 'style="text-decoration:line-through"';
+											} else  {
+												$apv = '';
+												$tdc='';
+											}
+
+											echo '<li><span '.$tdc.'>' . $show['nama'] . '(' . $ka . $up . ')</span>'.$apv.'</li> ';
 										}
 									?>
+									</ul>
 								</td>
 								<td class="text-center">
 									<?php

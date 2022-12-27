@@ -26,9 +26,6 @@
 					<tr>
 						<th>No</th>
 						<th>Skripsi</th>
-						<th>Pembimbing</th>
-						<th>Departemen</th>
-						<th>Gelombang / Semester</th>
 						<th>Jadwal</th>
 						<th>Penguji</th>
 						<th>Opsi</th>
@@ -42,7 +39,8 @@
 							?>
 							<tr>
 								<td><?= $no ?></td>
-								<td><?= $list['nama'] . '<br>' . $list['nim'] ?>
+								<td>
+									<?= $list['nama'] . '<br>' . $list['nim'] ?>
 									<br/><b>Judul</b><br/>
 									<?php
 										$judul = $this->skripsi_ujian->read_judul($list['id_skripsi']);
@@ -50,13 +48,15 @@
 									?>
 									<br/><b>Berkas</b><br/>
 									<a href="<?php echo base_url() ?>assets/upload/turnitin/<?php echo $list['turnitin'] ?>" target="_blank"><img src="<?php echo base_url() ?>assets/img/pdf.png" width="20px" height="auto"></a>
+									<p><b>Departemen </b><br/> <?php echo $list['departemen'] ?></p>
+									<p><b>Gelombang </b><br/> <?= $list['gelombang'] . ' / ' . $list['semester'] ?></p>
+									<p><b>Pembimbing </b><br/>
+										<?php
+											$pembimbing = $this->skripsi_ujian->read_pembimbing($list['id_skripsi']);
+											echo $pembimbing->nama;
+										?>
+									</p>
 								</td>
-								<td><?php
-										$pembimbing = $this->skripsi_ujian->read_pembimbing($list['id_skripsi']);
-										echo $pembimbing->nama;
-									?></td>
-								<td><?php echo $list['departemen'] ?></td>
-								<td><?= $list['gelombang'] . ' / ' . $list['semester'] ?></td>
 								<td>
 									<?php
 										echo '<strong>Tanggal : </strong>' . toindo($list['tanggal']) . '<br>';
@@ -65,26 +65,37 @@
 									?>
 								</td>
 								<td>
-									<?php
-										$penguji = $this->skripsi_ujian->read_penguji($list['id_ujian']);
-										foreach ($penguji as $show) {
-											if ($show['status_tim'] == '1') {
-												$ka = 'ketua';
-											} else if ($show['status_tim'] == '2') {
-												$ka = 'anggota';
-											}
+									<ul style="padding-left: 15px">
+										<?php
+											$penguji = $this->skripsi->read_penguji($list['id_ujian']);
+											foreach ($penguji as $show) {
+												if ($show['status_tim'] == '1') {
+													$ka = 'ketua';
+												} else if ($show['status_tim'] == '2') {
+													$ka = 'anggota';
+												}
 
-											if ($show['usulan_dosbing'] == '0') {
-												$up = '';
-											} else if ($show['usulan_dosbing'] == '1') {
-												$up = '- usulan pembimbing';
-											} else if ($show['usulan_dosbing'] == '2') {
-												$up = '- pembimbing';
-											}
+												if ($show['usulan_dosbing'] == '0') {
+													$up = '';
+												} else if ($show['usulan_dosbing'] == '1') {
+													$up = '- usulan pembimbing';
+												} else if ($show['usulan_dosbing'] == '2') {
+													$up = '- pembimbing';
+												}
+												if ($show['status'] == '3') {
+													$apv = '<br/><b class="text-red">Ditolak</b>';
+													$tdc = 'style="text-decoration:line-through"';
+												} else {
+													$apv = '';
+													$tdc = '';
+												}
 
-											echo '- ' . $show['nama'] . '<strong>(' . $ka . $up . ')</strong><br>';
-										}
-									?>
+												echo '<li><span '.$tdc.'>'  . $show['nama'] . '</span><strong>(' . $ka . $up . ')</strong>'.$apv;
+											}
+										?>
+
+									</ul>
+								</td>
 								</td>
 								<td>
 									<?php

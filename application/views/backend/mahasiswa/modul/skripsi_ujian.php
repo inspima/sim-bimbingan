@@ -67,27 +67,30 @@
 										$penguji = $this->skripsi->read_penguji($list['id_ujian']);
 
 										foreach ($penguji as $show) {
-											if ($show['status_tim'] == '1') {
-												$ka = 'ketua';
-											} else if ($show['status_tim'] == '2') {
-												$ka = 'anggota';
+											if($show['status']!='3'){
+												if ($show['status_tim'] == '1') {
+													$ka = 'ketua';
+												} else if ($show['status_tim'] == '2') {
+													$ka = 'anggota';
+												}
+
+												if ($show['usulan_dosbing'] == '0') {
+													$up = '';
+												} else if ($show['usulan_dosbing'] == '1') {
+													$up = '- usulan pembimbing';
+												} else if ($show['usulan_dosbing'] == '2') {
+													$up = '- pembimbing';
+												}
+
+												if ($show['status'] == '1') {
+													$clrs = 'red';
+												} else if ($show['status'] == '2') {
+													$clrs = 'black';
+												}
+												echo '<p style="color:' . $clrs . ';line-height: 14px;">' . '- ' . $show['nama'].'<br/><b>' .$show['nip']. '</b><br/> (' . $ka . $up . ')<br>';
+												//echo '- '.$show['nama'].'<strong>('.$ka.$up.')</strong><br>';
 											}
 
-											if ($show['usulan_dosbing'] == '0') {
-												$up = '';
-											} else if ($show['usulan_dosbing'] == '1') {
-												$up = '- usulan pembimbing';
-											} else if ($show['usulan_dosbing'] == '2') {
-												$up = '- pembimbing';
-											}
-
-											if ($show['status'] == '1') {
-												$clrs = 'red';
-											} else if ($show['status'] == '2') {
-												$clrs = 'black';
-											}
-											echo '<p style="color:' . $clrs . ';line-height: 14px;">' . '- ' . $show['nama'].'<br/><b>' .$show['nip']. '</b><br/> (' . $ka . $up . ')<br>';
-											//echo '- '.$show['nama'].'<strong>('.$ka.$up.')</strong><br>';
 										}
 									?>
 								</td>
